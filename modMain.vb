@@ -198,13 +198,13 @@ Module modMain
 	
 	Public g_strAppTitle As String
 	
-	Private Structure m_udtMouse
-		Dim X As Single
-		Dim Y As Single
-		Dim Shift As Short
-		Dim Button As Short
-		Dim measure As Short
-	End Structure
+    Public Structure m_udtMouse
+        Dim X As Single
+        Dim Y As Single
+        Dim Shift As Short
+        Dim Button As Short
+        Dim measure As Short
+    End Structure
 	
 	'UPGRADE_ISSUE: m_udtMouse オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
 	Public g_Mouse As m_udtMouse
