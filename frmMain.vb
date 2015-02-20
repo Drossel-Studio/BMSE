@@ -2,6 +2,8 @@ Option Strict Off
 Option Explicit On
 Imports VB = Microsoft.VisualBasic
 Imports Microsoft.VisualBasic.PowerPacks
+Imports Microsoft.VisualBasic.Compatibility.VB6
+
 Friend Class frmMain
 	Inherits System.Windows.Forms.Form
 	
@@ -98,28 +100,27 @@ Friend Class frmMain
 			'If Not Shift And vbAltMask Then
 			
 			'ƒOƒŠƒbƒh‚É‚ ‚í‚¹‚é
-			If VB6.GetItemData(Me.cboDispGridSub, Me.cboDispGridSub.SelectedIndex) Then
-				
-				lngTemp = 192 \ (VB6.GetItemData(Me.cboDispGridSub, Me.cboDispGridSub.SelectedIndex))
-				.lngPosition = (.lngPosition \ lngTemp) * lngTemp
-				
-				'If Not Shift And vbShiftMask Then
-				
-				If Me.mnuOptionsItem(MENU_OPTIONS.MOVE_ON_GRID).Checked Then
-					
-					With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
-						
-						lngTemp = .lngPosition - (.lngPosition \ lngTemp) * lngTemp
-						
-					End With
-					
-					.lngPosition = .lngPosition - lngTemp
-					
-				End If
-				
-				'End If
-				
-			End If
+            If VB6.GetItemData(Me.cboDispGridSub, Me.cboDispGridSub.SelectedIndex) Then
+                lngTemp = 192 \ (VB6.GetItemData(Me.cboDispGridSub, Me.cboDispGridSub.SelectedIndex))
+                .lngPosition = (.lngPosition \ lngTemp) * lngTemp
+
+                'If Not Shift And vbShiftMask Then
+
+                If Me.mnuOptionsItem(MENU_OPTIONS.MOVE_ON_GRID).Checked Then
+
+                    With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
+
+                        lngTemp = .lngPosition - (.lngPosition \ lngTemp) * lngTemp
+
+                    End With
+
+                    .lngPosition = .lngPosition - lngTemp
+
+                End If
+
+                'End If
+
+            End If
 			
 			'End If
 			

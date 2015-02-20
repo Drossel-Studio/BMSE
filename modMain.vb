@@ -228,21 +228,21 @@ Module modMain
 	'UPGRADE_ISSUE: m_udtDisplay オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
 	Public g_disp As m_udtDisplay
 	
-	Private Structure m_udtBMS
-		Dim strDir As String 'ディレクトリ
-		Dim strFileName As String 'BMSファイル名
-		Dim intPlayerType As Short '#PLAYER
-		Dim strGenre As String '#GENRE
-		Dim strTitle As String '#TITLE
-		Dim strArtist As String '#ARTIST
-		Dim sngBPM As Single '#BPM
-		Dim lngPlayLevel As Integer '#PLAYLEVEL
-		Dim intPlayRank As Short '#RANK
-		Dim sngTotal As Single '#TOTAL
-		Dim intVolume As Short '#VOLWAV
-		Dim strStageFile As String '#STAGEFILE
-		Dim blnSaveFlag As Boolean
-	End Structure
+    Public Structure m_udtBMS
+        Dim strDir As String 'ディレクトリ
+        Dim strFileName As String 'BMSファイル名
+        Dim intPlayerType As Short '#PLAYER
+        Dim strGenre As String '#GENRE
+        Dim strTitle As String '#TITLE
+        Dim strArtist As String '#ARTIST
+        Dim sngBPM As Single '#BPM
+        Dim lngPlayLevel As Integer '#PLAYLEVEL
+        Dim intPlayRank As Short '#RANK
+        Dim sngTotal As Single '#TOTAL
+        Dim intVolume As Short '#VOLWAV
+        Dim strStageFile As String '#STAGEFILE
+        Dim blnSaveFlag As Boolean
+    End Structure
 	
 	'UPGRADE_ISSUE: m_udtBMS オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
 	Public g_BMS As m_udtBMS
