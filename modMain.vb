@@ -209,21 +209,21 @@ Module modMain
 	'UPGRADE_ISSUE: m_udtMouse オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
 	Public g_Mouse As m_udtMouse
 	
-	Private Structure m_udtDisplay
-		Dim X As Integer
-		Dim Y As Integer
-		Dim Width As Single
-		Dim Height As Single
-		Dim lngMaxX As Integer
-		Dim lngMaxY As Integer
-		Dim intStartMeasure As Short
-		Dim intEndMeasure As Short
-		Dim lngStartPos As Integer
-		Dim lngEndPos As Integer
-		Dim intMaxMeasure As Short '最大表示小節
-		Dim intResolution As Short '分解能
-		Dim intEffect As Short '画面効果
-	End Structure
+    Public Structure m_udtDisplay
+        Dim X As Integer
+        Dim Y As Integer
+        Dim Width As Single
+        Dim Height As Single
+        Dim lngMaxX As Integer
+        Dim lngMaxY As Integer
+        Dim intStartMeasure As Short
+        Dim intEndMeasure As Short
+        Dim lngStartPos As Integer
+        Dim lngEndPos As Integer
+        Dim intMaxMeasure As Short '最大表示小節
+        Dim intResolution As Short '分解能
+        Dim intEffect As Short '画面効果
+    End Structure
 	
 	'UPGRADE_ISSUE: m_udtDisplay オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
 	Public g_disp As m_udtDisplay
