@@ -241,23 +241,23 @@ Module modMain
 	
 	'UPGRADE_ISSUE: m_udtBMS オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
 	Public g_BMS As m_udtBMS
-	
-	Private Structure m_udtVerticalLine
-		Dim blnVisible As Boolean
-		Dim intCh As Short
-		Dim strText As String
-		Dim intWidth As Short
-		Dim lngLeft As Integer
-		Dim lngObjLeft As Integer
-		Dim lngBackColor As Integer
-		Dim intLightNum As Short
-		Dim intShadowNum As Short
-		Dim intBrushNum As Short
-		Dim blnDraw As Boolean
-	End Structure
-	
-	'UPGRADE_ISSUE: m_udtVerticalLine オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
-	Public g_VGrid(61) As m_udtVerticalLine
+
+    Public Structure m_udtVerticalLine
+        Dim blnVisible As Boolean
+        Dim intCh As Short
+        Dim strText As String
+        Dim intWidth As Short
+        Dim lngLeft As Integer
+        Dim lngObjLeft As Integer
+        Dim lngBackColor As Integer
+        Dim intLightNum As Short
+        Dim intShadowNum As Short
+        Dim intBrushNum As Short
+        Dim blnDraw As Boolean
+    End Structure
+
+    'UPGRADE_ISSUE: m_udtVerticalLine オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
+    Public g_VGrid(61) As m_udtVerticalLine
 	
 	Public g_intVGridNum(132 + 40) As Short
 	
@@ -283,17 +283,17 @@ Module modMain
 	
 	Public g_lngObjID() As Integer
 	Public g_lngIDNum As Integer
-	
-	Private Structure m_udtSelectArea
-		Dim blnFlag As Boolean
-		Dim X1 As Single
-		Dim Y1 As Single
-		Dim X2 As Single
-		Dim Y2 As Single
-	End Structure
-	
-	'UPGRADE_ISSUE: m_udtSelectArea オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
-	Public g_SelectArea As m_udtSelectArea
+
+    Public Structure m_udtSelectArea
+        Dim blnFlag As Boolean
+        Dim X1 As Single
+        Dim Y1 As Single
+        Dim X2 As Single
+        Dim Y2 As Single
+    End Structure
+
+    'UPGRADE_ISSUE: m_udtSelectArea オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
+    Public g_SelectArea As m_udtSelectArea
 	
 	Public g_strLangFileName() As String
 	Public g_strThemeFileName() As String

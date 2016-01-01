@@ -70,13 +70,13 @@ Module modInput
 	Private m_strEXInfo As String
 	
 	Private m_blnBGM() As Boolean
-	
-	Private Structure m_udtMeasure
-		Dim intLen As Short
-		Dim lngY As Integer
-	End Structure
-	
-	Public g_Measure(MEASURE_MAX) As m_udtMeasure
+
+    Public Structure m_udtMeasure
+        Dim intLen As Short
+        Dim lngY As Integer
+    End Structure
+
+    Public g_Measure(MEASURE_MAX) As m_udtMeasure
 	
 	Public g_strWAV(MATERIAL_MAX) As String
 	Public g_strBMP(MATERIAL_MAX) As String
