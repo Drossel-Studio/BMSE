@@ -4,7 +4,7 @@ Imports VB = Microsoft.VisualBasic
 Module modEasterEgg
 	
 	Private Declare Function StretchBlt Lib "gdi32" (ByVal hdc As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal nWidth As Integer, ByVal nHeight As Integer, ByVal hSrcDC As Integer, ByVal xSrc As Integer, ByVal ySrc As Integer, ByVal nSrcWidth As Integer, ByVal nSrcHeight As Integer, ByVal dwRop As Integer) As Integer
-	'UPGRADE_WARNING: \‘¢‘Ì RECT ‚ÉA‚±‚Ì Declare ƒXƒe[ƒgƒƒ“ƒg‚Ìˆø”‚Æ‚µ‚Äƒ}[ƒVƒƒƒŠƒ“ƒO‘®«‚ğ“n‚·•K—v‚ª‚ ‚è‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_WARNING: æ§‹é€ ä½“ RECT ã«ã€ã“ã® Declare ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆã®å¼•æ•°ã¨ã—ã¦ãƒãƒ¼ã‚·ãƒ£ãƒªãƒ³ã‚°å±æ€§ã‚’æ¸¡ã™å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Private Declare Function DrawText Lib "user32"  Alias "DrawTextA"(ByVal hdc As Integer, ByVal lpStr As String, ByVal nCount As Integer, ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
 	
 	Private Const DT_WORDBREAK As Integer = &H10
@@ -48,29 +48,29 @@ Module modEasterEgg
 		Dim modMain As Object
 		Dim strGet_ini As Object
 		
-		'modInput.LoadBMSEnd ‚ÉƒGƒCƒvƒŠƒ‹ƒt[ƒ‹—pƒR[ƒh‚ ‚è
+		'modInput.LoadBMSEnd ã«ã‚¨ã‚¤ãƒ—ãƒªãƒ«ãƒ•ãƒ¼ãƒ«ç”¨ã‚³ãƒ¼ãƒ‰ã‚ã‚Š
 		'If strGet_ini("EasterEgg", "Snow", False, "bmse.ini") = True Or (Month(Now) = 12 And Day(Now) = 25) Then
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(EasterEgg, Snow, False, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(EasterEgg, Snow, False, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		If strGet_ini("EasterEgg", "Snow", False, "bmse.ini") Then
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			g_disp.intEffect = EASTEREGG.SNOW
 			
 			Call modEasterEgg.InitSnow()
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(EasterEgg, siromaru, False, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(EasterEgg, siromaru, False, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		ElseIf strGet_ini("EasterEgg", "siromaru", False, "bmse.ini") Then 
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			g_disp.intEffect = EASTEREGG.SIROMARU
 			
 			Call modEasterEgg.InitSnow()
 			
 			'ElseIf Month(Now) = 12 And (Day(Now) = 24 Or Day(Now) = 25) And strGet_ini("EasterEgg", "Snow", True, "bmse.ini") = True Then
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(EasterEgg, Snow, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(EasterEgg, Snow, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		ElseIf Month(Now) = 12 And VB.Day(Now) = 25 And strGet_ini("EasterEgg", "Snow", True, "bmse.ini") = True Then 
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			g_disp.intEffect = EASTEREGG.SNOW
 			
 			Call modEasterEgg.InitSnow()
@@ -78,7 +78,7 @@ Module modEasterEgg
 			g_strAppTitle = g_strAppTitle & " (Xmas mode: Only once!)"
 			frmMain.Text = g_strAppTitle
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.lngSet_ini ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.lngSet_ini ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call modMain.lngSet_ini("EasterEgg", "Snow", False)
 			
 		End If
@@ -88,15 +88,15 @@ Module modEasterEgg
 	Public Sub LoadEffect()
 		Dim modMain As Object
 		
-		If Month(Now) = 2 And VB.Day(Now) = 15 Then 'ƒVƒƒ}ƒ‹‚Ì’a¶“ú
+		If Month(Now) = 2 And VB.Day(Now) = 15 Then 'ã‚·ãƒ­ãƒãƒ«ã®èª•ç”Ÿæ—¥
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strArtist ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strArtist ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If g_BMS.strArtist = "siromaru" Then
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.strGet_ini ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.strGet_ini ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If modMain.strGet_ini("EasterEgg", "siromaru", False, "bmse.ini") = False And modMain.strGet_ini("EasterEgg", "siromaru", True, "bmse.ini") = True Then
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_disp.intEffect = EASTEREGG.SIROMARU
 					
 					Call modEasterEgg.InitSnow()
@@ -119,35 +119,35 @@ Module modEasterEgg
 		If frmMain.tmrEffect.Enabled Then
 			
 			'If Month(Now) = 4 And Day(Now) = 1 And g_disp.intEffect = RASTER Then 'April Fool
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If Month(Now) = 2 And VB.Day(Now) = 15 And g_disp.intEffect = EASTEREGG.SIROMARU Then 'ƒVƒƒ}ƒ‹‚Ì’a¶“ú
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			If Month(Now) = 2 And VB.Day(Now) = 15 And g_disp.intEffect = EASTEREGG.SIROMARU Then 'ã‚·ãƒ­ãƒãƒ«ã®èª•ç”Ÿæ—¥
 				
 				'If modMain.strGet_ini("EasterEgg", "RasterScroll", False, "bmse.ini") = False And modMain.strGet_ini("EasterEgg", "RasterScroll", True, "bmse.ini") = True Then
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.strGet_ini ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.strGet_ini ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If modMain.strGet_ini("EasterEgg", "siromaru", False, "bmse.ini") = False And modMain.strGet_ini("EasterEgg", "siromaru", True, "bmse.ini") = True Then
 					
-					'strTemp = "ƒGƒCƒvƒŠƒ‹Eƒt[ƒ‹‚¾‚Æ‚¢‚¤‚Ì‚É‚í‚´‚í‚´ BMSE ‚ğg‚Á‚Ä‚­‚ê‚Ä‚ ‚è‚ª‚Æ‚¤!"
+					'strTemp = "ã‚¨ã‚¤ãƒ—ãƒªãƒ«ãƒ»ãƒ•ãƒ¼ãƒ«ã ã¨ã„ã†ã®ã«ã‚ã–ã‚ã– BMSE ã‚’ä½¿ã£ã¦ãã‚Œã¦ã‚ã‚ŠãŒã¨ã†!"
 					'strTemp = strTemp & vbCrLf & "Thank you for using BMSE on April Fool's Day!"
-					'strTemp = strTemp & vbCrLf & "‚Ñ‚Á‚­‚è‚µ‚½‚©‚È?"
+					'strTemp = strTemp & vbCrLf & "ã³ã£ãã‚Šã—ãŸã‹ãª?"
 					'strTemp = strTemp & vbCrLf & "Were you surprised?"
 					'strTemp = strTemp & vbCrLf
-					'strTemp = strTemp & vbCrLf & "‚³‚ÄA‚±‚Ì‰‰o‚Í¡‰ñŒÀ‚è‚¾‚©‚çˆÀS‚µ‚Ä‚Ù‚µ‚¢B"
+					'strTemp = strTemp & vbCrLf & "ã•ã¦ã€ã“ã®æ¼”å‡ºã¯ä»Šå›é™ã‚Šã ã‹ã‚‰å®‰å¿ƒã—ã¦ã»ã—ã„ã€‚"
 					'strTemp = strTemp & vbCrLf & "So, be relieved that this effect is only once."
-					'strTemp = strTemp & vbCrLf & "‚»‚ê‚¶‚áAAA"
+					'strTemp = strTemp & vbCrLf & "ãã‚Œã˜ã‚ƒã€ã€ã€"
 					'strTemp = strTemp & vbCrLf & "Well..."
-					'strTemp = strTemp & vbCrLf & """‚Ü‚½Œã‚Å‚È (ƒjƒ„ƒŠ)"""
+					'strTemp = strTemp & vbCrLf & """ã¾ãŸå¾Œã§ãª (ãƒ‹ãƒ¤ãƒª)"""
 					'strTemp = strTemp & vbCrLf & """BE SEEING YOU! (GRIN)"""
 					
 					strTemp = "A Happy New Year!"
-					strTemp = strTemp & vbCrLf & "–{”N‚à‚æ‚ë‚µ‚­‚¨Šè‚¢‚µ‚Ü‚·B"
+					strTemp = strTemp & vbCrLf & "æœ¬å¹´ã‚‚ã‚ˆã‚ã—ããŠé¡˜ã„ã—ã¾ã™ã€‚"
 					strTemp = strTemp & vbCrLf
 					strTemp = strTemp & vbCrLf & "*Please note that this effect will appear only once."
-					strTemp = strTemp & vbCrLf & "*‘å•Ï‹°k‚Å‚·‚ªA‚±‚ÌƒT[ƒrƒX‚Í1‰ñŒÀ‚è‚Æ‚³‚¹‚Ä’¸‚«‚Ü‚·B"
+					strTemp = strTemp & vbCrLf & "*å¤§å¤‰æç¸®ã§ã™ãŒã€ã“ã®ã‚µãƒ¼ãƒ“ã‚¹ã¯1å›é™ã‚Šã¨ã•ã›ã¦é ‚ãã¾ã™ã€‚"
 					
 					Call MsgBox(strTemp, MsgBoxStyle.Information, g_strAppTitle)
 					
 					'Call modMain.lngSet_ini("EasterEgg", "RasterScroll", False)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.lngSet_ini ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.lngSet_ini ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Call modMain.lngSet_ini("EasterEgg", "siromaru", False)
 					
 				End If
@@ -160,7 +160,7 @@ Module modEasterEgg
 	
 	Public Sub DrawEffect()
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Select Case g_disp.intEffect
 			
 			Case EASTEREGG.SNOW, EASTEREGG.SIROMARU
@@ -185,7 +185,7 @@ Module modEasterEgg
 				
 			Case Else
 				
-				'UPGRADE_ISSUE: PictureBox ƒƒ\ƒbƒh picMain.Cls ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_ISSUE: PictureBox ãƒ¡ã‚½ãƒƒãƒ‰ picMain.Cls ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				Call frmMain.picMain.Cls()
 				
 		End Select
@@ -198,7 +198,7 @@ Module modEasterEgg
 		
 		Select Case KeyCode
 			
-			Case System.Windows.Forms.Keys.F9 '‚Ù‚í‚¢‚é
+			Case System.Windows.Forms.Keys.F9 'ã»ã‚ã„ã‚‹
 				
 				If Len(frmMain.txtGenre.Text) = 0 And Len(frmMain.txtArtist.Text) = 0 Then
 					
@@ -207,28 +207,28 @@ Module modEasterEgg
 					
 				End If
 				
-			Case System.Windows.Forms.Keys.F10 'ƒVƒƒfƒBƒEƒX
+			Case System.Windows.Forms.Keys.F10 'ã‚·ãƒ­ãƒ‡ã‚£ã‚¦ã‚¹
 				
 				Call ShellExecute(0, vbNullString, "sirodius.exe", vbNullString, vbNullString, SW_SHOWNORMAL)
 				
-			Case System.Windows.Forms.Keys.A To System.Windows.Forms.Keys.Z, System.Windows.Forms.Keys.D0 To System.Windows.Forms.Keys.D9 'ƒoƒbƒtƒ@‚É•Û‘¶
+			Case System.Windows.Forms.Keys.A To System.Windows.Forms.Keys.Z, System.Windows.Forms.Keys.D0 To System.Windows.Forms.Keys.D9 'ãƒãƒƒãƒ•ã‚¡ã«ä¿å­˜
 				
 				buf.Value = Right(buf.Value, 15) & Chr(KeyCode)
 				
-			Case System.Windows.Forms.Keys.NumPad0 To System.Windows.Forms.Keys.NumPad9 'ƒoƒbƒtƒ@‚É•Û‘¶
+			Case System.Windows.Forms.Keys.NumPad0 To System.Windows.Forms.Keys.NumPad9 'ãƒãƒƒãƒ•ã‚¡ã«ä¿å­˜
 				
 				buf.Value = Right(buf.Value, 15) & KeyCode - System.Windows.Forms.Keys.NumPad0
 				
-			Case System.Windows.Forms.Keys.Space 'ƒoƒbƒtƒ@‚É•Û‘¶
+			Case System.Windows.Forms.Keys.Space 'ãƒãƒƒãƒ•ã‚¡ã«ä¿å­˜
 				
 				buf.Value = Right(buf.Value, 15) & " "
 				
-			Case System.Windows.Forms.Keys.Return 'ƒC[ƒXƒ^[ƒGƒbƒO”­“®
+			Case System.Windows.Forms.Keys.Return 'ã‚¤ãƒ¼ã‚¹ã‚¿ãƒ¼ã‚¨ãƒƒã‚°ç™ºå‹•
 				
 				If Right(buf.Value, 3) = "OFF" Then 'OFF
 					
 					frmMain.tmrEffect.Enabled = False
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_disp.intEffect = EASTEREGG.OFF
 					
 					Call DrawEffect()
@@ -246,16 +246,16 @@ Module modEasterEgg
 					
 				ElseIf Right(buf.Value, 4) = "SNOW" Then  'SNOW
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If g_disp.intEffect = EASTEREGG.SNOW Then
 						
 						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_disp.intEffect = EASTEREGG.OFF
 						
 					Else
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_disp.intEffect = EASTEREGG.SNOW
 						
 						Call InitSnow()
@@ -266,16 +266,16 @@ Module modEasterEgg
 					
 				ElseIf Right(buf.Value, 8) = "SIROMARU" Or Right(buf.Value, 9) = "SIROMARU1" Then  'SIROMARU
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If g_disp.intEffect = EASTEREGG.SIROMARU Then
 						
 						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_disp.intEffect = EASTEREGG.OFF
 						
 					Else
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_disp.intEffect = EASTEREGG.SIROMARU
 						
 						Call InitSnow()
@@ -286,16 +286,16 @@ Module modEasterEgg
 					
 				ElseIf Right(buf.Value, 9) = "SIROMARU2" Then  'SIROMARU2
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If g_disp.intEffect = EASTEREGG.SIROMARU2 Then
 						
 						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_disp.intEffect = EASTEREGG.OFF
 						
 					Else
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_disp.intEffect = EASTEREGG.SIROMARU2
 						
 						Call InitSiromaru2()
@@ -308,15 +308,15 @@ Module modEasterEgg
 					
 					frmMain.tmrEffect.Enabled = False
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If g_disp.intEffect = EASTEREGG.DISP_LOG Then
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_disp.intEffect = EASTEREGG.OFF
 						
 					Else
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_disp.intEffect = EASTEREGG.DISP_LOG
 						
 					End If
@@ -326,18 +326,18 @@ Module modEasterEgg
 					
 				ElseIf Right(buf.Value, 9) = "STAFFROLL" Then  'STAFFROLL, STAFFROLL2
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If g_disp.intEffect = EASTEREGG.STAFFROLL Or g_disp.intEffect = EASTEREGG.STAFFROLL2 Then
 						
 						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_disp.intEffect = EASTEREGG.OFF
 						
 					Else
 						
 						frmMain.tmrEffect.Interval = 100
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_disp.intEffect = EASTEREGG.STAFFROLL
 						
 						Call InitStaffRoll()
@@ -348,18 +348,18 @@ Module modEasterEgg
 					
 				ElseIf Right(buf.Value, 10) = "STAFFROLL2" Then  'STAFFROLL, STAFFROLL2
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If g_disp.intEffect = EASTEREGG.STAFFROLL Or g_disp.intEffect = EASTEREGG.STAFFROLL2 Then
 						
 						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_disp.intEffect = EASTEREGG.OFF
 						
 					Else
 						
 						frmMain.tmrEffect.Interval = 10
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_disp.intEffect = EASTEREGG.STAFFROLL
 						
 						Call InitStaffRoll()
@@ -370,10 +370,10 @@ Module modEasterEgg
 					
 				ElseIf Right(buf.Value, 10) = "BLUESCREEN" Or Right(buf.Value, 4) = "BSOD" Then  'BLUESCREEN OF DEATH
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If g_disp.intEffect = EASTEREGG.BLUESCREEN Then
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_disp.intEffect = EASTEREGG.OFF
 						
 					Else
@@ -381,7 +381,7 @@ Module modEasterEgg
 						'frmMain.tmrEffect.Interval = 1
 						'frmMain.tmrEffect.Enabled = True
 						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_disp.intEffect = EASTEREGG.BLUESCREEN
 						
 					End If
@@ -402,12 +402,12 @@ Module modEasterEgg
 		Dim lngTemp As Integer
 		Dim sngTemp As Single
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		If g_disp.intEffect = EASTEREGG.OFF Then Exit Sub
 		
 		ReDim m_objSnow((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX) * 0.5 - 1)
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		If g_disp.intEffect <> EASTEREGG.SNOW Then ReDim m_objSnow((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX) \ 8 - 1)
 		
 		lngTemp = VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) \ VB6.TwipsPerPixelY
@@ -424,7 +424,7 @@ Module modEasterEgg
 				.X = sngTemp * i
 				.Y = Rnd() * lngTemp + 1 - lngTemp
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If g_disp.intEffect = EASTEREGG.SNOW Then
 					
 					.dY = Rnd() * 2 + 1
@@ -441,7 +441,7 @@ Module modEasterEgg
 			
 		Next i
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		If g_disp.intEffect = EASTEREGG.SNOW Then Call QuickSortA(0, UBound(m_objSnow))
 		
 		frmMain.tmrEffect.Enabled = True
@@ -460,7 +460,7 @@ Module modEasterEgg
 				
 				.counter = .counter + 4
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If g_disp.intEffect = EASTEREGG.SNOW Then
 					
 					.Y = .Y + .dY
@@ -492,7 +492,7 @@ Module modEasterEgg
 			
 		Next i
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		If g_disp.intEffect <> EASTEREGG.SNOW Then Call QuickSortY(0, UBound(m_objSnow))
 		
 	End Sub
@@ -504,7 +504,7 @@ Module modEasterEgg
 		Dim Y As Integer
 		Dim Width As Integer
 		Dim Height As Integer
-		'UPGRADE_NOTE: Size ‚Í Size_Renamed ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_NOTE: Size ã¯ Size_Renamed ã«ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Dim Size_Renamed As Integer
 		'Dim srcX    As Long
 		Dim srcY As Integer
@@ -520,11 +520,11 @@ Module modEasterEgg
 			
 			With m_objSnow(i)
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: Mod ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Width ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+				'UPGRADE_WARNING: Mod ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				X = (.X - frmMain.hsbMain.Value * g_disp.Width) Mod Width
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: Mod ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Height ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+				'UPGRADE_WARNING: Mod ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				Y = (.Y + frmMain.vsbMain.Value * g_disp.Height) Mod Height
 				
 				'If Y < frmMain.picMain.ScaleHeight And X < frmMain.picMain.ScaleWidth Then
@@ -535,14 +535,14 @@ Module modEasterEgg
 						
 						Size_Renamed = Int(3 + (.dY - 1) * 3) '3-8
 						
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						Call Ellipse(frmMain.picMain.hdc, X, Y, X + Size_Renamed, Y + Size_Renamed)
 						
 						If Y + Size_Renamed > Height Then
 							
 							intTemp = Y - Height
 							
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							Call Ellipse(frmMain.picMain.hdc, X, intTemp, X + Size_Renamed, intTemp + Size_Renamed)
 							
 						End If
@@ -551,7 +551,7 @@ Module modEasterEgg
 							
 							intTemp = X - Width
 							
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							Call Ellipse(frmMain.picMain.hdc, intTemp, Y, intTemp + Size_Renamed, Y + Size_Renamed)
 							
 						End If
@@ -569,22 +569,22 @@ Module modEasterEgg
 						srcY = srcY * 32
 						
 						'Call Ellipse(frmMain.picmain.hdc, X - 16, .y - 16, X + 16, .y + 16)
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picSiromaru.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+						'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						Call BitBlt(frmMain.picMain.hdc, X, Y, 32, 32, frmMain.picSiromaru.hdc, 32, srcY, SRCAND)
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picSiromaru.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+						'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						Call BitBlt(frmMain.picMain.hdc, X, Y, 32, 32, frmMain.picSiromaru.hdc, 0, srcY, SRCPAINT)
 						
 						If Y + 32 > Height Then
 							
 							intTemp = Y + 32 - Height
 							
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picSiromaru.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							Call BitBlt(frmMain.picMain.hdc, X, 0, 32, intTemp, frmMain.picSiromaru.hdc, 32, srcY + 32 - intTemp, SRCAND)
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picSiromaru.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							Call BitBlt(frmMain.picMain.hdc, X, 0, 32, intTemp, frmMain.picSiromaru.hdc, 0, srcY + 32 - intTemp, SRCPAINT)
 							
 						End If
@@ -593,11 +593,11 @@ Module modEasterEgg
 							
 							intTemp = X + 32 - Width
 							
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picSiromaru.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							Call BitBlt(frmMain.picMain.hdc, 0, Y, intTemp, 32, frmMain.picSiromaru.hdc, 64 - intTemp, srcY, SRCAND)
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picSiromaru.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							Call BitBlt(frmMain.picMain.hdc, 0, Y, intTemp, 32, frmMain.picSiromaru.hdc, 32 - intTemp, srcY, SRCPAINT)
 							
 						End If
@@ -667,11 +667,11 @@ Module modEasterEgg
 			X = (.ClientRectangle.Width - m_objSnow(0).X) \ 2
 			Y = Y + (.ClientRectangle.Height - m_objSnow(0).X) \ 2
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picSiromaru.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call StretchBlt(.hdc, X, Y, m_objSnow(0).X, m_objSnow(0).X, frmMain.picSiromaru.hdc, 32, srcY, 32, 32, SRCAND)
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picSiromaru.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call StretchBlt(.hdc, X, Y, m_objSnow(0).X, m_objSnow(0).X, frmMain.picSiromaru.hdc, 0, srcY, 32, 32, SRCPAINT)
 			
 		End With
@@ -680,7 +680,7 @@ Module modEasterEgg
 	
 	Public Sub DrawLog()
 		
-		'1.3.6 ‚É‚Äíœ
+		'1.3.6 ã«ã¦å‰Šé™¤
 		
 	End Sub
 	
@@ -690,26 +690,26 @@ Module modEasterEgg
 		
 		With frmMain.picMain
 			
-			'UPGRADE_ISSUE: ’è” vbFromUnicode ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_ISSUE: LenB ŠÖ”‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: å®šæ•° vbFromUnicode ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_ISSUE: LenB é–¢æ•°ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			intTemp = LenB(StrConv(Text, vbFromUnicode))
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call SetTextColor(.hdc, 0) 'RGB(0, 0, 0)
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call TextOut(.hdc, X, Y - 1, Text, intTemp)
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call TextOut(.hdc, X + 1, Y, Text, intTemp)
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call TextOut(.hdc, X, Y + 1, Text, intTemp)
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call TextOut(.hdc, X - 1, Y, Text, intTemp)
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call SetTextColor(.hdc, Color)
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call TextOut(.hdc, X, Y, Text, intTemp)
 			
 		End With
@@ -718,7 +718,7 @@ Module modEasterEgg
 	
 	Public Sub InitStaffRoll()
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		If g_disp.intEffect = EASTEREGG.OFF Then Exit Sub
 		
 		frmMain.tmrEffect.Enabled = True
@@ -753,7 +753,7 @@ Module modEasterEgg
 		
 		Call AddStaffRoll("-siromaru Animation-", 1)
 		Call AddStaffRoll("tutidama", 0)
-		Call AddStaffRoll("œ¥œ", 3)
+		Call AddStaffRoll("â—â–¼â—", 3)
 		
 		Call AddStaffRoll("-Easter Egg Adviser-", 1)
 		Call AddStaffRoll("shammy", 0)
@@ -835,7 +835,7 @@ Module modEasterEgg
 		Dim srcY As Short
 		With frmMain.picMain
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call SetTextColor(.hdc, RGB(255, 255, 255))
 			.Font = VB6.FontChangeSize(.Font, 12)
 			
@@ -845,20 +845,20 @@ Module modEasterEgg
 				
 				If Len(m_strStaffRoll(i)) Then
 					
-					'UPGRADE_ISSUE: ’è” vbFromUnicode ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_ISSUE: LenB ŠÖ”‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_ISSUE: å®šæ•° vbFromUnicode ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_ISSUE: LenB é–¢æ•°ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					intTemp = LenB(StrConv(m_strStaffRoll(i), vbFromUnicode))
 					
-					'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Call GetTextExtentPoint32(.hdc, m_strStaffRoll(i), intTemp, sizeTemp)
 					
 					X = (frmMain.picMain.ClientRectangle.Width - sizeTemp.Width) \ 2
 					Y = lngTemp - sizeTemp.Height \ 2
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If (Y < .ClientRectangle.Height And Y + sizeTemp.Height > 0) Or g_disp.intEffect = EASTEREGG.STAFFROLL2 Then
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						If g_disp.intEffect = EASTEREGG.STAFFROLL Then
 							
 							If .ClientRectangle.Height < 128 Then
@@ -890,7 +890,7 @@ Module modEasterEgg
 								Case Is > 95
 									
 									frmMain.tmrEffect.Enabled = False
-									'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+									'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 									g_disp.intEffect = EASTEREGG.OFF
 									
 									Exit Sub
@@ -905,7 +905,7 @@ Module modEasterEgg
 							
 						End If
 						
-						If m_strStaffRoll(i) <> "œ¥œ" Then
+						If m_strStaffRoll(i) <> "â—â–¼â—" Then
 							
 							Call DrawLogText(X, Y, m_strStaffRoll(i), RGB(Color, Color, Color))
 							
@@ -913,7 +913,7 @@ Module modEasterEgg
 						
 					End If
 					
-					If m_strStaffRoll(i) = "œ¥œ" Then
+					If m_strStaffRoll(i) = "â—â–¼â—" Then
 						
 						
 						X = (frmMain.picMain.ClientRectangle.Width - 32) \ 2
@@ -929,11 +929,11 @@ Module modEasterEgg
 						
 						srcY = srcY * 32
 						
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picSiromaru.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+						'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						Call BitBlt(frmMain.picMain.hdc, X, Y, 32, 32, frmMain.picSiromaru.hdc, 32, srcY, SRCAND)
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picSiromaru.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+						'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						Call BitBlt(frmMain.picMain.hdc, X, Y, 32, 32, frmMain.picSiromaru.hdc, 0, srcY, SRCPAINT)
 						
 					End If
@@ -950,10 +950,10 @@ Module modEasterEgg
 			
 			If lngTemp < 0 Then
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If g_disp.intEffect = EASTEREGG.STAFFROLL Then
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_disp.intEffect = EASTEREGG.STAFFROLL2
 					
 					ReDim m_strStaffRoll(0)
@@ -982,7 +982,7 @@ Module modEasterEgg
 					
 					Erase m_strStaffRoll
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_disp.intEffect = EASTEREGG.OFF
 					
 				End If
@@ -1002,17 +1002,17 @@ Module modEasterEgg
 		With frmMain.picMain
 			
 			hBrushNew = CreateSolidBrush(System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Blue))
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			hBrushOld = SelectObject(.hdc, hBrushNew)
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call Rectangle(.hdc, 0, 0, .ClientRectangle.Width, .ClientRectangle.Height)
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			hBrushNew = SelectObject(.hdc, hBrushOld)
 			Call DeleteObject(hBrushNew)
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call SetTextColor(.hdc, 16777215)
 			
 			rectTemp.left_Renamed = 8
@@ -1022,8 +1022,8 @@ Module modEasterEgg
 			
 			.Font = VB6.FontChangeSize(.Font, 9)
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call DrawText(.hdc, "A problem has been detected and BMSE has been shut down to prevent damage to your mind." & vbCrLf & vbCrLf & "The problem seems to be caused by the following file: BMSE.EXE" & vbCrLf & vbCrLf & "EASTER_EGG_BLUE_SCREEN_OF_DEATH" & vbCrLf & vbCrLf & "If this is the first time you've seen this stop error screen, restart your BMSE. If this screen appears again, follow these steps:" & vbCrLf & vbCrLf & "1) Bury me from your computer." & vbCrLf & "2) Access UCN-Soft BBS, and write your shout of spirit." & vbCrLf & "       ex) ""BMSE is the worst software in the world!!!!!!!!!!!!!!111111""" & vbCrLf & "3) Sing ""asdf song"":" & vbCrLf & "       This is the sound of the asdf song." & vbCrLf & "       asdf fdsa" & vbCrLf & "       asdffdsa ye-ye" & vbCrLf & "       (clap clap clap)" & vbCrLf & "4) Throw your computer from window." & vbCrLf & vbCrLf & "If you are satiated with joke:" & vbCrLf & vbCrLf & "Launch BMSE and type your key ""OFF"", then press return key." & vbCrLf & vbCrLf & "Meaningless information:" & vbCrLf & vbCrLf & "*** STOP: 0x88710572 (0xASDFFDSA,0x00004126,0xD0SUK01,0x›0¤0›)" & vbCrLf & vbCrLf & vbCrLf & "***  BMSE.EXE - Public Sub DrawBlueScreen() at modEasterEgg.bas, DateStamp 2006-12-26", -1, rectTemp, DT_WORDBREAK)
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			Call DrawText(.hdc, "A problem has been detected and BMSE has been shut down to prevent damage to your mind." & vbCrLf & vbCrLf & "The problem seems to be caused by the following file: BMSE.EXE" & vbCrLf & vbCrLf & "EASTER_EGG_BLUE_SCREEN_OF_DEATH" & vbCrLf & vbCrLf & "If this is the first time you've seen this stop error screen, restart your BMSE. If this screen appears again, follow these steps:" & vbCrLf & vbCrLf & "1) Bury me from your computer." & vbCrLf & "2) Access UCN-Soft BBS, and write your shout of spirit." & vbCrLf & "       ex) ""BMSE is the worst software in the world!!!!!!!!!!!!!!111111""" & vbCrLf & "3) Sing ""asdf song"":" & vbCrLf & "       This is the sound of the asdf song." & vbCrLf & "       asdf fdsa" & vbCrLf & "       asdffdsa ye-ye" & vbCrLf & "       (clap clap clap)" & vbCrLf & "4) Throw your computer from window." & vbCrLf & vbCrLf & "If you are satiated with joke:" & vbCrLf & vbCrLf & "Launch BMSE and type your key ""OFF"", then press return key." & vbCrLf & vbCrLf & "Meaningless information:" & vbCrLf & vbCrLf & "*** STOP: 0x88710572 (0xASDFFDSA,0x00004126,0xD0SUK01,0xâ—‹0â–½0â—‹)" & vbCrLf & vbCrLf & vbCrLf & "***  BMSE.EXE - Public Sub DrawBlueScreen() at modEasterEgg.bas, DateStamp 2006-12-26", -1, rectTemp, DT_WORDBREAK)
 			
 		End With
 		
@@ -1101,11 +1101,11 @@ Module modEasterEgg
 		
 		Dim dummy As m_udtSnow
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg dummy ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ dummy ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		dummy = Obj1
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg Obj1 ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ Obj1 ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Obj1 = Obj2
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg Obj2 ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ Obj2 ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Obj2 = dummy
 		
 	End Sub

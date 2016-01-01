@@ -21,30 +21,30 @@ Module modMain
 	Public Declare Function mciSendString Lib "winmm.dll"  Alias "mciSendStringA"(ByVal lpstrCommand As String, ByVal lpstrTempurnString As String, ByVal uReturnLength As Integer, ByVal hwndCallback As Integer) As Integer
 	Public Declare Function mciGetErrorString Lib "winmm.dll"  Alias "mciGetErrorStringA"(ByVal dwError As Integer, ByVal lpstrBuffer As String, ByVal uLength As Integer) As Integer
 	
-	'UPGRADE_ISSUE: ƒpƒ‰ƒ[ƒ^ 'As Any' ‚ÌéŒ¾‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Declare Function GetPrivateProfileString Lib "kernel32"  Alias "GetPrivateProfileStringA"(ByVal lpApplicationName As String, ByVal lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Integer, ByVal lpFileName As String) As Integer 'iniƒtƒ@ƒCƒ‹‚É“Ç‚İ‚±‚Ş‚½‚ß‚ÌAPI
-	'UPGRADE_ISSUE: ƒpƒ‰ƒ[ƒ^ 'As Any' ‚ÌéŒ¾‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	'UPGRADE_ISSUE: ƒpƒ‰ƒ[ƒ^ 'As Any' ‚ÌéŒ¾‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Declare Function WritePrivateProfileString Lib "kernel32"  Alias "WritePrivateProfileStringA"(ByVal lpApplicationName As String, ByVal lpKeyName As Any, ByVal lpString As Any, ByVal lpFileName As String) As Integer 'iniƒtƒ@ƒCƒ‹‚ğ‘‚«‚±‚Ş‚½‚ß‚ÌAPI
+	'UPGRADE_ISSUE: ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ 'As Any' ã®å®£è¨€ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+	Private Declare Function GetPrivateProfileString Lib "kernel32"  Alias "GetPrivateProfileStringA"(ByVal lpApplicationName As String, ByVal lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Integer, ByVal lpFileName As String) As Integer 'iniãƒ•ã‚¡ã‚¤ãƒ«ã«èª­ã¿ã“ã‚€ãŸã‚ã®API
+	'UPGRADE_ISSUE: ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ 'As Any' ã®å®£è¨€ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+	'UPGRADE_ISSUE: ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ 'As Any' ã®å®£è¨€ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+	Private Declare Function WritePrivateProfileString Lib "kernel32"  Alias "WritePrivateProfileStringA"(ByVal lpApplicationName As String, ByVal lpKeyName As Any, ByVal lpString As Any, ByVal lpFileName As String) As Integer 'iniãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ›¸ãã“ã‚€ãŸã‚ã®API
 	
-	'UPGRADE_WARNING: \‘¢‘Ì WINDOWPLACEMENT ‚ÉA‚±‚Ì Declare ƒXƒe[ƒgƒƒ“ƒg‚Ìˆø”‚Æ‚µ‚Äƒ}[ƒVƒƒƒŠƒ“ƒO‘®«‚ğ“n‚·•K—v‚ª‚ ‚è‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_WARNING: æ§‹é€ ä½“ WINDOWPLACEMENT ã«ã€ã“ã® Declare ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆã®å¼•æ•°ã¨ã—ã¦ãƒãƒ¼ã‚·ãƒ£ãƒªãƒ³ã‚°å±æ€§ã‚’æ¸¡ã™å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Public Declare Function GetWindowPlacement Lib "user32" (ByVal hwnd As Integer, ByRef lpwndpl As WINDOWPLACEMENT) As Integer
-	'UPGRADE_WARNING: \‘¢‘Ì WINDOWPLACEMENT ‚ÉA‚±‚Ì Declare ƒXƒe[ƒgƒƒ“ƒg‚Ìˆø”‚Æ‚µ‚Äƒ}[ƒVƒƒƒŠƒ“ƒO‘®«‚ğ“n‚·•K—v‚ª‚ ‚è‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_WARNING: æ§‹é€ ä½“ WINDOWPLACEMENT ã«ã€ã“ã® Declare ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆã®å¼•æ•°ã¨ã—ã¦ãƒãƒ¼ã‚·ãƒ£ãƒªãƒ³ã‚°å±æ€§ã‚’æ¸¡ã™å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Public Declare Function SetWindowPlacement Lib "user32" (ByVal hwnd As Integer, ByRef lpwndpl As WINDOWPLACEMENT) As Integer
 	
 	Public Declare Function ShellExecute Lib "shell32.dll"  Alias "ShellExecuteA"(ByVal hwnd As Integer, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Integer) As Integer
 	
 	Public Declare Function GetWindowLong Lib "user32"  Alias "GetWindowLongA"(ByVal hwnd As Integer, ByVal nIndex As Integer) As Integer
-	'UPGRADE_WARNING: \‘¢‘Ì RECT ‚ÉA‚±‚Ì Declare ƒXƒe[ƒgƒƒ“ƒg‚Ìˆø”‚Æ‚µ‚Äƒ}[ƒVƒƒƒŠƒ“ƒO‘®«‚ğ“n‚·•K—v‚ª‚ ‚è‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_WARNING: æ§‹é€ ä½“ RECT ã«ã€ã“ã® Declare ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆã®å¼•æ•°ã¨ã—ã¦ãƒãƒ¼ã‚·ãƒ£ãƒªãƒ³ã‚°å±æ€§ã‚’æ¸¡ã™å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Public Declare Function AdjustWindowRectEx Lib "user32" (ByRef lpRect As RECT, ByVal dsStyle As Integer, ByVal bMenu As Integer, ByVal dwEsStyle As Integer) As Integer
 	
 	Private Declare Function GetStockObject Lib "gdi32" (ByVal nIndex As Integer) As Integer
-	'UPGRADE_NOTE: GetObject ‚Í GetObject_Renamed ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	'UPGRADE_ISSUE: ƒpƒ‰ƒ[ƒ^ 'As Any' ‚ÌéŒ¾‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_NOTE: GetObject ã¯ GetObject_Renamed ã«ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+	'UPGRADE_ISSUE: ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ 'As Any' ã®å®£è¨€ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Private Declare Function GetObject_Renamed Lib "gdi32"  Alias "GetObjectA"(ByVal hObject As Integer, ByVal nCount As Integer, ByRef lpObject As Any) As Integer
 	'Private Declare Function SystemParametersInfo Lib "user32" Alias "SystemParametersInfoA" (ByVal uAction As Long, ByVal uParam As Long, ByRef lpvParam As Any, ByVal fuWinIni As Long) As Long
 	
-	'Get/SetWindowPlacementEShellExecute ŠÖ˜A‚Ì’è”
+	'Get/SetWindowPlacementãƒ»ShellExecute é–¢é€£ã®å®šæ•°
 	Public Const SW_HIDE As Short = 0
 	Public Const SW_MAXIMIZE As Short = 3
 	Public Const SW_MINIMIZE As Short = 6
@@ -58,11 +58,11 @@ Module modMain
 	Public Const SW_SHOWNOACTIVATE As Short = 4
 	Public Const SW_SHOWNORMAL As Short = 1
 	
-	'GetWindowLong ŠÖ˜A‚Ì’è”
+	'GetWindowLong é–¢é€£ã®å®šæ•°
 	Public Const GWL_STYLE As Short = -16
 	Public Const GWL_EXSTYLE As Short = -20
 	
-	'GetStockObject ŠÖ˜A‚Ì’è”
+	'GetStockObject é–¢é€£ã®å®šæ•°
 	Private Const OEM_FIXED_FONT As Short = 10
 	Private Const ANSI_FIXED_FONT As Short = 11
 	Private Const ANSI_VAR_FONT As Short = 12
@@ -70,11 +70,11 @@ Module modMain
 	Private Const SYSTEM_FIXED_FONT As Short = 16
 	Private Const DEFAULT_GUI_FONT As Short = 17
 	
-	'LOGFONT ŠÖ˜A‚Ì’è”
+	'LOGFONT é–¢é€£ã®å®šæ•°
 	Private Const DEFAULT_CHARSET As Short = 1
 	Private Const LF_FACESIZE As Short = 32
 	
-	'SystemParametersInfo ŠÖ˜A‚Ì’è”
+	'SystemParametersInfo é–¢é€£ã®å®šæ•°
 	Private Const SPI_GETICONTITLELOGFONT As Short = 31
 	Private Const SPI_GETNONCLIENTMETRICS As Short = 41
 	
@@ -92,14 +92,14 @@ Module modMain
 		Dim lfClipPrecision As Byte
 		Dim lfQuality As Byte
 		Dim lfPitchAndFamily As Byte
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg LF_FACESIZE ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ LF_FACESIZE ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		<VBFixedArray(LF_FACESIZE)> Dim lfFaceName() As Byte
 		
-		'UPGRADE_TODO: ‚±‚Ì\‘¢‘Ì‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‰Šú‰»‚·‚é‚É‚ÍA"Initialize" ‚ğŒÄ‚Ño‚³‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B4BFF9E0-8631-45CF-910E-62AB3970F27B"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_TODO: ã“ã®æ§‹é€ ä½“ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’åˆæœŸåŒ–ã™ã‚‹ã«ã¯ã€"Initialize" ã‚’å‘¼ã³å‡ºã•ãªã‘ã‚Œã°ãªã‚Šã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B4BFF9E0-8631-45CF-910E-62AB3970F27B"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Public Sub Initialize()
 			Dim LF_FACESIZE As Object
-			'UPGRADE_WARNING: ”z—ñ lfFaceName ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="0F1C9BE1-AF9D-476E-83B1-17D43BECFF20"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg LF_FACESIZE ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: é…åˆ— lfFaceName ã®ä¸‹é™ãŒ 1 ã‹ã‚‰ 0 ã«å¤‰æ›´ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="0F1C9BE1-AF9D-476E-83B1-17D43BECFF20"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ LF_FACESIZE ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			ReDim lfFaceName(LF_FACESIZE)
 		End Sub
 	End Structure
@@ -111,19 +111,19 @@ Module modMain
 		Dim iScrollHeight As Integer
 		Dim iCaptionWidth As Integer
 		Dim iCaptionHeight As Integer
-		'UPGRADE_ISSUE: LOGFONT ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: LOGFONT ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Dim lfCaptionFont As LOGFONT
 		Dim iSMCaptionWidth As Integer
 		Dim iSMCaptionHeight As Integer
-		'UPGRADE_ISSUE: LOGFONT ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: LOGFONT ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Dim lfSMCaptionFont As LOGFONT
 		Dim iMenuWidth As Integer
 		Dim iMenuHeight As Integer
-		'UPGRADE_ISSUE: LOGFONT ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: LOGFONT ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Dim lfMenuFont As LOGFONT
-		'UPGRADE_ISSUE: LOGFONT ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: LOGFONT ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Dim lfStatusFont As LOGFONT
-		'UPGRADE_ISSUE: LOGFONT ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: LOGFONT ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Dim lfMessageFont As LOGFONT
 	End Structure
 	
@@ -133,10 +133,10 @@ Module modMain
 	End Structure
 	
 	Public Structure RECT
-		'UPGRADE_NOTE: left ‚Í left_Renamed ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_NOTE: left ã¯ left_Renamed ã«ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Dim left_Renamed As Integer
 		Dim Top As Integer
-		'UPGRADE_NOTE: right ‚Í right_Renamed ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_NOTE: right ã¯ right_Renamed ã«ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Dim right_Renamed As Integer
 		Dim Bottom As Integer
 	End Structure
@@ -156,13 +156,13 @@ Module modMain
 	Public Const RAD As Single = PI / 180
 	
 	Public Enum OBJ_SELECT
-		NON_SELECT '–¢‘I‘ğ
-		Selected '‘I‘ğ
-		EDIT_RECT '”’˜g (•ÒWƒ‚[ƒh)
-		DELETE_RECT 'Ô˜g (Á‹ƒ‚[ƒh)
-		SELECTAREA_IN '‘I‘ğ”ÍˆÍ“à‚É‚ ‚éƒIƒuƒWƒFA‘I‘ğ’†
-		SELECTAREA_OUT '‘I‘ğ”ÍˆÍ‚ğ“WŠJ‚µ‚½‚ÉŠù‚É‘I‘ğó‘Ô‚É‚ ‚Á‚½ƒIƒuƒWƒFA‘I‘ğ’†
-		SELECTAREA_SELECTED 'ª‚©‚Â‘I‘ğ”ÍˆÍ“àA‚Â‚Ü‚è‘I‘ğó‘Ô‚Å‚È‚­‚È‚Á‚½ƒIƒuƒWƒF
+		NON_SELECT 'æœªé¸æŠ
+		Selected 'é¸æŠ
+		EDIT_RECT 'ç™½æ  (ç·¨é›†ãƒ¢ãƒ¼ãƒ‰)
+		DELETE_RECT 'èµ¤æ  (æ¶ˆå»ãƒ¢ãƒ¼ãƒ‰)
+		SELECTAREA_IN 'é¸æŠç¯„å›²å†…ã«ã‚ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã€é¸æŠä¸­
+		SELECTAREA_OUT 'é¸æŠç¯„å›²ã‚’å±•é–‹ã—ãŸæ™‚ã«æ—¢ã«é¸æŠçŠ¶æ…‹ã«ã‚ã£ãŸã‚ªãƒ–ã‚¸ã‚§ã€é¸æŠä¸­
+		SELECTAREA_SELECTED 'â†‘ã‹ã¤é¸æŠç¯„å›²å†…ã€ã¤ã¾ã‚Šé¸æŠçŠ¶æ…‹ã§ãªããªã£ãŸã‚ªãƒ–ã‚¸ã‚§
 	End Enum
 	
 	Public Enum OBJ_ATT
@@ -206,7 +206,7 @@ Module modMain
         Dim measure As Short
     End Structure
 	
-	'UPGRADE_ISSUE: m_udtMouse ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_ISSUE: m_udtMouse ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Public g_Mouse As m_udtMouse
 	
     Public Structure m_udtDisplay
@@ -220,17 +220,17 @@ Module modMain
         Dim intEndMeasure As Short
         Dim lngStartPos As Integer
         Dim lngEndPos As Integer
-        Dim intMaxMeasure As Short 'Å‘å•\¦¬ß
-        Dim intResolution As Short '•ª‰ğ”\
-        Dim intEffect As Short '‰æ–ÊŒø‰Ê
+        Dim intMaxMeasure As Short 'æœ€å¤§è¡¨ç¤ºå°ç¯€
+        Dim intResolution As Short 'åˆ†è§£èƒ½
+        Dim intEffect As Short 'ç”»é¢åŠ¹æœ
     End Structure
 	
-	'UPGRADE_ISSUE: m_udtDisplay ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_ISSUE: m_udtDisplay ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Public g_disp As m_udtDisplay
 	
     Public Structure m_udtBMS
-        Dim strDir As String 'ƒfƒBƒŒƒNƒgƒŠ
-        Dim strFileName As String 'BMSƒtƒ@ƒCƒ‹–¼
+        Dim strDir As String 'ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
+        Dim strFileName As String 'BMSãƒ•ã‚¡ã‚¤ãƒ«å
         Dim intPlayerType As Short '#PLAYER
         Dim strGenre As String '#GENRE
         Dim strTitle As String '#TITLE
@@ -244,7 +244,7 @@ Module modMain
         Dim blnSaveFlag As Boolean
     End Structure
 	
-	'UPGRADE_ISSUE: m_udtBMS ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_ISSUE: m_udtBMS ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Public g_BMS As m_udtBMS
 	
 	Private Structure m_udtVerticalLine
@@ -261,7 +261,7 @@ Module modMain
 		Dim blnDraw As Boolean
 	End Structure
 	
-	'UPGRADE_ISSUE: m_udtVerticalLine ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_ISSUE: m_udtVerticalLine ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Public g_VGrid(61) As m_udtVerticalLine
 	
 	Public g_intVGridNum(132 + 40) As Short
@@ -275,13 +275,13 @@ Module modMain
 		Dim lngPosition As Integer
 		Dim sngValue As Single
 		Dim intSelect As OBJ_SELECT
-		'0EEE–¢‘I‘ğ
-		'1EEE‘I‘ğ
-		'2EEE”’˜g (•ÒWƒ‚[ƒh)
-		'3EEEÔ˜g (Á‹ƒ‚[ƒh)
-		'4EEE‘I‘ğ”ÍˆÍ“à‚É‚ ‚éƒIƒuƒWƒFA‘I‘ğ’†
-		'5EEE‘I‘ğ”ÍˆÍ‚ğ“WŠJ‚µ‚½‚ÉŠù‚É‘I‘ğó‘Ô‚É‚ ‚Á‚½ƒIƒuƒWƒFA‘I‘ğ’†
-		'6EEE5”Ô‚©‚Â‘I‘ğ”ÍˆÍ“àA‚Â‚Ü‚è‘I‘ğó‘Ô‚Å‚È‚­‚È‚Á‚½ƒIƒuƒWƒF
+		'0ãƒ»ãƒ»ãƒ»æœªé¸æŠ
+		'1ãƒ»ãƒ»ãƒ»é¸æŠ
+		'2ãƒ»ãƒ»ãƒ»ç™½æ  (ç·¨é›†ãƒ¢ãƒ¼ãƒ‰)
+		'3ãƒ»ãƒ»ãƒ»èµ¤æ  (æ¶ˆå»ãƒ¢ãƒ¼ãƒ‰)
+		'4ãƒ»ãƒ»ãƒ»é¸æŠç¯„å›²å†…ã«ã‚ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã€é¸æŠä¸­
+		'5ãƒ»ãƒ»ãƒ»é¸æŠç¯„å›²ã‚’å±•é–‹ã—ãŸæ™‚ã«æ—¢ã«é¸æŠçŠ¶æ…‹ã«ã‚ã£ãŸã‚ªãƒ–ã‚¸ã‚§ã€é¸æŠä¸­
+		'6ãƒ»ãƒ»ãƒ»5ç•ªã‹ã¤é¸æŠç¯„å›²å†…ã€ã¤ã¾ã‚Šé¸æŠçŠ¶æ…‹ã§ãªããªã£ãŸã‚ªãƒ–ã‚¸ã‚§
 	End Structure
 	
 	Public g_Obj() As g_udtObj
@@ -297,7 +297,7 @@ Module modMain
 		Dim Y2 As Single
 	End Structure
 	
-	'UPGRADE_ISSUE: m_udtSelectArea ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_ISSUE: m_udtSelectArea ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Public g_SelectArea As m_udtSelectArea
 	
 	Public g_strLangFileName() As String
@@ -347,7 +347,7 @@ Module modMain
 		Max
 	End Enum
 	
-	'UPGRADE_WARNING:  ‚É•ÏŠ·‚³‚ê‚Ä‚¢‚È‚¢ƒXƒe[ƒgƒƒ“ƒg‚ª‚ ‚è‚Ü‚·Bƒ\[ƒX ƒR[ƒh‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_WARNING:  ã«å¤‰æ›ã•ã‚Œã¦ã„ãªã„ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆãŒã‚ã‚Šã¾ã™ã€‚ã‚½ãƒ¼ã‚¹ ã‚³ãƒ¼ãƒ‰ã‚’ç¢ºèªã—ã¦ãã ã•ã„ã€‚
 	
 	Public Sub StartUp()
 		Dim strGet_ini As Object
@@ -371,7 +371,7 @@ Module modMain
 		g_strAppTitle = g_strAppTitle & " beta 14"
 		
 #If MODE_DEBUG = False Then
-		'UPGRADE_NOTE: ® MODE_DEBUG = False ‚ª True ‚É•]‰¿‚³‚ê‚È‚©‚Á‚½‚©A‚Ü‚½‚Í‚Ü‚Á‚½‚­•]‰¿‚³‚ê‚È‚©‚Á‚½‚½‚ßA#If #EndIf ƒuƒƒbƒN‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="27EE2C3C-05AF-4C04-B2AF-657B4FB6B5FC"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_NOTE: å¼ MODE_DEBUG = False ãŒ True ã«è©•ä¾¡ã•ã‚Œãªã‹ã£ãŸã‹ã€ã¾ãŸã¯ã¾ã£ãŸãè©•ä¾¡ã•ã‚Œãªã‹ã£ãŸãŸã‚ã€#If #EndIf ãƒ–ãƒ­ãƒƒã‚¯ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="27EE2C3C-05AF-4C04-B2AF-657B4FB6B5FC"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		
 		Call modMessage.SubClass(frmMain.hwnd)
 		
@@ -388,7 +388,7 @@ Module modMain
 		
 		ReDim g_Viewer(1)
 		
-		'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		If Dir(g_strAppDir & "bmse_viewer.ini", FileAttribute.Normal) = vbNullString Then
 			
 			lngFFile = FreeFile
@@ -475,14 +475,14 @@ Module modMain
 		
 		ReDim Preserve g_Viewer(frmMain.cboViewer.Items.Count)
 		
-		'ƒ‰ƒ“ƒQ[ƒWƒtƒ@ƒCƒ‹“Ç‚İ‚İ
-		'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'ãƒ©ãƒ³ã‚²ãƒ¼ã‚¸ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
+		'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		strTemp = Dir(g_strAppDir & "lang\*.ini")
 		intTemp = 0
 		
 		Do While strTemp <> ""
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Main, Key, , lang\ & strTemp) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Main, Key, , lang\ & strTemp) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If strGet_ini("Main", "Key", "", "lang\" & strTemp) = "BMSE" Then
 				
 				intTemp = intTemp + 1
@@ -495,7 +495,7 @@ Module modMain
 				
 				With frmMain.mnuLanguage(intTemp)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Main, Language, strTemp, lang\ & strTemp) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Main, Language, strTemp, lang\ & strTemp) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.Text = "&" & strGet_ini("Main", "Language", strTemp, "lang\" & strTemp)
 					
 					If .Text = "&" Then .Text = "&" & strTemp
@@ -506,7 +506,7 @@ Module modMain
 				
 			End If
 			
-			'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			strTemp = Dir()
 			
 		Loop 
@@ -521,14 +521,14 @@ Module modMain
 			
 		End If
 		
-		'ƒe[ƒ}ƒtƒ@ƒCƒ‹“Ç‚İ‚İ
-		'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'ãƒ†ãƒ¼ãƒãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
+		'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		strTemp = Dir(g_strAppDir & "theme\*.ini")
 		intTemp = 0
 		
 		Do While strTemp <> ""
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Main, Key, , theme\ & strTemp) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Main, Key, , theme\ & strTemp) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If strGet_ini("Main", "Key", "", "theme\" & strTemp) = "BMSE" Then
 				
 				intTemp = intTemp + 1
@@ -541,7 +541,7 @@ Module modMain
 				
 				With frmMain.mnuTheme(intTemp)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Main, Name, strTemp, theme\ & strTemp) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Main, Name, strTemp, theme\ & strTemp) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.Text = "&" & strGet_ini("Main", "Name", strTemp, "theme\" & strTemp)
 					
 					If .Text = "&" Then .Text = "&" & strTemp
@@ -552,7 +552,7 @@ Module modMain
 				
 			End If
 			
-			'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			strTemp = Dir()
 			
 		Loop 
@@ -579,28 +579,28 @@ Module modMain
 			
 		Next i
 		
-		'‰Šú‰»
+		'åˆæœŸåŒ–
 		With g_BMS
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.intPlayerType ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.intPlayerType ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.intPlayerType = modInput.PLAYER_TYPE.PLAYER_1P
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strGenre ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strGenre ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.strGenre = ""
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strTitle ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strTitle ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.strTitle = ""
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strArtist ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strArtist ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.strArtist = ""
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.sngBPM ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.sngBPM ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.sngBPM = Val(frmMain.txtBPM.Text)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.lngPlayLevel ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.lngPlayLevel ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lngPlayLevel = 1
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.intPlayRank ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.intPlayRank ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.intPlayRank = modInput.PLAY_RANK.RANK_EASY
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.sngTotal ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.sngTotal ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.sngTotal = 0
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.intVolume ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.intVolume ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.intVolume = 0
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.blnSaveFlag ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.blnSaveFlag = True
 			
 		End With
@@ -619,198 +619,198 @@ Module modMain
 			
 			With g_VGrid(i)
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg Choose() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intCh ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ Choose() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				.intCh = Choose(i + 1, 0, 8, 9, 0, 21, 16, 11, 12, 13, 14, 15, 18, 19, 16, 0, 26, 21, 22, 23, 24, 25, 28, 29, 26, 0, 4, 7, 6, 0, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 0)
 				'If .intCh Then g_intVGridNum(.intCh) = i
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				.blnVisible = True
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intCh ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				Select Case .intCh
 					
 					Case modInput.OBJ_CH.CH_BPM, modInput.OBJ_CH.CH_EXBPM, modInput.OBJ_CH.CH_STOP 'BPM/STOP
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.BPM_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.BPM_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.BPM
 						
 					Case modInput.OBJ_CH.CH_BGA, modInput.OBJ_CH.CH_LAYER, modInput.OBJ_CH.CH_POOR 'BGA/Layer/Poor
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.BGA_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.BGA_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.BGA
 						
 					Case 11
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.KEY01_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.KEY01_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.KEY01
 						
 					Case 12
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.KEY02_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.KEY02_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.KEY02
 						
 					Case 13
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.KEY03_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.KEY03_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.KEY03
 						
 					Case 14
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.KEY04_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.KEY04_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.KEY04
 						
 					Case 15
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.KEY05_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.KEY05_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.KEY05
 						
 					Case 18
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.KEY06_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.KEY06_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.KEY06
 						
 					Case 19
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.KEY07_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.KEY07_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.KEY07
 						
 					Case 16
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.KEY08_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.KEY08_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.KEY08
 						
 					Case 21
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.KEY11_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.KEY11_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.KEY11
 						
 					Case 22
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.KEY12_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.KEY12_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.KEY12
 						
 					Case 23
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.KEY13_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.KEY13_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.KEY13
 						
 					Case 24
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.KEY14_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.KEY14_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.KEY14
 						
 					Case 25
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.KEY15_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.KEY15_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.KEY15
 						
 					Case 28
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.KEY16_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.KEY16_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.KEY16
 						
 					Case 29
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.KEY17_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.KEY17_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.KEY17
 						
 					Case 26
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.KEY18_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.KEY18_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.KEY18
 						
 					Case Is > 100 'BGM
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intLightNum = modDraw.PEN_NUM.BGM_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intShadowNum = modDraw.PEN_NUM.BGM_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intBrushNum = modDraw.BRUSH_NUM.BGM
 						
 				End Select
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intCh ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If .intCh Then
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.intWidth = GRID_WIDTH
 					
 				Else
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.intWidth = SPACE_WIDTH
 					
 				End If
@@ -820,7 +820,7 @@ Module modMain
 		Next i
 		
 		'g_Disp.intMaxMeasure = 31
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intMaxMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intMaxMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_disp.intMaxMeasure = 0
 		Call modDraw.lngChangeMaxMeasure(15)
 		Call modDraw.ChangeResolution()
@@ -836,7 +836,7 @@ Module modMain
 		Dim i As Integer
 		
 #If MODE_DEBUG = False Then
-		'UPGRADE_NOTE: ® MODE_DEBUG = False ‚ª True ‚É•]‰¿‚³‚ê‚È‚©‚Á‚½‚©A‚Ü‚½‚Í‚Ü‚Á‚½‚­•]‰¿‚³‚ê‚È‚©‚Á‚½‚½‚ßA#If #EndIf ƒuƒƒbƒN‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="27EE2C3C-05AF-4C04-B2AF-657B4FB6B5FC"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_NOTE: å¼ MODE_DEBUG = False ãŒ True ã«è©•ä¾¡ã•ã‚Œãªã‹ã£ãŸã‹ã€ã¾ãŸã¯ã¾ã£ãŸãè©•ä¾¡ã•ã‚Œãªã‹ã£ãŸãŸã‚ã€#If #EndIf ãƒ–ãƒ­ãƒƒã‚¯ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="27EE2C3C-05AF-4C04-B2AF-657B4FB6B5FC"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		
 		Call modMessage.UnSubClass(frmMain.hwnd)
 		
@@ -846,7 +846,7 @@ Module modMain
 		
 #End If
 		
-		'UPGRADE_NOTE: ƒIƒuƒWƒFƒNƒg g_InputLog ‚ğƒKƒx[ƒW ƒRƒŒƒNƒg‚·‚é‚Ü‚Å‚±‚ÌƒIƒuƒWƒFƒNƒg‚ğ”jŠü‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_NOTE: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_InputLog ã‚’ã‚¬ãƒ™ãƒ¼ã‚¸ ã‚³ãƒ¬ã‚¯ãƒˆã™ã‚‹ã¾ã§ã“ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç ´æ£„ã™ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_InputLog = Nothing
 		
 		Call modEasterEgg.EndEffect()
@@ -855,33 +855,33 @@ Module modMain
 		
 		Call mciSendString("close PREVIEW", vbNullString, 0, 0)
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strDir ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
 		Call lngDeleteFile(g_strAppDir & "___bmse_temp.bms")
 		
 		If lngErrNum <> 0 And strErrDescription <> "" And strErrProcedure <> "" Then
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strDir ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If Len(g_BMS.strDir) = 0 Then g_BMS.strDir = g_strAppDir
 			
 			For i = 0 To 9999
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strFileName ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				g_BMS.strFileName = "temp" & VB6.Format(i, "0000") & ".bms"
 				
 				If i = 9999 Then
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strFileName ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strDir ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Call CreateBMS(g_BMS.strDir & g_BMS.strFileName)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strFileName ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strDir ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				ElseIf Dir(g_BMS.strDir & g_BMS.strFileName) = vbNullString Then 
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strFileName ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strDir ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Call CreateBMS(g_BMS.strDir & g_BMS.strFileName)
 					Exit For
 					
@@ -915,12 +915,12 @@ Module modMain
 		
 		If blnCleanUp Then
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			strError = g_Message(modMain.Message.ERR_01) & vbCrLf & strError & vbCrLf
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			strError = strError & g_Message(modMain.Message.ERR_02) & vbCrLf
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strFileName ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strDir ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			strError = strError & g_BMS.strDir & g_BMS.strFileName
 			
 		End If
@@ -951,42 +951,42 @@ Err_Renamed:
 		
 		With frmMain
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.intPlayerType ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.intPlayerType ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.blnSaveFlag ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If .cboPlayer.SelectedIndex + 1 <> g_BMS.intPlayerType Then g_BMS.blnSaveFlag = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strGenre ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strGenre ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.blnSaveFlag ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If .txtGenre.Text <> g_BMS.strGenre Then g_BMS.blnSaveFlag = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strTitle ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strTitle ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.blnSaveFlag ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If .txtTitle.Text <> g_BMS.strTitle Then g_BMS.blnSaveFlag = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strArtist ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strArtist ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.blnSaveFlag ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If .txtArtist.Text <> g_BMS.strArtist Then g_BMS.blnSaveFlag = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.lngPlayLevel ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.lngPlayLevel ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.blnSaveFlag ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If Val(.cboPlayLevel.Text) <> g_BMS.lngPlayLevel Then g_BMS.blnSaveFlag = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.sngBPM ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.sngBPM ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.blnSaveFlag ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If Val(.txtBPM.Text) <> g_BMS.sngBPM Then g_BMS.blnSaveFlag = False
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.intPlayRank ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.intPlayRank ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.blnSaveFlag ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If .cboPlayRank.SelectedIndex <> g_BMS.intPlayRank Then g_BMS.blnSaveFlag = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.sngTotal ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.sngTotal ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.blnSaveFlag ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If Val(.txtTotal.Text) <> g_BMS.sngTotal Then g_BMS.blnSaveFlag = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.intVolume ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.intVolume ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.blnSaveFlag ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If Val(.txtVolume.Text) <> g_BMS.intVolume Then g_BMS.blnSaveFlag = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strStageFile ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strStageFile ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.blnSaveFlag ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If .txtStageFile.Text <> g_BMS.strStageFile Then g_BMS.blnSaveFlag = False
 			'If .txtMissBMP.Text <> g_strBMP(0) Then g_BMS.blnSaveFlag = False
 			
 		End With
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.blnSaveFlag ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		If g_BMS.blnSaveFlag Then
 			
 			intSaveCheck = 0
@@ -1003,42 +1003,42 @@ Err_Renamed:
 			
 			Case MsgBoxResult.Yes
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strFileName ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strDir ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If g_BMS.strDir <> "" And g_BMS.strFileName <> "" Then
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strFileName ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strDir ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Call CreateBMS(g_BMS.strDir & g_BMS.strFileName)
 					
 				Else
 					
-					'UPGRADE_WARNING: CommonDialog •Ï”‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½ Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="671167DC-EA81-475D-B690-7A40C7BF4A23"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: CommonDialog å¤‰æ•°ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="671167DC-EA81-475D-B690-7A40C7BF4A23"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					With frmMain.dlgMain
 						
-						'UPGRADE_WARNING: Filter ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: Filter ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.Filter = "BMS files (*.bms,*.bme,*.bml,*.pms)|*.bms;*.bme;*.bml;*.pms|All files (*.*)|*.*"
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strFileName ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.FileName = g_BMS.strFileName
 						
 						Call .ShowDialog()
 						
 						strArray = Split(.FileName, "\")
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strDir ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_BMS.strDir = Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strFileName ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_BMS.strFileName = strArray(UBound(strArray))
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strFileName ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strDir ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						Call CreateBMS(g_BMS.strDir & g_BMS.strFileName)
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strFileName ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strDir ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						Call RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strDir ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.InitialDirectory = g_BMS.strDir
 						
 					End With
@@ -1108,18 +1108,18 @@ Err_Renamed:
 			
 		End With
 		
-		'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ frmMain.tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.ButtonMenus ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ frmMain.tlbMenu.Buttons().ButtonMenus ã®ä¸‹é™ãŒ 1 ã‹ã‚‰ 0 ã«å¤‰æ›´ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		With frmMain.tlbMenu.Items.Item("Open").ButtonMenus.Item(intIndex + 1)
 			
-			'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ frmMain.tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.ButtonMenus ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ frmMain.tlbMenu.Buttons().ButtonMenus ã®ä¸‹é™ãŒ 1 ã‹ã‚‰ 0 ã«å¤‰æ›´ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Text = "&" & intIndex + 1 & ":" & strFilePath
-			'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ frmMain.tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.ButtonMenus ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ frmMain.tlbMenu.Buttons().ButtonMenus ã®ä¸‹é™ãŒ 1 ã‹ã‚‰ 0 ã«å¤‰æ›´ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Enabled = True
-			'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ frmMain.tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.ButtonMenus ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ frmMain.tlbMenu.Buttons().ButtonMenus ã®ä¸‹é™ãŒ 1 ã‹ã‚‰ 0 ã«å¤‰æ›´ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Visible = True
 			
 		End With
@@ -1148,7 +1148,7 @@ Err_Renamed:
 			
 			Select Case Asc(Mid(strTemp, i, 1))
 				
-				Case 32 'ƒXƒy[ƒX
+				Case 32 'ã‚¹ãƒšãƒ¼ã‚¹
 					
 					If ReadLock = False Then
 						
@@ -1160,7 +1160,7 @@ Err_Renamed:
 						
 					End If
 					
-				Case 34 'ƒ_ƒuƒ‹ƒNƒI[ƒe[ƒVƒ‡ƒ“
+				Case 34 'ãƒ€ãƒ–ãƒ«ã‚¯ã‚ªãƒ¼ãƒ†ãƒ¼ã‚·ãƒ§ãƒ³
 					
 					ReadLock = Not ReadLock
 					
@@ -1180,23 +1180,23 @@ Err_Renamed:
 					
 					If blnReadFlag Then
 						
-						'UPGRADE_WARNING: App ƒvƒƒpƒeƒB App.EXEName ‚É‚ÍV‚µ‚¢“®ì‚ªŠÜ‚Ü‚ê‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: App ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ App.EXEName ã«ã¯æ–°ã—ã„å‹•ä½œãŒå«ã¾ã‚Œã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						Call ShellExecute(0, "open", Chr(34) & g_strAppDir & My.Application.Info.AssemblyName & Chr(34), Chr(34) & strCmdArray(i) & Chr(34), "", SW_SHOWNORMAL)
 						
 					Else
 						
 						strArray = Split(strCmdArray(i), "\")
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strFileName ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_BMS.strFileName = Right(strCmdArray(i), Len(strArray(UBound(strArray))))
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strDir ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_BMS.strDir = Left(strCmdArray(i), Len(strCmdArray(i)) - Len(strArray(UBound(strArray))))
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strDir ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						frmMain.dlgMainSave.InitialDirectory = g_BMS.strDir
 						blnReadFlag = True
 						
 						Call modInput.LoadBMS()
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strFileName ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_BMS.strDir ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						Call RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
 						
 					End If
@@ -1210,7 +1210,7 @@ Err_Renamed:
 		Exit Sub
 		
 Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.CleanUp ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call modMain.CleanUp(Err.Number, Err.Description, "GetCmdLine")
 	End Sub
 	
@@ -1225,22 +1225,22 @@ Err_Renamed:
 		Dim Color As Integer
 		Dim lngTemp As Integer
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		frmMain.picMain.BackColor = System.Drawing.ColorTranslator.FromOle(GetColor("Main", "Background", "0,0,0", strFileName))
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_lngSystemColor(modDraw.COLOR_NUM.MEASURE_NUM) = GetColor("Main", "MeasureNum", "64,64,64", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_lngSystemColor(modDraw.COLOR_NUM.MEASURE_LINE) = GetColor("Main", "MeasureLine", "255,255,255", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_lngSystemColor(modDraw.COLOR_NUM.GRID_MAIN) = GetColor("Main", "GridMain", "96,96,96", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_lngSystemColor(modDraw.COLOR_NUM.GRID_SUB) = GetColor("Main", "GridSub", "192,192,192", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_lngSystemColor(modDraw.COLOR_NUM.VERTICAL_MAIN) = GetColor("Main", "VerticalMain", "255,255,255", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_lngSystemColor(modDraw.COLOR_NUM.VERTICAL_SUB) = GetColor("Main", "VerticalSub", "128,128,128", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_lngSystemColor(modDraw.COLOR_NUM.INFO) = GetColor("Main", "Info", "0,255,0", strFileName)
 		
 		
@@ -1250,199 +1250,199 @@ Err_Renamed:
 				
 				Case modDraw.BRUSH_NUM.BGM
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("BGM", "Background", "48,0,0", strFileName)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					strArray = Split(strGet_ini("BGM", "Text", "B01,B02,B03,B04,B05,B06,B07,B08,B09,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32", strFileName), ",")
 					
 					For j = 0 To 31
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(modDraw.GRID.NUM_BGM + j).strText = strArray(j)
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngBackColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(modDraw.GRID.NUM_BGM + j).lngBackColor = Color
 						
 					Next j
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.BGM_LIGHT) = GetColor("BGM", "ObjectLight", "255,0,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.BGM_SHADOW) = GetColor("BGM", "ObjectShadow", "96,0,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngBrushColor(modDraw.BRUSH_NUM.BGM) = GetColor("BGM", "ObjectColor", "128,0,0", strFileName)
 					
 				Case modDraw.BRUSH_NUM.BPM
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					strArray = Split(strGet_ini("BPM", "Text", "BPM,STOP", strFileName), ",")
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_BPM).strText = strArray(0)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_STOP).strText = strArray(1)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("BPM", "Background", "48,48,48", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngBackColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_BPM).lngBackColor = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngBackColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_STOP).lngBackColor = Color
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.BPM_LIGHT) = GetColor("BPM", "ObjectLight", "192,192,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.BPM_SHADOW) = GetColor("BPM", "ObjectShadow", "128,128,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngBrushColor(modDraw.BRUSH_NUM.BPM) = GetColor("BPM", "ObjectColor", "160,160,0", strFileName)
 					
 				Case modDraw.BRUSH_NUM.BGA
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					strArray = Split(strGet_ini("BGA", "Text", "BGA,LAYER,POOR", strFileName), ",")
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_BGA).strText = strArray(0)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_LAYER).strText = strArray(1)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_POOR).strText = strArray(2)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("BGA", "Background", "0,24,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngBackColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_BGA).lngBackColor = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngBackColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_LAYER).lngBackColor = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngBackColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_POOR).lngBackColor = Color
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.BGA_LIGHT) = GetColor("BGA", "ObjectLight", "0,255,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.BGA_SHADOW) = GetColor("BGA", "ObjectShadow", "0,96,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngBrushColor(modDraw.BRUSH_NUM.BGA) = GetColor("BGA", "ObjectColor", "0,128,0", strFileName)
 					
 				Case modDraw.BRUSH_NUM.KEY01, modDraw.BRUSH_NUM.KEY03, modDraw.BRUSH_NUM.KEY05, modDraw.BRUSH_NUM.KEY07
 					
 					lngTemp = (i - modDraw.BRUSH_NUM.KEY01) + 1
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_1P_1KEY + lngTemp - 1).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(GRID.NUM_1P_1KEY + lngTemp - 1).strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_1P_1KEY + lngTemp - 1).strText = strGet_ini("KEY_1P_0" & lngTemp, "Text", lngTemp, strFileName)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_1P_1KEY + lngTemp - 1).lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(GRID.NUM_1P_1KEY + lngTemp - 1).lngBackColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_1P_1KEY + lngTemp - 1).lngBackColor = GetColor("KEY_1P_0" & lngTemp, "Background", "32,32,32", strFileName)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_1P_0" & lngTemp, "ObjectLight", "192,192,192", strFileName)
 					g_lngPenColor(modDraw.PEN_NUM.KEY01_LIGHT + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.INV_KEY01_LIGHT + lngTemp - 1) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_1P_0" & lngTemp, "ObjectShadow", "96,96,96", strFileName)
 					g_lngPenColor(modDraw.PEN_NUM.KEY01_SHADOW + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.INV_KEY01_SHADOW + lngTemp - 1) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_1P_0" & lngTemp, "ObjectColor", "128,128,128", strFileName)
 					g_lngBrushColor(modDraw.BRUSH_NUM.KEY01 + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY01 + lngTemp - 1) = HalfColor(Color)
 					
 				Case modDraw.BRUSH_NUM.KEY02, modDraw.BRUSH_NUM.KEY04, modDraw.BRUSH_NUM.KEY06
 					
 					lngTemp = (i - modDraw.BRUSH_NUM.KEY01) + 1
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_1P_1KEY + lngTemp - 1).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(GRID.NUM_1P_1KEY + lngTemp - 1).strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_1P_1KEY + lngTemp - 1).strText = strGet_ini("KEY_1P_0" & lngTemp, "Text", lngTemp, strFileName)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_1P_1KEY + lngTemp - 1).lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(GRID.NUM_1P_1KEY + lngTemp - 1).lngBackColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_1P_1KEY + lngTemp - 1).lngBackColor = GetColor("KEY_1P_0" & lngTemp, "Background", "0,0,40", strFileName)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_1P_0" & lngTemp, "ObjectLight", "96,96,255", strFileName)
 					g_lngPenColor(modDraw.PEN_NUM.KEY01_LIGHT + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.INV_KEY01_LIGHT + lngTemp - 1) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_1P_0" & lngTemp, "ObjectShadow", "0,0,128", strFileName)
 					g_lngPenColor(modDraw.PEN_NUM.KEY01_SHADOW + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.INV_KEY01_SHADOW + lngTemp - 1) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_1P_0" & lngTemp, "ObjectColor", "0,0,255", strFileName)
 					g_lngBrushColor(modDraw.BRUSH_NUM.KEY01 + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY01 + lngTemp - 1) = HalfColor(Color)
 					
 				Case modDraw.BRUSH_NUM.KEY08
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_1P_SC_L).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(GRID.NUM_1P_SC_L).strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_1P_SC_L).strText = strGet_ini("KEY_1P_SC", "Text", "SC", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_1P_SC_R).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(GRID.NUM_1P_SC_R).strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_1P_SC_R).strText = strGet_ini("KEY_1P_SC", "Text", "SC", strFileName)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_1P_SC", "Background", "48,0,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngBackColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_1P_SC_L).lngBackColor = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngBackColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_1P_SC_R).lngBackColor = Color
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_1P_SC", "ObjectLight", "255,96,96", strFileName)
 					g_lngPenColor(modDraw.PEN_NUM.KEY08_LIGHT) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.INV_KEY08_LIGHT) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_1P_SC", "ObjectShadow", "128,0,0", strFileName)
 					g_lngPenColor(modDraw.PEN_NUM.KEY08_SHADOW) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.INV_KEY08_SHADOW) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_1P_SC", "ObjectColor", "255,0,0", strFileName)
 					g_lngBrushColor(modDraw.BRUSH_NUM.KEY08) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY08) = HalfColor(Color)
 					
 				Case modDraw.BRUSH_NUM.KEY11, modDraw.BRUSH_NUM.KEY13, modDraw.BRUSH_NUM.KEY15, modDraw.BRUSH_NUM.KEY17
 					
 					lngTemp = (i - modDraw.BRUSH_NUM.KEY11) + 1
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_2P_1KEY + lngTemp - 1).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(GRID.NUM_2P_1KEY + lngTemp - 1).strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_2P_1KEY + lngTemp - 1).strText = strGet_ini("KEY_2P_0" & lngTemp, "Text", lngTemp, strFileName)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_2P_1KEY + lngTemp - 1).lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(GRID.NUM_2P_1KEY + lngTemp - 1).lngBackColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_2P_1KEY + lngTemp - 1).lngBackColor = GetColor("KEY_2P_0" & lngTemp, "Background", "32,32,32", strFileName)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_2P_0" & lngTemp, "ObjectLight", "192,192,192", strFileName)
 					g_lngPenColor(modDraw.PEN_NUM.KEY11_LIGHT + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.INV_KEY11_LIGHT + lngTemp - 1) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_2P_0" & lngTemp, "ObjectShadow", "96,96,96", strFileName)
 					g_lngPenColor(modDraw.PEN_NUM.KEY11_SHADOW + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.INV_KEY11_SHADOW + lngTemp - 1) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_2P_0" & lngTemp, "ObjectColor", "128,128,128", strFileName)
 					g_lngBrushColor(modDraw.BRUSH_NUM.KEY11 + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY11 + lngTemp - 1) = HalfColor(Color)
 					
 					If i = modDraw.BRUSH_NUM.KEY11 Then
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_FOOTPEDAL).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(GRID.NUM_FOOTPEDAL).strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(modDraw.GRID.NUM_FOOTPEDAL).strText = strGet_ini("KEY_2P_01", "Text", lngTemp, strFileName)
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_FOOTPEDAL).lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(GRID.NUM_FOOTPEDAL).lngBackColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(modDraw.GRID.NUM_FOOTPEDAL).lngBackColor = GetColor("KEY_2P_01", "Background", "32,32,32", strFileName)
 						'color = GetColor("KEY_2P_0" & lngTemp, "ObjectLight", "192,192,192", strFileName)
 						
@@ -1451,88 +1451,88 @@ Err_Renamed:
 				Case modDraw.BRUSH_NUM.KEY12, modDraw.BRUSH_NUM.KEY14, modDraw.BRUSH_NUM.KEY16
 					
 					lngTemp = (i - modDraw.BRUSH_NUM.KEY11) + 1
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_2P_1KEY + lngTemp - 1).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(GRID.NUM_2P_1KEY + lngTemp - 1).strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_2P_1KEY + lngTemp - 1).strText = strGet_ini("KEY_2P_0" & lngTemp, "Text", lngTemp, strFileName)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_2P_1KEY + lngTemp - 1).lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(GRID.NUM_2P_1KEY + lngTemp - 1).lngBackColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_2P_1KEY + lngTemp - 1).lngBackColor = GetColor("KEY_2P_0" & lngTemp, "Background", "0,0,40", strFileName)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_2P_0" & lngTemp, "ObjectLight", "96,96,255", strFileName)
 					g_lngPenColor(modDraw.PEN_NUM.KEY11_LIGHT + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.INV_KEY11_LIGHT + lngTemp - 1) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_2P_0" & lngTemp, "ObjectShadow", "0,0,128", strFileName)
 					g_lngPenColor(modDraw.PEN_NUM.KEY11_SHADOW + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.INV_KEY11_SHADOW + lngTemp - 1) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_2P_0" & lngTemp, "ObjectColor", "0,0,255", strFileName)
 					g_lngBrushColor(modDraw.BRUSH_NUM.KEY11 + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY11 + lngTemp - 1) = HalfColor(Color)
 					
 				Case modDraw.BRUSH_NUM.KEY18
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_2P_SC_L).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(GRID.NUM_2P_SC_L).strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_2P_SC_L).strText = strGet_ini("KEY_2P_SC", "Text", "SC", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_2P_SC_R).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(GRID.NUM_2P_SC_R).strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_2P_SC_R).strText = strGet_ini("KEY_2P_SC", "Text", "SC", strFileName)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_2P_SC", "Background", "48,0,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngBackColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_2P_SC_L).lngBackColor = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngBackColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(modDraw.GRID.NUM_2P_SC_R).lngBackColor = Color
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_2P_SC", "ObjectLight", "255,96,96", strFileName)
 					g_lngPenColor(modDraw.PEN_NUM.KEY18_LIGHT) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.INV_KEY18_LIGHT) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_2P_SC", "ObjectShadow", "128,0,0", strFileName)
 					g_lngPenColor(modDraw.PEN_NUM.KEY18_SHADOW) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.INV_KEY18_SHADOW) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Color = GetColor("KEY_2P_SC", "ObjectColor", "255,0,0", strFileName)
 					g_lngBrushColor(modDraw.BRUSH_NUM.KEY18) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY18) = HalfColor(Color)
 					
 				Case modDraw.BRUSH_NUM.LONGNOTE
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.LONGNOTE_LIGHT) = GetColor("KEY_LONGNOTE", "ObjectLight", "0,128,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.LONGNOTE_SHADOW) = GetColor("KEY_LONGNOTE", "ObjectShadow", "0,32,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngBrushColor(modDraw.BRUSH_NUM.LONGNOTE) = GetColor("KEY_LONGNOTE", "ObjectColor", "0,64,0", strFileName)
 					
 				Case modDraw.BRUSH_NUM.SELECT_OBJ
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.SELECT_OBJ_LIGHT) = GetColor("SELECT", "ObjectLight", "255,255,255", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.SELECT_OBJ_SHADOW) = GetColor("SELECT", "ObjectShadow", "128,128,128", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngBrushColor(modDraw.BRUSH_NUM.SELECT_OBJ) = GetColor("SELECT", "ObjectColor", "0,255,255", strFileName)
 					
 				Case modDraw.BRUSH_NUM.EDIT_FRAME
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.EDIT_FRAME) = GetColor("SELECT", "EditFrame", "255,255,255", strFileName)
 					
 				Case modDraw.BRUSH_NUM.DELETE_FRAME
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_lngPenColor(modDraw.PEN_NUM.DELETE_FRAME) = GetColor("SELECT", "DeleteFrame", "255,255,255", strFileName)
 					
 			End Select
@@ -1549,325 +1549,325 @@ Err_Renamed:
 		Dim g_Message As Object
 		Dim strGet_ini As Object
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_strStatusBar(1) = strGet_ini("StatusBar", "CH_01", "BGM", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_strStatusBar(4) = strGet_ini("StatusBar", "CH_04", "BGA", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_strStatusBar(6) = strGet_ini("StatusBar", "CH_06", "BGA Poor", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_strStatusBar(7) = strGet_ini("StatusBar", "CH_07", "BGA Layer", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_strStatusBar(8) = strGet_ini("StatusBar", "CH_08", "BPM Change", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_strStatusBar(9) = strGet_ini("StatusBar", "CH_09", "Stop Sequence", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_strStatusBar(11) = strGet_ini("StatusBar", "CH_KEY_1P", "1P Key", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_strStatusBar(12) = strGet_ini("StatusBar", "CH_KEY_2P", "2P Key", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_strStatusBar(13) = strGet_ini("StatusBar", "CH_SCRATCH_1P", "1P Scratch", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_strStatusBar(14) = strGet_ini("StatusBar", "CH_SCRATCH_2P", "2P Scratch", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_strStatusBar(15) = strGet_ini("StatusBar", "CH_INVISIBLE", "(Invisible)", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_strStatusBar(16) = strGet_ini("StatusBar", "CH_LONGNOTE", "(LongNote)", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_strStatusBar(20) = strGet_ini("StatusBar", "MODE_EDIT", "Edit Mode", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_strStatusBar(21) = strGet_ini("StatusBar", "MODE_WRITE", "Write Mode", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_strStatusBar(22) = strGet_ini("StatusBar", "MODE_DELETE", "Delete Mode", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_strStatusBar(23) = strGet_ini("StatusBar", "MEASURE", "Measure", strFileName)
 		
 		With frmMain
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuFile.Text = strGet_ini("Menu", "FILE", "&File", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuFileNew.Text = strGet_ini("Menu", "FILE_NEW", "&New", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuFileOpen.Text = strGet_ini("Menu", "FILE_OPEN", "&Open", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuFileSave.Text = strGet_ini("Menu", "FILE_SAVE", "&Save", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuFileSaveAs.Text = strGet_ini("Menu", "FILE_SAVE_AS", "Save &As", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuFileOpenDirectory.Text = strGet_ini("Menu", "FILE_OPEN_DIRECTORY", "Open &Directory", strFileName)
 			'.mnuFileDeleteUnusedFile.Caption = strGet_ini("Menu", "FILE_DELETE_UNUSED_FILE", "&Delete Unused File(s)", strFileName)
 			'.mnuFileNameConvert.Caption = strGet_ini("Menu", "FILE_CONVERT_FILENAME", "&Convert Filenames to [01-ZZ]", strFileName)
 			'.mnuFileListAlign.Caption = strGet_ini("Menu", "FILE_ALIGN_LIST", "Rewrite &List into old format [01-FF]", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuFileConvertWizard.Text = strGet_ini("Menu", "FILE_CONVERT_WIZARD", "Show &Conversion Wizard", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuFileExit.Text = strGet_ini("Menu", "FILE_EXIT", "&Exit", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuEdit.Text = strGet_ini("Menu", "EDIT", "&Edit", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuEditUndo.Text = strGet_ini("Menu", "EDIT_UNDO", "&Undo", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuEditRedo.Text = strGet_ini("Menu", "EDIT_REDO", "&Redo", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuEditCut.Text = strGet_ini("Menu", "EDIT_CUT", "Cu&t", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuEditCopy.Text = strGet_ini("Menu", "EDIT_COPY", "&Copy", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuEditPaste.Text = strGet_ini("Menu", "EDIT_PASTE", "&Paste", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuEditDelete.Text = strGet_ini("Menu", "EDIT_DELETE", "&Delete", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuEditSelectAll.Text = strGet_ini("Menu", "EDIT_SELECT_ALL", "&Find/Replace/Delete", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuEditFind.Text = strGet_ini("Menu", "EDIT_FIND", "&Select All", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, EDIT_MODE_EDIT, Edit &Mode, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Menu, EDIT_MODE_EDIT, Edit &Mode, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuEditMode(0).Text = strGet_ini("Menu", "EDIT_MODE_EDIT", "Edit &Mode", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, EDIT_MODE_WRITE, Write &Mode, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Menu, EDIT_MODE_WRITE, Write &Mode, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuEditMode(1).Text = strGet_ini("Menu", "EDIT_MODE_WRITE", "Write &Mode", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, EDIT_MODE_DELETE, Delete &Mode, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Menu, EDIT_MODE_DELETE, Delete &Mode, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuEditMode(2).Text = strGet_ini("Menu", "EDIT_MODE_DELETE", "Delete &Mode", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuView.Text = strGet_ini("Menu", "VIEW", "&View", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, VIEW_TOOL_BAR, &Tool Bar, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Menu, VIEW_TOOL_BAR, &Tool Bar, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuViewItem(frmMain.MENU_VIEW.TOOL_BAR).Text = strGet_ini("Menu", "VIEW_TOOL_BAR", "&Tool Bar", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, VIEW_DIRECT_INPUT, &Direct Input, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Menu, VIEW_DIRECT_INPUT, &Direct Input, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuViewItem(frmMain.MENU_VIEW.DIRECT_INPUT).Text = strGet_ini("Menu", "VIEW_DIRECT_INPUT", "&Direct Input", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, VIEW_STATUS_BAR, &Status Bar, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Menu, VIEW_STATUS_BAR, &Status Bar, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuViewItem(frmMain.MENU_VIEW.STATUS_BAR).Text = strGet_ini("Menu", "VIEW_STATUS_BAR", "&Status Bar", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuOptions.Text = strGet_ini("Menu", "OPTIONS", "&Options", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, OPTIONS_IGNORE_ACTIVE, &Control Unavailable When Active, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Menu, OPTIONS_IGNORE_ACTIVE, &Control Unavailable When Active, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuOptionsItem(frmMain.MENU_OPTIONS.IGNORE_INPUT).Text = strGet_ini("Menu", "OPTIONS_IGNORE_ACTIVE", "&Control Unavailable When Active", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, OPTIONS_FILE_NAME_ONLY, Display &File Name Only, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Menu, OPTIONS_FILE_NAME_ONLY, Display &File Name Only, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuOptionsItem(frmMain.MENU_OPTIONS.TITLE_FILENAME).Text = strGet_ini("Menu", "OPTIONS_FILE_NAME_ONLY", "Display &File Name Only", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, OPTIONS_VERTICAL, &Vertical Grid Info, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Menu, OPTIONS_VERTICAL, &Vertical Grid Info, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuOptionsItem(frmMain.MENU_OPTIONS.VERTICAL_INFO).Text = strGet_ini("Menu", "OPTIONS_VERTICAL", "&Vertical Grid Info", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, OPTIONS_LANE_BG, &Background Color, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Menu, OPTIONS_LANE_BG, &Background Color, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuOptionsItem(frmMain.MENU_OPTIONS.LANE_BGCOLOR).Text = strGet_ini("Menu", "OPTIONS_LANE_BG", "&Background Color", strFileName)
 			'.mnuOptionsItem(SELECT_PREVIEW).Caption = strGet_ini("Menu", "OPTIONS_SINGLE_SELECT_SOUND", "&Sound Upon Object Selection", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, OPTIONS_SINGLE_SELECT_PREVIEW, &Preview Upon Object Selection, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Menu, OPTIONS_SINGLE_SELECT_PREVIEW, &Preview Upon Object Selection, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuOptionsItem(frmMain.MENU_OPTIONS.SELECT_PREVIEW).Text = strGet_ini("Menu", "OPTIONS_SINGLE_SELECT_PREVIEW", "&Preview Upon Object Selection", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, OPTIONS_OBJECT_FILE_NAME, Show &Objects' File Names, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Menu, OPTIONS_OBJECT_FILE_NAME, Show &Objects' File Names, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuOptionsItem(frmMain.MENU_OPTIONS.OBJ_FILENAME).Text = strGet_ini("Menu", "OPTIONS_OBJECT_FILE_NAME", "Show &Objects' File Names", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, OPTIONS_MOVE_ON_GRID, Restrict Objects' &Movement Onto Grid, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Menu, OPTIONS_MOVE_ON_GRID, Restrict Objects' &Movement Onto Grid, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuOptionsItem(frmMain.MENU_OPTIONS.MOVE_ON_GRID).Text = strGet_ini("Menu", "OPTIONS_MOVE_ON_GRID", "Restrict Objects' &Movement Onto Grid", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, OPTIONS_USE_OLD_FORMAT, &Use Old Format (01-FF), strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Menu, OPTIONS_USE_OLD_FORMAT, &Use Old Format (01-FF), strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuOptionsItem(frmMain.MENU_OPTIONS.USE_OLD_FORMAT).Text = strGet_ini("Menu", "OPTIONS_USE_OLD_FORMAT", "&Use Old Format (01-FF)", strFileName)
 			'.mnuOptionsItem(RCLICK_DELETE).Caption = strGet_ini("Menu", "OPTIONS_RIGHT_CLICK_DELETE", "&Right Click To Delete Objects", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuTools.Text = strGet_ini("Menu", "TOOLS", "&Tools", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuToolsPlayAll.Text = strGet_ini("Menu", "TOOLS_PLAY_FIRST", "Play &All", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuToolsPlay.Text = strGet_ini("Menu", "TOOLS_PLAY", "&Play From Current Position", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuToolsPlayStop.Text = strGet_ini("Menu", "TOOLS_STOP", "&Stop", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuToolsSetting.Text = strGet_ini("Menu", "TOOLS_SETTING", "&Viewer Setting", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuHelp.Text = strGet_ini("Menu", "HELP", "&Help", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuHelpOpen.Text = strGet_ini("Menu", "HELP_OPEN", "&Help", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuHelpWeb.Text = strGet_ini("Menu", "HELP_WEB", "Open &Website", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuHelpAbout.Text = strGet_ini("Menu", "HELP_ABOUT", "&About BMSE", strFileName)
 			
 			.mnuContext.Visible = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuContextPlayAll.Text = strGet_ini("Menu", "TOOLS_PLAY_FIRST", "Play &All", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuContextPlay.Text = strGet_ini("Menu", "TOOLS_PLAY", "&Play From Current Position", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuContextInsertMeasure.Text = strGet_ini("Menu", "CONTEXT_MEASURE_INSERT", "&Insert Measure", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuContextDeleteMeasure.Text = strGet_ini("Menu", "CONTEXT_MEASURE_DELETE", "Delete &Measure", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuContextEditCut.Text = strGet_ini("Menu", "EDIT_CUT", "Cu&t", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuContextEditCopy.Text = strGet_ini("Menu", "EDIT_COPY", "&Copy", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuContextEditPaste.Text = strGet_ini("Menu", "EDIT_PASTE", "&Paste", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuContextEditDelete.Text = strGet_ini("Menu", "EDIT_DELETE", "&Delete", strFileName)
 			
 			.mnuContextList.Visible = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuContextListLoad.Text = strGet_ini("Menu", "CONTEXT_LIST_LOAD", "&Load", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuContextListDelete.Text = strGet_ini("Menu", "CONTEXT_LIST_DELETE", "&Delete", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuContextListRename.Text = strGet_ini("Menu", "CONTEXT_LIST_RENAME", "&Rename", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Header, TAB_BASIC, Basic, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Header, TAB_BASIC, Basic, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.optChangeTop(0).Text = strGet_ini("Header", "TAB_BASIC", "Basic", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Header, TAB_EXPAND, Expand, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Header, TAB_EXPAND, Expand, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.optChangeTop(1).Text = strGet_ini("Header", "TAB_EXPAND", "Expand", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Header, TAB_CONFIG, Config, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Header, TAB_CONFIG, Config, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.optChangeTop(2).Text = strGet_ini("Header", "TAB_CONFIG", "Config", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblPlayMode.Text = strGet_ini("Header", "BASIC_PLAYER", "#PLAYER", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboPlayer, 0, strGet_ini("Header", "BASIC_PLAYER_1P", "1 Player", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboPlayer, 1, strGet_ini("Header", "BASIC_PLAYER_2P", "2 Player", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboPlayer, 2, strGet_ini("Header", "BASIC_PLAYER_DP", "Double Play", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboPlayer, 3, strGet_ini("Header", "BASIC_PLAYER_PMS", "9 Keys (PMS)", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboPlayer, 4, strGet_ini("Header", "BASIC_PLAYER_OCT", "13 Keys (Oct)", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblGenre.Text = strGet_ini("Header", "BASIC_GENRE", "#GENRE", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblTitle.Text = strGet_ini("Header", "BASIC_TITLE", "#TITLE", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblArtist.Text = strGet_ini("Header", "BASIC_ARTIST", "#ARTIST", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblPlayLevel.Text = strGet_ini("Header", "BASIC_PLAYLEVEL", "#PLAYLEVEL", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblBPM.Text = strGet_ini("Header", "BASIC_BPM", "#BPM", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblPlayRank.Text = strGet_ini("Header", "EXPAND_RANK", "#RANK", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboPlayRank, 0, strGet_ini("Header", "EXPAND_RANK_VERY_HARD", "Very Hard", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboPlayRank, 1, strGet_ini("Header", "EXPAND_RANK_HARD", "Hard", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboPlayRank, 2, strGet_ini("Header", "EXPAND_RANK_NORMAL", "Normal", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboPlayRank, 3, strGet_ini("Header", "EXPAND_RANK_EASY", "Easy", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblTotal.Text = strGet_ini("Header", "EXPAND_TOTAL", "#TOTAL", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblVolume.Text = strGet_ini("Header", "EXPAND_VOLWAV", "#VOLWAV", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblStageFile.Text = strGet_ini("Header", "EXPAND_STAGEFILE", "#STAGEFILE", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblMissBMP.Text = strGet_ini("Header", "EXPAND_BPM_MISS", "#BMP00", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdLoadMissBMP.Text = strGet_ini("Header", "EXPAND_SET_FILE", "...", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdLoadStageFile.Text = strGet_ini("Header", "EXPAND_SET_FILE", "...", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblDispFrame.Text = strGet_ini("Header", "CONFIG_KEY_FRAME", "Key Frame", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboDispFrame, 0, strGet_ini("Header", "CONFIG_KEY_HALF", "Half", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboDispFrame, 1, strGet_ini("Header", "CONFIG_KEY_SEPARATE", "Separate", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblDispKey.Text = strGet_ini("Header", "CONFIG_KEY_POSITION", "Key Position", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboDispKey, 0, strGet_ini("Header", "CONFIG_KEY_5KEYS", "5Keys/10Keys", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboDispKey, 1, strGet_ini("Header", "CONFIG_KEY_7KEYS", "7Keys/14Keys", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblDispSC1P.Text = strGet_ini("Header", "CONFIG_SCRATCH_1P", "Scratch 1P", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboDispSC1P, 0, strGet_ini("Header", "CONFIG_SCRATCH_LEFT", "L", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboDispSC1P, 1, strGet_ini("Header", "CONFIG_SCRATCH_RIGHT", "R", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblDispSC2P.Text = strGet_ini("Header", "CONFIG_SCRATCH_2P", "2P", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboDispSC2P, 0, strGet_ini("Header", "CONFIG_SCRATCH_LEFT", "L", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboDispSC2P, 1, strGet_ini("Header", "CONFIG_SCRATCH_RIGHT", "R", strFileName))
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Material, TAB_WAV, #WAV, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Material, TAB_WAV, #WAV, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.optChangeBottom(0).Text = strGet_ini("Material", "TAB_WAV", "#WAV", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Material, TAB_BMP, #BMP, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Material, TAB_BMP, #BMP, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.optChangeBottom(1).Text = strGet_ini("Material", "TAB_BMP", "#BMP", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Material, TAB_BGA, #BGA, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Material, TAB_BGA, #BGA, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.optChangeBottom(2).Text = strGet_ini("Material", "TAB_BGA", "#BGA", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Material, TAB_BEAT, Beat, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Material, TAB_BEAT, Beat, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.optChangeBottom(3).Text = strGet_ini("Material", "TAB_BEAT", "Beat", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Material, TAB_EXPAND, Expand, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Material, TAB_EXPAND, Expand, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.optChangeBottom(4).Text = strGet_ini("Material", "TAB_EXPAND", "Expand", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdSoundStop.Text = strGet_ini("Material", "MATERIAL_STOP", "Stop", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdSoundExcUp.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_UP", "<", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdSoundExcDown.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_DOWN", ">", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdSoundDelete.Text = strGet_ini("Material", "MATERIAL_DELETE", "Del", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdSoundLoad.Text = strGet_ini("Material", "MATERIAL_SET_FILE", "...", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdBMPPreview.Text = strGet_ini("Material", "MATERIAL_PREVIEW", "Preview", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdBMPExcUp.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_UP", "<", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdBMPExcDown.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_DOWN", ">", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdBMPDelete.Text = strGet_ini("Material", "MATERIAL_DELETE", "Del", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdBMPLoad.Text = strGet_ini("Material", "MATERIAL_SET_FILE", "...", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdBGAPreview.Text = strGet_ini("Material", "MATERIAL_PREVIEW", "Preview", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdBGAExcUp.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_UP", "<", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdBGAExcDown.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_DOWN", ">", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdBGADelete.Text = strGet_ini("Material", "MATERIAL_DELETE", "Del", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdBGASet.Text = strGet_ini("Material", "MATERIAL_INPUT", "Input", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdMeasureSelectAll.Text = strGet_ini("Material", "MATERIAL_SELECT_ALL", "All", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdInputMeasureLen.Text = strGet_ini("Material", "MATERIAL_INPUT", "Input", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblGridMain.Text = strGet_ini("ToolBar", "GRID_MAIN", "Grid", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblGridSub.Text = strGet_ini("ToolBar", "GRID_SUB", "Sub", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblDispHeight.Text = strGet_ini("ToolBar", "DISP_HEIGHT", "Height", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblDispWidth.Text = strGet_ini("ToolBar", "DISP_WIDTH", "Width", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboDispHeight, .cboDispHeight.Items.Count - 1, strGet_ini("ToolBar", "DISP_VALUE_OTHER", "Other", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			VB6.SetItemString(.cboDispWidth, .cboDispHeight.Items.Count - 1, strGet_ini("ToolBar", "DISP_VALUE_OTHER", "Other", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblVScroll.Text = strGet_ini("ToolBar", "VSCROLL", "VScroll", strFileName)
 			
 			If .tlbMenu.Items.Item("Edit").Checked = True Then
@@ -1888,261 +1888,261 @@ Err_Renamed:
 		
 		With frmMain.tlbMenu
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_NEW, New, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, TOOLTIP_NEW, New, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("New").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_NEW", "New", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: MSComctlLib.Button ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.Description ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("New").Description = strGet_ini("ToolBar", "TOOLTIP_NEW", "New", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_OPEN, Open, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, TOOLTIP_OPEN, Open, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("Open").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_OPEN", "Open", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: MSComctlLib.Button ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.Description ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("Open").Description = strGet_ini("ToolBar", "TOOLTIP_OPEN", "Open", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_RELOAD, Reload, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, TOOLTIP_RELOAD, Reload, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("Reload").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_RELOAD", "Reload", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: MSComctlLib.Button ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.Description ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("Reload").Description = strGet_ini("ToolBar", "TOOLTIP_RELOAD", "Reload", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_SAVE, Save, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, TOOLTIP_SAVE, Save, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("Save").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_SAVE", "Save", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: MSComctlLib.Button ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.Description ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("Save").Description = strGet_ini("ToolBar", "TOOLTIP_SAVE", "Save", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_SAVE_AS, Save As, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, TOOLTIP_SAVE_AS, Save As, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("SaveAs").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_SAVE_AS", "Save As", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: MSComctlLib.Button ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.Description ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("SaveAs").Description = strGet_ini("ToolBar", "TOOLTIP_SAVE_AS", "Save As", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_MODE_EDIT, Edit Mode, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, TOOLTIP_MODE_EDIT, Edit Mode, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("Edit").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_MODE_EDIT", "Edit Mode", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: MSComctlLib.Button ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.Description ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("Edit").Description = strGet_ini("ToolBar", "TOOLTIP_MODE_EDIT", "Edit Mode", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_MODE_WRITE, Write Mode, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, TOOLTIP_MODE_WRITE, Write Mode, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("Write").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_MODE_WRITE", "Write Mode", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: MSComctlLib.Button ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.Description ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("Write").Description = strGet_ini("ToolBar", "TOOLTIP_MODE_WRITE", "Write Mode", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_MODE_DELETE, Delete Mode, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, TOOLTIP_MODE_DELETE, Delete Mode, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("Delete").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_MODE_DELETE", "Delete Mode", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: MSComctlLib.Button ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.Description ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("Delete").Description = strGet_ini("ToolBar", "TOOLTIP_MODE_DELETE", "Delete Mode", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_PLAY_FIRST, Play All, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, TOOLTIP_PLAY_FIRST, Play All, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("PlayAll").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_PLAY_FIRST", "Play All", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: MSComctlLib.Button ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.Description ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("PlayAll").Description = strGet_ini("ToolBar", "TOOLTIP_PLAY_FIRST", "Play All", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_PLAY, Play From Current Position, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, TOOLTIP_PLAY, Play From Current Position, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("Play").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_PLAY", "Play From Current Position", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: MSComctlLib.Button ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.Description ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("Play").Description = strGet_ini("ToolBar", "TOOLTIP_PLAY", "Play From Current Position", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_STOP, Stop, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, TOOLTIP_STOP, Stop, strFileName) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("Stop").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_STOP", "Stop", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: MSComctlLib.Button ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.Description ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Items.Item("Stop").Description = strGet_ini("ToolBar", "TOOLTIP_STOP", "Stop", strFileName)
 			
 		End With
 		
 		With frmWindowFind
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Text = strGet_ini("Find", "TITLE", "Find/Delete/Replace", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.fraSearchObject.Text = strGet_ini("Find", "FRAME_SEARCH", "Range", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.fraSearchMeasure.Text = strGet_ini("Find", "FRAME_MEASURE", "Range of measure", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.fraSearchNum.Text = strGet_ini("Find", "FRAME_OBJ_NUM", "Range of object number", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.fraSearchGrid.Text = strGet_ini("Find", "FRAME_GRID", "Lane", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.fraProcess.Text = strGet_ini("Find", "FRAME_PROCESS", "Method", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.optSearchAll.Text = strGet_ini("Find", "OPT_OBJ_ALL", "All object", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.optSearchSelect.Text = strGet_ini("Find", "OPT_OBJ_SELECT", "Selected object", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.optProcessSelect.Text = strGet_ini("Find", "OPT_PROCESS_SELECT", "Select", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.optProcessDelete.Text = strGet_ini("Find", "OPT_PROCESS_DELETE", "Delete", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.optProcessReplace.Text = strGet_ini("Find", "OPT_PROCESS_REPLACE", "Replace to", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdInvert.Text = strGet_ini("Find", "CMD_INVERT", "Invert", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdReset.Text = strGet_ini("Find", "CMD_RESET", "Reset", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdSelect.Text = strGet_ini("Find", "CMD_SELECT", "Select All", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdClose.Text = strGet_ini("Find", "CMD_CLOSE", "Close", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdDecide.Text = strGet_ini("Find", "CMD_DECIDE", "Run", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblNotice.Text = strGet_ini("Find", "LBL_NOTICE", "This item doesn't influence BPM/STOP object", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblMeasure.Text = strGet_ini("Find", "LBL_DASH", "to", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblNum.Text = strGet_ini("Find", "LBL_DASH", "to", strFileName)
 			
 		End With
 		
 		With frmWindowInput
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Text = strGet_ini("Input", "TITLE", "Input Form", strFileName)
 			
 		End With
 		
 		With frmWindowViewer
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Text = strGet_ini("Viewer", "TITLE", "Viewer Setting", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdViewerPath.Text = strGet_ini("Viewer", "CMD_SET", "...", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdAdd.Text = strGet_ini("Viewer", "CMD_ADD", "Add", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdDelete.Text = strGet_ini("Viewer", "CMD_DELETE", "Delete", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdOK.Text = strGet_ini("Viewer", "CMD_OK", "OK", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdCancel.Text = strGet_ini("Viewer", "CMD_CANCEL", "Cancel", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblViewerName.Text = strGet_ini("Viewer", "LBL_APP_NAME", "Player name", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblViewerPath.Text = strGet_ini("Viewer", "LBL_APP_PATH", "Path", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblPlayAll.Text = strGet_ini("Viewer", "LBL_ARG_PLAY_ALL", "Argument of ""Play All""", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblPlay.Text = strGet_ini("Viewer", "LBL_ARG_PLAY", "Argument of ""Play""", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblStop.Text = strGet_ini("Viewer", "LBL_ARG_STOP", "Argument of ""Stop""", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblNotice.Text = Replace(strGet_ini("Viewer", "LBL_ARG_INFO", "Syntax reference:\n<filename> File name\n<measure> Current measure", strFileName), "\n", vbCrLf)
 			
 		End With
 		
 		With frmWindowConvert
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Text = strGet_ini("Convert", "TITLE", "Conversion Wizard", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.chkDeleteUnusedFile.Text = strGet_ini("Convert", "CHK_DELETE_LIST", "Clear unused definition from a list", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.chkDeleteFile.Text = strGet_ini("Convert", "CHK_DELETE_FILE", "Delete unused files in this BMS folder (*)", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblExtension.Text = strGet_ini("Convert", "LBL_EXTENSION", "Search extensions:", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.chkFileRecycle.Text = strGet_ini("Convert", "CHK_RECYCLE", "Delete soon with no through recycled", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.chkListAlign.Text = strGet_ini("Convert", "CHK_ALIGN_LIST", "Sort definition list", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.chkUseOldFormat.Text = strGet_ini("Convert", "CHK_USE_OLD_FORMAT", "Use old Format [01 - FF] if possible", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.chkSortByName.Text = strGet_ini("Convert", "CHK_SORT_BY_NAME", "Sorting by filename", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.chkFileNameConvert.Text = strGet_ini("Convert", "CHK_CONVERT_FILENAME", "Change filename to list number [01 - ZZ] (*)", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lblNotice.Text = strGet_ini("Convert", "LBL_NOTICE", "(*) Cannot undo this command", strFileName)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdDecide.Text = strGet_ini("Convert", "CMD_DECIDE", "Run", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cmdCancel.Text = strGet_ini("Convert", "CMD_CANCEL", "Cancel", strFileName)
 			
 		End With
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.ERR_01) = Replace(strGet_ini("Message", "ERROR_MESSAGE_01", "The unexpected error occurred. Program will shut down.\nRefer to the ""error.txt"" for the details of an error.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.ERR_02) = Replace(strGet_ini("Message", "ERROR_MESSAGE_02", "Temporary file is saved to...", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.ERR_FILE_NOT_FOUND) = Replace(strGet_ini("Message", "ERROR_FILE_NOT_FOUND", "File not found.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.ERR_LOAD_CANCEL) = Replace(strGet_ini("Message", "ERROR_LOAD_CANCEL", "Loading will be aborted.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.ERR_SAVE_ERROR) = Replace(strGet_ini("Message", "ERROR_SAVE_ERROR", "Error occured while saving.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.ERR_SAVE_CANCEL) = Replace(strGet_ini("Message", "ERROR_SAVE_CANCEL", "Saving will be aborted.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.ERR_OVERFLOW_LARGE) = Replace(strGet_ini("Message", "ERROR_OVERFLOW_LARGE", "Error:\nValue is too large.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.ERR_OVERFLOW_SMALL) = Replace(strGet_ini("Message", "ERROR_OVERFLOW_SMALL", "Error:\nValue is too small.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.ERR_OVERFLOW_BPM) = Replace(strGet_ini("Message", "ERROR_OVERFLOW_BPM", "You have used more than 1295 BPM change command.\nNumber of commands should be less than 1295.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.ERR_OVERFLOW_STOP) = Replace(strGet_ini("Message", "ERROR_OVERFLOW_STOP", "You have used more than 1295 STOP command.\nNumber of commands should be less than 1295.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.ERR_APP_NOT_FOUND) = Replace(strGet_ini("Message", "ERROR_APP_NOT_FOUND", " is not found.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.ERR_FILE_ALREADY_EXIST) = Replace(strGet_ini("Message", "ERROR_FILE_ALREADY_EXIST", "File already exist.", strFileName), "\n", vbCrLf)
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.MSG_CONFIRM) = Replace(strGet_ini("Message", "INFO_CONFIRM", "This command cannot be undone, OK?", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.MSG_FILE_CHANGED) = Replace(strGet_ini("Message", "INFO_FILE_CHANGED", "Do you want to save changes?", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.MSG_INI_CHANGED) = Replace(strGet_ini("Message", "INFO_INI_CHANGED", "ini format has changed.\n(All setting will reset)", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.MSG_ALIGN_LIST) = Replace(strGet_ini("Message", "INFO_ALIGN_LIST", "Do you want the filelist to be rewrited into the old format [01 - FF]?\n(Attention: Some programs are compatible only with old format files.)", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.MSG_DELETE_FILE) = Replace(strGet_ini("Message", "INFO_DELETE_FILE", "They have been deleted:", strFileName), "\n", vbCrLf)
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.INPUT_BPM) = Replace(strGet_ini("Input", "INPUT_BPM", "Enter the BPM you wish to change to.\n(Decimal number can be used. Enter 0 to cancel)", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.INPUT_STOP) = Replace(strGet_ini("Input", "INPUT_STOP", "Enter the length of stoppage 1 corresponds to 1/192 of the measure.\n(Enter under 0 to cancel)", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.INPUT_RENAME) = Replace(strGet_ini("Input", "INPUT_RENAME", "Please enter new filename.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Message() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Message(modMain.Message.INPUT_SIZE) = Replace(strGet_ini("Input", "INPUT_SIZE", "Type your display magnification.\n(Maximum 16.00. Enter under 0 to cancel)", strFileName), "\n", vbCrLf)
 		
 		Dim DefaultFont As String
@@ -2154,25 +2154,25 @@ Err_Renamed:
 		'Call SystemParametersInfo(SPI_GETNONCLIENTMETRICS, LenB(ncm), ncm, 0)
 		'DefaultFont = StrConv(ncm.lfSMCaptionFont.lfFaceName, vbUnicode)
 		
-		'UPGRADE_ISSUE: LOGFONT ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: LOGFONT ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Dim lf As LOGFONT
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg lf ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_ISSUE: LenB ŠÖ”‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetStockObject() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ lf ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_ISSUE: LenB é–¢æ•°ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetStockObject() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call GetObject(GetStockObject(DEFAULT_GUI_FONT), CStr(LenB(lf)), CStr(lf))
-		'UPGRADE_ISSUE: ’è” vbUnicode ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg lf.lfFaceName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: å®šæ•° vbUnicode ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ lf.lfFaceName ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		DefaultFont = Trim(StrConv(lf.lfFaceName, vbUnicode))
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		SystemFont = strGet_ini("Main", "Font", DefaultFont, strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		FixedFont = strGet_ini("Main", "FixedFont", DefaultFont, strFileName)
 		
-		'ƒtƒHƒ“ƒg‹­§•ÏX
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'ãƒ•ã‚©ãƒ³ãƒˆå¼·åˆ¶å¤‰æ›´
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		SystemFont = strGet_ini("Main", "Font", SystemFont, "bmse.ini")
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		FixedFont = strGet_ini("Main", "FixedFont", FixedFont, "bmse.ini")
 		
 		Call LoadFont(SystemFont, FixedFont, strGet_ini("Main", "Charset", DEFAULT_CHARSET, strFileName))
@@ -2197,16 +2197,16 @@ Err_Renamed:
 				
 				If TypeOf objCtl Is System.Windows.Forms.Label Or TypeOf objCtl Is System.Windows.Forms.TextBox Or TypeOf objCtl Is System.Windows.Forms.ComboBox Or TypeOf objCtl Is System.Windows.Forms.Button Or TypeOf objCtl Is System.Windows.Forms.RadioButton Or TypeOf objCtl Is System.Windows.Forms.CheckBox Or TypeOf objCtl Is System.Windows.Forms.GroupBox Then
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg objCtl.Font ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ objCtl.Font ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					objCtl.Font.Name = MainFont
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg objCtl.Font ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ objCtl.Font ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					objCtl.Font.Charset = Charset
 					
 				ElseIf TypeOf objCtl Is System.Windows.Forms.PictureBox Or TypeOf objCtl Is System.Windows.Forms.ListBox Then 
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg objCtl.Font ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ objCtl.Font ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					objCtl.Font.Name = FixedFont
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg objCtl.Font ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ objCtl.Font ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					objCtl.Font.Charset = Charset
 					
 				End If
@@ -2218,7 +2218,7 @@ Err_Renamed:
 		Exit Sub
 		
 Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.CleanUp ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call modMain.CleanUp(Err.Number, Err.Description, "LoadFont")
 	End Sub
 	
@@ -2238,12 +2238,12 @@ Err_Renamed:
 		Dim lngTemp As Integer
 		Static lngCount As Integer
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Main, Key, , bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Main, Key, , bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		If strGet_ini("Main", "Key", "", "bmse.ini") <> "BMSE" Then GoTo InitConfig
 		
 		With frmMain
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			strTemp = strGet_ini("Main", "Language", "english.ini", "bmse.ini")
 			
 			For i = 1 To .mnuLanguage.UBound
@@ -2258,30 +2258,30 @@ Err_Renamed:
 				
 			Next i
 			
-			'UPGRADE_ISSUE: Load ƒXƒe[ƒgƒƒ“ƒg ‚ÍƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Load ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Load(frmWindowAbout)
-			'UPGRADE_ISSUE: Load ƒXƒe[ƒgƒƒ“ƒg ‚ÍƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Load ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Load(frmWindowFind)
-			'UPGRADE_ISSUE: Load ƒXƒe[ƒgƒƒ“ƒg ‚ÍƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Load ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Load(frmWindowInput)
-			'UPGRADE_ISSUE: Load ƒXƒe[ƒgƒƒ“ƒg ‚ÍƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Load ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Load(frmWindowPreview)
-			'UPGRADE_ISSUE: Load ƒXƒe[ƒgƒƒ“ƒg ‚ÍƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Load ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Load(frmWindowTips)
-			'UPGRADE_ISSUE: Load ƒXƒe[ƒgƒƒ“ƒg ‚ÍƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Load ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Load(frmWindowViewer)
-			'UPGRADE_ISSUE: Load ƒXƒe[ƒgƒƒ“ƒg ‚ÍƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Load ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Load(frmWindowConvert)
 			
 			Call LoadLanguageFile("lang\" & strTemp)
 			
 			Call frmWindowPreview.SetWindowSize()
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg INI_VERSION ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ INI_VERSION ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If strGet_ini("Main", "ini", "", "bmse.ini") <> INI_VERSION Then
 				
-				'UPGRADE_WARNING: LoadConfig ‚É•ÏŠ·‚³‚ê‚Ä‚¢‚È‚¢ƒXƒe[ƒgƒƒ“ƒg‚ª‚ ‚è‚Ü‚·Bƒ\[ƒX ƒR[ƒh‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: LoadConfig ã«å¤‰æ›ã•ã‚Œã¦ã„ãªã„ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆãŒã‚ã‚Šã¾ã™ã€‚ã‚½ãƒ¼ã‚¹ ã‚³ãƒ¼ãƒ‰ã‚’ç¢ºèªã—ã¦ãã ã•ã„ã€‚
 				
 				GoTo InitConfig
 				
@@ -2296,15 +2296,15 @@ Err_Renamed:
 				
 				With .rcNormalPosition
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.right_Renamed = strGet_ini("Main", "Width", 800, "bmse.ini")
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.Bottom = strGet_ini("Main", "Height", 600, "bmse.ini")
 					'.Left = strGet_ini("Main", "X", (Screen.Width \ Screen.TwipsPerPixelX - .Right) \ 2, "bmse.ini")
 					'.Top = strGet_ini("Main", "Y", (Screen.Height \ Screen.TwipsPerPixelY - .Bottom) \ 2, "bmse.ini")
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.left_Renamed = strGet_ini("Main", "X", 0, "bmse.ini")
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.Top = strGet_ini("Main", "Y", 0, "bmse.ini")
 					.right_Renamed = .left_Renamed + .right_Renamed
 					.Bottom = .Top + .Bottom
@@ -2331,7 +2331,7 @@ Err_Renamed:
 				
 			End With
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			strTemp = strGet_ini("Main", "Theme", "default.ini", "bmse.ini")
 			
 			For i = 1 To .mnuTheme.UBound
@@ -2348,9 +2348,9 @@ Err_Renamed:
 			
 			Call LoadThemeFile("theme\" & strTemp)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			g_strHelpFilename = strGet_ini("Main", "Help", "", "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			g_strFiler = strGet_ini("Main", "Filer", "", "bmse.ini")
 			
 			If g_strHelpFilename <> "" Then
@@ -2364,7 +2364,7 @@ Err_Renamed:
 			
 			With .cboDispWidth
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				lngTemp = strGet_ini("View", "Width", 100, "bmse.ini")
 				
 				For i = 0 To .Items.Count - 1
@@ -2391,7 +2391,7 @@ Err_Renamed:
 			
 			With .cboDispHeight
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				lngTemp = strGet_ini("View", "Height", 100, "bmse.ini")
 				
 				For i = 0 To .Items.Count - 1
@@ -2416,35 +2416,35 @@ Err_Renamed:
 				
 			End With
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cboDispGridMain.SelectedIndex = strGet_ini("View", "VGridMain", 1, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cboDispGridSub.SelectedIndex = strGet_ini("View", "VGridSub", 1, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cboDispFrame.SelectedIndex = strGet_ini("View", "Frame", 1, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cboDispKey.SelectedIndex = strGet_ini("View", "Key", 1, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cboDispSC1P.SelectedIndex = strGet_ini("View", "SC_1P", 1, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.cboDispSC2P.SelectedIndex = strGet_ini("View", "SC_2P", 1, "bmse.ini")
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(View, ToolBar, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(View, ToolBar, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuViewItem(frmMain.MENU_VIEW.TOOL_BAR).Checked = strGet_ini("View", "ToolBar", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(View, DirectInput, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(View, DirectInput, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuViewItem(frmMain.MENU_VIEW.DIRECT_INPUT).Checked = strGet_ini("View", "DirectInput", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(View, StatusBar, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(View, StatusBar, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuViewItem(frmMain.MENU_VIEW.STATUS_BAR).Checked = strGet_ini("View", "StatusBar", True, "bmse.ini")
 			
 			If .cboViewer.Items.Count Then
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(View, ViewerNum, 0, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(View, ViewerNum, 0, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If .cboViewer.Items.Count > strGet_ini("View", "ViewerNum", 0, "bmse.ini") Then
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.cboViewer.SelectedIndex = strGet_ini("View", "ViewerNum", 0, "bmse.ini")
 					
 				Else
@@ -2455,98 +2455,98 @@ Err_Renamed:
 				
 			End If
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Options, Active, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Options, Active, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuOptionsItem(frmMain.MENU_OPTIONS.IGNORE_INPUT).Checked = strGet_ini("Options", "Active", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Options, FileNameOnly, False, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Options, FileNameOnly, False, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuOptionsItem(frmMain.MENU_OPTIONS.TITLE_FILENAME).Checked = strGet_ini("Options", "FileNameOnly", False, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Options, VerticalWriting, False, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Options, VerticalWriting, False, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuOptionsItem(frmMain.MENU_OPTIONS.VERTICAL_INFO).Checked = strGet_ini("Options", "VerticalWriting", False, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Options, LaneBG, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Options, LaneBG, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuOptionsItem(frmMain.MENU_OPTIONS.LANE_BGCOLOR).Checked = strGet_ini("Options", "LaneBG", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Options, SelectSound, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Options, SelectSound, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuOptionsItem(frmMain.MENU_OPTIONS.SELECT_PREVIEW).Checked = strGet_ini("Options", "SelectSound", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Options, MoveOnGrid, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Options, MoveOnGrid, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuOptionsItem(frmMain.MENU_OPTIONS.MOVE_ON_GRID).Checked = strGet_ini("Options", "MoveOnGrid", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Options, ObjectFileName, False, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Options, ObjectFileName, False, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuOptionsItem(frmMain.MENU_OPTIONS.OBJ_FILENAME).Checked = strGet_ini("Options", "ObjectFileName", False, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Options, UseOldFormat, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(Options, UseOldFormat, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.mnuOptionsItem(frmMain.MENU_OPTIONS.USE_OLD_FORMAT).Checked = strGet_ini("Options", "UseOldFormat", True, "bmse.ini")
 			'.mnuOptionsItem(RCLICK_DELETE).Checked = strGet_ini("Options", "RightClickDelete", False, "bmse.ini")
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, New, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, New, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("New").Visible = strGet_ini("ToolBar", "New", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Open, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, Open, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("Open").Visible = strGet_ini("ToolBar", "Open", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Reload, False, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, Reload, False, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("Reload").Visible = strGet_ini("ToolBar", "Reload", False, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Save, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, Save, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("Save").Visible = strGet_ini("ToolBar", "Save", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, SaveAs, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, SaveAs, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("SaveAs").Visible = strGet_ini("ToolBar", "SaveAs", True, "bmse.ini")
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Mode, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, Mode, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("SepMode").Visible = strGet_ini("ToolBar", "Mode", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Mode, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, Mode, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("Edit").Visible = strGet_ini("ToolBar", "Mode", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Mode, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, Mode, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("Write").Visible = strGet_ini("ToolBar", "Mode", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Mode, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, Mode, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("Delete").Visible = strGet_ini("ToolBar", "Mode", True, "bmse.ini")
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Preview, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, Preview, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("SepViewer").Visible = strGet_ini("ToolBar", "Preview", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Preview, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, Preview, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("PlayAll").Visible = strGet_ini("ToolBar", "Preview", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Preview, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, Preview, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("Play").Visible = strGet_ini("ToolBar", "Preview", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Preview, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, Preview, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("Stop").Visible = strGet_ini("ToolBar", "Preview", True, "bmse.ini")
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Grid, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, Grid, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("SepGrid").Visible = strGet_ini("ToolBar", "Grid", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Grid, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, Grid, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("ChangeGrid").Visible = strGet_ini("ToolBar", "Grid", True, "bmse.ini")
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Size, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, Size, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("SepSize").Visible = strGet_ini("ToolBar", "Size", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Size, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, Size, True, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("DispSize").Visible = strGet_ini("ToolBar", "Size", True, "bmse.ini")
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Resolution, False, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, Resolution, False, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("SepResolution").Visible = strGet_ini("ToolBar", "Resolution", False, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Resolution, False, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini(ToolBar, Resolution, False, bmse.ini) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.tlbMenu.Items.Item("Resolution").Visible = strGet_ini("ToolBar", "Resolution", False, "bmse.ini")
 			
 			For i = 0 To UBound(g_strRecentFiles)
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				g_strRecentFiles(i) = strGet_ini("RecentFiles", i, "", "bmse.ini")
 				
 				If Len(g_strRecentFiles(i)) Then
@@ -2559,18 +2559,18 @@ Err_Renamed:
 						
 					End With
 					
-					'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ frmMain.tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.ButtonMenus ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ frmMain.tlbMenu.Buttons().ButtonMenus ã®ä¸‹é™ãŒ 1 ã‹ã‚‰ 0 ã«å¤‰æ›´ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					With .tlbMenu.Items.Item("Open").ButtonMenus.Item(i + 1)
 						
-						'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ frmMain.tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.ButtonMenus ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+						'UPGRADE_WARNING: ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ frmMain.tlbMenu.Buttons().ButtonMenus ã®ä¸‹é™ãŒ 1 ã‹ã‚‰ 0 ã«å¤‰æ›´ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
-						'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ frmMain.tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.ButtonMenus ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+						'UPGRADE_WARNING: ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ frmMain.tlbMenu.Buttons().ButtonMenus ã®ä¸‹é™ãŒ 1 ã‹ã‚‰ 0 ã«å¤‰æ›´ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.Enabled = True
-						'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ frmMain.tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ tlbMenu.Buttons.ButtonMenus ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+						'UPGRADE_WARNING: ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ frmMain.tlbMenu.Buttons().ButtonMenus ã®ä¸‹é™ãŒ 1 ã‹ã‚‰ 0 ã«å¤‰æ›´ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.Visible = True
 						
 					End With
@@ -2589,12 +2589,12 @@ Err_Renamed:
 		
 		With frmWindowPreview
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Left = VB6.TwipsToPixelsX(strGet_ini("Preview", "X", (VB6.PixelsToTwipsX(frmMain.Left) + VB6.PixelsToTwipsX(frmMain.Width) \ 2) - VB6.PixelsToTwipsX(.Width) \ 2, "bmse.ini"))
 			If VB6.PixelsToTwipsX(.Left) < 0 Then .Left = 0
 			If VB6.PixelsToTwipsX(.Left) > VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) Then .Left = 0
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Top = VB6.TwipsToPixelsY(strGet_ini("Preview", "Y", (VB6.PixelsToTwipsY(frmMain.Top) + VB6.PixelsToTwipsY(frmMain.Height) \ 2) - VB6.PixelsToTwipsY(.Height) \ 2, "bmse.ini"))
 			If VB6.PixelsToTwipsY(.Top) < 0 Then .Top = 0
 			If VB6.PixelsToTwipsY(.Top) > VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) Then .Top = 0
@@ -2609,7 +2609,7 @@ InitConfig:
 		
 		If lngCount > 5 Then
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.CleanUp ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call modMain.CleanUp(Err.Number, Err.Description, "LoadConfig")
 			
 		Else
@@ -2802,8 +2802,8 @@ InitConfig:
 		
 		Dim lngTemp As Integer
 		
-		'APIŒÄ‚Ño‚µ••Ï”‚ğ•Ô‚·
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg WritePrivateProfileString() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'APIå‘¼ã³å‡ºã—ï¼†å¤‰æ•°ã‚’è¿”ã™
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ WritePrivateProfileString() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		lngTemp = WritePrivateProfileString(strSection & Chr(0), strKey, strSet, g_strAppDir & "bmse.ini" & Chr(0))
 		
 		lngSet_ini = lngTemp
@@ -2813,18 +2813,18 @@ InitConfig:
 	Public Function strGet_ini(ByRef strSection As String, ByVal strKey As String, ByVal strDefault As String, ByRef strFileName As String) As String
 		Dim GetPrivateProfileString As Object
 		
-		Dim strGetBuf As New VB6.FixedLengthString(256) 'û—e‚·‚éstring‚Ìƒoƒbƒtƒ@
-		Dim intGetLen As Short 'û—e‚·‚éstring‚Ì•¶š”‚Ìƒoƒbƒtƒ@
+		Dim strGetBuf As New VB6.FixedLengthString(256) 'åå®¹ã™ã‚‹stringã®ãƒãƒƒãƒ•ã‚¡
+		Dim intGetLen As Short 'åå®¹ã™ã‚‹stringã®æ–‡å­—æ•°ã®ãƒãƒƒãƒ•ã‚¡
 		
-		'ƒoƒbƒtƒ@‚Ì‰Šú‰»i256‚à‚ ‚ê‚Î—Ç‚¢‚æ‚ËBj
+		'ãƒãƒƒãƒ•ã‚¡ã®åˆæœŸåŒ–ï¼ˆ256ã‚‚ã‚ã‚Œã°è‰¯ã„ã‚ˆã­ã€‚ï¼‰
 		strGetBuf.Value = Space(256)
 		
-		'APIŒÄ‚Ño‚µ
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetPrivateProfileString() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'APIå‘¼ã³å‡ºã—
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetPrivateProfileString() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		intGetLen = GetPrivateProfileString(strSection & Chr(0), strKey, strDefault & Chr(0), strGetBuf.Value, 128, g_strAppDir & strFileName & Chr(0))
 		
-		'•¶š—ñ‚ğ•Ô‚·
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'æ–‡å­—åˆ—ã‚’è¿”ã™
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		strGet_ini = Trim(Left(strGetBuf.Value, InStr(strGetBuf.Value, Chr(0)) - 1))
 		
 		If Val(strGet_ini) < 0 Then strGet_ini = CStr(0)
@@ -2836,12 +2836,12 @@ InitConfig:
 		
 		Dim strArray() As String
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ strGet_ini() ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		strArray = Split(strGet_ini(strSection, strKey, strDefault, strFileName), ",")
 		
 		If UBound(strArray) < 2 Then Exit Function
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ GetColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		GetColor = RGB(CInt(strArray(0)), CInt(strArray(1)), CInt(strArray(2)))
 		
 	End Function
@@ -2856,7 +2856,7 @@ InitConfig:
 		g = (Color \ &HFF) And &HFF
 		b = (Color \ &HFFFF) And &HFF
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ HalfColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		HalfColor = RGB(r \ 2, g \ 2, b \ 2)
 		
 	End Function

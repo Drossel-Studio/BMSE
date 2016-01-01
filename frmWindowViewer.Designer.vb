@@ -1,11 +1,11 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmWindowViewer
-#Region "Windows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚É‚æ‚Á‚Ä¶¬‚³‚ê‚½ƒR[ƒh "
+#Region "Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã«ã‚ˆã£ã¦ç”Ÿæˆã•ã‚ŒãŸã‚³ãƒ¼ãƒ‰ "
 	<System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
 		MyBase.New()
-		'‚±‚ÌŒÄ‚Ño‚µ‚ÍAWindows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚Å•K—v‚Å‚·B
+		'ã“ã®å‘¼ã³å‡ºã—ã¯ã€Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã§å¿…è¦ã§ã™ã€‚
 		InitializeComponent()
 	End Sub
-	'Form ‚ÍAƒRƒ“ƒ|[ƒlƒ“ƒgˆê——‚ÉŒãˆ—‚ğÀs‚·‚é‚½‚ß‚É dispose ‚ğƒI[ƒo[ƒ‰ƒCƒh‚µ‚Ü‚·B
+	'Form ã¯ã€ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆä¸€è¦§ã«å¾Œå‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹ãŸã‚ã« dispose ã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã—ã¾ã™ã€‚
 	<System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
 		If Disposing Then
 			If Not components Is Nothing Then
@@ -14,7 +14,7 @@
 		End If
 		MyBase.Dispose(Disposing)
 	End Sub
-	'Windows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚Å•K—v‚Å‚·B
+	'Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã§å¿…è¦ã§ã™ã€‚
 	Private components As System.ComponentModel.IContainer
 	Public ToolTip1 As System.Windows.Forms.ToolTip
 	Public WithEvents cmdDelete As System.Windows.Forms.Button
@@ -35,9 +35,9 @@
 	Public WithEvents lstViewer As System.Windows.Forms.ListBox
 	Public WithEvents cmdCancel As System.Windows.Forms.Button
 	Public WithEvents cmdOK As System.Windows.Forms.Button
-	'ƒƒ‚: ˆÈ‰º‚ÌƒvƒƒV[ƒWƒƒ‚Í Windows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚Å•K—v‚Å‚·B
-	'Windows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚ğg‚Á‚Ä•ÏX‚Å‚«‚Ü‚·B
-	'ƒR[ƒh ƒGƒfƒBƒ^‚ğg—p‚µ‚ÄA•ÏX‚µ‚È‚¢‚Å‚­‚¾‚³‚¢B
+	'ãƒ¡ãƒ¢: ä»¥ä¸‹ã®ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ã¯ Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã§å¿…è¦ã§ã™ã€‚
+	'Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã‚’ä½¿ã£ã¦å¤‰æ›´ã§ãã¾ã™ã€‚
+	'ã‚³ãƒ¼ãƒ‰ ã‚¨ãƒ‡ã‚£ã‚¿ã‚’ä½¿ç”¨ã—ã¦ã€å¤‰æ›´ã—ãªã„ã§ãã ã•ã„ã€‚
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
 		Dim resources As System.Resources.ResourceManager = New System.Resources.ResourceManager(GetType(frmWindowViewer))
 		Me.components = New System.ComponentModel.Container()
@@ -67,7 +67,7 @@
 		Me.Text = "Viewer Config"
 		Me.ClientSize = New System.Drawing.Size(400, 323)
 		Me.Location = New System.Drawing.Point(3, 19)
-		Me.Font = New System.Drawing.Font("‚l‚r ƒSƒVƒbƒN", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+		Me.Font = New System.Drawing.Font("ï¼­ï¼³ ã‚´ã‚·ãƒƒã‚¯", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
 		Me.MaximizeBox = False
 		Me.MinimizeBox = False
 		Me.ShowInTaskbar = False
@@ -83,7 +83,7 @@
 		Me.WindowState = System.Windows.Forms.FormWindowState.Normal
 		Me.Name = "frmWindowViewer"
 		Me.cmdDelete.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdDelete.Text = "íœ"
+		Me.cmdDelete.Text = "å‰Šé™¤"
 		Me.cmdDelete.Size = New System.Drawing.Size(53, 21)
 		Me.cmdDelete.Location = New System.Drawing.Point(36, 264)
 		Me.cmdDelete.TabIndex = 1
@@ -96,7 +96,7 @@
 		Me.cmdDelete.TabStop = True
 		Me.cmdDelete.Name = "cmdDelete"
 		Me.cmdAdd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdAdd.Text = "’Ç‰Á"
+		Me.cmdAdd.Text = "è¿½åŠ "
 		Me.cmdAdd.Size = New System.Drawing.Size(53, 21)
 		Me.cmdAdd.Location = New System.Drawing.Point(96, 264)
 		Me.cmdAdd.TabIndex = 2
@@ -182,7 +182,7 @@
 		Me.txtPlayAll.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
 		Me.txtPlayAll.Name = "txtPlayAll"
 		Me.cmdViewerPath.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdViewerPath.Text = "QÆ"
+		Me.cmdViewerPath.Text = "å‚ç…§"
 		Me.cmdViewerPath.Size = New System.Drawing.Size(37, 17)
 		Me.cmdViewerPath.Location = New System.Drawing.Point(192, 72)
 		Me.cmdViewerPath.TabIndex = 8
@@ -251,7 +251,7 @@
 		Me.lblNotice.AutoSize = False
 		Me.lblNotice.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblNotice.Name = "lblNotice"
-		Me.lblStop.Text = "u’â~v‚Ìˆø”"
+		Me.lblStop.Text = "ã€Œåœæ­¢ã€ã®å¼•æ•°"
 		Me.lblStop.Size = New System.Drawing.Size(213, 13)
 		Me.lblStop.Location = New System.Drawing.Point(12, 188)
 		Me.lblStop.TabIndex = 13
@@ -266,7 +266,7 @@
 		Me.lblStop.AutoSize = False
 		Me.lblStop.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblStop.Name = "lblStop"
-		Me.lblPlay.Text = "uŒ»İˆÊ’u‚©‚çÄ¶v‚Ìˆø”"
+		Me.lblPlay.Text = "ã€Œç¾åœ¨ä½ç½®ã‹ã‚‰å†ç”Ÿã€ã®å¼•æ•°"
 		Me.lblPlay.Size = New System.Drawing.Size(213, 13)
 		Me.lblPlay.Location = New System.Drawing.Point(12, 144)
 		Me.lblPlay.TabIndex = 11
@@ -281,7 +281,7 @@
 		Me.lblPlay.AutoSize = False
 		Me.lblPlay.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblPlay.Name = "lblPlay"
-		Me.lblPlayAll.Text = "uÅ‰‚©‚çÄ¶v‚Ìˆø”"
+		Me.lblPlayAll.Text = "ã€Œæœ€åˆã‹ã‚‰å†ç”Ÿã€ã®å¼•æ•°"
 		Me.lblPlayAll.Size = New System.Drawing.Size(213, 13)
 		Me.lblPlayAll.Location = New System.Drawing.Point(12, 100)
 		Me.lblPlayAll.TabIndex = 9
@@ -296,7 +296,7 @@
 		Me.lblPlayAll.AutoSize = False
 		Me.lblPlayAll.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblPlayAll.Name = "lblPlayAll"
-		Me.lblViewerPath.Text = "Àsƒtƒ@ƒCƒ‹‚ÌƒpƒX"
+		Me.lblViewerPath.Text = "å®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹"
 		Me.lblViewerPath.Size = New System.Drawing.Size(213, 13)
 		Me.lblViewerPath.Location = New System.Drawing.Point(12, 56)
 		Me.lblViewerPath.TabIndex = 6
@@ -311,7 +311,7 @@
 		Me.lblViewerPath.AutoSize = False
 		Me.lblViewerPath.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblViewerPath.Name = "lblViewerPath"
-		Me.lblViewerName.Text = "•\¦‚·‚é–¼‘O"
+		Me.lblViewerName.Text = "è¡¨ç¤ºã™ã‚‹åå‰"
 		Me.lblViewerName.Size = New System.Drawing.Size(213, 13)
 		Me.lblViewerName.Location = New System.Drawing.Point(12, 12)
 		Me.lblViewerName.TabIndex = 4

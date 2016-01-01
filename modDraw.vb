@@ -6,11 +6,11 @@ Module modDraw
 	
 	Public Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal nWidth As Integer, ByVal nHeight As Integer, ByVal hSrcDC As Integer, ByVal xSrc As Integer, ByVal ySrc As Integer, ByVal dwRop As Integer) As Integer
 	
-	'UPGRADE_WARNING: \‘¢‘Ì Size ‚ÉA‚±‚Ì Declare ƒXƒe[ƒgƒƒ“ƒg‚Ìˆø”‚Æ‚µ‚Äƒ}[ƒVƒƒƒŠƒ“ƒO‘®«‚ğ“n‚·•K—v‚ª‚ ‚è‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_WARNING: æ§‹é€ ä½“ Size ã«ã€ã“ã® Declare ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆã®å¼•æ•°ã¨ã—ã¦ãƒãƒ¼ã‚·ãƒ£ãƒªãƒ³ã‚°å±æ€§ã‚’æ¸¡ã™å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Public Declare Function GetTextExtentPoint32 Lib "gdi32"  Alias "GetTextExtentPoint32A"(ByVal hdc As Integer, ByVal lpsz As String, ByVal cbString As Integer, ByRef lpSize As Size) As Integer
 	
 	Public Declare Function CreatePen Lib "gdi32" (ByVal nPenStyle As Integer, ByVal nWidth As Integer, ByVal crColor As Integer) As Integer
-	'UPGRADE_WARNING: \‘¢‘Ì LOGBRUSH ‚ÉA‚±‚Ì Declare ƒXƒe[ƒgƒƒ“ƒg‚Ìˆø”‚Æ‚µ‚Äƒ}[ƒVƒƒƒŠƒ“ƒO‘®«‚ğ“n‚·•K—v‚ª‚ ‚è‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_WARNING: æ§‹é€ ä½“ LOGBRUSH ã«ã€ã“ã® Declare ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆã®å¼•æ•°ã¨ã—ã¦ãƒãƒ¼ã‚·ãƒ£ãƒªãƒ³ã‚°å±æ€§ã‚’æ¸¡ã™å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Public Declare Function CreateBrushIndirect Lib "gdi32" (ByRef lpLogBrush As LOGBRUSH) As Integer
 	Public Declare Function CreateSolidBrush Lib "gdi32" (ByVal crColor As Integer) As Integer
 	'Public Declare Function CreateHatchBrush Lib "gdi32" (ByVal nIndex As Long, ByVal crColor As Long) As Long
@@ -30,7 +30,7 @@ Module modDraw
 	
 	Public Declare Function Ellipse Lib "gdi32" (ByVal hdc As Integer, ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As Integer
 	
-	'CreatePen ŠÖ˜A
+	'CreatePen é–¢é€£
 	Public Const PS_SOLID As Short = 0
 	Public Const PS_DASH As Short = 1 '  -------
 	Public Const PS_DOT As Short = 2 '  .......
@@ -39,7 +39,7 @@ Module modDraw
 	Public Const PS_NULL As Short = 5
 	Public Const PS_INSIDEFRAME As Short = 6
 	
-	'CreateHatchBrush ŠÖ˜A
+	'CreateHatchBrush é–¢é€£
 	Public Const HS_BDIAGONAL As Short = 3 '  /////
 	Public Const HS_CROSS As Short = 4 '  +++++
 	Public Const HS_DIAGCROSS As Short = 5 '  xxxxx
@@ -47,7 +47,7 @@ Module modDraw
 	Public Const HS_HORIZONTAL As Short = 0 '  -----
 	Public Const HS_VERTICAL As Short = 1 '  |||||
 	
-	'CreateBrushIndirect ŠÖ˜A
+	'CreateBrushIndirect é–¢é€£
 	Public Const BS_SOLID As Short = 0
 	Public Const BS_NULL As Short = 1
 	Public Const BS_HOLLOW As Short = BS_NULL
@@ -64,23 +64,23 @@ Module modDraw
 		Dim lbHatch As Integer
 	End Structure
 	
-	'BitBlt ŠÖ˜A‚Ì’è”
+	'BitBlt é–¢é€£ã®å®šæ•°
 	Public Const SRCAND As Integer = &H8800C6
 	Public Const SRCCOPY As Integer = &HCC0020
 	Public Const SRCPAINT As Integer = &HEE0086
 	Public Const SRCINVERT As Integer = &H660046
 	
-	'GetTextExtentPoint32 ŠÖ˜A
+	'GetTextExtentPoint32 é–¢é€£
 	Public Structure Size
 		Dim Width As Integer
 		Dim Height As Integer
 	End Structure
 	
-	Public Const OBJ_DIFF As Short = -1 'ƒIƒuƒWƒF‚Ì‚¸‚ê
+	Public Const OBJ_DIFF As Short = -1 'ã‚ªãƒ–ã‚¸ã‚§ã®ãšã‚Œ
 	
-	'# Ch‘Œ©•\ #
+	'# Chæ—©è¦‹è¡¨ #
 	' 1 BGM
-	' 2 ¬ß’·
+	' 2 å°ç¯€é•·
 	' 3 BPM Hex
 	' 4 BGA
 	' 6 Poor
@@ -103,8 +103,8 @@ Module modDraw
 	'28 2P 6Key
 	'29 2P 7Key
 	'26 2P SC
-	'31-49 •s‰Â‹ƒIƒuƒWƒF
-	'51-69 ƒƒ“ƒOƒm[ƒg
+	'31-49 ä¸å¯è¦–ã‚ªãƒ–ã‚¸ã‚§
+	'51-69 ãƒ­ãƒ³ã‚°ãƒãƒ¼ãƒˆ
 	
 	Public g_lngPenColor(75) As Integer
 	Public g_lngBrushColor(36) As Integer
@@ -308,60 +308,60 @@ Module modDraw
 				
 				For i = GRID.NUM_1P_1KEY To GRID.NUM_1P_7KEY
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(i).intWidth = GRID_WIDTH
 					
 				Next i
 				
 				For i = GRID.NUM_2P_1KEY To GRID.NUM_2P_7KEY
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(i).intWidth = GRID_WIDTH
 					
 				Next i
 				
 			Else
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				g_VGrid(GRID.NUM_1P_1KEY).intWidth = GRID_HALF_EDGE_WIDTH
 				
 				For i = GRID.NUM_1P_2KEY To GRID.NUM_1P_6KEY
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(i).intWidth = GRID_HALF_WIDTH
 					
 				Next i
 				
 				If frmMain.cboDispKey.SelectedIndex Then
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_1P_7KEY).intWidth = GRID_HALF_EDGE_WIDTH
 					
 				Else
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_1P_5KEY).intWidth = GRID_HALF_EDGE_WIDTH
 					
 				End If
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				g_VGrid(GRID.NUM_2P_1KEY).intWidth = GRID_HALF_EDGE_WIDTH
 				
 				For i = GRID.NUM_2P_2KEY To GRID.NUM_2P_6KEY
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(i).intWidth = GRID_HALF_WIDTH
 					
 				Next i
 				
 				If frmMain.cboDispKey.SelectedIndex Then
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_2P_7KEY).intWidth = GRID_HALF_EDGE_WIDTH
 					
 				Else
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_2P_5KEY).intWidth = GRID_HALF_EDGE_WIDTH
 					
 				End If
@@ -372,39 +372,39 @@ Module modDraw
 				
 				Case 0, 1, 2 '1P/2P/DP
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_FOOTPEDAL).blnVisible = False
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_2P_SC_L - 1).blnVisible = True
 					
 					If .cboDispKey.SelectedIndex = 0 Then
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(GRID.NUM_1P_6KEY).blnVisible = False
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(GRID.NUM_1P_7KEY).blnVisible = False
 						
 					Else
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(GRID.NUM_1P_6KEY).blnVisible = True
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(GRID.NUM_1P_7KEY).blnVisible = True
 						
 					End If
 					
 					If .cboDispSC1P.SelectedIndex = 0 Then
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(GRID.NUM_1P_SC_L).blnVisible = True
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(GRID.NUM_1P_SC_R).blnVisible = False
 						
 					Else
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(GRID.NUM_1P_SC_L).blnVisible = False
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(GRID.NUM_1P_SC_R).blnVisible = True
 						
 					End If
@@ -413,39 +413,39 @@ Module modDraw
 						
 						For i = GRID.NUM_2P_SC_L To GRID.NUM_2P_SC_R + 1
 							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							g_VGrid(i).blnVisible = True
 							
 						Next i
 						
 						If .cboDispKey.SelectedIndex = 0 Then
 							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							g_VGrid(GRID.NUM_2P_6KEY).blnVisible = False
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							g_VGrid(GRID.NUM_2P_7KEY).blnVisible = False
 							
 						Else
 							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							g_VGrid(GRID.NUM_2P_6KEY).blnVisible = True
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							g_VGrid(GRID.NUM_2P_7KEY).blnVisible = True
 							
 						End If
 						
 						If .cboDispSC2P.SelectedIndex = 0 Then
 							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							g_VGrid(GRID.NUM_2P_SC_L).blnVisible = True
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							g_VGrid(GRID.NUM_2P_SC_R).blnVisible = False
 							
 						Else
 							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							g_VGrid(GRID.NUM_2P_SC_L).blnVisible = False
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							g_VGrid(GRID.NUM_2P_SC_R).blnVisible = True
 							
 						End If
@@ -454,7 +454,7 @@ Module modDraw
 						
 						For i = GRID.NUM_2P_SC_L To GRID.NUM_2P_SC_R + 1
 							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							g_VGrid(i).blnVisible = False
 							
 						Next i
@@ -463,83 +463,83 @@ Module modDraw
 					
 				Case 3 'PMS
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_FOOTPEDAL).blnVisible = False
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_1P_SC_L).blnVisible = False
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_1P_6KEY).blnVisible = False
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_1P_7KEY).blnVisible = False
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_1P_SC_R).blnVisible = False
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_2P_SC_L - 1).blnVisible = False
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_2P_SC_L).blnVisible = False
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_2P_1KEY).blnVisible = False
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_2P_SC_R + 1).blnVisible = True
 					
 					For i = GRID.NUM_2P_2KEY To GRID.NUM_2P_5KEY
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(i).blnVisible = True
 						
 					Next i
 					
 					For i = GRID.NUM_2P_6KEY To GRID.NUM_2P_SC_R
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(i).blnVisible = False
 						
 					Next i
 					
 					If .cboDispFrame.SelectedIndex = 0 Then
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(GRID.NUM_1P_5KEY).intWidth = GRID_HALF_WIDTH
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(GRID.NUM_2P_5KEY).intWidth = GRID_HALF_EDGE_WIDTH
 						
 					End If
 					
 				Case 4 'Oct
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_FOOTPEDAL).blnVisible = True
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_1P_SC_L).blnVisible = True
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_1P_6KEY).blnVisible = True
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_1P_7KEY).blnVisible = True
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_2P_SC_L - 1).blnVisible = False
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_2P_1KEY).blnVisible = False
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_2P_SC_R).blnVisible = True
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					g_VGrid(GRID.NUM_2P_SC_R + 1).blnVisible = True
 					
 					For i = GRID.NUM_2P_2KEY To GRID.NUM_2P_7KEY
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(i).blnVisible = True
 						
 					Next i
 					
 					If .cboDispFrame.SelectedIndex = 0 Then
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(GRID.NUM_1P_5KEY).intWidth = GRID_HALF_WIDTH
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(GRID.NUM_1P_7KEY).intWidth = GRID_HALF_WIDTH
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(GRID.NUM_2P_5KEY).intWidth = GRID_HALF_WIDTH
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						g_VGrid(GRID.NUM_2P_7KEY).intWidth = GRID_HALF_EDGE_WIDTH
 						
 					End If
@@ -557,7 +557,7 @@ Module modDraw
 			
 		Next i
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngMaxY ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.lngMaxY ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_disp.lngMaxY = g_Measure(999).lngY + g_Measure(999).intLen
 		
 		Call Redraw()
@@ -565,7 +565,7 @@ Module modDraw
 		Exit Sub
 		
 Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.CleanUp ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call modMain.CleanUp(Err.Number, Err.Description, "InitVerticalLine")
 	End Sub
 	
@@ -582,7 +582,7 @@ Err_Renamed:
 		'If frmMain.Visible = False Or frmMain.Enabled = False Then Exit Sub
 		If frmMain.Visible = False Then Exit Sub
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intMaxMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intMaxMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		For i = 0 To g_disp.intMaxMeasure
 			
 			lngTemp = lngTemp + g_Measure(i).intLen
@@ -590,30 +590,30 @@ Err_Renamed:
 		Next i
 		
 		'frmMain.vsbMain.Min = lngTemp \ 96
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intResolution ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intResolution ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		frmMain.vsbMain.Minimum = lngTemp \ g_disp.intResolution
 		
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.AutoRedraw ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.AutoRedraw ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		frmMain.picMain.AutoRedraw = True
 		
 		With g_disp
 			
 			'.Width = frmMain.hsbDispWidth.Value / 100
 			'.Height = frmMain.hsbDispHeight.Value / 100
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Width ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Width = VB6.GetItemData(frmMain.cboDispWidth, frmMain.cboDispWidth.SelectedIndex) / 100
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Height ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Height = VB6.GetItemData(frmMain.cboDispHeight, frmMain.cboDispHeight.SelectedIndex) / 100
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intStartMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intStartMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.intStartMeasure = 999
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEndMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEndMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.intEndMeasure = 999
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngStartPos ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.lngStartPos ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Y ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lngStartPos = .Y - OBJ_HEIGHT
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngEndPos ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.lngEndPos ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Height ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Y ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.lngEndPos = .Y + frmMain.picMain.ClientRectangle.Height / .Height
 			
 		End With
@@ -631,55 +631,55 @@ Err_Renamed:
 			
 			With g_VGrid(i)
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).blnVisible ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If .blnVisible Then
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intCh ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Select Case .intCh
 						
 						Case 11 To 29
 							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intCh ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							g_intVGridNum(.intCh) = i
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intCh ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							g_intVGridNum(.intCh + 20) = i
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intCh ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							g_intVGridNum(.intCh + 40) = i
 							
 						Case Is > 100
 							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intCh ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							g_intVGridNum(.intCh) = i
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intCh ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							g_intVGridNum(.intCh + 40) = i
 							
 						Case Is > 0
 							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intCh ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							g_intVGridNum(.intCh) = i
 							
 					End Select
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.lngLeft = lngTemp
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intCh ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Select Case .intCh
 						
 						Case 15
 							
 							If frmMain.cboDispKey.SelectedIndex = 1 Or frmMain.cboPlayer.SelectedIndex > 2 Then
 								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).lngObjLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).lngObjLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								.lngObjLeft = .lngLeft + (.intWidth - GRID_WIDTH) \ 2
 								
 							Else
 								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).lngObjLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).lngObjLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								.lngObjLeft = .lngLeft + .intWidth - GRID_WIDTH
 								
 							End If
@@ -688,23 +688,23 @@ Err_Renamed:
 							
 							If frmMain.cboPlayer.SelectedIndex = 4 Then
 								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).lngObjLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).lngObjLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								.lngObjLeft = .lngLeft + (.intWidth - GRID_WIDTH) \ 2
 								
 							ElseIf frmMain.cboDispKey.SelectedIndex = 0 Or frmMain.cboPlayer.SelectedIndex = 3 Then 
 								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).lngObjLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).lngObjLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								.lngObjLeft = .lngLeft + .intWidth - GRID_WIDTH
 								
 							Else
 								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).lngObjLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).lngObjLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								.lngObjLeft = .lngLeft + (.intWidth - GRID_WIDTH) \ 2
 								
 							End If
@@ -713,64 +713,64 @@ Err_Renamed:
 							
 							If frmMain.cboPlayer.SelectedIndex > 2 Then
 								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).lngObjLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).lngObjLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								.lngObjLeft = .lngLeft + (.intWidth - GRID_WIDTH) \ 2
 								
 							Else
 								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).lngObjLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).lngObjLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								.lngObjLeft = .lngLeft + .intWidth - GRID_WIDTH
 								
 							End If
 							
 						Case 29
 							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).lngObjLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).lngObjLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							.lngObjLeft = .lngLeft + .intWidth - GRID_WIDTH
 							
 						Case 12 To 18, 22 To 28
 							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).lngObjLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).lngObjLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							.lngObjLeft = .lngLeft + (.intWidth - GRID_WIDTH) \ 2
 							
 						Case Else
 							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngObjLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngObjLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							.lngObjLeft = lngTemp
 							
 					End Select
 					
 					'If (lngTemp + .intWidth) * g_disp.Width >= g_disp.X And (g_disp.X + frmMain.picMain.ScaleWidth) / g_disp.Width >= lngTemp Then
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Width ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.X ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If .lngLeft + .intWidth >= g_disp.X And frmMain.picMain.ClientRectangle.Width + (g_disp.X - .lngLeft) * g_disp.Width >= 0 Then
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnDraw ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnDraw ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.blnDraw = True
 						
 					Else
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnDraw ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnDraw ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.blnDraw = False
 						
 					End If
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					lngTemp = lngTemp + .intWidth
 					
 				Else
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnDraw ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().blnDraw ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.blnDraw = False
 					
 				End If
@@ -779,7 +779,7 @@ Err_Renamed:
 			
 		Next i
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngMaxX ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.lngMaxX ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_disp.lngMaxX = lngTemp
 		
 		lngTemp = 0
@@ -788,10 +788,10 @@ Err_Renamed:
 			
 			lngTemp = lngTemp + g_Measure(i).intLen
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Y ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If lngTemp > g_disp.Y Then
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intStartMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intStartMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				g_disp.intStartMeasure = i
 				
 				Exit For
@@ -800,16 +800,16 @@ Err_Renamed:
 			
 		Next i
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intStartMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intStartMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		For i = g_disp.intStartMeasure + 1 To 999
 			
 			lngTemp = lngTemp + g_Measure(i).intLen
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Height ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Y ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If (lngTemp - g_disp.Y) * g_disp.Height >= frmMain.picMain.ClientRectangle.Height Then
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEndMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEndMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				g_disp.intEndMeasure = i
 				
 				Exit For
@@ -818,20 +818,20 @@ Err_Renamed:
 			
 		Next i
 		
-		'UPGRADE_ISSUE: PictureBox ƒƒ\ƒbƒh picMain.Cls ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ¡ã‚½ãƒƒãƒ‰ picMain.Cls ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call frmMain.picMain.Cls()
 		
-		Call DrawGridBG() '”wŒiF
+		Call DrawGridBG() 'èƒŒæ™¯è‰²
 		
-		Call DrawMeasureNum() '¬ß”Ô†
+		Call DrawMeasureNum() 'å°ç¯€ç•ªå·
 		
-		Call DrawVerticalGrayLine() 'cü(ŠDF)
+		Call DrawVerticalGrayLine() 'ç¸¦ç·š(ç°è‰²)
 		
-		Call DrawHorizonalLine() '‰¡ü(ŠDF)
+		Call DrawHorizonalLine() 'æ¨ªç·š(ç°è‰²)
 		
-		Call DrawVerticalWhiteLine() 'cü(”’)
+		Call DrawVerticalWhiteLine() 'ç¸¦ç·š(ç™½)
 		
-		Call DrawMeasureLine() '‰¡ü(”’)
+		Call DrawMeasureLine() 'æ¨ªç·š(ç™½)
 		
 		Call InitPen()
 		
@@ -844,17 +844,17 @@ Err_Renamed:
 		
 		ReDim m_tempObj(0)
 		
-		For i = 0 To UBound(g_Obj) - 1 'ƒIƒuƒWƒF
+		For i = 0 To UBound(g_Obj) - 1 'ã‚ªãƒ–ã‚¸ã‚§
 			
 			With g_Obj(i)
 				
 				If 0 < .intCh And .intCh < 133 Then
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(g_intVGridNum(g_Obj(i).intCh)).blnDraw ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(g_intVGridNum(g_Obj(i).intCh)).blnDraw ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If g_VGrid(g_intVGridNum(.intCh)).blnDraw Then
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngEndPos ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngStartPos ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.lngEndPos ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.lngStartPos ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						If g_disp.lngStartPos <= g_Measure(.intMeasure).lngY + .lngPosition And g_disp.lngEndPos >= g_Measure(.intMeasure).lngY + .lngPosition Then
 							
 							Call DrawObj(g_Obj(i))
@@ -873,9 +873,9 @@ Err_Renamed:
 			
 			With m_tempObj(i)
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(g_intVGridNum(m_tempObj(i).intCh)).blnDraw ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngEndPos ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngStartPos ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(g_intVGridNum(m_tempObj(i).intCh)).blnDraw ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.lngEndPos ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.lngStartPos ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If g_disp.lngStartPos <= g_Measure(.intMeasure).lngY + .lngPosition And g_disp.lngEndPos >= g_Measure(.intMeasure).lngY + .lngPosition And g_VGrid(g_intVGridNum(.intCh)).blnDraw = True And .intCh <> 0 Then
 					
 					Call DrawObj(m_tempObj(i))
@@ -888,12 +888,12 @@ Err_Renamed:
 		
 		Call DeletePen()
 		
-		Call DrawGridInfo() 'ƒOƒŠƒbƒhî•ñ
+		Call DrawGridInfo() 'ã‚°ãƒªãƒƒãƒ‰æƒ…å ±
 		
 		With frmMain.picMain
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngMaxX ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Width ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.lngMaxX ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If (g_disp.lngMaxX + 16) * g_disp.Width - .ClientRectangle.Width < 0 Then
 				
 				frmMain.hsbMain.Maximum = (0 + frmMain.hsbMain.LargeChange - 1)
@@ -902,18 +902,18 @@ Err_Renamed:
 				
 				'frmMain.hsbMain.Max = (g_disp.lngMaxX + 16) * g_disp.Width - .ScaleWidth
 				'frmMain.hsbMain.Max = (g_disp.lngMaxX + 16) - .ScaleWidth / g_disp.Width
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngMaxX ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Width ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.lngMaxX ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				frmMain.hsbMain.Maximum = ((g_disp.lngMaxX + FRAME_WIDTH) - .ClientRectangle.Width / g_disp.Width + frmMain.hsbMain.LargeChange - 1)
 				
 			End If
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.AutoRedraw ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.AutoRedraw ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.AutoRedraw = False
 			
 		End With
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		If g_disp.intEffect Then Call modEasterEgg.DrawEffect()
 		
 		'Debug.Print timeGetTime() - lngTimer
@@ -922,7 +922,7 @@ Err_Renamed:
 		Exit Sub
 		
 Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.CleanUp ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call modMain.CleanUp(Err.Number, Err.Description, "Redraw")
 	End Sub
 	
@@ -936,38 +936,38 @@ Err_Renamed:
 		
 		If frmMain.mnuOptionsItem(frmMain.MENU_OPTIONS.LANE_BGCOLOR).Checked Then
 			
-			For i = 0 To UBound(g_VGrid) '”wŒiF
+			For i = 0 To UBound(g_VGrid) 'èƒŒæ™¯è‰²
 				
 				With g_VGrid(i)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).blnDraw ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).blnDraw ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If .blnDraw Then
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intCh ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						If .intCh Then
 							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngBackColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							hPenNew = CreatePen(PS_SOLID, 1, .lngBackColor)
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							hPenOld = SelectObject(frmMain.picMain.hdc, hPenNew)
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngBackColor ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							hBrushNew = CreateSolidBrush(.lngBackColor)
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							hBrushOld = SelectObject(frmMain.picMain.hdc, hBrushNew)
 							
 							'Call Rectangle(frmMain.picMain.hdc, .lngLeft * g_disp.Width - g_disp.X, 0, (.lngLeft + .intWidth + 1) * g_disp.Width - g_disp.X, frmMain.picMain.ScaleHeight)
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Width ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.X ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							Call Rectangle(frmMain.picMain.hdc, (.lngLeft - g_disp.X) * g_disp.Width, 0, (.lngLeft + .intWidth + 1 - g_disp.X) * g_disp.Width, frmMain.picMain.ClientRectangle.Height)
 							
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							hPenNew = SelectObject(frmMain.picMain.hdc, hPenOld)
 							Call DeleteObject(hPenNew)
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							hBrushNew = SelectObject(frmMain.picMain.hdc, hBrushOld)
 							Call DeleteObject(hBrushNew)
 							
@@ -994,21 +994,21 @@ Err_Renamed:
 			.Font = VB6.FontChangeSize(.Font, 72)
 			.Font = VB6.FontChangeItalic(.Font, True)
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEndMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intStartMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			For i = g_disp.intStartMeasure To g_disp.intEndMeasure '#¬ß”Ô†
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEndMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intStartMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			For i = g_disp.intStartMeasure To g_disp.intEndMeasure '#å°ç¯€ç•ªå·
 				
 				'strTemp = "#" & Format$(i, "000")
 				strTemp.Value = "#" & Right("00" & i, 3)
 				
-				'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				Call GetTextExtentPoint32(.hdc, strTemp.Value, 4, sizeTemp)
 				
-				'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				Call SetTextColor(.hdc, g_lngSystemColor(COLOR_NUM.MEASURE_NUM)) 'RGB(64, 64, 64)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Height ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Y ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+				'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				Call TextOut(.hdc, (.ClientRectangle.Width - sizeTemp.Width) \ 2, .ClientRectangle.Height - sizeTemp.Height - (g_Measure(i).lngY - g_disp.Y) * g_disp.Height, strTemp.Value, 4)
 				
 			Next i
@@ -1026,27 +1026,27 @@ Err_Renamed:
 		Dim hOld As Integer
 		
 		hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.VERTICAL_SUB)) 'RGB(128, 128, 128)
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		hOld = SelectObject(frmMain.picMain.hdc, hNew)
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Y ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Y = g_disp.Y
 		H = frmMain.picMain.ClientRectangle.Height
 		
-		'cü(ŠDF)
+		'ç¸¦ç·š(ç°è‰²)
 		For i = 0 To UBound(g_VGrid)
 			
 			With g_VGrid(i)
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).blnDraw ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).blnDraw ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If .blnDraw Then
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intCh ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If .intCh Then
 						
 						'Call PrintLine(.lngLeft + .intWidth, g_disp.Y, 0, frmMain.picMain.ScaleHeight)
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						Call PrintLine_Renamed(.lngLeft + .intWidth, Y, 0, H)
 						
 					End If
@@ -1057,7 +1057,7 @@ Err_Renamed:
 			
 		Next i
 		
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		hNew = SelectObject(frmMain.picMain.hdc, hOld)
 		Call DeleteObject(hNew)
 		
@@ -1073,19 +1073,19 @@ Err_Renamed:
 		Dim hOld As Integer
 		
 		hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.GRID_MAIN)) 'RGB(96, 96, 96)
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		hOld = SelectObject(frmMain.picMain.hdc, hNew)
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngMaxX ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.lngMaxX ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		W = g_disp.lngMaxX - RIGHT_SPACE
 		
-		'‰¡ü(ŠDF)
+		'æ¨ªç·š(ç°è‰²)
 		With frmMain.cboDispGridSub
 			
 			If VB6.GetItemData(frmMain.cboDispGridSub, .SelectedIndex) Then
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEndMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intStartMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEndMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intStartMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				For i = g_disp.intStartMeasure To g_disp.intEndMeasure
 					
 					intTemp = 192 \ VB6.GetItemData(frmMain.cboDispGridSub, .SelectedIndex)
@@ -1103,24 +1103,24 @@ Err_Renamed:
 		End With
 		
 		
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		hNew = SelectObject(frmMain.picMain.hdc, hOld)
 		Call DeleteObject(hNew)
 		
 		hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.GRID_SUB)) 'RGB(192, 192, 192))
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		hOld = SelectObject(frmMain.picMain.hdc, hNew)
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngMaxX ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.lngMaxX ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		W = g_disp.lngMaxX - FRAME_WIDTH
 		
-		'‰¡ü(ŠDFE•â•)
+		'æ¨ªç·š(ç°è‰²ãƒ»è£œåŠ©)
 		With frmMain.cboDispGridMain
 			
 			If VB6.GetItemData(frmMain.cboDispGridMain, .SelectedIndex) Then
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEndMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intStartMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEndMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intStartMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				For i = g_disp.intStartMeasure To g_disp.intEndMeasure
 					
 					intTemp = 192 \ VB6.GetItemData(frmMain.cboDispGridMain, .SelectedIndex)
@@ -1138,7 +1138,7 @@ Err_Renamed:
 			
 		End With
 		
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		hNew = SelectObject(frmMain.picMain.hdc, hOld)
 		Call DeleteObject(hNew)
 		
@@ -1153,28 +1153,28 @@ Err_Renamed:
 		Dim hOld As Integer
 		
 		hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.VERTICAL_MAIN))
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		hOld = SelectObject(frmMain.picMain.hdc, hNew)
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Y ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Y = g_disp.Y
 		H = frmMain.picMain.ClientRectangle.Height
 		
-		'cü(”’)
+		'ç¸¦ç·š(ç™½)
 		For i = 0 To UBound(g_VGrid)
 			
 			With g_VGrid(i)
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).blnDraw ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).blnDraw ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If .blnDraw = True Then
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intCh ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If .intCh = 0 Then
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						Call PrintLine_Renamed(.lngLeft, Y, 0, H)
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						Call PrintLine_Renamed(.lngLeft + .intWidth, Y, 0, H)
 						
 					End If
@@ -1185,7 +1185,7 @@ Err_Renamed:
 			
 		Next i
 		
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		hNew = SelectObject(frmMain.picMain.hdc, hOld)
 		Call DeleteObject(hNew)
 		
@@ -1199,15 +1199,15 @@ Err_Renamed:
 		Dim hOld As Integer
 		
 		hNew = CreatePen(hNew, 1, g_lngSystemColor(COLOR_NUM.MEASURE_LINE))
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		hOld = SelectObject(frmMain.picMain.hdc, hNew)
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngMaxX ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.lngMaxX ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		W = g_disp.lngMaxX - FRAME_WIDTH
 		
-		'‰¡ü(”’)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEndMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intStartMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'æ¨ªç·š(ç™½)
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEndMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intStartMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		For i = g_disp.intStartMeasure To g_disp.intEndMeasure
 			
 			'Call PrintLine(16, g_Measure(i).lngY, g_disp.lngMaxX - 16, 0)
@@ -1216,15 +1216,15 @@ Err_Renamed:
 		Next i
 		
 		'If g_disp.intEndMeasure = 999 Then Call PrintLine(16, g_Measure(999).lngY + g_Measure(999).intLen, g_disp.lngMaxX - 16, 0)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEndMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEndMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		If g_disp.intEndMeasure = 999 Then
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngMaxX ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.lngMaxX ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call PrintLine_Renamed(FRAME_WIDTH, g_Measure(999).lngY + g_Measure(999).intLen, g_disp.lngMaxX - FRAME_WIDTH, 0)
 			
 		End If
 		
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		hNew = SelectObject(frmMain.picMain.hdc, hOld)
 		Call DeleteObject(hNew)
 		
@@ -1243,100 +1243,100 @@ Err_Renamed:
 		
 		frmMain.picMain.Font = VB6.FontChangeSize(frmMain.picMain.Font, 9)
 		
-		For i = 0 To UBound(g_VGrid) '•¶š
+		For i = 0 To UBound(g_VGrid) 'æ–‡å­—
 			
 			With g_VGrid(i)
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).blnDraw ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).blnDraw ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If .blnDraw Then
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intCh ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If .intCh Then
 						
 						If frmMain.mnuOptionsItem(frmMain.MENU_OPTIONS.VERTICAL_INFO).Checked Then
 							
 							'lngTemp = (.lngLeft + (.intWidth \ 2)) * g_disp.Width - g_disp.X
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Width ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.X ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							lngTemp = (.lngLeft + (.intWidth \ 2) - g_disp.X) * g_disp.Width
 							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							For j = 0 To Len(.strText) - 1
 								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								strTemp = Mid(.strText, j + 1, 1)
-								'UPGRADE_ISSUE: ’è” vbFromUnicode ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								'UPGRADE_ISSUE: LenB ŠÖ”‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_ISSUE: å®šæ•° vbFromUnicode ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+								'UPGRADE_ISSUE: LenB é–¢æ•°ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								lngLength = LenB(StrConv(strTemp, vbFromUnicode))
-								'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								Call GetTextExtentPoint32(frmMain.picMain.hdc, strTemp, lngLength, sizeTemp)
 								
 								X = lngTemp - sizeTemp.Width \ 2
 								
-								'–³—‚â‚è‰æ‚è
-								'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'ç„¡ç†ã‚„ã‚Šç¸å–ã‚Š
+								'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								Call SetTextColor(frmMain.picMain.hdc, 0)
 								'Call TextOut(frmMain.picMain.hdc, X - 1, 0 + 11 * j, strTemp, lngLength)
-								'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								Call TextOut(frmMain.picMain.hdc, X, 0 + 11 * j, strTemp, lngLength)
 								'Call TextOut(frmMain.picMain.hdc, X + 1, 0 + 11 * j, strTemp, lngLength)
-								'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								Call TextOut(frmMain.picMain.hdc, X - 1, 1 + 11 * j, strTemp, lngLength)
-								'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								Call TextOut(frmMain.picMain.hdc, X + 1, 1 + 11 * j, strTemp, lngLength)
 								'Call TextOut(frmMain.picMain.hdc, X - 1, 2 + 11 * j, strTemp, lngLength)
-								'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								Call TextOut(frmMain.picMain.hdc, X, 2 + 11 * j, strTemp, lngLength)
 								'Call TextOut(frmMain.picMain.hdc, X + 1, 2 + 11 * j, strTemp, lngLength)
-								'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								Call SetTextColor(frmMain.picMain.hdc, g_lngSystemColor(COLOR_NUM.INFO))
-								'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								Call TextOut(frmMain.picMain.hdc, X, 1 + 11 * j, strTemp, lngLength)
 								
 							Next j
 							
 						Else
 							
-							'UPGRADE_ISSUE: ’è” vbFromUnicode ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_ISSUE: LenB ŠÖ”‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_ISSUE: å®šæ•° vbFromUnicode ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_ISSUE: LenB é–¢æ•°ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							lngLength = LenB(StrConv(.strText, vbFromUnicode))
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							Call GetTextExtentPoint32(frmMain.picMain.hdc, .strText, lngLength, sizeTemp)
 							
 							'X = (.lngLeft + .intWidth \ 2) * g_disp.Width - (sizeTemp.Width) \ 2 - g_disp.X + 1
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Width ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.X ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intWidth ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							X = (.lngLeft + .intWidth \ 2 - g_disp.X) * g_disp.Width - (sizeTemp.Width) \ 2 + 1
 							
-							'–³—‚â‚è‰æ‚è
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'ç„¡ç†ã‚„ã‚Šç¸å–ã‚Š
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							Call SetTextColor(frmMain.picMain.hdc, 0)
 							'Call TextOut(frmMain.picMain.hdc, X - 1, 0, .strText, lngLength)
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							Call TextOut(frmMain.picMain.hdc, X, 0, .strText, lngLength)
 							'Call TextOut(frmMain.picMain.hdc, X + 1, 0, .strText, lngLength)
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							Call TextOut(frmMain.picMain.hdc, X - 1, 1, .strText, lngLength)
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							Call TextOut(frmMain.picMain.hdc, X + 1, 1, .strText, lngLength)
 							'Call TextOut(frmMain.picMain.hdc, X - 1, 2, .strText, lngLength)
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							Call TextOut(frmMain.picMain.hdc, X, 2, .strText, lngLength)
 							'Call TextOut(frmMain.picMain.hdc, X + 1, 2, .strText, lngLength)
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							Call SetTextColor(frmMain.picMain.hdc, g_lngSystemColor(COLOR_NUM.INFO))
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().strText ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+							'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							Call TextOut(frmMain.picMain.hdc, X, 1, .strText, lngLength)
 							
 						End If
@@ -1351,19 +1351,19 @@ Err_Renamed:
 		
 	End Sub
 	
-	'UPGRADE_NOTE: PrintLine ‚Í PrintLine_Renamed ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_NOTE: PrintLine ã¯ PrintLine_Renamed ã«ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Private Sub PrintLine_Renamed(ByVal X As Integer, ByVal Y As Integer, ByVal Width As Integer, ByVal Height As Integer)
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Width ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Width = Width * g_disp.Width
 		'X = X * g_disp.Width
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.X ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		If X - g_disp.X < 0 Then
 			
 			'If Width Then Width = Width + (X - g_disp.X)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Width ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.X ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If Width Then Width = Width + (X - g_disp.X) * g_disp.Width
 			
 			X = 0
@@ -1371,31 +1371,31 @@ Err_Renamed:
 		Else
 			
 			'X = X - g_disp.X
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Width ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.X ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			X = (X - g_disp.X) * g_disp.Width
 			
 		End If
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Y ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		If Y + g_disp.Y < 0 Then
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Y ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If Height Then Height = Height + (Y - g_disp.Y)
 			
 			Y = 0
 			
 		Else
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Height ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Y ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Y = (Y - g_disp.Y) * g_disp.Height
 			
 		End If
 		
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call MoveToEx(frmMain.picMain.hdc, X, frmMain.picMain.ClientRectangle.Height - 1 - Y, 0)
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call LineTo(frmMain.picMain.hdc, X + Width, frmMain.picMain.ClientRectangle.Height - 1 - Y - Height)
 		
 	End Sub
@@ -1421,17 +1421,17 @@ Err_Renamed:
 			
 			If g_intVGridNum(.intCh) = 0 Then Exit Sub
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngObjLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Width ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.X ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngObjLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			X = (g_VGrid(g_intVGridNum(.intCh)).lngObjLeft - g_disp.X) * g_disp.Width + 1
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Height ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Y ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Y = frmMain.picMain.ClientRectangle.Height + OBJ_DIFF - (g_Measure(.intMeasure).lngY + .lngPosition - g_disp.Y) * g_disp.Height
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Width ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Width = GRID_WIDTH * g_disp.Width - 1
 			
-			'•¶š—ñ‚ÌŒˆ’è
+			'æ–‡å­—åˆ—ã®æ±ºå®š
 			Select Case .intCh
 				
 				Case modInput.OBJ_CH.CH_BPM, modInput.OBJ_CH.CH_EXBPM, modInput.OBJ_CH.CH_STOP
@@ -1468,8 +1468,8 @@ Err_Renamed:
 						
 					End If
 					
-					'ƒƒ“ƒOƒm[ƒg
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_ATT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'ãƒ­ãƒ³ã‚°ãƒãƒ¼ãƒˆ
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_ATT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If (.intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE Or (50 < .intCh And .intCh < 69)) And .intCh < 100 Then
 						
 						X = X + 3
@@ -1477,11 +1477,11 @@ Err_Renamed:
 						
 					End If
 					
-					'ƒƒ“ƒOƒm[ƒg‚Ìê‡A‰¼ƒIƒuƒWƒF‚ğ¶¬
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_ATT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'ãƒ­ãƒ³ã‚°ãƒãƒ¼ãƒˆã®å ´åˆã€ä»®ã‚ªãƒ–ã‚¸ã‚§ã‚’ç”Ÿæˆ
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_ATT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE And 10 < .intCh And .intCh < 30 Then
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg m_tempObj(UBound()) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ m_tempObj(UBound()) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						m_tempObj(UBound(m_tempObj)) = tempObj
 						m_tempObj(UBound(m_tempObj)).intCh = .intCh + 40
 						
@@ -1493,22 +1493,22 @@ Err_Renamed:
 					
 			End Select
 			
-			'F‚ÌŒˆ’è
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'è‰²ã®æ±ºå®š
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_SELECT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Select Case .intSelect
 				
 				Case modMain.OBJ_SELECT.NON_SELECT, modMain.OBJ_SELECT.SELECTAREA_IN, modMain.OBJ_SELECT.SELECTAREA_OUT, modMain.OBJ_SELECT.SELECTAREA_SELECTED
 					
 					If .intCh < 10 Or 100 < .intCh Then
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						intLightNum = g_VGrid(g_intVGridNum(.intCh)).intLightNum
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						intShadowNum = g_VGrid(g_intVGridNum(.intCh)).intShadowNum
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						intBrushNum = g_VGrid(g_intVGridNum(.intCh)).intBrushNum
 						
-					ElseIf 50 < .intCh Then  'ƒƒ“ƒOƒm[ƒg
+					ElseIf 50 < .intCh Then  'ãƒ­ãƒ³ã‚°ãƒãƒ¼ãƒˆ
 						
 						intLightNum = PEN_NUM.LONGNOTE_LIGHT
 						intShadowNum = PEN_NUM.LONGNOTE_SHADOW
@@ -1516,14 +1516,14 @@ Err_Renamed:
 						
 					Else
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_ATT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_ATT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						If .intAtt = modMain.OBJ_ATT.OBJ_NORMAL Then
 							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intLightNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							intLightNum = g_VGrid(g_intVGridNum(.intCh)).intLightNum
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intShadowNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							intShadowNum = g_VGrid(g_intVGridNum(.intCh)).intShadowNum
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intBrushNum ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							intBrushNum = g_VGrid(g_intVGridNum(.intCh)).intBrushNum
 							
 						Else 'If .intAtt =OBJ_INVISIBLE  Then
@@ -1586,7 +1586,7 @@ Err_Renamed:
 						
 					End If
 					
-				Case modMain.OBJ_SELECT.Selected '’Êí‘I‘ğ
+				Case modMain.OBJ_SELECT.Selected 'é€šå¸¸é¸æŠ
 					
 					intLightNum = PEN_NUM.SELECT_OBJ_LIGHT
 					intShadowNum = PEN_NUM.SELECT_OBJ_SHADOW
@@ -1594,12 +1594,12 @@ Err_Renamed:
 					
 				Case Else
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If .intSelect = modMain.OBJ_SELECT.EDIT_RECT Then '”’˜g(•ÒWƒ‚[ƒh)
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_SELECT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					If .intSelect = modMain.OBJ_SELECT.EDIT_RECT Then 'ç™½æ (ç·¨é›†ãƒ¢ãƒ¼ãƒ‰)
 						
 						intLightNum = PEN_NUM.EDIT_FRAME
 						
-					Else 'if .intSelect = DELETE_RECT Then 'Ô˜g(Á‹ƒ‚[ƒh)
+					Else 'if .intSelect = DELETE_RECT Then 'èµ¤æ (æ¶ˆå»ãƒ¢ãƒ¼ãƒ‰)
 						
 						intLightNum = PEN_NUM.DELETE_FRAME
 						
@@ -1607,17 +1607,17 @@ Err_Renamed:
 					
 					intBrushNum = UBound(m_hBrush)
 					
-					'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					hOldBrush = SelectObject(frmMain.picMain.hdc, m_hBrush(intBrushNum))
-					'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					hOldPen = SelectObject(frmMain.picMain.hdc, m_hPen(intLightNum))
 					
-					'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					Call Rectangle(frmMain.picMain.hdc, X - 1, Y - OBJ_HEIGHT - 1, X + Width + 1, Y + 2)
 					
-					'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					m_hPen(intLightNum) = SelectObject(frmMain.picMain.hdc, hOldPen)
-					'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					m_hBrush(intBrushNum) = SelectObject(frmMain.picMain.hdc, hOldBrush)
 					
 					Exit Sub
@@ -1628,61 +1628,61 @@ Err_Renamed:
 		
 		With frmMain.picMain
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			hOldBrush = SelectObject(.hdc, m_hBrush(intBrushNum))
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			hOldPen = SelectObject(.hdc, m_hPen(intLightNum))
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call Rectangle(.hdc, X, Y - OBJ_HEIGHT, X + Width, Y + 1)
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			m_hPen(intLightNum) = SelectObject(.hdc, m_hPen(intShadowNum))
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call MoveToEx(.hdc, X, Y, 0)
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call LineTo(.hdc, X + Width - 1, Y)
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call LineTo(.hdc, X + Width - 1, Y - OBJ_HEIGHT)
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			m_hPen(intShadowNum) = SelectObject(.hdc, hOldPen)
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			m_hBrush(intBrushNum) = SelectObject(.hdc, hOldBrush)
 			
 			'Text = g_Obj(lngNum).lngID
-			'UPGRADE_ISSUE: ’è” vbFromUnicode ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_ISSUE: LenB ŠÖ”‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: å®šæ•° vbFromUnicode ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_ISSUE: LenB é–¢æ•°ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			intTemp = LenB(StrConv(Text, vbFromUnicode))
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call GetTextExtentPoint32(.hdc, Text, intTemp, sizeTemp)
 			
 			Y = Y - (OBJ_HEIGHT + sizeTemp.Height) \ 2 + 1
 			
 			'If g_Obj(lngNum).intSelect = Selected Then
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_SELECT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If tempObj.intSelect = modMain.OBJ_SELECT.Selected Then
 				
-				'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				Call SetTextColor(.hdc, &HFFFFFF)
-				'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				Call TextOut(.hdc, X + 3, Y, Text, intTemp)
-				'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				Call SetTextColor(.hdc, &H0)
-				'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				Call TextOut(.hdc, X + 2, Y, Text, intTemp)
 				
 			Else
 				
-				'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				Call SetTextColor(.hdc, &H0)
-				'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				Call TextOut(.hdc, X + 3, Y, Text, intTemp)
-				'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				Call SetTextColor(.hdc, &HFFFFFF)
-				'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				Call TextOut(.hdc, X + 2, Y, Text, intTemp)
 				
 			End If
@@ -1692,7 +1692,7 @@ Err_Renamed:
 		Exit Sub
 		
 Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.CleanUp ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call modMain.CleanUp(Err.Number, Err.Description, "DrawObj")
 	End Sub
 	
@@ -1709,17 +1709,17 @@ Err_Renamed:
 			If g_intVGridNum(.intCh) = 0 Then Exit Sub
 			
 			'X = g_VGrid(g_intVGridNum(.intCh)).lngObjLeft * g_disp.Width - g_disp.X + 1
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngObjLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Width ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.X ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().lngObjLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			X = (g_VGrid(g_intVGridNum(.intCh)).lngObjLeft - g_disp.X) * g_disp.Width + 1
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Height ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Y ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Y = frmMain.picMain.ClientRectangle.Height + OBJ_DIFF - (g_Measure(.intMeasure).lngY + .lngPosition - g_disp.Y) * g_disp.Height
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Width ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Width = GRID_WIDTH * g_disp.Width - 1
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_ATT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_ATT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE Or (.intCh >= 51 And .intCh <= 69) Then
 				
 				X = X + 3
@@ -1731,7 +1731,7 @@ Err_Renamed:
 		
 		With frmMain.picMain
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call Rectangle(.hdc, X - 1, Y - OBJ_HEIGHT - 1, X + Width + 1, Y + 2)
 			
 		End With
@@ -1739,7 +1739,7 @@ Err_Renamed:
 		Exit Sub
 		
 Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.CleanUp ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call modMain.CleanUp(Err.Number, Err.Description, "DrawObjRect")
 	End Sub
 	
@@ -1748,49 +1748,49 @@ Err_Renamed:
 		On Error GoTo Err_Renamed
 		
 		Dim i As Integer
-		Dim lngTemp As Integer 'ˆê•Ï”
-		Dim tempObj As g_udtObj 'ˆêƒIƒuƒWƒF
+		Dim lngTemp As Integer 'ä¸€æ™‚å¤‰æ•°
+		Dim tempObj As g_udtObj 'ä¸€æ™‚ã‚ªãƒ–ã‚¸ã‚§
 		
-		'ƒ}ƒEƒX‚Ìó‘Ô‚ğ•Ï”‚É•Û‘¶
+		'ãƒã‚¦ã‚¹ã®çŠ¶æ…‹ã‚’å¤‰æ•°ã«ä¿å­˜
 		With g_Mouse
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Shift ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Mouse.Shift ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Shift = Shift
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Mouse.X ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.X = X
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Mouse.Y ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Y = Y
 			
 		End With
 		
-		'“ü—Í–³‹‚ª—LŒø‚È‚ç‚³‚æ‚È‚ç
+		'å…¥åŠ›ç„¡è¦–ãŒæœ‰åŠ¹ãªã‚‰ã•ã‚ˆãªã‚‰
 		If g_blnIgnoreInput Then Exit Sub
 		
-		'ˆêƒIƒuƒWƒF‚Éƒf[ƒ^‚ğŠi”[‚·‚é
+		'ä¸€æ™‚ã‚ªãƒ–ã‚¸ã‚§ã«ãƒ‡ãƒ¼ã‚¿ã‚’æ ¼ç´ã™ã‚‹
 		Call SetObjData(tempObj, X, Y) ', g_disp.X, g_disp.Y)
 		
 		With tempObj
 			
-			If frmMain.tlbMenu.Items.Item("Write").Checked = True Then '‘‚«‚İƒ‚[ƒh
+			If frmMain.tlbMenu.Items.Item("Write").Checked = True Then 'æ›¸ãè¾¼ã¿ãƒ¢ãƒ¼ãƒ‰
 				
-				If 10 < .intCh And .intCh < 30 Then 'ƒIƒuƒWƒF‚ÍƒL[ƒIƒuƒWƒF‚Å‚ ‚é
+				If 10 < .intCh And .intCh < 30 Then 'ã‚ªãƒ–ã‚¸ã‚§ã¯ã‚­ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã§ã‚ã‚‹
 					
-					If Shift And VB6.ShiftConstants.CtrlMask Then '•s‰Â‹ƒIƒuƒWƒF
+					If Shift And VB6.ShiftConstants.CtrlMask Then 'ä¸å¯è¦–ã‚ªãƒ–ã‚¸ã‚§
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_ATT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_ATT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE
 						
-					ElseIf Shift And VB6.ShiftConstants.ShiftMask Then  'ƒƒ“ƒOƒm[ƒg
+					ElseIf Shift And VB6.ShiftConstants.ShiftMask Then  'ãƒ­ãƒ³ã‚°ãƒãƒ¼ãƒˆ
 						
 						.intCh = .intCh + 40
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_ATT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_ATT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						.intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE
 						
 					End If
 					
 				End If
 				
-				'ƒIƒuƒWƒFˆÊ’u‚ğƒOƒŠƒbƒh‚É‚ ‚í‚¹‚é
+				'ã‚ªãƒ–ã‚¸ã‚§ä½ç½®ã‚’ã‚°ãƒªãƒƒãƒ‰ã«ã‚ã‚ã›ã‚‹
 				'If Shift And vbAltMask Then
 				
 				If VB6.GetItemData(frmMain.cboDispGridSub, frmMain.cboDispGridSub.SelectedIndex) Then
@@ -1806,7 +1806,7 @@ Err_Renamed:
 			
 		End With
 		
-		'If frmMain.tlbMenu.Buttons("Write").value = tbrUnpressed Then '‘‚«‚İƒ‚[ƒh
+		'If frmMain.tlbMenu.Buttons("Write").value = tbrUnpressed Then 'æ›¸ãè¾¼ã¿ãƒ¢ãƒ¼ãƒ‰
 		
 		With tempObj
 			
@@ -1814,29 +1814,29 @@ Err_Renamed:
 			
 			For i = UBound(g_Obj) - 1 To 0 Step -1
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_ATT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_ATT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If (g_Obj(i).intCh = .intCh) Or (.intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE And g_Obj(i).intCh + 40 = .intCh) Then
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Height ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If g_Measure(g_Obj(i).intMeasure).lngY + g_Obj(i).lngPosition + OBJ_HEIGHT / g_disp.Height >= lngTemp And g_Measure(g_Obj(i).intMeasure).lngY + g_Obj(i).lngPosition <= lngTemp Then
 						
 						If frmMain.tlbMenu.Items.Item("Write").Checked = False Then
 							
 							If frmMain.tlbMenu.Items.Item("Edit").Checked = True Then
 								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_SELECT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								.intSelect = modMain.OBJ_SELECT.EDIT_RECT
 								
 							ElseIf frmMain.tlbMenu.Items.Item("Delete").Checked = True Then 
 								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+								'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_SELECT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 								.intSelect = modMain.OBJ_SELECT.DELETE_RECT
 								
 							End If
 							
 							.intAtt = g_Obj(i).intAtt
 							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_ATT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+							'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_ATT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 							If .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE Then .intCh = .intCh + 40
 							
 							.sngValue = g_Obj(i).sngValue
@@ -1849,12 +1849,12 @@ Err_Renamed:
 						'.lngHeight = i
 						
 						'.lngPosition = g_Obj(i).lngPosition
-						'‚Æ‚è‚ ‚¦‚¸Ø‚Á‚Ä‚¨‚¢‚½‚æA‚»‚Ì‘ã‚í‚èã‚É’Ç‰Á‚µ‚Ä‚¨‚¢‚½ v1.1.7
-						'ª‰½‚Ì‚½‚ß‚ÉÁ‚µ‚½‚Ì‚©‚í‚©‚ç‚Ë[ã‚ÉƒoƒO‚é‚Ì‚Å•œŠˆ‚³‚¹‚Ü‚µ‚½ v1.2.3
-						'ª‚±‚êÁ‚³‚È‚¢‚Æ‘‚«‚İƒ‚[ƒh‚ÉƒIƒuƒWƒF‚É‹z‚¢‚Ü‚ê‚éB‚ÅA‰½‚ªƒoƒO‚Á‚½‚ñ‚¾‚Á‚¯H v1.3.0
-						'ª¬ß‚ğ‚Ü‚½‚ª‚éƒIƒuƒWƒF‚ÉŠÖ‚µ‚Ä‚¦‚ç‚¢‚±‚Æ‚É‚È‚éB‚Ç[‚µ‚æ‚¤B v1.3.5
-						'«‚±‚ê‚ğã‚ÉˆÚ“®‚µ‚Ä‰ğŒˆH‚µ‚½H‚©‚àH v1.3.6
-						'‚±‚ê‚ª‚È‚¢‚Æ‘‚«‚İƒ‚[ƒh‚Ì‰EƒNƒŠƒbƒNíœ‚ª‚¤‚Ü‚­“®‚©‚È‚¢‚Ì‚©‚àH v1.3.9
+						'ã¨ã‚Šã‚ãˆãšåˆ‡ã£ã¦ãŠã„ãŸã‚ˆã€ãã®ä»£ã‚ã‚Šä¸Šã«è¿½åŠ ã—ã¦ãŠã„ãŸ v1.1.7
+						'â†‘ä½•ã®ãŸã‚ã«æ¶ˆã—ãŸã®ã‹ã‚ã‹ã‚‰ã­ãƒ¼ä¸Šã«ãƒã‚°ã‚‹ã®ã§å¾©æ´»ã•ã›ã¾ã—ãŸ v1.2.3
+						'â†‘ã“ã‚Œæ¶ˆã•ãªã„ã¨æ›¸ãè¾¼ã¿ãƒ¢ãƒ¼ãƒ‰æ™‚ã«ã‚ªãƒ–ã‚¸ã‚§ã«å¸ã„è¾¼ã¾ã‚Œã‚‹ã€‚ã§ã€ä½•ãŒãƒã‚°ã£ãŸã‚“ã ã£ã‘ï¼Ÿ v1.3.0
+						'â†‘å°ç¯€ã‚’ã¾ãŸãŒã‚‹ã‚ªãƒ–ã‚¸ã‚§ã«é–¢ã—ã¦ãˆã‚‰ã„ã“ã¨ã«ãªã‚‹ã€‚ã©ãƒ¼ã—ã‚ˆã†ã€‚ v1.3.5
+						'â†“ã“ã‚Œã‚’ä¸Šã«ç§»å‹•ã—ã¦è§£æ±ºï¼Ÿã—ãŸï¼Ÿã‹ã‚‚ï¼Ÿ v1.3.6
+						'ã“ã‚ŒãŒãªã„ã¨æ›¸ãè¾¼ã¿ãƒ¢ãƒ¼ãƒ‰æ™‚ã®å³ã‚¯ãƒªãƒƒã‚¯å‰Šé™¤ãŒã†ã¾ãå‹•ã‹ãªã„ã®ã‹ã‚‚ï¼Ÿ v1.3.9
 						'.intMeasure = g_Obj(i).intMeasure
 						
 						.lngHeight = i
@@ -1871,14 +1871,14 @@ Err_Renamed:
 		
 		'End If
 		
-		'ƒXƒe[ƒ^ƒXƒo[XV
+		'ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼æ›´æ–°
 		Call DrawStatusBar(tempObj, Shift)
 		
-		If frmMain.tlbMenu.Items.Item("Write").Checked = True Then '‘‚«‚İƒ‚[ƒh
+		If frmMain.tlbMenu.Items.Item("Write").Checked = True Then 'æ›¸ãè¾¼ã¿ãƒ¢ãƒ¼ãƒ‰
 			
 			If tempObj.intCh <> g_Obj(UBound(g_Obj)).intCh Or tempObj.intAtt <> g_Obj(UBound(g_Obj)).intAtt Or tempObj.intMeasure <> g_Obj(UBound(g_Obj)).intMeasure Or tempObj.lngPosition <> g_Obj(UBound(g_Obj)).lngPosition Or tempObj.sngValue <> g_Obj(UBound(g_Obj)).sngValue Then
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Obj(UBound()) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Obj(UBound()) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				g_Obj(UBound(g_Obj)) = tempObj
 				g_lngObjID(g_Obj(UBound(g_Obj)).lngID) = UBound(g_Obj)
 				
@@ -1890,10 +1890,10 @@ Err_Renamed:
 				
 			End If
 			
-		Else '‘‚«‚İƒ‚[ƒhˆÈŠO
+		Else 'æ›¸ãè¾¼ã¿ãƒ¢ãƒ¼ãƒ‰ä»¥å¤–
 			
-			'•`‰æ‚·‚×‚«ƒIƒuƒWƒF‚Í‚È‚¢
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'æç”»ã™ã¹ãã‚ªãƒ–ã‚¸ã‚§ã¯ãªã„
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_SELECT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If tempObj.intSelect <> modMain.OBJ_SELECT.EDIT_RECT And tempObj.intSelect <> modMain.OBJ_SELECT.DELETE_RECT Then
 				
 				tempObj.intCh = 0
@@ -1906,7 +1906,7 @@ Err_Renamed:
 				
 				If g_Obj(tempObj.lngHeight).intCh Then tempObj.lngPosition = g_Obj(tempObj.lngHeight).lngPosition
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Obj(UBound()) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Obj(UBound()) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				g_Obj(UBound(g_Obj)) = tempObj
 				g_lngObjID(g_Obj(UBound(g_Obj)).lngID) = UBound(g_Obj)
 				
@@ -1920,35 +1920,35 @@ Err_Renamed:
 		
 		'Call DrawStatusBar(UBound(g_Obj), Shift)
 		
-		'‰æ–ÊÁ‹
-		'UPGRADE_ISSUE: PictureBox ƒƒ\ƒbƒh picMain.Cls ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'ç”»é¢æ¶ˆå»
+		'UPGRADE_ISSUE: PictureBox ãƒ¡ã‚½ãƒƒãƒ‰ picMain.Cls ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call frmMain.picMain.Cls()
 		
-		'•`‰æ‚·‚×‚«ƒIƒuƒWƒF‚Í‚ ‚é‚©H
+		'æç”»ã™ã¹ãã‚ªãƒ–ã‚¸ã‚§ã¯ã‚ã‚‹ã‹ï¼Ÿ
 		If g_Obj(UBound(g_Obj)).intCh Then
 			
-			'ƒyƒ“¶¬
+			'ãƒšãƒ³ç”Ÿæˆ
 			Call InitPen()
 			
-			'ƒtƒHƒ“ƒgƒTƒCƒY•ÏX
+			'ãƒ•ã‚©ãƒ³ãƒˆã‚µã‚¤ã‚ºå¤‰æ›´
 			frmMain.picMain.Font = VB6.FontChangeSize(frmMain.picMain.Font, 8)
 			
-			'ƒIƒuƒWƒF•`‰æ
+			'ã‚ªãƒ–ã‚¸ã‚§æç”»
 			Call DrawObj(g_Obj(UBound(g_Obj)))
 			
-			'ƒyƒ“íœ
+			'ãƒšãƒ³å‰Šé™¤
 			Call DeletePen()
 			
 		End If
 		
-		'ƒC[ƒXƒ^[ƒGƒbƒO•`‰æ
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'ã‚¤ãƒ¼ã‚¹ã‚¿ãƒ¼ã‚¨ãƒƒã‚°æç”»
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intEffect ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		If g_disp.intEffect Then Call modEasterEgg.DrawEffect()
 		
 		Exit Sub
 		
 Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.CleanUp ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call modMain.CleanUp(Err.Number, Err.Description, "DrawObjMax")
 	End Sub
 	
@@ -1968,8 +1968,8 @@ Err_Renamed:
 		End If
 		
 		'lngTemp = (X + g_disp.X) / g_disp.Width
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.X ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Width ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		lngTemp = X / g_disp.Width + g_disp.X
 		
 		tempObj.intCh = 8
@@ -1978,14 +1978,14 @@ Err_Renamed:
 			
 			With g_VGrid(i)
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).blnDraw ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).intCh ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).blnDraw ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If .blnDraw = True And .intCh <> 0 Then
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid(i).lngLeft ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If .lngLeft <= lngTemp Then
 						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+						'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_VGrid().intCh ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 						tempObj.intCh = .intCh
 						
 					Else
@@ -2015,8 +2015,8 @@ Err_Renamed:
 				
 			End If
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Y ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Height ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			lngTemp = (frmMain.picMain.ClientRectangle.Height - Y + OBJ_DIFF) / g_disp.Height + g_disp.Y
 			
 			'For i = g_Disp.intStartMeasure To g_Disp.intEndMeasure
@@ -2088,9 +2088,9 @@ Err_Renamed:
 		'With g_Obj(ObjNum)
 		With tempObj
 			
-			'¬ß
+			'å°ç¯€
 			strTemp = "Position:  " & .intMeasure & g_strStatusBar(23) & "  "
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.measure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Mouse.measure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			g_Mouse.measure = .intMeasure
 			
 			'If Not Shift And vbAltMask Then
@@ -2099,10 +2099,10 @@ Err_Renamed:
 			
 			'End If
 			
-			'ƒOƒŠƒbƒh
+			'ã‚°ãƒªãƒƒãƒ‰
 			If lngTemp Then
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_SELECT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If .intSelect > modMain.OBJ_SELECT.Selected And .lngPosition <> 0 Then
 					
 					lngTemp = modInput.intGCD(.lngPosition, g_Measure(.intMeasure).intLen)
@@ -2129,7 +2129,7 @@ Err_Renamed:
 			
 			strTemp = strTemp & "  "
 			
-			'ƒL[–¼
+			'ã‚­ãƒ¼å
 			Select Case .intCh
 				
 				Case Is > 100
@@ -2191,15 +2191,15 @@ Err_Renamed:
 					
 			End Select
 			
-			'•s‰Â‹ or ƒƒ“ƒOƒm[ƒg
+			'ä¸å¯è¦– or ãƒ­ãƒ³ã‚°ãƒãƒ¼ãƒˆ
 			If 10 < .intCh And .intCh < 30 Then
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_ATT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_ATT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If .intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE Then
 					
 					strTemp = strTemp & " " & g_strStatusBar(15)
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_ATT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_ATT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				ElseIf .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE Then 
 					
 					strTemp = strTemp & " " & g_strStatusBar(16)
@@ -2237,7 +2237,7 @@ Err_Renamed:
 		Dim rectTemp As RECT
 		
 		hNewPen = CreatePen(PS_SOLID, 1, g_lngPenColor(PEN_NUM.EDIT_FRAME))
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		hOldPen = SelectObject(frmMain.picMain.hdc, hNewPen)
 		
 		With objBrush
@@ -2248,29 +2248,29 @@ Err_Renamed:
 		
 		'hNewBrush = CreateHatchBrush(HS_BDIAGONAL, g_lngPenColor(PEN_NUM.EDIT_FRAME))
 		hNewBrush = CreateBrushIndirect(objBrush)
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		hOldBrush = SelectObject(frmMain.picMain.hdc, hNewBrush)
 		
-		'UPGRADE_ISSUE: PictureBox ƒƒ\ƒbƒh picMain.Cls ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ¡ã‚½ãƒƒãƒ‰ picMain.Cls ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call frmMain.picMain.Cls()
 		
 		With rectTemp
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.Y1 ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Height ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Y ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_SelectArea.Y1 ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Top = (g_SelectArea.Y1 - g_disp.Y) * -g_disp.Height + frmMain.picMain.ClientRectangle.Height
 			'.Left = g_SelectArea.X1 * g_disp.Width - g_disp.X
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.X1 ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.Width ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.X ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_SelectArea.X1 ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.left_Renamed = (g_SelectArea.X1 - g_disp.X) * g_disp.Width
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Mouse.X ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.right_Renamed = g_Mouse.X
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Mouse.Y ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.Bottom = g_Mouse.Y
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call Rectangle(frmMain.picMain.hdc, .left_Renamed, .Top, .right_Renamed, .Bottom)
 			
 		End With
@@ -2279,13 +2279,13 @@ Err_Renamed:
 			
 			With g_Obj(i)
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_SELECT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If .intSelect = modMain.OBJ_SELECT.SELECTAREA_IN Or .intSelect = modMain.OBJ_SELECT.SELECTAREA_OUT Then
 					
 					lngTemp = g_Measure(.intMeasure).lngY + .lngPosition
 					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngEndPos ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngStartPos ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.lngEndPos ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.lngStartPos ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					If g_disp.lngStartPos <= lngTemp And lngTemp <= g_disp.lngEndPos Then
 						
 						Call modDraw.DrawObjRect(i)
@@ -2298,11 +2298,11 @@ Err_Renamed:
 			
 		Next i
 		
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		hNewPen = SelectObject(frmMain.picMain.hdc, hOldPen)
 		Call DeleteObject(hNewPen)
 		
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picMain.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		hNewBrush = SelectObject(frmMain.picMain.hdc, hOldBrush)
 		Call DeleteObject(hNewBrush)
 		
@@ -2312,13 +2312,13 @@ Err_Renamed:
 		
 		With g_disp
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intMaxMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intMaxMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If .intMaxMeasure < intMeasure + 16 Then
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intMaxMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intMaxMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				.intMaxMeasure = intMeasure + 16
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intMaxMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intMaxMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If 999 < g_disp.intMaxMeasure Then .intMaxMeasure = 999
 				
 				'Call ChangeResolution
@@ -2339,10 +2339,10 @@ Err_Renamed:
 		
 		With g_disp
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intResolution ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intResolution ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			intTemp = .intResolution
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intMaxMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intMaxMeasure ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			For i = 0 To .intMaxMeasure
 				
 				lngTemp = lngTemp + g_Measure(i).intLen
@@ -2354,32 +2354,32 @@ Err_Renamed:
 			
 			Select Case sngTemp
 				Case Is > 48
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intResolution ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intResolution ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.intResolution = 96
 				Case Is > 24
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intResolution ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intResolution ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.intResolution = 48
 				Case Is > 12
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intResolution ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intResolution ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.intResolution = 24
 				Case Is > 6
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intResolution ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intResolution ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.intResolution = 12
 				Case Is > 3
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intResolution ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intResolution ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.intResolution = 6
 				Case Is > 1
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intResolution ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intResolution ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.intResolution = 3
 				Case Else
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intResolution ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intResolution ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					.intResolution = 1
 			End Select
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intResolution ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intResolution ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If intTemp = .intResolution Then Exit Sub
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intResolution ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intResolution ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			frmMain.vsbMain.Value = (frmMain.vsbMain.Value / .intResolution) * intTemp
 			
 		End With
@@ -2396,11 +2396,11 @@ Err_Renamed:
 				'If i = 0 Then lngTemp = 1
 				lngTemp = 2 ^ i * 3
 				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intResolution ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intResolution ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				If g_disp.intResolution <= lngTemp Then
 					
 					Call .Items.Insert(intTemp, CStr(lngTemp))
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intResolution ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+					'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_disp.intResolution ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 					VB6.SetItemData(frmMain.cboVScroll, intTemp, lngTemp \ g_disp.intResolution)
 					
 					intTemp = intTemp + 1
@@ -2426,17 +2426,17 @@ Err_Renamed:
 			.lngHeight = 0
 			.intMeasure = 0
 			.lngPosition = 0
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_SELECT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.intSelect = modMain.OBJ_SELECT.NON_SELECT
 			.sngValue = 0
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_ATT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_ATT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.intAtt = modMain.OBJ_ATT.OBJ_NORMAL
 		End With
 		
 		Exit Sub
 		
 Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.CleanUp ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call modMain.CleanUp(Err.Number, Err.Description, "RemoveObj")
 	End Sub
 	
@@ -2459,14 +2459,14 @@ Err_Renamed:
 			
 		Next i
 		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Obj(lngTemp) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ g_Obj(lngTemp) ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		g_Obj(lngTemp) = g_Obj(UBound(g_Obj))
 		
 		ReDim Preserve g_Obj(lngTemp)
 		
 	End Sub
 	
-	'‘I‘ğ‚³‚ê‚½ƒIƒuƒWƒF‚ğ”z—ñ‚ÌŒã‚ë‚ÉˆÚ“®‚·‚é
+	'é¸æŠã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚’é…åˆ—ã®å¾Œã‚ã«ç§»å‹•ã™ã‚‹
 	Public Sub MoveSelectedObj()
 		Dim modMain As Object
 		On Error GoTo Err_Renamed
@@ -2477,7 +2477,7 @@ Err_Renamed:
 		
 		For i = 0 To UBound(g_Obj) - 1
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_SELECT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If g_Obj(i).intSelect <> modMain.OBJ_SELECT.NON_SELECT Then
 				
 				lngTemp = lngTemp + 1
@@ -2498,7 +2498,7 @@ Err_Renamed:
 		
 		For i = 0 To j - 1
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_SELECT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			If g_Obj(i).intSelect <> modMain.OBJ_SELECT.NON_SELECT Then
 				
 				Call modInput.SwapObj(i, j + lngTemp)
@@ -2516,7 +2516,7 @@ Err_Renamed:
 		Exit Sub
 		
 Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.CleanUp ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call modMain.CleanUp(Err.Number, Err.Description, "MoveSelectedObj")
 	End Sub
 	
@@ -2527,7 +2527,7 @@ Err_Renamed:
 		
 		For i = 0 To UBound(g_Obj) - 1
 			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_SELECT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			g_Obj(i).intSelect = modMain.OBJ_SELECT.NON_SELECT
 			
 		Next i
@@ -2539,7 +2539,7 @@ Err_Renamed:
 		Dim i As Integer
 		Dim objBrush As LOGBRUSH
 		
-		'ƒyƒ“¶¬
+		'ãƒšãƒ³ç”Ÿæˆ
 		
 		For i = 0 To UBound(m_hPen)
 			
@@ -2547,7 +2547,7 @@ Err_Renamed:
 			
 		Next i
 		
-		'ƒuƒ‰ƒV¶¬
+		'ãƒ–ãƒ©ã‚·ç”Ÿæˆ
 		
 		For i = 0 To UBound(m_hBrush) - 1
 			
@@ -2571,14 +2571,14 @@ Err_Renamed:
 		
 		Dim i As Integer
 		
-		'ƒyƒ“íœ
+		'ãƒšãƒ³å‰Šé™¤
 		For i = 0 To UBound(m_hPen)
 			
 			Call DeleteObject(m_hPen(i))
 			
 		Next i
 		
-		'ƒuƒ‰ƒVíœ
+		'ãƒ–ãƒ©ã‚·å‰Šé™¤
 		For i = 0 To UBound(m_hBrush)
 			
 			Call DeleteObject(m_hBrush(i))

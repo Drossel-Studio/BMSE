@@ -1,11 +1,11 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmMain
-#Region "Windows ÉtÉHÅ[ÉÄ ÉfÉUÉCÉiÇ…ÇÊÇ¡Çƒê∂ê¨Ç≥ÇÍÇΩÉRÅ[Éh "
+#Region "Windows „Éï„Ç©„Éº„É† „Éá„Ç∂„Ç§„Éä„Å´„Çà„Å£„Å¶ÁîüÊàê„Åï„Çå„Åü„Ç≥„Éº„Éâ "
 	<System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
 		MyBase.New()
-		'Ç±ÇÃåƒÇ—èoÇµÇÕÅAWindows ÉtÉHÅ[ÉÄ ÉfÉUÉCÉiÇ≈ïKóvÇ≈Ç∑ÅB
+		'„Åì„ÅÆÂëº„Å≥Âá∫„Åó„ÅØ„ÄÅWindows „Éï„Ç©„Éº„É† „Éá„Ç∂„Ç§„Éä„ÅßÂøÖË¶Å„Åß„Åô„ÄÇ
 		InitializeComponent()
 	End Sub
-	'Form ÇÕÅAÉRÉìÉ|Å[ÉlÉìÉgàÍóóÇ…å„èàóùÇé¿çsÇ∑ÇÈÇΩÇﬂÇ… dispose ÇÉIÅ[ÉoÅ[ÉâÉCÉhÇµÇ‹Ç∑ÅB
+	'Form „ÅØ„ÄÅ„Ç≥„É≥„Éù„Éº„Éç„É≥„Éà‰∏ÄË¶ß„Å´ÂæåÂá¶ÁêÜ„ÇíÂÆüË°å„Åô„Çã„Åü„ÇÅ„Å´ dispose „Çí„Ç™„Éº„Éê„Éº„É©„Ç§„Éâ„Åó„Åæ„Åô„ÄÇ
 	<System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
 		If Disposing Then
 			If Not components Is Nothing Then
@@ -14,7 +14,7 @@
 		End If
 		MyBase.Dispose(Disposing)
 	End Sub
-	'Windows ÉtÉHÅ[ÉÄ ÉfÉUÉCÉiÇ≈ïKóvÇ≈Ç∑ÅB
+	'Windows „Éï„Ç©„Éº„É† „Éá„Ç∂„Ç§„Éä„ÅßÂøÖË¶Å„Åß„Åô„ÄÇ
 	Private components As System.ComponentModel.IContainer
 	Public ToolTip1 As System.Windows.Forms.ToolTip
 	Public WithEvents mnuFileNew As System.Windows.Forms.ToolStripMenuItem
@@ -247,9 +247,9 @@
 	Public WithEvents optChangeBottom As Microsoft.VisualBasic.Compatibility.VB6.RadioButtonArray
 	Public WithEvents optChangeTop As Microsoft.VisualBasic.Compatibility.VB6.RadioButtonArray
 	Public WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
-	'ÉÅÉÇ: à»â∫ÇÃÉvÉçÉVÅ[ÉWÉÉÇÕ Windows ÉtÉHÅ[ÉÄ ÉfÉUÉCÉiÇ≈ïKóvÇ≈Ç∑ÅB
-	'Windows ÉtÉHÅ[ÉÄ ÉfÉUÉCÉiÇégÇ¡ÇƒïœçXÇ≈Ç´Ç‹Ç∑ÅB
-	'ÉRÅ[Éh ÉGÉfÉBÉ^ÇégópÇµÇƒÅAïœçXÇµÇ»Ç¢Ç≈Ç≠ÇæÇ≥Ç¢ÅB
+	'„É°„É¢: ‰ª•‰∏ã„ÅÆ„Éó„É≠„Ç∑„Éº„Ç∏„É£„ÅØ Windows „Éï„Ç©„Éº„É† „Éá„Ç∂„Ç§„Éä„ÅßÂøÖË¶Å„Åß„Åô„ÄÇ
+	'Windows „Éï„Ç©„Éº„É† „Éá„Ç∂„Ç§„Éä„Çí‰Ωø„Å£„Å¶Â§âÊõ¥„Åß„Åç„Åæ„Åô„ÄÇ
+	'„Ç≥„Éº„Éâ „Ç®„Éá„Ç£„Çø„Çí‰ΩøÁî®„Åó„Å¶„ÄÅÂ§âÊõ¥„Åó„Å™„ÅÑ„Åß„Åè„Å†„Åï„ÅÑ„ÄÇ
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
 		Dim resources As System.Resources.ResourceManager = New System.Resources.ResourceManager(GetType(frmMain))
 		Me.components = New System.ComponentModel.Container()
@@ -521,7 +521,7 @@
 		Me.Text = "BMx Sequence Editor"
 		Me.ClientSize = New System.Drawing.Size(1192, 530)
 		Me.Location = New System.Drawing.Point(11, 49)
-		Me.Font = New System.Drawing.Font("ÇlÇr ÉSÉVÉbÉN", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+		Me.Font = New System.Drawing.Font("Ôº≠Ôº≥ „Ç¥„Ç∑„ÉÉ„ÇØ", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
 		Me.Icon = CType(resources.GetObject("frmMain.Icon"), System.Drawing.Icon)
 		Me.KeyPreview = True
 		Me.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultLocation
@@ -1055,7 +1055,7 @@
 		Me.cboDispWidth.TabStop = True
 		Me.cboDispWidth.Visible = True
 		Me.cboDispWidth.Name = "cboDispWidth"
-		Me.lblDispWidth.Text = "ïù"
+		Me.lblDispWidth.Text = "ÂπÖ"
 		Me.lblDispWidth.Size = New System.Drawing.Size(12, 12)
 		Me.lblDispWidth.Location = New System.Drawing.Point(96, 4)
 		Me.lblDispWidth.TabIndex = 14
@@ -1070,7 +1070,7 @@
 		Me.lblDispWidth.AutoSize = True
 		Me.lblDispWidth.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblDispWidth.Name = "lblDispWidth"
-		Me.lblDispHeight.Text = "çÇÇ≥"
+		Me.lblDispHeight.Text = "È´ò„Åï"
 		Me.lblDispHeight.Size = New System.Drawing.Size(24, 12)
 		Me.lblDispHeight.Location = New System.Drawing.Point(0, 4)
 		Me.lblDispHeight.TabIndex = 12
@@ -1196,7 +1196,7 @@
 		Me.cboDispGridSub.TabStop = True
 		Me.cboDispGridSub.Visible = True
 		Me.cboDispGridSub.Name = "cboDispGridSub"
-		Me.lblGridSub.Text = "ï‚èï"
+		Me.lblGridSub.Text = "Ë£úÂä©"
 		Me.lblGridSub.Size = New System.Drawing.Size(24, 12)
 		Me.lblGridSub.Location = New System.Drawing.Point(96, 4)
 		Me.lblGridSub.TabIndex = 9
@@ -1366,7 +1366,7 @@
 		Me.txtBPM.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
 		Me.txtBPM.Name = "txtBPM"
 		Me.lblPlayMode.TextAlign = System.Drawing.ContentAlignment.TopRight
-		Me.lblPlayMode.Text = "ÉvÉåÉCÉÇÅ[Éh"
+		Me.lblPlayMode.Text = "„Éó„É¨„Ç§„É¢„Éº„Éâ"
 		Me.lblPlayMode.Size = New System.Drawing.Size(72, 12)
 		Me.lblPlayMode.Location = New System.Drawing.Point(4, 12)
 		Me.lblPlayMode.TabIndex = 24
@@ -1381,7 +1381,7 @@
 		Me.lblPlayMode.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblPlayMode.Name = "lblPlayMode"
 		Me.lblGenre.TextAlign = System.Drawing.ContentAlignment.TopRight
-		Me.lblGenre.Text = "ÉWÉÉÉìÉã"
+		Me.lblGenre.Text = "„Ç∏„É£„É≥„É´"
 		Me.lblGenre.Size = New System.Drawing.Size(48, 12)
 		Me.lblGenre.Location = New System.Drawing.Point(28, 36)
 		Me.lblGenre.TabIndex = 26
@@ -1396,7 +1396,7 @@
 		Me.lblGenre.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblGenre.Name = "lblGenre"
 		Me.lblTitle.TextAlign = System.Drawing.ContentAlignment.TopRight
-		Me.lblTitle.Text = "É^ÉCÉgÉã"
+		Me.lblTitle.Text = "„Çø„Ç§„Éà„É´"
 		Me.lblTitle.Size = New System.Drawing.Size(48, 12)
 		Me.lblTitle.Location = New System.Drawing.Point(28, 60)
 		Me.lblTitle.TabIndex = 28
@@ -1411,7 +1411,7 @@
 		Me.lblTitle.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblTitle.Name = "lblTitle"
 		Me.lblArtist.TextAlign = System.Drawing.ContentAlignment.TopRight
-		Me.lblArtist.Text = "ÉAÅ[ÉeÉBÉXÉg"
+		Me.lblArtist.Text = "„Ç¢„Éº„ÉÜ„Ç£„Çπ„Éà"
 		Me.lblArtist.Size = New System.Drawing.Size(72, 12)
 		Me.lblArtist.Location = New System.Drawing.Point(4, 84)
 		Me.lblArtist.TabIndex = 30
@@ -1426,7 +1426,7 @@
 		Me.lblArtist.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblArtist.Name = "lblArtist"
 		Me.lblPlayLevel.TextAlign = System.Drawing.ContentAlignment.TopRight
-		Me.lblPlayLevel.Text = "ìÔà’ìxï\é¶"
+		Me.lblPlayLevel.Text = "Èõ£ÊòìÂ∫¶Ë°®Á§∫"
 		Me.lblPlayLevel.Size = New System.Drawing.Size(60, 12)
 		Me.lblPlayLevel.Location = New System.Drawing.Point(16, 108)
 		Me.lblPlayLevel.TabIndex = 32
@@ -1548,7 +1548,7 @@
 		Me.txtStageFile.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
 		Me.txtStageFile.Name = "txtStageFile"
 		Me.cmdLoadStageFile.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdLoadStageFile.Text = "éQè∆"
+		Me.cmdLoadStageFile.Text = "ÂèÇÁÖß"
 		Me.cmdLoadStageFile.Size = New System.Drawing.Size(37, 17)
 		Me.cmdLoadStageFile.Location = New System.Drawing.Point(176, 80)
 		Me.cmdLoadStageFile.TabIndex = 45
@@ -1561,7 +1561,7 @@
 		Me.cmdLoadStageFile.TabStop = True
 		Me.cmdLoadStageFile.Name = "cmdLoadStageFile"
 		Me.cmdLoadMissBMP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdLoadMissBMP.Text = "éQè∆"
+		Me.cmdLoadMissBMP.Text = "ÂèÇÁÖß"
 		Me.cmdLoadMissBMP.Size = New System.Drawing.Size(37, 17)
 		Me.cmdLoadMissBMP.Location = New System.Drawing.Point(176, 104)
 		Me.cmdLoadMissBMP.TabIndex = 48
@@ -1682,7 +1682,7 @@
 		Me.cboDispFrame.Size = New System.Drawing.Size(133, 20)
 		Me.cboDispFrame.IMEMode = System.Windows.Forms.ImeMode.Disable
 		Me.cboDispFrame.Location = New System.Drawing.Point(80, 8)
-		Me.cboDispFrame.Items.AddRange(New Object(){"ÉnÅ[Ét", "ÉZÉpÉåÅ[Ég"})
+		Me.cboDispFrame.Items.AddRange(New Object(){"„Éè„Éº„Éï", "„Çª„Éë„É¨„Éº„Éà"})
 		Me.cboDispFrame.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cboDispFrame.TabIndex = 51
 		Me.cboDispFrame.BackColor = System.Drawing.SystemColors.Window
@@ -1699,7 +1699,7 @@
 		Me.cboDispSC2P.Size = New System.Drawing.Size(49, 20)
 		Me.cboDispSC2P.IMEMode = System.Windows.Forms.ImeMode.Disable
 		Me.cboDispSC2P.Location = New System.Drawing.Point(164, 56)
-		Me.cboDispSC2P.Items.AddRange(New Object(){"ç∂", "âE"})
+		Me.cboDispSC2P.Items.AddRange(New Object(){"Â∑¶", "Âè≥"})
 		Me.cboDispSC2P.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cboDispSC2P.TabIndex = 57
 		Me.cboDispSC2P.BackColor = System.Drawing.SystemColors.Window
@@ -1716,7 +1716,7 @@
 		Me.cboDispSC1P.Size = New System.Drawing.Size(49, 20)
 		Me.cboDispSC1P.IMEMode = System.Windows.Forms.ImeMode.Disable
 		Me.cboDispSC1P.Location = New System.Drawing.Point(80, 56)
-		Me.cboDispSC1P.Items.AddRange(New Object(){"ç∂", "âE"})
+		Me.cboDispSC1P.Items.AddRange(New Object(){"Â∑¶", "Âè≥"})
 		Me.cboDispSC1P.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cboDispSC1P.TabIndex = 55
 		Me.cboDispSC1P.BackColor = System.Drawing.SystemColors.Window
@@ -1748,7 +1748,7 @@
 		Me.cboDispKey.Visible = True
 		Me.cboDispKey.Name = "cboDispKey"
 		Me.lblDispFrame.TextAlign = System.Drawing.ContentAlignment.TopRight
-		Me.lblDispFrame.Text = "ÉLÅ[ï\é¶"
+		Me.lblDispFrame.Text = "„Ç≠„ÉºË°®Á§∫"
 		Me.lblDispFrame.Size = New System.Drawing.Size(48, 12)
 		Me.lblDispFrame.Location = New System.Drawing.Point(28, 12)
 		Me.lblDispFrame.TabIndex = 50
@@ -1778,7 +1778,7 @@
 		Me.lblDispSC2P.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblDispSC2P.Name = "lblDispSC2P"
 		Me.lblDispSC1P.TextAlign = System.Drawing.ContentAlignment.TopRight
-		Me.lblDispSC1P.Text = "ÉXÉNÉâÉbÉ`1P"
+		Me.lblDispSC1P.Text = "„Çπ„ÇØ„É©„ÉÉ„ÉÅ1P"
 		Me.lblDispSC1P.Size = New System.Drawing.Size(72, 12)
 		Me.lblDispSC1P.Location = New System.Drawing.Point(4, 60)
 		Me.lblDispSC1P.TabIndex = 54
@@ -1793,7 +1793,7 @@
 		Me.lblDispSC1P.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblDispSC1P.Name = "lblDispSC1P"
 		Me.lblDispKey.TextAlign = System.Drawing.ContentAlignment.TopRight
-		Me.lblDispKey.Text = "ÉLÅ[îzíu"
+		Me.lblDispKey.Text = "„Ç≠„ÉºÈÖçÁΩÆ"
 		Me.lblDispKey.Size = New System.Drawing.Size(48, 12)
 		Me.lblDispKey.Location = New System.Drawing.Point(28, 36)
 		Me.lblDispKey.TabIndex = 52
@@ -1808,7 +1808,7 @@
 		Me.lblDispKey.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblDispKey.Name = "lblDispKey"
 		Me._optChangeTop_0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me._optChangeTop_0.Text = "äÓñ{"
+		Me._optChangeTop_0.Text = "Âü∫Êú¨"
 		Me._optChangeTop_0.Size = New System.Drawing.Size(61, 21)
 		Me._optChangeTop_0.Location = New System.Drawing.Point(0, 0)
 		Me._optChangeTop_0.Appearance = System.Windows.Forms.Appearance.Button
@@ -1825,7 +1825,7 @@
 		Me._optChangeTop_0.Visible = True
 		Me._optChangeTop_0.Name = "_optChangeTop_0"
 		Me._optChangeTop_2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me._optChangeTop_2.Text = "ä¬ã´"
+		Me._optChangeTop_2.Text = "Áí∞Â¢É"
 		Me._optChangeTop_2.Size = New System.Drawing.Size(61, 21)
 		Me._optChangeTop_2.Location = New System.Drawing.Point(130, 0)
 		Me._optChangeTop_2.Appearance = System.Windows.Forms.Appearance.Button
@@ -1842,7 +1842,7 @@
 		Me._optChangeTop_2.Visible = True
 		Me._optChangeTop_2.Name = "_optChangeTop_2"
 		Me._optChangeTop_1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me._optChangeTop_1.Text = "ägí£"
+		Me._optChangeTop_1.Text = "Êã°Âºµ"
 		Me._optChangeTop_1.Size = New System.Drawing.Size(61, 21)
 		Me._optChangeTop_1.Location = New System.Drawing.Point(65, 0)
 		Me._optChangeTop_1.Appearance = System.Windows.Forms.Appearance.Button
@@ -1920,7 +1920,7 @@
 		Me._optChangeBottom_2.Visible = True
 		Me._optChangeBottom_2.Name = "_optChangeBottom_2"
 		Me._optChangeBottom_3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me._optChangeBottom_3.Text = "îèéq"
+		Me._optChangeBottom_3.Text = "ÊãçÂ≠ê"
 		Me._optChangeBottom_3.Size = New System.Drawing.Size(61, 21)
 		Me._optChangeBottom_3.Location = New System.Drawing.Point(0, 25)
 		Me._optChangeBottom_3.Appearance = System.Windows.Forms.Appearance.Button
@@ -1937,7 +1937,7 @@
 		Me._optChangeBottom_3.Visible = True
 		Me._optChangeBottom_3.Name = "_optChangeBottom_3"
 		Me._optChangeBottom_4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me._optChangeBottom_4.Text = "ägí£ñΩóﬂ"
+		Me._optChangeBottom_4.Text = "Êã°ÂºµÂëΩ‰ª§"
 		Me._optChangeBottom_4.Size = New System.Drawing.Size(61, 21)
 		Me._optChangeBottom_4.Location = New System.Drawing.Point(65, 25)
 		Me._optChangeBottom_4.Appearance = System.Windows.Forms.Appearance.Button
@@ -1996,7 +1996,7 @@
 		Me._fraBottom_0.Padding = New System.Windows.Forms.Padding(0)
 		Me._fraBottom_0.Name = "_fraBottom_0"
 		Me.cmdSoundExcUp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdSoundExcUp.Text = "Å£"
+		Me.cmdSoundExcUp.Text = "‚ñ≤"
 		Me.cmdSoundExcUp.Size = New System.Drawing.Size(21, 21)
 		Me.cmdSoundExcUp.Location = New System.Drawing.Point(61, 180)
 		Me.cmdSoundExcUp.TabIndex = 67
@@ -2009,7 +2009,7 @@
 		Me.cmdSoundExcUp.TabStop = True
 		Me.cmdSoundExcUp.Name = "cmdSoundExcUp"
 		Me.cmdSoundExcDown.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdSoundExcDown.Text = "Å•"
+		Me.cmdSoundExcDown.Text = "‚ñº"
 		Me.cmdSoundExcDown.Size = New System.Drawing.Size(21, 21)
 		Me.cmdSoundExcDown.Location = New System.Drawing.Point(86, 180)
 		Me.cmdSoundExcDown.TabIndex = 68
@@ -2022,7 +2022,7 @@
 		Me.cmdSoundExcDown.TabStop = True
 		Me.cmdSoundExcDown.Name = "cmdSoundExcDown"
 		Me.cmdSoundDelete.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdSoundDelete.Text = "è¡ãé"
+		Me.cmdSoundDelete.Text = "Ê∂àÂéª"
 		Me.cmdSoundDelete.Size = New System.Drawing.Size(41, 21)
 		Me.cmdSoundDelete.Location = New System.Drawing.Point(126, 180)
 		Me.cmdSoundDelete.TabIndex = 69
@@ -2035,7 +2035,7 @@
 		Me.cmdSoundDelete.TabStop = True
 		Me.cmdSoundDelete.Name = "cmdSoundDelete"
 		Me.cmdSoundLoad.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdSoundLoad.Text = "éwíË"
+		Me.cmdSoundLoad.Text = "ÊåáÂÆö"
 		Me.cmdSoundLoad.Size = New System.Drawing.Size(41, 21)
 		Me.cmdSoundLoad.Location = New System.Drawing.Point(172, 180)
 		Me.cmdSoundLoad.TabIndex = 70
@@ -2048,7 +2048,7 @@
 		Me.cmdSoundLoad.TabStop = True
 		Me.cmdSoundLoad.Name = "cmdSoundLoad"
 		Me.cmdSoundStop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdSoundStop.Text = "í‚é~"
+		Me.cmdSoundStop.Text = "ÂÅúÊ≠¢"
 		Me.cmdSoundStop.Size = New System.Drawing.Size(53, 21)
 		Me.cmdSoundStop.Location = New System.Drawing.Point(0, 180)
 		Me.cmdSoundStop.TabIndex = 66
@@ -2088,7 +2088,7 @@
 		Me._fraBottom_1.Padding = New System.Windows.Forms.Padding(0)
 		Me._fraBottom_1.Name = "_fraBottom_1"
 		Me.cmdBMPExcDown.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdBMPExcDown.Text = "Å•"
+		Me.cmdBMPExcDown.Text = "‚ñº"
 		Me.cmdBMPExcDown.Size = New System.Drawing.Size(21, 21)
 		Me.cmdBMPExcDown.Location = New System.Drawing.Point(86, 204)
 		Me.cmdBMPExcDown.TabIndex = 75
@@ -2101,7 +2101,7 @@
 		Me.cmdBMPExcDown.TabStop = True
 		Me.cmdBMPExcDown.Name = "cmdBMPExcDown"
 		Me.cmdBMPExcUp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdBMPExcUp.Text = "Å£"
+		Me.cmdBMPExcUp.Text = "‚ñ≤"
 		Me.cmdBMPExcUp.Size = New System.Drawing.Size(21, 21)
 		Me.cmdBMPExcUp.Location = New System.Drawing.Point(61, 204)
 		Me.cmdBMPExcUp.TabIndex = 74
@@ -2131,7 +2131,7 @@
 		Me.lstBMP.MultiColumn = False
 		Me.lstBMP.Name = "lstBMP"
 		Me.cmdBMPDelete.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdBMPDelete.Text = "è¡ãé"
+		Me.cmdBMPDelete.Text = "Ê∂àÂéª"
 		Me.cmdBMPDelete.Size = New System.Drawing.Size(41, 21)
 		Me.cmdBMPDelete.Location = New System.Drawing.Point(126, 204)
 		Me.cmdBMPDelete.TabIndex = 76
@@ -2144,7 +2144,7 @@
 		Me.cmdBMPDelete.TabStop = True
 		Me.cmdBMPDelete.Name = "cmdBMPDelete"
 		Me.cmdBMPLoad.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdBMPLoad.Text = "éwíË"
+		Me.cmdBMPLoad.Text = "ÊåáÂÆö"
 		Me.cmdBMPLoad.Size = New System.Drawing.Size(41, 21)
 		Me.cmdBMPLoad.Location = New System.Drawing.Point(172, 204)
 		Me.cmdBMPLoad.TabIndex = 77
@@ -2157,7 +2157,7 @@
 		Me.cmdBMPLoad.TabStop = True
 		Me.cmdBMPLoad.Name = "cmdBMPLoad"
 		Me.cmdBMPPreview.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdBMPPreview.Text = "ï\é¶"
+		Me.cmdBMPPreview.Text = "Ë°®Á§∫"
 		Me.cmdBMPPreview.Size = New System.Drawing.Size(53, 21)
 		Me.cmdBMPPreview.Location = New System.Drawing.Point(0, 204)
 		Me.cmdBMPPreview.TabIndex = 73
@@ -2180,7 +2180,7 @@
 		Me._fraBottom_2.Padding = New System.Windows.Forms.Padding(0)
 		Me._fraBottom_2.Name = "_fraBottom_2"
 		Me.cmdBGAExcDown.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdBGAExcDown.Text = "Å•"
+		Me.cmdBGAExcDown.Text = "‚ñº"
 		Me.cmdBGAExcDown.Size = New System.Drawing.Size(21, 21)
 		Me.cmdBGAExcDown.Location = New System.Drawing.Point(86, 204)
 		Me.cmdBGAExcDown.TabIndex = 83
@@ -2193,7 +2193,7 @@
 		Me.cmdBGAExcDown.TabStop = True
 		Me.cmdBGAExcDown.Name = "cmdBGAExcDown"
 		Me.cmdBGAExcUp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdBGAExcUp.Text = "Å£"
+		Me.cmdBGAExcUp.Text = "‚ñ≤"
 		Me.cmdBGAExcUp.Size = New System.Drawing.Size(21, 21)
 		Me.cmdBGAExcUp.Location = New System.Drawing.Point(61, 204)
 		Me.cmdBGAExcUp.TabIndex = 82
@@ -2227,7 +2227,7 @@
 		Me.txtBGAInput.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
 		Me.txtBGAInput.Name = "txtBGAInput"
 		Me.cmdBGAPreview.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdBGAPreview.Text = "ï\é¶"
+		Me.cmdBGAPreview.Text = "Ë°®Á§∫"
 		Me.cmdBGAPreview.Size = New System.Drawing.Size(53, 21)
 		Me.cmdBGAPreview.Location = New System.Drawing.Point(0, 205)
 		Me.cmdBGAPreview.TabIndex = 81
@@ -2240,7 +2240,7 @@
 		Me.cmdBGAPreview.TabStop = True
 		Me.cmdBGAPreview.Name = "cmdBGAPreview"
 		Me.cmdBGASet.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdBGASet.Text = "ì¸óÕ"
+		Me.cmdBGASet.Text = "ÂÖ•Âäõ"
 		Me.cmdBGASet.Size = New System.Drawing.Size(41, 21)
 		Me.cmdBGASet.Location = New System.Drawing.Point(172, 204)
 		Me.cmdBGASet.TabIndex = 85
@@ -2253,7 +2253,7 @@
 		Me.cmdBGASet.TabStop = True
 		Me.cmdBGASet.Name = "cmdBGASet"
 		Me.cmdBGADelete.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdBGADelete.Text = "è¡ãé"
+		Me.cmdBGADelete.Text = "Ê∂àÂéª"
 		Me.cmdBGADelete.Size = New System.Drawing.Size(41, 21)
 		Me.cmdBGADelete.Location = New System.Drawing.Point(126, 204)
 		Me.cmdBGADelete.TabIndex = 84
@@ -2324,7 +2324,7 @@
 		Me.cboDenominator.Visible = True
 		Me.cboDenominator.Name = "cboDenominator"
 		Me.cmdMeasureSelectAll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdMeasureSelectAll.Text = "ëSëIë"
+		Me.cmdMeasureSelectAll.Text = "ÂÖ®ÈÅ∏Êäû"
 		Me.cmdMeasureSelectAll.Size = New System.Drawing.Size(53, 21)
 		Me.cmdMeasureSelectAll.Location = New System.Drawing.Point(0, 204)
 		Me.cmdMeasureSelectAll.TabIndex = 88
@@ -2337,7 +2337,7 @@
 		Me.cmdMeasureSelectAll.TabStop = True
 		Me.cmdMeasureSelectAll.Name = "cmdMeasureSelectAll"
 		Me.cmdInputMeasureLen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdInputMeasureLen.Text = "ì¸óÕ"
+		Me.cmdInputMeasureLen.Text = "ÂÖ•Âäõ"
 		Me.cmdInputMeasureLen.Size = New System.Drawing.Size(41, 21)
 		Me.cmdInputMeasureLen.Location = New System.Drawing.Point(172, 204)
 		Me.cmdInputMeasureLen.TabIndex = 92
@@ -2382,7 +2382,7 @@
 		Me.lblFraction.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblFraction.Name = "lblFraction"
 		Me.picMain.BackColor = System.Drawing.Color.Black
-		Me.picMain.Font = New System.Drawing.Font("ÇlÇr ÉSÉVÉbÉN", 9!, System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+		Me.picMain.Font = New System.Drawing.Font("Ôº≠Ôº≥ „Ç¥„Ç∑„ÉÉ„ÇØ", 9!, System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
 		Me.picMain.ForeColor = System.Drawing.Color.FromARGB(192, 192, 192)
 		Me.picMain.Size = New System.Drawing.Size(57, 33)
 		Me.picMain.Location = New System.Drawing.Point(0, 56)
@@ -2442,7 +2442,7 @@
 		Me._tlbMenu_Button1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText
 		Me._tlbMenu_Button1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
 		Me._tlbMenu_Button1.Name = "New"
-		Me._tlbMenu_Button1.ToolTipText = "êVãKçÏê¨"
+		Me._tlbMenu_Button1.ToolTipText = "Êñ∞Ë¶è‰ΩúÊàê"
 		Me._tlbMenu_Button1.ImageIndex = 0
 		Me._tlbMenu_Button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
 		Me._tlbMenu_Button2.Size = New System.Drawing.Size(37, 22)
@@ -2450,7 +2450,7 @@
 		Me._tlbMenu_Button2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText
 		Me._tlbMenu_Button2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
 		Me._tlbMenu_Button2.Name = "Open"
-		Me._tlbMenu_Button2.ToolTipText = "äJÇ≠"
+		Me._tlbMenu_Button2.ToolTipText = "Èñã„Åè"
 		Me._tlbMenu_Button2.ImageIndex = 1
 		Me._tlbMenu_Button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
 		Me._tlbMenu_Button3.Size = New System.Drawing.Size(24, 22)
@@ -2458,7 +2458,7 @@
 		Me._tlbMenu_Button3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText
 		Me._tlbMenu_Button3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
 		Me._tlbMenu_Button3.Name = "Reload"
-		Me._tlbMenu_Button3.ToolTipText = "çƒì«Ç›çûÇ›"
+		Me._tlbMenu_Button3.ToolTipText = "ÂÜçË™≠„ÅøËæº„Åø"
 		Me._tlbMenu_Button3.ImageIndex = 2
 		Me._tlbMenu_Button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
 		Me._tlbMenu_Button4.Size = New System.Drawing.Size(24, 22)
@@ -2466,7 +2466,7 @@
 		Me._tlbMenu_Button4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText
 		Me._tlbMenu_Button4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
 		Me._tlbMenu_Button4.Name = "Save"
-		Me._tlbMenu_Button4.ToolTipText = "è„èëÇ´ï€ë∂"
+		Me._tlbMenu_Button4.ToolTipText = "‰∏äÊõ∏„Åç‰øùÂ≠ò"
 		Me._tlbMenu_Button4.ImageIndex = 3
 		Me._tlbMenu_Button4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
 		Me._tlbMenu_Button5.Size = New System.Drawing.Size(24, 22)
@@ -2474,7 +2474,7 @@
 		Me._tlbMenu_Button5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText
 		Me._tlbMenu_Button5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
 		Me._tlbMenu_Button5.Name = "SaveAs"
-		Me._tlbMenu_Button5.ToolTipText = "ñºëOÇïtÇØÇƒï€ë∂"
+		Me._tlbMenu_Button5.ToolTipText = "ÂêçÂâç„Çí‰ªò„Åë„Å¶‰øùÂ≠ò"
 		Me._tlbMenu_Button5.ImageIndex = 4
 		Me._tlbMenu_Button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
 		Me._tlbMenu_Button6.Size = New System.Drawing.Size(24, 22)
@@ -2488,7 +2488,7 @@
 		Me._tlbMenu_Button7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText
 		Me._tlbMenu_Button7.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
 		Me._tlbMenu_Button7.Name = "Edit"
-		Me._tlbMenu_Button7.ToolTipText = "ï“èW"
+		Me._tlbMenu_Button7.ToolTipText = "Á∑®ÈõÜ"
 		Me._tlbMenu_Button7.ImageIndex = 5
 		Me._tlbMenu_Button7.Checked = True
 		Me._tlbMenu_Button7.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -2497,7 +2497,7 @@
 		Me._tlbMenu_Button8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText
 		Me._tlbMenu_Button8.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
 		Me._tlbMenu_Button8.Name = "Write"
-		Me._tlbMenu_Button8.ToolTipText = "èëçû"
+		Me._tlbMenu_Button8.ToolTipText = "Êõ∏Ëæº"
 		Me._tlbMenu_Button8.ImageIndex = 6
 		Me._tlbMenu_Button8.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
 		Me._tlbMenu_Button9.Size = New System.Drawing.Size(24, 22)
@@ -2505,7 +2505,7 @@
 		Me._tlbMenu_Button9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText
 		Me._tlbMenu_Button9.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
 		Me._tlbMenu_Button9.Name = "Delete"
-		Me._tlbMenu_Button9.ToolTipText = "è¡ãé"
+		Me._tlbMenu_Button9.ToolTipText = "Ê∂àÂéª"
 		Me._tlbMenu_Button9.ImageIndex = 7
 		Me._tlbMenu_Button9.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
 		Me._tlbMenu_Button10.Size = New System.Drawing.Size(24, 22)
@@ -2526,7 +2526,7 @@
 		Me._tlbMenu_Button12.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText
 		Me._tlbMenu_Button12.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
 		Me._tlbMenu_Button12.Name = "PlayAll"
-		Me._tlbMenu_Button12.ToolTipText = "ç≈èâÇ©ÇÁçƒê∂"
+		Me._tlbMenu_Button12.ToolTipText = "ÊúÄÂàù„Åã„ÇâÂÜçÁîü"
 		Me._tlbMenu_Button12.ImageIndex = 8
 		Me._tlbMenu_Button12.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
 		Me._tlbMenu_Button13.Size = New System.Drawing.Size(24, 22)
@@ -2534,7 +2534,7 @@
 		Me._tlbMenu_Button13.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText
 		Me._tlbMenu_Button13.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
 		Me._tlbMenu_Button13.Name = "Play"
-		Me._tlbMenu_Button13.ToolTipText = "åªç›à íuÇ©ÇÁçƒê∂"
+		Me._tlbMenu_Button13.ToolTipText = "ÁèæÂú®‰ΩçÁΩÆ„Åã„ÇâÂÜçÁîü"
 		Me._tlbMenu_Button13.ImageIndex = 9
 		Me._tlbMenu_Button13.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
 		Me._tlbMenu_Button14.Size = New System.Drawing.Size(24, 22)
@@ -2542,7 +2542,7 @@
 		Me._tlbMenu_Button14.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText
 		Me._tlbMenu_Button14.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
 		Me._tlbMenu_Button14.Name = "Stop"
-		Me._tlbMenu_Button14.ToolTipText = "í‚é~"
+		Me._tlbMenu_Button14.ToolTipText = "ÂÅúÊ≠¢"
 		Me._tlbMenu_Button14.ImageIndex = 10
 		Me._tlbMenu_Button14.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
 		Me._tlbMenu_Button15.Size = New System.Drawing.Size(24, 22)

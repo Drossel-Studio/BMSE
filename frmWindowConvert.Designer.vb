@@ -1,11 +1,11 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmWindowConvert
-#Region "Windows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚É‚æ‚Á‚Ä¶¬‚³‚ê‚½ƒR[ƒh "
+#Region "Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã«ã‚ˆã£ã¦ç”Ÿæˆã•ã‚ŒãŸã‚³ãƒ¼ãƒ‰ "
 	<System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
 		MyBase.New()
-		'‚±‚ÌŒÄ‚Ño‚µ‚ÍAWindows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚Å•K—v‚Å‚·B
+		'ã“ã®å‘¼ã³å‡ºã—ã¯ã€Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã§å¿…è¦ã§ã™ã€‚
 		InitializeComponent()
 	End Sub
-	'Form ‚ÍAƒRƒ“ƒ|[ƒlƒ“ƒgˆê——‚ÉŒãˆ—‚ğÀs‚·‚é‚½‚ß‚É dispose ‚ğƒI[ƒo[ƒ‰ƒCƒh‚µ‚Ü‚·B
+	'Form ã¯ã€ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆä¸€è¦§ã«å¾Œå‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹ãŸã‚ã« dispose ã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã—ã¾ã™ã€‚
 	<System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
 		If Disposing Then
 			If Not components Is Nothing Then
@@ -14,7 +14,7 @@
 		End If
 		MyBase.Dispose(Disposing)
 	End Sub
-	'Windows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚Å•K—v‚Å‚·B
+	'Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã§å¿…è¦ã§ã™ã€‚
 	Private components As System.ComponentModel.IContainer
 	Public ToolTip1 As System.Windows.Forms.ToolTip
 	Public WithEvents chkSortByName As System.Windows.Forms.CheckBox
@@ -29,9 +29,9 @@
 	Public WithEvents chkDeleteUnusedFile As System.Windows.Forms.CheckBox
 	Public WithEvents lblNotice As System.Windows.Forms.Label
 	Public WithEvents lblExtension As System.Windows.Forms.Label
-	'ƒƒ‚: ˆÈ‰º‚ÌƒvƒƒV[ƒWƒƒ‚Í Windows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚Å•K—v‚Å‚·B
-	'Windows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚ğg‚Á‚Ä•ÏX‚Å‚«‚Ü‚·B
-	'ƒR[ƒh ƒGƒfƒBƒ^‚ğg—p‚µ‚ÄA•ÏX‚µ‚È‚¢‚Å‚­‚¾‚³‚¢B
+	'ãƒ¡ãƒ¢: ä»¥ä¸‹ã®ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ã¯ Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã§å¿…è¦ã§ã™ã€‚
+	'Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã‚’ä½¿ã£ã¦å¤‰æ›´ã§ãã¾ã™ã€‚
+	'ã‚³ãƒ¼ãƒ‰ ã‚¨ãƒ‡ã‚£ã‚¿ã‚’ä½¿ç”¨ã—ã¦ã€å¤‰æ›´ã—ãªã„ã§ãã ã•ã„ã€‚
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
 		Dim resources As System.Resources.ResourceManager = New System.Resources.ResourceManager(GetType(frmWindowConvert))
 		Me.components = New System.ComponentModel.Container()
@@ -51,7 +51,7 @@
 		Me.SuspendLayout()
 		Me.ToolTip1.Active = True
 		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
-		Me.Text = "•ÏŠ·ƒEƒBƒU[ƒh"
+		Me.Text = "å¤‰æ›ã‚¦ã‚£ã‚¶ãƒ¼ãƒ‰"
 		Me.ClientSize = New System.Drawing.Size(312, 330)
 		Me.Location = New System.Drawing.Point(3, 19)
 		Me.MaximizeBox = False
@@ -68,7 +68,7 @@
 		Me.HelpButton = False
 		Me.WindowState = System.Windows.Forms.FormWindowState.Normal
 		Me.Name = "frmWindowConvert"
-		Me.chkSortByName.Text = "ƒtƒ@ƒCƒ‹–¼‡‚Åƒ\[ƒg‚·‚é"
+		Me.chkSortByName.Text = "ãƒ•ã‚¡ã‚¤ãƒ«åé †ã§ã‚½ãƒ¼ãƒˆã™ã‚‹"
 		Me.chkSortByName.Enabled = False
 		Me.chkSortByName.Size = New System.Drawing.Size(289, 25)
 		Me.chkSortByName.Location = New System.Drawing.Point(24, 184)
@@ -85,7 +85,7 @@
 		Me.chkSortByName.CheckState = System.Windows.Forms.CheckState.Unchecked
 		Me.chkSortByName.Visible = True
 		Me.chkSortByName.Name = "chkSortByName"
-		Me.chkFileRecycle.Text = "‚²‚İ” ‚ÉˆÚ“®‚µ‚È‚¢‚Å‚·‚®‚Éíœ‚·‚é"
+		Me.chkFileRecycle.Text = "ã”ã¿ç®±ã«ç§»å‹•ã—ãªã„ã§ã™ãã«å‰Šé™¤ã™ã‚‹"
 		Me.chkFileRecycle.Enabled = False
 		Me.chkFileRecycle.Size = New System.Drawing.Size(289, 25)
 		Me.chkFileRecycle.Location = New System.Drawing.Point(24, 96)
@@ -102,7 +102,7 @@
 		Me.chkFileRecycle.CheckState = System.Windows.Forms.CheckState.Unchecked
 		Me.chkFileRecycle.Visible = True
 		Me.chkFileRecycle.Name = "chkFileRecycle"
-		Me.chkDeleteFile.Text = "ƒtƒHƒ‹ƒ_“à‚Ìg—p‚µ‚Ä‚¢‚È‚¢ƒtƒ@ƒCƒ‹‚ğíœ (*)"
+		Me.chkDeleteFile.Text = "ãƒ•ã‚©ãƒ«ãƒ€å†…ã®ä½¿ç”¨ã—ã¦ã„ãªã„ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å‰Šé™¤ (*)"
 		Me.chkDeleteFile.Size = New System.Drawing.Size(297, 25)
 		Me.chkDeleteFile.Location = New System.Drawing.Point(8, 48)
 		Me.chkDeleteFile.TabIndex = 3
@@ -141,7 +141,7 @@
 		Me.txtExtension.Visible = True
 		Me.txtExtension.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
 		Me.txtExtension.Name = "txtExtension"
-		Me.chkFileNameConvert.Text = "ƒtƒ@ƒCƒ‹–¼‚ğ˜A”Ô (01 - ZZ) ‚É•ÏŠ· (*)"
+		Me.chkFileNameConvert.Text = "ãƒ•ã‚¡ã‚¤ãƒ«åã‚’é€£ç•ª (01 - ZZ) ã«å¤‰æ› (*)"
 		Me.chkFileNameConvert.Size = New System.Drawing.Size(297, 25)
 		Me.chkFileNameConvert.Location = New System.Drawing.Point(8, 224)
 		Me.chkFileNameConvert.TabIndex = 9
@@ -158,7 +158,7 @@
 		Me.chkFileNameConvert.CheckState = System.Windows.Forms.CheckState.Unchecked
 		Me.chkFileNameConvert.Visible = True
 		Me.chkFileNameConvert.Name = "chkFileNameConvert"
-		Me.chkUseOldFormat.Text = "‰Â”\‚È‚çŒÃ‚¢ƒtƒH[ƒ}ƒbƒg (01 - FF) ‚ğg‚¤"
+		Me.chkUseOldFormat.Text = "å¯èƒ½ãªã‚‰å¤ã„ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ (01 - FF) ã‚’ä½¿ã†"
 		Me.chkUseOldFormat.Enabled = False
 		Me.chkUseOldFormat.Size = New System.Drawing.Size(289, 25)
 		Me.chkUseOldFormat.Location = New System.Drawing.Point(24, 160)
@@ -175,7 +175,7 @@
 		Me.chkUseOldFormat.TabStop = True
 		Me.chkUseOldFormat.Visible = True
 		Me.chkUseOldFormat.Name = "chkUseOldFormat"
-		Me.chkListAlign.Text = "’è‹`ƒŠƒXƒg‚Ì®—ñ"
+		Me.chkListAlign.Text = "å®šç¾©ãƒªã‚¹ãƒˆã®æ•´åˆ—"
 		Me.chkListAlign.Size = New System.Drawing.Size(297, 25)
 		Me.chkListAlign.Location = New System.Drawing.Point(8, 136)
 		Me.chkListAlign.TabIndex = 7
@@ -193,7 +193,7 @@
 		Me.chkListAlign.Visible = True
 		Me.chkListAlign.Name = "chkListAlign"
 		Me.cmdCancel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdCancel.Text = "ƒLƒƒƒ“ƒZƒ‹"
+		Me.cmdCancel.Text = "ã‚­ãƒ£ãƒ³ã‚»ãƒ«"
 		Me.cmdCancel.Size = New System.Drawing.Size(89, 25)
 		Me.cmdCancel.Location = New System.Drawing.Point(216, 296)
 		Me.cmdCancel.TabIndex = 1
@@ -206,7 +206,7 @@
 		Me.cmdCancel.TabStop = True
 		Me.cmdCancel.Name = "cmdCancel"
 		Me.cmdDecide.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdDecide.Text = "Às"
+		Me.cmdDecide.Text = "å®Ÿè¡Œ"
 		Me.AcceptButton = Me.cmdDecide
 		Me.cmdDecide.Size = New System.Drawing.Size(121, 25)
 		Me.cmdDecide.Location = New System.Drawing.Point(88, 296)
@@ -219,7 +219,7 @@
 		Me.cmdDecide.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.cmdDecide.TabStop = True
 		Me.cmdDecide.Name = "cmdDecide"
-		Me.chkDeleteUnusedFile.Text = "g—p‚µ‚Ä‚¢‚È‚¢ #WAVE#BMPE#BGA ‚Ì’è‹`‚ğÁ‹"
+		Me.chkDeleteUnusedFile.Text = "ä½¿ç”¨ã—ã¦ã„ãªã„ #WAVãƒ»#BMPãƒ»#BGA ã®å®šç¾©ã‚’æ¶ˆå»"
 		Me.chkDeleteUnusedFile.Size = New System.Drawing.Size(297, 17)
 		Me.chkDeleteUnusedFile.Location = New System.Drawing.Point(8, 16)
 		Me.chkDeleteUnusedFile.TabIndex = 2
@@ -236,8 +236,8 @@
 		Me.chkDeleteUnusedFile.CheckState = System.Windows.Forms.CheckState.Unchecked
 		Me.chkDeleteUnusedFile.Visible = True
 		Me.chkDeleteUnusedFile.Name = "chkDeleteUnusedFile"
-		Me.lblNotice.Text = "(*)EEE‚±‚Ì‘€ì‚Í‚â‚è’¼‚µ‚ª‚Å‚«‚Ü‚¹‚ñ"
-		Me.lblNotice.Font = New System.Drawing.Font("‚l‚r ‚oƒSƒVƒbƒN", 9!, System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+		Me.lblNotice.Text = "(*)ãƒ»ãƒ»ãƒ»ã“ã®æ“ä½œã¯ã‚„ã‚Šç›´ã—ãŒã§ãã¾ã›ã‚“"
+		Me.lblNotice.Font = New System.Drawing.Font("ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", 9!, System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
 		Me.lblNotice.Size = New System.Drawing.Size(297, 17)
 		Me.lblNotice.Location = New System.Drawing.Point(8, 264)
 		Me.lblNotice.TabIndex = 10
@@ -252,7 +252,7 @@
 		Me.lblNotice.AutoSize = False
 		Me.lblNotice.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblNotice.Name = "lblNotice"
-		Me.lblExtension.Text = "ŒŸõ‚·‚éŠg’£q:"
+		Me.lblExtension.Text = "æ¤œç´¢ã™ã‚‹æ‹¡å¼µå­:"
 		Me.lblExtension.Enabled = False
 		Me.lblExtension.Size = New System.Drawing.Size(84, 12)
 		Me.lblExtension.Location = New System.Drawing.Point(26, 80)

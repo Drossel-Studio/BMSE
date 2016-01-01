@@ -1,11 +1,11 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmWindowAbout
-#Region "Windows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚É‚æ‚Á‚Ä¶¬‚³‚ê‚½ƒR[ƒh "
+#Region "Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã«ã‚ˆã£ã¦ç”Ÿæˆã•ã‚ŒãŸã‚³ãƒ¼ãƒ‰ "
 	<System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
 		MyBase.New()
-		'‚±‚ÌŒÄ‚Ño‚µ‚ÍAWindows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚Å•K—v‚Å‚·B
+		'ã“ã®å‘¼ã³å‡ºã—ã¯ã€Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã§å¿…è¦ã§ã™ã€‚
 		InitializeComponent()
 	End Sub
-	'Form ‚ÍAƒRƒ“ƒ|[ƒlƒ“ƒgˆê——‚ÉŒãˆ—‚ğÀs‚·‚é‚½‚ß‚É dispose ‚ğƒI[ƒo[ƒ‰ƒCƒh‚µ‚Ü‚·B
+	'Form ã¯ã€ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆä¸€è¦§ã«å¾Œå‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹ãŸã‚ã« dispose ã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã—ã¾ã™ã€‚
 	<System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
 		If Disposing Then
 			If Not components Is Nothing Then
@@ -14,14 +14,14 @@
 		End If
 		MyBase.Dispose(Disposing)
 	End Sub
-	'Windows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚Å•K—v‚Å‚·B
+	'Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã§å¿…è¦ã§ã™ã€‚
 	Private components As System.ComponentModel.IContainer
 	Public ToolTip1 As System.Windows.Forms.ToolTip
 	Public WithEvents tmrMain As System.Windows.Forms.Timer
 	Public WithEvents picMain As System.Windows.Forms.Panel
-	'ƒƒ‚: ˆÈ‰º‚ÌƒvƒƒV[ƒWƒƒ‚Í Windows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚Å•K—v‚Å‚·B
-	'Windows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚ğg‚Á‚Ä•ÏX‚Å‚«‚Ü‚·B
-	'ƒR[ƒh ƒGƒfƒBƒ^‚ğg—p‚µ‚ÄA•ÏX‚µ‚È‚¢‚Å‚­‚¾‚³‚¢B
+	'ãƒ¡ãƒ¢: ä»¥ä¸‹ã®ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ã¯ Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã§å¿…è¦ã§ã™ã€‚
+	'Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã‚’ä½¿ã£ã¦å¤‰æ›´ã§ãã¾ã™ã€‚
+	'ã‚³ãƒ¼ãƒ‰ ã‚¨ãƒ‡ã‚£ã‚¿ã‚’ä½¿ç”¨ã—ã¦ã€å¤‰æ›´ã—ãªã„ã§ãã ã•ã„ã€‚
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
 		Dim resources As System.Resources.ResourceManager = New System.Resources.ResourceManager(GetType(frmWindowAbout))
 		Me.components = New System.ComponentModel.Container()
@@ -36,7 +36,7 @@
 		Me.Text = "About BMSE"
 		Me.ClientSize = New System.Drawing.Size(526, 196)
 		Me.Location = New System.Drawing.Point(3, 19)
-		Me.Font = New System.Drawing.Font("‚l‚r ƒSƒVƒbƒN", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+		Me.Font = New System.Drawing.Font("ï¼­ï¼³ ã‚´ã‚·ãƒƒã‚¯", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
 		Me.Icon = CType(resources.GetObject("frmWindowAbout.Icon"), System.Drawing.Icon)
 		Me.MaximizeBox = False
 		Me.MinimizeBox = False
@@ -51,7 +51,7 @@
 		Me.HelpButton = False
 		Me.WindowState = System.Windows.Forms.FormWindowState.Normal
 		Me.Name = "frmWindowAbout"
-		Me.picMain.Font = New System.Drawing.Font("‚l‚r ƒSƒVƒbƒN", 12!, System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline Or System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+		Me.picMain.Font = New System.Drawing.Font("ï¼­ï¼³ ã‚´ã‚·ãƒƒã‚¯", 12!, System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline Or System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
 		Me.picMain.Size = New System.Drawing.Size(526, 196)
 		Me.picMain.Location = New System.Drawing.Point(0, 0)
 		Me.picMain.BackgroundImage = CType(resources.GetObject("picMain.BackgroundImage"), System.Drawing.Image)

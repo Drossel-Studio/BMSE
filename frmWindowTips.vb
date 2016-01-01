@@ -3,7 +3,7 @@ Option Explicit On
 Imports VB = Microsoft.VisualBasic
 Friend Class frmWindowTips
 	Inherits System.Windows.Forms.Form
-	'UPGRADE_WARNING: \‘¢‘Ì RECT ‚ÉA‚±‚Ì Declare ƒXƒe[ƒgƒƒ“ƒg‚Ìˆø”‚Æ‚µ‚Äƒ}[ƒVƒƒƒŠƒ“ƒO‘®«‚ğ“n‚·•K—v‚ª‚ ‚è‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_WARNING: æ§‹é€ ä½“ RECT ã«ã€ã“ã® Declare ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆã®å¼•æ•°ã¨ã—ã¦ãƒãƒ¼ã‚·ãƒ£ãƒªãƒ³ã‚°å±æ€§ã‚’æ¸¡ã™å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Private Declare Function DrawText Lib "user32"  Alias "DrawTextA"(ByVal hdc As Integer, ByVal lpStr As String, ByVal nCount As Integer, ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
 	Private Const DT_WORDBREAK As Integer = &H10
 	
@@ -14,7 +14,7 @@ Friend Class frmWindowTips
 	Dim m_intTipsPos As Short
 	Dim m_lngTipsNum As Integer
 	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg chkNextDisp.CheckStateChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ chkNextDisp.CheckStateChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Private Sub chkNextDisp_CheckStateChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles chkNextDisp.CheckStateChanged
 		
 		Dim i As Integer
@@ -46,7 +46,7 @@ Friend Class frmWindowTips
 				
 				If Int(Rnd() * 256) = 0 Then
 					
-					Call MsgBox("‚æ‚­‚í‚©‚ç‚È‚¢‚¯‚Ç‘½•ªƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½B" & vbCrLf & "Ÿ‰ñ‚à Tips ‚ğ•\¦‚µ‚Ü‚·B", MsgBoxStyle.Critical Or MsgBoxStyle.OKOnly, g_strAppTitle)
+					Call MsgBox("ã‚ˆãã‚ã‹ã‚‰ãªã„ã‘ã©å¤šåˆ†ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸã€‚" & vbCrLf & "æ¬¡å›ã‚‚ Tips ã‚’è¡¨ç¤ºã—ã¾ã™ã€‚", MsgBoxStyle.Critical Or MsgBoxStyle.OKOnly, g_strAppTitle)
 					
 					chkNextDisp.CheckState = System.Windows.Forms.CheckState.Checked
 					chkNextDisp.Enabled = False
@@ -87,7 +87,7 @@ Friend Class frmWindowTips
 					
 				End If
 				
-				lngTemp = MsgBox("–{“–‚ÉH", MsgBoxStyle.AbortRetryIgnore Or lngArg, g_strAppTitle)
+				lngTemp = MsgBox("æœ¬å½“ã«ï¼Ÿ", MsgBoxStyle.AbortRetryIgnore Or lngArg, g_strAppTitle)
 				
 			Loop 
 			
@@ -115,36 +115,36 @@ Friend Class frmWindowTips
 		
 		If m_intTipsPos > UBound(m_strTips) Then m_intTipsPos = 1
 		
-		'UPGRADE_ISSUE: Form ƒƒ\ƒbƒh frmWindowTips.Line ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: Form ãƒ¡ã‚½ãƒƒãƒ‰ frmWindowTips.Line ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		frmWindowTips.Line (5400, 360) - Step(180, 150), System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White), BF
 		
 		With Me
 			
 			.Font = VB6.FontChangeSize(.Font, 9)
-			'UPGRADE_ISSUE: Form ƒvƒƒpƒeƒB frmWindowTips.CurrentX ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Form ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ frmWindowTips.CurrentX ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.CurrentX = 5400
-			'UPGRADE_ISSUE: Form ƒvƒƒpƒeƒB frmWindowTips.CurrentY ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Form ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ frmWindowTips.CurrentY ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.CurrentY = 345
 			
-			'UPGRADE_ISSUE: Form ƒƒ\ƒbƒh frmWindowTips.Print ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Form ãƒ¡ã‚½ãƒƒãƒ‰ frmWindowTips.Print ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			frmWindowTips.Print(VB.Right(" " & m_intTipsPos, 2))
 			
 			.Font = VB6.FontChangeSize(.Font, 12)
 			
 		End With
 		
-		'UPGRADE_ISSUE: Form ƒƒ\ƒbƒh frmWindowTips.Line ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: Form ãƒ¡ã‚½ãƒƒãƒ‰ frmWindowTips.Line ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		frmWindowTips.Line (945, 720) - (6030, 3240), System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White), BF
 		
-		'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picIcon.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_ISSUE: Form ƒvƒƒpƒeƒB frmWindowTips.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picIcon.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_ISSUE: Form ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ frmWindowTips.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call BitBlt(Me.hdc, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon.hdc, 0, 32, SRCCOPY)
 		
 		m_lngTipsNum = 0
 		
 	End Sub
 	
-	'UPGRADE_WARNING: Form ƒCƒxƒ“ƒg frmWindowTips.Activate ‚É‚ÍV‚µ‚¢“®ì‚ªŠÜ‚Ü‚ê‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_WARNING: Form ã‚¤ãƒ™ãƒ³ãƒˆ frmWindowTips.Activate ã«ã¯æ–°ã—ã„å‹•ä½œãŒå«ã¾ã‚Œã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Private Sub frmWindowTips_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
 		
 		With Me
@@ -161,90 +161,90 @@ Friend Class frmWindowTips
 		
 		ReDim m_strTips(0)
 		
-		m_strTips(0) = " ‚±‚ê‚©‚ç Tips ‚ğ•\¦‚µ‚Ü‚·B" & vbCrLf & vbCrLf & " ‚±‚ê‚ç‚Ìî•ñ‚Í‚ ‚È‚½‚ª BMSE ‚ğg‚¢ BMS ‚ğì¬‚·‚é‚Ì‚ğè•‚¯‚µ‚Ä‚­‚ê‚é‚±‚Æ‚à‚ ‚é‚©‚à‚µ‚ê‚Ü‚¹‚ñB" & vbCrLf & vbCrLf & " uŸ‚Öv‚Ìƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚Ä Tips ‚ğŠJn‚µ‚Ä‚­‚¾‚³‚¢B" & vbCrLf & vbCrLf & " (‚±‚Ì•¶Í‚Íˆê“x‚µ‚©•\¦‚³‚ê‚Ü‚¹‚ñ)"
+		m_strTips(0) = " ã“ã‚Œã‹ã‚‰ Tips ã‚’è¡¨ç¤ºã—ã¾ã™ã€‚" & vbCrLf & vbCrLf & " ã“ã‚Œã‚‰ã®æƒ…å ±ã¯ã‚ãªãŸãŒ BMSE ã‚’ä½¿ã„ BMS ã‚’ä½œæˆã™ã‚‹ã®ã‚’æ‰‹åŠ©ã‘ã—ã¦ãã‚Œã‚‹ã“ã¨ã‚‚ã‚ã‚‹ã‹ã‚‚ã—ã‚Œã¾ã›ã‚“ã€‚" & vbCrLf & vbCrLf & " ã€Œæ¬¡ã¸ã€ã®ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ã¦ Tips ã‚’é–‹å§‹ã—ã¦ãã ã•ã„ã€‚" & vbCrLf & vbCrLf & " (ã“ã®æ–‡ç« ã¯ä¸€åº¦ã—ã‹è¡¨ç¤ºã•ã‚Œã¾ã›ã‚“)"
 		
-		Call AddTutorial(" BMSE ‚Í UCN-Soft ‚ªŠJ”­‚µ‚Ä‚¢‚Ü‚·B" & vbCrLf & vbCrLf & " UCN ‚Ì—R—ˆ‚Í’´“à—Öƒlƒ^‚È‚Ì‚Å“à‚Å‚·I")
-		Call AddTutorial(" BMSE ‚Í BMx Sequence Editor ‚Ì—ª‚Å‚·B’m‚ç‚È‚¢—F’B‚ª‚¢‚½‚çL‚ß‚æ‚¤I")
-		Call AddTutorial(" BMSE ‚Í bms ƒtƒ@ƒCƒ‹Abme ƒtƒ@ƒCƒ‹Abml ƒtƒ@ƒCƒ‹‚¨‚æ‚Ñ pms ƒtƒ@ƒCƒ‹‚ğ‘‚«o‚·‚±‚Æ‚ª‚Å‚«‚Ü‚·B")
-		Call AddTutorial(" bms ‚Ì³®–¼Ì‚Í Be-Music Script ‚È‚Ç”à‚ ‚è‚Ü‚·‚ªA^‘Š‚Í“ä‚Ì‚Ü‚Ü‚Å‚·B")
-		Call AddTutorial(" BMSE ‚ğg—p‚·‚é‚É‚ÍA‚Ü‚¸ Windows OS ‚Ì‘€ì‚ÉKn‚·‚é•K—v‚ª‚ ‚è‚Ü‚·B" & vbCrLf & vbCrLf & " ƒ}ƒEƒX‚Í•Ğè‚Å‚¿A‰æ–Êã‚Ìƒ|ƒCƒ“ƒ^‚ğ‘€ì‚µ‚Ü‚·BƒfƒBƒXƒvƒŒƒC‚ğw‚Å‚È‚¼‚é‚í‚¯‚Å‚Í‚ ‚è‚Ü‚¹‚ñB")
-		Call AddTutorial(" ƒIƒuƒWƒF‚ğ”z’u‚·‚é‚É‚ÍƒXƒNƒŠ[ƒ“‚ğ¶ƒNƒŠƒbƒN‚µ‚Ü‚·B" & vbCrLf & vbCrLf & " ¶ƒNƒŠƒbƒN‚Ìd•û‚É‚Â‚¢‚Ä‚ÍA‚¨g‚¢‚Ì OS ‚Ìƒ}ƒjƒ…ƒAƒ‹‚ğ‚¨“Ç‚İ‚­‚¾‚³‚¢B" & vbCrLf & vbCrLf & " (BMSE ‚Íƒ}ƒEƒX‚ª•K{‚Å‚·)")
-		Call AddTutorial(" ƒIƒuƒWƒF‚ª”z’u‚Å‚«‚È‚¢HÁ‚µƒSƒ€ƒc[ƒ‹‚É‚È‚Á‚Ä‚¢‚Ü‚¹‚ñ‚©H")
-		Call AddTutorial(" ‰E‘¤‚É•\¦‚³‚ê‚Ä‚¢‚éƒeƒLƒXƒgEƒ{ƒbƒNƒX‚É‚Í”CˆÓ‚Ì•¶š—ñ‚ğ“ü—Í‚µ‚Ü‚·B" & vbCrLf & vbCrLf & " •¶š—ñ‚ğ“ü—Í‚·‚é‚É‚ÍƒL[ƒ{[ƒh‚ª•K—v‚Å‚·‚Ì‚ÅA‚¨g‚¢‚Ì OS ‹y‚ÑŒ¾Œêƒc[ƒ‹‚Ìƒ}ƒjƒ…ƒAƒ‹‚ğ‚¨“Ç‚İ‚­‚¾‚³‚¢B")
-		Call AddTutorial(" GENRE ‚ÍuƒWƒƒƒ“ƒ‹v‚Æ“Ç‚İA‘I‹È’†‚É•\¦‚³‚ê‚é‚¨‚¨‚Ü‚©‚È‹È‚ÌŒXŒü‚ğ“ü—Í‚µ‚Ü‚·B" & vbCrLf & vbCrLf & " ‚æ‚­‚í‚©‚ç‚È‚¢‚Í Techno ‚É‚µ‚Ä‚­‚¾‚³‚¢B")
-		Call AddTutorial(" bpm ‚Í Beat Per Minute ‚Ì—ª‚ÅA1•ª‚ ‚½‚è‚Ìƒr[ƒg”‚ğ“ü—Í‚µ‚Ü‚·B" & vbCrLf & vbCrLf & " ‚æ‚­‚í‚©‚ç‚È‚¢‚Í400‚É‚µ‚Ä‚­‚¾‚³‚¢B")
-		Call AddTutorial(" TITLE ‚Íuƒ^ƒCƒgƒ‹v‚Æ“Ç‚İ‚Ü‚·B‰pŒê‚Åu‘è–¼v‚ğˆÓ–¡‚µA‘I‹È’†‚É•\¦‚³‚ê‚é‹È‚Ì‘è–¼‚ğ“ü—Í‚µ‚Ü‚·B" & vbCrLf & vbCrLf & " ‚æ‚­‚í‚©‚ç‚È‚¢‚Í‰p˜a«‘‚ğˆø‚¢‚Ä‚­‚¾‚³‚¢ (‰p˜a«‘‚Í‚¨‹ß‚­‚Ì‘“X‚Åw“ü‰Â”\‚Å‚·)B")
-		Call AddTutorial(" ARTIST ‚Í’¼–ó‚·‚é‚ÆuŒ|p‰Æv‚Æ‚È‚è‚Ü‚·‚ªA‚±‚±‚Å‚ÍuìÒv‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B" & vbCrLf & vbCrLf & " ‚æ‚­‚í‚©‚ç‚È‚¢‚ÍuDJ •cšv‚Æ‚µ‚Ä‚­‚¾‚³‚¢B—á: DJ R“c")
-		Call AddTutorial(" PLAYLEVEL ‚Íu•ˆ–Ê‚Ì“ïˆÕ“xv‚Å‚·B‚¾‚¢‚½‚¢ 1 ` 7 ‚ª bms ‚Ì ƒfƒtƒ@ƒNƒgƒXƒ^ƒ“ƒ_[ƒh‚Å‚·B" & vbCrLf & vbCrLf & " ‚æ‚­‚í‚©‚ç‚È‚¢‚Íƒm[ƒg”€100‚É‚µ‚Ä‚­‚¾‚³‚¢B")
-		Call AddTutorial(" uŠî–{vƒ^ƒu‚Ì—×‚ÉuŠg’£vƒ^ƒu‚¨‚æ‚ÑuŠÂ‹«vƒ^ƒu‚ª‚ ‚é‚±‚Æ‚É‚¨‹C‚Ã‚«‚Å‚·‚©H" & vbCrLf & vbCrLf & " ƒNƒŠƒbƒN‚·‚ê‚ÎV‚½‚Èİ’è‚ğs‚¤‚±‚Æ‚ª‰Â”\‚É‚È‚è‚Ü‚·B")
-		Call AddTutorial(" RANK ‚Í’¼–ó‚µ‚Ä‚àˆÓ–¡‚ª’Ê‚¶‚Ü‚¹‚ñBu”»’è‚ÌŒµ‚µ‚³v‚ğŒ»‚µ‚Ü‚·B" & vbCrLf & vbCrLf & " ‚æ‚­‚í‚©‚ç‚È‚¢‚Í VERY HARD ‚É‚µ‚Ä‚­‚¾‚³‚¢B")
-		Call AddTutorial(" À‚Í BMSE ‚Í MOD ‚É‘Î‰‚µ‚Ä‚¢‚Ü‚· (Œ»İ‰B‚µƒRƒ}ƒ“ƒh)B" & vbCrLf & vbCrLf & " ‚±‚Ìæ‚ğ“Ç‚Ş‚É‚ÍƒVƒFƒAƒEƒGƒAƒtƒB[‚ğ•¥‚¤•K—v‚ª‚ ‚è‚Ü‚·B" & vbCrLf & vbCrLf & " ‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚Í‘ŸŠíƒEƒFƒA‚Å‚·B‹C‚É“ü‚Á‚½‚çìÒ‚É‘ŸŠí‚ğŠñ•t‚µ‚Ä‚­‚¾‚³‚¢B")
-		Call AddTutorial(" ƒeƒ“ƒL[‚ğ‰Ÿ‚·‚ÆAƒrƒ‹EƒQƒCƒc‚ÆƒƒbƒZƒ“ƒWƒƒ[‚Åƒ`ƒƒƒbƒg‚ª‚Å‚«‚Ü‚·B")
-		Call AddTutorial(" ƒXƒNƒŠ[ƒ“‚Ìˆê”Ô¶‚É‚ ‚éuBPMv‚¨‚æ‚ÑuSTOPvƒŒ[ƒ“‚É’–Ú‚µ‚Ä‚­‚¾‚³‚¢I" & vbCrLf & vbCrLf & " ‚±‚ÌƒŒ[ƒ“‚ğƒNƒŠƒbƒN‚µA’Pƒ‚É”¼Šp‰p” (ƒL[ƒ{[ƒh‚Ì‰E’[‚É‚ ‚é‹·‚¢”š‚Ì‚İ‚Ì—Ìˆæ‚ğ‰Ÿ‰º‚µ‚Ä‚­‚¾‚³‚¢) ‚ğ“ü—Í‚·‚é‚¾‚¯‚ÅAƒvƒŒƒCƒ„[‚ğ–|˜M‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B")
-		Call AddTutorial(" BMSE ‚Íƒ}ƒEƒ}ƒj‚É‘Î‰‚µ‚Ä‚¢‚Ü‚¹‚ñB–{“–‚¾‚æI")
-		Call AddTutorial(" ‚Ä‚Á‚Æ‚è‘‚­ bms ‚ğì‚é‚É‚ÍAwav ‚ğg—p‚¹‚¸‚Éì‚é‚Ì‚ªˆê”Ô‚Å‚·B" & vbCrLf & vbCrLf & " ŠG‚ğ•`‚­Š´Šo‚ÅƒXƒNƒŠ[ƒ“‚ÉƒIƒuƒWƒF‚ğ”z’u (¶ƒNƒŠƒbƒN) ‚·‚ê‚Î bms ‚ªŠ®¬IŠÈ’P‚Å‚µ‚åH")
-		Call AddTutorial(" uŠî–{vƒ^ƒu‚Ìˆê”Ôã‚É‚ ‚éuƒvƒŒƒCƒ‚[ƒhv‚ğ Double Play ‚É‚µ‚Ä‚İ‚Ü‚µ‚å‚¤BŒ®”Õ‚Ì”‚ª”{‘‚µA‚æ‚èu‘¾‚¢v•ˆ–Ê‚ğì‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B" & vbCrLf & vbCrLf & " ‚Ü‚½A2 Player ‚ğ‘I‚Ñ‚Ü‚·‚ÆAÀÛ‚ÌƒQ[ƒ€‚ÅŒ®”Õ‚ª”¼•ª‚²‚Æ‚ÉƒXƒNƒŠ[ƒ“‚Ì’[‚É•ª—ô‚µ‚Ä•\¦‚³‚ê‚Ü‚·B‚±‚ê‚É‚æ‚èA‹Šo“I‚ÈŒø‰Ê‚Å“ïˆÕ“x‚ğ‹}ã¸‚³‚¹‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·¡ ")
-		Call AddTutorial(" u”qvƒ^ƒu‚Å 3 / 6 ‚É‚µ‚Ä‚İ‚Ü‚µ‚å‚¤BV‚½‚ÈƒŠƒYƒ€‚ğ“¾‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B")
-		Call AddTutorial(" ¶’[‚Ì5‚Â‚ÌŒ®”Õ‚ÆƒXƒNƒ‰ƒbƒ`‚ğg—p‚µ‚½•ˆ–Ê‚Íubmsv‚ÅA" & vbCrLf & vbCrLf & " 7‚Â‚ÌŒ®”Õ‚ÆƒXƒNƒ‰ƒbƒ`‚ğg—p‚µ‚½•ˆ–Ê‚Íubmev‚ÅA" & vbCrLf & vbCrLf & " 4‚Â‚Ìƒ}ƒEƒX‚ğg—p‚µ‚½•ˆ–Ê‚Íummxv‚Å•Û‘¶‚µ‚Ü‚µ‚å‚¤ (Œ»İÀ‘•‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ)B")
-		Call AddTutorial(" ƒR[ƒ‰‚ğˆù‚İ‚È‚ª‚ç bms ‚ğì‚ç‚È‚¢‚Å‚­‚¾‚³‚¢BƒVƒ~‚ª‚Å‚«‚é‰Â”\«‚ª‚ ‚è‚Ü‚·B")
-		Call AddTutorial(" TOTAL ’l‚ğ•ÏX‚·‚é‚±‚Æ‚É‚æ‚èAƒQ[ƒW‚Ìã¸—¦‚ğ•ÏX‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B" & vbCrLf & vbCrLf & " ’Êí TOTAL ’l‚ÌƒfƒtƒHƒ‹ƒg‚Í bms ‚Ìd—l‚É‚æ‚Á‚Ä 200 + Total Notes ‚ÆŒˆ‚ß‚ç‚ê‚Ä‚¢‚Ü‚·‚ªAˆê•”d—l‚É‘¥‚Á‚Ä‚¢‚È‚¢ƒvƒŒƒCƒ„[‚à‚ ‚è‚Ü‚·‚Ì‚Å‚²’ˆÓ‚­‚¾‚³‚¢¡ ")
-		Call AddTutorial(" VOLWAV ‚Í–¾Œ¾‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ‚ªAVOLume of WAVe ‚Ì—ª‚¾‚Æv‚í‚ê‚Ü‚·B" & vbCrLf & vbCrLf & " ‚æ‚­‚í‚©‚ç‚È‚¢‚Í0‚É‚µAƒ^ƒCƒgƒ‹‚ğu4:33v‚É‚·‚é‚Æ‚æ‚¢‚æ‚¤‚Å‚·B")
-		Call AddTutorial(" ¡‰ñ‚Ì BMSE ‚©‚çV‚½‚È‹@”\‚ª’Ç‰Á‚³‚ê‚Ü‚µ‚½B" & vbCrLf & vbCrLf & " ‚æ‚è‘½‚­‚Ì Tips ‚ğ“Ç‚Ş‚±‚Æ‚ª‚Å‚«‚Ü‚·B")
-		Call AddTutorial(" ‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚Í‚¢‚©‚É‚àƒoƒO‚Ì‚æ‚¤‚ÈU‚é•‘‚¢‚ğ‚·‚é‚±‚Æ‚ª‚ ‚è‚Ü‚·‚ªA" & vbCrLf & vbCrLf & " ‚µ‚©‚µ‚»‚ê‚Íd—l‚Å‚·¡ ")
-		Call AddTutorial(" ‚±‚ÌƒEƒBƒ“ƒhƒE‚Ì‚Ç‚±‚Å‚à‚¢‚¢‚Ì‚ÅA15‰ñƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B" & vbCrLf & " ....." & vbCrLf & " ...." & vbCrLf & " ..." & vbCrLf & " .." & vbCrLf & " ." & vbCrLf & vbCrLf & " ‚Ù‚çA‰½‚à‹N‚«‚È‚¢‚Å‚µ‚å‚¤B")
-		Call AddTutorial(" u”qvƒ^ƒu‚Å 10 / 572 ‚É‚µ‚Ä‚İ‚Ü‚µ‚å‚¤BV‚½‚ÈƒŠƒYƒ€‚ğ“¾‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B")
-		Call AddTutorial(" BMSE ‚Åì¬‚³‚ê‚½ BMS ‚Íƒr[ƒg–‚‚É‚â‚è‚ÅÄ¶‚Å‚«‚é•ÛØ‚Í‚ ‚è‚Ü‚¹‚ñB")
-		Call AddTutorial(" ’èŠú“I‚ÉŒö®ƒTƒCƒg‚ğ‚²——‚­‚¾‚³‚¢B" & vbCrLf & vbCrLf & " http://www.killertomatoes.com/")
-		Call AddTutorial(" ‰½‚©–Y‚ê‚Ä‚È‚¢‚©H")
-		Call AddTutorial(" BMSE ‚ÉƒC[ƒXƒ^[ƒGƒbƒO‚Í‚²‚´‚¢‚Ü‚¹‚ñ (–{“–‚¾‚æI)")
-		Call AddTutorial(" BMSE ‚ÉƒC[ƒXƒ^[ƒGƒbƒO‚Í‚ ‚è‚Ü‚¹‚ñ‚ªATips ‚ğ•\¦‚·‚éƒEƒ‹ƒeƒN‚ª‚ ‚è‚Ü‚·B‚ ‚È‚½‚Í‚à‚¤”­Œ©‚µ‚Ü‚µ‚½‚©H")
-		Call AddTutorial(" ÅV”Å‚Ì BMSE ‚ªƒŠƒŠ[ƒX‚³‚ê‚Ä‚¢‚é‚©Šm”F‚µ‚Ä‚­‚¾‚³‚¢I" & vbCrLf & vbCrLf & " ‚¨—F’B‘Sˆõ‚É BMS ‚ªì‚ê‚éƒN[ƒ‹‚È BMSE ‚Ì‚·‚Î‚ç‚µ‚³‚ğ‹³‚¦‚Ä‚ ‚°‚æ‚¤I")
-		Call AddTutorial(" ‚±‚Ì Tips ‚ÍƒC[ƒXƒ^[ƒGƒbƒO‚Å‚·B" & vbCrLf & vbCrLf & " –éQ‚È‚ª‚ç“­‚©‚¸‚Éì‚Á‚½‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚ª‚İ‚È‚³‚ñ‚É‹C‚É“ü‚Á‚Ä‚¢‚½‚¾‚¯‚é‚æ‚¤Atokonats‚ª–]‚ñ‚Å‚¢‚é‚±‚Æ‚Å‚µ‚å‚¤B")
+		Call AddTutorial(" BMSE ã¯ UCN-Soft ãŒé–‹ç™ºã—ã¦ã„ã¾ã™ã€‚" & vbCrLf & vbCrLf & " UCN ã®ç”±æ¥ã¯è¶…å†…è¼ªãƒã‚¿ãªã®ã§å†…ç·’ã§ã™ï¼")
+		Call AddTutorial(" BMSE ã¯ BMx Sequence Editor ã®ç•¥ã§ã™ã€‚çŸ¥ã‚‰ãªã„å‹é”ãŒã„ãŸã‚‰åºƒã‚ã‚ˆã†ï¼")
+		Call AddTutorial(" BMSE ã¯ bms ãƒ•ã‚¡ã‚¤ãƒ«ã€bme ãƒ•ã‚¡ã‚¤ãƒ«ã€bml ãƒ•ã‚¡ã‚¤ãƒ«ãŠã‚ˆã³ pms ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ›¸ãå‡ºã™ã“ã¨ãŒã§ãã¾ã™ã€‚")
+		Call AddTutorial(" bms ã®æ­£å¼åç§°ã¯ Be-Music Script ãªã©è«¸èª¬ã‚ã‚Šã¾ã™ãŒã€çœŸç›¸ã¯è¬ã®ã¾ã¾ã§ã™ã€‚")
+		Call AddTutorial(" BMSE ã‚’ä½¿ç”¨ã™ã‚‹ã«ã¯ã€ã¾ãš Windows OS ã®æ“ä½œã«ç¿’ç†Ÿã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚" & vbCrLf & vbCrLf & " ãƒã‚¦ã‚¹ã¯ç‰‡æ‰‹ã§æŒã¡ã€ç”»é¢ä¸Šã®ãƒã‚¤ãƒ³ã‚¿ã‚’æ“ä½œã—ã¾ã™ã€‚ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã‚’æŒ‡ã§ãªãã‚‹ã‚ã‘ã§ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚")
+		Call AddTutorial(" ã‚ªãƒ–ã‚¸ã‚§ã‚’é…ç½®ã™ã‚‹ã«ã¯ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚’å·¦ã‚¯ãƒªãƒƒã‚¯ã—ã¾ã™ã€‚" & vbCrLf & vbCrLf & " å·¦ã‚¯ãƒªãƒƒã‚¯ã®ä»•æ–¹ã«ã¤ã„ã¦ã¯ã€ãŠä½¿ã„ã® OS ã®ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ã‚’ãŠèª­ã¿ãã ã•ã„ã€‚" & vbCrLf & vbCrLf & " (BMSE ã¯ãƒã‚¦ã‚¹ãŒå¿…é ˆã§ã™)")
+		Call AddTutorial(" ã‚ªãƒ–ã‚¸ã‚§ãŒé…ç½®ã§ããªã„ï¼Ÿæ¶ˆã—ã‚´ãƒ ãƒ„ãƒ¼ãƒ«ã«ãªã£ã¦ã„ã¾ã›ã‚“ã‹ï¼Ÿ")
+		Call AddTutorial(" å³å´ã«è¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹ãƒ†ã‚­ã‚¹ãƒˆãƒ»ãƒœãƒƒã‚¯ã‚¹ã«ã¯ä»»æ„ã®æ–‡å­—åˆ—ã‚’å…¥åŠ›ã—ã¾ã™ã€‚" & vbCrLf & vbCrLf & " æ–‡å­—åˆ—ã‚’å…¥åŠ›ã™ã‚‹ã«ã¯ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãŒå¿…è¦ã§ã™ã®ã§ã€ãŠä½¿ã„ã® OS åŠã³è¨€èªãƒ„ãƒ¼ãƒ«ã®ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ã‚’ãŠèª­ã¿ãã ã•ã„ã€‚")
+		Call AddTutorial(" GENRE ã¯ã€Œã‚¸ãƒ£ãƒ³ãƒ«ã€ã¨èª­ã¿ã€é¸æ›²ä¸­ã«è¡¨ç¤ºã•ã‚Œã‚‹ãŠãŠã¾ã‹ãªæ›²ã®å‚¾å‘ã‚’å…¥åŠ›ã—ã¾ã™ã€‚" & vbCrLf & vbCrLf & " ã‚ˆãã‚ã‹ã‚‰ãªã„æ™‚ã¯ Techno ã«ã—ã¦ãã ã•ã„ã€‚")
+		Call AddTutorial(" bpm ã¯ Beat Per Minute ã®ç•¥ã§ã€1åˆ†ã‚ãŸã‚Šã®ãƒ“ãƒ¼ãƒˆæ•°ã‚’å…¥åŠ›ã—ã¾ã™ã€‚" & vbCrLf & vbCrLf & " ã‚ˆãã‚ã‹ã‚‰ãªã„æ™‚ã¯400ã«ã—ã¦ãã ã•ã„ã€‚")
+		Call AddTutorial(" TITLE ã¯ã€Œã‚¿ã‚¤ãƒˆãƒ«ã€ã¨èª­ã¿ã¾ã™ã€‚è‹±èªã§ã€Œé¡Œåã€ã‚’æ„å‘³ã—ã€é¸æ›²ä¸­ã«è¡¨ç¤ºã•ã‚Œã‚‹æ›²ã®é¡Œåã‚’å…¥åŠ›ã—ã¾ã™ã€‚" & vbCrLf & vbCrLf & " ã‚ˆãã‚ã‹ã‚‰ãªã„æ™‚ã¯è‹±å’Œè¾æ›¸ã‚’å¼•ã„ã¦ãã ã•ã„ (è‹±å’Œè¾æ›¸ã¯ãŠè¿‘ãã®æ›¸åº—ã§è³¼å…¥å¯èƒ½ã§ã™)ã€‚")
+		Call AddTutorial(" ARTIST ã¯ç›´è¨³ã™ã‚‹ã¨ã€ŒèŠ¸è¡“å®¶ã€ã¨ãªã‚Šã¾ã™ãŒã€ã“ã“ã§ã¯ã€Œä½œè€…ã€ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚" & vbCrLf & vbCrLf & " ã‚ˆãã‚ã‹ã‚‰ãªã„æ™‚ã¯ã€ŒDJ è‹—å­—ã€ã¨ã—ã¦ãã ã•ã„ã€‚ä¾‹: DJ å±±ç”°")
+		Call AddTutorial(" PLAYLEVEL ã¯ã€Œè­œé¢ã®é›£æ˜“åº¦ã€ã§ã™ã€‚ã ã„ãŸã„ 1 ï½ 7 ãŒ bms ã® ãƒ‡ãƒ•ã‚¡ã‚¯ãƒˆã‚¹ã‚¿ãƒ³ãƒ€ãƒ¼ãƒ‰ã§ã™ã€‚" & vbCrLf & vbCrLf & " ã‚ˆãã‚ã‹ã‚‰ãªã„æ™‚ã¯ãƒãƒ¼ãƒˆæ•°Ã·100ã«ã—ã¦ãã ã•ã„ã€‚")
+		Call AddTutorial(" ã€ŒåŸºæœ¬ã€ã‚¿ãƒ–ã®éš£ã«ã€Œæ‹¡å¼µã€ã‚¿ãƒ–ãŠã‚ˆã³ã€Œç’°å¢ƒã€ã‚¿ãƒ–ãŒã‚ã‚‹ã“ã¨ã«ãŠæ°—ã¥ãã§ã™ã‹ï¼Ÿ" & vbCrLf & vbCrLf & " ã‚¯ãƒªãƒƒã‚¯ã™ã‚Œã°æ–°ãŸãªè¨­å®šã‚’è¡Œã†ã“ã¨ãŒå¯èƒ½ã«ãªã‚Šã¾ã™ã€‚")
+		Call AddTutorial(" RANK ã¯ç›´è¨³ã—ã¦ã‚‚æ„å‘³ãŒé€šã˜ã¾ã›ã‚“ã€‚ã€Œåˆ¤å®šã®å³ã—ã•ã€ã‚’ç¾ã—ã¾ã™ã€‚" & vbCrLf & vbCrLf & " ã‚ˆãã‚ã‹ã‚‰ãªã„æ™‚ã¯ VERY HARD ã«ã—ã¦ãã ã•ã„ã€‚")
+		Call AddTutorial(" å®Ÿã¯ BMSE ã¯ MOD ã«å¯¾å¿œã—ã¦ã„ã¾ã™ (ç¾åœ¨éš ã—ã‚³ãƒãƒ³ãƒ‰)ã€‚" & vbCrLf & vbCrLf & " ã“ã®å…ˆã‚’èª­ã‚€ã«ã¯ã‚·ã‚§ã‚¢ã‚¦ã‚¨ã‚¢ãƒ•ã‚£ãƒ¼ã‚’æ‰•ã†å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚" & vbCrLf & vbCrLf & " ã“ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯è‡“å™¨ã‚¦ã‚§ã‚¢ã§ã™ã€‚æ°—ã«å…¥ã£ãŸã‚‰ä½œè€…ã«è‡“å™¨ã‚’å¯„ä»˜ã—ã¦ãã ã•ã„ã€‚")
+		Call AddTutorial(" ãƒ†ãƒ³ã‚­ãƒ¼ã‚’æŠ¼ã™ã¨ã€ãƒ“ãƒ«ãƒ»ã‚²ã‚¤ãƒ„ã¨ãƒ¡ãƒƒã‚»ãƒ³ã‚¸ãƒ£ãƒ¼ã§ãƒãƒ£ãƒƒãƒˆãŒã§ãã¾ã™ã€‚")
+		Call AddTutorial(" ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã®ä¸€ç•ªå·¦ã«ã‚ã‚‹ã€ŒBPMã€ãŠã‚ˆã³ã€ŒSTOPã€ãƒ¬ãƒ¼ãƒ³ã«æ³¨ç›®ã—ã¦ãã ã•ã„ï¼" & vbCrLf & vbCrLf & " ã“ã®ãƒ¬ãƒ¼ãƒ³ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã€å˜ç´”ã«åŠè§’è‹±æ•° (ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®å³ç«¯ã«ã‚ã‚‹ç‹­ã„æ•°å­—ã®ã¿ã®é ˜åŸŸã‚’æŠ¼ä¸‹ã—ã¦ãã ã•ã„) ã‚’å…¥åŠ›ã™ã‚‹ã ã‘ã§ã€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ç¿»å¼„ã™ã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚")
+		Call AddTutorial(" BMSE ã¯ãƒã‚¦ãƒãƒ‹ã«å¯¾å¿œã—ã¦ã„ã¾ã›ã‚“ã€‚æœ¬å½“ã ã‚ˆï¼")
+		Call AddTutorial(" ã¦ã£ã¨ã‚Šæ—©ã bms ã‚’ä½œã‚‹ã«ã¯ã€wav ã‚’ä½¿ç”¨ã›ãšã«ä½œã‚‹ã®ãŒä¸€ç•ªã§ã™ã€‚" & vbCrLf & vbCrLf & " çµµã‚’æãæ„Ÿè¦šã§ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã«ã‚ªãƒ–ã‚¸ã‚§ã‚’é…ç½® (å·¦ã‚¯ãƒªãƒƒã‚¯) ã™ã‚Œã° bms ãŒå®Œæˆï¼ç°¡å˜ã§ã—ã‚‡ï¼Ÿ")
+		Call AddTutorial(" ã€ŒåŸºæœ¬ã€ã‚¿ãƒ–ã®ä¸€ç•ªä¸Šã«ã‚ã‚‹ã€Œãƒ—ãƒ¬ã‚¤ãƒ¢ãƒ¼ãƒ‰ã€ã‚’ Double Play ã«ã—ã¦ã¿ã¾ã—ã‚‡ã†ã€‚éµç›¤ã®æ•°ãŒå€å¢—ã—ã€ã‚ˆã‚Šã€Œå¤ªã„ã€è­œé¢ã‚’ä½œã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚" & vbCrLf & vbCrLf & " ã¾ãŸã€2 Player ã‚’é¸ã³ã¾ã™ã¨ã€å®Ÿéš›ã®ã‚²ãƒ¼ãƒ ã§éµç›¤ãŒåŠåˆ†ã”ã¨ã«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã®ç«¯ã«åˆ†è£‚ã—ã¦è¡¨ç¤ºã•ã‚Œã¾ã™ã€‚ã“ã‚Œã«ã‚ˆã‚Šã€è¦–è¦šçš„ãªåŠ¹æœã§é›£æ˜“åº¦ã‚’æ€¥ä¸Šæ˜‡ã•ã›ã‚‹ã“ã¨ãŒã§ãã¾ã™ï½¡ ")
+		Call AddTutorial(" ã€Œæ‹å­ã€ã‚¿ãƒ–ã§ 3 / 6 ã«ã—ã¦ã¿ã¾ã—ã‚‡ã†ã€‚æ–°ãŸãªãƒªã‚ºãƒ ã‚’å¾—ã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚")
+		Call AddTutorial(" å·¦ç«¯ã®5ã¤ã®éµç›¤ã¨ã‚¹ã‚¯ãƒ©ãƒƒãƒã‚’ä½¿ç”¨ã—ãŸè­œé¢ã¯ã€Œbmsã€ã§ã€" & vbCrLf & vbCrLf & " 7ã¤ã®éµç›¤ã¨ã‚¹ã‚¯ãƒ©ãƒƒãƒã‚’ä½¿ç”¨ã—ãŸè­œé¢ã¯ã€Œbmeã€ã§ã€" & vbCrLf & vbCrLf & " 4ã¤ã®ãƒã‚¦ã‚¹ã‚’ä½¿ç”¨ã—ãŸè­œé¢ã¯ã€Œmmxã€ã§ä¿å­˜ã—ã¾ã—ã‚‡ã† (ç¾åœ¨å®Ÿè£…ã•ã‚Œã¦ã„ã¾ã›ã‚“)ã€‚")
+		Call AddTutorial(" ã‚³ãƒ¼ãƒ©ã‚’é£²ã¿ãªãŒã‚‰ bms ã‚’ä½œã‚‰ãªã„ã§ãã ã•ã„ã€‚ã‚·ãƒŸãŒã§ãã‚‹å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚")
+		Call AddTutorial(" TOTAL å€¤ã‚’å¤‰æ›´ã™ã‚‹ã“ã¨ã«ã‚ˆã‚Šã€ã‚²ãƒ¼ã‚¸ã®ä¸Šæ˜‡ç‡ã‚’å¤‰æ›´ã™ã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚" & vbCrLf & vbCrLf & " é€šå¸¸ TOTAL å€¤ã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã¯ bms ã®ä»•æ§˜ã«ã‚ˆã£ã¦ 200 + Total Notes ã¨æ±ºã‚ã‚‰ã‚Œã¦ã„ã¾ã™ãŒã€ä¸€éƒ¨ä»•æ§˜ã«å‰‡ã£ã¦ã„ãªã„ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚‚ã‚ã‚Šã¾ã™ã®ã§ã”æ³¨æ„ãã ã•ã„ï½¡ ")
+		Call AddTutorial(" VOLWAV ã¯æ˜è¨€ã•ã‚Œã¦ã„ã¾ã›ã‚“ãŒã€VOLume of WAVe ã®ç•¥ã ã¨æ€ã‚ã‚Œã¾ã™ã€‚" & vbCrLf & vbCrLf & " ã‚ˆãã‚ã‹ã‚‰ãªã„æ™‚ã¯0ã«ã—ã€ã‚¿ã‚¤ãƒˆãƒ«ã‚’ã€Œ4:33ã€ã«ã™ã‚‹ã¨ã‚ˆã„ã‚ˆã†ã§ã™ã€‚")
+		Call AddTutorial(" ä»Šå›ã® BMSE ã‹ã‚‰æ–°ãŸãªæ©Ÿèƒ½ãŒè¿½åŠ ã•ã‚Œã¾ã—ãŸã€‚" & vbCrLf & vbCrLf & " ã‚ˆã‚Šå¤šãã® Tips ã‚’èª­ã‚€ã“ã¨ãŒã§ãã¾ã™ã€‚")
+		Call AddTutorial(" ã“ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯ã„ã‹ã«ã‚‚ãƒã‚°ã®ã‚ˆã†ãªæŒ¯ã‚‹èˆã„ã‚’ã™ã‚‹ã“ã¨ãŒã‚ã‚Šã¾ã™ãŒã€" & vbCrLf & vbCrLf & " ã—ã‹ã—ãã‚Œã¯ä»•æ§˜ã§ã™ï½¡ ")
+		Call AddTutorial(" ã“ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã©ã“ã§ã‚‚ã„ã„ã®ã§ã€15å›ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚" & vbCrLf & " ....." & vbCrLf & " ...." & vbCrLf & " ..." & vbCrLf & " .." & vbCrLf & " ." & vbCrLf & vbCrLf & " ã»ã‚‰ã€ä½•ã‚‚èµ·ããªã„ã§ã—ã‚‡ã†ã€‚")
+		Call AddTutorial(" ã€Œæ‹å­ã€ã‚¿ãƒ–ã§ 10 / 572 ã«ã—ã¦ã¿ã¾ã—ã‚‡ã†ã€‚æ–°ãŸãªãƒªã‚ºãƒ ã‚’å¾—ã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚")
+		Call AddTutorial(" BMSE ã§ä½œæˆã•ã‚ŒãŸ BMS ã¯ãƒ“ãƒ¼ãƒˆé­”ã«ã‚„ã‚Šã§å†ç”Ÿã§ãã‚‹ä¿è¨¼ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚")
+		Call AddTutorial(" å®šæœŸçš„ã«å…¬å¼ã‚µã‚¤ãƒˆã‚’ã”è¦§ãã ã•ã„ã€‚" & vbCrLf & vbCrLf & " http://www.killertomatoes.com/")
+		Call AddTutorial(" ä½•ã‹å¿˜ã‚Œã¦ãªã„ã‹ï¼Ÿ")
+		Call AddTutorial(" BMSE ã«ã‚¤ãƒ¼ã‚¹ã‚¿ãƒ¼ã‚¨ãƒƒã‚°ã¯ã”ã–ã„ã¾ã›ã‚“ (æœ¬å½“ã ã‚ˆï¼)")
+		Call AddTutorial(" BMSE ã«ã‚¤ãƒ¼ã‚¹ã‚¿ãƒ¼ã‚¨ãƒƒã‚°ã¯ã‚ã‚Šã¾ã›ã‚“ãŒã€Tips ã‚’è¡¨ç¤ºã™ã‚‹ã‚¦ãƒ«ãƒ†ã‚¯ãŒã‚ã‚Šã¾ã™ã€‚ã‚ãªãŸã¯ã‚‚ã†ç™ºè¦‹ã—ã¾ã—ãŸã‹ï¼Ÿ")
+		Call AddTutorial(" æœ€æ–°ç‰ˆã® BMSE ãŒãƒªãƒªãƒ¼ã‚¹ã•ã‚Œã¦ã„ã‚‹ã‹ç¢ºèªã—ã¦ãã ã•ã„ï¼" & vbCrLf & vbCrLf & " ãŠå‹é”å…¨å“¡ã« BMS ãŒä½œã‚Œã‚‹ã‚¯ãƒ¼ãƒ«ãª BMSE ã®ã™ã°ã‚‰ã—ã•ã‚’æ•™ãˆã¦ã‚ã’ã‚ˆã†ï¼")
+		Call AddTutorial(" ã“ã® Tips ã¯ã‚¤ãƒ¼ã‚¹ã‚¿ãƒ¼ã‚¨ãƒƒã‚°ã§ã™ã€‚" & vbCrLf & vbCrLf & " å¤œå¯ãªãŒã‚‰åƒã‹ãšã«ä½œã£ãŸã“ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ãŒã¿ãªã•ã‚“ã«æ°—ã«å…¥ã£ã¦ã„ãŸã ã‘ã‚‹ã‚ˆã†ã€tokonatsæ°ãŒæœ›ã‚“ã§ã„ã‚‹ã“ã¨ã§ã—ã‚‡ã†ã€‚")
 		
 		With Me
 			
-			'UPGRADE_ISSUE: Form ƒƒ\ƒbƒh frmWindowTips.Line ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Form ãƒ¡ã‚½ãƒƒãƒ‰ frmWindowTips.Line ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			frmWindowTips.Line (120, 120) - Step(720, 3210), RGB(128, 128, 128), BF
 			
-			'UPGRADE_ISSUE: Form ƒƒ\ƒbƒh frmWindowTips.Line ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Form ãƒ¡ã‚½ãƒƒãƒ‰ frmWindowTips.Line ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			frmWindowTips.Line (855, 120) - Step(5265, 3210), System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White), BF
 			
-			'UPGRADE_ISSUE: Form ƒƒ\ƒbƒh frmWindowTips.Line ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Form ãƒ¡ã‚½ãƒƒãƒ‰ frmWindowTips.Line ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			frmWindowTips.Line (855, 615) - Step(5265, 0), System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black), BF
 			
-			'UPGRADE_ISSUE: Form ƒvƒƒpƒeƒB frmWindowTips.CurrentX ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Form ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ frmWindowTips.CurrentX ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.CurrentX = 960
-			'UPGRADE_ISSUE: Form ƒvƒƒpƒeƒB frmWindowTips.CurrentY ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Form ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ frmWindowTips.CurrentY ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.CurrentY = 210
 			.Font = VB6.FontChangeSize(.Font, 16)
 			.Font = VB6.FontChangeBold(.Font, True)
 			
-			'UPGRADE_ISSUE: Form ƒƒ\ƒbƒh frmWindowTips.Print ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			frmWindowTips.Print("‚²‘¶’m‚Å‚·‚©...")
+			'UPGRADE_ISSUE: Form ãƒ¡ã‚½ãƒƒãƒ‰ frmWindowTips.Print ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			frmWindowTips.Print("ã”å­˜çŸ¥ã§ã™ã‹...")
 			
 			.Font = VB6.FontChangeSize(.Font, 9)
 			.Font = VB6.FontChangeBold(.Font, False)
-			'UPGRADE_ISSUE: Form ƒvƒƒpƒeƒB frmWindowTips.CurrentX ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Form ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ frmWindowTips.CurrentX ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.CurrentX = 5400
-			'UPGRADE_ISSUE: Form ƒvƒƒpƒeƒB frmWindowTips.CurrentY ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Form ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ frmWindowTips.CurrentY ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.CurrentY = 345
 			
-			'UPGRADE_ISSUE: Form ƒƒ\ƒbƒh frmWindowTips.Print ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: Form ãƒ¡ã‚½ãƒƒãƒ‰ frmWindowTips.Print ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			frmWindowTips.Print(" 0 / " & UBound(m_strTips))
 			
 			.Font = VB6.FontChangeSize(.Font, 12)
 			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picIcon.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_ISSUE: Form ƒvƒƒpƒeƒB frmWindowTips.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picIcon.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_ISSUE: Form ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ frmWindowTips.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call BitBlt(Me.hdc, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon.hdc, 0, 32, SRCCOPY)
 			
 		End With
 		
-		'UPGRADE_ISSUE: Form ƒƒ\ƒbƒh frmWindowTips.Line ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: Form ãƒ¡ã‚½ãƒƒãƒ‰ frmWindowTips.Line ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		frmWindowTips.Line (960, 720) - (6075, 3270), System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White), BF
-		'UPGRADE_ISSUE: ’è” vbFromUnicode ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_ISSUE: LenB ŠÖ”‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_ISSUE: Form ƒvƒƒpƒeƒB frmWindowTips.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: å®šæ•° vbFromUnicode ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_ISSUE: LenB é–¢æ•°ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+		'UPGRADE_ISSUE: Form ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ frmWindowTips.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Call DrawText(Me.hdc, m_strTips(0), LenB(StrConv(m_strTips(0), vbFromUnicode)), ddRect(63, 48, 402, 216), DT_WORDBREAK)
 		m_lngTipsNum = Len(m_strTips(0))
 		
@@ -261,7 +261,7 @@ Friend Class frmWindowTips
 		
 		If Me.Visible Then Call lngSet_ini("EasterEgg", "Tips", chkNextDisp.CheckState)
 		
-		'UPGRADE_ISSUE: Event ƒpƒ‰ƒ[ƒ^ Cancel ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FB723E3C-1C06-4D2B-B083-E6CD0D334DA8"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: Event ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ Cancel ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FB723E3C-1C06-4D2B-B083-E6CD0D334DA8"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		Cancel = True
 		
 		tmrMain.Enabled = False
@@ -281,7 +281,7 @@ Friend Class frmWindowTips
 		m_lngTipsNum = m_lngTipsNum + 1
 		tmrMain.Interval = 100
 		
-		'UPGRADE_ISSUE: Form ƒƒ\ƒbƒh frmWindowTips.Line ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_ISSUE: Form ãƒ¡ã‚½ãƒƒãƒ‰ frmWindowTips.Line ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		frmWindowTips.Line (945, 720) - (6030, 3240), System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White), BF
 		
 		If m_lngTipsNum >= Len(m_strTips(m_intTipsPos)) + 1 Then
@@ -303,31 +303,31 @@ Friend Class frmWindowTips
 			If m_lngTipsNum And 1 Then
 				
 				'Call BitBlt(frmWindowTips.hdc, 16 * m_sngTwipsX, 16 * m_sngTwipsY, 32, 32, picIcon.hdc, 0, 32, SRCCOPY)
-				'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picIcon.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_ISSUE: Form ƒvƒƒpƒeƒB frmWindowTips.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picIcon.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+				'UPGRADE_ISSUE: Form ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ frmWindowTips.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				Call BitBlt(Me.hdc, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon.hdc, 0, 32, SRCCOPY)
 				
 			Else
 				
 				'Call BitBlt(frmWindowTips.hdc, 16 * m_sngTwipsX, 16 * m_sngTwipsY, 32, 32, picIcon.hdc, 0, 0, SRCCOPY)
-				'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picIcon.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_ISSUE: Form ƒvƒƒpƒeƒB frmWindowTips.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+				'UPGRADE_ISSUE: PictureBox ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ picIcon.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+				'UPGRADE_ISSUE: Form ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ frmWindowTips.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 				Call BitBlt(Me.hdc, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon.hdc, 0, 0, SRCCOPY)
 				
 			End If
 			
-			'UPGRADE_ISSUE: ’è” vbFromUnicode ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_ISSUE: LenB ŠÖ”‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_ISSUE: Form ƒvƒƒpƒeƒB frmWindowTips.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: å®šæ•° vbFromUnicode ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_ISSUE: LenB é–¢æ•°ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_ISSUE: Form ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ frmWindowTips.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call DrawText(Me.hdc, strTemp, LenB(StrConv(strTemp, vbFromUnicode)), ddRect(63, 48, 402, 216), DT_WORDBREAK)
 			
 		Else
 			
 			strTemp = VB.Left(m_strTips(m_intTipsPos), m_lngTipsNum) & "_"
 			
-			'UPGRADE_ISSUE: ’è” vbFromUnicode ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_ISSUE: LenB ŠÖ”‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_ISSUE: Form ƒvƒƒpƒeƒB frmWindowTips.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_ISSUE: å®šæ•° vbFromUnicode ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_ISSUE: LenB é–¢æ•°ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+			'UPGRADE_ISSUE: Form ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ frmWindowTips.hdc ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			Call DrawText(Me.hdc, strTemp, LenB(StrConv(strTemp, vbFromUnicode)), ddRect(63, 48, 402, 216), DT_WORDBREAK)
 			
 			Select Case VB.Right(strTemp, 2)
@@ -340,11 +340,11 @@ Friend Class frmWindowTips
 					
 					tmrMain.Interval = 50
 					
-				Case "A_", "(_", ")_", "u_", "v_", "`_"
+				Case "ã€_", "(_", ")_", "ã€Œ_", "ã€_", "ï½_"
 					
 					tmrMain.Interval = 200
 					
-				Case "B_", "I_", "H_", ":_", "/_", "._"
+				Case "ã€‚_", "ï¼_", "ï¼Ÿ_", ":_", "/_", "._"
 					
 					tmrMain.Interval = 400
 					
@@ -365,7 +365,7 @@ Friend Class frmWindowTips
 		
 	End Function
 	
-	'UPGRADE_NOTE: str ‚Í str_Renamed ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_NOTE: str ã¯ str_Renamed ã«ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Private Sub AddTutorial(ByRef str_Renamed As String)
 		
 		ReDim Preserve m_strTips(UBound(m_strTips) + 1)

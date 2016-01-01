@@ -2,22 +2,22 @@ Option Strict Off
 Option Explicit On
 Module modMessage
 	
-	' ---------- •W€ƒ‚ƒWƒ…[ƒ‹ ----------
+	' ---------- æ¨™æº–ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ« ----------
 	Private Structure COPYDATASTRUCT
 		Dim dwData As Integer
 		Dim cbData As Integer
 		Dim lpData As Integer
 	End Structure
 	
-	'ƒTƒuƒNƒ‰ƒX‰»ŠÖ”
+	'ã‚µãƒ–ã‚¯ãƒ©ã‚¹åŒ–é–¢æ•°
 	Private Declare Function SetWindowLong Lib "user32"  Alias "SetWindowLongA"(ByVal hwnd As Integer, ByVal nIndex As Integer, ByVal dwNewLong As Integer) As Integer
 	Private Declare Function CallWindowProc Lib "user32"  Alias "CallWindowProcA"(ByVal lpPrevWndFunc As Integer, ByVal hwnd As Integer, ByVal MSG As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
 	Private Declare Function GetActiveWindow Lib "user32" () As Integer
 	
-	'UPGRADE_ISSUE: ƒpƒ‰ƒ[ƒ^ 'As Any' ‚ÌéŒ¾‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_ISSUE: ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ 'As Any' ã®å®£è¨€ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¾ã›ã‚“ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Public Declare Function SendMessage Lib "user32"  Alias "SendMessageA"(ByVal hwnd As Integer, ByVal wMsg As Integer, ByVal wParam As Integer, ByRef lParam As Any) As Integer
 	
-	Private Const GWL_WNDPROC As Short = (-4) 'ƒEƒCƒ“ƒhƒEƒvƒƒV[ƒWƒƒ
+	Private Const GWL_WNDPROC As Short = (-4) 'ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£
 	
 	Private Const WM_ACTIVATE As Integer = &H6
 	Private Const WM_ACTIVATEAPP As Integer = &H1C
@@ -56,20 +56,20 @@ Module modMessage
 	Private Const SB_BOTTOM As Short = 7
 	Private Const SB_ENDSCROLL As Short = 8
 	
-	'ƒfƒtƒHƒ‹ƒg‚ÌƒEƒCƒ“ƒhƒEƒvƒƒV[ƒWƒƒ
+	'ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£
 	Public OldWindowhWnd As Integer
 	
 	
 	'---------------------------------------------------------------------------
-	' ŠÖ”–¼F SubClass
-	' ‹@”\ F ƒTƒuƒNƒ‰ƒX‰»‚ğŠJn‚·‚é
-	' ˆø” F (in) hWnd c ‘ÎÛƒtƒH[ƒ€‚ÌƒEƒCƒ“ƒhƒEƒnƒ“ƒhƒ‹
-	' •Ô‚è’l F ‚È‚µ
+	' é–¢æ•°åï¼š SubClass
+	' æ©Ÿèƒ½ ï¼š ã‚µãƒ–ã‚¯ãƒ©ã‚¹åŒ–ã‚’é–‹å§‹ã™ã‚‹
+	' å¼•æ•° ï¼š (in) hWnd â€¦ å¯¾è±¡ãƒ•ã‚©ãƒ¼ãƒ ã®ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
+	' è¿”ã‚Šå€¤ ï¼š ãªã—
 	'---------------------------------------------------------------------------
 	Public Sub SubClass(ByVal hwnd As Integer)
 		
 		
-		'UPGRADE_WARNING: AddressOf WindowProc ‚Ì delegate ‚ğ’Ç‰Á‚·‚é Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="E9E157F7-EF0C-4016-87B7-7D7FBBC6EE08"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+		'UPGRADE_WARNING: AddressOf WindowProc ã® delegate ã‚’è¿½åŠ ã™ã‚‹ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="E9E157F7-EF0C-4016-87B7-7D7FBBC6EE08"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 		OldWindowhWnd = SetWindowLong(hwnd, GWL_WNDPROC, AddressOf WindowProc)
 		
 		
@@ -77,10 +77,10 @@ Module modMessage
 	
 	
 	'---------------------------------------------------------------------------
-	' ŠÖ”–¼F UnSubClass
-	' ‹@”\ F ƒTƒuƒNƒ‰ƒX‰»‚ğI—¹‚·‚é
-	' ˆø” F (in) hWnd c ‘ÎÛƒtƒH[ƒ€‚ÌƒEƒCƒ“ƒhƒEƒnƒ“ƒhƒ‹
-	' •Ô‚è’l F ‚È‚µ
+	' é–¢æ•°åï¼š UnSubClass
+	' æ©Ÿèƒ½ ï¼š ã‚µãƒ–ã‚¯ãƒ©ã‚¹åŒ–ã‚’çµ‚äº†ã™ã‚‹
+	' å¼•æ•° ï¼š (in) hWnd â€¦ å¯¾è±¡ãƒ•ã‚©ãƒ¼ãƒ ã®ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
+	' è¿”ã‚Šå€¤ ï¼š ãªã—
 	'---------------------------------------------------------------------------
 	Public Sub UnSubClass(ByVal hwnd As Integer)
 		
@@ -90,7 +90,7 @@ Module modMessage
 		
 		If OldWindowhWnd <> 0 Then
 			
-			'Œ³‚ÌƒvƒƒV[ƒWƒƒƒAƒhƒŒƒX‚Éİ’è‚·‚é
+			'å…ƒã®ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ã‚¢ãƒ‰ãƒ¬ã‚¹ã«è¨­å®šã™ã‚‹
 			ret = SetWindowLong(hwnd, GWL_WNDPROC, OldWindowhWnd)
 			
 			
@@ -102,10 +102,10 @@ Module modMessage
 	End Sub
 	
 	'---------------------------------------------------------------
-	' ŠÖ”–¼F strNullCut
-	' ‹@”\ F •¶š—ñ‚ğ vbNullChar ‚Ü‚Å‚ğæ“¾‚·‚é
-	' ˆø” F (in) srcStr c ‘ÎÛ•¶š—ñ
-	' •Ô‚è’l F•ÒW‚³‚ê‚½•¶š—ñ
+	' é–¢æ•°åï¼š strNullCut
+	' æ©Ÿèƒ½ ï¼š æ–‡å­—åˆ—ã‚’ vbNullChar ã¾ã§ã‚’å–å¾—ã™ã‚‹
+	' å¼•æ•° ï¼š (in) srcStr â€¦ å¯¾è±¡æ–‡å­—åˆ—
+	' è¿”ã‚Šå€¤ ï¼šç·¨é›†ã•ã‚ŒãŸæ–‡å­—åˆ—
 	'---------------------------------------------------------------
 	Public Function strNullCut(ByVal srcStr As String) As String
 		
@@ -131,26 +131,26 @@ Module modMessage
 	End Function
 	
 	
-	'Ÿ‚ÍAóM‚·‚é‘¤‚ÌƒR[ƒhB•¶š—ñæ“¾•û–@‚Íæ“¾‚µ‚½•¶š—ñ‚Ö‚Ìƒ|ƒCƒ“ƒ^‚æ‚è NULL ‚Ü‚Å‚Ì’·‚³‚ğæ“¾‚µA‚»‚Ì’·‚³•ªƒoƒCƒg’PˆÊ‚ÅƒRƒs[‚µ‚Ä‚â‚ê‚Î‚æ‚¢B
+	'æ¬¡ã¯ã€å—ä¿¡ã™ã‚‹å´ã®ã‚³ãƒ¼ãƒ‰ã€‚æ–‡å­—åˆ—å–å¾—æ–¹æ³•ã¯å–å¾—ã—ãŸæ–‡å­—åˆ—ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã‚ˆã‚Š NULL ã¾ã§ã®é•·ã•ã‚’å–å¾—ã—ã€ãã®é•·ã•åˆ†ãƒã‚¤ãƒˆå˜ä½ã§ã‚³ãƒ”ãƒ¼ã—ã¦ã‚„ã‚Œã°ã‚ˆã„ã€‚
 	
 	
 	
 	'-------------------------------------------------------------------------
-	' ŠÖ”–¼F WindowProc
-	' ‹@”\ F ƒEƒCƒ“ƒhƒEƒƒbƒZ[ƒW‚ğƒtƒbƒN‚·‚é
-	' ˆø” F (in) hWnd c ‘ÎÛƒtƒH[ƒ€‚ÌƒEƒCƒ“ƒhƒEƒnƒ“ƒhƒ‹
-	'@@@@@(in) uMsg c ƒEƒCƒ“ƒhƒEƒƒbƒZ[ƒW
-	'@@@@@(in) wParam c ’Ç‰Áî•ñ‚P
-	'@@@@@(in) lParam c ’Ç‰Áî•ñ‚Q
-	' •Ô‚è’l F ‚È‚µ
-	' ”õl F “Á‚É‚È‚µ
+	' é–¢æ•°åï¼š WindowProc
+	' æ©Ÿèƒ½ ï¼š ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ãƒ•ãƒƒã‚¯ã™ã‚‹
+	' å¼•æ•° ï¼š (in) hWnd â€¦ å¯¾è±¡ãƒ•ã‚©ãƒ¼ãƒ ã®ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
+	'ã€€ã€€ã€€ã€€ã€€(in) uMsg â€¦ ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+	'ã€€ã€€ã€€ã€€ã€€(in) wParam â€¦ è¿½åŠ æƒ…å ±ï¼‘
+	'ã€€ã€€ã€€ã€€ã€€(in) lParam â€¦ è¿½åŠ æƒ…å ±ï¼’
+	' è¿”ã‚Šå€¤ ï¼š ãªã—
+	' å‚™è€ƒ ï¼š ç‰¹ã«ãªã—
 	'---------------------------------------------------------------------------
 	Public Function WindowProc(ByVal hwnd As Integer, ByVal uMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
 		
 		
 		'Dim udtCDP As COPYDATASTRUCT
-		'Dim SentText As String '‘—‚ç‚ê‚Ä‚«‚½•¶š—ñ
-		'Dim SentTextLen As Long '‘—‚ç‚ê‚Ä‚«‚½•¶š—ñ‚Ì”
+		'Dim SentText As String 'é€ã‚‰ã‚Œã¦ããŸæ–‡å­—åˆ—
+		'Dim SentTextLen As Long 'é€ã‚‰ã‚Œã¦ããŸæ–‡å­—åˆ—ã®æ•°
 		
 		Dim lngTemp As Integer
 		
@@ -228,7 +228,7 @@ Module modMessage
 						
 					End If
 					
-				Case WM_CTLCOLORSCROLLBAR 'ƒXƒNƒ[ƒ‹ƒo[•Ï‚ÈF‘Îô
+				Case WM_CTLCOLORSCROLLBAR 'ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼å¤‰ãªè‰²å¯¾ç­–
 					
 					Exit Function
 					
@@ -244,14 +244,14 @@ Module modMessage
 	
 	Public Function HWORD(ByVal LongValue As Integer) As Short
 		
-		'’·®”’l‚©‚çãˆÊƒ[ƒh‚ğæ“¾‚·‚é
+		'é•·æ•´æ•°å€¤ã‹ã‚‰ä¸Šä½ãƒ¯ãƒ¼ãƒ‰ã‚’å–å¾—ã™ã‚‹
 		HWORD = (LongValue And &HFFFF0000) \ &H10000
 		
 	End Function
 	
 	Public Function LWORD(ByVal LongValue As Integer) As Short
 		
-		'’·®”’l‚©‚ç‰ºˆÊƒ[ƒh‚ğæ“¾‚·‚é
+		'é•·æ•´æ•°å€¤ã‹ã‚‰ä¸‹ä½ãƒ¯ãƒ¼ãƒ‰ã‚’å–å¾—ã™ã‚‹
 		If (LongValue And &HFFFF) > &H7FFF Then
 			
 			LWORD = CShort(LongValue And &HFFFF) - &H10000

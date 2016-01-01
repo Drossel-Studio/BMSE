@@ -1,11 +1,11 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmWindowFind
-#Region "Windows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚É‚æ‚Á‚Ä¶¬‚³‚ê‚½ƒR[ƒh "
+#Region "Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã«ã‚ˆã£ã¦ç”Ÿæˆã•ã‚ŒãŸã‚³ãƒ¼ãƒ‰ "
 	<System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
 		MyBase.New()
-		'‚±‚ÌŒÄ‚Ño‚µ‚ÍAWindows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚Å•K—v‚Å‚·B
+		'ã“ã®å‘¼ã³å‡ºã—ã¯ã€Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã§å¿…è¦ã§ã™ã€‚
 		InitializeComponent()
 	End Sub
-	'Form ‚ÍAƒRƒ“ƒ|[ƒlƒ“ƒgˆê——‚ÉŒãˆ—‚ğÀs‚·‚é‚½‚ß‚É dispose ‚ğƒI[ƒo[ƒ‰ƒCƒh‚µ‚Ü‚·B
+	'Form ã¯ã€ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆä¸€è¦§ã«å¾Œå‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹ãŸã‚ã« dispose ã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã—ã¾ã™ã€‚
 	<System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
 		If Disposing Then
 			If Not components Is Nothing Then
@@ -14,7 +14,7 @@
 		End If
 		MyBase.Dispose(Disposing)
 	End Sub
-	'Windows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚Å•K—v‚Å‚·B
+	'Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã§å¿…è¦ã§ã™ã€‚
 	Private components As System.ComponentModel.IContainer
 	Public ToolTip1 As System.Windows.Forms.ToolTip
 	Public WithEvents cmdClose As System.Windows.Forms.Button
@@ -49,9 +49,9 @@
 	Public WithEvents optSearchAll As System.Windows.Forms.RadioButton
 	Public WithEvents fraSearchObject As System.Windows.Forms.GroupBox
 	Public WithEvents lstGrid As Microsoft.VisualBasic.Compatibility.VB6.CheckedListBoxArray
-	'ƒƒ‚: ˆÈ‰º‚ÌƒvƒƒV[ƒWƒƒ‚Í Windows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚Å•K—v‚Å‚·B
-	'Windows ƒtƒH[ƒ€ ƒfƒUƒCƒi‚ğg‚Á‚Ä•ÏX‚Å‚«‚Ü‚·B
-	'ƒR[ƒh ƒGƒfƒBƒ^‚ğg—p‚µ‚ÄA•ÏX‚µ‚È‚¢‚Å‚­‚¾‚³‚¢B
+	'ãƒ¡ãƒ¢: ä»¥ä¸‹ã®ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ã¯ Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã§å¿…è¦ã§ã™ã€‚
+	'Windows ãƒ•ã‚©ãƒ¼ãƒ  ãƒ‡ã‚¶ã‚¤ãƒŠã‚’ä½¿ã£ã¦å¤‰æ›´ã§ãã¾ã™ã€‚
+	'ã‚³ãƒ¼ãƒ‰ ã‚¨ãƒ‡ã‚£ã‚¿ã‚’ä½¿ç”¨ã—ã¦ã€å¤‰æ›´ã—ãªã„ã§ãã ã•ã„ã€‚
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
 		Dim resources As System.Resources.ResourceManager = New System.Resources.ResourceManager(GetType(frmWindowFind))
 		Me.components = New System.ComponentModel.Container()
@@ -97,10 +97,10 @@
 		Me.ToolTip1.Active = True
 		CType(Me.lstGrid, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
-		Me.Text = "ŒŸõEíœE’uŠ·"
+		Me.Text = "æ¤œç´¢ãƒ»å‰Šé™¤ãƒ»ç½®æ›"
 		Me.ClientSize = New System.Drawing.Size(566, 193)
 		Me.Location = New System.Drawing.Point(3, 19)
-		Me.Font = New System.Drawing.Font("‚l‚r ƒSƒVƒbƒN", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+		Me.Font = New System.Drawing.Font("ï¼­ï¼³ ã‚´ã‚·ãƒƒã‚¯", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
 		Me.MaximizeBox = False
 		Me.MinimizeBox = False
 		Me.ShowInTaskbar = False
@@ -116,7 +116,7 @@
 		Me.WindowState = System.Windows.Forms.FormWindowState.Normal
 		Me.Name = "frmWindowFind"
 		Me.cmdClose.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdClose.Text = "•Â‚¶‚é"
+		Me.cmdClose.Text = "é–‰ã˜ã‚‹"
 		Me.cmdClose.Size = New System.Drawing.Size(125, 25)
 		Me.cmdClose.Location = New System.Drawing.Point(436, 136)
 		Me.cmdClose.TabIndex = 29
@@ -129,7 +129,7 @@
 		Me.cmdClose.TabStop = True
 		Me.cmdClose.Name = "cmdClose"
 		Me.cmdDecide.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdDecide.Text = "Às"
+		Me.cmdDecide.Text = "å®Ÿè¡Œ"
 		Me.AcceptButton = Me.cmdDecide
 		Me.cmdDecide.Size = New System.Drawing.Size(125, 25)
 		Me.cmdDecide.Location = New System.Drawing.Point(436, 164)
@@ -142,7 +142,7 @@
 		Me.cmdDecide.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.cmdDecide.TabStop = True
 		Me.cmdDecide.Name = "cmdDecide"
-		Me.fraProcess.Text = "ˆ—"
+		Me.fraProcess.Text = "å‡¦ç†"
 		Me.fraProcess.Size = New System.Drawing.Size(125, 81)
 		Me.fraProcess.Location = New System.Drawing.Point(436, 4)
 		Me.fraProcess.TabIndex = 24
@@ -177,7 +177,7 @@
 		Me.txtReplace.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
 		Me.txtReplace.Name = "txtReplace"
 		Me.optProcessReplace.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-		Me.optProcessReplace.Text = "’uŠ·"
+		Me.optProcessReplace.Text = "ç½®æ›"
 		Me.optProcessReplace.Size = New System.Drawing.Size(109, 21)
 		Me.optProcessReplace.Location = New System.Drawing.Point(8, 56)
 		Me.optProcessReplace.TabIndex = 27
@@ -194,7 +194,7 @@
 		Me.optProcessReplace.Visible = True
 		Me.optProcessReplace.Name = "optProcessReplace"
 		Me.optProcessDelete.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-		Me.optProcessDelete.Text = "íœ"
+		Me.optProcessDelete.Text = "å‰Šé™¤"
 		Me.optProcessDelete.Size = New System.Drawing.Size(109, 21)
 		Me.optProcessDelete.Location = New System.Drawing.Point(8, 36)
 		Me.optProcessDelete.TabIndex = 26
@@ -211,7 +211,7 @@
 		Me.optProcessDelete.Visible = True
 		Me.optProcessDelete.Name = "optProcessDelete"
 		Me.optProcessSelect.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-		Me.optProcessSelect.Text = "‘I‘ğ"
+		Me.optProcessSelect.Text = "é¸æŠ"
 		Me.optProcessSelect.Size = New System.Drawing.Size(109, 21)
 		Me.optProcessSelect.Location = New System.Drawing.Point(8, 16)
 		Me.optProcessSelect.TabIndex = 25
@@ -227,7 +227,7 @@
 		Me.optProcessSelect.TabStop = True
 		Me.optProcessSelect.Visible = True
 		Me.optProcessSelect.Name = "optProcessSelect"
-		Me.fraSearchGrid.Text = "—ñ‚Ìw’è"
+		Me.fraSearchGrid.Text = "åˆ—ã®æŒ‡å®š"
 		Me.fraSearchGrid.Size = New System.Drawing.Size(237, 185)
 		Me.fraSearchGrid.Location = New System.Drawing.Point(192, 4)
 		Me.fraSearchGrid.TabIndex = 12
@@ -239,7 +239,7 @@
 		Me.fraSearchGrid.Padding = New System.Windows.Forms.Padding(0)
 		Me.fraSearchGrid.Name = "fraSearchGrid"
 		Me.cmdInvert.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdInvert.Text = "”½“]"
+		Me.cmdInvert.Text = "åè»¢"
 		Me.cmdInvert.Size = New System.Drawing.Size(61, 21)
 		Me.cmdInvert.Location = New System.Drawing.Point(20, 156)
 		Me.cmdInvert.TabIndex = 21
@@ -252,7 +252,7 @@
 		Me.cmdInvert.TabStop = True
 		Me.cmdInvert.Name = "cmdInvert"
 		Me.cmdReset.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdReset.Text = "‘S‰ğœ"
+		Me.cmdReset.Text = "å…¨è§£é™¤"
 		Me.cmdReset.Size = New System.Drawing.Size(61, 21)
 		Me.cmdReset.Location = New System.Drawing.Point(84, 156)
 		Me.cmdReset.TabIndex = 22
@@ -265,7 +265,7 @@
 		Me.cmdReset.TabStop = True
 		Me.cmdReset.Name = "cmdReset"
 		Me.cmdSelect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdSelect.Text = "‘S‘I‘ğ"
+		Me.cmdSelect.Text = "å…¨é¸æŠ"
 		Me.cmdSelect.Size = New System.Drawing.Size(81, 21)
 		Me.cmdSelect.Location = New System.Drawing.Point(148, 156)
 		Me.cmdSelect.TabIndex = 23
@@ -409,7 +409,7 @@
 		Me.lblEtc.AutoSize = True
 		Me.lblEtc.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblEtc.Name = "lblEtc"
-		Me.fraSearchNum.Text = "ƒIƒuƒWƒF”Ô†‚Ìw’è"
+		Me.fraSearchNum.Text = "ã‚ªãƒ–ã‚¸ã‚§ç•ªå·ã®æŒ‡å®š"
 		Me.fraSearchNum.Size = New System.Drawing.Size(177, 78)
 		Me.fraSearchNum.Location = New System.Drawing.Point(8, 112)
 		Me.fraSearchNum.TabIndex = 7
@@ -482,7 +482,7 @@
 		Me.lblNotice.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblNotice.Name = "lblNotice"
 		Me.lblNum.TextAlign = System.Drawing.ContentAlignment.TopCenter
-		Me.lblNum.Text = "`"
+		Me.lblNum.Text = "ï½"
 		Me.lblNum.Size = New System.Drawing.Size(12, 12)
 		Me.lblNum.Location = New System.Drawing.Point(72, 20)
 		Me.lblNum.TabIndex = 9
@@ -496,7 +496,7 @@
 		Me.lblNum.AutoSize = True
 		Me.lblNum.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblNum.Name = "lblNum"
-		Me.fraSearchMeasure.Text = "¬ß”ÍˆÍ‚Ìw’è"
+		Me.fraSearchMeasure.Text = "å°ç¯€ç¯„å›²ã®æŒ‡å®š"
 		Me.fraSearchMeasure.Size = New System.Drawing.Size(177, 41)
 		Me.fraSearchMeasure.Location = New System.Drawing.Point(8, 68)
 		Me.fraSearchMeasure.TabIndex = 3
@@ -554,7 +554,7 @@
 		Me.txtMeasureMin.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
 		Me.txtMeasureMin.Name = "txtMeasureMin"
 		Me.lblMeasure.TextAlign = System.Drawing.ContentAlignment.TopCenter
-		Me.lblMeasure.Text = "`"
+		Me.lblMeasure.Text = "ï½"
 		Me.lblMeasure.Size = New System.Drawing.Size(12, 12)
 		Me.lblMeasure.Location = New System.Drawing.Point(72, 20)
 		Me.lblMeasure.TabIndex = 5
@@ -568,7 +568,7 @@
 		Me.lblMeasure.AutoSize = True
 		Me.lblMeasure.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.lblMeasure.Name = "lblMeasure"
-		Me.fraSearchObject.Text = "‘I‘ğ‘ÎÛ"
+		Me.fraSearchObject.Text = "é¸æŠå¯¾è±¡"
 		Me.fraSearchObject.Size = New System.Drawing.Size(177, 61)
 		Me.fraSearchObject.Location = New System.Drawing.Point(8, 4)
 		Me.fraSearchObject.TabIndex = 0
@@ -580,7 +580,7 @@
 		Me.fraSearchObject.Padding = New System.Windows.Forms.Padding(0)
 		Me.fraSearchObject.Name = "fraSearchObject"
 		Me.optSearchSelect.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-		Me.optSearchSelect.Text = "‘I‘ğ‚³‚ê‚Ä‚¢‚éƒIƒuƒWƒF"
+		Me.optSearchSelect.Text = "é¸æŠã•ã‚Œã¦ã„ã‚‹ã‚ªãƒ–ã‚¸ã‚§"
 		Me.optSearchSelect.Size = New System.Drawing.Size(161, 17)
 		Me.optSearchSelect.Location = New System.Drawing.Point(8, 36)
 		Me.optSearchSelect.TabIndex = 2
@@ -597,7 +597,7 @@
 		Me.optSearchSelect.Visible = True
 		Me.optSearchSelect.Name = "optSearchSelect"
 		Me.optSearchAll.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-		Me.optSearchAll.Text = "‘S‚Ä‚ÌƒIƒuƒWƒF"
+		Me.optSearchAll.Text = "å…¨ã¦ã®ã‚ªãƒ–ã‚¸ã‚§"
 		Me.optSearchAll.Size = New System.Drawing.Size(161, 17)
 		Me.optSearchAll.Location = New System.Drawing.Point(8, 16)
 		Me.optSearchAll.TabIndex = 1

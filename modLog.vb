@@ -53,14 +53,14 @@ Module modLog
 			.intCh = Val("&H" & Mid(code, 14, 2))
 			.intMeasure = modInput.strToNum(Mid(code, 16, 2))
 			.lngPosition = modInput.strToNum(Mid(code, 18, 3))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+			'UPGRADE_WARNING: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ modMain.OBJ_SELECT ã®æ—¢å®šãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è§£æ±ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 			.intSelect = modMain.OBJ_SELECT.Selected
 			
 		End With
 		
 	End Sub
 	
-	'ƒZƒpƒŒ[ƒ^•¶š—ñ‚ğ•Ô‹p‚·‚é
+	'ã‚»ãƒ‘ãƒ¬ãƒ¼ã‚¿æ–‡å­—åˆ—ã‚’è¿”å´ã™ã‚‹
 	Public Function getSeparator() As String
 		
 		getSeparator = vbNullChar
