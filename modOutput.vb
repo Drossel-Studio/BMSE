@@ -6,10 +6,10 @@ Module modOutput
 		Dim modMain As Object
 		Dim g_Message As Object
 		On Error GoTo Err_Renamed
-		
-		Dim strObjData() As String
-		Dim blnObjData() As Boolean
-		Dim i As Integer
+
+        Dim strObjData(,) As String
+        Dim blnObjData(,) As Boolean
+        Dim i As Integer
 		Dim j As Integer
 		Dim k As Integer
 		Dim lngFFile As Integer
