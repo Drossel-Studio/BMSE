@@ -3,9 +3,8 @@ Option Explicit On
 Imports VB = Microsoft.VisualBasic
 Friend Class frmWindowTips
 	Inherits System.Windows.Forms.Form
-	'UPGRADE_WARNING: 構造体 RECT に、この Declare ステートメントの引数としてマーシャリング属性を渡す必要があります。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' をクリックしてください。
-	Private Declare Function DrawText Lib "user32"  Alias "DrawTextA"(ByVal hdc As Integer, ByVal lpStr As String, ByVal nCount As Integer, ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
-	Private Const DT_WORDBREAK As Integer = &H10
+    Private Declare Function DrawText Lib "user32" Alias "DrawTextA" (ByVal hdc As Integer, ByRef lpStr As String, ByVal nCount As Integer, ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
+    Private Const DT_WORDBREAK As Integer = &H10
 	
 	Dim m_sngTwipsX As Single
 	Dim m_sngTwipsY As Single

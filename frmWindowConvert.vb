@@ -2,22 +2,22 @@ Option Strict Off
 Option Explicit On
 Friend Class frmWindowConvert
 	Inherits System.Windows.Forms.Form
-	
-	'UPGRADE_WARNING: 構造体 SHFILEOPSTRUCT に、この Declare ステートメントの引数としてマーシャリング属性を渡す必要があります。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' をクリックしてください。
-	Private Declare Function SHFileOperation Lib "shell32.dll"  Alias "SHFileOperationA"(ByRef lpFileOp As SHFILEOPSTRUCT) As Integer
-	
-	Private Structure SHFILEOPSTRUCT
-		Dim hwnd As Integer
-		Dim wFunc As Integer
-		Dim pFrom As String
-		Dim pTo As String
-		Dim fFlags As Short
-		Dim fAnyOperationsAborted As Integer
-		Dim hNameMappings As Integer
-		Dim lpszProgressTitle As String '  only used if FOF_SIMPLEPROGRESS
-	End Structure
-	
-	Private Const FO_MOVE As Integer = &H1
+
+    Private Declare Function SHFileOperation Lib "shell32.dll" Alias "SHFileOperationA" (ByRef lpFileOp As SHFILEOPSTRUCT) As Integer
+
+    <Runtime.InteropServices.StructLayout(Runtime.InteropServices.LayoutKind.Sequential)>
+    Private Structure SHFILEOPSTRUCT
+        Dim hwnd As Integer
+        Dim wFunc As Integer
+        Dim pFrom As String
+        Dim pTo As String
+        Dim fFlags As Short
+        Dim fAnyOperationsAborted As Integer
+        Dim hNameMappings As Integer
+        Dim lpszProgressTitle As String '  only used if FOF_SIMPLEPROGRESS
+    End Structure
+
+    Private Const FO_MOVE As Integer = &H1
 	Private Const FO_COPY As Integer = &H2
 	Private Const FO_DELETE As Integer = &H3
 	Private Const FO_RENAME As Integer = &H4

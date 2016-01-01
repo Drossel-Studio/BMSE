@@ -5,30 +5,24 @@ Module modDraw
 	Private Declare Function timeGetTime Lib "winmm.dll" () As Integer
 	
 	Public Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal nWidth As Integer, ByVal nHeight As Integer, ByVal hSrcDC As Integer, ByVal xSrc As Integer, ByVal ySrc As Integer, ByVal dwRop As Integer) As Integer
-	
-	'UPGRADE_WARNING: 構造体 Size に、この Declare ステートメントの引数としてマーシャリング属性を渡す必要があります。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' をクリックしてください。
-	Public Declare Function GetTextExtentPoint32 Lib "gdi32"  Alias "GetTextExtentPoint32A"(ByVal hdc As Integer, ByVal lpsz As String, ByVal cbString As Integer, ByRef lpSize As Size) As Integer
-	
-	Public Declare Function CreatePen Lib "gdi32" (ByVal nPenStyle As Integer, ByVal nWidth As Integer, ByVal crColor As Integer) As Integer
-	'UPGRADE_WARNING: 構造体 LOGBRUSH に、この Declare ステートメントの引数としてマーシャリング属性を渡す必要があります。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' をクリックしてください。
-	Public Declare Function CreateBrushIndirect Lib "gdi32" (ByRef lpLogBrush As LOGBRUSH) As Integer
-	Public Declare Function CreateSolidBrush Lib "gdi32" (ByVal crColor As Integer) As Integer
-	'Public Declare Function CreateHatchBrush Lib "gdi32" (ByVal nIndex As Long, ByVal crColor As Long) As Long
-	
-	Public Declare Function SelectObject Lib "gdi32" (ByVal hdc As Integer, ByVal hObject As Integer) As Integer
+
+    Public Declare Function GetTextExtentPoint32 Lib "gdi32" Alias "GetTextExtentPoint32A" (ByVal hdc As Integer, ByRef lpsz As String, ByVal cbString As Integer, ByRef lpSize As Size) As Integer
+
+    Public Declare Function CreatePen Lib "gdi32" (ByVal nPenStyle As Integer, ByVal nWidth As Integer, ByVal crColor As Integer) As Integer
+    Public Declare Function CreateBrushIndirect Lib "gdi32" (ByRef lpLogBrush As LOGBRUSH) As Integer
+    Public Declare Function CreateSolidBrush Lib "gdi32" (ByVal crColor As Integer) As Integer
+
+    Public Declare Function SelectObject Lib "gdi32" (ByVal hdc As Integer, ByVal hObject As Integer) As Integer
 	Public Declare Function DeleteObject Lib "gdi32" (ByVal hObject As Integer) As Integer
-	
-	Public Declare Function TextOut Lib "gdi32"  Alias "TextOutA"(ByVal hdc As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal lpString As String, ByVal nCount As Integer) As Integer
-	Public Declare Function SetTextColor Lib "gdi32" (ByVal hdc As Integer, ByVal crColor As Integer) As Integer
+
+    Public Declare Function TextOut Lib "gdi32" Alias "TextOutA" (ByVal hdc As Integer, ByVal X As Integer, ByVal Y As Integer, ByRef lpString As String, ByVal nCount As Integer) As Integer
+    Public Declare Function SetTextColor Lib "gdi32" (ByVal hdc As Integer, ByVal crColor As Integer) As Integer
 	
 	Public Declare Function Rectangle Lib "gdi32" (ByVal hdc As Integer, ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As Integer
 	Public Declare Function LineTo Lib "gdi32" (ByVal hdc As Integer, ByVal X As Integer, ByVal Y As Integer) As Integer
 	Public Declare Function MoveToEx Lib "gdi32" (ByVal hdc As Integer, ByVal X As Integer, ByVal Y As Integer, ByRef lpPoint As Integer) As Integer
-	
-	'Private Declare Function SetPixelV Lib "gdi32" (ByVal hdc As Long, ByVal X As Long, ByVal Y As Long, ByVal crColor As Long) As Long
-	'Private Declare Function GetPixel Lib "gdi32" (ByVal hdc As Long, ByVal X As Long, ByVal Y As Long) As Long
-	
-	Public Declare Function Ellipse Lib "gdi32" (ByVal hdc As Integer, ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As Integer
+
+    Public Declare Function Ellipse Lib "gdi32" (ByVal hdc As Integer, ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As Integer
 	
 	'CreatePen 関連
 	Public Const PS_SOLID As Short = 0
@@ -57,26 +51,28 @@ Module modDraw
 	Public Const BS_DIBPATTERNPT As Short = 6
 	Public Const BS_PATTERN8X8 As Short = 7
 	Public Const BS_DIBPATTERN8X8 As Short = 8
-	
-	Public Structure LOGBRUSH
-		Dim lbStyle As Integer
-		Dim lbColor As Integer
-		Dim lbHatch As Integer
-	End Structure
-	
-	'BitBlt 関連の定数
-	Public Const SRCAND As Integer = &H8800C6
+
+    <Runtime.InteropServices.StructLayout(Runtime.InteropServices.LayoutKind.Sequential)>
+    Public Structure LOGBRUSH
+        Dim lbStyle As Integer
+        Dim lbColor As Integer
+        Dim lbHatch As Integer
+    End Structure
+
+    'BitBlt 関連の定数
+    Public Const SRCAND As Integer = &H8800C6
 	Public Const SRCCOPY As Integer = &HCC0020
 	Public Const SRCPAINT As Integer = &HEE0086
 	Public Const SRCINVERT As Integer = &H660046
-	
-	'GetTextExtentPoint32 関連
-	Public Structure Size
-		Dim Width As Integer
-		Dim Height As Integer
-	End Structure
-	
-	Public Const OBJ_DIFF As Short = -1 'オブジェのずれ
+
+    'GetTextExtentPoint32 関連
+    <Runtime.InteropServices.StructLayout(Runtime.InteropServices.LayoutKind.Sequential)>
+    Public Structure Size
+        Dim Width As Integer
+        Dim Height As Integer
+    End Structure
+
+    Public Const OBJ_DIFF As Short = -1 'オブジェのずれ
 	
 	'# Ch早見表 #
 	' 1 BGM

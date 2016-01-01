@@ -15,37 +15,29 @@ Module modMain
 	
 	Public Declare Function timeBeginPeriod Lib "winmm.dll" (ByVal uPeriod As Integer) As Integer
 	Public Declare Function timeEndPeriod Lib "winmm.dll" (ByVal uPeriod As Integer) As Integer
-	
+
 #End If
-	
-	Public Declare Function mciSendString Lib "winmm.dll"  Alias "mciSendStringA"(ByVal lpstrCommand As String, ByVal lpstrTempurnString As String, ByVal uReturnLength As Integer, ByVal hwndCallback As Integer) As Integer
-	Public Declare Function mciGetErrorString Lib "winmm.dll"  Alias "mciGetErrorStringA"(ByVal dwError As Integer, ByVal lpstrBuffer As String, ByVal uLength As Integer) As Integer
-	
-	'UPGRADE_ISSUE: パラメータ 'As Any' の宣言はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' をクリックしてください。
-	Private Declare Function GetPrivateProfileString Lib "kernel32"  Alias "GetPrivateProfileStringA"(ByVal lpApplicationName As String, ByVal lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Integer, ByVal lpFileName As String) As Integer 'iniファイルに読みこむためのAPI
-	'UPGRADE_ISSUE: パラメータ 'As Any' の宣言はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' をクリックしてください。
-	'UPGRADE_ISSUE: パラメータ 'As Any' の宣言はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' をクリックしてください。
-	Private Declare Function WritePrivateProfileString Lib "kernel32"  Alias "WritePrivateProfileStringA"(ByVal lpApplicationName As String, ByVal lpKeyName As Any, ByVal lpString As Any, ByVal lpFileName As String) As Integer 'iniファイルを書きこむためのAPI
-	
-	'UPGRADE_WARNING: 構造体 WINDOWPLACEMENT に、この Declare ステートメントの引数としてマーシャリング属性を渡す必要があります。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' をクリックしてください。
-	Public Declare Function GetWindowPlacement Lib "user32" (ByVal hwnd As Integer, ByRef lpwndpl As WINDOWPLACEMENT) As Integer
-	'UPGRADE_WARNING: 構造体 WINDOWPLACEMENT に、この Declare ステートメントの引数としてマーシャリング属性を渡す必要があります。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' をクリックしてください。
-	Public Declare Function SetWindowPlacement Lib "user32" (ByVal hwnd As Integer, ByRef lpwndpl As WINDOWPLACEMENT) As Integer
-	
-	Public Declare Function ShellExecute Lib "shell32.dll"  Alias "ShellExecuteA"(ByVal hwnd As Integer, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Integer) As Integer
-	
-	Public Declare Function GetWindowLong Lib "user32"  Alias "GetWindowLongA"(ByVal hwnd As Integer, ByVal nIndex As Integer) As Integer
-	'UPGRADE_WARNING: 構造体 RECT に、この Declare ステートメントの引数としてマーシャリング属性を渡す必要があります。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' をクリックしてください。
-	Public Declare Function AdjustWindowRectEx Lib "user32" (ByRef lpRect As RECT, ByVal dsStyle As Integer, ByVal bMenu As Integer, ByVal dwEsStyle As Integer) As Integer
-	
-	Private Declare Function GetStockObject Lib "gdi32" (ByVal nIndex As Integer) As Integer
-	'UPGRADE_NOTE: GetObject は GetObject_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
-	'UPGRADE_ISSUE: パラメータ 'As Any' の宣言はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' をクリックしてください。
-	Private Declare Function GetObject_Renamed Lib "gdi32"  Alias "GetObjectA"(ByVal hObject As Integer, ByVal nCount As Integer, ByRef lpObject As Any) As Integer
-	'Private Declare Function SystemParametersInfo Lib "user32" Alias "SystemParametersInfoA" (ByVal uAction As Long, ByVal uParam As Long, ByRef lpvParam As Any, ByVal fuWinIni As Long) As Long
-	
-	'Get/SetWindowPlacement・ShellExecute 関連の定数
-	Public Const SW_HIDE As Short = 0
+
+    Public Declare Function mciSendString Lib "winmm.dll" Alias "mciSendStringA" (ByRef lpstrCommand As String, ByRef lpstrTempurnString As String, ByVal uReturnLength As Integer, ByVal hwndCallback As Integer) As Integer
+    Public Declare Function mciGetErrorString Lib "winmm.dll" Alias "mciGetErrorStringA" (ByVal dwError As Integer, ByRef lpstrBuffer As String, ByVal uLength As Integer) As Integer
+
+    Private Declare Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringA" (ByRef lpApplicationName As String, ByRef lpKeyName As String, ByRef lpDefault As String, ByRef lpReturnedString As String, ByVal nSize As Integer, ByRef lpFileName As String) As Integer 'iniファイルに読みこむためのAPI
+    Private Declare Function WritePrivateProfileString Lib "kernel32" Alias "WritePrivateProfileStringA" (ByRef lpApplicationName As String, ByRef lpKeyName As String, ByRef lpString As String, ByRef lpFileName As String) As Integer 'iniファイルを書きこむためのAPI
+
+    Public Declare Function GetWindowPlacement Lib "user32" (ByVal hwnd As Integer, ByRef lpwndpl As WINDOWPLACEMENT) As Integer
+    Public Declare Function SetWindowPlacement Lib "user32" (ByVal hwnd As Integer, ByRef lpwndpl As WINDOWPLACEMENT) As Integer
+
+    Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hwnd As Integer, ByRef lpOperation As String, ByRef lpFile As String, ByRef lpParameters As String, ByRef lpDirectory As String, ByVal nShowCmd As Integer) As Integer
+
+    Public Declare Function GetWindowLong Lib "user32"  Alias "GetWindowLongA"(ByVal hwnd As Integer, ByVal nIndex As Integer) As Integer
+    Public Declare Function AdjustWindowRectEx Lib "user32" (ByRef lpRect As RECT, ByVal dsStyle As Integer, ByVal bMenu As Integer, ByVal dwEsStyle As Integer) As Integer
+
+    Private Declare Function GetStockObject Lib "gdi32" (ByVal nIndex As Integer) As Integer
+    'UPGRADE_NOTE: GetObject は GetObject_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
+    Private Declare Function GetObject_Renamed Lib "gdi32" Alias "GetObjectA" (ByVal hObject As Integer, ByVal nCount As Integer, ByRef lpObject As LOGFONT) As Integer
+
+    'Get/SetWindowPlacement・ShellExecute 関連の定数
+    Public Const SW_HIDE As Short = 0
 	Public Const SW_MAXIMIZE As Short = 3
 	Public Const SW_MINIMIZE As Short = 6
 	Public Const SW_RESTORE As Short = 9
@@ -77,34 +69,35 @@ Module modMain
 	'SystemParametersInfo 関連の定数
 	Private Const SPI_GETICONTITLELOGFONT As Short = 31
 	Private Const SPI_GETNONCLIENTMETRICS As Short = 41
-	
-	Private Structure LOGFONT
-		Dim lfHeight As Integer
-		Dim lfWidth As Integer
-		Dim lfEscapement As Integer
-		Dim lfOrientation As Integer
-		Dim lfWeight As Integer
-		Dim lfItalic As Byte
-		Dim lfUnderline As Byte
-		Dim lfStrikeOut As Byte
-		Dim lfCharSet As Byte
-		Dim lfOutPrecision As Byte
-		Dim lfClipPrecision As Byte
-		Dim lfQuality As Byte
-		Dim lfPitchAndFamily As Byte
-		'UPGRADE_WARNING: オブジェクト LF_FACESIZE の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		<VBFixedArray(LF_FACESIZE)> Dim lfFaceName() As Byte
-		
-		'UPGRADE_TODO: この構造体のインスタンスを初期化するには、"Initialize" を呼び出さなければなりません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B4BFF9E0-8631-45CF-910E-62AB3970F27B"' をクリックしてください。
-		Public Sub Initialize()
-			Dim LF_FACESIZE As Object
-			'UPGRADE_WARNING: 配列 lfFaceName の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="0F1C9BE1-AF9D-476E-83B1-17D43BECFF20"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト LF_FACESIZE の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			ReDim lfFaceName(LF_FACESIZE)
-		End Sub
-	End Structure
-	
-	Private Structure NONCLIENTMETRICS
+
+    <Runtime.InteropServices.StructLayout(Runtime.InteropServices.LayoutKind.Sequential)>
+    Private Structure LOGFONT
+        Dim lfHeight As Integer
+        Dim lfWidth As Integer
+        Dim lfEscapement As Integer
+        Dim lfOrientation As Integer
+        Dim lfWeight As Integer
+        Dim lfItalic As Byte
+        Dim lfUnderline As Byte
+        Dim lfStrikeOut As Byte
+        Dim lfCharSet As Byte
+        Dim lfOutPrecision As Byte
+        Dim lfClipPrecision As Byte
+        Dim lfQuality As Byte
+        Dim lfPitchAndFamily As Byte
+        'UPGRADE_WARNING: オブジェクト LF_FACESIZE の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+        <VBFixedArray(LF_FACESIZE)> Dim lfFaceName() As Byte
+
+        'UPGRADE_TODO: この構造体のインスタンスを初期化するには、"Initialize" を呼び出さなければなりません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B4BFF9E0-8631-45CF-910E-62AB3970F27B"' をクリックしてください。
+        Public Sub Initialize()
+            Dim LF_FACESIZE As Object
+            'UPGRADE_WARNING: 配列 lfFaceName の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="0F1C9BE1-AF9D-476E-83B1-17D43BECFF20"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト LF_FACESIZE の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            ReDim lfFaceName(LF_FACESIZE)
+        End Sub
+    End Structure
+
+    Private Structure NONCLIENTMETRICS
 		Dim cbSize As Integer
 		Dim iBorderWidth As Integer
 		Dim iScrollWidth As Integer
@@ -131,28 +124,30 @@ Module modMain
 		Dim X As Integer
 		Dim Y As Integer
 	End Structure
-	
-	Public Structure RECT
-		'UPGRADE_NOTE: left は left_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
-		Dim left_Renamed As Integer
-		Dim Top As Integer
-		'UPGRADE_NOTE: right は right_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
-		Dim right_Renamed As Integer
-		Dim Bottom As Integer
-	End Structure
-	
-	Public Structure WINDOWPLACEMENT
-		Dim Length As Integer
-		Dim flags As Integer
-		Dim showCmd As Integer
-		Dim ptMinPosition As POINTAPI
-		Dim ptMaxPosition As POINTAPI
-		Dim rcNormalPosition As RECT
-	End Structure
-	
-	
-	
-	Public Const PI As Single = 3.14159265358979
+
+    <Runtime.InteropServices.StructLayout(Runtime.InteropServices.LayoutKind.Sequential)>
+    Public Structure RECT
+        'UPGRADE_NOTE: left は left_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
+        Dim left_Renamed As Integer
+        Dim Top As Integer
+        'UPGRADE_NOTE: right は right_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
+        Dim right_Renamed As Integer
+        Dim Bottom As Integer
+    End Structure
+
+    <Runtime.InteropServices.StructLayout(Runtime.InteropServices.LayoutKind.Sequential)>
+    Public Structure WINDOWPLACEMENT
+        Dim Length As Integer
+        Dim flags As Integer
+        Dim showCmd As Integer
+        Dim ptMinPosition As POINTAPI
+        Dim ptMaxPosition As POINTAPI
+        Dim rcNormalPosition As RECT
+    End Structure
+
+
+
+    Public Const PI As Single = 3.14159265358979
 	Public Const RAD As Single = PI / 180
 	
 	Public Enum OBJ_SELECT
@@ -2156,13 +2151,13 @@ Err_Renamed:
 		
 		'UPGRADE_ISSUE: LOGFONT オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
 		Dim lf As LOGFONT
-		'UPGRADE_WARNING: オブジェクト lf の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
-		'UPGRADE_WARNING: オブジェクト GetStockObject() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		Call GetObject(GetStockObject(DEFAULT_GUI_FONT), CStr(LenB(lf)), CStr(lf))
-		'UPGRADE_ISSUE: 定数 vbUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
-		'UPGRADE_WARNING: オブジェクト lf.lfFaceName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		DefaultFont = Trim(StrConv(lf.lfFaceName, vbUnicode))
+        'UPGRADE_WARNING: オブジェクト lf の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+        'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
+        'UPGRADE_WARNING: オブジェクト GetStockObject() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+        Call GetObject_Renamed(GetStockObject(DEFAULT_GUI_FONT), CStr(LenB(lf)), lf)
+        'UPGRADE_ISSUE: 定数 vbUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
+        'UPGRADE_WARNING: オブジェクト lf.lfFaceName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+        DefaultFont = Trim(StrConv(lf.lfFaceName, vbUnicode))
 		
 		'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
 		SystemFont = strGet_ini("Main", "Font", DefaultFont, strFileName)
