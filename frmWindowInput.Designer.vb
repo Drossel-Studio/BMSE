@@ -82,7 +82,7 @@
 		Me.cmdDecide.Name = "cmdDecide"
 		Me.txtMain.AutoSize = False
 		Me.txtMain.Size = New System.Drawing.Size(257, 18)
-		Me.txtMain.IMEMode = System.Windows.Forms.ImeMode.Disable
+		Me.txtMain.ImeMode = System.Windows.Forms.ImeMode.Disable
 		Me.txtMain.Location = New System.Drawing.Point(4, 44)
 		Me.txtMain.TabIndex = 1
 		Me.txtMain.AcceptsReturn = True
@@ -93,9 +93,9 @@
 		Me.txtMain.ForeColor = System.Drawing.SystemColors.WindowText
 		Me.txtMain.HideSelection = True
 		Me.txtMain.ReadOnly = False
-		Me.txtMain.Maxlength = 0
+		Me.txtMain.MaxLength = 0
 		Me.txtMain.Cursor = System.Windows.Forms.Cursors.IBeam
-		Me.txtMain.MultiLine = False
+		Me.txtMain.Multiline = False
 		Me.txtMain.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.txtMain.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.txtMain.TabStop = True

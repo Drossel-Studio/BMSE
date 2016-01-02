@@ -1247,7 +1247,7 @@
 		Me._fraTop_0.Padding = New System.Windows.Forms.Padding(0)
 		Me._fraTop_0.Name = "_fraTop_0"
 		Me.cboPlayer.Size = New System.Drawing.Size(133, 20)
-		Me.cboPlayer.IMEMode = System.Windows.Forms.ImeMode.Disable
+		Me.cboPlayer.ImeMode = System.Windows.Forms.ImeMode.Disable
 		Me.cboPlayer.Location = New System.Drawing.Point(80, 8)
 		Me.cboPlayer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cboPlayer.TabIndex = 25
@@ -1274,9 +1274,9 @@
 		Me.txtGenre.ForeColor = System.Drawing.SystemColors.WindowText
 		Me.txtGenre.HideSelection = True
 		Me.txtGenre.ReadOnly = False
-		Me.txtGenre.Maxlength = 0
+		Me.txtGenre.MaxLength = 0
 		Me.txtGenre.Cursor = System.Windows.Forms.Cursors.IBeam
-		Me.txtGenre.MultiLine = False
+		Me.txtGenre.Multiline = False
 		Me.txtGenre.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.txtGenre.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.txtGenre.TabStop = True
@@ -1295,9 +1295,9 @@
 		Me.txtTitle.ForeColor = System.Drawing.SystemColors.WindowText
 		Me.txtTitle.HideSelection = True
 		Me.txtTitle.ReadOnly = False
-		Me.txtTitle.Maxlength = 0
+		Me.txtTitle.MaxLength = 0
 		Me.txtTitle.Cursor = System.Windows.Forms.Cursors.IBeam
-		Me.txtTitle.MultiLine = False
+		Me.txtTitle.Multiline = False
 		Me.txtTitle.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.txtTitle.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.txtTitle.TabStop = True
@@ -1316,9 +1316,9 @@
 		Me.txtArtist.ForeColor = System.Drawing.SystemColors.WindowText
 		Me.txtArtist.HideSelection = True
 		Me.txtArtist.ReadOnly = False
-		Me.txtArtist.Maxlength = 0
+		Me.txtArtist.MaxLength = 0
 		Me.txtArtist.Cursor = System.Windows.Forms.Cursors.IBeam
-		Me.txtArtist.MultiLine = False
+		Me.txtArtist.Multiline = False
 		Me.txtArtist.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.txtArtist.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.txtArtist.TabStop = True
@@ -1326,7 +1326,7 @@
 		Me.txtArtist.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
 		Me.txtArtist.Name = "txtArtist"
 		Me.cboPlayLevel.Size = New System.Drawing.Size(49, 20)
-		Me.cboPlayLevel.IMEMode = System.Windows.Forms.ImeMode.Disable
+		Me.cboPlayLevel.ImeMode = System.Windows.Forms.ImeMode.Disable
 		Me.cboPlayLevel.Location = New System.Drawing.Point(80, 104)
 		Me.cboPlayLevel.Items.AddRange(New Object(){"1", "2", "3", "4", "5", "6", "7", "8", "0"})
 		Me.cboPlayLevel.TabIndex = 33
@@ -1344,7 +1344,7 @@
 		Me.cboPlayLevel.Name = "cboPlayLevel"
 		Me.txtBPM.AutoSize = False
 		Me.txtBPM.Size = New System.Drawing.Size(41, 18)
-		Me.txtBPM.IMEMode = System.Windows.Forms.ImeMode.Disable
+		Me.txtBPM.ImeMode = System.Windows.Forms.ImeMode.Disable
 		Me.txtBPM.Location = New System.Drawing.Point(172, 104)
 		Me.txtBPM.TabIndex = 35
 		Me.txtBPM.Text = "130"
@@ -1356,9 +1356,9 @@
 		Me.txtBPM.ForeColor = System.Drawing.SystemColors.WindowText
 		Me.txtBPM.HideSelection = True
 		Me.txtBPM.ReadOnly = False
-		Me.txtBPM.Maxlength = 0
+		Me.txtBPM.MaxLength = 0
 		Me.txtBPM.Cursor = System.Windows.Forms.Cursors.IBeam
-		Me.txtBPM.MultiLine = False
+		Me.txtBPM.Multiline = False
 		Me.txtBPM.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.txtBPM.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.txtBPM.TabStop = True
@@ -1466,7 +1466,7 @@
 		Me._fraTop_1.Padding = New System.Windows.Forms.Padding(0)
 		Me._fraTop_1.Name = "_fraTop_1"
 		Me.cboPlayRank.Size = New System.Drawing.Size(133, 20)
-		Me.cboPlayRank.IMEMode = System.Windows.Forms.ImeMode.Disable
+		Me.cboPlayRank.ImeMode = System.Windows.Forms.ImeMode.Disable
 		Me.cboPlayRank.Location = New System.Drawing.Point(80, 8)
 		Me.cboPlayRank.Items.AddRange(New Object(){"Very Hard", "Hard", "Normal", "Easy"})
 		Me.cboPlayRank.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -1484,7 +1484,7 @@
 		Me.cboPlayRank.Name = "cboPlayRank"
 		Me.txtTotal.AutoSize = False
 		Me.txtTotal.Size = New System.Drawing.Size(133, 18)
-		Me.txtTotal.IMEMode = System.Windows.Forms.ImeMode.Disable
+		Me.txtTotal.ImeMode = System.Windows.Forms.ImeMode.Disable
 		Me.txtTotal.Location = New System.Drawing.Point(80, 32)
 		Me.txtTotal.TabIndex = 40
 		Me.txtTotal.AcceptsReturn = True
@@ -1495,9 +1495,9 @@
 		Me.txtTotal.ForeColor = System.Drawing.SystemColors.WindowText
 		Me.txtTotal.HideSelection = True
 		Me.txtTotal.ReadOnly = False
-		Me.txtTotal.Maxlength = 0
+		Me.txtTotal.MaxLength = 0
 		Me.txtTotal.Cursor = System.Windows.Forms.Cursors.IBeam
-		Me.txtTotal.MultiLine = False
+		Me.txtTotal.Multiline = False
 		Me.txtTotal.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.txtTotal.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.txtTotal.TabStop = True
@@ -1506,7 +1506,7 @@
 		Me.txtTotal.Name = "txtTotal"
 		Me.txtVolume.AutoSize = False
 		Me.txtVolume.Size = New System.Drawing.Size(133, 18)
-		Me.txtVolume.IMEMode = System.Windows.Forms.ImeMode.Disable
+		Me.txtVolume.ImeMode = System.Windows.Forms.ImeMode.Disable
 		Me.txtVolume.Location = New System.Drawing.Point(80, 56)
 		Me.txtVolume.TabIndex = 42
 		Me.txtVolume.AcceptsReturn = True
@@ -1517,9 +1517,9 @@
 		Me.txtVolume.ForeColor = System.Drawing.SystemColors.WindowText
 		Me.txtVolume.HideSelection = True
 		Me.txtVolume.ReadOnly = False
-		Me.txtVolume.Maxlength = 0
+		Me.txtVolume.MaxLength = 0
 		Me.txtVolume.Cursor = System.Windows.Forms.Cursors.IBeam
-		Me.txtVolume.MultiLine = False
+		Me.txtVolume.Multiline = False
 		Me.txtVolume.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.txtVolume.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.txtVolume.TabStop = True
@@ -1538,9 +1538,9 @@
 		Me.txtStageFile.ForeColor = System.Drawing.SystemColors.WindowText
 		Me.txtStageFile.HideSelection = True
 		Me.txtStageFile.ReadOnly = False
-		Me.txtStageFile.Maxlength = 0
+		Me.txtStageFile.MaxLength = 0
 		Me.txtStageFile.Cursor = System.Windows.Forms.Cursors.IBeam
-		Me.txtStageFile.MultiLine = False
+		Me.txtStageFile.Multiline = False
 		Me.txtStageFile.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.txtStageFile.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.txtStageFile.TabStop = True
@@ -1585,9 +1585,9 @@
 		Me.txtMissBMP.ForeColor = System.Drawing.SystemColors.WindowText
 		Me.txtMissBMP.HideSelection = True
 		Me.txtMissBMP.ReadOnly = False
-		Me.txtMissBMP.Maxlength = 0
+		Me.txtMissBMP.MaxLength = 0
 		Me.txtMissBMP.Cursor = System.Windows.Forms.Cursors.IBeam
-		Me.txtMissBMP.MultiLine = False
+		Me.txtMissBMP.Multiline = False
 		Me.txtMissBMP.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.txtMissBMP.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.txtMissBMP.TabStop = True
@@ -1680,7 +1680,7 @@
 		Me._fraTop_2.Padding = New System.Windows.Forms.Padding(0)
 		Me._fraTop_2.Name = "_fraTop_2"
 		Me.cboDispFrame.Size = New System.Drawing.Size(133, 20)
-		Me.cboDispFrame.IMEMode = System.Windows.Forms.ImeMode.Disable
+		Me.cboDispFrame.ImeMode = System.Windows.Forms.ImeMode.Disable
 		Me.cboDispFrame.Location = New System.Drawing.Point(80, 8)
 		Me.cboDispFrame.Items.AddRange(New Object(){"ハーフ", "セパレート"})
 		Me.cboDispFrame.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -1697,7 +1697,7 @@
 		Me.cboDispFrame.Visible = True
 		Me.cboDispFrame.Name = "cboDispFrame"
 		Me.cboDispSC2P.Size = New System.Drawing.Size(49, 20)
-		Me.cboDispSC2P.IMEMode = System.Windows.Forms.ImeMode.Disable
+		Me.cboDispSC2P.ImeMode = System.Windows.Forms.ImeMode.Disable
 		Me.cboDispSC2P.Location = New System.Drawing.Point(164, 56)
 		Me.cboDispSC2P.Items.AddRange(New Object(){"左", "右"})
 		Me.cboDispSC2P.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -1714,7 +1714,7 @@
 		Me.cboDispSC2P.Visible = True
 		Me.cboDispSC2P.Name = "cboDispSC2P"
 		Me.cboDispSC1P.Size = New System.Drawing.Size(49, 20)
-		Me.cboDispSC1P.IMEMode = System.Windows.Forms.ImeMode.Disable
+		Me.cboDispSC1P.ImeMode = System.Windows.Forms.ImeMode.Disable
 		Me.cboDispSC1P.Location = New System.Drawing.Point(80, 56)
 		Me.cboDispSC1P.Items.AddRange(New Object(){"左", "右"})
 		Me.cboDispSC1P.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -1731,7 +1731,7 @@
 		Me.cboDispSC1P.Visible = True
 		Me.cboDispSC1P.Name = "cboDispSC1P"
 		Me.cboDispKey.Size = New System.Drawing.Size(133, 20)
-		Me.cboDispKey.IMEMode = System.Windows.Forms.ImeMode.Disable
+		Me.cboDispKey.ImeMode = System.Windows.Forms.ImeMode.Disable
 		Me.cboDispKey.Location = New System.Drawing.Point(80, 32)
 		Me.cboDispKey.Items.AddRange(New Object(){"5Keys/10Keys", "7Keys/14Keys"})
 		Me.cboDispKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -1966,7 +1966,7 @@
 		Me.txtExInfo.AutoSize = False
 		Me.txtExInfo.Size = New System.Drawing.Size(213, 217)
 		Me.txtExInfo.Location = New System.Drawing.Point(0, 8)
-		Me.txtExInfo.MultiLine = True
+		Me.txtExInfo.Multiline = True
 		Me.txtExInfo.ScrollBars = System.Windows.Forms.ScrollBars.Both
 		Me.txtExInfo.WordWrap = False
 		Me.txtExInfo.TabIndex = 94
@@ -1978,7 +1978,7 @@
 		Me.txtExInfo.ForeColor = System.Drawing.SystemColors.WindowText
 		Me.txtExInfo.HideSelection = True
 		Me.txtExInfo.ReadOnly = False
-		Me.txtExInfo.Maxlength = 0
+		Me.txtExInfo.MaxLength = 0
 		Me.txtExInfo.Cursor = System.Windows.Forms.Cursors.IBeam
 		Me.txtExInfo.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.txtExInfo.TabStop = True
@@ -2217,9 +2217,9 @@
 		Me.txtBGAInput.ForeColor = System.Drawing.SystemColors.WindowText
 		Me.txtBGAInput.HideSelection = True
 		Me.txtBGAInput.ReadOnly = False
-		Me.txtBGAInput.Maxlength = 0
+		Me.txtBGAInput.MaxLength = 0
 		Me.txtBGAInput.Cursor = System.Windows.Forms.Cursors.IBeam
-		Me.txtBGAInput.MultiLine = False
+		Me.txtBGAInput.Multiline = False
 		Me.txtBGAInput.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.txtBGAInput.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.txtBGAInput.TabStop = True
@@ -2383,7 +2383,7 @@
 		Me.lblFraction.Name = "lblFraction"
 		Me.picMain.BackColor = System.Drawing.Color.Black
 		Me.picMain.Font = New System.Drawing.Font("ＭＳ ゴシック", 9!, System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-		Me.picMain.ForeColor = System.Drawing.Color.FromARGB(192, 192, 192)
+		Me.picMain.ForeColor = System.Drawing.Color.FromArgb(192, 192, 192)
 		Me.picMain.Size = New System.Drawing.Size(57, 33)
 		Me.picMain.Location = New System.Drawing.Point(0, 56)
 		Me.picMain.TabIndex = 0
@@ -2415,8 +2415,8 @@
 		Me.vsbMain.Size = New System.Drawing.Size(17, 397)
 		Me.vsbMain.LargeChange = 8
 		Me.vsbMain.Location = New System.Drawing.Point(112, 60)
-		Me.vsbMain.Maximum = 0
-		Me.vsbMain.Minimum = 64
+		Me.vsbMain.Maximum = 64
+		Me.vsbMain.Minimum = 0
 		Me.vsbMain.TabIndex = 1
 		Me.vsbMain.TabStop = False
 		Me.vsbMain.CausesValidation = True

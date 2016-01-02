@@ -132,9 +132,9 @@
 		Me.txtExtension.ForeColor = System.Drawing.SystemColors.WindowText
 		Me.txtExtension.HideSelection = True
 		Me.txtExtension.ReadOnly = False
-		Me.txtExtension.Maxlength = 0
+		Me.txtExtension.MaxLength = 0
 		Me.txtExtension.Cursor = System.Windows.Forms.Cursors.IBeam
-		Me.txtExtension.MultiLine = False
+		Me.txtExtension.Multiline = False
 		Me.txtExtension.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.txtExtension.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.txtExtension.TabStop = True
