@@ -42,12 +42,10 @@
 	Public WithEvents fraBGAPara As System.Windows.Forms.GroupBox
 	Public WithEvents picBackBuffer As System.Windows.Forms.PictureBox
 	Public WithEvents picPreview As System.Windows.Forms.PictureBox
-	Public WithEvents lblBGAPara As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-	Public WithEvents txtBGAPara As Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray
-	'メモ: 以下のプロシージャは Windows フォーム デザイナで必要です。
-	'Windows フォーム デザイナを使って変更できます。
-	'コード エディタを使用して、変更しないでください。
-	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+    'メモ: 以下のプロシージャは Windows フォーム デザイナで必要です。
+    'Windows フォーム デザイナを使って変更できます。
+    'コード エディタを使用して、変更しないでください。
+    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
 		Dim resources As System.Resources.ResourceManager = New System.Resources.ResourceManager(GetType(frmWindowPreview))
 		Me.components = New System.ComponentModel.Container()
 		Me.ToolTip1 = New System.Windows.Forms.ToolTip(components)
@@ -75,17 +73,13 @@
 		Me._lblBGAPara_5 = New System.Windows.Forms.Label
 		Me._lblBGAPara_6 = New System.Windows.Forms.Label
 		Me.picBackBuffer = New System.Windows.Forms.PictureBox
-		Me.picPreview = New System.Windows.Forms.PictureBox
-		Me.lblBGAPara = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(components)
-		Me.txtBGAPara = New Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray(components)
-		Me.fraBGACmd.SuspendLayout()
+        Me.picPreview = New System.Windows.Forms.PictureBox
+        Me.fraBGACmd.SuspendLayout()
 		Me.fraBGAPara.SuspendLayout()
 		Me.SuspendLayout()
 		Me.ToolTip1.Active = True
-		CType(Me.lblBGAPara, System.ComponentModel.ISupportInitialize).BeginInit()
-		CType(Me.txtBGAPara, System.ComponentModel.ISupportInitialize).BeginInit()
-		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
-		Me.Text = "Preview Window"
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
+        Me.Text = "Preview Window"
 		Me.ClientSize = New System.Drawing.Size(414, 256)
 		Me.Location = New System.Drawing.Point(4, 20)
 		Me.Font = New System.Drawing.Font("ＭＳ ゴシック", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -542,24 +536,8 @@
 		Me.fraBGAPara.Controls.Add(_lblBGAPara_3)
 		Me.fraBGAPara.Controls.Add(_lblBGAPara_4)
 		Me.fraBGAPara.Controls.Add(_lblBGAPara_5)
-		Me.fraBGAPara.Controls.Add(_lblBGAPara_6)
-		Me.lblBGAPara.SetIndex(_lblBGAPara_0, CType(0, Short))
-		Me.lblBGAPara.SetIndex(_lblBGAPara_1, CType(1, Short))
-		Me.lblBGAPara.SetIndex(_lblBGAPara_2, CType(2, Short))
-		Me.lblBGAPara.SetIndex(_lblBGAPara_3, CType(3, Short))
-		Me.lblBGAPara.SetIndex(_lblBGAPara_4, CType(4, Short))
-		Me.lblBGAPara.SetIndex(_lblBGAPara_5, CType(5, Short))
-		Me.lblBGAPara.SetIndex(_lblBGAPara_6, CType(6, Short))
-		Me.txtBGAPara.SetIndex(_txtBGAPara_0, CType(0, Short))
-		Me.txtBGAPara.SetIndex(_txtBGAPara_1, CType(1, Short))
-		Me.txtBGAPara.SetIndex(_txtBGAPara_2, CType(2, Short))
-		Me.txtBGAPara.SetIndex(_txtBGAPara_3, CType(3, Short))
-		Me.txtBGAPara.SetIndex(_txtBGAPara_4, CType(4, Short))
-		Me.txtBGAPara.SetIndex(_txtBGAPara_5, CType(5, Short))
-		Me.txtBGAPara.SetIndex(_txtBGAPara_6, CType(6, Short))
-		CType(Me.txtBGAPara, System.ComponentModel.ISupportInitialize).EndInit()
-		CType(Me.lblBGAPara, System.ComponentModel.ISupportInitialize).EndInit()
-		Me.fraBGACmd.ResumeLayout(False)
+        Me.fraBGAPara.Controls.Add(_lblBGAPara_6)
+        Me.fraBGACmd.ResumeLayout(False)
 		Me.fraBGAPara.ResumeLayout(False)
 		Me.ResumeLayout(False)
 		Me.PerformLayout()

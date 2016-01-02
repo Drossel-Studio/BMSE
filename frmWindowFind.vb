@@ -33,54 +33,54 @@ Friend Class frmWindowFind
 					Select Case .intCh
 						
 						Case 8 'BPM
-							
-							If lstGrid(3).GetItemChecked(0) Then Call SearchProcess(i)
-							
-						Case 9 'STOP
-							
-							If lstGrid(3).GetItemChecked(1) Then Call SearchProcess(i)
-							
-						Case 11 To 15, 31 To 35, 51 To 55 '1P 1-5
-							
-							If lstGrid(0).GetItemChecked(.intCh Mod 10 - 1) Then Call SearchProcess(i)
-							
-						Case 18, 19, 38, 39, 58, 59 '1P 6-7
-							
-							If lstGrid(0).GetItemChecked(.intCh Mod 10 - 3) Then Call SearchProcess(i)
-							
-						Case 16, 36, 56 '1P SC
-							
-							If lstGrid(0).GetItemChecked(7) Then Call SearchProcess(i)
-							
-						Case 21 To 25, 41 To 45, 61 To 65 '2P 1-5
-							
-							If lstGrid(1).GetItemChecked(.intCh Mod 10 - 1) Then Call SearchProcess(i)
-							
-						Case 28, 29, 48, 49, 68, 69 '2P 6-7
-							
-							If lstGrid(1).GetItemChecked(.intCh Mod 10 - 3) Then Call SearchProcess(i)
-							
-						Case 26, 46, 66 '2P SC
-							
-							If lstGrid(1).GetItemChecked(7) Then Call SearchProcess(i)
-							
-						Case 4 'BGA
-							
-							If lstGrid(3).GetItemChecked(2) Then Call SearchProcess(i)
-							
-						Case 7 'Layer
-							
-							If lstGrid(3).GetItemChecked(3) Then Call SearchProcess(i)
-							
-						Case 6 'Poor
-							
-							If lstGrid(3).GetItemChecked(4) Then Call SearchProcess(i)
-							
-						Case Is > 100 'BGM
-							
-							If lstGrid(2).GetItemChecked(.intCh - 101) Then Call SearchProcess(i)
-							
-					End Select
+
+                            If _lstGrid_3.GetItemChecked(0) Then Call SearchProcess(i)
+
+                        Case 9 'STOP
+
+                            If _lstGrid_3.GetItemChecked(1) Then Call SearchProcess(i)
+
+                        Case 11 To 15, 31 To 35, 51 To 55 '1P 1-5
+
+                            If _lstGrid_0.GetItemChecked(.intCh Mod 10 - 1) Then Call SearchProcess(i)
+
+                        Case 18, 19, 38, 39, 58, 59 '1P 6-7
+
+                            If _lstGrid_0.GetItemChecked(.intCh Mod 10 - 3) Then Call SearchProcess(i)
+
+                        Case 16, 36, 56 '1P SC
+
+                            If _lstGrid_0.GetItemChecked(7) Then Call SearchProcess(i)
+
+                        Case 21 To 25, 41 To 45, 61 To 65 '2P 1-5
+
+                            If _lstGrid_1.GetItemChecked(.intCh Mod 10 - 1) Then Call SearchProcess(i)
+
+                        Case 28, 29, 48, 49, 68, 69 '2P 6-7
+
+                            If _lstGrid_1.GetItemChecked(.intCh Mod 10 - 3) Then Call SearchProcess(i)
+
+                        Case 26, 46, 66 '2P SC
+
+                            If _lstGrid_1.GetItemChecked(7) Then Call SearchProcess(i)
+
+                        Case 4 'BGA
+
+                            If _lstGrid_3.GetItemChecked(2) Then Call SearchProcess(i)
+
+                        Case 7 'Layer
+
+                            If _lstGrid_3.GetItemChecked(3) Then Call SearchProcess(i)
+
+                        Case 6 'Poor
+
+                            If _lstGrid_3.GetItemChecked(4) Then Call SearchProcess(i)
+
+                        Case Is > 100 'BGM
+
+                            If _lstGrid_2.GetItemChecked(.intCh - 101) Then Call SearchProcess(i)
+
+                    End Select
 					
 				Else
 					
@@ -116,82 +116,203 @@ Friend Class frmWindowFind
 	End Sub
 	
 	Private Sub cmdReset_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdReset.Click
-		
-		Dim i As Integer
-		Dim j As Integer
-		
-		For i = 0 To 3
-			
-			With lstGrid(i)
-				
-				.Visible = False
-				
-				For j = 0 To .Items.Count - 1
-					
-					.SetItemChecked(j, False)
-					
-				Next j
-				
-				.SelectedIndex = 0
-				.Visible = True
-				
-			End With
-			
-		Next i
-		
-	End Sub
+
+        Dim j As Integer
+
+        With _lstGrid_0
+
+            .Visible = False
+
+            For j = 0 To .Items.Count - 1
+
+                .SetItemChecked(j, False)
+
+            Next j
+
+            .SelectedIndex = 0
+            .Visible = True
+
+        End With
+
+
+        With _lstGrid_1
+
+            .Visible = False
+
+            For j = 0 To .Items.Count - 1
+
+                .SetItemChecked(j, False)
+
+            Next j
+
+            .SelectedIndex = 0
+            .Visible = True
+
+        End With
+
+
+        With _lstGrid_2
+
+            .Visible = False
+
+            For j = 0 To .Items.Count - 1
+
+                .SetItemChecked(j, False)
+
+            Next j
+
+            .SelectedIndex = 0
+            .Visible = True
+
+        End With
+
+
+        With _lstGrid_3
+
+            .Visible = False
+
+            For j = 0 To .Items.Count - 1
+
+                .SetItemChecked(j, False)
+
+            Next j
+
+            .SelectedIndex = 0
+            .Visible = True
+
+        End With
+    End Sub
 	
 	Private Sub cmdInvert_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdInvert.Click
-		
-		Dim i As Integer
-		Dim j As Integer
-		
-		For i = 0 To 3
-			
-			With lstGrid(i)
-				
-				.Visible = False
-				
-				For j = 0 To .Items.Count - 1
-					
-					.SetItemChecked(j, Not .GetItemChecked(j))
-					
-				Next j
-				
-				.SelectedIndex = 0
-				.Visible = True
-				
-			End With
-			
-		Next i
-		
-	End Sub
+
+        Dim j As Integer
+
+        With _lstGrid_0
+
+            .Visible = False
+
+            For j = 0 To .Items.Count - 1
+
+                .SetItemChecked(j, Not .GetItemChecked(j))
+
+            Next j
+
+            .SelectedIndex = 0
+            .Visible = True
+
+        End With
+
+        With _lstGrid_1
+
+            .Visible = False
+
+            For j = 0 To .Items.Count - 1
+
+                .SetItemChecked(j, Not .GetItemChecked(j))
+
+            Next j
+
+            .SelectedIndex = 0
+            .Visible = True
+
+        End With
+
+        With _lstGrid_2
+
+            .Visible = False
+
+            For j = 0 To .Items.Count - 1
+
+                .SetItemChecked(j, Not .GetItemChecked(j))
+
+            Next j
+
+            .SelectedIndex = 0
+            .Visible = True
+
+        End With
+
+        With _lstGrid_3
+
+            .Visible = False
+
+            For j = 0 To .Items.Count - 1
+
+                .SetItemChecked(j, Not .GetItemChecked(j))
+
+            Next j
+
+            .SelectedIndex = 0
+            .Visible = True
+
+        End With
+
+    End Sub
 	
 	Private Sub cmdSelect_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSelect.Click
-		
-		Dim i As Integer
-		Dim j As Integer
-		
-		For i = 0 To 3
-			
-			With lstGrid(i)
-				
-				.Visible = False
-				
-				For j = 0 To .Items.Count - 1
-					
-					.SetItemChecked(j, True)
-					
-				Next j
-				
-				.SelectedIndex = 0
-				.Visible = True
-				
-			End With
-			
-		Next i
-		
-	End Sub
+
+        Dim j As Integer
+
+        With _lstGrid_0
+
+            .Visible = False
+
+            For j = 0 To .Items.Count - 1
+
+                .SetItemChecked(j, True)
+
+            Next j
+
+            .SelectedIndex = 0
+            .Visible = True
+
+        End With
+
+        With _lstGrid_0
+
+            .Visible = False
+
+            For j = 0 To .Items.Count - 1
+
+                .SetItemChecked(j, True)
+
+            Next j
+
+            .SelectedIndex = 0
+            .Visible = True
+
+        End With
+
+        With _lstGrid_2
+
+            .Visible = False
+
+            For j = 0 To .Items.Count - 1
+
+                .SetItemChecked(j, True)
+
+            Next j
+
+            .SelectedIndex = 0
+            .Visible = True
+
+        End With
+
+        With _lstGrid_3
+
+            .Visible = False
+
+            For j = 0 To .Items.Count - 1
+
+                .SetItemChecked(j, True)
+
+            Next j
+
+            .SelectedIndex = 0
+            .Visible = True
+
+        End With
+    End Sub
 	
 	'UPGRADE_WARNING: Form イベント frmWindowFind.Activate には新しい動作が含まれます。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' をクリックしてください。
 	Private Sub frmWindowFind_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
@@ -205,20 +326,19 @@ Friend Class frmWindowFind
 		Dim i As Integer
 		
 		For i = 2 To 32
-			
-			Call lstGrid(2).Items.Add(VB6.Format(i, "00"))
-			
-		Next i
+
+            Call _lstGrid_2.Items.Add(VB6.Format(i, "00"))
+
+        Next i
 		
 		Call cmdSelect_Click(cmdSelect, New System.EventArgs())
-		
-		For i = 0 To 3
-			
-			lstGrid(i).SelectedIndex = 0
-			
-		Next i
-		
-	End Sub
+
+        _lstGrid_0.SelectedIndex = 0
+        _lstGrid_1.SelectedIndex = 0
+        _lstGrid_2.SelectedIndex = 0
+        _lstGrid_3.SelectedIndex = 0
+
+    End Sub
 	
 	Private Sub frmWindowFind_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 		

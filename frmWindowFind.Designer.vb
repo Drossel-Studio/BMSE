@@ -48,11 +48,10 @@
 	Public WithEvents optSearchSelect As System.Windows.Forms.RadioButton
 	Public WithEvents optSearchAll As System.Windows.Forms.RadioButton
 	Public WithEvents fraSearchObject As System.Windows.Forms.GroupBox
-	Public WithEvents lstGrid As Microsoft.VisualBasic.Compatibility.VB6.CheckedListBoxArray
-	'メモ: 以下のプロシージャは Windows フォーム デザイナで必要です。
-	'Windows フォーム デザイナを使って変更できます。
-	'コード エディタを使用して、変更しないでください。
-	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+    'メモ: 以下のプロシージャは Windows フォーム デザイナで必要です。
+    'Windows フォーム デザイナを使って変更できます。
+    'コード エディタを使用して、変更しないでください。
+    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
 		Dim resources As System.Resources.ResourceManager = New System.Resources.ResourceManager(GetType(frmWindowFind))
 		Me.components = New System.ComponentModel.Container()
 		Me.ToolTip1 = New System.Windows.Forms.ToolTip(components)
@@ -87,17 +86,15 @@
 		Me.fraSearchObject = New System.Windows.Forms.GroupBox
 		Me.optSearchSelect = New System.Windows.Forms.RadioButton
 		Me.optSearchAll = New System.Windows.Forms.RadioButton
-		Me.lstGrid = New Microsoft.VisualBasic.Compatibility.VB6.CheckedListBoxArray(components)
-		Me.fraProcess.SuspendLayout()
-		Me.fraSearchGrid.SuspendLayout()
+        Me.fraProcess.SuspendLayout()
+        Me.fraSearchGrid.SuspendLayout()
 		Me.fraSearchNum.SuspendLayout()
 		Me.fraSearchMeasure.SuspendLayout()
 		Me.fraSearchObject.SuspendLayout()
 		Me.SuspendLayout()
 		Me.ToolTip1.Active = True
-		CType(Me.lstGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
-		Me.Text = "検索・削除・置換"
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.Text = "検索・削除・置換"
 		Me.ClientSize = New System.Drawing.Size(566, 193)
 		Me.Location = New System.Drawing.Point(3, 19)
 		Me.Font = New System.Drawing.Font("ＭＳ ゴシック", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -643,13 +640,8 @@
 		Me.fraSearchMeasure.Controls.Add(txtMeasureMin)
 		Me.fraSearchMeasure.Controls.Add(lblMeasure)
 		Me.fraSearchObject.Controls.Add(optSearchSelect)
-		Me.fraSearchObject.Controls.Add(optSearchAll)
-		Me.lstGrid.SetIndex(_lstGrid_2, CType(2, Short))
-		Me.lstGrid.SetIndex(_lstGrid_1, CType(1, Short))
-		Me.lstGrid.SetIndex(_lstGrid_0, CType(0, Short))
-		Me.lstGrid.SetIndex(_lstGrid_3, CType(3, Short))
-		CType(Me.lstGrid, System.ComponentModel.ISupportInitialize).EndInit()
-		Me.fraProcess.ResumeLayout(False)
+        Me.fraSearchObject.Controls.Add(optSearchAll)
+        Me.fraProcess.ResumeLayout(False)
 		Me.fraSearchGrid.ResumeLayout(False)
 		Me.fraSearchNum.ResumeLayout(False)
 		Me.fraSearchMeasure.ResumeLayout(False)

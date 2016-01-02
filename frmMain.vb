@@ -106,7 +106,7 @@ Friend Class frmMain
 
                 'If Not Shift And vbShiftMask Then
 
-                If Me.mnuOptionsItem(MENU_OPTIONS.MOVE_ON_GRID).Checked Then
+                If Me._mnuOptionsItem_5.Checked Then
 
                     With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
 
@@ -384,34 +384,19 @@ Err_Renamed:
 	End Sub
 	
 	Public Sub PreviewBMP(ByRef strFileName As String)
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		If m_blnPreview = False Then Exit Sub
+        On Error GoTo Err_Renamed
+
+        If m_blnPreview = False Then Exit Sub
 		
 		With frmWindowPreview
 			
 			If .chkLock.CheckState Then Exit Sub
-			
-			'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-			
-			'.txtBGAPara(BGA_NUM).Text = Right$("0" & Hex$(lstBMP.ListIndex + 1), 2)
-			'.Caption = Right$("0" & Hex$(lstBMP.ListIndex + 1), 2) & ":" & strFileName
-			
-			'Else
-			
-			'.txtBGAPara(BGA_NUM).Text = modInput.strFromNum(lstBMP.ListIndex + 1)
-			'.Caption = modInput.strFromNum(lstBMP.ListIndex + 1) & ":" & strFileName
-			
-			'End If
-			
-			'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.txtBGAPara(modMain.BGA_PARA.BGA_NUM).Text = strFromLong(lstBMP.SelectedIndex + 1)
-			'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Text = .txtBGAPara(modMain.BGA_PARA.BGA_NUM).Text & ":" & strFileName
-			
-			'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			If Mid(strFileName, 2, 2) <> ":\" Then strFileName = g_BMS.strDir & strFileName
+
+            ._txtBGAPara_0.Text = strFromLong(lstBMP.SelectedIndex + 1)
+            .Text = ._txtBGAPara_0.Text & ":" & strFileName
+
+            'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            If Mid(strFileName, 2, 2) <> ":\" Then strFileName = g_BMS.strDir & strFileName
 			
 			'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
 			'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
@@ -424,46 +409,28 @@ Err_Renamed:
 				.picBackBuffer.Image = Nothing
 				
 			End If
-			
-			If .picBackBuffer.ClientRectangle.Width <= 256 Then
-				
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				.txtBGAPara(modMain.BGA_PARA.BGA_X1).Text = CStr(0)
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				.txtBGAPara(modMain.BGA_PARA.BGA_X2).Text = CStr(.picBackBuffer.ClientRectangle.Width)
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				.txtBGAPara(modMain.BGA_PARA.BGA_dX).Text = CStr((256 - .picBackBuffer.ClientRectangle.Width) \ 2)
-				
-			Else
-				
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				.txtBGAPara(modMain.BGA_PARA.BGA_X1).Text = CStr((.picBackBuffer.ClientRectangle.Width - 256) \ 2)
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				.txtBGAPara(modMain.BGA_PARA.BGA_X2).Text = CStr(CDbl(.txtBGAPara(modMain.BGA_PARA.BGA_X1).Text) + 256)
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				.txtBGAPara(modMain.BGA_PARA.BGA_dX).Text = CStr(0)
-				
-			End If
-			
-			'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.txtBGAPara(modMain.BGA_PARA.BGA_Y1).Text = CStr(0)
-			
-			If .picBackBuffer.ClientRectangle.Height >= 256 Then
-				
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				.txtBGAPara(modMain.BGA_PARA.BGA_Y2).Text = CStr(256)
-				
-			Else
-				
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				.txtBGAPara(modMain.BGA_PARA.BGA_Y2).Text = CStr(.picBackBuffer.ClientRectangle.Height)
-				
-			End If
-			
-			'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.txtBGAPara(modMain.BGA_PARA.BGA_dY).Text = CStr(0)
-			
-			Call .picPreview_Paint()
+
+            If .picBackBuffer.ClientRectangle.Width <= 256 Then
+                ._txtBGAPara_1.Text = CStr(0)
+                ._txtBGAPara_3.Text = CStr(.picBackBuffer.ClientRectangle.Width)
+                ._txtBGAPara_5.Text = CStr((256 - .picBackBuffer.ClientRectangle.Width) \ 2)
+            Else
+                ._txtBGAPara_1.Text = CStr((.picBackBuffer.ClientRectangle.Width - 256) \ 2)
+                ._txtBGAPara_3.Text = CStr(CDbl(._txtBGAPara_1.Text) + 256)
+                ._txtBGAPara_5.Text = CStr(0)
+            End If
+
+            ._txtBGAPara_2.Text = CStr(0)
+
+            If .picBackBuffer.ClientRectangle.Height >= 256 Then
+                ._txtBGAPara_4.Text = CStr(256)
+            Else
+                ._txtBGAPara_4.Text = CStr(.picBackBuffer.ClientRectangle.Height)
+            End If
+
+            ._txtBGAPara_6.Text = CStr(0)
+
+            Call .picPreview_Paint()
 			
 		End With
 		
@@ -471,10 +438,9 @@ Err_Renamed:
 	End Sub
 	
 	Private Sub PreviewBGA(ByVal lngFileNum As Integer)
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim strTemp As String
+        On Error GoTo Err_Renamed
+
+        Dim strTemp As String
 		Dim strArray() As String
 		
 		If m_blnPreview = False Then Exit Sub
@@ -512,45 +478,21 @@ Err_Renamed:
 			End If
 			
 			If UBound(strArray) > 5 Then
-				
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				.txtBGAPara(modMain.BGA_PARA.BGA_NUM).Text = strArray(0)
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				.txtBGAPara(modMain.BGA_PARA.BGA_X1).Text = strArray(1)
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				If CDbl(.txtBGAPara(modMain.BGA_PARA.BGA_X1).Text) < 0 Then .txtBGAPara(modMain.BGA_PARA.BGA_X1).Text = CStr(0)
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				.txtBGAPara(modMain.BGA_PARA.BGA_Y1).Text = strArray(2)
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				If CDbl(.txtBGAPara(modMain.BGA_PARA.BGA_Y1).Text) < 0 Then .txtBGAPara(modMain.BGA_PARA.BGA_Y1).Text = CStr(0)
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				.txtBGAPara(modMain.BGA_PARA.BGA_X2).Text = strArray(3)
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				If CDbl(.txtBGAPara(modMain.BGA_PARA.BGA_X2).Text) < 0 Then .txtBGAPara(modMain.BGA_PARA.BGA_X2).Text = CStr(0)
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				.txtBGAPara(modMain.BGA_PARA.BGA_Y2).Text = strArray(4)
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				If CDbl(.txtBGAPara(modMain.BGA_PARA.BGA_Y2).Text) < 0 Then .txtBGAPara(modMain.BGA_PARA.BGA_Y2).Text = CStr(0)
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				.txtBGAPara(modMain.BGA_PARA.BGA_dX).Text = strArray(5)
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				If CDbl(.txtBGAPara(modMain.BGA_PARA.BGA_dX).Text) < 0 Then .txtBGAPara(modMain.BGA_PARA.BGA_dX).Text = CStr(0)
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				.txtBGAPara(modMain.BGA_PARA.BGA_dY).Text = strArray(6)
-				'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				If CDbl(.txtBGAPara(modMain.BGA_PARA.BGA_dY).Text) < 0 Then .txtBGAPara(modMain.BGA_PARA.BGA_dY).Text = CStr(0)
-				
-				'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-				
-				'.Caption = Right$("0" & Hex$(lstBGA.ListIndex + 1), 2) & ":" & strTemp
-				
-				'Else
-				
-				'.Caption = modInput.strFromNum(lstBGA.ListIndex + 1) & ":" & strTemp
-				
-				'End If
-				
-				.Text = strFromLong(lstBGA.SelectedIndex + 1) & ":" & strTemp
+                ._txtBGAPara_0.Text = strArray(0)
+                ._txtBGAPara_1.Text = strArray(1)
+                If CDbl(._txtBGAPara_1.Text) < 0 Then ._txtBGAPara_1.Text = CStr(0)
+                ._txtBGAPara_2.Text = strArray(2)
+                If CDbl(._txtBGAPara_2.Text) < 0 Then ._txtBGAPara_2.Text = CStr(0)
+                ._txtBGAPara_3.Text = strArray(3)
+                If CDbl(._txtBGAPara_3.Text) < 0 Then ._txtBGAPara_3.Text = CStr(0)
+                ._txtBGAPara_4.Text = strArray(4)
+                If CDbl(._txtBGAPara_4.Text) < 0 Then ._txtBGAPara_4.Text = CStr(0)
+                ._txtBGAPara_5.Text = strArray(5)
+                If CDbl(._txtBGAPara_5.Text) < 0 Then ._txtBGAPara_5.Text = CStr(0)
+                ._txtBGAPara_6.Text = strArray(6)
+                If CDbl(._txtBGAPara_6.Text) < 0 Then ._txtBGAPara_6.Text = CStr(0)
+
+                .Text = strFromLong(lstBGA.SelectedIndex + 1) & ":" & strTemp
 				
 			End If
 			
@@ -673,9 +615,8 @@ Err_Renamed:
 	End Sub
 	
 	Private Sub CopyToClipboard()
-		Dim modMain As Object
-		
-		Dim i As Integer
+
+        Dim i As Integer
 		Dim intTemp As Short
 		Dim lngTemp As Integer
 		Dim strArray() As String
@@ -735,17 +676,17 @@ Err_Renamed:
 		
 		'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
 		If Len(g_BMS.strDir) Then
-			
-			If mnuOptionsItem(MENU_OPTIONS.TITLE_FILENAME).Checked Then
-				
-				'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				Me.Text = Me.Text & " - " & g_BMS.strFileName
-				
-			Else
-				
-				'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				Me.Text = Me.Text & " - " & g_BMS.strDir & g_BMS.strFileName
+
+            If _mnuOptionsItem_1.Checked Then
+
+                'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                Me.Text = Me.Text & " - " & g_BMS.strFileName
+
+            Else
+
+                'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                Me.Text = Me.Text & " - " & g_BMS.strDir & g_BMS.strFileName
 				
 			End If
 			
@@ -1946,26 +1887,26 @@ Err_Renamed:
 			Select Case KeyCode
 				
 				Case System.Windows.Forms.Keys.Add '+
-					
-					If optChangeBottom(0).Checked = True Then
-						
-						If lstWAV.SelectedIndex <> lstWAV.Items.Count - 1 Then
-							
-							If Shift And VB6.ShiftConstants.CtrlMask Then
-								
-								Call cmdSoundExcDown_Click(cmdSoundExcDown, New System.EventArgs())
-								
-							Else
-								
-								lstWAV.SelectedIndex = lstWAV.SelectedIndex + 1
-								
-							End If
-							
-						End If
-						
-					ElseIf optChangeBottom(1).Checked = True Or optChangeBottom(2).Checked = True Then 
-						
-						If lstBMP.SelectedIndex <> lstBMP.Items.Count - 1 Then
+
+                    If _optChangeBottom_0.Checked = True Then
+
+                        If lstWAV.SelectedIndex <> lstWAV.Items.Count - 1 Then
+
+                            If Shift And VB6.ShiftConstants.CtrlMask Then
+
+                                Call cmdSoundExcDown_Click(cmdSoundExcDown, New System.EventArgs())
+
+                            Else
+
+                                lstWAV.SelectedIndex = lstWAV.SelectedIndex + 1
+
+                            End If
+
+                        End If
+
+                    ElseIf _optChangeBottom_1.Checked = True Or optChangeBottom(2).Checked = True Then
+
+                        If lstBMP.SelectedIndex <> lstBMP.Items.Count - 1 Then
 							
 							If Shift And VB6.ShiftConstants.CtrlMask Then
 								
@@ -1987,26 +1928,26 @@ Err_Renamed:
 					Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, Shift)
 					
 				Case System.Windows.Forms.Keys.Subtract '-
-					
-					If optChangeBottom(0).Checked = True Then
-						
-						If lstWAV.SelectedIndex <> 0 Then
-							
-							If Shift And VB6.ShiftConstants.CtrlMask Then
-								
-								Call cmdSoundExcUp_Click(cmdSoundExcUp, New System.EventArgs())
-								
-							Else
-								
-								lstWAV.SelectedIndex = lstWAV.SelectedIndex - 1
-								
-							End If
-							
-						End If
-						
-					ElseIf optChangeBottom(1).Checked = True Or optChangeBottom(2).Checked = True Then 
-						
-						If lstBMP.SelectedIndex <> 0 Then
+
+                    If _optChangeBottom_0.Checked = True Then
+
+                        If lstWAV.SelectedIndex <> 0 Then
+
+                            If Shift And VB6.ShiftConstants.CtrlMask Then
+
+                                Call cmdSoundExcUp_Click(cmdSoundExcUp, New System.EventArgs())
+
+                            Else
+
+                                lstWAV.SelectedIndex = lstWAV.SelectedIndex - 1
+
+                            End If
+
+                        End If
+
+                    ElseIf _optChangeBottom_1.Checked = True Or optChangeBottom(2).Checked = True Then
+
+                        If lstBMP.SelectedIndex <> 0 Then
 							
 							If Shift And VB6.ShiftConstants.CtrlMask Then
 								
@@ -2034,46 +1975,46 @@ Err_Renamed:
 		Select Case KeyCode
 			
 			Case System.Windows.Forms.Keys.F5 'F5 リスト変更
-				
-				If optChangeBottom(0).Checked = True Then
-					
-					optChangeBottom(1).Checked = True
-					
-				ElseIf optChangeBottom(1).Checked = True Then 
-					
-					optChangeBottom(2).Checked = True
-					
-				ElseIf optChangeBottom(2).Checked = True Then 
-					
-					optChangeBottom(0).Checked = True
-					
-				End If
+
+                If _optChangeBottom_0.Checked = True Then
+
+                    _optChangeBottom_1.Checked = True
+
+                ElseIf _optChangeBottom_1.Checked = True Then
+
+                    _optChangeBottom_2.Checked = True
+
+                ElseIf _optChangeBottom_2.Checked = True Then
+
+                    _optChangeBottom_0.Checked = True
+
+                End If
 				
 			Case System.Windows.Forms.Keys.Multiply '* プレビュー
-				
-				If optChangeBottom(0).Checked = True Then
-					
-					Call lstWAV_SelectedIndexChanged(lstWAV, New System.EventArgs())
-					
-				ElseIf optChangeBottom(1).Checked = True Then 
-					
-					If Not frmWindowPreview.Visible Then Call cmdBMPPreview_Click(cmdBMPPreview, New System.EventArgs())
-					
-				ElseIf optChangeBottom(2).Checked = True Then 
-					
-					If Not frmWindowPreview.Visible Then Call cmdBGAPreview_Click(cmdBGAPreview, New System.EventArgs())
+
+                If _optChangeBottom_0.Checked = True Then
+
+                    Call lstWAV_SelectedIndexChanged(lstWAV, New System.EventArgs())
+
+                ElseIf _optChangeBottom_1.Checked = True Then
+
+                    If Not frmWindowPreview.Visible Then Call cmdBMPPreview_Click(cmdBMPPreview, New System.EventArgs())
+
+                ElseIf _optChangeBottom_2.Checked = True Then
+
+                    If Not frmWindowPreview.Visible Then Call cmdBGAPreview_Click(cmdBGAPreview, New System.EventArgs())
 					
 				End If
 				
 			Case System.Windows.Forms.Keys.Divide '/ プレビュー停止
-				
-				If optChangeBottom(0).Checked = True Then
-					
-					Call cmdSoundStop_Click(cmdSoundStop, New System.EventArgs())
-					
-				ElseIf optChangeBottom(1).Checked = True Or optChangeBottom(2).Checked = True Then 
-					
-					If frmWindowPreview.Visible = True Then
+
+                If _optChangeBottom_0.Checked = True Then
+
+                    Call cmdSoundStop_Click(cmdSoundStop, New System.EventArgs())
+
+                ElseIf _optChangeBottom_1.Checked = True Or _optChangeBottom_2.Checked = True Then
+
+                    If frmWindowPreview.Visible = True Then
 						
 						Call frmWindowPreview.Close()
 						
@@ -2209,46 +2150,53 @@ Err_Renamed:
 		lstBMP.SelectedIndex = 0
 		lstBGA.SelectedIndex = 0
 		lstMeasureLen.SelectedIndex = 0
-		
-		'UPGRADE_ISSUE: Frame プロパティ fraViewer.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-		fraViewer.BorderStyle = 0
-		'UPGRADE_ISSUE: Frame プロパティ fraGrid.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-		fraGrid.BorderStyle = 0
-		'UPGRADE_ISSUE: Frame プロパティ fraDispSize.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-		fraDispSize.BorderStyle = 0
-		'UPGRADE_ISSUE: Frame プロパティ fraResolution.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-		fraResolution.BorderStyle = 0
-		
-		'UPGRADE_ISSUE: Frame プロパティ fraHeader.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-		fraHeader.BorderStyle = 0
-		'UPGRADE_ISSUE: Frame プロパティ fraMaterial.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-		fraMaterial.BorderStyle = 0
-		
-		For i = 0 To 2
-			
-			fraTop(i).Top = 0
-			fraTop(i).Left = 0
-			'UPGRADE_ISSUE: Frame プロパティ fraTop.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			fraTop(i).BorderStyle = 0
-			
-		Next i
-		
-		fraTop(0).Visible = True
-		optChangeTop(0).Checked = True
-		
-		For i = 0 To 4
-			
-			fraBottom(i).Top = 0
-			fraBottom(i).Left = 0
-			'UPGRADE_ISSUE: Frame プロパティ fraBottom.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			fraBottom(i).BorderStyle = 0
-			
-		Next i
-		
-		fraBottom(0).Visible = True
-		optChangeBottom(0).Checked = True
-		
-		For i = 1 To 64
+
+        'UPGRADE_ISSUE: Frame プロパティ fraViewer.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+        'fraViewer.BorderStyle = 0
+        'UPGRADE_ISSUE: Frame プロパティ fraGrid.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+        'fraGrid.BorderStyle = 0
+        'UPGRADE_ISSUE: Frame プロパティ fraDispSize.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+        'fraDispSize.BorderStyle = 0
+        'UPGRADE_ISSUE: Frame プロパティ fraResolution.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+        'fraResolution.BorderStyle = 0
+
+        'UPGRADE_ISSUE: Frame プロパティ fraHeader.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+        'fraHeader.BorderStyle = 0
+        'UPGRADE_ISSUE: Frame プロパティ fraMaterial.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+        'fraMaterial.BorderStyle = 0
+
+
+        _fraTop_0.Top = 0
+        _fraTop_0.Left = 0
+        '_fraTop_0.BorderStyle = 0
+        _fraTop_1.Top = 0
+        _fraTop_1.Left = 0
+        '_fraTop_1.BorderStyle = 0
+        _fraTop_2.Top = 0
+        _fraTop_2.Left = 0
+        '_fraTop_2.BorderStyle = 0
+
+
+        _fraTop_0.Visible = True
+        _optChangeTop_0.Checked = True
+
+        _fraBottom_0.Top = 0
+        _fraBottom_0.Left = 0
+        '_fraBottom_0.BorderStyle = 0
+        _fraBottom_1.Top = 0
+        _fraBottom_1.Left = 0
+        '_fraBottom_1.BorderStyle = 0
+        _fraBottom_2.Top = 0
+        _fraBottom_2.Left = 0
+        '_fraBottom_2.BorderStyle = 0
+        _fraBottom_3.Top = 0
+        _fraBottom_3.Left = 0
+        '_fraBottom_3.BorderStyle = 0
+
+        _fraBottom_0.Visible = True
+        _optChangeBottom_0.Checked = True
+
+        For i = 1 To 64
 			
 			Call cboNumerator.Items.Insert(i - 1, CStr(i))
 			
@@ -2339,81 +2287,81 @@ Err_Renamed:
 			
 			lngLineWidth = 2 * VB6.TwipsPerPixelX
 			lngLineHeight = 2 * VB6.TwipsPerPixelY
-			If mnuViewItem(MENU_VIEW.TOOL_BAR).Checked Then lngToolBarHeight = VB6.PixelsToTwipsY(tlbMenu.Height)
-			If mnuViewItem(MENU_VIEW.DIRECT_INPUT).Checked Then lngDirectInputHeight = COLUMN_HEIGHT + PADDING_Renamed * 2
-			If mnuViewItem(MENU_VIEW.STATUS_BAR).Checked Then lngStatusBarHeight = VB6.PixelsToTwipsY(staMain.Height) + VB6.TwipsPerPixelY * 2
-			
-			staMain.Visible = mnuViewItem(MENU_VIEW.STATUS_BAR).Checked
-			
-			linToolbarBottom(0).X1 = 0
-			linToolbarBottom(0).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width))
-			linToolbarBottom(0).Y1 = VB6.TwipsToPixelsY(lngToolBarHeight)
-			linToolbarBottom(0).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linToolbarBottom(0).Y1))
-			linToolbarBottom(1).X1 = 0
-			linToolbarBottom(1).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width))
-			linToolbarBottom(1).Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linToolbarBottom(0).Y1) + VB6.TwipsPerPixelY)
-			linToolbarBottom(1).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linToolbarBottom(0).Y2) + VB6.TwipsPerPixelY)
-			
-			linVertical(0).X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width) - FRAME_WIDTH - PADDING_Renamed - lngLineWidth)
-			linVertical(0).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linVertical(0).X1))
-			linVertical(1).X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linVertical(0).X1) + VB6.TwipsPerPixelX)
-			linVertical(1).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linVertical(1).X1))
-			
-			linVertical(0).Y1 = VB6.TwipsToPixelsY(lngToolBarHeight)
-			linVertical(0).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight)
-			linVertical(1).Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linVertical(0).Y1))
-			linVertical(1).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linVertical(0).Y2))
-			
-			linHeader(0).X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linVertical(0).X1))
-			linHeader(0).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width))
-			linHeader(0).Y1 = VB6.TwipsToPixelsY(lngToolBarHeight + PADDING_Renamed + FRAME_TOP_HEIGHT + PADDING_Renamed)
-			linHeader(0).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linHeader(0).Y1))
-			linHeader(1).X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linHeader(0).X1))
-			linHeader(1).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linHeader(0).X2))
-			linHeader(1).Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linHeader(0).Y1) + VB6.TwipsPerPixelY)
-			linHeader(1).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linHeader(0).Y2) + VB6.TwipsPerPixelY)
-			
-			linDirectInput(0).X1 = 0
-			linDirectInput(0).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linVertical(0).X1))
-			linDirectInput(0).Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight - PADDING_Renamed - COLUMN_HEIGHT - PADDING_Renamed)
-			linDirectInput(0).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linDirectInput(0).Y1))
-			linDirectInput(1).X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linDirectInput(0).X1))
-			linDirectInput(1).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linDirectInput(0).X2))
-			linDirectInput(1).Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linDirectInput(0).Y1) + VB6.TwipsPerPixelY)
-			linDirectInput(1).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linDirectInput(0).Y2) + VB6.TwipsPerPixelY)
-			
-			linStatusBar(0).X1 = 0
-			linStatusBar(0).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width))
-			linStatusBar(0).Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight)
-			linStatusBar(0).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight)
-			linStatusBar(1).X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linStatusBar(0).X1))
-			linStatusBar(1).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linStatusBar(0).X2))
-			linStatusBar(1).Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linStatusBar(0).Y1) + VB6.TwipsPerPixelY)
-			linStatusBar(1).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linStatusBar(0).Y2) + VB6.TwipsPerPixelY)
-			
-			linStatusBar(0).Visible = mnuViewItem(MENU_VIEW.STATUS_BAR).Checked
-			linStatusBar(1).Visible = mnuViewItem(MENU_VIEW.STATUS_BAR).Checked
-			
-			tlbMenu.Visible = mnuViewItem(MENU_VIEW.TOOL_BAR).Checked
-			fraViewer.Visible = mnuViewItem(MENU_VIEW.TOOL_BAR).Checked
-			fraGrid.Visible = mnuViewItem(MENU_VIEW.TOOL_BAR).Checked
-			fraDispSize.Visible = mnuViewItem(MENU_VIEW.TOOL_BAR).Checked
-			
-			lngTemp = VB6.PixelsToTwipsX(.ClientRectangle.Width) - FRAME_WIDTH - PADDING_Renamed - lngLineWidth - PADDING_Renamed - SCROLLBAR_SIZE
+            If _mnuViewItem_0.Checked Then lngToolBarHeight = VB6.PixelsToTwipsY(tlbMenu.Height)
+            If _mnuViewItem_1.Checked Then lngDirectInputHeight = COLUMN_HEIGHT + PADDING_Renamed * 2
+            If _mnuViewItem_2.Checked Then lngStatusBarHeight = VB6.PixelsToTwipsY(staMain.Height) + VB6.TwipsPerPixelY * 2
+
+            staMain.Visible = mnuViewItem(MENU_VIEW.STATUS_BAR).Checked
+
+            _linToolbarBottom_0.X1 = 0
+            _linToolbarBottom_0.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width))
+            _linToolbarBottom_0.Y1 = VB6.TwipsToPixelsY(lngToolBarHeight)
+            _linToolbarBottom_0.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linToolbarBottom_0.Y1))
+            _linToolbarBottom_1.X1 = 0
+            _linToolbarBottom_1.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width))
+            _linToolbarBottom_1.Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linToolbarBottom_0.Y1) + VB6.TwipsPerPixelY)
+            _linToolbarBottom_1.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linToolbarBottom_0.Y2) + VB6.TwipsPerPixelY)
+
+            _linVertical_0.X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width) - FRAME_WIDTH - PADDING_Renamed - lngLineWidth)
+            _linVertical_0.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linVertical_0.X1))
+            _linVertical_1.X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linVertical_0.X1) + VB6.TwipsPerPixelX)
+            _linVertical_1.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linVertical_1.X1))
+
+            _linVertical_0.Y1 = VB6.TwipsToPixelsY(lngToolBarHeight)
+            _linVertical_0.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight)
+            _linVertical_1.Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linVertical_0.Y1))
+            _linVertical_1.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linVertical_0.Y2))
+
+            _linHeader_0.X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linHeader_0.X1))
+            _linHeader_0.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width))
+            _linHeader_0.Y1 = VB6.TwipsToPixelsY(lngToolBarHeight + PADDING_Renamed + FRAME_TOP_HEIGHT + PADDING_Renamed)
+            _linHeader_0.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linHeader_0.Y1))
+            _linHeader_1.X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linHeader_0.X1))
+            _linHeader_1.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linHeader_0.X2))
+            _linHeader_1.Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linHeader_0.Y1) + VB6.TwipsPerPixelY)
+            _linHeader_1.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linHeader_0.Y2) + VB6.TwipsPerPixelY)
+
+            _linDirectInput_0.X1 = 0
+            _linDirectInput_0.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linVertical_0.X1))
+            _linDirectInput_0.Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight - PADDING_Renamed - COLUMN_HEIGHT - PADDING_Renamed)
+            _linDirectInput_0.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linDirectInput_0.Y1))
+            _linDirectInput_1.X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linDirectInput_0.X1))
+            _linDirectInput_1.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linDirectInput_0.X2))
+            _linDirectInput_1.Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linDirectInput_0.Y1) + VB6.TwipsPerPixelY)
+            _linDirectInput_1.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linDirectInput_0.Y2) + VB6.TwipsPerPixelY)
+
+            _linStatusBar_0.X1 = 0
+            _linStatusBar_0.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width))
+            _linStatusBar_0.Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight)
+            _linStatusBar_0.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight)
+            _linStatusBar_1.X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linStatusBar_0.X1))
+            _linStatusBar_1.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linStatusBar_0.X2))
+            _linStatusBar_1.Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linStatusBar_0.Y1) + VB6.TwipsPerPixelY)
+            _linStatusBar_1.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linStatusBar_0.Y2) + VB6.TwipsPerPixelY)
+
+            _linStatusBar_0.Visible = _mnuViewItem_2.Checked
+            _linStatusBar_1.Visible = _mnuViewItem_2.Checked
+
+            tlbMenu.Visible = _mnuViewItem_0.Checked
+            fraViewer.Visible = _mnuViewItem_0.Checked
+            fraGrid.Visible = _mnuViewItem_0.Checked
+            fraDispSize.Visible = _mnuViewItem_0.Checked
+
+            lngTemp = VB6.PixelsToTwipsX(.ClientRectangle.Width) - FRAME_WIDTH - PADDING_Renamed - lngLineWidth - PADDING_Renamed - SCROLLBAR_SIZE
 			
 			Call vsbMain.SetBounds(VB6.TwipsToPixelsX(lngTemp), VB6.TwipsToPixelsY(lngToolBarHeight + PADDING_Renamed), VB6.TwipsToPixelsX(SCROLLBAR_SIZE), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngToolBarHeight - PADDING_Renamed - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed))
 			
 			Call hsbMain.SetBounds(0, VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed), VB6.TwipsToPixelsX(lngTemp), VB6.TwipsToPixelsY(SCROLLBAR_SIZE))
 			
 			Call picMain.SetBounds(0, VB6.TwipsToPixelsY(lngToolBarHeight + PADDING_Renamed), VB6.TwipsToPixelsX(lngTemp), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngToolBarHeight - PADDING_Renamed - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed))
-			
-			linDirectInput(0).Visible = mnuViewItem(MENU_VIEW.DIRECT_INPUT).Checked
-			linDirectInput(1).Visible = mnuViewItem(MENU_VIEW.DIRECT_INPUT).Checked
-			lblDirectInput.Visible = mnuViewItem(MENU_VIEW.DIRECT_INPUT).Checked
-			cboDirectInput.Visible = mnuViewItem(MENU_VIEW.DIRECT_INPUT).Checked
-			cmdDirectInput.Visible = mnuViewItem(MENU_VIEW.DIRECT_INPUT).Checked
-			
-			Call lblDirectInput.SetBounds(VB6.TwipsToPixelsX(PADDING_Renamed), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight - PADDING_Renamed - (COLUMN_HEIGHT + VB6.PixelsToTwipsY(lblDirectInput.Height)) \ 2), 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
+
+            _linDirectInput_0.Visible = _mnuViewItem_1.Checked
+            _linDirectInput_1.Visible = _mnuViewItem_1.Checked
+            lblDirectInput.Visible = _mnuViewItem_1.Checked
+            cboDirectInput.Visible = _mnuViewItem_1.Checked
+            cmdDirectInput.Visible = _mnuViewItem_1.Checked
+
+            Call lblDirectInput.SetBounds(VB6.TwipsToPixelsX(PADDING_Renamed), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight - PADDING_Renamed - (COLUMN_HEIGHT + VB6.PixelsToTwipsY(lblDirectInput.Height)) \ 2), 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
 			
 			Call cmdDirectInput.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width) - FRAME_WIDTH - VB6.PixelsToTwipsX(cmdDirectInput.Width) - PADDING_Renamed * 2 - lngLineWidth), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight - PADDING_Renamed - VB6.PixelsToTwipsY(cmdDirectInput.Height)), 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
 			
@@ -2473,37 +2421,35 @@ Err_Renamed:
 		With fraHeader
 			
 			Call fraHeader.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.ClientRectangle.Width) - FRAME_WIDTH), VB6.TwipsToPixelsY(lngToolBarHeight + PADDING_Renamed), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(FRAME_TOP_HEIGHT))
-			
-			For i = 0 To 2
-				
-				fraTop(i).Top = VB6.TwipsToPixelsY(COLUMN_HEIGHT)
-				
-			Next i
-			
-		End With
+
+            _fraTop_0.Top = VB6.TwipsToPixelsY(COLUMN_HEIGHT)
+            _fraTop_1.Top = VB6.TwipsToPixelsY(COLUMN_HEIGHT)
+            _fraTop_2.Top = VB6.TwipsToPixelsY(COLUMN_HEIGHT)
+
+        End With
 		
 		With fraMaterial
 			
 			Call fraMaterial.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.ClientRectangle.Width) - FRAME_WIDTH), VB6.TwipsToPixelsY(FRAME_TOP_HEIGHT + PADDING_Renamed + lngLineHeight + PADDING_Renamed + lngToolBarHeight + PADDING_Renamed), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(Me.ClientRectangle.Height) - lngToolBarHeight - PADDING_Renamed - VB6.PixelsToTwipsY(fraHeader.Height) - lngLineHeight - PADDING_Renamed - lngStatusBarHeight - PADDING_Renamed))
 			
 			lngTemp = VB6.PixelsToTwipsY(.Height) - FRAME_BOTTOM_TOP
-			
-			For i = 0 To 4
-				
-				Call fraBottom(i).SetBounds(0, VB6.TwipsToPixelsY(FRAME_BOTTOM_TOP), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(lngTemp))
-				
-			Next i
-			
-			lngTemp = VB6.PixelsToTwipsY(.Height) - FRAME_BOTTOM_BUTTONS_HEIGHT - FRAME_BOTTOM_TOP - PADDING_Renamed * 4
+
+            Call _fraBottom_0.SetBounds(0, VB6.TwipsToPixelsY(FRAME_BOTTOM_TOP), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(lngTemp))
+            Call _fraBottom_1.SetBounds(0, VB6.TwipsToPixelsY(FRAME_BOTTOM_TOP), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(lngTemp))
+            Call _fraBottom_2.SetBounds(0, VB6.TwipsToPixelsY(FRAME_BOTTOM_TOP), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(lngTemp))
+            Call _fraBottom_3.SetBounds(0, VB6.TwipsToPixelsY(FRAME_BOTTOM_TOP), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(lngTemp))
+            Call _fraBottom_4.SetBounds(0, VB6.TwipsToPixelsY(FRAME_BOTTOM_TOP), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(lngTemp))
+
+            lngTemp = VB6.PixelsToTwipsY(.Height) - FRAME_BOTTOM_BUTTONS_HEIGHT - FRAME_BOTTOM_TOP - PADDING_Renamed * 4
 			lstWAV.Height = VB6.TwipsToPixelsY(lngTemp)
 			lstBMP.Height = VB6.TwipsToPixelsY(lngTemp)
 			lstMeasureLen.Height = VB6.TwipsToPixelsY(lngTemp)
 			txtBGAInput.Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.Height) - VB6.PixelsToTwipsY(txtBGAInput.Height) - FRAME_BOTTOM_BUTTONS_HEIGHT - FRAME_BOTTOM_TOP - PADDING_Renamed * 2)
 			lstBGA.Height = VB6.TwipsToPixelsY(lngTemp - VB6.PixelsToTwipsY(txtBGAInput.Height) - PADDING_Renamed)
 			txtExInfo.Height = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.Height) - FRAME_BOTTOM_TOP - PADDING_Renamed * 3)
-			
-			lngTemp = VB6.PixelsToTwipsY(fraBottom(0).Height) - COLUMN_HEIGHT - PADDING_Renamed
-			cmdSoundStop.Top = VB6.TwipsToPixelsY(lngTemp)
+
+            lngTemp = VB6.PixelsToTwipsY(_fraBottom_0.Height) - COLUMN_HEIGHT - PADDING_Renamed
+            cmdSoundStop.Top = VB6.TwipsToPixelsY(lngTemp)
 			cmdSoundExcUp.Top = VB6.TwipsToPixelsY(lngTemp)
 			cmdSoundExcDown.Top = VB6.TwipsToPixelsY(lngTemp)
 			cmdSoundDelete.Top = VB6.TwipsToPixelsY(lngTemp)
@@ -2557,20 +2503,20 @@ Err_Renamed:
 	
 	'UPGRADE_WARNING: イベント lstBGA.SelectedIndexChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
 	Private Sub lstBGA_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstBGA.SelectedIndexChanged
-		
-		'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-		
-		'staMain.Panels("BMP").Text = "#BMP " & Right$("0" & Hex$(lstBGA.ListIndex + 1), 2)
-		
-		'Else
-		
-		'staMain.Panels("BMP").Text = "#BMP " & modInput.strFromNum(lstBGA.ListIndex + 1)
-		
-		'End If
-		
-		If optChangeBottom(2).Checked Then lstBMP.SelectedIndex = lstBGA.SelectedIndex
-		
-		staMain.Items.Item("BMP").Text = "#BMP " & strFromLong(lstBGA.SelectedIndex + 1)
+
+        'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+
+        'staMain.Panels("BMP").Text = "#BMP " & Right$("0" & Hex$(lstBGA.ListIndex + 1), 2)
+
+        'Else
+
+        'staMain.Panels("BMP").Text = "#BMP " & modInput.strFromNum(lstBGA.ListIndex + 1)
+
+        'End If
+
+        If _optChangeBottom_2.Checked Then lstBMP.SelectedIndex = lstBGA.SelectedIndex
+
+        staMain.Items.Item("BMP").Text = "#BMP " & strFromLong(lstBGA.SelectedIndex + 1)
 		
 		txtBGAInput.Text = Mid(VB6.GetItemString(lstBGA, lstBGA.SelectedIndex), 8)
 		
@@ -2584,20 +2530,20 @@ Err_Renamed:
 	
 	'UPGRADE_WARNING: イベント lstBMP.SelectedIndexChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
 	Private Sub lstBMP_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstBMP.SelectedIndexChanged
-		
-		'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-		
-		'staMain.Panels("BMP").Text = "#BMP " & Right$("0" & Hex$(lstBMP.ListIndex + 1), 2)
-		
-		'Else
-		
-		'staMain.Panels("BMP").Text = "#BMP " & modInput.strFromNum(lstBMP.ListIndex + 1)
-		
-		'End If
-		
-		If optChangeBottom(1).Checked Then lstBGA.SelectedIndex = lstBMP.SelectedIndex
-		
-		staMain.Items.Item("BMP").Text = "#BMP " & strFromLong(lstBMP.SelectedIndex + 1)
+
+        'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+
+        'staMain.Panels("BMP").Text = "#BMP " & Right$("0" & Hex$(lstBMP.ListIndex + 1), 2)
+
+        'Else
+
+        'staMain.Panels("BMP").Text = "#BMP " & modInput.strFromNum(lstBMP.ListIndex + 1)
+
+        'End If
+
+        If _optChangeBottom_1.Checked Then lstBGA.SelectedIndex = lstBMP.SelectedIndex
+
+        staMain.Items.Item("BMP").Text = "#BMP " & strFromLong(lstBMP.SelectedIndex + 1)
 		
 		If frmWindowPreview.Visible Then
 			
@@ -3045,28 +2991,28 @@ Err_Renamed:
 	End Sub
 	
 	Public Sub mnuContextListDelete_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextListDelete.Click
-		
-		If optChangeBottom(0).Checked Then
-			
-			Call cmdSoundDelete_Click(cmdSoundDelete, New System.EventArgs())
-			
-		ElseIf optChangeBottom(1).Checked Then 
-			
-			Call cmdBmpDelete_Click(cmdBmpDelete, New System.EventArgs())
+
+        If _optChangeBottom_0.Checked Then
+
+            Call cmdSoundDelete_Click(cmdSoundDelete, New System.EventArgs())
+
+        ElseIf _optChangeBottom_1.Checked Then
+
+            Call cmdBmpDelete_Click(cmdBmpDelete, New System.EventArgs())
 			
 		End If
 		
 	End Sub
 	
 	Public Sub mnuContextListLoad_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextListLoad.Click
-		
-		If optChangeBottom(0).Checked Then
-			
-			Call cmdSoundLoad_Click(cmdSoundLoad, New System.EventArgs())
-			
-		ElseIf optChangeBottom(1).Checked Then 
-			
-			Call cmdBmpLoad_Click(cmdBmpLoad, New System.EventArgs())
+
+        If _optChangeBottom_0.Checked Then
+
+            Call cmdSoundLoad_Click(cmdSoundLoad, New System.EventArgs())
+
+        ElseIf _optChangeBottom_1.Checked Then
+
+            Call cmdBmpLoad_Click(cmdBmpLoad, New System.EventArgs())
 			
 		End If
 		
@@ -3077,65 +3023,65 @@ Err_Renamed:
 		Dim g_Message As Object
 		
 		Dim strTemp As String
-		
-		If optChangeBottom(0).Checked Then
-			
-			With lstWAV
-				
-				Call mciSendString("close PREVIEW", vbNullString, 0, 0)
-				strTemp = Mid(VB6.GetItemString(lstWAV, .SelectedIndex), 8)
-				
-				If Len(VB6.GetItemString(lstWAV, .SelectedIndex)) > 8 Then
-					
-					'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
-					If Dir(g_BMS.strDir & strTemp, FileAttribute.Normal) <> vbNullString Then
-						
-						With frmWindowInput
-							
-							'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-							.lblMainDisp.Text = g_Message(modMain.Message.INPUT_RENAME)
-							.txtMain.Text = strTemp
-							
-							Call VB6.ShowForm(frmWindowInput, VB6.FormShowConstants.Modal, Me)
-							
-						End With
-						
-						If strTemp <> frmWindowInput.txtMain.Text And Len(frmWindowInput.txtMain.Text) <> 0 Then
-							
-							'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-							'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
-							If Dir(g_BMS.strDir & frmWindowInput.txtMain.Text, FileAttribute.Normal) = vbNullString Then
-								
-								'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-								Rename(g_BMS.strDir & strTemp, g_BMS.strDir & frmWindowInput.txtMain.Text)
-								
-								VB6.SetItemString(lstWAV, .SelectedIndex, VB.Left(VB6.GetItemString(lstWAV, .SelectedIndex), 7) & frmWindowInput.txtMain.Text)
-								g_strWAV(lngFromLong(.SelectedIndex + 1)) = frmWindowInput.txtMain.Text
-								
-							Else
-								
-								Call MsgBox(g_Message(modMain.Message.ERR_FILE_ALREADY_EXIST), MsgBoxStyle.Critical, g_strAppTitle)
-								
-							End If
-							
-						End If
-						
-					Else
-						
-						'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & g_BMS.strDir & strTemp, MsgBoxStyle.Critical, g_strAppTitle)
-						
-					End If
-					
-				End If
-				
-			End With
-			
-		ElseIf optChangeBottom(1).Checked Then 
-			
-			With lstBMP
+
+        If _optChangeBottom_0.Checked Then
+
+            With lstWAV
+
+                Call mciSendString("close PREVIEW", vbNullString, 0, 0)
+                strTemp = Mid(VB6.GetItemString(lstWAV, .SelectedIndex), 8)
+
+                If Len(VB6.GetItemString(lstWAV, .SelectedIndex)) > 8 Then
+
+                    'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+                    If Dir(g_BMS.strDir & strTemp, FileAttribute.Normal) <> vbNullString Then
+
+                        With frmWindowInput
+
+                            'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                            .lblMainDisp.Text = g_Message(modMain.Message.INPUT_RENAME)
+                            .txtMain.Text = strTemp
+
+                            Call VB6.ShowForm(frmWindowInput, VB6.FormShowConstants.Modal, Me)
+
+                        End With
+
+                        If strTemp <> frmWindowInput.txtMain.Text And Len(frmWindowInput.txtMain.Text) <> 0 Then
+
+                            'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                            'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+                            If Dir(g_BMS.strDir & frmWindowInput.txtMain.Text, FileAttribute.Normal) = vbNullString Then
+
+                                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                                Rename(g_BMS.strDir & strTemp, g_BMS.strDir & frmWindowInput.txtMain.Text)
+
+                                VB6.SetItemString(lstWAV, .SelectedIndex, VB.Left(VB6.GetItemString(lstWAV, .SelectedIndex), 7) & frmWindowInput.txtMain.Text)
+                                g_strWAV(lngFromLong(.SelectedIndex + 1)) = frmWindowInput.txtMain.Text
+
+                            Else
+
+                                Call MsgBox(g_Message(modMain.Message.ERR_FILE_ALREADY_EXIST), MsgBoxStyle.Critical, g_strAppTitle)
+
+                            End If
+
+                        End If
+
+                    Else
+
+                        'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                        'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                        Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & g_BMS.strDir & strTemp, MsgBoxStyle.Critical, g_strAppTitle)
+
+                    End If
+
+                End If
+
+            End With
+
+        ElseIf _optChangeBottom_1.Checked Then
+
+            With lstBMP
 				
 				strTemp = Mid(VB6.GetItemString(lstBMP, .SelectedIndex), 8)
 				
@@ -4094,17 +4040,17 @@ Err_Renamed:
 				
 				'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
 				If Len(g_BMS.strDir) Then
-					
-					If mnuOptionsItem(MENU_OPTIONS.TITLE_FILENAME).Checked Then
-						
-						'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						Me.Text = Me.Text & " - " & g_BMS.strFileName
-						
-					Else
-						
-						'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						Me.Text = Me.Text & " - " & g_BMS.strDir & g_BMS.strFileName
+
+                    If _mnuOptionsItem_1.Checked Then
+
+                        'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                        Me.Text = Me.Text & " - " & g_BMS.strFileName
+
+                    Else
+
+                        'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                        'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                        Me.Text = Me.Text & " - " & g_BMS.strDir & g_BMS.strFileName
 						
 					End If
 					
@@ -4116,33 +4062,26 @@ Err_Renamed:
 		End Select
 		
 	End Sub
-	
-	Public Sub mnuTheme_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuTheme.Click
-		Dim Index As Short = mnuTheme.GetIndex(eventSender)
-		Dim modMain As Object
-		
-		Dim i As Integer
-		
-		For i = 1 To mnuTheme.UBound
-			
-			mnuTheme(i).Checked = False
-			
-		Next i
-		
-		With mnuTheme(Index)
-			
-			.Checked = True
-			
-			'UPGRADE_WARNING: オブジェクト modMain.LoadThemeFile の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			Call modMain.LoadThemeFile("theme\" & g_strThemeFileName(Index))
-			
-		End With
-		
-		Call Redraw()
-		
-	End Sub
-	
-	Public Sub mnuToolsSetting_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuToolsSetting.Click
+
+    Public Sub mnuTheme_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _mnuTheme_0.Click
+        'For i = 1 To mnuTheme.UBound
+        _mnuTheme_0.Checked = False
+        'Next i
+
+        Select Case DirectCast(eventSender, ToolStripMenuItem).Name
+            Case _mnuTheme_0.Name
+                With _mnuTheme_0
+                    .Checked = True
+                    Call modMain.LoadThemeFile("theme\" & g_strThemeFileName(0))
+                End With
+
+        End Select
+
+        Call Redraw()
+
+    End Sub
+
+    Public Sub mnuToolsSetting_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuToolsSetting.Click
 		
 		With frmWindowViewer
 			
@@ -4154,16 +4093,22 @@ Err_Renamed:
 		End With
 		
 	End Sub
-	
-	Public Sub mnuViewItem_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuViewItem.Click
-		Dim Index As Short = mnuViewItem.GetIndex(eventSender)
-		
-		mnuViewItem(Index).Checked = Not mnuViewItem(Index).Checked
-		Call frmMain_Resize(Me, New System.EventArgs())
-		
-	End Sub
-	
-	Public Sub mnuEditCopy_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditCopy.Click
+
+    Public Sub mnuViewItem_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _mnuViewItem_0.Click, _mnuViewItem_1.Click, _mnuViewItem_2.Click
+        Select Case DirectCast(eventSender, ToolStripMenuItem).Name
+            Case _mnuViewItem_0.Name
+                _mnuViewItem_0.Checked = Not _mnuViewItem_0.Checked
+            Case _mnuViewItem_1.Name
+                _mnuViewItem_1.Checked = Not _mnuViewItem_1.Checked
+            Case _mnuViewItem_2.Name
+                _mnuViewItem_2.Checked = Not _mnuViewItem_2.Checked
+        End Select
+
+        Call frmMain_Resize(Me, New System.EventArgs())
+
+    End Sub
+
+    Public Sub mnuEditCopy_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditCopy.Click
 		Dim modMain As Object
 		On Error GoTo Err_Renamed
 		
@@ -4532,33 +4477,27 @@ Err_Renamed:
 		Call ShellExecute(0, vbNullString, "http://ucn.tokonats.net/", vbNullString, vbNullString, SW_SHOWNORMAL)
 		
 	End Sub
-	
-	Public Sub mnuLanguage_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuLanguage.Click
-		Dim Index As Short = mnuLanguage.GetIndex(eventSender)
-		Dim modMain As Object
-		
-		Dim i As Integer
-		
-		For i = 1 To mnuLanguage.UBound
-			
-			mnuLanguage(i).Checked = False
-			
-		Next i
-		
-		With mnuLanguage(Index)
-			
-			.Checked = True
-			
-			'UPGRADE_WARNING: オブジェクト modMain.LoadLanguageFile の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			Call modMain.LoadLanguageFile("lang\" & g_strLangFileName(Index))
-			
-		End With
-		
-		Call modDraw.Redraw()
-		
-	End Sub
-	
-	Public Sub mnuFileNew_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileNew.Click
+
+    Public Sub mnuLanguage_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _mnuLanguage_0.Click
+
+        'For i = 1 To mnuLanguage.UBound
+
+        '_mnuLanguage_1.Checked = False
+
+        'Next i
+
+        Select Case DirectCast(eventSender, ToolStripMenuItem).Name
+            Case _mnuLanguage_0.Name
+                With _mnuLanguage_0
+                    .Checked = True
+                    Call modMain.LoadLanguageFile("lang\" & g_strLangFileName(0))
+                End With
+        End Select
+
+        Call modDraw.Redraw()
+    End Sub
+
+    Public Sub mnuFileNew_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileNew.Click
 		Dim lngDeleteFile As Object
 		Dim modMain As Object
 		
@@ -4772,51 +4711,208 @@ Err_Renamed:
 		End With
 		
 	End Sub
-	
-	Public Sub mnuRecentFiles_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuRecentFiles.Click
-		Dim Index As Short = mnuRecentFiles.GetIndex(eventSender)
-		Dim lngDeleteFile As Object
-		Dim g_Message As Object
-		Dim modMain As Object
-		
-		Dim strArray() As String
-		
-		'UPGRADE_WARNING: オブジェクト modMain.intSaveCheck の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		If modMain.intSaveCheck() Then Exit Sub
-		
-		'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
-		If Dir(Mid(mnuRecentFiles(Index).Text, 4)) = vbNullString Then
-			
-			'UPGRADE_WARNING: オブジェクト g_Message(ERR_LOAD_CANCEL) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(mnuRecentFiles(Index).Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
-			Exit Sub
-			
-		End If
-		
-		'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
-		
-		strArray = Split(mnuRecentFiles(Index).Text, "\")
-		'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		g_BMS.strDir = Mid(mnuRecentFiles(Index).Text, 4, Len(mnuRecentFiles(Index).Text) - Len(strArray(UBound(strArray))) - 3)
-		'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		g_BMS.strFileName = strArray(UBound(strArray))
-		
-		'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		dlgMainOpen.InitialDirectory = g_BMS.strDir
-		dlgMainSave.InitialDirectory = g_BMS.strDir
-		
-		'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		'UPGRADE_WARNING: オブジェクト modMain.RecentFilesRotation の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		Call modMain.RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
-		
-		Call modInput.LoadBMS()
-		
-	End Sub
-	
-	Public Sub mnuFileSave_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileSave.Click
+
+    Public Sub mnuRecentFiles_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _mnuRecentFiles_0.Click, _mnuRecentFiles_1.Click, _mnuRecentFiles_2.Click, _mnuRecentFiles_3.Click, _mnuRecentFiles_4.Click, _mnuRecentFiles_5.Click, _mnuRecentFiles_6.Click, _mnuRecentFiles_7.Click, _mnuRecentFiles_8.Click, _mnuRecentFiles_9.Click
+        Dim g_Message As Object
+
+        Dim strArray() As String
+
+        If modMain.intSaveCheck() Then Exit Sub
+        Select Case DirectCast(eventSender, ToolStripMenuItem).Name
+            Case _mnuRecentFiles_0.Name
+                'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+                If Dir(Mid(_mnuRecentFiles_0.Text, 4)) = vbNullString Then
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_0.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_0.Text, "\")
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                g_BMS.strDir = Mid(_mnuRecentFiles_0.Text, 4, Len(_mnuRecentFiles_0.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_1.Name
+                'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+                If Dir(Mid(_mnuRecentFiles_1.Text, 4)) = vbNullString Then
+
+                    'UPGRADE_WARNING: オブジェクト g_Message(ERR_LOAD_CANCEL) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_1.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_1.Text, "\")
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                g_BMS.strDir = Mid(_mnuRecentFiles_1.Text, 4, Len(_mnuRecentFiles_1.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_2.Name
+                'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+                If Dir(Mid(_mnuRecentFiles_2.Text, 4)) = vbNullString Then
+
+                    'UPGRADE_WARNING: オブジェクト g_Message(ERR_LOAD_CANCEL) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_2.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_2.Text, "\")
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                g_BMS.strDir = Mid(_mnuRecentFiles_2.Text, 4, Len(_mnuRecentFiles_2.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_3.Name
+                'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+                If Dir(Mid(_mnuRecentFiles_3.Text, 4)) = vbNullString Then
+
+                    'UPGRADE_WARNING: オブジェクト g_Message(ERR_LOAD_CANCEL) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_3.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_3.Text, "\")
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                g_BMS.strDir = Mid(_mnuRecentFiles_3.Text, 4, Len(_mnuRecentFiles_3.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_4.Name
+                'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+                If Dir(Mid(_mnuRecentFiles_4.Text, 4)) = vbNullString Then
+
+                    'UPGRADE_WARNING: オブジェクト g_Message(ERR_LOAD_CANCEL) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_4.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_4.Text, "\")
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                g_BMS.strDir = Mid(_mnuRecentFiles_4.Text, 4, Len(_mnuRecentFiles_4.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_5.Name
+                'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+                If Dir(Mid(_mnuRecentFiles_5.Text, 4)) = vbNullString Then
+
+                    'UPGRADE_WARNING: オブジェクト g_Message(ERR_LOAD_CANCEL) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_5.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_5.Text, "\")
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                g_BMS.strDir = Mid(_mnuRecentFiles_5.Text, 4, Len(_mnuRecentFiles_5.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_6.Name
+                'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+                If Dir(Mid(_mnuRecentFiles_6.Text, 4)) = vbNullString Then
+
+                    'UPGRADE_WARNING: オブジェクト g_Message(ERR_LOAD_CANCEL) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_6.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_6.Text, "\")
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                g_BMS.strDir = Mid(_mnuRecentFiles_6.Text, 4, Len(_mnuRecentFiles_6.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_7.Name
+                'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+                If Dir(Mid(_mnuRecentFiles_7.Text, 4)) = vbNullString Then
+
+                    'UPGRADE_WARNING: オブジェクト g_Message(ERR_LOAD_CANCEL) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_7.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_7.Text, "\")
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                g_BMS.strDir = Mid(_mnuRecentFiles_7.Text, 4, Len(_mnuRecentFiles_7.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_8.Name
+                'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+                If Dir(Mid(_mnuRecentFiles_8.Text, 4)) = vbNullString Then
+
+                    'UPGRADE_WARNING: オブジェクト g_Message(ERR_LOAD_CANCEL) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_8.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_8.Text, "\")
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                g_BMS.strDir = Mid(_mnuRecentFiles_8.Text, 4, Len(_mnuRecentFiles_8.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_9.Name
+                'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+                If Dir(Mid(_mnuRecentFiles_9.Text, 4)) = vbNullString Then
+
+                    'UPGRADE_WARNING: オブジェクト g_Message(ERR_LOAD_CANCEL) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_9.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_9.Text, "\")
+                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                g_BMS.strDir = Mid(_mnuRecentFiles_9.Text, 4, Len(_mnuRecentFiles_9.Text) - Len(strArray(UBound(strArray))) - 3)
+        End Select
+        'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+        g_BMS.strFileName = strArray(UBound(strArray))
+
+        'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+        dlgMainOpen.InitialDirectory = g_BMS.strDir
+        dlgMainSave.InitialDirectory = g_BMS.strDir
+
+        'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+        'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+        'UPGRADE_WARNING: オブジェクト modMain.RecentFilesRotation の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+        Call modMain.RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
+
+        Call modInput.LoadBMS()
+
+    End Sub
+
+    Public Sub mnuFileSave_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileSave.Click
 		
 		'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
 		'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
@@ -4916,45 +5012,53 @@ Err_Renamed:
 		Call modDraw.Redraw()
 		
 	End Sub
-	
-	'UPGRADE_WARNING: イベント optChangeBottom.CheckedChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
-	Private Sub optChangeBottom_CheckedChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles optChangeBottom.CheckedChanged
-		If eventSender.Checked Then
-			Dim Index As Short = optChangeBottom.GetIndex(eventSender)
-			
-			Dim i As Integer
-			
-			For i = fraBottom.LBound To fraBottom.UBound
-				
-				fraBottom(i).Visible = False
-				
-			Next i
-			
-			fraBottom(Index).Visible = True
-			
-		End If
-	End Sub
-	
-	'UPGRADE_WARNING: イベント optChangeTop.CheckedChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
-	Private Sub optChangeTop_CheckedChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles optChangeTop.CheckedChanged
-		If eventSender.Checked Then
-			Dim Index As Short = optChangeTop.GetIndex(eventSender)
-			
-			Dim i As Integer
-			
-			For i = fraTop.LBound To fraTop.UBound
-				
-				fraTop(i).Visible = False
-				
-			Next i
-			
-			fraTop(Index).Visible = True
-			
-		End If
-	End Sub
-	
-	'UPGRADE_ISSUE: PictureBox イベント picMain.KeyDown はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"' をクリックしてください。
-	Private Sub picMain_KeyDown(ByRef KeyCode As Short, ByRef Shift As Short)
+
+    'UPGRADE_WARNING: イベント optChangeBottom.CheckedChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
+    Private Sub optChangeBottom_CheckedChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _optChangeBottom_0.CheckedChanged, _optChangeBottom_1.CheckedChanged, _optChangeBottom_2.CheckedChanged, _optChangeBottom_3.CheckedChanged, _optChangeBottom_4.CheckedChanged
+        If eventSender.Checked Then
+            _fraBottom_0.Visible = False
+            _fraBottom_1.Visible = False
+            _fraBottom_2.Visible = False
+            _fraBottom_3.Visible = False
+            _fraBottom_4.Visible = False
+
+            Select Case DirectCast(eventSender, RadioButton).Name
+                Case _optChangeBottom_0.Name
+                    _fraBottom_0.Visible = True
+                Case _optChangeBottom_1.Name
+                    _fraBottom_1.Visible = True
+                Case _optChangeBottom_2.Name
+                    _fraBottom_0.Visible = True
+                Case _optChangeBottom_3.Name
+                    _fraBottom_0.Visible = True
+                Case _optChangeBottom_4.Name
+                    _fraBottom_0.Visible = True
+            End Select
+
+        End If
+    End Sub
+
+    'UPGRADE_WARNING: イベント optChangeTop.CheckedChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
+    Private Sub optChangeTop_CheckedChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _optChangeTop_0.CheckedChanged, _optChangeTop_1.CheckedChanged, _optChangeTop_2.CheckedChanged
+        If eventSender.Checked Then
+            _fraTop_0.Visible = False
+            _fraTop_1.Visible = False
+            _fraTop_1.Visible = False
+
+            Select Case DirectCast(eventSender, RadioButton).Name
+                Case _optChangeTop_0.Name
+                    _fraTop_0.Visible = True
+                Case _optChangeTop_1.Name
+                    _fraTop_1.Visible = True
+                Case _optChangeTop_2.Name
+                    _fraTop_2.Visible = True
+            End Select
+
+        End If
+    End Sub
+
+    'UPGRADE_ISSUE: PictureBox イベント picMain.KeyDown はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"' をクリックしてください。
+    Private Sub picMain_KeyDown(ByRef KeyCode As Short, ByRef Shift As Short)
 		
 		Dim lngTemp As Integer
 		Dim intTemp As Short
@@ -5265,55 +5369,55 @@ Err_Renamed:
 						m_tempObj(UBound(m_tempObj)) = g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
 						
 						With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
-							
-							'プレビュー
-							If mnuOptionsItem(MENU_OPTIONS.SELECT_PREVIEW).Checked = True And ((.intCh >= 11 And .intCh <= 29) Or .intCh > 100) Then
-								
-								strTemp = g_strWAV(.sngValue)
-								
-								'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-								'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
-								If strTemp <> "" And Dir(g_BMS.strDir & strTemp) <> vbNullString Then
-									
-									Call PreviewWAV(strTemp)
-									
-								End If
-								
-							End If
-							
-							'オブジェをグリッドにあわせる
-							'If Not Shift And vbShiftMask Then
-							
-							'If lngTemp <> 0 And mnuOptionsItem(MOVE_ON_GRID).Checked = True Then
-							
-							'For i = 0 To UBound(g_Obj) - 1
-							
-							'With g_Obj(i)
-							
-							'If .intSelect <> NON_SELECT Then
-							
-							'.lngPosition = .lngPosition - lngTemp
-							
-							'Do While .lngPosition < 0 And .intMeasure <> 0
-							
-							'.intMeasure = .intMeasure - 1
-							'.lngPosition = .lngPosition + g_Measure(.intMeasure).intLen
-							
-							'Loop
-							
-							'Call SaveChanges
-							
-							'End If
-							
-							'End With
-							
-							'Next i
-							
-							'End If
-							
-							'End If
-							
-						End With
+
+                            'プレビュー
+                            If _mnuOptionsItem_4.Checked = True And ((.intCh >= 11 And .intCh <= 29) Or .intCh > 100) Then
+
+                                strTemp = g_strWAV(.sngValue)
+
+                                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                                'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+                                If strTemp <> "" And Dir(g_BMS.strDir & strTemp) <> vbNullString Then
+
+                                    Call PreviewWAV(strTemp)
+
+                                End If
+
+                            End If
+
+                            'オブジェをグリッドにあわせる
+                            'If Not Shift And vbShiftMask Then
+
+                            'If lngTemp <> 0 And mnuOptionsItem(MOVE_ON_GRID).Checked = True Then
+
+                            'For i = 0 To UBound(g_Obj) - 1
+
+                            'With g_Obj(i)
+
+                            'If .intSelect <> NON_SELECT Then
+
+                            '.lngPosition = .lngPosition - lngTemp
+
+                            'Do While .lngPosition < 0 And .intMeasure <> 0
+
+                            '.intMeasure = .intMeasure - 1
+                            '.lngPosition = .lngPosition + g_Measure(.intMeasure).intLen
+
+                            'Loop
+
+                            'Call SaveChanges
+
+                            'End If
+
+                            'End With
+
+                            'Next i
+
+                            'End If
+
+                            'End If
+
+                        End With
 						
 					Else '単数選択っぽいよ
 						
@@ -5347,69 +5451,69 @@ Err_Renamed:
 							
 							'UPGRADE_WARNING: オブジェクト m_tempObj(UBound()) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
 							m_tempObj(UBound(m_tempObj)) = g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
-							
-							'オブジェをグリッドにあわせる
-							'If Not Shift And vbShiftMask Then
-							
-							'If lngTemp <> 0 And mnuOptionsItem(MOVE_ON_GRID).Checked = True Then
-							
-							'.lngPosition = .lngPosition - lngTemp
-							
-							'Do While .lngPosition < 0 And .intMeasure <> 0
-							
-							'.intMeasure = .intMeasure - 1
-							'.lngPosition = .lngPosition + g_Measure(.intMeasure).intLen
-							
-							'Loop
-							
-							'Call SaveChanges
-							
-							'End If
-							
-							'End If
-							
-							'プレビュー
-							If mnuOptionsItem(MENU_OPTIONS.SELECT_PREVIEW).Checked Then
-								
-								Select Case .intCh
-									
-									Case 11 To 29, Is > 100
-										
-										strTemp = g_strWAV(.sngValue)
-										
-										'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-										'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
-										If strTemp <> "" And Dir(g_BMS.strDir & strTemp) <> vbNullString Then
-											
-											Call PreviewWAV(strTemp)
-											
-										End If
-										
-									Case 4, 6, 7
-										
-										If Len(g_strBGA(.sngValue)) Then
-											
-											Call PreviewBGA(.sngValue)
-											
-										Else
-											
-											strTemp = g_strBMP(.sngValue)
-											
-											'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-											'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
-											If strTemp <> "" And Dir(g_BMS.strDir & strTemp) <> vbNullString Then
-												
-												Call PreviewBMP(strTemp)
-												
-											End If
-											
-										End If
-										
-								End Select
-								
-							End If
-							
-						End With
+
+                            'オブジェをグリッドにあわせる
+                            'If Not Shift And vbShiftMask Then
+
+                            'If lngTemp <> 0 And mnuOptionsItem(MOVE_ON_GRID).Checked = True Then
+
+                            '.lngPosition = .lngPosition - lngTemp
+
+                            'Do While .lngPosition < 0 And .intMeasure <> 0
+
+                            '.intMeasure = .intMeasure - 1
+                            '.lngPosition = .lngPosition + g_Measure(.intMeasure).intLen
+
+                            'Loop
+
+                            'Call SaveChanges
+
+                            'End If
+
+                            'End If
+
+                            'プレビュー
+                            If _mnuOptionsItem_4.Checked Then
+
+                                Select Case .intCh
+
+                                    Case 11 To 29, Is > 100
+
+                                        strTemp = g_strWAV(.sngValue)
+
+                                        'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                                        'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+                                        If strTemp <> "" And Dir(g_BMS.strDir & strTemp) <> vbNullString Then
+
+                                            Call PreviewWAV(strTemp)
+
+                                        End If
+
+                                    Case 4, 6, 7
+
+                                        If Len(g_strBGA(.sngValue)) Then
+
+                                            Call PreviewBGA(.sngValue)
+
+                                        Else
+
+                                            strTemp = g_strBMP(.sngValue)
+
+                                            'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                                            'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+                                            If strTemp <> "" And Dir(g_BMS.strDir & strTemp) <> vbNullString Then
+
+                                                Call PreviewBMP(strTemp)
+
+                                            End If
+
+                                        End If
+
+                                End Select
+
+                            End If
+
+                        End With
 						
 					End If
 					
@@ -5876,28 +5980,28 @@ Err_Renamed:
 						Select Case .intCh
 							
 							Case modInput.OBJ_CH.CH_BGA, modInput.OBJ_CH.CH_POOR, modInput.OBJ_CH.CH_LAYER, Is > modInput.OBJ_CH.CH_KEY_MIN
-								
-								
-								If mnuOptionsItem(MENU_OPTIONS.USE_OLD_FORMAT).Checked Then
-									
-									str_Renamed = modInput.strFromNum(.sngValue)
-									
-									'もし 01-FF じゃなかったら 01-ZZ 表示に移行する
-									'ASCII 文字セットでは 0-9 < A-Z < a-z
-									If Asc(VB.Left(str_Renamed, 1)) > Asc("F") Or Asc(VB.Right(str_Renamed, 1)) > Asc("F") Then
-										
-										Call mnuOptionsItem_Click(mnuOptionsItem.Item(MENU_OPTIONS.USE_OLD_FORMAT), New System.EventArgs())
-										value = .sngValue
-										
-									Else
-										
-										value = Val("&H" & str_Renamed)
-										
-									End If
-									
-								Else
-									
-									value = .sngValue
+
+
+                                If _mnuOptionsItem_7.Checked Then
+
+                                    str_Renamed = modInput.strFromNum(.sngValue)
+
+                                    'もし 01-FF じゃなかったら 01-ZZ 表示に移行する
+                                    'ASCII 文字セットでは 0-9 < A-Z < a-z
+                                    If Asc(VB.Left(str_Renamed, 1)) > Asc("F") Or Asc(VB.Right(str_Renamed, 1)) > Asc("F") Then
+
+                                        Call mnuOptionsItem_Click(_mnuOptionsItem_7, New System.EventArgs())
+                                        value = .sngValue
+
+                                    Else
+
+                                        value = Val("&H" & str_Renamed)
+
+                                    End If
+
+                                Else
+
+                                    value = .sngValue
 									
 								End If
 								
@@ -5908,14 +6012,14 @@ Err_Renamed:
 									lstWAV.SelectedIndex = value - 1
 									
 								Else
-									
-									If optChangeBottom(2).Checked Then
-										
-										lstBGA.SelectedIndex = value - 1
-										
-									Else
-										
-										lstBMP.SelectedIndex = value - 1
+
+                                    If _optChangeBottom_2.Checked Then
+
+                                        lstBGA.SelectedIndex = value - 1
+
+                                    Else
+
+                                        lstBMP.SelectedIndex = value - 1
 										
 									End If
 									
@@ -6245,18 +6349,18 @@ Err_Renamed:
 		If Panel.Key = "Mode" Then
 			
 			If tlbMenu.Items.Item("Edit").Checked = True Then
-				
-				Call mnuEditMode_Click(mnuEditMode.Item(1), New System.EventArgs())
-				
-			ElseIf tlbMenu.Items.Item("Write").Checked = True Then 
-				
-				Call mnuEditMode_Click(mnuEditMode.Item(2), New System.EventArgs())
-				
-			ElseIf tlbMenu.Items.Item("Delete").Checked = True Then 
-				
-				Call mnuEditMode_Click(mnuEditMode.Item(0), New System.EventArgs())
-				
-			End If
+
+                Call mnuEditMode_Click(_mnuEditMode_1, New System.EventArgs())
+
+            ElseIf tlbMenu.Items.Item("Write").Checked = True Then
+
+                Call mnuEditMode_Click(_mnuEditMode_2, New System.EventArgs())
+
+            ElseIf tlbMenu.Items.Item("Delete").Checked = True Then
+
+                Call mnuEditMode_Click(_mnuEditMode_0, New System.EventArgs())
+
+            End If
 			
 		End If
 		
@@ -6277,10 +6381,10 @@ Err_Renamed:
 				Call mnuFileOpen_Click(mnuFileOpen, New System.EventArgs())
 				
 			Case "Reload" '再読み込み
-				
-				Call mnuRecentFiles_Click(mnuRecentFiles.Item(0), New System.EventArgs())
-				
-			Case "Save" '上書き保存
+
+                Call mnuRecentFiles_Click(_mnuRecentFiles_0, New System.EventArgs())
+
+            Case "Save" '上書き保存
 				
 				Call mnuFileSave_Click(mnuFileSave, New System.EventArgs())
 				
@@ -6289,18 +6393,18 @@ Err_Renamed:
 				Call mnuFileSaveAs_Click(mnuFileSaveAs, New System.EventArgs())
 				
 			Case "Edit"
-				
-				Call mnuEditMode_Click(mnuEditMode.Item(0), New System.EventArgs())
-				
-			Case "Write"
-				
-				Call mnuEditMode_Click(mnuEditMode.Item(1), New System.EventArgs())
-				
-			Case "Delete"
-				
-				Call mnuEditMode_Click(mnuEditMode.Item(2), New System.EventArgs())
-				
-			Case "PlayAll"
+
+                Call mnuEditMode_Click(_mnuEditMode_0, New System.EventArgs())
+
+            Case "Write"
+
+                Call mnuEditMode_Click(_mnuEditMode_1, New System.EventArgs())
+
+            Case "Delete"
+
+                Call mnuEditMode_Click(_mnuEditMode_2, New System.EventArgs())
+
+            Case "PlayAll"
 				
 				Call mnuToolsPlayAll_Click(mnuToolsPlayAll, New System.EventArgs())
 				
@@ -6322,11 +6426,32 @@ Err_Renamed:
 		
 		'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ ButtonMenu.Parent はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
 		If ButtonMenu.Parent.Text = tlbMenu.Items.Item("Open").Text Then
-			
-			'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ ButtonMenu.Index はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			Call mnuRecentFiles_Click(mnuRecentFiles.Item(ButtonMenu.Index - 1), New System.EventArgs())
-			
-		End If
+
+            'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ ButtonMenu.Index はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            Select Case (ButtonMenu.Index - 1)
+                Case 0
+                    Call mnuRecentFiles_Click(_mnuRecentFiles_0, New System.EventArgs())
+                Case 1
+                    Call mnuRecentFiles_Click(_mnuRecentFiles_1, New System.EventArgs())
+                Case 2
+                    Call mnuRecentFiles_Click(_mnuRecentFiles_2, New System.EventArgs())
+                Case 3
+                    Call mnuRecentFiles_Click(_mnuRecentFiles_3, New System.EventArgs())
+                Case 4
+                    Call mnuRecentFiles_Click(_mnuRecentFiles_4, New System.EventArgs())
+                Case 5
+                    Call mnuRecentFiles_Click(_mnuRecentFiles_5, New System.EventArgs())
+                Case 6
+                    Call mnuRecentFiles_Click(_mnuRecentFiles_6, New System.EventArgs())
+                Case 7
+                    Call mnuRecentFiles_Click(_mnuRecentFiles_7, New System.EventArgs())
+                Case 8
+                    Call mnuRecentFiles_Click(_mnuRecentFiles_8, New System.EventArgs())
+                Case 9
+                    Call mnuRecentFiles_Click(_mnuRecentFiles_9, New System.EventArgs())
+            End Select
+
+        End If
 		
 	End Sub
 	
