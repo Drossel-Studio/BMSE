@@ -247,87 +247,82 @@ Err_Renamed:
 	End Sub
 	
 	Private Sub frmWindowViewer_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-		
-		'UPGRADE_ISSUE: Event パラメータ Cancel はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FB723E3C-1C06-4D2B-B083-E6CD0D334DA8"' をクリックしてください。
-		Cancel = True
-		
-		Erase m_LocalViewer
-		
-		Call Me.Hide()
-		
-		Call frmMain.picMain.Focus()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: イベント lstViewer.SelectedIndexChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
-	Private Sub lstViewer_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstViewer.SelectedIndexChanged
-		
-		With m_LocalViewer(m_lngViewerNum + 1)
-			
-			.strAppName = txtViewerName.Text
-			.strAppPath = txtViewerPath.Text
-			.strArgAll = txtPlayAll.Text
-			.strArgPlay = txtPlay.Text
-			.strArgStop = txtStop.Text
-			
-		End With
-		
-		With m_LocalViewer(lstViewer.SelectedIndex + 1)
-			
-			txtViewerName.Text = .strAppName
-			txtViewerPath.Text = .strAppPath
-			txtPlayAll.Text = .strArgAll
-			txtPlay.Text = .strArgPlay
-			txtStop.Text = .strArgStop
-			
-		End With
-		
-		m_lngViewerNum = lstViewer.SelectedIndex
-		
-	End Sub
-	
-	Private Sub lstViewer_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles lstViewer.MouseDown
-		Dim Button As Short = eventArgs.Button \ &H100000
-		Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys \ &H10000
-		Dim X As Single = VB6.PixelsToTwipsX(eventArgs.X)
-		Dim Y As Single = VB6.PixelsToTwipsY(eventArgs.Y)
-		
-		Call lstViewer_SelectedIndexChanged(lstViewer, New System.EventArgs())
-		
-	End Sub
-	
-	Private Sub txtPlay_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtPlay.Enter
-		
-		txtPlay.SelectionStart = 0
-		txtPlay.SelectionLength = Len(txtPlay.Text)
-		
-	End Sub
-	
-	Private Sub txtPlayAll_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtPlayAll.Enter
-		
-		txtPlayAll.SelectionStart = 0
-		txtPlayAll.SelectionLength = Len(txtPlayAll.Text)
-		
-	End Sub
-	
-	Private Sub txtStop_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtStop.Enter
-		
-		txtStop.SelectionStart = 0
-		txtStop.SelectionLength = Len(txtStop.Text)
-		
-	End Sub
-	
-	Private Sub txtViewerName_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtViewerName.Enter
-		
-		txtViewerName.SelectionStart = 0
-		txtViewerName.SelectionLength = Len(txtViewerName.Text)
-		
-	End Sub
-	
-	Private Sub txtViewerPath_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtViewerPath.Enter
-		
-		txtViewerPath.SelectionStart = 0
-		txtViewerPath.SelectionLength = Len(txtViewerPath.Text)
-		
-	End Sub
+
+    End Sub
+
+    'UPGRADE_WARNING: イベント lstViewer.SelectedIndexChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
+    Private Sub lstViewer_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstViewer.SelectedIndexChanged
+
+        With m_LocalViewer(m_lngViewerNum + 1)
+
+            .strAppName = txtViewerName.Text
+            .strAppPath = txtViewerPath.Text
+            .strArgAll = txtPlayAll.Text
+            .strArgPlay = txtPlay.Text
+            .strArgStop = txtStop.Text
+
+        End With
+
+        With m_LocalViewer(lstViewer.SelectedIndex + 1)
+
+            txtViewerName.Text = .strAppName
+            txtViewerPath.Text = .strAppPath
+            txtPlayAll.Text = .strArgAll
+            txtPlay.Text = .strArgPlay
+            txtStop.Text = .strArgStop
+
+        End With
+
+        m_lngViewerNum = lstViewer.SelectedIndex
+
+    End Sub
+
+    Private Sub lstViewer_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles lstViewer.MouseDown
+        Dim Button As Short = eventArgs.Button \ &H100000
+        Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys \ &H10000
+        Dim X As Single = VB6.PixelsToTwipsX(eventArgs.X)
+        Dim Y As Single = VB6.PixelsToTwipsY(eventArgs.Y)
+
+        Call lstViewer_SelectedIndexChanged(lstViewer, New System.EventArgs())
+
+    End Sub
+
+    Private Sub txtPlay_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtPlay.Enter
+
+        txtPlay.SelectionStart = 0
+        txtPlay.SelectionLength = Len(txtPlay.Text)
+
+    End Sub
+
+    Private Sub txtPlayAll_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtPlayAll.Enter
+
+        txtPlayAll.SelectionStart = 0
+        txtPlayAll.SelectionLength = Len(txtPlayAll.Text)
+
+    End Sub
+
+    Private Sub txtStop_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtStop.Enter
+
+        txtStop.SelectionStart = 0
+        txtStop.SelectionLength = Len(txtStop.Text)
+
+    End Sub
+
+    Private Sub txtViewerName_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtViewerName.Enter
+
+        txtViewerName.SelectionStart = 0
+        txtViewerName.SelectionLength = Len(txtViewerName.Text)
+
+    End Sub
+
+    Private Sub txtViewerPath_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtViewerPath.Enter
+
+        txtViewerPath.SelectionStart = 0
+        txtViewerPath.SelectionLength = Len(txtViewerPath.Text)
+
+    End Sub
+
+    Private Sub frmWindowViewer_FormClosed(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+
+    End Sub
 End Class

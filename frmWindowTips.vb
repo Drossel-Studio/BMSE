@@ -256,120 +256,110 @@ Friend Class frmWindowTips
 	End Sub
 	
 	Private Sub frmWindowTips_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-		Dim lngSet_ini As Object
-		
-		If Me.Visible Then Call lngSet_ini("EasterEgg", "Tips", chkNextDisp.CheckState)
-		
-		'UPGRADE_ISSUE: Event パラメータ Cancel はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FB723E3C-1C06-4D2B-B083-E6CD0D334DA8"' をクリックしてください。
-		Cancel = True
-		
-		tmrMain.Enabled = False
-		
-		Erase m_strTips
-		
-		Call Me.Hide()
-		
-		Call frmMain.picMain.Focus()
-		
-	End Sub
-	
-	Private Sub tmrMain_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles tmrMain.Tick
-		
-		Dim strTemp As String
-		
-		m_lngTipsNum = m_lngTipsNum + 1
-		tmrMain.Interval = 100
-		
-		'UPGRADE_ISSUE: Form メソッド frmWindowTips.Line はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-		frmWindowTips.Line (945, 720) - (6030, 3240), System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White), BF
+
+    End Sub
+
+    Private Sub tmrMain_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles tmrMain.Tick
+
+        Dim strTemp As String
+
+        m_lngTipsNum = m_lngTipsNum + 1
+        tmrMain.Interval = 100
+
+        'UPGRADE_ISSUE: Form メソッド frmWindowTips.Line はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+        frmWindowTips.Line(945, 720) - (6030, 3240), System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White), BF
 		
 		If m_lngTipsNum >= Len(m_strTips(m_intTipsPos)) + 1 Then
-			
-			tmrMain.Interval = 250
-			
-			'If (m_lngTipsNum \ 2) Mod 2 Then
-			If (m_lngTipsNum \ 2) And 1 Then
-				
-				strTemp = m_strTips(m_intTipsPos)
-				
-			Else
-				
-				strTemp = m_strTips(m_intTipsPos) & "_"
-				
-			End If
-			
-			'If m_lngTipsNum Mod 2 Then
-			If m_lngTipsNum And 1 Then
-				
-				'Call BitBlt(frmWindowTips.hdc, 16 * m_sngTwipsX, 16 * m_sngTwipsY, 32, 32, picIcon.hdc, 0, 32, SRCCOPY)
-				'UPGRADE_ISSUE: PictureBox プロパティ picIcon.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-				'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-				Call BitBlt(Me.hdc, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon.hdc, 0, 32, SRCCOPY)
-				
-			Else
-				
-				'Call BitBlt(frmWindowTips.hdc, 16 * m_sngTwipsX, 16 * m_sngTwipsY, 32, 32, picIcon.hdc, 0, 0, SRCCOPY)
-				'UPGRADE_ISSUE: PictureBox プロパティ picIcon.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-				'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-				Call BitBlt(Me.hdc, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon.hdc, 0, 0, SRCCOPY)
-				
-			End If
-			
-			'UPGRADE_ISSUE: 定数 vbFromUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
-			'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
-			'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			Call DrawText(Me.hdc, strTemp, LenB(StrConv(strTemp, vbFromUnicode)), ddRect(63, 48, 402, 216), DT_WORDBREAK)
-			
-		Else
-			
-			strTemp = VB.Left(m_strTips(m_intTipsPos), m_lngTipsNum) & "_"
-			
-			'UPGRADE_ISSUE: 定数 vbFromUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
-			'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
-			'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			Call DrawText(Me.hdc, strTemp, LenB(StrConv(strTemp, vbFromUnicode)), ddRect(63, 48, 402, 216), DT_WORDBREAK)
-			
-			Select Case VB.Right(strTemp, 2)
-				
-				Case vbCrLf & "_"
-					
-					tmrMain.Interval = 1
-					
-				Case " _"
-					
-					tmrMain.Interval = 50
-					
-				Case "、_", "(_", ")_", "「_", "」_", "～_"
-					
-					tmrMain.Interval = 200
-					
-				Case "。_", "！_", "？_", ":_", "/_", "._"
-					
-					tmrMain.Interval = 400
-					
-			End Select
-			
-		End If
-		
-	End Sub
-	
-	Private Function ddRect(ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As RECT
-		
-		With ddRect
-			.Top = Y1 * m_sngTwipsY
-			.left_Renamed = X1 * m_sngTwipsX
-			.right_Renamed = X2 * m_sngTwipsX
-			.Bottom = Y2 * m_sngTwipsY
-		End With
-		
-	End Function
-	
-	'UPGRADE_NOTE: str は str_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
-	Private Sub AddTutorial(ByRef str_Renamed As String)
-		
-		ReDim Preserve m_strTips(UBound(m_strTips) + 1)
-		
-		m_strTips(UBound(m_strTips)) = str_Renamed
-		
-	End Sub
+
+            tmrMain.Interval = 250
+
+            'If (m_lngTipsNum \ 2) Mod 2 Then
+            If (m_lngTipsNum \ 2) And 1 Then
+
+                strTemp = m_strTips(m_intTipsPos)
+
+            Else
+
+                strTemp = m_strTips(m_intTipsPos) & "_"
+
+            End If
+
+            'If m_lngTipsNum Mod 2 Then
+            If m_lngTipsNum And 1 Then
+
+                'Call BitBlt(frmWindowTips.hdc, 16 * m_sngTwipsX, 16 * m_sngTwipsY, 32, 32, picIcon.hdc, 0, 32, SRCCOPY)
+                'UPGRADE_ISSUE: PictureBox プロパティ picIcon.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                Call BitBlt(Me.hdc, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon.hdc, 0, 32, SRCCOPY)
+
+            Else
+
+                'Call BitBlt(frmWindowTips.hdc, 16 * m_sngTwipsX, 16 * m_sngTwipsY, 32, 32, picIcon.hdc, 0, 0, SRCCOPY)
+                'UPGRADE_ISSUE: PictureBox プロパティ picIcon.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                Call BitBlt(Me.hdc, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon.hdc, 0, 0, SRCCOPY)
+
+            End If
+
+            'UPGRADE_ISSUE: 定数 vbFromUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
+            'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
+            'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            Call DrawText(Me.hdc, strTemp, LenB(StrConv(strTemp, vbFromUnicode)), ddRect(63, 48, 402, 216), DT_WORDBREAK)
+
+        Else
+
+            strTemp = VB.Left(m_strTips(m_intTipsPos), m_lngTipsNum) & "_"
+
+            'UPGRADE_ISSUE: 定数 vbFromUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
+            'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
+            'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            Call DrawText(Me.hdc, strTemp, LenB(StrConv(strTemp, vbFromUnicode)), ddRect(63, 48, 402, 216), DT_WORDBREAK)
+
+            Select Case VB.Right(strTemp, 2)
+
+                Case vbCrLf & "_"
+
+                    tmrMain.Interval = 1
+
+                Case " _"
+
+                    tmrMain.Interval = 50
+
+                Case "、_", "(_", ")_", "「_", "」_", "～_"
+
+                    tmrMain.Interval = 200
+
+                Case "。_", "！_", "？_", ":_", "/_", "._"
+
+                    tmrMain.Interval = 400
+
+            End Select
+
+        End If
+
+    End Sub
+
+    Private Function ddRect(ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As RECT
+
+        With ddRect
+            .Top = Y1 * m_sngTwipsY
+            .left_Renamed = X1 * m_sngTwipsX
+            .right_Renamed = X2 * m_sngTwipsX
+            .Bottom = Y2 * m_sngTwipsY
+        End With
+
+    End Function
+
+    'UPGRADE_NOTE: str は str_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
+    Private Sub AddTutorial(ByRef str_Renamed As String)
+
+        ReDim Preserve m_strTips(UBound(m_strTips) + 1)
+
+        m_strTips(UBound(m_strTips)) = str_Renamed
+
+    End Sub
+
+    Private Sub frmWindowTips_FormClosed(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+
+    End Sub
 End Class

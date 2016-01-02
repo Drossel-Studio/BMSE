@@ -163,10 +163,10 @@ Module modMessage
 				Case WM_ACTIVATEAPP
 					
 					If wParam Then
-						
-						If frmMain.mnuOptionsItem(frmMain.MENU_OPTIONS.IGNORE_INPUT).Checked Then g_blnIgnoreInput = True
-						
-					End If
+
+                        If frmMain._mnuOptionsItem_0.Checked Then g_blnIgnoreInput = True
+
+                    End If
 					
 				Case WM_SETCURSOR
 					

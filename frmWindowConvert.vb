@@ -34,10 +34,8 @@ Friend Class frmWindowConvert
 	Private Const FOF_NOCONFIRMMKDIR As Integer = &H200 '  don't confirm making any needed dirs
 	
 	Public Sub DeleteUnusedFile()
-		Dim modMain As Object
-		
-		Dim i As Integer
-		Dim lngTemp As Integer
+        Dim i As Integer
+        Dim lngTemp As Integer
 		Dim blnWAV(1295) As Boolean
 		Dim blnBMP(1295) As Boolean
 		Dim blnBGA(1295) As Boolean
@@ -145,11 +143,8 @@ Friend Class frmWindowConvert
 	End Sub
 	
 	Public Sub DeleteFile()
-		Dim g_Message As Object
-		Dim lngDeleteFile As Object
-		
-		Dim i As Integer
-		Dim j As Integer
+        Dim i As Integer
+        Dim j As Integer
 		Dim lngTemp As Integer
 		Dim strArray() As String
 		Dim strList() As String
@@ -281,11 +276,9 @@ Friend Class frmWindowConvert
 	End Sub
 	
 	Public Sub ListAlign()
-		Dim modMain As Object
-		
-		Dim i As Integer
-		'Dim blnUseOldFormat     As Boolean
-		Dim intTemp As Short
+        Dim i As Integer
+        'Dim blnUseOldFormat     As Boolean
+        Dim intTemp As Short
 		Dim lngTemp As Integer
 		Dim lngWAV As Integer
 		Dim lngBMP As Integer
@@ -936,118 +929,115 @@ Friend Class frmWindowConvert
 		If intTemp Then Call frmMain.SaveChanges()
 		
 	End Sub
-	
-	'UPGRADE_WARNING: イベント chkDeleteFile.CheckStateChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
-	Private Sub chkDeleteFile_CheckStateChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles chkDeleteFile.CheckStateChanged
-		
-		If chkDeleteFile.CheckState Then
-			
-			lblExtension.Enabled = True
-			txtExtension.Enabled = True
-			chkFileRecycle.Enabled = True
-			
-		Else
-			
-			lblExtension.Enabled = False
-			txtExtension.Enabled = False
-			chkFileRecycle.Enabled = False
-			
-		End If
-		
-	End Sub
-	
-	'UPGRADE_WARNING: イベント chkListAlign.CheckStateChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
-	Private Sub chkListAlign_CheckStateChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles chkListAlign.CheckStateChanged
-		
-		If chkListAlign.CheckState Then
-			
-			chkUseOldFormat.Enabled = True
-			chkSortByName.Enabled = True
-			
-		Else
-			
-			chkUseOldFormat.Enabled = False
-			chkSortByName.Enabled = False
-			
-		End If
-		
-	End Sub
-	
-	Private Sub cmdCancel_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdCancel.Click
-		
-		Call Me.Close()
-		
-	End Sub
-	
-	Private Sub cmdDecide_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdDecide.Click
-		
-		If chkDeleteUnusedFile.CheckState = 0 And chkDeleteFile.CheckState = 0 And chkListAlign.CheckState = 0 And chkFileNameConvert.CheckState = 0 Then Exit Sub
-		
-		'If chkFileNameConvert.Value Then
-		
-		'If MsgBox(g_Message(Message.MSG_CONFIRM), vbYesNo + vbInformation, g_strAppTitle) = vbNo Then Exit Sub
-		
-		'End If
-		
-		Me.Enabled = False
-		
-		If chkDeleteUnusedFile.CheckState Then Call DeleteUnusedFile()
-		
-		If chkDeleteFile.CheckState Then Call DeleteFile()
-		
-		If chkListAlign.CheckState Then Call ListAlign()
-		
-		If chkFileNameConvert.CheckState Then Call FileNameConvert()
-		
-		Call frmMain.RefreshList()
-		
-		Me.Enabled = True
-		
-		Call Me.Close()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: Form イベント frmWindowConvert.Activate には新しい動作が含まれます。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' をクリックしてください。
-	Private Sub frmWindowConvert_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
-		
-		With txtExtension
-			
-			Call .SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(lblExtension.Left) + VB6.PixelsToTwipsX(lblExtension.Width) + 60), .Top, VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.ClientRectangle.Width) - (VB6.PixelsToTwipsX(lblExtension.Left) + VB6.PixelsToTwipsX(lblExtension.Width)) - 180), .Height)
-			
-		End With
-		
-		'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		If Len(g_BMS.strDir) = 0 Then
-			
-			chkDeleteFile.Enabled = False
-			chkFileNameConvert.Enabled = False
-			
-		Else
-			
-			chkDeleteFile.Enabled = True
-			chkFileNameConvert.Enabled = True
-			
-		End If
-		
-		chkDeleteUnusedFile.CheckState = System.Windows.Forms.CheckState.Unchecked
-		chkDeleteFile.CheckState = System.Windows.Forms.CheckState.Unchecked
-		chkFileRecycle.CheckState = System.Windows.Forms.CheckState.Unchecked
-		chkListAlign.CheckState = System.Windows.Forms.CheckState.Unchecked
-		chkUseOldFormat.CheckState = System.Windows.Forms.CheckState.Checked
-		chkFileNameConvert.CheckState = System.Windows.Forms.CheckState.Unchecked
-		
-		Call cmdDecide.Focus()
-		
-	End Sub
-	
-	Private Sub frmWindowConvert_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-		
-		'UPGRADE_ISSUE: Event パラメータ Cancel はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FB723E3C-1C06-4D2B-B083-E6CD0D334DA8"' をクリックしてください。
-		Cancel = True
-		
-		Call Me.Hide()
-		
-		Call frmMain.picMain.Focus()
-		
-	End Sub
+
+    'UPGRADE_WARNING: イベント chkDeleteFile.CheckStateChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
+    Private Sub chkDeleteFile_CheckStateChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles chkDeleteFile.CheckStateChanged
+
+        If chkDeleteFile.CheckState Then
+
+            lblExtension.Enabled = True
+            txtExtension.Enabled = True
+            chkFileRecycle.Enabled = True
+
+        Else
+
+            lblExtension.Enabled = False
+            txtExtension.Enabled = False
+            chkFileRecycle.Enabled = False
+
+        End If
+
+    End Sub
+
+    'UPGRADE_WARNING: イベント chkListAlign.CheckStateChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
+    Private Sub chkListAlign_CheckStateChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles chkListAlign.CheckStateChanged
+
+        If chkListAlign.CheckState Then
+
+            chkUseOldFormat.Enabled = True
+            chkSortByName.Enabled = True
+
+        Else
+
+            chkUseOldFormat.Enabled = False
+            chkSortByName.Enabled = False
+
+        End If
+
+    End Sub
+
+    Private Sub cmdCancel_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdCancel.Click
+
+        Call Me.Close()
+
+    End Sub
+
+    Private Sub cmdDecide_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdDecide.Click
+
+        If chkDeleteUnusedFile.CheckState = 0 And chkDeleteFile.CheckState = 0 And chkListAlign.CheckState = 0 And chkFileNameConvert.CheckState = 0 Then Exit Sub
+
+        'If chkFileNameConvert.Value Then
+
+        'If MsgBox(g_Message(Message.MSG_CONFIRM), vbYesNo + vbInformation, g_strAppTitle) = vbNo Then Exit Sub
+
+        'End If
+
+        Me.Enabled = False
+
+        If chkDeleteUnusedFile.CheckState Then Call DeleteUnusedFile()
+
+        If chkDeleteFile.CheckState Then Call DeleteFile()
+
+        If chkListAlign.CheckState Then Call ListAlign()
+
+        If chkFileNameConvert.CheckState Then Call FileNameConvert()
+
+        Call frmMain.RefreshList()
+
+        Me.Enabled = True
+
+        Call Me.Close()
+
+    End Sub
+
+    'UPGRADE_WARNING: Form イベント frmWindowConvert.Activate には新しい動作が含まれます。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' をクリックしてください。
+    Private Sub frmWindowConvert_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
+
+        With txtExtension
+
+            Call .SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(lblExtension.Left) + VB6.PixelsToTwipsX(lblExtension.Width) + 60), .Top, VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.ClientRectangle.Width) - (VB6.PixelsToTwipsX(lblExtension.Left) + VB6.PixelsToTwipsX(lblExtension.Width)) - 180), .Height)
+
+        End With
+
+        'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+        If Len(g_BMS.strDir) = 0 Then
+
+            chkDeleteFile.Enabled = False
+            chkFileNameConvert.Enabled = False
+
+        Else
+
+            chkDeleteFile.Enabled = True
+            chkFileNameConvert.Enabled = True
+
+        End If
+
+        chkDeleteUnusedFile.CheckState = System.Windows.Forms.CheckState.Unchecked
+        chkDeleteFile.CheckState = System.Windows.Forms.CheckState.Unchecked
+        chkFileRecycle.CheckState = System.Windows.Forms.CheckState.Unchecked
+        chkListAlign.CheckState = System.Windows.Forms.CheckState.Unchecked
+        chkUseOldFormat.CheckState = System.Windows.Forms.CheckState.Checked
+        chkFileNameConvert.CheckState = System.Windows.Forms.CheckState.Unchecked
+
+        Call cmdDecide.Focus()
+
+    End Sub
+
+    Private Sub frmWindowConvert_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs)
+
+    End Sub
+
+    Private Sub frmWindowConvert_FormClosed(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+
+    End Sub
 End Class

@@ -26,103 +26,100 @@
 	'Windows フォーム デザイナを使って変更できます。
 	'コード エディタを使用して、変更しないでください。
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-		Dim resources As System.Resources.ResourceManager = New System.Resources.ResourceManager(GetType(frmWindowTips))
-		Me.components = New System.ComponentModel.Container()
-		Me.ToolTip1 = New System.Windows.Forms.ToolTip(components)
-		Me.picIcon = New System.Windows.Forms.PictureBox
-		Me.tmrMain = New System.Windows.Forms.Timer(components)
-		Me.chkNextDisp = New System.Windows.Forms.CheckBox
-		Me.cmdNext = New System.Windows.Forms.Button
-		Me.cmdClose = New System.Windows.Forms.Button
-		Me.SuspendLayout()
-		Me.ToolTip1.Active = True
-		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
-		Me.Text = "BMSE Tips (Sorry Japanese Language Only!!!!!!!111)"
-		Me.ClientSize = New System.Drawing.Size(418, 264)
-		Me.Location = New System.Drawing.Point(3, 19)
-		Me.Font = New System.Drawing.Font("ＭＳ ゴシック", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-		Me.MaximizeBox = False
-		Me.MinimizeBox = False
-		Me.ShowInTaskbar = False
-		Me.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultLocation
-		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.BackColor = System.Drawing.SystemColors.Control
-		Me.ControlBox = True
-		Me.Enabled = True
-		Me.KeyPreview = False
-		Me.Cursor = System.Windows.Forms.Cursors.Default
-		Me.RightToLeft = System.Windows.Forms.RightToLeft.No
-		Me.HelpButton = False
-		Me.WindowState = System.Windows.Forms.FormWindowState.Normal
-		Me.Name = "frmWindowTips"
-		Me.picIcon.Size = New System.Drawing.Size(32, 64)
-		Me.picIcon.Location = New System.Drawing.Point(0, 0)
-		Me.picIcon.Image = CType(resources.GetObject("picIcon.Image"), System.Drawing.Image)
-		Me.picIcon.TabIndex = 0
-		Me.picIcon.Visible = False
-		Me.picIcon.Dock = System.Windows.Forms.DockStyle.None
-		Me.picIcon.BackColor = System.Drawing.SystemColors.Control
-		Me.picIcon.CausesValidation = True
-		Me.picIcon.Enabled = True
-		Me.picIcon.ForeColor = System.Drawing.SystemColors.ControlText
-		Me.picIcon.Cursor = System.Windows.Forms.Cursors.Default
-		Me.picIcon.RightToLeft = System.Windows.Forms.RightToLeft.No
-		Me.picIcon.TabStop = True
-		Me.picIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
-		Me.picIcon.BorderStyle = System.Windows.Forms.BorderStyle.None
-		Me.picIcon.Name = "picIcon"
-		Me.tmrMain.Enabled = False
-		Me.tmrMain.Interval = 100
-		Me.chkNextDisp.Text = "Launch at next startup"
-		Me.chkNextDisp.Size = New System.Drawing.Size(185, 17)
-		Me.chkNextDisp.Location = New System.Drawing.Point(8, 236)
-		Me.chkNextDisp.TabIndex = 1
-		Me.chkNextDisp.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkNextDisp.CheckAlign = System.Drawing.ContentAlignment.MiddleLeft
-		Me.chkNextDisp.FlatStyle = System.Windows.Forms.FlatStyle.Standard
-		Me.chkNextDisp.BackColor = System.Drawing.SystemColors.Control
-		Me.chkNextDisp.CausesValidation = True
-		Me.chkNextDisp.Enabled = True
-		Me.chkNextDisp.ForeColor = System.Drawing.SystemColors.ControlText
-		Me.chkNextDisp.Cursor = System.Windows.Forms.Cursors.Default
-		Me.chkNextDisp.RightToLeft = System.Windows.Forms.RightToLeft.No
-		Me.chkNextDisp.Appearance = System.Windows.Forms.Appearance.Normal
-		Me.chkNextDisp.TabStop = True
-		Me.chkNextDisp.Visible = True
-		Me.chkNextDisp.Name = "chkNextDisp"
-		Me.cmdNext.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdNext.Text = "次へ"
-		Me.AcceptButton = Me.cmdNext
-		Me.cmdNext.Size = New System.Drawing.Size(101, 25)
-		Me.cmdNext.Location = New System.Drawing.Point(204, 232)
-		Me.cmdNext.TabIndex = 2
-		Me.cmdNext.BackColor = System.Drawing.SystemColors.Control
-		Me.cmdNext.CausesValidation = True
-		Me.cmdNext.Enabled = True
-		Me.cmdNext.ForeColor = System.Drawing.SystemColors.ControlText
-		Me.cmdNext.Cursor = System.Windows.Forms.Cursors.Default
-		Me.cmdNext.RightToLeft = System.Windows.Forms.RightToLeft.No
-		Me.cmdNext.TabStop = True
-		Me.cmdNext.Name = "cmdNext"
-		Me.cmdClose.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdClose.Text = "閉じる"
-		Me.cmdClose.Size = New System.Drawing.Size(97, 25)
-		Me.cmdClose.Location = New System.Drawing.Point(312, 232)
-		Me.cmdClose.TabIndex = 3
-		Me.cmdClose.BackColor = System.Drawing.SystemColors.Control
-		Me.cmdClose.CausesValidation = True
-		Me.cmdClose.Enabled = True
-		Me.cmdClose.ForeColor = System.Drawing.SystemColors.ControlText
-		Me.cmdClose.Cursor = System.Windows.Forms.Cursors.Default
-		Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
-		Me.cmdClose.TabStop = True
-		Me.cmdClose.Name = "cmdClose"
-		Me.Controls.Add(picIcon)
-		Me.Controls.Add(chkNextDisp)
-		Me.Controls.Add(cmdNext)
-		Me.Controls.Add(cmdClose)
-		Me.ResumeLayout(False)
-		Me.PerformLayout()
-	End Sub
-#End Region 
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmWindowTips))
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.picIcon = New System.Windows.Forms.PictureBox()
+        Me.tmrMain = New System.Windows.Forms.Timer(Me.components)
+        Me.chkNextDisp = New System.Windows.Forms.CheckBox()
+        Me.cmdNext = New System.Windows.Forms.Button()
+        Me.cmdClose = New System.Windows.Forms.Button()
+        CType(Me.picIcon, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuspendLayout()
+        '
+        'picIcon
+        '
+        Me.picIcon.BackColor = System.Drawing.SystemColors.Control
+        Me.picIcon.Cursor = System.Windows.Forms.Cursors.Default
+        Me.picIcon.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.picIcon.Image = CType(resources.GetObject("picIcon.Image"), System.Drawing.Image)
+        Me.picIcon.Location = New System.Drawing.Point(0, 0)
+        Me.picIcon.Name = "picIcon"
+        Me.picIcon.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.picIcon.Size = New System.Drawing.Size(32, 64)
+        Me.picIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.picIcon.TabIndex = 0
+        Me.picIcon.Visible = False
+        '
+        'tmrMain
+        '
+        '
+        'chkNextDisp
+        '
+        Me.chkNextDisp.BackColor = System.Drawing.SystemColors.Control
+        Me.chkNextDisp.Checked = True
+        Me.chkNextDisp.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkNextDisp.Cursor = System.Windows.Forms.Cursors.Default
+        Me.chkNextDisp.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.chkNextDisp.Location = New System.Drawing.Point(8, 236)
+        Me.chkNextDisp.Name = "chkNextDisp"
+        Me.chkNextDisp.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.chkNextDisp.Size = New System.Drawing.Size(185, 17)
+        Me.chkNextDisp.TabIndex = 1
+        Me.chkNextDisp.Text = "Launch at next startup"
+        Me.chkNextDisp.UseVisualStyleBackColor = False
+        '
+        'cmdNext
+        '
+        Me.cmdNext.BackColor = System.Drawing.SystemColors.Control
+        Me.cmdNext.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmdNext.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmdNext.Location = New System.Drawing.Point(204, 232)
+        Me.cmdNext.Name = "cmdNext"
+        Me.cmdNext.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.cmdNext.Size = New System.Drawing.Size(101, 25)
+        Me.cmdNext.TabIndex = 2
+        Me.cmdNext.Text = "次へ"
+        Me.cmdNext.UseVisualStyleBackColor = False
+        '
+        'cmdClose
+        '
+        Me.cmdClose.BackColor = System.Drawing.SystemColors.Control
+        Me.cmdClose.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmdClose.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmdClose.Location = New System.Drawing.Point(312, 232)
+        Me.cmdClose.Name = "cmdClose"
+        Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.cmdClose.Size = New System.Drawing.Size(97, 25)
+        Me.cmdClose.TabIndex = 3
+        Me.cmdClose.Text = "閉じる"
+        Me.cmdClose.UseVisualStyleBackColor = False
+        '
+        'frmWindowTips
+        '
+        Me.AcceptButton = Me.cmdNext
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.Control
+        Me.ClientSize = New System.Drawing.Size(418, 264)
+        Me.Controls.Add(Me.picIcon)
+        Me.Controls.Add(Me.chkNextDisp)
+        Me.Controls.Add(Me.cmdNext)
+        Me.Controls.Add(Me.cmdClose)
+        Me.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Font = New System.Drawing.Font("ＭＳ ゴシック", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.Location = New System.Drawing.Point(3, 19)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
+        Me.Name = "frmWindowTips"
+        Me.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.ShowInTaskbar = False
+        Me.Text = "BMSE Tips (Sorry Japanese Language Only!!!!!!!111)"
+        CType(Me.picIcon, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ResumeLayout(False)
+        Me.PerformLayout()
+
+    End Sub
+#End Region
 End Class

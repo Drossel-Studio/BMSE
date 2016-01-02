@@ -42,80 +42,73 @@ Module modEasterEgg
 	Private m_lngCounter As Integer
 	
 	Private m_strStaffRoll() As String
-	
-	Public Sub InitEffect()
-		Dim modMain As Object
-		Dim strGet_ini As Object
-		
-		'modInput.LoadBMSEnd にエイプリルフール用コードあり
-		'If strGet_ini("EasterEgg", "Snow", False, "bmse.ini") = True Or (Month(Now) = 12 And Day(Now) = 25) Then
-		'UPGRADE_WARNING: オブジェクト strGet_ini(EasterEgg, Snow, False, bmse.ini) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		If strGet_ini("EasterEgg", "Snow", False, "bmse.ini") Then
-			
-			'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			g_disp.intEffect = EASTEREGG.SNOW
-			
-			Call modEasterEgg.InitSnow()
-			
-			'UPGRADE_WARNING: オブジェクト strGet_ini(EasterEgg, siromaru, False, bmse.ini) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		ElseIf strGet_ini("EasterEgg", "siromaru", False, "bmse.ini") Then 
-			
-			'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			g_disp.intEffect = EASTEREGG.SIROMARU
-			
-			Call modEasterEgg.InitSnow()
-			
-			'ElseIf Month(Now) = 12 And (Day(Now) = 24 Or Day(Now) = 25) And strGet_ini("EasterEgg", "Snow", True, "bmse.ini") = True Then
-			'UPGRADE_WARNING: オブジェクト strGet_ini(EasterEgg, Snow, True, bmse.ini) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		ElseIf Month(Now) = 12 And VB.Day(Now) = 25 And strGet_ini("EasterEgg", "Snow", True, "bmse.ini") = True Then 
-			
-			'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			g_disp.intEffect = EASTEREGG.SNOW
-			
-			Call modEasterEgg.InitSnow()
-			
-			g_strAppTitle = g_strAppTitle & " (Xmas mode: Only once!)"
-			frmMain.Text = g_strAppTitle
-			
-			'UPGRADE_WARNING: オブジェクト modMain.lngSet_ini の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			Call modMain.lngSet_ini("EasterEgg", "Snow", False)
-			
-		End If
-		
-	End Sub
-	
-	Public Sub LoadEffect()
-		Dim modMain As Object
-		
-		If Month(Now) = 2 And VB.Day(Now) = 15 Then 'シロマルの誕生日
-			
-			'UPGRADE_WARNING: オブジェクト g_BMS.strArtist の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			If g_BMS.strArtist = "siromaru" Then
-				
-				'UPGRADE_WARNING: オブジェクト modMain.strGet_ini の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				If modMain.strGet_ini("EasterEgg", "siromaru", False, "bmse.ini") = False And modMain.strGet_ini("EasterEgg", "siromaru", True, "bmse.ini") = True Then
-					
-					'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					g_disp.intEffect = EASTEREGG.SIROMARU
-					
-					Call modEasterEgg.InitSnow()
-					
-					'Call modMain.lngSet_ini("EasterEgg", "siromaru", False)
-					
-				End If
-				
-			End If
-			
-		End If
-		
-	End Sub
+
+    Public Sub InitEffect()
+        'modInput.LoadBMSEnd にエイプリルフール用コードあり
+        'If strGet_ini("EasterEgg", "Snow", False, "bmse.ini") = True Or (Month(Now) = 12 And Day(Now) = 25) Then
+        'UPGRADE_WARNING: オブジェクト strGet_ini(EasterEgg, Snow, False, bmse.ini) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+        If strGet_ini("EasterEgg", "Snow", False, "bmse.ini") Then
+
+            'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            g_disp.intEffect = EASTEREGG.SNOW
+
+            Call modEasterEgg.InitSnow()
+
+            'UPGRADE_WARNING: オブジェクト strGet_ini(EasterEgg, siromaru, False, bmse.ini) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+        ElseIf strGet_ini("EasterEgg", "siromaru", False, "bmse.ini") Then
+
+            'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            g_disp.intEffect = EASTEREGG.SIROMARU
+
+            Call modEasterEgg.InitSnow()
+
+            'ElseIf Month(Now) = 12 And (Day(Now) = 24 Or Day(Now) = 25) And strGet_ini("EasterEgg", "Snow", True, "bmse.ini") = True Then
+            'UPGRADE_WARNING: オブジェクト strGet_ini(EasterEgg, Snow, True, bmse.ini) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+        ElseIf Month(Now) = 12 And VB.Day(Now) = 25 And strGet_ini("EasterEgg", "Snow", True, "bmse.ini") = True Then
+
+            'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            g_disp.intEffect = EASTEREGG.SNOW
+
+            Call modEasterEgg.InitSnow()
+
+            g_strAppTitle = g_strAppTitle & " (Xmas mode: Only once!)"
+            frmMain.Text = g_strAppTitle
+
+            'UPGRADE_WARNING: オブジェクト modMain.lngSet_ini の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            Call modMain.lngSet_ini("EasterEgg", "Snow", False)
+
+        End If
+
+    End Sub
+
+    Public Sub LoadEffect()
+        If Month(Now) = 2 And VB.Day(Now) = 15 Then 'シロマルの誕生日
+
+            'UPGRADE_WARNING: オブジェクト g_BMS.strArtist の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            If g_BMS.strArtist = "siromaru" Then
+
+                'UPGRADE_WARNING: オブジェクト modMain.strGet_ini の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                If modMain.strGet_ini("EasterEgg", "siromaru", False, "bmse.ini") = False And modMain.strGet_ini("EasterEgg", "siromaru", True, "bmse.ini") = True Then
+
+                    'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    g_disp.intEffect = EASTEREGG.SIROMARU
+
+                    Call modEasterEgg.InitSnow()
+
+                    'Call modMain.lngSet_ini("EasterEgg", "siromaru", False)
+
+                End If
+
+            End If
+
+        End If
+
+    End Sub
 	
 	Public Sub EndEffect()
-		Dim modMain As Object
-		
-		Dim strTemp As String
-		
-		If frmMain.tmrEffect.Enabled Then
+        Dim strTemp As String
+
+        If frmMain.tmrEffect.Enabled Then
 			
 			'If Month(Now) = 4 And Day(Now) = 1 And g_disp.intEffect = RASTER Then 'April Fool
 			'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。

@@ -112,27 +112,27 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="ToolTip1.Location" type="System.Drawing.Point, System.Drawing">
+  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
-  </data>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="picIcon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAABABAMAAACJoGidAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAwUExURQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgISGhMDAAMbHxv//AP///wbc
-        gvQAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADWSURBVDjLtdI7DoMwDADQzJWq3H/L7CUXQKh7PXTv0r2S
-        DxAoNC4OiYP4qGpZIA+bBNsGqus78HkVpoh4c8acplcMntcsYf6GswM9YkgCZ8eBRBKQAsMBRNPzCtAW
-        +DFCR9RGGEOKECi2bZ/VOTRwjmRkIAXOdurnVmGuRwCGsmJgXnejairg56oL5L4swJ1vJw2fvhQATtbw
-        o3E4BvU5ZD4KsD1e9Hz0KJIAFRgOQCy7vwDchQ6x2YK4bXOtzqGBcyQjA2I1H+rnDgAwqBLud/+v8wHw
-        Bsofi1Hx6NB8AAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAACAAAABABAMAAACJoGidAAAABGdBTUEAALGPC/xhBQAAADBQTFRFAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgICAhIaEwMAAxsfG//8A////BtyC9AAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAANZJREFUOMu10jsOgzAMANDMlarcf8vsJRdAqHs9dO/SvZIPECg0Lg6Jg/ioalkg
+        D5sE2waq6zvweRWmiHhzxpymVwye1yxh/oazAz1iSAJnx4FEEpACwwFE0/MK0Bb4MUJH1EYYQ4oQKLZt
+        n9U5NHCOZGQgBc526udWYa5HAIayYmBed6NqKuDnqgvkvizAnW8nDZ++FABO1vCjcTgG9TlkPgqwPV70
+        fPQokgAVGA5ALLu/ANyFDrHZgrhtc63OoYFzJCMDYjUf6ucOADCoEu53/6/zAfAGyh+LUfHo0HwAAAAA
+        SUVORK5CYII=
 </value>
   </data>
-  <data name="tmrMain.Location" type="System.Drawing.Point, System.Drawing">
+  <metadata name="tmrMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>105, 17</value>
-  </data>
+  </metadata>
 </root>

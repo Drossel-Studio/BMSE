@@ -13,11 +13,9 @@ Friend Class frmWindowFind
 	End Sub
 	
 	Private Sub cmdDecide_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdDecide.Click
-		Dim modMain As Object
-		
-		Dim i As Integer
-		
-		ReDim m_strArray(0)
+        Dim i As Integer
+
+        ReDim m_strArray(0)
 		m_strArray(0) = ""
 		
 		For i = 0 To UBound(g_Obj) - 1
@@ -320,94 +318,74 @@ Friend Class frmWindowFind
 		Call cmdDecide.Focus()
 		
 	End Sub
-	
-	Private Sub frmWindowFind_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-		
-		Dim i As Integer
-		
-		For i = 2 To 32
 
-            Call _lstGrid_2.Items.Add(VB6.Format(i, "00"))
-
-        Next i
-		
-		Call cmdSelect_Click(cmdSelect, New System.EventArgs())
-
-        _lstGrid_0.SelectedIndex = 0
-        _lstGrid_1.SelectedIndex = 0
-        _lstGrid_2.SelectedIndex = 0
-        _lstGrid_3.SelectedIndex = 0
+    Private Sub frmWindowFind_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
 
     End Sub
-	
-	Private Sub frmWindowFind_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-		
-		'UPGRADE_ISSUE: Event パラメータ Cancel はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FB723E3C-1C06-4D2B-B083-E6CD0D334DA8"' をクリックしてください。
-		Cancel = True
-		
-		Call Me.Hide()
-		
-		Call frmMain.picMain.Focus()
-		
-	End Sub
-	
-	Private Sub txtMeasureMax_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtMeasureMax.Enter
-		
-		txtMeasureMax.SelectionStart = 0
-		txtMeasureMax.SelectionLength = Len(txtMeasureMax.Text)
-		
-	End Sub
-	
-	Private Sub txtMeasureMin_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtMeasureMin.Enter
-		
-		txtMeasureMin.SelectionStart = 0
-		txtMeasureMin.SelectionLength = Len(txtMeasureMin.Text)
-		
-	End Sub
-	
-	Private Sub txtNumMax_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtNumMax.Enter
-		
-		txtNumMax.SelectionStart = 0
-		txtNumMax.SelectionLength = Len(txtNumMax.Text)
-		
-	End Sub
-	
-	Private Sub txtNumMin_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtNumMin.Enter
-		
-		txtNumMin.SelectionStart = 0
-		txtNumMin.SelectionLength = Len(txtNumMin.Text)
-		
-	End Sub
-	
-	Private Sub txtReplace_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtReplace.Enter
-		
-		optProcessReplace.Checked = True
-		txtReplace.SelectionStart = 0
-		txtReplace.SelectionLength = Len(txtReplace.Text)
-		
-	End Sub
-	
-	Private Sub SearchProcess(ByVal num As Integer)
-		Dim modMain As Object
-		
-		With g_Obj(num)
-			
-			If optProcessReplace.Checked Then
-				
-				If .intCh <> 8 And .intCh <> 9 Then
-					
-					m_strArray(UBound(m_strArray)) = modInput.strFromNum(modMain.CMD_LOG.OBJ_CHANGE) & modInput.strFromNum(.lngID, 4) & modInput.strFromNum(.sngValue) & VB.Right("0" & txtReplace.Text, 2)
-					ReDim Preserve m_strArray(UBound(m_strArray) + 1)
-					.sngValue = modInput.strToNum((txtReplace.Text))
-					
-				End If
-				
-			End If
-			
-			'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.intSelect = modMain.OBJ_SELECT.Selected
-			
-		End With
-		
-	End Sub
+
+    Private Sub frmWindowFind_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+
+    End Sub
+
+    Private Sub txtMeasureMax_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtMeasureMax.Enter
+
+        txtMeasureMax.SelectionStart = 0
+        txtMeasureMax.SelectionLength = Len(txtMeasureMax.Text)
+
+    End Sub
+
+    Private Sub txtMeasureMin_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtMeasureMin.Enter
+
+        txtMeasureMin.SelectionStart = 0
+        txtMeasureMin.SelectionLength = Len(txtMeasureMin.Text)
+
+    End Sub
+
+    Private Sub txtNumMax_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtNumMax.Enter
+
+        txtNumMax.SelectionStart = 0
+        txtNumMax.SelectionLength = Len(txtNumMax.Text)
+
+    End Sub
+
+    Private Sub txtNumMin_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtNumMin.Enter
+
+        txtNumMin.SelectionStart = 0
+        txtNumMin.SelectionLength = Len(txtNumMin.Text)
+
+    End Sub
+
+    Private Sub txtReplace_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtReplace.Enter
+
+        optProcessReplace.Checked = True
+        txtReplace.SelectionStart = 0
+        txtReplace.SelectionLength = Len(txtReplace.Text)
+
+    End Sub
+
+    Private Sub SearchProcess(ByVal num As Integer)
+        With g_Obj(num)
+
+            If optProcessReplace.Checked Then
+
+                If .intCh <> 8 And .intCh <> 9 Then
+
+                    m_strArray(UBound(m_strArray)) = modInput.strFromNum(modMain.CMD_LOG.OBJ_CHANGE) & modInput.strFromNum(.lngID, 4) & modInput.strFromNum(.sngValue) & VB.Right("0" & txtReplace.Text, 2)
+                    ReDim Preserve m_strArray(UBound(m_strArray) + 1)
+                    .sngValue = modInput.strToNum((txtReplace.Text))
+
+                End If
+
+            End If
+
+            'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .intSelect = modMain.OBJ_SELECT.Selected
+
+        End With
+
+    End Sub
+
+    Private Sub frmWindowFind_FormClosed(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+
+    End Sub
 End Class

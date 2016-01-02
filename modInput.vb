@@ -86,15 +86,13 @@ Module modInput
 	Private m_sngBPM(MATERIAL_MAX) As Single
 	
 	Public Sub LoadBMS()
-		Dim modMain As Object
-		Dim g_Message As Object
-		On Error GoTo Err_Renamed
-		
-		'ファイルの存在チェック
-		'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
-		If Dir(g_BMS.strDir & g_BMS.strFileName, FileAttribute.Normal) = vbNullString Then
+        On Error GoTo Err_Renamed
+
+        'ファイルの存在チェック
+        'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+        'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+        'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+        If Dir(g_BMS.strDir & g_BMS.strFileName, FileAttribute.Normal) = vbNullString Then
 			
 			'UPGRADE_WARNING: オブジェクト g_Message(ERR_LOAD_CANCEL) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
 			'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
@@ -120,10 +118,9 @@ Err_Renamed:
 	End Sub
 	
 	Public Sub LoadBMSStart()
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim i As Integer
+        On Error GoTo Err_Renamed
+
+        Dim i As Integer
 		
 		With frmMain
 			
@@ -224,10 +221,9 @@ Err_Renamed:
 	End Sub
 	
 	Public Sub LoadBMSEnd()
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		With frmMain
+        On Error GoTo Err_Renamed
+
+        With frmMain
 			
 			Call modEasterEgg.LoadEffect()
 			
@@ -263,17 +259,17 @@ Err_Renamed:
 			
 			'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
 			If Len(g_BMS.strDir) Then
-				
-				If .mnuOptionsItem(frmMain.MENU_OPTIONS.TITLE_FILENAME).Checked Then
-					
-					'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					.Text = g_strAppTitle & " - " & g_BMS.strFileName
-					
-				Else
-					
-					'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					.Text = g_strAppTitle & " - " & g_BMS.strDir & g_BMS.strFileName
+
+                If ._mnuOptionsItem_1.Checked Then
+
+                    'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    .Text = g_strAppTitle & " - " & g_BMS.strFileName
+
+                Else
+
+                    'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    .Text = g_strAppTitle & " - " & g_BMS.strDir & g_BMS.strFileName
 					
 				End If
 				
@@ -293,10 +289,9 @@ Err_Renamed:
 	End Sub
 	
 	Private Sub LoadBMSData()
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim i As Integer
+        On Error GoTo Err_Renamed
+
+        Dim i As Integer
 		Dim strArray() As String
 		Dim strTemp As String
 		Dim lngFFile As Integer
@@ -369,10 +364,9 @@ Err_Renamed:
 	End Sub
 	
 	Public Sub LoadBMSLine(ByRef strLineData As String, Optional ByVal blnDirectInput As Boolean = False)
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim strArray() As String
+        On Error GoTo Err_Renamed
+
+        Dim strArray() As String
 		Dim strFunc As String
 		Dim strParam As String
 		
@@ -441,10 +435,9 @@ Err_Renamed:
 	End Sub
 	
 	Private Function LoadBMSHeader(ByRef strFunc As String, ByRef strParam As String, Optional ByVal blnDirectInput As Boolean = False) As Boolean
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim lngNum As Integer
+        On Error GoTo Err_Renamed
+
+        Dim lngNum As Integer
 		
 		With frmMain
 			
@@ -613,10 +606,9 @@ Err_Renamed:
 	End Function
 	
 	Private Function LoadBMSObject(ByRef strFunc As String, ByRef strParam As String) As Boolean
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim i As Integer
+        On Error GoTo Err_Renamed
+
+        Dim i As Integer
 		Dim j As Integer
 		Dim intTemp As Short
 		Dim intMeasure As Short
@@ -815,14 +807,14 @@ Err_Renamed:
 	End Sub
 	
 	Public Function strToNum(ByRef strNum As String) As Integer
-		
-		If frmMain.mnuOptionsItem(frmMain.MENU_OPTIONS.USE_OLD_FORMAT).Checked Then
-			
-			strToNum = strToNumFF(strNum)
-			
-		Else
-			
-			strToNum = strToNumZZ(strNum)
+
+        If frmMain._mnuOptionsItem_7.Checked Then
+
+            strToNum = strToNumFF(strNum)
+
+        Else
+
+            strToNum = strToNumZZ(strNum)
 			
 		End If
 		
@@ -924,24 +916,24 @@ Err_Renamed:
 	End Function
 	
 	Public Function strFromNum(ByVal lngNum As Integer, Optional ByVal Length As Integer = 2) As String
-		
-		If frmMain.mnuOptionsItem(frmMain.MENU_OPTIONS.USE_OLD_FORMAT).Checked Then
-			
-			strFromNum = strFromNumFF(lngNum, Length)
-			
-		Else
-			
-			strFromNum = strFromNumZZ(lngNum, Length)
+
+        If frmMain._mnuOptionsItem_7.Checked Then
+
+            strFromNum = strFromNumFF(lngNum, Length)
+
+        Else
+
+            strFromNum = strFromNumZZ(lngNum, Length)
 			
 		End If
 		
 	End Function
 	
 	Public Function strFromNumZZ(ByVal lngNum As Integer, Optional ByVal Length As Integer = 2) As String
-		
-		Dim strTemp As String
-		
-		Do While lngNum
+
+        Dim strTemp As String = ""
+
+        Do While lngNum
 			
 			strTemp = subStrFromNumZZ(lngNum Mod 36) & strTemp
 			lngNum = lngNum \ 36

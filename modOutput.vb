@@ -3,9 +3,7 @@ Option Explicit On
 Module modOutput
 	
 	Public Sub CreateBMS(ByRef strOutputPath As String, Optional ByVal Flag As Short = 0)
-		Dim modMain As Object
-		Dim g_Message As Object
-		On Error GoTo Err_Renamed
+        On Error GoTo Err_Renamed
 
         Dim strObjData(,) As String
         Dim blnObjData(,) As Boolean
@@ -501,17 +499,17 @@ Init:
 			
 			'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
 			If Len(g_BMS.strDir) Then
-				
-				If frmMain.mnuOptionsItem(frmMain.MENU_OPTIONS.TITLE_FILENAME).Checked Then
-					
-					'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					frmMain.Text = g_strAppTitle & " - " & g_BMS.strFileName
-					
-				Else
-					
-					'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					frmMain.Text = g_strAppTitle & " - " & g_BMS.strDir & g_BMS.strFileName
+
+                If frmMain._mnuOptionsItem_1.Checked Then
+
+                    'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    frmMain.Text = g_strAppTitle & " - " & g_BMS.strFileName
+
+                Else
+
+                    'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                    frmMain.Text = g_strAppTitle & " - " & g_BMS.strDir & g_BMS.strFileName
 					
 				End If
 				

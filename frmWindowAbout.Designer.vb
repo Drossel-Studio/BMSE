@@ -23,56 +23,51 @@
 	'Windows フォーム デザイナを使って変更できます。
 	'コード エディタを使用して、変更しないでください。
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-		Dim resources As System.Resources.ResourceManager = New System.Resources.ResourceManager(GetType(frmWindowAbout))
-		Me.components = New System.ComponentModel.Container()
-		Me.ToolTip1 = New System.Windows.Forms.ToolTip(components)
-		Me.picMain = New System.Windows.Forms.Panel
-		Me.tmrMain = New System.Windows.Forms.Timer(components)
-		Me.picMain.SuspendLayout()
-		Me.SuspendLayout()
-		Me.ToolTip1.Active = True
-		Me.BackColor = System.Drawing.Color.Black
-		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
-		Me.Text = "About BMSE"
-		Me.ClientSize = New System.Drawing.Size(526, 196)
-		Me.Location = New System.Drawing.Point(3, 19)
-		Me.Font = New System.Drawing.Font("ＭＳ ゴシック", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-		Me.Icon = CType(resources.GetObject("frmWindowAbout.Icon"), System.Drawing.Icon)
-		Me.MaximizeBox = False
-		Me.MinimizeBox = False
-		Me.ShowInTaskbar = False
-		Me.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultLocation
-		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ControlBox = True
-		Me.Enabled = True
-		Me.KeyPreview = False
-		Me.Cursor = System.Windows.Forms.Cursors.Default
-		Me.RightToLeft = System.Windows.Forms.RightToLeft.No
-		Me.HelpButton = False
-		Me.WindowState = System.Windows.Forms.FormWindowState.Normal
-		Me.Name = "frmWindowAbout"
-		Me.picMain.Font = New System.Drawing.Font("ＭＳ ゴシック", 12!, System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline Or System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-		Me.picMain.Size = New System.Drawing.Size(526, 196)
-		Me.picMain.Location = New System.Drawing.Point(0, 0)
-		Me.picMain.BackgroundImage = CType(resources.GetObject("picMain.BackgroundImage"), System.Drawing.Image)
-		Me.picMain.TabIndex = 0
-		Me.picMain.Visible = False
-		Me.picMain.Dock = System.Windows.Forms.DockStyle.None
-		Me.picMain.BackColor = System.Drawing.SystemColors.Control
-		Me.picMain.CausesValidation = True
-		Me.picMain.Enabled = True
-		Me.picMain.ForeColor = System.Drawing.SystemColors.ControlText
-		Me.picMain.Cursor = System.Windows.Forms.Cursors.Default
-		Me.picMain.RightToLeft = System.Windows.Forms.RightToLeft.No
-		Me.picMain.TabStop = True
-		Me.picMain.BorderStyle = System.Windows.Forms.BorderStyle.None
-		Me.picMain.Name = "picMain"
-		Me.tmrMain.Enabled = False
-		Me.tmrMain.Interval = 100
-		Me.Controls.Add(picMain)
-		Me.picMain.ResumeLayout(False)
-		Me.ResumeLayout(False)
-		Me.PerformLayout()
-	End Sub
-#End Region 
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmWindowAbout))
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.picMain = New System.Windows.Forms.Panel()
+        Me.tmrMain = New System.Windows.Forms.Timer(Me.components)
+        Me.SuspendLayout()
+        '
+        'picMain
+        '
+        Me.picMain.BackColor = System.Drawing.SystemColors.Control
+        Me.picMain.BackgroundImage = CType(resources.GetObject("picMain.BackgroundImage"), System.Drawing.Image)
+        Me.picMain.Cursor = System.Windows.Forms.Cursors.Default
+        Me.picMain.Font = New System.Drawing.Font("ＭＳ ゴシック", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.picMain.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.picMain.Location = New System.Drawing.Point(0, 0)
+        Me.picMain.Name = "picMain"
+        Me.picMain.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.picMain.Size = New System.Drawing.Size(526, 196)
+        Me.picMain.TabIndex = 0
+        Me.picMain.TabStop = True
+        Me.picMain.Visible = False
+        '
+        'tmrMain
+        '
+        '
+        'frmWindowAbout
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.Black
+        Me.ClientSize = New System.Drawing.Size(526, 196)
+        Me.Controls.Add(Me.picMain)
+        Me.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Font = New System.Drawing.Font("ＭＳ ゴシック", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Location = New System.Drawing.Point(3, 19)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
+        Me.Name = "frmWindowAbout"
+        Me.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.ShowInTaskbar = False
+        Me.Text = "About BMSE"
+        Me.ResumeLayout(False)
+
+    End Sub
+#End Region
 End Class
