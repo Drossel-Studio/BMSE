@@ -334,7 +334,7 @@
         Me.mnuLineHelp = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuHelpWeb = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuHelpAbout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuContext = New System.Windows.Forms.ContextMenuStrip()
+        Me.mnuContext = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuContextPlayAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextPlay = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextBar1 = New System.Windows.Forms.ToolStripSeparator()
@@ -345,7 +345,7 @@
         Me.mnuContextEditCopy = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextEditPaste = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextEditDelete = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuContextList = New System.Windows.Forms.ContextMenuStrip()
+        Me.mnuContextList = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuContextListLoad = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextListDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextListRename = New System.Windows.Forms.ToolStripMenuItem()
@@ -492,6 +492,8 @@
         Me.lblDirectInput = New System.Windows.Forms.Label()
         Me.dlgMain = New System.Windows.Forms.OpenFileDialog()
         Me.MainMenu1.SuspendLayout()
+        Me.mnuContext.SuspendLayout()
+        Me.mnuContextList.SuspendLayout()
         Me.staMain.SuspendLayout()
         CType(Me.picSiromaru, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.fraResolution.SuspendLayout()
@@ -1082,7 +1084,7 @@
         '
         Me.mnuContext.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextPlayAll, Me.mnuContextPlay, Me.mnuContextBar1, Me.mnuContextInsertMeasure, Me.mnuContextDeleteMeasure, Me.mnuContextBar2, Me.mnuContextEditCut, Me.mnuContextEditCopy, Me.mnuContextEditPaste, Me.mnuContextEditDelete})
         Me.mnuContext.Name = "mnuContext"
-        Me.mnuContext.Size = New System.Drawing.Size(84, 20)
+        Me.mnuContext.Size = New System.Drawing.Size(218, 192)
         Me.mnuContext.Text = "mnuContext"
         '
         'mnuContextPlayAll
@@ -1147,7 +1149,7 @@
         '
         Me.mnuContextList.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextListLoad, Me.mnuContextListDelete, Me.mnuContextListRename})
         Me.mnuContextList.Name = "mnuContextList"
-        Me.mnuContextList.Size = New System.Drawing.Size(102, 20)
+        Me.mnuContextList.Size = New System.Drawing.Size(200, 70)
         Me.mnuContextList.Text = "mnuContextList"
         '
         'mnuContextListLoad
@@ -1184,7 +1186,7 @@
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me._staMain_Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
         Me._staMain_Panel1.Margin = New System.Windows.Forms.Padding(0)
-        Me._staMain_Panel1.Name = "_staMain_Panel1"
+        Me._staMain_Panel1.Name = "Mode"
         Me._staMain_Panel1.Size = New System.Drawing.Size(81, 22)
         Me._staMain_Panel1.Text = "Edit Mode"
         '
@@ -1196,7 +1198,7 @@
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me._staMain_Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
         Me._staMain_Panel2.Margin = New System.Windows.Forms.Padding(0)
-        Me._staMain_Panel2.Name = "_staMain_Panel2"
+        Me._staMain_Panel2.Name = "Position"
         Me._staMain_Panel2.Size = New System.Drawing.Size(906, 22)
         Me._staMain_Panel2.Spring = True
         Me._staMain_Panel2.Text = "Position:"
@@ -1210,7 +1212,7 @@
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me._staMain_Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
         Me._staMain_Panel3.Margin = New System.Windows.Forms.Padding(0)
-        Me._staMain_Panel3.Name = "_staMain_Panel3"
+        Me._staMain_Panel3.Name = "WAV"
         Me._staMain_Panel3.Size = New System.Drawing.Size(68, 22)
         Me._staMain_Panel3.Text = "#WAV 01"
         '
@@ -1222,7 +1224,7 @@
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me._staMain_Panel4.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
         Me._staMain_Panel4.Margin = New System.Windows.Forms.Padding(0)
-        Me._staMain_Panel4.Name = "_staMain_Panel4"
+        Me._staMain_Panel4.Name = "BMP"
         Me._staMain_Panel4.Size = New System.Drawing.Size(68, 22)
         Me._staMain_Panel4.Text = "#BMP 01"
         '
@@ -1234,7 +1236,7 @@
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me._staMain_Panel5.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
         Me._staMain_Panel5.Margin = New System.Windows.Forms.Padding(0)
-        Me._staMain_Panel5.Name = "_staMain_Panel5"
+        Me._staMain_Panel5.Name = "Measure"
         Me._staMain_Panel5.Size = New System.Drawing.Size(54, 22)
         Me._staMain_Panel5.Text = "4/4"
         '
@@ -2677,7 +2679,7 @@
         Me._tlbMenu_Button1.AutoSize = False
         Me._tlbMenu_Button1.ImageIndex = 0
         Me._tlbMenu_Button1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button1.Name = "_tlbMenu_Button1"
+        Me._tlbMenu_Button1.Name = "New"
         Me._tlbMenu_Button1.Size = New System.Drawing.Size(24, 22)
         Me._tlbMenu_Button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me._tlbMenu_Button1.ToolTipText = "新規作成"
@@ -2688,7 +2690,7 @@
         Me._tlbMenu_Button2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem0, Me.ToolStripMenuItem1, Me.ToolStripMenuItem2, Me.ToolStripMenuItem3, Me.ToolStripMenuItem4, Me.ToolStripMenuItem5, Me.ToolStripMenuItem6, Me.ToolStripMenuItem7, Me.ToolStripMenuItem8, Me.ToolStripMenuItem9})
         Me._tlbMenu_Button2.ImageIndex = 1
         Me._tlbMenu_Button2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button2.Name = "_tlbMenu_Button2"
+        Me._tlbMenu_Button2.Name = "Open"
         Me._tlbMenu_Button2.Size = New System.Drawing.Size(37, 22)
         Me._tlbMenu_Button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me._tlbMenu_Button2.ToolTipText = "開く"
@@ -2778,7 +2780,7 @@
         Me._tlbMenu_Button3.AutoSize = False
         Me._tlbMenu_Button3.ImageIndex = 2
         Me._tlbMenu_Button3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button3.Name = "_tlbMenu_Button3"
+        Me._tlbMenu_Button3.Name = "Reload"
         Me._tlbMenu_Button3.Size = New System.Drawing.Size(24, 22)
         Me._tlbMenu_Button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me._tlbMenu_Button3.ToolTipText = "再読み込み"
@@ -2788,7 +2790,7 @@
         Me._tlbMenu_Button4.AutoSize = False
         Me._tlbMenu_Button4.ImageIndex = 3
         Me._tlbMenu_Button4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button4.Name = "_tlbMenu_Button4"
+        Me._tlbMenu_Button4.Name = "Save"
         Me._tlbMenu_Button4.Size = New System.Drawing.Size(24, 22)
         Me._tlbMenu_Button4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me._tlbMenu_Button4.ToolTipText = "上書き保存"
@@ -2798,7 +2800,7 @@
         Me._tlbMenu_Button5.AutoSize = False
         Me._tlbMenu_Button5.ImageIndex = 4
         Me._tlbMenu_Button5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button5.Name = "_tlbMenu_Button5"
+        Me._tlbMenu_Button5.Name = "SaveAs"
         Me._tlbMenu_Button5.Size = New System.Drawing.Size(24, 22)
         Me._tlbMenu_Button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me._tlbMenu_Button5.ToolTipText = "名前を付けて保存"
@@ -2806,7 +2808,7 @@
         '_tlbMenu_Button6
         '
         Me._tlbMenu_Button6.AutoSize = False
-        Me._tlbMenu_Button6.Name = "_tlbMenu_Button6"
+        Me._tlbMenu_Button6.Name = "SepMode"
         Me._tlbMenu_Button6.Size = New System.Drawing.Size(24, 22)
         '
         '_tlbMenu_Button7
@@ -2816,7 +2818,7 @@
         Me._tlbMenu_Button7.CheckState = System.Windows.Forms.CheckState.Checked
         Me._tlbMenu_Button7.ImageIndex = 5
         Me._tlbMenu_Button7.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button7.Name = "_tlbMenu_Button7"
+        Me._tlbMenu_Button7.Name = "Edit"
         Me._tlbMenu_Button7.Size = New System.Drawing.Size(24, 22)
         Me._tlbMenu_Button7.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me._tlbMenu_Button7.ToolTipText = "編集"
@@ -2826,7 +2828,7 @@
         Me._tlbMenu_Button8.AutoSize = False
         Me._tlbMenu_Button8.ImageIndex = 6
         Me._tlbMenu_Button8.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button8.Name = "_tlbMenu_Button8"
+        Me._tlbMenu_Button8.Name = "Write"
         Me._tlbMenu_Button8.Size = New System.Drawing.Size(24, 22)
         Me._tlbMenu_Button8.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me._tlbMenu_Button8.ToolTipText = "書込"
@@ -2836,7 +2838,7 @@
         Me._tlbMenu_Button9.AutoSize = False
         Me._tlbMenu_Button9.ImageIndex = 7
         Me._tlbMenu_Button9.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button9.Name = "_tlbMenu_Button9"
+        Me._tlbMenu_Button9.Name = "Delete"
         Me._tlbMenu_Button9.Size = New System.Drawing.Size(24, 22)
         Me._tlbMenu_Button9.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me._tlbMenu_Button9.ToolTipText = "消去"
@@ -2844,13 +2846,13 @@
         '_tlbMenu_Button10
         '
         Me._tlbMenu_Button10.AutoSize = False
-        Me._tlbMenu_Button10.Name = "_tlbMenu_Button10"
+        Me._tlbMenu_Button10.Name = "SepViewer"
         Me._tlbMenu_Button10.Size = New System.Drawing.Size(24, 22)
         '
         '_tlbMenu_Button11
         '
         Me._tlbMenu_Button11.AutoSize = False
-        Me._tlbMenu_Button11.Name = "_tlbMenu_Button11"
+        Me._tlbMenu_Button11.Name = "Viewer"
         Me._tlbMenu_Button11.Size = New System.Drawing.Size(1395, 22)
         '
         '_tlbMenu_Button12
@@ -2858,7 +2860,7 @@
         Me._tlbMenu_Button12.AutoSize = False
         Me._tlbMenu_Button12.ImageIndex = 8
         Me._tlbMenu_Button12.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button12.Name = "_tlbMenu_Button12"
+        Me._tlbMenu_Button12.Name = "PlayAll"
         Me._tlbMenu_Button12.Size = New System.Drawing.Size(24, 22)
         Me._tlbMenu_Button12.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me._tlbMenu_Button12.ToolTipText = "最初から再生"
@@ -2868,7 +2870,7 @@
         Me._tlbMenu_Button13.AutoSize = False
         Me._tlbMenu_Button13.ImageIndex = 9
         Me._tlbMenu_Button13.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button13.Name = "_tlbMenu_Button13"
+        Me._tlbMenu_Button13.Name = "Play"
         Me._tlbMenu_Button13.Size = New System.Drawing.Size(24, 22)
         Me._tlbMenu_Button13.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me._tlbMenu_Button13.ToolTipText = "現在位置から再生"
@@ -2878,7 +2880,7 @@
         Me._tlbMenu_Button14.AutoSize = False
         Me._tlbMenu_Button14.ImageIndex = 10
         Me._tlbMenu_Button14.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button14.Name = "_tlbMenu_Button14"
+        Me._tlbMenu_Button14.Name = "Stop"
         Me._tlbMenu_Button14.Size = New System.Drawing.Size(24, 22)
         Me._tlbMenu_Button14.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me._tlbMenu_Button14.ToolTipText = "停止"
@@ -2886,37 +2888,37 @@
         '_tlbMenu_Button15
         '
         Me._tlbMenu_Button15.AutoSize = False
-        Me._tlbMenu_Button15.Name = "_tlbMenu_Button15"
+        Me._tlbMenu_Button15.Name = "SepGrid"
         Me._tlbMenu_Button15.Size = New System.Drawing.Size(24, 22)
         '
         '_tlbMenu_Button16
         '
         Me._tlbMenu_Button16.AutoSize = False
-        Me._tlbMenu_Button16.Name = "_tlbMenu_Button16"
+        Me._tlbMenu_Button16.Name = "ChangeGrid"
         Me._tlbMenu_Button16.Size = New System.Drawing.Size(2955, 22)
         '
         '_tlbMenu_Button17
         '
         Me._tlbMenu_Button17.AutoSize = False
-        Me._tlbMenu_Button17.Name = "_tlbMenu_Button17"
+        Me._tlbMenu_Button17.Name = "SepSize"
         Me._tlbMenu_Button17.Size = New System.Drawing.Size(24, 22)
         '
         '_tlbMenu_Button18
         '
         Me._tlbMenu_Button18.AutoSize = False
-        Me._tlbMenu_Button18.Name = "_tlbMenu_Button18"
+        Me._tlbMenu_Button18.Name = "DispSize"
         Me._tlbMenu_Button18.Size = New System.Drawing.Size(2955, 22)
         '
         '_tlbMenu_Button19
         '
         Me._tlbMenu_Button19.AutoSize = False
-        Me._tlbMenu_Button19.Name = "_tlbMenu_Button19"
+        Me._tlbMenu_Button19.Name = "SepResolution"
         Me._tlbMenu_Button19.Size = New System.Drawing.Size(24, 22)
         '
         '_tlbMenu_Button20
         '
         Me._tlbMenu_Button20.AutoSize = False
-        Me._tlbMenu_Button20.Name = "_tlbMenu_Button20"
+        Me._tlbMenu_Button20.Name = "Resolution"
         Me._tlbMenu_Button20.Size = New System.Drawing.Size(2055, 22)
         '
         'lblDirectInput
@@ -2970,6 +2972,8 @@
         Me.Text = "BMx Sequence Editor"
         Me.MainMenu1.ResumeLayout(False)
         Me.MainMenu1.PerformLayout()
+        Me.mnuContext.ResumeLayout(False)
+        Me.mnuContextList.ResumeLayout(False)
         Me.staMain.ResumeLayout(False)
         Me.staMain.PerformLayout()
         CType(Me.picSiromaru, System.ComponentModel.ISupportInitialize).EndInit()

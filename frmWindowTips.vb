@@ -110,7 +110,6 @@ Friend Class frmWindowTips
 	
 	Private Sub cmdNext_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdNext.Click
         Dim gp As Graphics = Me.CreateGraphics()
-        Dim hDC As IntPtr = gp.GetHdc()
 
         m_intTipsPos = m_intTipsPos + 1
 		
@@ -136,6 +135,7 @@ Friend Class frmWindowTips
         'UPGRADE_ISSUE: Form メソッド frmWindowTips.Line はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         gp.DrawRectangle(Pens.White, New Rectangle(VB6.TwipsToPixelsX(945), VB6.TwipsToPixelsY(720), VB6.TwipsToPixelsY(5085), VB6.TwipsToPixelsY(2530)))
 
+        Dim hDC As IntPtr = gp.GetHdc()
         Dim picIcon_gp As Graphics = picIcon.CreateGraphics()
         Dim picIcon_hDC As IntPtr = gp.GetHdc()
 
@@ -205,12 +205,14 @@ Friend Class frmWindowTips
 		Call AddTutorial(" この Tips はイースターエッグです。" & vbCrLf & vbCrLf & " 夜寝ながら働かずに作ったこのソフトウェアがみなさんに気に入っていただけるよう、tokonats氏が望んでいることでしょう。")
 
         Dim gp As Graphics = Me.CreateGraphics()
-        Dim hDC As IntPtr = gp.GetHdc()
+        Dim hDC As IntPtr
 
         Dim picIcon_gp As Graphics = picIcon.CreateGraphics()
         Dim picIcon_hDC As IntPtr = gp.GetHdc()
 
         With Me
+
+            gp.ReleaseHdc()
 
             'UPGRADE_ISSUE: Form メソッド frmWindowTips.Line はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             gp.DrawRectangle(Pens.Gray, New Rectangle(VB6.TwipsToPixelsX(120), VB6.TwipsToPixelsY(120), VB6.TwipsToPixelsX(720), VB6.TwipsToPixelsY(3210)))
@@ -237,10 +239,13 @@ Friend Class frmWindowTips
 
             .Font = VB6.FontChangeSize(.Font, 12)
 
+            hDC = gp.GetHdc()
+
             'UPGRADE_ISSUE: PictureBox プロパティ picIcon.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call BitBlt(hDC, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
 
+            gp.ReleaseHdc()
         End With
 
         'UPGRADE_ISSUE: Form メソッド frmWindowTips.Line はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
@@ -248,10 +253,14 @@ Friend Class frmWindowTips
         'UPGRADE_ISSUE: 定数 vbFromUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
         'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
         'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+
+        hDC = gp.GetHdc()
+
         Call DrawText(hDC, m_strTips(0), LenB(m_strTips(0)), ddRect(63, 48, 402, 216), DT_WORDBREAK)
+
         m_lngTipsNum = Len(m_strTips(0))
-		
-		chkNextDisp.CheckState = System.Windows.Forms.CheckState.Checked
+
+        chkNextDisp.CheckState = System.Windows.Forms.CheckState.Checked
 		
 		tmrMain.Enabled = True
 		
@@ -268,7 +277,6 @@ Friend Class frmWindowTips
         Dim strTemp As String
 
         Dim gp As Graphics = Me.CreateGraphics()
-        Dim hDC As IntPtr = gp.GetHdc()
 
         Dim picIcon_gp As Graphics = picIcon.CreateGraphics()
         Dim picIcon_hDC As IntPtr = gp.GetHdc()
@@ -278,6 +286,8 @@ Friend Class frmWindowTips
 
         'UPGRADE_ISSUE: Form メソッド frmWindowTips.Line はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         gp.DrawRectangle(Pens.White, New Rectangle(VB6.TwipsToPixelsX(945), VB6.TwipsToPixelsY(720), VB6.TwipsToPixelsX(6030), VB6.TwipsToPixelsY(3240)))
+
+        Dim hDC As IntPtr = gp.GetHdc()
 
         If m_lngTipsNum >= Len(m_strTips(m_intTipsPos)) + 1 Then
 

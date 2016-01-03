@@ -34,10 +34,10 @@ Friend Class frmWindowPreview
 	
 	'UPGRADE_WARNING: イベント chkBGLine.CheckStateChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
 	Private Sub chkBGLine_CheckStateChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles chkBGLine.CheckStateChanged
-		
-		Call picPreview_Paint(picPreview, New System.Windows.Forms.PaintEventArgs(Nothing, Nothing))
-		
-	End Sub
+
+        picPreview.Invalidate()
+
+    End Sub
 
     Private Sub cmdCopy_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdCopy.Click
         Dim strArray(6) As String
@@ -265,7 +265,7 @@ Friend Class frmWindowPreview
             Call .fraBGAPara.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width) - VB6.PixelsToTwipsX(fraBGAPara.Width)), VB6.TwipsToPixelsY(60), 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
             Call .fraBGACmd.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width) - VB6.PixelsToTwipsX(fraBGAPara.Width)), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - VB6.PixelsToTwipsY(fraBGACmd.Height) - 60), 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
 
-            Call .PushPaintEvent()
+            Call .Invalidate()
 
         End With
 
@@ -307,22 +307,19 @@ Friend Class frmWindowPreview
 Err_Renamed:
     End Sub
 
-    Public Sub PushPaintEvent()
-        RaisePaintEvent(Me, New EventArgs)
-    End Sub
-
     Public Sub picPreview_Paint(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.PaintEventArgs) Handles picPreview.Paint
         Dim i As Integer
 
         With picPreview
             Dim gp As Graphics = .CreateGraphics()
-            Dim hDC As IntPtr = gp.GetHdc()
 
             Dim picBackBuffer_gp As Graphics = picBackBuffer.CreateGraphics()
             Dim picBackBuffer_hDC As IntPtr = gp.GetHdc()
 
             'UPGRADE_ISSUE: PictureBox メソッド picPreview.Cls はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call gp.Clear(.BackColor)
+
+            Dim hDC As IntPtr = gp.GetHdc()
 
             'UPGRADE_ISSUE: PictureBox プロパティ picBackBuffer.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
@@ -379,7 +376,7 @@ Err_Renamed:
                 If Val(_txtBGAPara_6.Text) < 0 Then _txtBGAPara_6.Text = CStr(0)
         End Select
 
-        Call picPreview_Paint(picPreview, New System.Windows.Forms.PaintEventArgs(Nothing, Nothing))
+        picPreview.Invalidate()
 
     End Sub
 

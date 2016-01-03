@@ -20,9 +20,10 @@ Friend Class clsLog
 	
 	'初期化
 	Public Sub Clear()
-		
-		ReDim m_strArray(0)
-		m_lngPos = 0
+
+        ReDim m_strArray(0)
+        m_strArray(0) = ""
+        m_lngPos = 0
 		m_lngMax = 0
 		
 	End Sub

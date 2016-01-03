@@ -58,12 +58,11 @@ Friend Class frmWindowAbout
 			m_sngRaster(i) = 0
 			
 		Next i
-		
-		m_lngCounter = 0
-		
-		Call frmWindowAbout_Paint(Me, New System.Windows.Forms.PaintEventArgs(Nothing, Nothing))
-		
-	End Sub
+
+        m_lngCounter = 0
+
+        Invalidate()
+    End Sub
 	
 	Private Sub frmWindowAbout_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Click
 		
@@ -121,6 +120,19 @@ Friend Class frmWindowAbout
 
         End With
 
+        'Activate
+        Dim i As Integer
+
+        ReDim m_sngRaster(VB6.PixelsToTwipsY(Me.ClientRectangle.Height) - 1)
+
+        For i = 0 To UBound(m_sngRaster)
+
+            m_sngRaster(i) = 0
+
+        Next i
+
+        m_lngCounter = 0
+
     End Sub
 
     Private Sub frmWindowAbout_Paint(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint
@@ -132,14 +144,14 @@ Friend Class frmWindowAbout
 
         With Me
             Dim gp As Graphics = .CreateGraphics()
-            Dim hDC As IntPtr = gp.GetHdc()
 
             Dim picMain_gp As Graphics = picMain.CreateGraphics()
             Dim picMain_hDC As IntPtr = picMain_gp.GetHdc()
 
-
             'UPGRADE_ISSUE: Form メソッド frmWindowAbout.Cls はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call gp.Clear(.BackColor)
+
+            Dim hDC As IntPtr = gp.GetHdc()
 
             sngTemp = m_lngCounter / 10
             If sngTemp > 8 Then sngTemp = 8
