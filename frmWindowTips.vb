@@ -244,8 +244,8 @@ Friend Class frmWindowTips
 		'UPGRADE_ISSUE: 定数 vbFromUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
 		'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
 		'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-		Call DrawText(Me.hdc, m_strTips(0), LenB(StrConv(m_strTips(0), vbFromUnicode)), ddRect(63, 48, 402, 216), DT_WORDBREAK)
-		m_lngTipsNum = Len(m_strTips(0))
+		Call DrawText(Me.hdc, m_strTips(0), LenB(m_strTips(0)), ddRect(63, 48, 402, 216), DT_WORDBREAK)
+        m_lngTipsNum = Len(m_strTips(0))
 		
 		chkNextDisp.CheckState = System.Windows.Forms.CheckState.Checked
 		
@@ -304,7 +304,7 @@ Friend Class frmWindowTips
             'UPGRADE_ISSUE: 定数 vbFromUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
             'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
             'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-            Call DrawText(Me.hdc, strTemp, LenB(StrConv(strTemp, vbFromUnicode)), ddRect(63, 48, 402, 216), DT_WORDBREAK)
+            Call DrawText(Me.hdc, strTemp, LenB(strTemp), ddRect(63, 48, 402, 216), DT_WORDBREAK)
 
         Else
 
@@ -313,7 +313,7 @@ Friend Class frmWindowTips
             'UPGRADE_ISSUE: 定数 vbFromUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
             'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
             'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-            Call DrawText(Me.hdc, strTemp, LenB(StrConv(strTemp, vbFromUnicode)), ddRect(63, 48, 402, 216), DT_WORDBREAK)
+            Call DrawText(Me.hdc, strTemp, LenB(strTemp), ddRect(63, 48, 402, 216), DT_WORDBREAK)
 
             Select Case VB.Right(strTemp, 2)
 

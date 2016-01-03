@@ -472,6 +472,7 @@
         Me._tlbMenu_Button19 = New System.Windows.Forms.ToolStripSeparator()
         Me._tlbMenu_Button20 = New System.Windows.Forms.ToolStripSeparator()
         Me.lblDirectInput = New System.Windows.Forms.Label()
+        Me.dlgMain = New System.Windows.Forms.OpenFileDialog()
         Me.MainMenu1.SuspendLayout()
         Me.staMain.SuspendLayout()
         CType(Me.picSiromaru, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1220,6 +1221,7 @@
         Me.picSiromaru.Size = New System.Drawing.Size(64, 256)
         Me.picSiromaru.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
         Me.picSiromaru.TabIndex = 99
+        Me.picSiromaru.TabStop = False
         Me.picSiromaru.Visible = False
         '
         'tmrEffect
@@ -1536,7 +1538,7 @@
         Me.txtGenre.MaxLength = 0
         Me.txtGenre.Name = "txtGenre"
         Me.txtGenre.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtGenre.Size = New System.Drawing.Size(133, 18)
+        Me.txtGenre.Size = New System.Drawing.Size(133, 19)
         Me.txtGenre.TabIndex = 27
         '
         'txtTitle
@@ -1549,7 +1551,7 @@
         Me.txtTitle.MaxLength = 0
         Me.txtTitle.Name = "txtTitle"
         Me.txtTitle.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtTitle.Size = New System.Drawing.Size(133, 18)
+        Me.txtTitle.Size = New System.Drawing.Size(133, 19)
         Me.txtTitle.TabIndex = 29
         '
         'txtArtist
@@ -1562,7 +1564,7 @@
         Me.txtArtist.MaxLength = 0
         Me.txtArtist.Name = "txtArtist"
         Me.txtArtist.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtArtist.Size = New System.Drawing.Size(133, 18)
+        Me.txtArtist.Size = New System.Drawing.Size(133, 19)
         Me.txtArtist.TabIndex = 31
         '
         'cboPlayLevel
@@ -1589,7 +1591,7 @@
         Me.txtBPM.MaxLength = 0
         Me.txtBPM.Name = "txtBPM"
         Me.txtBPM.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtBPM.Size = New System.Drawing.Size(41, 18)
+        Me.txtBPM.Size = New System.Drawing.Size(41, 19)
         Me.txtBPM.TabIndex = 35
         Me.txtBPM.Text = "130"
         '
@@ -1727,7 +1729,7 @@
         Me.txtTotal.MaxLength = 0
         Me.txtTotal.Name = "txtTotal"
         Me.txtTotal.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtTotal.Size = New System.Drawing.Size(133, 18)
+        Me.txtTotal.Size = New System.Drawing.Size(133, 19)
         Me.txtTotal.TabIndex = 40
         '
         'txtVolume
@@ -1741,7 +1743,7 @@
         Me.txtVolume.MaxLength = 0
         Me.txtVolume.Name = "txtVolume"
         Me.txtVolume.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtVolume.Size = New System.Drawing.Size(133, 18)
+        Me.txtVolume.Size = New System.Drawing.Size(133, 19)
         Me.txtVolume.TabIndex = 42
         '
         'txtStageFile
@@ -1754,7 +1756,7 @@
         Me.txtStageFile.MaxLength = 0
         Me.txtStageFile.Name = "txtStageFile"
         Me.txtStageFile.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtStageFile.Size = New System.Drawing.Size(93, 18)
+        Me.txtStageFile.Size = New System.Drawing.Size(93, 19)
         Me.txtStageFile.TabIndex = 44
         '
         'cmdLoadStageFile
@@ -1793,7 +1795,7 @@
         Me.txtMissBMP.MaxLength = 0
         Me.txtMissBMP.Name = "txtMissBMP"
         Me.txtMissBMP.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtMissBMP.Size = New System.Drawing.Size(93, 18)
+        Me.txtMissBMP.Size = New System.Drawing.Size(93, 19)
         Me.txtMissBMP.TabIndex = 47
         '
         'lblPlayRank
@@ -2427,7 +2429,7 @@
         Me.txtBGAInput.MaxLength = 0
         Me.txtBGAInput.Name = "txtBGAInput"
         Me.txtBGAInput.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtBGAInput.Size = New System.Drawing.Size(213, 21)
+        Me.txtBGAInput.Size = New System.Drawing.Size(213, 19)
         Me.txtBGAInput.TabIndex = 80
         '
         'cmdBGAPreview
@@ -2807,6 +2809,11 @@
         Me.lblDirectInput.TabIndex = 95
         Me.lblDirectInput.Text = "Direct"
         '
+        'dlgMain
+        '
+        Me.dlgMain.FileName = "dlgMain"
+        Me.dlgMain.Filter = "BMS ﾌｧｲﾙ (*.bms,*.bme,*.bml)|*.bms;*.bme;*.bml"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -2859,9 +2866,11 @@
         Me._fraTop_2.PerformLayout()
         Me.fraMaterial.ResumeLayout(False)
         Me._fraBottom_4.ResumeLayout(False)
+        Me._fraBottom_4.PerformLayout()
         Me._fraBottom_0.ResumeLayout(False)
         Me._fraBottom_1.ResumeLayout(False)
         Me._fraBottom_2.ResumeLayout(False)
+        Me._fraBottom_2.PerformLayout()
         Me._fraBottom_3.ResumeLayout(False)
         CType(Me.picMain, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tlbMenu.ResumeLayout(False)
@@ -2870,5 +2879,7 @@
         Me.PerformLayout()
 
     End Sub
+
+    Friend WithEvents dlgMain As OpenFileDialog
 #End Region
 End Class

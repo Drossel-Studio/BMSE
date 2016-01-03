@@ -89,14 +89,14 @@ Friend Class clsLog
 	Public Function GetBufferSize() As Integer
 		
 		Dim i As Integer
-		Dim ret As Integer
-		
-		For i = 0 To UBound(m_strArray)
-			
-			'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
-			ret = ret + LenB(m_strArray(i))
-			
-		Next i
+        Dim ret As Integer = 0
+
+        For i = 0 To UBound(m_strArray)
+
+            'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
+            ret = ret + LenB(m_strArray(i))
+
+        Next i
 		
 		GetBufferSize = ret
 		

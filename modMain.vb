@@ -344,6 +344,10 @@ Module modMain
     'UPGRADE_WARNING:  に変換されていないステートメントがあります。ソース コードを確認してください。
     Public g_Message(Message.Max - 1) As String
 
+    Public Function LenB(ByVal stTarget As String) As Integer
+        Return System.Text.Encoding.Default.GetByteCount(stTarget)
+    End Function
+
     Public Sub StartUp()
         Dim i As Integer
         Dim strTemp As String
@@ -2185,13 +2189,13 @@ Err_Renamed:
         'UPGRADE_WARNING: オブジェクト lf の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
         'UPGRADE_WARNING: オブジェクト GetStockObject() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-        Call GetObject_Renamed(GetStockObject(DEFAULT_GUI_FONT), CStr(LenB(lf)), lf)
+        Call GetObject_Renamed(GetStockObject(DEFAULT_GUI_FONT), Runtime.InteropServices.Marshal.SizeOf(lf), lf)
         'UPGRADE_ISSUE: 定数 vbUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
         'UPGRADE_WARNING: オブジェクト lf.lfFaceName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-        DefaultFont = Trim(StrConv(lf.lfFaceName, vbUnicode))
-		
-		'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		SystemFont = strGet_ini("Main", "Font", DefaultFont, strFileName)
+        DefaultFont = Trim(System.Text.Encoding.Default.GetString(lf.lfFaceName))
+
+        'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+        SystemFont = strGet_ini("Main", "Font", DefaultFont, strFileName)
 		'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
 		FixedFont = strGet_ini("Main", "FixedFont", DefaultFont, strFileName)
 		
