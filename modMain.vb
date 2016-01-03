@@ -471,113 +471,105 @@ Module modMain
 		FileClose(lngFFile)
 		
 		ReDim Preserve g_Viewer(frmMain.cboViewer.Items.Count)
-		
-		'ランゲージファイル読み込み
-		'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
-		strTemp = Dir(g_strAppDir & "lang\*.ini")
-		intTemp = 0
-		
-		Do While strTemp <> ""
-			
-			'UPGRADE_WARNING: オブジェクト strGet_ini(Main, Key, , lang\ & strTemp) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			If strGet_ini("Main", "Key", "", "lang\" & strTemp) = "BMSE" Then
-				
-				intTemp = intTemp + 1
-				
-				ReDim Preserve g_strLangFileName(intTemp)
-				
-				g_strLangFileName(intTemp) = strTemp
-				
-				Call frmMain.mnuLanguage.Load(intTemp)
-				
-				With frmMain.mnuLanguage(intTemp)
-					
-					'UPGRADE_WARNING: オブジェクト strGet_ini(Main, Language, strTemp, lang\ & strTemp) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					.Text = "&" & strGet_ini("Main", "Language", strTemp, "lang\" & strTemp)
-					
-					If .Text = "&" Then .Text = "&" & strTemp
-					
-					.Visible = True
-					
-				End With
-				
-			End If
-			
-			'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
-			strTemp = Dir()
-			
-		Loop 
-		
-		If intTemp Then
-			
-			frmMain.mnuLanguage(0).Visible = False
-			
-		Else
-			
-			frmMain.mnuLanguageParent.Enabled = False
-			
-		End If
-		
-		'テーマファイル読み込み
-		'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
-		strTemp = Dir(g_strAppDir & "theme\*.ini")
-		intTemp = 0
+
+        'ランゲージファイル読み込み
+        'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+        ReDim Preserve g_strLangFileName(2)
+
+        strTemp = Dir(g_strAppDir & "lang\*.ini")
+        intTemp = 0
 		
 		Do While strTemp <> ""
-			
-			'UPGRADE_WARNING: オブジェクト strGet_ini(Main, Key, , theme\ & strTemp) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			If strGet_ini("Main", "Key", "", "theme\" & strTemp) = "BMSE" Then
-				
-				intTemp = intTemp + 1
-				
-				ReDim Preserve g_strThemeFileName(intTemp)
-				
-				g_strThemeFileName(intTemp) = strTemp
-				
-				frmMain.mnuTheme.Load(intTemp)
-				
-				With frmMain.mnuTheme(intTemp)
-					
-					'UPGRADE_WARNING: オブジェクト strGet_ini(Main, Name, strTemp, theme\ & strTemp) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					.Text = "&" & strGet_ini("Main", "Name", strTemp, "theme\" & strTemp)
-					
-					If .Text = "&" Then .Text = "&" & strTemp
-					
-					.Visible = True
-					
-				End With
-				
-			End If
-			
-			'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
-			strTemp = Dir()
-			
-		Loop 
+            If strGet_ini("Main", "Key", "", "lang\" & strTemp) = "BMSE" Then
+                g_strLangFileName(intTemp) = strTemp
+
+                Select Case intTemp
+                    Case 0
+                        With frmMain._mnuLanguage_0
+                            .Text = "&" & strGet_ini("Main", "Language", strTemp, "lang\" & strTemp)
+                            If .Text = "&" Then .Text = "&" & strTemp
+                            .Visible = True
+                        End With
+                        intTemp = intTemp + 1
+
+                    Case 1
+                        With frmMain._mnuLanguage_1
+                            .Text = "&" & strGet_ini("Main", "Language", strTemp, "lang\" & strTemp)
+                            If .Text = "&" Then .Text = "&" & strTemp
+                            .Visible = True
+                        End With
+                        intTemp = intTemp + 1
+
+                    Case 2
+                        With frmMain._mnuLanguage_2
+                            .Text = "&" & strGet_ini("Main", "Language", strTemp, "lang\" & strTemp)
+                            If .Text = "&" Then .Text = "&" & strTemp
+                            .Visible = True
+                        End With
+                        intTemp = intTemp + 1
+                End Select
+            End If
+
+            strTemp = Dir()
+        Loop
+
+        If intTemp Then
+            frmMain._mnuLanguage_0.Visible = False
+        Else
+            frmMain.mnuLanguageParent.Enabled = False
+        End If
+
+        'テーマファイル読み込み
+        'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+        ReDim Preserve g_strThemeFileName(2)
+
+        strTemp = Dir(g_strAppDir & "theme\*.ini")
+        intTemp = 0
 		
-		If intTemp Then
-			
-			frmMain.mnuTheme(0).Visible = False
-			
-		Else
-			
-			frmMain.mnuThemeParent.Enabled = False
-			
-		End If
-		
-		For i = 1 To frmMain.MENU_OPTIONS.Max - 1
-			
-			Call frmMain.mnuOptionsItem.Load(i)
-			
-		Next i
-		
-		For i = 1 To frmMain.MENU_VIEW.Max - 1
-			
-			Call frmMain.mnuViewItem.Load(i)
-			
-		Next i
-		
-		'初期化
-		With g_BMS
+		Do While strTemp <> ""
+            If strGet_ini("Main", "Key", "", "theme\" & strTemp) = "BMSE" Then
+
+
+                g_strThemeFileName(intTemp) = strTemp
+
+                Select Case intTemp
+                    Case 0
+                        With frmMain._mnuTheme_0
+                            .Text = "&" & strGet_ini("Main", "Name", strTemp, "theme\" & strTemp)
+                            If .Text = "&" Then .Text = "&" & strTemp
+                            .Visible = True
+                        End With
+                        intTemp = intTemp + 1
+
+                    Case 1
+                        With frmMain._mnuTheme_1
+                            .Text = "&" & strGet_ini("Main", "Name", strTemp, "theme\" & strTemp)
+                            If .Text = "&" Then .Text = "&" & strTemp
+                            .Visible = True
+                        End With
+                        intTemp = intTemp + 1
+
+                    Case 2
+                        With frmMain._mnuTheme_2
+                            .Text = "&" & strGet_ini("Main", "Name", strTemp, "theme\" & strTemp)
+                            If .Text = "&" Then .Text = "&" & strTemp
+                            .Visible = True
+                        End With
+                        intTemp = intTemp + 1
+                End Select
+            End If
+
+            strTemp = Dir()
+        Loop
+
+        If intTemp Then
+            frmMain._mnuTheme_0.Visible = False
+        Else
+            frmMain.mnuThemeParent.Enabled = False
+        End If
+
+        '初期化
+        With g_BMS
 			
 			'UPGRADE_WARNING: オブジェクト g_BMS.intPlayerType の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
 			.intPlayerType = modInput.PLAYER_TYPE.PLAYER_1P
@@ -1076,8 +1068,8 @@ Err_Renamed:
 		frmMain.mnuLineRecent.Visible = True
 		
 	End Sub
-	
-	Private Sub SubRotate(ByVal intIndex As Short, ByVal intEnd As Short, ByRef strFilePath As String)
+
+    Private Sub SubRotate(ByVal intIndex As Short, ByVal intEnd As Short, ByRef strFilePath As String)
         If intIndex <> intEnd And g_strRecentFiles(intIndex) <> "" And intIndex <= UBound(g_strRecentFiles) Then
 
             Call SubRotate(intIndex + 1, intEnd, g_strRecentFiles(intIndex))
@@ -1093,83 +1085,193 @@ Err_Renamed:
                     .Enabled = True
                     .Visible = True
                 End With
+
+                With frmMain.ToolStripMenuItem0
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Enabled = True
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Visible = True
+                End With
+
             Case 1
                 With frmMain._mnuRecentFiles_1
                     .Text = "&" & intIndex + 1 & ":" & strFilePath
                     .Enabled = True
                     .Visible = True
                 End With
+
+                With frmMain.ToolStripMenuItem1
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Enabled = True
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Visible = True
+                End With
+
             Case 2
                 With frmMain._mnuRecentFiles_2
                     .Text = "&" & intIndex + 1 & ":" & strFilePath
                     .Enabled = True
                     .Visible = True
                 End With
+
+                With frmMain.ToolStripMenuItem2
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Enabled = True
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Visible = True
+                End With
+
             Case 3
                 With frmMain._mnuRecentFiles_3
                     .Text = "&" & intIndex + 1 & ":" & strFilePath
                     .Enabled = True
                     .Visible = True
                 End With
+
+                With frmMain.ToolStripMenuItem3
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Enabled = True
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Visible = True
+                End With
+
             Case 4
                 With frmMain._mnuRecentFiles_4
                     .Text = "&" & intIndex + 1 & ":" & strFilePath
                     .Enabled = True
                     .Visible = True
                 End With
+
+                With frmMain.ToolStripMenuItem4
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Enabled = True
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Visible = True
+                End With
+
             Case 5
                 With frmMain._mnuRecentFiles_5
                     .Text = "&" & intIndex + 1 & ":" & strFilePath
                     .Enabled = True
                     .Visible = True
                 End With
+
+                With frmMain.ToolStripMenuItem5
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Enabled = True
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Visible = True
+                End With
+
             Case 6
                 With frmMain._mnuRecentFiles_6
                     .Text = "&" & intIndex + 1 & ":" & strFilePath
                     .Enabled = True
                     .Visible = True
                 End With
+
+                With frmMain.ToolStripMenuItem6
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Enabled = True
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Visible = True
+                End With
+
             Case 7
                 With frmMain._mnuRecentFiles_7
                     .Text = "&" & intIndex + 1 & ":" & strFilePath
                     .Enabled = True
                     .Visible = True
                 End With
+
+                With frmMain.ToolStripMenuItem7
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Enabled = True
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Visible = True
+                End With
+
             Case 8
                 With frmMain._mnuRecentFiles_8
                     .Text = "&" & intIndex + 1 & ":" & strFilePath
                     .Enabled = True
                     .Visible = True
                 End With
+
+                With frmMain.ToolStripMenuItem8
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Enabled = True
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Visible = True
+                End With
+
             Case 9
                 With frmMain._mnuRecentFiles_9
                     .Text = "&" & intIndex + 1 & ":" & strFilePath
                     .Enabled = True
                     .Visible = True
                 End With
+
+                With frmMain.ToolStripMenuItem9
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Enabled = True
+                    'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                    'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                    .Visible = True
+                End With
         End Select
+    End Sub
 
-
-
-        'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-        'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
-        With frmMain.tlbMenu.Items.Item("Open").ButtonMenus.Item(intIndex + 1)
-			
-			'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
-			.Text = "&" & intIndex + 1 & ":" & strFilePath
-			'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
-			.Enabled = True
-			'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
-			.Visible = True
-			
-		End With
-		
-	End Sub
-	
-	Public Sub GetCmdLine()
+    Public Sub GetCmdLine()
         On Error GoTo Err_Renamed
 
         Dim i As Integer
@@ -1899,18 +2001,18 @@ Err_Renamed:
 			VB6.SetItemString(.cboDispWidth, .cboDispHeight.Items.Count - 1, strGet_ini("ToolBar", "DISP_VALUE_OTHER", "Other", strFileName))
 			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
 			.lblVScroll.Text = strGet_ini("ToolBar", "VSCROLL", "VScroll", strFileName)
-			
-			If .tlbMenu.Items.Item("Edit").Checked = True Then
-				
-				.staMain.Items.Item("Mode").Text = g_strStatusBar(20)
-				
-			ElseIf .tlbMenu.Items.Item("Write").Checked = True Then 
-				
-				.staMain.Items.Item("Mode").Text = g_strStatusBar(21)
-				
-			Else
-				
-				.staMain.Items.Item("Mode").Text = g_strStatusBar(22)
+
+            If .tlbMenu.Items.Item("Edit").Pressed = True Then
+
+                .staMain.Items.Item("Mode").Text = g_strStatusBar(20)
+
+            ElseIf .tlbMenu.Items.Item("Write").Pressed = True Then
+
+                .staMain.Items.Item("Mode").Text = g_strStatusBar(21)
+
+            Else
+
+                .staMain.Items.Item("Mode").Text = g_strStatusBar(22)
 				
 			End If
 			
@@ -1921,73 +2023,73 @@ Err_Renamed:
 			'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_NEW, New, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
 			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
 			.Items.Item("New").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_NEW", "New", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("New").Description = strGet_ini("ToolBar", "TOOLTIP_NEW", "New", strFileName)
-			'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_OPEN, Open, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("Open").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_OPEN", "Open", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("Open").Description = strGet_ini("ToolBar", "TOOLTIP_OPEN", "Open", strFileName)
-			'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_RELOAD, Reload, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("Reload").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_RELOAD", "Reload", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("Reload").Description = strGet_ini("ToolBar", "TOOLTIP_RELOAD", "Reload", strFileName)
-			'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_SAVE, Save, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("Save").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_SAVE", "Save", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("Save").Description = strGet_ini("ToolBar", "TOOLTIP_SAVE", "Save", strFileName)
-			'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_SAVE_AS, Save As, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("SaveAs").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_SAVE_AS", "Save As", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("SaveAs").Description = strGet_ini("ToolBar", "TOOLTIP_SAVE_AS", "Save As", strFileName)
-			
-			'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_MODE_EDIT, Edit Mode, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("Edit").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_MODE_EDIT", "Edit Mode", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("Edit").Description = strGet_ini("ToolBar", "TOOLTIP_MODE_EDIT", "Edit Mode", strFileName)
-			'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_MODE_WRITE, Write Mode, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("Write").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_MODE_WRITE", "Write Mode", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("Write").Description = strGet_ini("ToolBar", "TOOLTIP_MODE_WRITE", "Write Mode", strFileName)
-			'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_MODE_DELETE, Delete Mode, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("Delete").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_MODE_DELETE", "Delete Mode", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("Delete").Description = strGet_ini("ToolBar", "TOOLTIP_MODE_DELETE", "Delete Mode", strFileName)
-			
-			'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_PLAY_FIRST, Play All, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("PlayAll").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_PLAY_FIRST", "Play All", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("PlayAll").Description = strGet_ini("ToolBar", "TOOLTIP_PLAY_FIRST", "Play All", strFileName)
-			'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_PLAY, Play From Current Position, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("Play").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_PLAY", "Play From Current Position", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("Play").Description = strGet_ini("ToolBar", "TOOLTIP_PLAY", "Play From Current Position", strFileName)
-			'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_STOP, Stop, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("Stop").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_STOP", "Stop", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.Items.Item("Stop").Description = strGet_ini("ToolBar", "TOOLTIP_STOP", "Stop", strFileName)
-			
-		End With
+            'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("New").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_NEW", "New", strFileName)
+            'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_OPEN, Open, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("Open").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_OPEN", "Open", strFileName)
+            'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("Open").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_OPEN", "Open", strFileName)
+            'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_RELOAD, Reload, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("Reload").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_RELOAD", "Reload", strFileName)
+            'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("Reload").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_RELOAD", "Reload", strFileName)
+            'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_SAVE, Save, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("Save").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_SAVE", "Save", strFileName)
+            'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("Save").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_SAVE", "Save", strFileName)
+            'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_SAVE_AS, Save As, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("SaveAs").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_SAVE_AS", "Save As", strFileName)
+            'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("SaveAs").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_SAVE_AS", "Save As", strFileName)
+
+            'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_MODE_EDIT, Edit Mode, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("Edit").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_MODE_EDIT", "Edit Mode", strFileName)
+            'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("Edit").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_MODE_EDIT", "Edit Mode", strFileName)
+            'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_MODE_WRITE, Write Mode, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("Write").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_MODE_WRITE", "Write Mode", strFileName)
+            'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("Write").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_MODE_WRITE", "Write Mode", strFileName)
+            'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_MODE_DELETE, Delete Mode, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("Delete").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_MODE_DELETE", "Delete Mode", strFileName)
+            'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("Delete").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_MODE_DELETE", "Delete Mode", strFileName)
+
+            'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_PLAY_FIRST, Play All, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("PlayAll").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_PLAY_FIRST", "Play All", strFileName)
+            'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("PlayAll").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_PLAY_FIRST", "Play All", strFileName)
+            'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_PLAY, Play From Current Position, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("Play").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_PLAY", "Play From Current Position", strFileName)
+            'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("Play").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_PLAY", "Play From Current Position", strFileName)
+            'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_STOP, Stop, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("Stop").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_STOP", "Stop", strFileName)
+            'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            .Items.Item("Stop").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_STOP", "Stop", strFileName)
+
+        End With
 		
 		With frmWindowFind
 			
@@ -2267,35 +2369,26 @@ Err_Renamed:
 			
 			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
 			strTemp = strGet_ini("Main", "Language", "english.ini", "bmse.ini")
-			
-			For i = 1 To .mnuLanguage.UBound
-				
-				If strTemp = g_strLangFileName(i) Then
-					
-					.mnuLanguage(i).Checked = True
-					
-					Exit For
-					
-				End If
-				
-			Next i
-			
-			'UPGRADE_ISSUE: Load ステートメント はサポートされていません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' をクリックしてください。
-			Load(frmWindowAbout)
-			'UPGRADE_ISSUE: Load ステートメント はサポートされていません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' をクリックしてください。
-			Load(frmWindowFind)
-			'UPGRADE_ISSUE: Load ステートメント はサポートされていません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' をクリックしてください。
-			Load(frmWindowInput)
-			'UPGRADE_ISSUE: Load ステートメント はサポートされていません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' をクリックしてください。
-			Load(frmWindowPreview)
-			'UPGRADE_ISSUE: Load ステートメント はサポートされていません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' をクリックしてください。
-			Load(frmWindowTips)
-			'UPGRADE_ISSUE: Load ステートメント はサポートされていません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' をクリックしてください。
-			Load(frmWindowViewer)
-			'UPGRADE_ISSUE: Load ステートメント はサポートされていません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' をクリックしてください。
-			Load(frmWindowConvert)
-			
-			Call LoadLanguageFile("lang\" & strTemp)
+
+            If strTemp = g_strLangFileName(0) Then
+                ._mnuLanguage_0.Checked = True
+            End If
+            If strTemp = g_strLangFileName(1) Then
+                ._mnuLanguage_1.Checked = True
+            End If
+            If strTemp = g_strLangFileName(2) Then
+                ._mnuLanguage_2.Checked = True
+            End If
+
+            frmWindowAbout.Show()
+            frmWindowFind.Show()
+            frmWindowInput.Show()
+            frmWindowPreview.Show()
+            frmWindowTips.Show()
+            frmWindowViewer.Show()
+            frmWindowConvert.Show()
+
+            Call LoadLanguageFile("lang\" & strTemp)
 			
 			Call frmWindowPreview.SetWindowSize()
 			
@@ -2355,20 +2448,18 @@ Err_Renamed:
 			
 			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
 			strTemp = strGet_ini("Main", "Theme", "default.ini", "bmse.ini")
-			
-			For i = 1 To .mnuTheme.UBound
-				
-				If strTemp = g_strThemeFileName(i) Then
-					
-					.mnuTheme(i).Checked = True
-					
-					Exit For
-					
-				End If
-				
-			Next i
-			
-			Call LoadThemeFile("theme\" & strTemp)
+
+            If strTemp = g_strThemeFileName(0) Then
+                ._mnuTheme_0.Checked = True
+            End If
+            If strTemp = g_strThemeFileName(1) Then
+                ._mnuTheme_1.Checked = True
+            End If
+            If strTemp = g_strThemeFileName(2) Then
+                ._mnuTheme_2.Checked = True
+            End If
+
+            Call LoadThemeFile("theme\" & strTemp)
 			
 			'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
 			g_strHelpFilename = strGet_ini("Main", "Help", "", "bmse.ini")
@@ -2572,32 +2663,219 @@ Err_Renamed:
 				g_strRecentFiles(i) = strGet_ini("RecentFiles", i, "", "bmse.ini")
 				
 				If Len(g_strRecentFiles(i)) Then
-					
-					With .mnuRecentFiles(i)
-						
-						.Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
-						.Enabled = True
-						.Visible = True
-						
-					End With
-					
-					'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-					'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
-					With .tlbMenu.Items.Item("Open").ButtonMenus.Item(i + 1)
-						
-						'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-						'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
-						.Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
-						'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-						'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
-						.Enabled = True
-						'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-						'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
-						.Visible = True
-						
-					End With
-					
-					.mnuLineRecent.Visible = True
+                    Select Case i
+                        Case 0
+                            With ._mnuRecentFiles_0
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem0
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Enabled = True
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Visible = True
+                            End With
+
+                        Case 1
+                            With ._mnuRecentFiles_1
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem1
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Enabled = True
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Visible = True
+                            End With
+
+                        Case 2
+                            With ._mnuRecentFiles_2
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem2
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Enabled = True
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Visible = True
+                            End With
+
+                        Case 3
+                            With ._mnuRecentFiles_3
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem3
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Enabled = True
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Visible = True
+                            End With
+
+                        Case 4
+                            With ._mnuRecentFiles_4
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem4
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Enabled = True
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Visible = True
+                            End With
+
+                        Case 5
+                            With ._mnuRecentFiles_5
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem5
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Enabled = True
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Visible = True
+                            End With
+
+                        Case 6
+                            With ._mnuRecentFiles_6
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem6
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Enabled = True
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Visible = True
+                            End With
+
+                        Case 7
+                            With ._mnuRecentFiles_7
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem7
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Enabled = True
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Visible = True
+                            End With
+
+                        Case 8
+                            With ._mnuRecentFiles_8
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem8
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Enabled = True
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Visible = True
+                            End With
+
+                        Case 9
+                            With ._mnuRecentFiles_9
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem9
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Enabled = True
+                                'UPGRADE_ISSUE: MSComctlLib.ButtonMenu プロパティ tlbMenu.Buttons.ButtonMenus はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+                                'UPGRADE_WARNING: コレクション frmMain.tlbMenu.Buttons().ButtonMenus の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' をクリックしてください。
+                                .Visible = True
+                            End With
+                    End Select
+
+                    .mnuLineRecent.Visible = True
 					
 				End If
 				
@@ -2732,32 +3010,28 @@ InitConfig:
 		End With
 		
 		With frmMain
-			
-			For i = 1 To .mnuLanguage.UBound
-				
-				If .mnuLanguage(i).Checked = True Then
-					
-					Call lngSet_ini("Main", "Language", Chr(34) & g_strLangFileName(i) & Chr(34))
-					
-					Exit For
-					
-				End If
-				
-			Next i
-			
-			For i = 1 To .mnuTheme.UBound
-				
-				If .mnuTheme(i).Checked = True Then
-					
-					Call lngSet_ini("Main", "Theme", Chr(34) & g_strThemeFileName(i) & Chr(34))
-					
-					Exit For
-					
-				End If
-				
-			Next i
-			
-			Call lngSet_ini("View", "Width", VB6.GetItemData(.cboDispWidth, .cboDispWidth.SelectedIndex))
+
+            If ._mnuLanguage_0.Checked = True Then
+                Call lngSet_ini("Main", "Language", Chr(34) & g_strLangFileName(0) & Chr(34))
+            End If
+            If ._mnuLanguage_1.Checked = True Then
+                Call lngSet_ini("Main", "Language", Chr(34) & g_strLangFileName(1) & Chr(34))
+            End If
+            If ._mnuLanguage_2.Checked = True Then
+                Call lngSet_ini("Main", "Language", Chr(34) & g_strLangFileName(2) & Chr(34))
+            End If
+
+            If ._mnuTheme_0.Checked = True Then
+                Call lngSet_ini("Main", "Theme", Chr(34) & g_strThemeFileName(0) & Chr(34))
+            End If
+            If ._mnuTheme_1.Checked = True Then
+                Call lngSet_ini("Main", "Theme", Chr(34) & g_strThemeFileName(1) & Chr(34))
+            End If
+            If ._mnuTheme_2.Checked = True Then
+                Call lngSet_ini("Main", "Theme", Chr(34) & g_strThemeFileName(2) & Chr(34))
+            End If
+
+            Call lngSet_ini("View", "Width", VB6.GetItemData(.cboDispWidth, .cboDispWidth.SelectedIndex))
 			Call lngSet_ini("View", "Height", VB6.GetItemData(.cboDispHeight, .cboDispHeight.SelectedIndex))
 			Call lngSet_ini("View", "VGridMain", .cboDispGridMain.SelectedIndex)
 			Call lngSet_ini("View", "VGridSub", .cboDispGridSub.SelectedIndex)

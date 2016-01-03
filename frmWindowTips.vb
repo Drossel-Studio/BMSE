@@ -19,24 +19,24 @@ Friend Class frmWindowTips
 		Dim i As Integer
 		Dim lngTemp As Integer
 		Dim lngArg As Integer
-		
-		For i = 0 To frmMain.mnuLanguage.UBound
-			
-			If frmMain.mnuLanguage(i).Checked Then
-				
-				If g_strLangFileName(i) <> "japanese.ini" Then
-					
-					Exit Sub
-					
-				End If
-				
-				Exit For
-				
-			End If
-			
-		Next i
-		
-		If chkNextDisp.CheckState = 0 Then
+
+        If frmMain._mnuLanguage_0.Checked Then
+            If g_strLangFileName(0) <> "japanese.ini" Then
+                Exit Sub
+            End If
+        End If
+        If frmMain._mnuLanguage_1.Checked Then
+            If g_strLangFileName(1) <> "japanese.ini" Then
+                Exit Sub
+            End If
+        End If
+        If frmMain._mnuLanguage_2.Checked Then
+            If g_strLangFileName(2) <> "japanese.ini" Then
+                Exit Sub
+            End If
+        End If
+
+        If chkNextDisp.CheckState = 0 Then
 			
 			lngTemp = MsgBoxResult.Retry
 			Call Randomize()

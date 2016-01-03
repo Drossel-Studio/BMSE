@@ -1790,41 +1790,41 @@ Err_Renamed:
 		Call SetObjData(tempObj, X, Y) ', g_disp.X, g_disp.Y)
 		
 		With tempObj
-			
-			If frmMain.tlbMenu.Items.Item("Write").Checked = True Then '書き込みモード
-				
-				If 10 < .intCh And .intCh < 30 Then 'オブジェはキーオブジェである
-					
-					If Shift And VB6.ShiftConstants.CtrlMask Then '不可視オブジェ
-						
-						'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						.intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE
-						
-					ElseIf Shift And VB6.ShiftConstants.ShiftMask Then  'ロングノート
-						
-						.intCh = .intCh + 40
-						'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						.intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE
-						
-					End If
-					
-				End If
-				
-				'オブジェ位置をグリッドにあわせる
-				'If Shift And vbAltMask Then
-				
-				If VB6.GetItemData(frmMain.cboDispGridSub, frmMain.cboDispGridSub.SelectedIndex) Then
-					
-					lngTemp = 192 \ (VB6.GetItemData(frmMain.cboDispGridSub, frmMain.cboDispGridSub.SelectedIndex))
-					.lngPosition = (.lngPosition \ lngTemp) * lngTemp
-					
-				End If
-				
-				'End If
-				
-			End If
-			
-		End With
+
+            If frmMain.tlbMenu.Items.Item("Write").Pressed = True Then '書き込みモード
+
+                If 10 < .intCh And .intCh < 30 Then 'オブジェはキーオブジェである
+
+                    If Shift And VB6.ShiftConstants.CtrlMask Then '不可視オブジェ
+
+                        'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                        .intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE
+
+                    ElseIf Shift And VB6.ShiftConstants.ShiftMask Then  'ロングノート
+
+                        .intCh = .intCh + 40
+                        'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                        .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE
+
+                    End If
+
+                End If
+
+                'オブジェ位置をグリッドにあわせる
+                'If Shift And vbAltMask Then
+
+                If VB6.GetItemData(frmMain.cboDispGridSub, frmMain.cboDispGridSub.SelectedIndex) Then
+
+                    lngTemp = 192 \ (VB6.GetItemData(frmMain.cboDispGridSub, frmMain.cboDispGridSub.SelectedIndex))
+                    .lngPosition = (.lngPosition \ lngTemp) * lngTemp
+
+                End If
+
+                'End If
+
+            End If
+
+        End With
 		
 		'If frmMain.tlbMenu.Buttons("Write").value = tbrUnpressed Then '書き込みモード
 		
@@ -1839,45 +1839,45 @@ Err_Renamed:
 					
 					'UPGRADE_WARNING: オブジェクト g_disp.Height の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
 					If g_Measure(g_Obj(i).intMeasure).lngY + g_Obj(i).lngPosition + OBJ_HEIGHT / g_disp.Height >= lngTemp And g_Measure(g_Obj(i).intMeasure).lngY + g_Obj(i).lngPosition <= lngTemp Then
-						
-						If frmMain.tlbMenu.Items.Item("Write").Checked = False Then
-							
-							If frmMain.tlbMenu.Items.Item("Edit").Checked = True Then
-								
-								'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-								.intSelect = modMain.OBJ_SELECT.EDIT_RECT
-								
-							ElseIf frmMain.tlbMenu.Items.Item("Delete").Checked = True Then 
-								
-								'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-								.intSelect = modMain.OBJ_SELECT.DELETE_RECT
-								
-							End If
-							
-							.intAtt = g_Obj(i).intAtt
-							
-							'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-							If .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE Then .intCh = .intCh + 40
-							
-							.sngValue = g_Obj(i).sngValue
-							.lngPosition = g_Obj(i).lngPosition
-							.intMeasure = g_Obj(i).intMeasure
-							.lngHeight = i
-							
-						End If
-						
-						'.lngHeight = i
-						
-						'.lngPosition = g_Obj(i).lngPosition
-						'とりあえず切っておいたよ、その代わり上に追加しておいた v1.1.7
-						'↑何のために消したのかわからねー上にバグるので復活させました v1.2.3
-						'↑これ消さないと書き込みモード時にオブジェに吸い込まれる。で、何がバグったんだっけ？ v1.3.0
-						'↑小節をまたがるオブジェに関してえらいことになる。どーしよう。 v1.3.5
-						'↓これを上に移動して解決？した？かも？ v1.3.6
-						'これがないと書き込みモード時の右クリック削除がうまく動かないのかも？ v1.3.9
-						'.intMeasure = g_Obj(i).intMeasure
-						
-						.lngHeight = i
+
+                        If frmMain.tlbMenu.Items.Item("Write").Pressed = False Then
+
+                            If frmMain.tlbMenu.Items.Item("Edit").Pressed = True Then
+
+                                'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                                .intSelect = modMain.OBJ_SELECT.EDIT_RECT
+
+                            ElseIf frmMain.tlbMenu.Items.Item("Delete").Pressed = True Then
+
+                                'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                                .intSelect = modMain.OBJ_SELECT.DELETE_RECT
+
+                            End If
+
+                            .intAtt = g_Obj(i).intAtt
+
+                            'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                            If .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE Then .intCh = .intCh + 40
+
+                            .sngValue = g_Obj(i).sngValue
+                            .lngPosition = g_Obj(i).lngPosition
+                            .intMeasure = g_Obj(i).intMeasure
+                            .lngHeight = i
+
+                        End If
+
+                        '.lngHeight = i
+
+                        '.lngPosition = g_Obj(i).lngPosition
+                        'とりあえず切っておいたよ、その代わり上に追加しておいた v1.1.7
+                        '↑何のために消したのかわからねー上にバグるので復活させました v1.2.3
+                        '↑これ消さないと書き込みモード時にオブジェに吸い込まれる。で、何がバグったんだっけ？ v1.3.0
+                        '↑小節をまたがるオブジェに関してえらいことになる。どーしよう。 v1.3.5
+                        '↓これを上に移動して解決？した？かも？ v1.3.6
+                        'これがないと書き込みモード時の右クリック削除がうまく動かないのかも？ v1.3.9
+                        '.intMeasure = g_Obj(i).intMeasure
+
+                        .lngHeight = i
 						
 						Exit For
 						
@@ -1893,28 +1893,28 @@ Err_Renamed:
 		
 		'ステータスバー更新
 		Call DrawStatusBar(tempObj, Shift)
-		
-		If frmMain.tlbMenu.Items.Item("Write").Checked = True Then '書き込みモード
-			
-			If tempObj.intCh <> g_Obj(UBound(g_Obj)).intCh Or tempObj.intAtt <> g_Obj(UBound(g_Obj)).intAtt Or tempObj.intMeasure <> g_Obj(UBound(g_Obj)).intMeasure Or tempObj.lngPosition <> g_Obj(UBound(g_Obj)).lngPosition Or tempObj.sngValue <> g_Obj(UBound(g_Obj)).sngValue Then
-				
-				'UPGRADE_WARNING: オブジェクト g_Obj(UBound()) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				g_Obj(UBound(g_Obj)) = tempObj
-				g_lngObjID(g_Obj(UBound(g_Obj)).lngID) = UBound(g_Obj)
-				
-			Else
-				
-				g_Obj(UBound(g_Obj)).lngHeight = tempObj.lngHeight
-				
-				Exit Sub
-				
-			End If
-			
-		Else '書き込みモード以外
-			
-			'描画すべきオブジェはない
-			'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			If tempObj.intSelect <> modMain.OBJ_SELECT.EDIT_RECT And tempObj.intSelect <> modMain.OBJ_SELECT.DELETE_RECT Then
+
+        If frmMain.tlbMenu.Items.Item("Write").Pressed = True Then '書き込みモード
+
+            If tempObj.intCh <> g_Obj(UBound(g_Obj)).intCh Or tempObj.intAtt <> g_Obj(UBound(g_Obj)).intAtt Or tempObj.intMeasure <> g_Obj(UBound(g_Obj)).intMeasure Or tempObj.lngPosition <> g_Obj(UBound(g_Obj)).lngPosition Or tempObj.sngValue <> g_Obj(UBound(g_Obj)).sngValue Then
+
+                'UPGRADE_WARNING: オブジェクト g_Obj(UBound()) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+                g_Obj(UBound(g_Obj)) = tempObj
+                g_lngObjID(g_Obj(UBound(g_Obj)).lngID) = UBound(g_Obj)
+
+            Else
+
+                g_Obj(UBound(g_Obj)).lngHeight = tempObj.lngHeight
+
+                Exit Sub
+
+            End If
+
+        Else '書き込みモード以外
+
+            '描画すべきオブジェはない
+            'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
+            If tempObj.intSelect <> modMain.OBJ_SELECT.EDIT_RECT And tempObj.intSelect <> modMain.OBJ_SELECT.DELETE_RECT Then
 				
 				tempObj.intCh = 0
 				g_Obj(UBound(g_Obj)).intCh = 0

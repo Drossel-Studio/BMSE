@@ -420,8 +420,4 @@ Err_Renamed:
         lngNumField = lngNum
 
     End Function
-
-    Private Sub frmWindowPreview_FormClosed(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-
-    End Sub
 End Class

@@ -229,7 +229,7 @@
         Me._txtBGAPara_0.MaxLength = 8
         Me._txtBGAPara_0.Name = "_txtBGAPara_0"
         Me._txtBGAPara_0.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._txtBGAPara_0.Size = New System.Drawing.Size(46, 18)
+        Me._txtBGAPara_0.Size = New System.Drawing.Size(46, 19)
         Me._txtBGAPara_0.TabIndex = 4
         Me._txtBGAPara_0.Text = "01"
         '
@@ -244,7 +244,7 @@
         Me._txtBGAPara_1.MaxLength = 8
         Me._txtBGAPara_1.Name = "_txtBGAPara_1"
         Me._txtBGAPara_1.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._txtBGAPara_1.Size = New System.Drawing.Size(46, 18)
+        Me._txtBGAPara_1.Size = New System.Drawing.Size(46, 19)
         Me._txtBGAPara_1.TabIndex = 6
         Me._txtBGAPara_1.Text = "0"
         '
@@ -259,7 +259,7 @@
         Me._txtBGAPara_2.MaxLength = 8
         Me._txtBGAPara_2.Name = "_txtBGAPara_2"
         Me._txtBGAPara_2.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._txtBGAPara_2.Size = New System.Drawing.Size(46, 18)
+        Me._txtBGAPara_2.Size = New System.Drawing.Size(46, 19)
         Me._txtBGAPara_2.TabIndex = 8
         Me._txtBGAPara_2.Text = "0"
         '
@@ -274,7 +274,7 @@
         Me._txtBGAPara_3.MaxLength = 8
         Me._txtBGAPara_3.Name = "_txtBGAPara_3"
         Me._txtBGAPara_3.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._txtBGAPara_3.Size = New System.Drawing.Size(46, 18)
+        Me._txtBGAPara_3.Size = New System.Drawing.Size(46, 19)
         Me._txtBGAPara_3.TabIndex = 10
         Me._txtBGAPara_3.Text = "0"
         '
@@ -289,7 +289,7 @@
         Me._txtBGAPara_4.MaxLength = 8
         Me._txtBGAPara_4.Name = "_txtBGAPara_4"
         Me._txtBGAPara_4.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._txtBGAPara_4.Size = New System.Drawing.Size(46, 18)
+        Me._txtBGAPara_4.Size = New System.Drawing.Size(46, 19)
         Me._txtBGAPara_4.TabIndex = 12
         Me._txtBGAPara_4.Text = "0"
         '
@@ -304,7 +304,7 @@
         Me._txtBGAPara_5.MaxLength = 8
         Me._txtBGAPara_5.Name = "_txtBGAPara_5"
         Me._txtBGAPara_5.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._txtBGAPara_5.Size = New System.Drawing.Size(46, 18)
+        Me._txtBGAPara_5.Size = New System.Drawing.Size(46, 19)
         Me._txtBGAPara_5.TabIndex = 14
         Me._txtBGAPara_5.Text = "0"
         '
@@ -319,7 +319,7 @@
         Me._txtBGAPara_6.MaxLength = 8
         Me._txtBGAPara_6.Name = "_txtBGAPara_6"
         Me._txtBGAPara_6.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._txtBGAPara_6.Size = New System.Drawing.Size(46, 18)
+        Me._txtBGAPara_6.Size = New System.Drawing.Size(46, 19)
         Me._txtBGAPara_6.TabIndex = 16
         Me._txtBGAPara_6.Text = "0"
         '
@@ -425,6 +425,7 @@
         Me.picBackBuffer.Size = New System.Drawing.Size(61, 36)
         Me.picBackBuffer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
         Me.picBackBuffer.TabIndex = 0
+        Me.picBackBuffer.TabStop = False
         Me.picBackBuffer.Visible = False
         '
         'picPreview
@@ -437,6 +438,7 @@
         Me.picPreview.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.picPreview.Size = New System.Drawing.Size(61, 37)
         Me.picPreview.TabIndex = 1
+        Me.picPreview.TabStop = False
         '
         'frmWindowPreview
         '

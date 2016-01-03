@@ -68,10 +68,14 @@
     Public WithEvents _mnuOptionsItem_7 As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents mnuLineOptions As System.Windows.Forms.ToolStripSeparator
     Public WithEvents _mnuLanguage_0 As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuLanguageParent As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents _mnuTheme_0 As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuThemeParent As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuOptions As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents _mnuLanguage_1 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents _mnuLanguage_2 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuLanguageParent As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents _mnuTheme_0 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents _mnuTheme_1 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents _mnuTheme_2 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuThemeParent As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuOptions As System.Windows.Forms.ToolStripMenuItem
 	Public WithEvents mnuToolsPlayAll As System.Windows.Forms.ToolStripMenuItem
 	Public WithEvents mnuToolsPlay As System.Windows.Forms.ToolStripMenuItem
 	Public WithEvents mnuToolsPlayStop As System.Windows.Forms.ToolStripMenuItem
@@ -93,12 +97,12 @@
 	Public WithEvents mnuContextEditCopy As System.Windows.Forms.ToolStripMenuItem
 	Public WithEvents mnuContextEditPaste As System.Windows.Forms.ToolStripMenuItem
 	Public WithEvents mnuContextEditDelete As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuContext As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuContextListLoad As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuContext As System.Windows.Forms.ContextMenuStrip
+    Public WithEvents mnuContextListLoad As System.Windows.Forms.ToolStripMenuItem
 	Public WithEvents mnuContextListDelete As System.Windows.Forms.ToolStripMenuItem
 	Public WithEvents mnuContextListRename As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuContextList As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents MainMenu1 As System.Windows.Forms.MenuStrip
+    Public WithEvents mnuContextList As System.Windows.Forms.ContextMenuStrip
+    Public WithEvents MainMenu1 As System.Windows.Forms.MenuStrip
 	Public WithEvents _staMain_Panel1 As System.Windows.Forms.ToolStripStatusLabel
 	Public WithEvents _staMain_Panel2 As System.Windows.Forms.ToolStripStatusLabel
 	Public WithEvents _staMain_Panel3 As System.Windows.Forms.ToolStripStatusLabel
@@ -313,8 +317,12 @@
         Me.mnuLineOptions = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuLanguageParent = New System.Windows.Forms.ToolStripMenuItem()
         Me._mnuLanguage_0 = New System.Windows.Forms.ToolStripMenuItem()
+        Me._mnuLanguage_1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me._mnuLanguage_2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuThemeParent = New System.Windows.Forms.ToolStripMenuItem()
         Me._mnuTheme_0 = New System.Windows.Forms.ToolStripMenuItem()
+        Me._mnuTheme_1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me._mnuTheme_2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTools = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuToolsPlayAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuToolsPlay = New System.Windows.Forms.ToolStripMenuItem()
@@ -326,7 +334,7 @@
         Me.mnuLineHelp = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuHelpWeb = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuHelpAbout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuContext = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuContext = New System.Windows.Forms.ContextMenuStrip()
         Me.mnuContextPlayAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextPlay = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextBar1 = New System.Windows.Forms.ToolStripSeparator()
@@ -337,7 +345,7 @@
         Me.mnuContextEditCopy = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextEditPaste = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextEditDelete = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuContextList = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuContextList = New System.Windows.Forms.ContextMenuStrip()
         Me.mnuContextListLoad = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextListDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextListRename = New System.Windows.Forms.ToolStripMenuItem()
@@ -453,6 +461,16 @@
         Me.tlbMenu = New System.Windows.Forms.ToolStrip()
         Me._tlbMenu_Button1 = New System.Windows.Forms.ToolStripButton()
         Me._tlbMenu_Button2 = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.ToolStripMenuItem0 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem6 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem7 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem8 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem9 = New System.Windows.Forms.ToolStripMenuItem()
         Me._tlbMenu_Button3 = New System.Windows.Forms.ToolStripButton()
         Me._tlbMenu_Button4 = New System.Windows.Forms.ToolStripButton()
         Me._tlbMenu_Button5 = New System.Windows.Forms.ToolStripButton()
@@ -596,7 +614,7 @@
         '
         'MainMenu1
         '
-        Me.MainMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFile, Me.mnuEdit, Me.mnuView, Me.mnuOptions, Me.mnuTools, Me.mnuHelp, Me.mnuContext, Me.mnuContextList})
+        Me.MainMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFile, Me.mnuEdit, Me.mnuView, Me.mnuOptions, Me.mnuTools, Me.mnuHelp})
         Me.MainMenu1.Location = New System.Drawing.Point(0, 0)
         Me.MainMenu1.Name = "MainMenu1"
         Me.MainMenu1.Size = New System.Drawing.Size(1192, 24)
@@ -942,7 +960,7 @@
         '
         'mnuLanguageParent
         '
-        Me.mnuLanguageParent.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me._mnuLanguage_0})
+        Me.mnuLanguageParent.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me._mnuLanguage_0, Me._mnuLanguage_1, Me._mnuLanguage_2})
         Me.mnuLanguageParent.Name = "mnuLanguageParent"
         Me.mnuLanguageParent.Size = New System.Drawing.Size(177, 22)
         Me.mnuLanguageParent.Text = "Select &Language"
@@ -953,9 +971,21 @@
         Me._mnuLanguage_0.Size = New System.Drawing.Size(164, 22)
         Me._mnuLanguage_0.Text = "mnuLanguage(0)"
         '
+        '_mnuLanguage_1
+        '
+        Me._mnuLanguage_1.Name = "_mnuLanguage_1"
+        Me._mnuLanguage_1.Size = New System.Drawing.Size(164, 22)
+        Me._mnuLanguage_1.Text = "mnuLanguage(1)"
+        '
+        '_mnuLanguage_2
+        '
+        Me._mnuLanguage_2.Name = "_mnuLanguage_2"
+        Me._mnuLanguage_2.Size = New System.Drawing.Size(164, 22)
+        Me._mnuLanguage_2.Text = "mnuLanguage(2)"
+        '
         'mnuThemeParent
         '
-        Me.mnuThemeParent.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me._mnuTheme_0})
+        Me.mnuThemeParent.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me._mnuTheme_0, Me._mnuTheme_1, Me._mnuTheme_2})
         Me.mnuThemeParent.Name = "mnuThemeParent"
         Me.mnuThemeParent.Size = New System.Drawing.Size(177, 22)
         Me.mnuThemeParent.Text = "Select &Theme"
@@ -965,6 +995,18 @@
         Me._mnuTheme_0.Name = "_mnuTheme_0"
         Me._mnuTheme_0.Size = New System.Drawing.Size(147, 22)
         Me._mnuTheme_0.Text = "mnuTheme(0)"
+        '
+        '_mnuTheme_1
+        '
+        Me._mnuTheme_1.Name = "_mnuTheme_1"
+        Me._mnuTheme_1.Size = New System.Drawing.Size(147, 22)
+        Me._mnuTheme_1.Text = "mnuTheme(1)"
+        '
+        '_mnuTheme_2
+        '
+        Me._mnuTheme_2.Name = "_mnuTheme_2"
+        Me._mnuTheme_2.Size = New System.Drawing.Size(147, 22)
+        Me._mnuTheme_2.Text = "mnuTheme(2)"
         '
         'mnuTools
         '
@@ -1038,7 +1080,7 @@
         '
         'mnuContext
         '
-        Me.mnuContext.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextPlayAll, Me.mnuContextPlay, Me.mnuContextBar1, Me.mnuContextInsertMeasure, Me.mnuContextDeleteMeasure, Me.mnuContextBar2, Me.mnuContextEditCut, Me.mnuContextEditCopy, Me.mnuContextEditPaste, Me.mnuContextEditDelete})
+        Me.mnuContext.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextPlayAll, Me.mnuContextPlay, Me.mnuContextBar1, Me.mnuContextInsertMeasure, Me.mnuContextDeleteMeasure, Me.mnuContextBar2, Me.mnuContextEditCut, Me.mnuContextEditCopy, Me.mnuContextEditPaste, Me.mnuContextEditDelete})
         Me.mnuContext.Name = "mnuContext"
         Me.mnuContext.Size = New System.Drawing.Size(84, 20)
         Me.mnuContext.Text = "mnuContext"
@@ -1103,7 +1145,7 @@
         '
         'mnuContextList
         '
-        Me.mnuContextList.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextListLoad, Me.mnuContextListDelete, Me.mnuContextListRename})
+        Me.mnuContextList.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextListLoad, Me.mnuContextListDelete, Me.mnuContextListRename})
         Me.mnuContextList.Name = "mnuContextList"
         Me.mnuContextList.Size = New System.Drawing.Size(102, 20)
         Me.mnuContextList.Text = "mnuContextList"
@@ -2643,12 +2685,93 @@
         '_tlbMenu_Button2
         '
         Me._tlbMenu_Button2.AutoSize = False
+        Me._tlbMenu_Button2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem0, Me.ToolStripMenuItem1, Me.ToolStripMenuItem2, Me.ToolStripMenuItem3, Me.ToolStripMenuItem4, Me.ToolStripMenuItem5, Me.ToolStripMenuItem6, Me.ToolStripMenuItem7, Me.ToolStripMenuItem8, Me.ToolStripMenuItem9})
         Me._tlbMenu_Button2.ImageIndex = 1
         Me._tlbMenu_Button2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me._tlbMenu_Button2.Name = "_tlbMenu_Button2"
         Me._tlbMenu_Button2.Size = New System.Drawing.Size(37, 22)
         Me._tlbMenu_Button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me._tlbMenu_Button2.ToolTipText = "開く"
+        '
+        'ToolStripMenuItem0
+        '
+        Me.ToolStripMenuItem0.Enabled = False
+        Me.ToolStripMenuItem0.Name = "ToolStripMenuItem0"
+        Me.ToolStripMenuItem0.Size = New System.Drawing.Size(89, 22)
+        Me.ToolStripMenuItem0.Text = "&1:"
+        Me.ToolStripMenuItem0.Visible = False
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Enabled = False
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(89, 22)
+        Me.ToolStripMenuItem1.Text = "&2:"
+        Me.ToolStripMenuItem1.Visible = False
+        '
+        'ToolStripMenuItem2
+        '
+        Me.ToolStripMenuItem2.Enabled = False
+        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(89, 22)
+        Me.ToolStripMenuItem2.Text = "&3:"
+        Me.ToolStripMenuItem2.Visible = False
+        '
+        'ToolStripMenuItem3
+        '
+        Me.ToolStripMenuItem3.Enabled = False
+        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(89, 22)
+        Me.ToolStripMenuItem3.Text = "&4:"
+        Me.ToolStripMenuItem3.Visible = False
+        '
+        'ToolStripMenuItem4
+        '
+        Me.ToolStripMenuItem4.Enabled = False
+        Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
+        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(89, 22)
+        Me.ToolStripMenuItem4.Text = "&5:"
+        Me.ToolStripMenuItem4.Visible = False
+        '
+        'ToolStripMenuItem5
+        '
+        Me.ToolStripMenuItem5.Enabled = False
+        Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
+        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(89, 22)
+        Me.ToolStripMenuItem5.Text = "&6:"
+        Me.ToolStripMenuItem5.Visible = False
+        '
+        'ToolStripMenuItem6
+        '
+        Me.ToolStripMenuItem6.Enabled = False
+        Me.ToolStripMenuItem6.Name = "ToolStripMenuItem6"
+        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(89, 22)
+        Me.ToolStripMenuItem6.Text = "&7:"
+        Me.ToolStripMenuItem6.Visible = False
+        '
+        'ToolStripMenuItem7
+        '
+        Me.ToolStripMenuItem7.Enabled = False
+        Me.ToolStripMenuItem7.Name = "ToolStripMenuItem7"
+        Me.ToolStripMenuItem7.Size = New System.Drawing.Size(89, 22)
+        Me.ToolStripMenuItem7.Text = "&8:"
+        Me.ToolStripMenuItem7.Visible = False
+        '
+        'ToolStripMenuItem8
+        '
+        Me.ToolStripMenuItem8.Enabled = False
+        Me.ToolStripMenuItem8.Name = "ToolStripMenuItem8"
+        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(89, 22)
+        Me.ToolStripMenuItem8.Text = "&9:"
+        Me.ToolStripMenuItem8.Visible = False
+        '
+        'ToolStripMenuItem9
+        '
+        Me.ToolStripMenuItem9.Enabled = False
+        Me.ToolStripMenuItem9.Name = "ToolStripMenuItem9"
+        Me.ToolStripMenuItem9.Size = New System.Drawing.Size(89, 22)
+        Me.ToolStripMenuItem9.Text = "&10:"
+        Me.ToolStripMenuItem9.Visible = False
         '
         '_tlbMenu_Button3
         '
@@ -2881,5 +3004,15 @@
     End Sub
 
     Friend WithEvents dlgMain As OpenFileDialog
+    Friend WithEvents ToolStripMenuItem0 As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem2 As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem3 As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem4 As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem5 As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem6 As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem7 As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem8 As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem9 As ToolStripMenuItem
 #End Region
 End Class
