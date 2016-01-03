@@ -16,31 +16,33 @@ Friend Class frmWindowAbout
         intTemp = LenB(Text_Renamed)
 
         With Me
-			
-			'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			Call SetTextColor(.hdc, 0)
-			'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			Call TextOut(.hdc, X - 1, Y - 1, Text_Renamed, intTemp)
-			'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			Call TextOut(.hdc, X, Y - 1, Text_Renamed, intTemp)
-			'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			Call TextOut(.hdc, X + 1, Y - 1, Text_Renamed, intTemp)
-			'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			Call TextOut(.hdc, X - 1, Y, Text_Renamed, intTemp)
-			'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			Call TextOut(.hdc, X + 1, Y, Text_Renamed, intTemp)
-			'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			Call TextOut(.hdc, X - 1, Y + 1, Text_Renamed, intTemp)
-			'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			Call TextOut(.hdc, X, Y + 1, Text_Renamed, intTemp)
-			'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			Call TextOut(.hdc, X + 1, Y + 1, Text_Renamed, intTemp)
-			'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			Call SetTextColor(.hdc, 16777215)
-			'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-			Call TextOut(.hdc, X, Y, Text_Renamed, intTemp)
-			
-		End With
+            Dim gp As Graphics = .CreateGraphics()
+            Dim hDC As IntPtr = gp.GetHdc()
+
+            'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            Call SetTextColor(hDC, 0)
+            'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            Call TextOut(hDC, X - 1, Y - 1, Text_Renamed, intTemp)
+            'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            Call TextOut(hDC, X, Y - 1, Text_Renamed, intTemp)
+            'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            Call TextOut(hDC, X + 1, Y - 1, Text_Renamed, intTemp)
+            'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            Call TextOut(hDC, X - 1, Y, Text_Renamed, intTemp)
+            'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            Call TextOut(hDC, X + 1, Y, Text_Renamed, intTemp)
+            'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            Call TextOut(hDC, X - 1, Y + 1, Text_Renamed, intTemp)
+            'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            Call TextOut(hDC, X, Y + 1, Text_Renamed, intTemp)
+            'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            Call TextOut(hDC, X + 1, Y + 1, Text_Renamed, intTemp)
+            'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            Call SetTextColor(hDC, 16777215)
+            'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+            Call TextOut(hDC, X, Y, Text_Renamed, intTemp)
+
+        End With
 		
 	End Sub
 	
@@ -129,9 +131,15 @@ Friend Class frmWindowAbout
         Dim sngTemp As Single
 
         With Me
+            Dim gp As Graphics = .CreateGraphics()
+            Dim hDC As IntPtr = gp.GetHdc()
+
+            Dim picMain_gp As Graphics = picMain.CreateGraphics()
+            Dim picMain_hDC As IntPtr = picMain_gp.GetHdc()
+
 
             'UPGRADE_ISSUE: Form メソッド frmWindowAbout.Cls はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-            Call .Cls()
+            Call gp.Clear(.BackColor)
 
             sngTemp = m_lngCounter / 10
             If sngTemp > 8 Then sngTemp = 8
@@ -149,7 +157,7 @@ Friend Class frmWindowAbout
                 'Call StretchBlt(.hdc, lngTemp, i, .ScaleWidth, 1, picMain.hdc, 0, i, .ScaleWidth, 1, SRCCOPY)
                 'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                 'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-                Call BitBlt(.hdc, lngTemp, i, VB6.PixelsToTwipsX(.ClientRectangle.Width), 1, picMain.hdc, 0, i, SRCCOPY)
+                Call BitBlt(hDC, lngTemp, i, VB6.PixelsToTwipsX(.ClientRectangle.Width), 1, picMain_hDC, 0, i, SRCCOPY)
 
             Next i
 

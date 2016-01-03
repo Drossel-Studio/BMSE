@@ -1842,24 +1842,23 @@ Err_Renamed:
 		
 		Dim i As Integer
 		Dim j As Integer
-		
-		If TypeOf VB6.GetActiveControl() Is System.Windows.Forms.TextBox Then
-			
-			Exit Sub
-			
-		ElseIf TypeOf VB6.GetActiveControl() Is System.Windows.Forms.ComboBox Then 
-			
-			'UPGRADE_ISSUE: Control Style は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
-			If VB6.GetActiveControl().Style = 0 Then
-				
-				Exit Sub
-				
-			End If
-			
-		End If
-		
-		'Shift が押されていたら3回繰り返すよ
-		If Shift And VB6.ShiftConstants.ShiftMask Then j = 2
+
+        If TypeOf ActiveControl Is System.Windows.Forms.TextBox Then
+
+            Exit Sub
+
+        ElseIf TypeOf ActiveControl Is System.Windows.Forms.ComboBox Then
+
+            'UPGRADE_ISSUE: Control Style は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
+            If DirectCast(ActiveControl(), System.Windows.Forms.ComboBox).DropDownStyle = 0 Then
+                Exit Sub
+            End If
+
+
+        End If
+
+        'Shift が押されていたら3回繰り返すよ
+        If Shift And VB6.ShiftConstants.ShiftMask Then j = 2
 		
 		For i = 0 To j
 			
@@ -3164,20 +3163,20 @@ Err_Renamed:
 
         'テキストボックスやコンボボックスがアクティブの場合は
         'そっちに Redo のメッセージを送信して脱出する
-        If TypeOf VB6.GetActiveControl() Is System.Windows.Forms.TextBox Then
+        If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
 
             'UPGRADE_ISSUE: Control hwnd は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
-            Call SendMessage(VB6.GetActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
+            Call SendMessage(ActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
 
             Exit Sub
 
-        ElseIf TypeOf VB6.GetActiveControl() Is System.Windows.Forms.ComboBox Then
+        ElseIf TypeOf ActiveControl() Is System.Windows.Forms.ComboBox Then
 
             'UPGRADE_ISSUE: Control Style は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
-            If VB6.GetActiveControl().Style = 0 Then
+            If DirectCast(ActiveControl(), System.Windows.Forms.ComboBox).DropDownStyle = 0 Then
 
                 'UPGRADE_ISSUE: Control hwnd は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
-                Call SendMessage(VB6.GetActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
+                Call SendMessage(ActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
 
                 Exit Sub
 
@@ -6495,11 +6494,12 @@ Err_Renamed:
 	End Sub
 	
 	Public Sub tmrEffect_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles tmrEffect.Tick
-		
-		'UPGRADE_ISSUE: PictureBox メソッド picMain.Cls はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-		Call picMain.Cls()
-		
-		If g_Obj(UBound(g_Obj)).intCh Then
+
+        'UPGRADE_ISSUE: PictureBox メソッド picMain.Cls はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
+        Dim gp As Graphics = picMain.CreateGraphics()
+        Call gp.Clear(picMain.BackColor)
+
+        If g_Obj(UBound(g_Obj)).intCh Then
 			
 			Call modDraw.InitPen()
 			Call modDraw.DrawObj(g_Obj(UBound(g_Obj)))
