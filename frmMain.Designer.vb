@@ -2,11 +2,58 @@
 #Region "Windows フォーム デザイナによって生成されたコード "
 	<System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
 		MyBase.New()
-		'この呼び出しは、Windows フォーム デザイナで必要です。
-		InitializeComponent()
-	End Sub
-	'Form は、コンポーネント一覧に後処理を実行するために dispose をオーバーライドします。
-	<System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+        'この呼び出しは、Windows フォーム デザイナで必要です。
+        InitializeComponent()
+
+        VB6.SetItemData(cboDispGridMain, 0, 2)
+        VB6.SetItemData(cboDispGridMain, 1, 4)
+        VB6.SetItemData(cboDispGridMain, 2, 8)
+        VB6.SetItemData(cboDispGridMain, 3, 16)
+        VB6.SetItemData(cboDispGridMain, 4, 32)
+        VB6.SetItemData(cboDispGridMain, 5, 64)
+        VB6.SetItemData(cboDispGridMain, 6, 3)
+        VB6.SetItemData(cboDispGridMain, 7, 6)
+        VB6.SetItemData(cboDispGridMain, 8, 12)
+        VB6.SetItemData(cboDispGridMain, 9, 24)
+        VB6.SetItemData(cboDispGridMain, 10, 48)
+        VB6.SetItemData(cboDispGridMain, 11, 0)
+
+        VB6.SetItemData(cboDispGridSub, 0, 4)
+        VB6.SetItemData(cboDispGridSub, 1, 8)
+        VB6.SetItemData(cboDispGridSub, 2, 16)
+        VB6.SetItemData(cboDispGridSub, 3, 32)
+        VB6.SetItemData(cboDispGridSub, 4, 64)
+        VB6.SetItemData(cboDispGridSub, 5, 3)
+        VB6.SetItemData(cboDispGridSub, 6, 6)
+        VB6.SetItemData(cboDispGridSub, 7, 12)
+        VB6.SetItemData(cboDispGridSub, 8, 24)
+        VB6.SetItemData(cboDispGridSub, 9, 48)
+        VB6.SetItemData(cboDispGridSub, 10, 0)
+
+        VB6.SetItemData(cboDispWidth, 0, 50)
+        VB6.SetItemData(cboDispWidth, 1, 100)
+        VB6.SetItemData(cboDispWidth, 2, 150)
+        VB6.SetItemData(cboDispWidth, 3, 200)
+        VB6.SetItemData(cboDispWidth, 4, 250)
+        VB6.SetItemData(cboDispWidth, 5, 300)
+        VB6.SetItemData(cboDispWidth, 6, 350)
+        VB6.SetItemData(cboDispWidth, 7, 400)
+        VB6.SetItemData(cboDispWidth, 8, 10000)
+
+        VB6.SetItemData(cboDispHeight, 0, 50)
+        VB6.SetItemData(cboDispHeight, 1, 100)
+        VB6.SetItemData(cboDispHeight, 2, 150)
+        VB6.SetItemData(cboDispHeight, 3, 200)
+        VB6.SetItemData(cboDispHeight, 4, 250)
+        VB6.SetItemData(cboDispHeight, 5, 300)
+        VB6.SetItemData(cboDispHeight, 6, 350)
+        VB6.SetItemData(cboDispHeight, 7, 400)
+        VB6.SetItemData(cboDispHeight, 8, 10000)
+
+        VB6.SetItemData(cboVScroll, 0, 1)
+    End Sub
+    'Form は、コンポーネント一覧に後処理を実行するために dispose をオーバーライドします。
+    <System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
 		If Disposing Then
 			If Not components Is Nothing Then
 				components.Dispose()
@@ -103,152 +150,152 @@
 	Public WithEvents mnuContextListRename As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents mnuContextList As System.Windows.Forms.ContextMenuStrip
     Public WithEvents MainMenu1 As System.Windows.Forms.MenuStrip
-	Public WithEvents _staMain_Panel1 As System.Windows.Forms.ToolStripStatusLabel
-	Public WithEvents _staMain_Panel2 As System.Windows.Forms.ToolStripStatusLabel
-	Public WithEvents _staMain_Panel3 As System.Windows.Forms.ToolStripStatusLabel
-	Public WithEvents _staMain_Panel4 As System.Windows.Forms.ToolStripStatusLabel
-	Public WithEvents _staMain_Panel5 As System.Windows.Forms.ToolStripStatusLabel
-	Public WithEvents _staMain_Panel6 As System.Windows.Forms.ToolStripStatusLabel
-	Public WithEvents staMain As System.Windows.Forms.StatusStrip
-	Public WithEvents picSiromaru As System.Windows.Forms.PictureBox
-	Public WithEvents tmrEffect As System.Windows.Forms.Timer
-	Public WithEvents cboVScroll As System.Windows.Forms.ComboBox
-	Public WithEvents lblVScroll As System.Windows.Forms.Label
-	Public WithEvents fraResolution As System.Windows.Forms.GroupBox
-	Public WithEvents cboDispHeight As System.Windows.Forms.ComboBox
-	Public WithEvents cboDispWidth As System.Windows.Forms.ComboBox
-	Public WithEvents lblDispWidth As System.Windows.Forms.Label
-	Public WithEvents lblDispHeight As System.Windows.Forms.Label
-	Public WithEvents fraDispSize As System.Windows.Forms.GroupBox
-	Public WithEvents cboViewer As System.Windows.Forms.ComboBox
-	Public WithEvents fraViewer As System.Windows.Forms.GroupBox
-	Public WithEvents tmrMain As System.Windows.Forms.Timer
-	Public WithEvents ilsMenu As System.Windows.Forms.ImageList
-	Public WithEvents cboDirectInput As System.Windows.Forms.ComboBox
-	Public WithEvents cmdDirectInput As System.Windows.Forms.Button
-	Public WithEvents cboDispGridMain As System.Windows.Forms.ComboBox
-	Public WithEvents cboDispGridSub As System.Windows.Forms.ComboBox
-	Public WithEvents lblGridSub As System.Windows.Forms.Label
-	Public WithEvents lblGridMain As System.Windows.Forms.Label
-	Public WithEvents fraGrid As System.Windows.Forms.GroupBox
-	Public WithEvents cboPlayer As System.Windows.Forms.ComboBox
-	Public WithEvents txtGenre As System.Windows.Forms.TextBox
-	Public WithEvents txtTitle As System.Windows.Forms.TextBox
-	Public WithEvents txtArtist As System.Windows.Forms.TextBox
-	Public WithEvents cboPlayLevel As System.Windows.Forms.ComboBox
-	Public WithEvents txtBPM As System.Windows.Forms.TextBox
-	Public WithEvents lblPlayMode As System.Windows.Forms.Label
-	Public WithEvents lblGenre As System.Windows.Forms.Label
-	Public WithEvents lblTitle As System.Windows.Forms.Label
-	Public WithEvents lblArtist As System.Windows.Forms.Label
-	Public WithEvents lblPlayLevel As System.Windows.Forms.Label
-	Public WithEvents lblBPM As System.Windows.Forms.Label
-	Public WithEvents _fraTop_0 As System.Windows.Forms.GroupBox
-	Public WithEvents cboPlayRank As System.Windows.Forms.ComboBox
-	Public WithEvents txtTotal As System.Windows.Forms.TextBox
-	Public WithEvents txtVolume As System.Windows.Forms.TextBox
-	Public WithEvents txtStageFile As System.Windows.Forms.TextBox
-	Public WithEvents cmdLoadStageFile As System.Windows.Forms.Button
-	Public WithEvents cmdLoadMissBMP As System.Windows.Forms.Button
-	Public WithEvents txtMissBMP As System.Windows.Forms.TextBox
-	Public WithEvents lblPlayRank As System.Windows.Forms.Label
-	Public WithEvents lblTotal As System.Windows.Forms.Label
-	Public WithEvents lblVolume As System.Windows.Forms.Label
-	Public WithEvents lblStageFile As System.Windows.Forms.Label
-	Public WithEvents lblMissBMP As System.Windows.Forms.Label
-	Public WithEvents _fraTop_1 As System.Windows.Forms.GroupBox
-	Public WithEvents cboDispFrame As System.Windows.Forms.ComboBox
-	Public WithEvents cboDispSC2P As System.Windows.Forms.ComboBox
-	Public WithEvents cboDispSC1P As System.Windows.Forms.ComboBox
-	Public WithEvents cboDispKey As System.Windows.Forms.ComboBox
-	Public WithEvents lblDispFrame As System.Windows.Forms.Label
-	Public WithEvents lblDispSC2P As System.Windows.Forms.Label
-	Public WithEvents lblDispSC1P As System.Windows.Forms.Label
-	Public WithEvents lblDispKey As System.Windows.Forms.Label
-	Public WithEvents _fraTop_2 As System.Windows.Forms.GroupBox
-	Public WithEvents _optChangeTop_0 As System.Windows.Forms.RadioButton
-	Public WithEvents _optChangeTop_2 As System.Windows.Forms.RadioButton
-	Public WithEvents _optChangeTop_1 As System.Windows.Forms.RadioButton
-	Public WithEvents fraHeader As System.Windows.Forms.GroupBox
-	Public WithEvents _optChangeBottom_0 As System.Windows.Forms.RadioButton
-	Public WithEvents _optChangeBottom_1 As System.Windows.Forms.RadioButton
-	Public WithEvents _optChangeBottom_2 As System.Windows.Forms.RadioButton
-	Public WithEvents _optChangeBottom_3 As System.Windows.Forms.RadioButton
-	Public WithEvents _optChangeBottom_4 As System.Windows.Forms.RadioButton
-	Public WithEvents txtExInfo As System.Windows.Forms.TextBox
-	Public WithEvents _fraBottom_4 As System.Windows.Forms.GroupBox
-	Public WithEvents cmdSoundExcUp As System.Windows.Forms.Button
-	Public WithEvents cmdSoundExcDown As System.Windows.Forms.Button
-	Public WithEvents cmdSoundDelete As System.Windows.Forms.Button
-	Public WithEvents cmdSoundLoad As System.Windows.Forms.Button
-	Public WithEvents cmdSoundStop As System.Windows.Forms.Button
-	Public WithEvents lstWAV As System.Windows.Forms.ListBox
-	Public WithEvents _fraBottom_0 As System.Windows.Forms.GroupBox
-	Public WithEvents cmdBMPExcDown As System.Windows.Forms.Button
-	Public WithEvents cmdBMPExcUp As System.Windows.Forms.Button
-	Public WithEvents lstBMP As System.Windows.Forms.ListBox
-	Public WithEvents cmdBMPDelete As System.Windows.Forms.Button
-	Public WithEvents cmdBMPLoad As System.Windows.Forms.Button
-	Public WithEvents cmdBMPPreview As System.Windows.Forms.Button
-	Public WithEvents _fraBottom_1 As System.Windows.Forms.GroupBox
-	Public WithEvents cmdBGAExcDown As System.Windows.Forms.Button
-	Public WithEvents cmdBGAExcUp As System.Windows.Forms.Button
-	Public WithEvents txtBGAInput As System.Windows.Forms.TextBox
-	Public WithEvents cmdBGAPreview As System.Windows.Forms.Button
-	Public WithEvents cmdBGASet As System.Windows.Forms.Button
-	Public WithEvents cmdBGADelete As System.Windows.Forms.Button
-	Public WithEvents lstBGA As System.Windows.Forms.ListBox
-	Public WithEvents _fraBottom_2 As System.Windows.Forms.GroupBox
-	Public WithEvents cboNumerator As System.Windows.Forms.ComboBox
-	Public WithEvents cboDenominator As System.Windows.Forms.ComboBox
-	Public WithEvents cmdMeasureSelectAll As System.Windows.Forms.Button
-	Public WithEvents cmdInputMeasureLen As System.Windows.Forms.Button
-	Public WithEvents lstMeasureLen As System.Windows.Forms.ListBox
-	Public WithEvents lblFraction As System.Windows.Forms.Label
-	Public WithEvents _fraBottom_3 As System.Windows.Forms.GroupBox
-	Public WithEvents fraMaterial As System.Windows.Forms.GroupBox
-	Public WithEvents picMain As System.Windows.Forms.PictureBox
-	Public WithEvents hsbMain As System.Windows.Forms.HScrollBar
-	Public WithEvents vsbMain As System.Windows.Forms.VScrollBar
-	Public dlgMainOpen As System.Windows.Forms.OpenFileDialog
-	Public dlgMainSave As System.Windows.Forms.SaveFileDialog
-	Public WithEvents _tlbMenu_Button1 As System.Windows.Forms.ToolStripButton
-	Public WithEvents _tlbMenu_Button2 As System.Windows.Forms.ToolStripDropDownButton
-	Public WithEvents _tlbMenu_Button3 As System.Windows.Forms.ToolStripButton
-	Public WithEvents _tlbMenu_Button4 As System.Windows.Forms.ToolStripButton
-	Public WithEvents _tlbMenu_Button5 As System.Windows.Forms.ToolStripButton
-	Public WithEvents _tlbMenu_Button6 As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents _tlbMenu_Button7 As System.Windows.Forms.ToolStripButton
-	Public WithEvents _tlbMenu_Button8 As System.Windows.Forms.ToolStripButton
-	Public WithEvents _tlbMenu_Button9 As System.Windows.Forms.ToolStripButton
-	Public WithEvents _tlbMenu_Button10 As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents _tlbMenu_Button11 As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents _tlbMenu_Button12 As System.Windows.Forms.ToolStripButton
-	Public WithEvents _tlbMenu_Button13 As System.Windows.Forms.ToolStripButton
-	Public WithEvents _tlbMenu_Button14 As System.Windows.Forms.ToolStripButton
-	Public WithEvents _tlbMenu_Button15 As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents _tlbMenu_Button16 As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents _tlbMenu_Button17 As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents _tlbMenu_Button18 As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents _tlbMenu_Button19 As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents _tlbMenu_Button20 As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents tlbMenu As System.Windows.Forms.ToolStrip
-	Public WithEvents _linStatusBar_0 As Microsoft.VisualBasic.PowerPacks.LineShape
-	Public WithEvents _linStatusBar_1 As Microsoft.VisualBasic.PowerPacks.LineShape
-	Public WithEvents _linToolbarBottom_0 As Microsoft.VisualBasic.PowerPacks.LineShape
-	Public WithEvents _linHeader_0 As Microsoft.VisualBasic.PowerPacks.LineShape
-	Public WithEvents _linVertical_0 As Microsoft.VisualBasic.PowerPacks.LineShape
-	Public WithEvents _linDirectInput_0 As Microsoft.VisualBasic.PowerPacks.LineShape
-	Public WithEvents _linDirectInput_1 As Microsoft.VisualBasic.PowerPacks.LineShape
-	Public WithEvents _linHeader_1 As Microsoft.VisualBasic.PowerPacks.LineShape
-	Public WithEvents _linVertical_1 As Microsoft.VisualBasic.PowerPacks.LineShape
-	Public WithEvents _linToolbarBottom_1 As Microsoft.VisualBasic.PowerPacks.LineShape
+    Public WithEvents Mode As System.Windows.Forms.ToolStripStatusLabel
+    Public WithEvents Position As System.Windows.Forms.ToolStripStatusLabel
+    Public WithEvents WAV As System.Windows.Forms.ToolStripStatusLabel
+    Public WithEvents BMP As System.Windows.Forms.ToolStripStatusLabel
+    Public WithEvents Measure As System.Windows.Forms.ToolStripStatusLabel
+    Public WithEvents _staMain_Panel6 As System.Windows.Forms.ToolStripStatusLabel
+    Public WithEvents staMain As System.Windows.Forms.StatusStrip
+    Public WithEvents picSiromaru As System.Windows.Forms.PictureBox
+    Public WithEvents tmrEffect As System.Windows.Forms.Timer
+    Public WithEvents cboVScroll As System.Windows.Forms.ComboBox
+    Public WithEvents lblVScroll As System.Windows.Forms.Label
+    Public WithEvents fraResolution As System.Windows.Forms.GroupBox
+    Public WithEvents cboDispHeight As System.Windows.Forms.ComboBox
+    Public WithEvents cboDispWidth As System.Windows.Forms.ComboBox
+    Public WithEvents lblDispWidth As System.Windows.Forms.Label
+    Public WithEvents lblDispHeight As System.Windows.Forms.Label
+    Public WithEvents fraDispSize As System.Windows.Forms.GroupBox
+    Public WithEvents cboViewer As System.Windows.Forms.ComboBox
+    Public WithEvents fraViewer As System.Windows.Forms.GroupBox
+    Public WithEvents tmrMain As System.Windows.Forms.Timer
+    Public WithEvents ilsMenu As System.Windows.Forms.ImageList
+    Public WithEvents cboDirectInput As System.Windows.Forms.ComboBox
+    Public WithEvents cmdDirectInput As System.Windows.Forms.Button
+    Public WithEvents cboDispGridMain As System.Windows.Forms.ComboBox
+    Public WithEvents cboDispGridSub As System.Windows.Forms.ComboBox
+    Public WithEvents lblGridSub As System.Windows.Forms.Label
+    Public WithEvents lblGridMain As System.Windows.Forms.Label
+    Public WithEvents fraGrid As System.Windows.Forms.GroupBox
+    Public WithEvents cboPlayer As System.Windows.Forms.ComboBox
+    Public WithEvents txtGenre As System.Windows.Forms.TextBox
+    Public WithEvents txtTitle As System.Windows.Forms.TextBox
+    Public WithEvents txtArtist As System.Windows.Forms.TextBox
+    Public WithEvents cboPlayLevel As System.Windows.Forms.ComboBox
+    Public WithEvents txtBPM As System.Windows.Forms.TextBox
+    Public WithEvents lblPlayMode As System.Windows.Forms.Label
+    Public WithEvents lblGenre As System.Windows.Forms.Label
+    Public WithEvents lblTitle As System.Windows.Forms.Label
+    Public WithEvents lblArtist As System.Windows.Forms.Label
+    Public WithEvents lblPlayLevel As System.Windows.Forms.Label
+    Public WithEvents lblBPM As System.Windows.Forms.Label
+    Public WithEvents _fraTop_0 As System.Windows.Forms.GroupBox
+    Public WithEvents cboPlayRank As System.Windows.Forms.ComboBox
+    Public WithEvents txtTotal As System.Windows.Forms.TextBox
+    Public WithEvents txtVolume As System.Windows.Forms.TextBox
+    Public WithEvents txtStageFile As System.Windows.Forms.TextBox
+    Public WithEvents cmdLoadStageFile As System.Windows.Forms.Button
+    Public WithEvents cmdLoadMissBMP As System.Windows.Forms.Button
+    Public WithEvents txtMissBMP As System.Windows.Forms.TextBox
+    Public WithEvents lblPlayRank As System.Windows.Forms.Label
+    Public WithEvents lblTotal As System.Windows.Forms.Label
+    Public WithEvents lblVolume As System.Windows.Forms.Label
+    Public WithEvents lblStageFile As System.Windows.Forms.Label
+    Public WithEvents lblMissBMP As System.Windows.Forms.Label
+    Public WithEvents _fraTop_1 As System.Windows.Forms.GroupBox
+    Public WithEvents cboDispFrame As System.Windows.Forms.ComboBox
+    Public WithEvents cboDispSC2P As System.Windows.Forms.ComboBox
+    Public WithEvents cboDispSC1P As System.Windows.Forms.ComboBox
+    Public WithEvents cboDispKey As System.Windows.Forms.ComboBox
+    Public WithEvents lblDispFrame As System.Windows.Forms.Label
+    Public WithEvents lblDispSC2P As System.Windows.Forms.Label
+    Public WithEvents lblDispSC1P As System.Windows.Forms.Label
+    Public WithEvents lblDispKey As System.Windows.Forms.Label
+    Public WithEvents _fraTop_2 As System.Windows.Forms.GroupBox
+    Public WithEvents _optChangeTop_0 As System.Windows.Forms.RadioButton
+    Public WithEvents _optChangeTop_2 As System.Windows.Forms.RadioButton
+    Public WithEvents _optChangeTop_1 As System.Windows.Forms.RadioButton
+    Public WithEvents fraHeader As System.Windows.Forms.GroupBox
+    Public WithEvents _optChangeBottom_0 As System.Windows.Forms.RadioButton
+    Public WithEvents _optChangeBottom_1 As System.Windows.Forms.RadioButton
+    Public WithEvents _optChangeBottom_2 As System.Windows.Forms.RadioButton
+    Public WithEvents _optChangeBottom_3 As System.Windows.Forms.RadioButton
+    Public WithEvents _optChangeBottom_4 As System.Windows.Forms.RadioButton
+    Public WithEvents txtExInfo As System.Windows.Forms.TextBox
+    Public WithEvents _fraBottom_4 As System.Windows.Forms.GroupBox
+    Public WithEvents cmdSoundExcUp As System.Windows.Forms.Button
+    Public WithEvents cmdSoundExcDown As System.Windows.Forms.Button
+    Public WithEvents cmdSoundDelete As System.Windows.Forms.Button
+    Public WithEvents cmdSoundLoad As System.Windows.Forms.Button
+    Public WithEvents cmdSoundStop As System.Windows.Forms.Button
+    Public WithEvents lstWAV As System.Windows.Forms.ListBox
+    Public WithEvents _fraBottom_0 As System.Windows.Forms.GroupBox
+    Public WithEvents cmdBMPExcDown As System.Windows.Forms.Button
+    Public WithEvents cmdBMPExcUp As System.Windows.Forms.Button
+    Public WithEvents lstBMP As System.Windows.Forms.ListBox
+    Public WithEvents cmdBMPDelete As System.Windows.Forms.Button
+    Public WithEvents cmdBMPLoad As System.Windows.Forms.Button
+    Public WithEvents cmdBMPPreview As System.Windows.Forms.Button
+    Public WithEvents _fraBottom_1 As System.Windows.Forms.GroupBox
+    Public WithEvents cmdBGAExcDown As System.Windows.Forms.Button
+    Public WithEvents cmdBGAExcUp As System.Windows.Forms.Button
+    Public WithEvents txtBGAInput As System.Windows.Forms.TextBox
+    Public WithEvents cmdBGAPreview As System.Windows.Forms.Button
+    Public WithEvents cmdBGASet As System.Windows.Forms.Button
+    Public WithEvents cmdBGADelete As System.Windows.Forms.Button
+    Public WithEvents lstBGA As System.Windows.Forms.ListBox
+    Public WithEvents _fraBottom_2 As System.Windows.Forms.GroupBox
+    Public WithEvents cboNumerator As System.Windows.Forms.ComboBox
+    Public WithEvents cboDenominator As System.Windows.Forms.ComboBox
+    Public WithEvents cmdMeasureSelectAll As System.Windows.Forms.Button
+    Public WithEvents cmdInputMeasureLen As System.Windows.Forms.Button
+    Public WithEvents lstMeasureLen As System.Windows.Forms.ListBox
+    Public WithEvents lblFraction As System.Windows.Forms.Label
+    Public WithEvents _fraBottom_3 As System.Windows.Forms.GroupBox
+    Public WithEvents fraMaterial As System.Windows.Forms.GroupBox
+    Public WithEvents picMain As System.Windows.Forms.PictureBox
+    Public WithEvents hsbMain As System.Windows.Forms.HScrollBar
+    Public WithEvents vsbMain As System.Windows.Forms.VScrollBar
+    Public dlgMainOpen As System.Windows.Forms.OpenFileDialog
+    Public dlgMainSave As System.Windows.Forms.SaveFileDialog
+    Public WithEvents _New As System.Windows.Forms.ToolStripButton
+    Public WithEvents Open As System.Windows.Forms.ToolStripDropDownButton
+    Public WithEvents Reload As System.Windows.Forms.ToolStripButton
+    Public WithEvents Save As System.Windows.Forms.ToolStripButton
+    Public WithEvents SaveAs As System.Windows.Forms.ToolStripButton
+    Public WithEvents SepMode As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents Edit As System.Windows.Forms.ToolStripButton
+    Public WithEvents Write As System.Windows.Forms.ToolStripButton
+    Public WithEvents Delete As System.Windows.Forms.ToolStripButton
+    Public WithEvents SepViewer As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents Viewer As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents PlayAll As System.Windows.Forms.ToolStripButton
+    Public WithEvents Play As System.Windows.Forms.ToolStripButton
+    Public WithEvents _Stop As System.Windows.Forms.ToolStripButton
+    Public WithEvents SepGrid As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents ChangeGrid As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents SepSize As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents DispSize As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents SepResolution As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents Resolution As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents tlbMenu As System.Windows.Forms.ToolStrip
+    Public WithEvents _linStatusBar_0 As Microsoft.VisualBasic.PowerPacks.LineShape
+    Public WithEvents _linStatusBar_1 As Microsoft.VisualBasic.PowerPacks.LineShape
+    Public WithEvents _linToolbarBottom_0 As Microsoft.VisualBasic.PowerPacks.LineShape
+    Public WithEvents _linHeader_0 As Microsoft.VisualBasic.PowerPacks.LineShape
+    Public WithEvents _linVertical_0 As Microsoft.VisualBasic.PowerPacks.LineShape
+    Public WithEvents _linDirectInput_0 As Microsoft.VisualBasic.PowerPacks.LineShape
+    Public WithEvents _linDirectInput_1 As Microsoft.VisualBasic.PowerPacks.LineShape
+    Public WithEvents _linHeader_1 As Microsoft.VisualBasic.PowerPacks.LineShape
+    Public WithEvents _linVertical_1 As Microsoft.VisualBasic.PowerPacks.LineShape
+    Public WithEvents _linToolbarBottom_1 As Microsoft.VisualBasic.PowerPacks.LineShape
     Public WithEvents lblDirectInput As System.Windows.Forms.Label
     Public WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
-	'メモ: 以下のプロシージャは Windows フォーム デザイナで必要です。
-	'Windows フォーム デザイナを使って変更できます。
-	'コード エディタを使用して、変更しないでください。
-	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+    'メモ: 以下のプロシージャは Windows フォーム デザイナで必要です。
+    'Windows フォーム デザイナを使って変更できます。
+    'コード エディタを使用して、変更しないでください。
+    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
@@ -350,11 +397,11 @@
         Me.mnuContextListDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextListRename = New System.Windows.Forms.ToolStripMenuItem()
         Me.staMain = New System.Windows.Forms.StatusStrip()
-        Me._staMain_Panel1 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me._staMain_Panel2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me._staMain_Panel3 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me._staMain_Panel4 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me._staMain_Panel5 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.Mode = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.Position = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.WAV = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.BMP = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.Measure = New System.Windows.Forms.ToolStripStatusLabel()
         Me._staMain_Panel6 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.picSiromaru = New System.Windows.Forms.PictureBox()
         Me.tmrEffect = New System.Windows.Forms.Timer(Me.components)
@@ -459,8 +506,8 @@
         Me.dlgMainOpen = New System.Windows.Forms.OpenFileDialog()
         Me.dlgMainSave = New System.Windows.Forms.SaveFileDialog()
         Me.tlbMenu = New System.Windows.Forms.ToolStrip()
-        Me._tlbMenu_Button1 = New System.Windows.Forms.ToolStripButton()
-        Me._tlbMenu_Button2 = New System.Windows.Forms.ToolStripDropDownButton()
+        Me._New = New System.Windows.Forms.ToolStripButton()
+        Me.Open = New System.Windows.Forms.ToolStripDropDownButton()
         Me.ToolStripMenuItem0 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
@@ -471,24 +518,24 @@
         Me.ToolStripMenuItem7 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem8 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem9 = New System.Windows.Forms.ToolStripMenuItem()
-        Me._tlbMenu_Button3 = New System.Windows.Forms.ToolStripButton()
-        Me._tlbMenu_Button4 = New System.Windows.Forms.ToolStripButton()
-        Me._tlbMenu_Button5 = New System.Windows.Forms.ToolStripButton()
-        Me._tlbMenu_Button6 = New System.Windows.Forms.ToolStripSeparator()
-        Me._tlbMenu_Button7 = New System.Windows.Forms.ToolStripButton()
-        Me._tlbMenu_Button8 = New System.Windows.Forms.ToolStripButton()
-        Me._tlbMenu_Button9 = New System.Windows.Forms.ToolStripButton()
-        Me._tlbMenu_Button10 = New System.Windows.Forms.ToolStripSeparator()
-        Me._tlbMenu_Button11 = New System.Windows.Forms.ToolStripSeparator()
-        Me._tlbMenu_Button12 = New System.Windows.Forms.ToolStripButton()
-        Me._tlbMenu_Button13 = New System.Windows.Forms.ToolStripButton()
-        Me._tlbMenu_Button14 = New System.Windows.Forms.ToolStripButton()
-        Me._tlbMenu_Button15 = New System.Windows.Forms.ToolStripSeparator()
-        Me._tlbMenu_Button16 = New System.Windows.Forms.ToolStripSeparator()
-        Me._tlbMenu_Button17 = New System.Windows.Forms.ToolStripSeparator()
-        Me._tlbMenu_Button18 = New System.Windows.Forms.ToolStripSeparator()
-        Me._tlbMenu_Button19 = New System.Windows.Forms.ToolStripSeparator()
-        Me._tlbMenu_Button20 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Reload = New System.Windows.Forms.ToolStripButton()
+        Me.Save = New System.Windows.Forms.ToolStripButton()
+        Me.SaveAs = New System.Windows.Forms.ToolStripButton()
+        Me.SepMode = New System.Windows.Forms.ToolStripSeparator()
+        Me.Edit = New System.Windows.Forms.ToolStripButton()
+        Me.Write = New System.Windows.Forms.ToolStripButton()
+        Me.Delete = New System.Windows.Forms.ToolStripButton()
+        Me.SepViewer = New System.Windows.Forms.ToolStripSeparator()
+        Me.Viewer = New System.Windows.Forms.ToolStripSeparator()
+        Me.PlayAll = New System.Windows.Forms.ToolStripButton()
+        Me.Play = New System.Windows.Forms.ToolStripButton()
+        Me._Stop = New System.Windows.Forms.ToolStripButton()
+        Me.SepGrid = New System.Windows.Forms.ToolStripSeparator()
+        Me.ChangeGrid = New System.Windows.Forms.ToolStripSeparator()
+        Me.SepSize = New System.Windows.Forms.ToolStripSeparator()
+        Me.DispSize = New System.Windows.Forms.ToolStripSeparator()
+        Me.SepResolution = New System.Windows.Forms.ToolStripSeparator()
+        Me.Resolution = New System.Windows.Forms.ToolStripSeparator()
         Me.lblDirectInput = New System.Windows.Forms.Label()
         Me.dlgMain = New System.Windows.Forms.OpenFileDialog()
         Me.MainMenu1.SuspendLayout()
@@ -1172,73 +1219,73 @@
         '
         'staMain
         '
-        Me.staMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me._staMain_Panel1, Me._staMain_Panel2, Me._staMain_Panel3, Me._staMain_Panel4, Me._staMain_Panel5, Me._staMain_Panel6})
+        Me.staMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mode, Me.Position, Me.WAV, Me.BMP, Me.Measure, Me._staMain_Panel6})
         Me.staMain.Location = New System.Drawing.Point(0, 508)
         Me.staMain.Name = "staMain"
         Me.staMain.Size = New System.Drawing.Size(1192, 22)
         Me.staMain.TabIndex = 98
         '
-        '_staMain_Panel1
+        'Mode
         '
-        Me._staMain_Panel1.AutoSize = False
-        Me._staMain_Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+        Me.Mode.AutoSize = False
+        Me.Mode.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me._staMain_Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
-        Me._staMain_Panel1.Margin = New System.Windows.Forms.Padding(0)
-        Me._staMain_Panel1.Name = "Mode"
-        Me._staMain_Panel1.Size = New System.Drawing.Size(81, 22)
-        Me._staMain_Panel1.Text = "Edit Mode"
+        Me.Mode.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.Mode.Margin = New System.Windows.Forms.Padding(0)
+        Me.Mode.Name = "Mode"
+        Me.Mode.Size = New System.Drawing.Size(81, 22)
+        Me.Mode.Text = "Edit Mode"
         '
-        '_staMain_Panel2
+        'Position
         '
-        Me._staMain_Panel2.AutoSize = False
-        Me._staMain_Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+        Me.Position.AutoSize = False
+        Me.Position.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me._staMain_Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
-        Me._staMain_Panel2.Margin = New System.Windows.Forms.Padding(0)
-        Me._staMain_Panel2.Name = "Position"
-        Me._staMain_Panel2.Size = New System.Drawing.Size(906, 22)
-        Me._staMain_Panel2.Spring = True
-        Me._staMain_Panel2.Text = "Position:"
-        Me._staMain_Panel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Position.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.Position.Margin = New System.Windows.Forms.Padding(0)
+        Me.Position.Name = "Position"
+        Me.Position.Size = New System.Drawing.Size(906, 22)
+        Me.Position.Spring = True
+        Me.Position.Text = "Position:"
+        Me.Position.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        '_staMain_Panel3
+        'WAV
         '
-        Me._staMain_Panel3.AutoSize = False
-        Me._staMain_Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+        Me.WAV.AutoSize = False
+        Me.WAV.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me._staMain_Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
-        Me._staMain_Panel3.Margin = New System.Windows.Forms.Padding(0)
-        Me._staMain_Panel3.Name = "WAV"
-        Me._staMain_Panel3.Size = New System.Drawing.Size(68, 22)
-        Me._staMain_Panel3.Text = "#WAV 01"
+        Me.WAV.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.WAV.Margin = New System.Windows.Forms.Padding(0)
+        Me.WAV.Name = "WAV"
+        Me.WAV.Size = New System.Drawing.Size(68, 22)
+        Me.WAV.Text = "#WAV 01"
         '
-        '_staMain_Panel4
+        'BMP
         '
-        Me._staMain_Panel4.AutoSize = False
-        Me._staMain_Panel4.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+        Me.BMP.AutoSize = False
+        Me.BMP.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me._staMain_Panel4.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
-        Me._staMain_Panel4.Margin = New System.Windows.Forms.Padding(0)
-        Me._staMain_Panel4.Name = "BMP"
-        Me._staMain_Panel4.Size = New System.Drawing.Size(68, 22)
-        Me._staMain_Panel4.Text = "#BMP 01"
+        Me.BMP.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.BMP.Margin = New System.Windows.Forms.Padding(0)
+        Me.BMP.Name = "BMP"
+        Me.BMP.Size = New System.Drawing.Size(68, 22)
+        Me.BMP.Text = "#BMP 01"
         '
-        '_staMain_Panel5
+        'Measure
         '
-        Me._staMain_Panel5.AutoSize = False
-        Me._staMain_Panel5.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+        Me.Measure.AutoSize = False
+        Me.Measure.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me._staMain_Panel5.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
-        Me._staMain_Panel5.Margin = New System.Windows.Forms.Padding(0)
-        Me._staMain_Panel5.Name = "Measure"
-        Me._staMain_Panel5.Size = New System.Drawing.Size(54, 22)
-        Me._staMain_Panel5.Text = "4/4"
+        Me.Measure.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.Measure.Margin = New System.Windows.Forms.Padding(0)
+        Me.Measure.Name = "Measure"
+        Me.Measure.Size = New System.Drawing.Size(54, 22)
+        Me.Measure.Text = "4/4"
         '
         '_staMain_Panel6
         '
@@ -2668,32 +2715,32 @@
         '
         Me.tlbMenu.CanOverflow = False
         Me.tlbMenu.ImageList = Me.ilsMenu
-        Me.tlbMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me._tlbMenu_Button1, Me._tlbMenu_Button2, Me._tlbMenu_Button3, Me._tlbMenu_Button4, Me._tlbMenu_Button5, Me._tlbMenu_Button6, Me._tlbMenu_Button7, Me._tlbMenu_Button8, Me._tlbMenu_Button9, Me._tlbMenu_Button10, Me._tlbMenu_Button11, Me._tlbMenu_Button12, Me._tlbMenu_Button13, Me._tlbMenu_Button14, Me._tlbMenu_Button15, Me._tlbMenu_Button16, Me._tlbMenu_Button17, Me._tlbMenu_Button18, Me._tlbMenu_Button19, Me._tlbMenu_Button20})
+        Me.tlbMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me._New, Me.Open, Me.Reload, Me.Save, Me.SaveAs, Me.SepMode, Me.Edit, Me.Write, Me.Delete, Me.SepViewer, Me.Viewer, Me.PlayAll, Me.Play, Me._Stop, Me.SepGrid, Me.ChangeGrid, Me.SepSize, Me.DispSize, Me.SepResolution, Me.Resolution})
         Me.tlbMenu.Location = New System.Drawing.Point(0, 24)
         Me.tlbMenu.Name = "tlbMenu"
         Me.tlbMenu.Size = New System.Drawing.Size(1192, 25)
         Me.tlbMenu.TabIndex = 3
         '
-        '_tlbMenu_Button1
+        '_New
         '
-        Me._tlbMenu_Button1.AutoSize = False
-        Me._tlbMenu_Button1.ImageIndex = 0
-        Me._tlbMenu_Button1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button1.Name = "New"
-        Me._tlbMenu_Button1.Size = New System.Drawing.Size(24, 22)
-        Me._tlbMenu_Button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me._tlbMenu_Button1.ToolTipText = "新規作成"
+        Me._New.AutoSize = False
+        Me._New.ImageIndex = 0
+        Me._New.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me._New.Name = "_New"
+        Me._New.Size = New System.Drawing.Size(24, 22)
+        Me._New.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me._New.ToolTipText = "新規作成"
         '
-        '_tlbMenu_Button2
+        'Open
         '
-        Me._tlbMenu_Button2.AutoSize = False
-        Me._tlbMenu_Button2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem0, Me.ToolStripMenuItem1, Me.ToolStripMenuItem2, Me.ToolStripMenuItem3, Me.ToolStripMenuItem4, Me.ToolStripMenuItem5, Me.ToolStripMenuItem6, Me.ToolStripMenuItem7, Me.ToolStripMenuItem8, Me.ToolStripMenuItem9})
-        Me._tlbMenu_Button2.ImageIndex = 1
-        Me._tlbMenu_Button2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button2.Name = "Open"
-        Me._tlbMenu_Button2.Size = New System.Drawing.Size(37, 22)
-        Me._tlbMenu_Button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me._tlbMenu_Button2.ToolTipText = "開く"
+        Me.Open.AutoSize = False
+        Me.Open.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem0, Me.ToolStripMenuItem1, Me.ToolStripMenuItem2, Me.ToolStripMenuItem3, Me.ToolStripMenuItem4, Me.ToolStripMenuItem5, Me.ToolStripMenuItem6, Me.ToolStripMenuItem7, Me.ToolStripMenuItem8, Me.ToolStripMenuItem9})
+        Me.Open.ImageIndex = 1
+        Me.Open.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.Open.Name = "Open"
+        Me.Open.Size = New System.Drawing.Size(37, 22)
+        Me.Open.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.Open.ToolTipText = "開く"
         '
         'ToolStripMenuItem0
         '
@@ -2775,151 +2822,151 @@
         Me.ToolStripMenuItem9.Text = "&10:"
         Me.ToolStripMenuItem9.Visible = False
         '
-        '_tlbMenu_Button3
+        'Reload
         '
-        Me._tlbMenu_Button3.AutoSize = False
-        Me._tlbMenu_Button3.ImageIndex = 2
-        Me._tlbMenu_Button3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button3.Name = "Reload"
-        Me._tlbMenu_Button3.Size = New System.Drawing.Size(24, 22)
-        Me._tlbMenu_Button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me._tlbMenu_Button3.ToolTipText = "再読み込み"
+        Me.Reload.AutoSize = False
+        Me.Reload.ImageIndex = 2
+        Me.Reload.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.Reload.Name = "Reload"
+        Me.Reload.Size = New System.Drawing.Size(24, 22)
+        Me.Reload.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.Reload.ToolTipText = "再読み込み"
         '
-        '_tlbMenu_Button4
+        'Save
         '
-        Me._tlbMenu_Button4.AutoSize = False
-        Me._tlbMenu_Button4.ImageIndex = 3
-        Me._tlbMenu_Button4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button4.Name = "Save"
-        Me._tlbMenu_Button4.Size = New System.Drawing.Size(24, 22)
-        Me._tlbMenu_Button4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me._tlbMenu_Button4.ToolTipText = "上書き保存"
+        Me.Save.AutoSize = False
+        Me.Save.ImageIndex = 3
+        Me.Save.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.Save.Name = "Save"
+        Me.Save.Size = New System.Drawing.Size(24, 22)
+        Me.Save.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.Save.ToolTipText = "上書き保存"
         '
-        '_tlbMenu_Button5
+        'SaveAs
         '
-        Me._tlbMenu_Button5.AutoSize = False
-        Me._tlbMenu_Button5.ImageIndex = 4
-        Me._tlbMenu_Button5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button5.Name = "SaveAs"
-        Me._tlbMenu_Button5.Size = New System.Drawing.Size(24, 22)
-        Me._tlbMenu_Button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me._tlbMenu_Button5.ToolTipText = "名前を付けて保存"
+        Me.SaveAs.AutoSize = False
+        Me.SaveAs.ImageIndex = 4
+        Me.SaveAs.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.SaveAs.Name = "SaveAs"
+        Me.SaveAs.Size = New System.Drawing.Size(24, 22)
+        Me.SaveAs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.SaveAs.ToolTipText = "名前を付けて保存"
         '
-        '_tlbMenu_Button6
+        'SepMode
         '
-        Me._tlbMenu_Button6.AutoSize = False
-        Me._tlbMenu_Button6.Name = "SepMode"
-        Me._tlbMenu_Button6.Size = New System.Drawing.Size(24, 22)
+        Me.SepMode.AutoSize = False
+        Me.SepMode.Name = "SepMode"
+        Me.SepMode.Size = New System.Drawing.Size(24, 22)
         '
-        '_tlbMenu_Button7
+        'Edit
         '
-        Me._tlbMenu_Button7.AutoSize = False
-        Me._tlbMenu_Button7.Checked = True
-        Me._tlbMenu_Button7.CheckState = System.Windows.Forms.CheckState.Checked
-        Me._tlbMenu_Button7.ImageIndex = 5
-        Me._tlbMenu_Button7.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button7.Name = "Edit"
-        Me._tlbMenu_Button7.Size = New System.Drawing.Size(24, 22)
-        Me._tlbMenu_Button7.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me._tlbMenu_Button7.ToolTipText = "編集"
+        Me.Edit.AutoSize = False
+        Me.Edit.Checked = True
+        Me.Edit.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.Edit.ImageIndex = 5
+        Me.Edit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.Edit.Name = "Edit"
+        Me.Edit.Size = New System.Drawing.Size(24, 22)
+        Me.Edit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.Edit.ToolTipText = "編集"
         '
-        '_tlbMenu_Button8
+        'Write
         '
-        Me._tlbMenu_Button8.AutoSize = False
-        Me._tlbMenu_Button8.ImageIndex = 6
-        Me._tlbMenu_Button8.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button8.Name = "Write"
-        Me._tlbMenu_Button8.Size = New System.Drawing.Size(24, 22)
-        Me._tlbMenu_Button8.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me._tlbMenu_Button8.ToolTipText = "書込"
+        Me.Write.AutoSize = False
+        Me.Write.ImageIndex = 6
+        Me.Write.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.Write.Name = "Write"
+        Me.Write.Size = New System.Drawing.Size(24, 22)
+        Me.Write.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.Write.ToolTipText = "書込"
         '
-        '_tlbMenu_Button9
+        'Delete
         '
-        Me._tlbMenu_Button9.AutoSize = False
-        Me._tlbMenu_Button9.ImageIndex = 7
-        Me._tlbMenu_Button9.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button9.Name = "Delete"
-        Me._tlbMenu_Button9.Size = New System.Drawing.Size(24, 22)
-        Me._tlbMenu_Button9.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me._tlbMenu_Button9.ToolTipText = "消去"
+        Me.Delete.AutoSize = False
+        Me.Delete.ImageIndex = 7
+        Me.Delete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.Delete.Name = "Delete"
+        Me.Delete.Size = New System.Drawing.Size(24, 22)
+        Me.Delete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.Delete.ToolTipText = "消去"
         '
-        '_tlbMenu_Button10
+        'SepViewer
         '
-        Me._tlbMenu_Button10.AutoSize = False
-        Me._tlbMenu_Button10.Name = "SepViewer"
-        Me._tlbMenu_Button10.Size = New System.Drawing.Size(24, 22)
+        Me.SepViewer.AutoSize = False
+        Me.SepViewer.Name = "SepViewer"
+        Me.SepViewer.Size = New System.Drawing.Size(24, 22)
         '
-        '_tlbMenu_Button11
+        'Viewer
         '
-        Me._tlbMenu_Button11.AutoSize = False
-        Me._tlbMenu_Button11.Name = "Viewer"
-        Me._tlbMenu_Button11.Size = New System.Drawing.Size(1395, 22)
+        Me.Viewer.AutoSize = False
+        Me.Viewer.Name = "Viewer"
+        Me.Viewer.Size = New System.Drawing.Size(1395, 22)
         '
-        '_tlbMenu_Button12
+        'PlayAll
         '
-        Me._tlbMenu_Button12.AutoSize = False
-        Me._tlbMenu_Button12.ImageIndex = 8
-        Me._tlbMenu_Button12.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button12.Name = "PlayAll"
-        Me._tlbMenu_Button12.Size = New System.Drawing.Size(24, 22)
-        Me._tlbMenu_Button12.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me._tlbMenu_Button12.ToolTipText = "最初から再生"
+        Me.PlayAll.AutoSize = False
+        Me.PlayAll.ImageIndex = 8
+        Me.PlayAll.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.PlayAll.Name = "PlayAll"
+        Me.PlayAll.Size = New System.Drawing.Size(24, 22)
+        Me.PlayAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.PlayAll.ToolTipText = "最初から再生"
         '
-        '_tlbMenu_Button13
+        'Play
         '
-        Me._tlbMenu_Button13.AutoSize = False
-        Me._tlbMenu_Button13.ImageIndex = 9
-        Me._tlbMenu_Button13.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button13.Name = "Play"
-        Me._tlbMenu_Button13.Size = New System.Drawing.Size(24, 22)
-        Me._tlbMenu_Button13.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me._tlbMenu_Button13.ToolTipText = "現在位置から再生"
+        Me.Play.AutoSize = False
+        Me.Play.ImageIndex = 9
+        Me.Play.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.Play.Name = "Play"
+        Me.Play.Size = New System.Drawing.Size(24, 22)
+        Me.Play.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.Play.ToolTipText = "現在位置から再生"
         '
-        '_tlbMenu_Button14
+        '_Stop
         '
-        Me._tlbMenu_Button14.AutoSize = False
-        Me._tlbMenu_Button14.ImageIndex = 10
-        Me._tlbMenu_Button14.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me._tlbMenu_Button14.Name = "Stop"
-        Me._tlbMenu_Button14.Size = New System.Drawing.Size(24, 22)
-        Me._tlbMenu_Button14.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me._tlbMenu_Button14.ToolTipText = "停止"
+        Me._Stop.AutoSize = False
+        Me._Stop.ImageIndex = 10
+        Me._Stop.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me._Stop.Name = "_Stop"
+        Me._Stop.Size = New System.Drawing.Size(24, 22)
+        Me._Stop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me._Stop.ToolTipText = "停止"
         '
-        '_tlbMenu_Button15
+        'SepGrid
         '
-        Me._tlbMenu_Button15.AutoSize = False
-        Me._tlbMenu_Button15.Name = "SepGrid"
-        Me._tlbMenu_Button15.Size = New System.Drawing.Size(24, 22)
+        Me.SepGrid.AutoSize = False
+        Me.SepGrid.Name = "SepGrid"
+        Me.SepGrid.Size = New System.Drawing.Size(24, 22)
         '
-        '_tlbMenu_Button16
+        'ChangeGrid
         '
-        Me._tlbMenu_Button16.AutoSize = False
-        Me._tlbMenu_Button16.Name = "ChangeGrid"
-        Me._tlbMenu_Button16.Size = New System.Drawing.Size(2955, 22)
+        Me.ChangeGrid.AutoSize = False
+        Me.ChangeGrid.Name = "ChangeGrid"
+        Me.ChangeGrid.Size = New System.Drawing.Size(2955, 22)
         '
-        '_tlbMenu_Button17
+        'SepSize
         '
-        Me._tlbMenu_Button17.AutoSize = False
-        Me._tlbMenu_Button17.Name = "SepSize"
-        Me._tlbMenu_Button17.Size = New System.Drawing.Size(24, 22)
+        Me.SepSize.AutoSize = False
+        Me.SepSize.Name = "SepSize"
+        Me.SepSize.Size = New System.Drawing.Size(24, 22)
         '
-        '_tlbMenu_Button18
+        'DispSize
         '
-        Me._tlbMenu_Button18.AutoSize = False
-        Me._tlbMenu_Button18.Name = "DispSize"
-        Me._tlbMenu_Button18.Size = New System.Drawing.Size(2955, 22)
+        Me.DispSize.AutoSize = False
+        Me.DispSize.Name = "DispSize"
+        Me.DispSize.Size = New System.Drawing.Size(2955, 22)
         '
-        '_tlbMenu_Button19
+        'SepResolution
         '
-        Me._tlbMenu_Button19.AutoSize = False
-        Me._tlbMenu_Button19.Name = "SepResolution"
-        Me._tlbMenu_Button19.Size = New System.Drawing.Size(24, 22)
+        Me.SepResolution.AutoSize = False
+        Me.SepResolution.Name = "SepResolution"
+        Me.SepResolution.Size = New System.Drawing.Size(24, 22)
         '
-        '_tlbMenu_Button20
+        'Resolution
         '
-        Me._tlbMenu_Button20.AutoSize = False
-        Me._tlbMenu_Button20.Name = "Resolution"
-        Me._tlbMenu_Button20.Size = New System.Drawing.Size(2055, 22)
+        Me.Resolution.AutoSize = False
+        Me.Resolution.Name = "Resolution"
+        Me.Resolution.Size = New System.Drawing.Size(2055, 22)
         '
         'lblDirectInput
         '

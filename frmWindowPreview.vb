@@ -23,10 +23,10 @@ Friend Class frmWindowPreview
 		End With
 		
 		With Me
-			
-			Call AdjustWindowRectEx(rectTemp, GetWindowLong(.Handle.ToInt32, GWL_STYLE), False, GetWindowLong(.Handle.ToInt32, GWL_EXSTYLE))
-			
-			Call .SetBounds(.Left, .Top, VB6.TwipsToPixelsX((rectTemp.right_Renamed - rectTemp.left_Renamed) * VB6.TwipsPerPixelX), VB6.TwipsToPixelsY((rectTemp.Bottom - rectTemp.Top) * VB6.TwipsPerPixelY))
+
+            Call AdjustWindowRectEx(rectTemp, GetWindowLong(.Handle.ToInt32, GWL_STYLE), False, GetWindowLong(.Handle.ToInt32, GWL_EXSTYLE))
+
+            Call .SetBounds(.Left, .Top, VB6.TwipsToPixelsX((rectTemp.right_Renamed - rectTemp.left_Renamed) * VB6.TwipsPerPixelX), VB6.TwipsToPixelsY((rectTemp.Bottom - rectTemp.Top) * VB6.TwipsPerPixelY))
 			
 		End With
 		
@@ -314,7 +314,7 @@ Err_Renamed:
             Dim gp As Graphics = .CreateGraphics()
 
             Dim picBackBuffer_gp As Graphics = picBackBuffer.CreateGraphics()
-            Dim picBackBuffer_hDC As IntPtr = gp.GetHdc()
+            Dim picBackBuffer_hDC As IntPtr = picBackBuffer_gp.GetHdc()
 
             'UPGRADE_ISSUE: PictureBox メソッド picPreview.Cls はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call gp.Clear(.BackColor)
@@ -352,6 +352,9 @@ Err_Renamed:
             'UPGRADE_ISSUE: PictureBox プロパティ picBackBuffer.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             'UPGRADE_ISSUE: PictureBox プロパティ picPreview.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call BitBlt(hDC, (.ClientRectangle.Width \ 2 - 128) + Val(_txtBGAPara_5.Text), (.ClientRectangle.Height \ 2 - 128) + Val(_txtBGAPara_6.Text), lngNumField(Val(_txtBGAPara_3.Text) - Val(_txtBGAPara_1.Text), 0, 256), lngNumField(Val(_txtBGAPara_4.Text) - Val(_txtBGAPara_2.Text), 0, 256), picBackBuffer_hDC, Val(_txtBGAPara_1.Text), Val(_txtBGAPara_2.Text), SRCCOPY)
+
+            gp.ReleaseHdc()
+            picBackBuffer_gp.ReleaseHdc()
 
         End With
 

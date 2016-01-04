@@ -806,21 +806,21 @@ Err_Renamed:
     End Sub
 
     'UPGRADE_WARNING: イベント cboDispGridMain.SelectedIndexChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
-    Private Sub cboDispGridMain_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispGridMain.SelectedIndexChanged
+    Private Sub cboDispGridMain_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
 
         Call modDraw.Redraw()
 
     End Sub
 
     'UPGRADE_WARNING: イベント cboDispGridSub.SelectedIndexChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
-    Private Sub cboDispGridSub_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispGridSub.SelectedIndexChanged
+    Private Sub cboDispGridSub_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
 
         Call modDraw.Redraw()
 
     End Sub
 
     'UPGRADE_WARNING: イベント cboDispHeight.SelectedIndexChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
-    Private Sub cboDispHeight_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispHeight.SelectedIndexChanged
+    Private Sub cboDispHeight_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
         Dim i As Integer
         Dim sngTemp As Single
 
@@ -901,7 +901,7 @@ Err_Renamed:
     End Sub
 
     'UPGRADE_WARNING: イベント cboDispWidth.SelectedIndexChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
-    Private Sub cboDispWidth_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispWidth.SelectedIndexChanged
+    Private Sub cboDispWidth_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
         Dim i As Integer
         Dim sngTemp As Single
 
@@ -968,7 +968,7 @@ Err_Renamed:
     End Sub
 
     'UPGRADE_WARNING: イベント cboVScroll.SelectedIndexChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
-    Private Sub cboVScroll_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboVScroll.SelectedIndexChanged
+    Private Sub cboVScroll_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
         Dim NewLargeChange As Short
 
         vsbMain.SmallChange = VB6.GetItemData(cboVScroll, cboVScroll.SelectedIndex)
@@ -5897,7 +5897,7 @@ Err_Renamed:
 
     End Sub
 
-    Private Sub staMain_PanelDblClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _staMain_Panel6.DoubleClick, _staMain_Panel5.DoubleClick, _staMain_Panel4.DoubleClick, _staMain_Panel3.DoubleClick, _staMain_Panel2.DoubleClick, _staMain_Panel1.DoubleClick
+    Private Sub staMain_PanelDblClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _staMain_Panel6.DoubleClick, Measure.DoubleClick, BMP.DoubleClick, WAV.DoubleClick, Position.DoubleClick, Mode.DoubleClick
         Dim Panel As System.Windows.Forms.ToolStripStatusLabel = CType(eventSender, System.Windows.Forms.ToolStripStatusLabel)
 
         'UPGRADE_ISSUE: MSComctlLib.Panel プロパティ Panel.Key はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
@@ -5913,13 +5913,13 @@ Err_Renamed:
 
     End Sub
 
-    Private Sub tlbMenu_ButtonClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _tlbMenu_Button9.Click, _tlbMenu_Button8.Click, _tlbMenu_Button7.Click, _tlbMenu_Button6.Click, _tlbMenu_Button5.Click, _tlbMenu_Button4.Click, _tlbMenu_Button3.Click, _tlbMenu_Button20.Click, _tlbMenu_Button2.Click, _tlbMenu_Button19.Click, _tlbMenu_Button18.Click, _tlbMenu_Button17.Click, _tlbMenu_Button16.Click, _tlbMenu_Button15.Click, _tlbMenu_Button14.Click, _tlbMenu_Button13.Click, _tlbMenu_Button12.Click, _tlbMenu_Button11.Click, _tlbMenu_Button10.Click, _tlbMenu_Button1.Click
+    Private Sub tlbMenu_ButtonClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Delete.Click, Write.Click, Edit.Click, SepMode.Click, SaveAs.Click, Save.Click, Reload.Click, Resolution.Click, Open.Click, SepResolution.Click, DispSize.Click, SepSize.Click, ChangeGrid.Click, SepGrid.Click, _Stop.Click, Play.Click, PlayAll.Click, Viewer.Click, SepViewer.Click, _New.Click
         Dim Button As System.Windows.Forms.ToolStripItem = CType(eventSender, System.Windows.Forms.ToolStripItem)
         On Error GoTo Err_Renamed
 
         Select Case Button.Name
 
-            Case "New" '新規作成
+            Case "_New" '新規作成
 
                 Call mnuFileNew_Click(mnuFileNew, New System.EventArgs())
 
@@ -5959,7 +5959,7 @@ Err_Renamed:
 
                 Call mnuToolsPlay_Click(mnuToolsPlay, New System.EventArgs())
 
-            Case "Stop"
+            Case "_Stop"
 
                 Call mnuToolsPlayStop_Click(mnuToolsPlayStop, New System.EventArgs())
 
@@ -6263,7 +6263,7 @@ Err_Renamed:
 
             tlbMenu.Items.Item("PlayAll").Enabled = False
             tlbMenu.Items.Item("Play").Enabled = False
-            tlbMenu.Items.Item("Stop").Enabled = False
+            tlbMenu.Items.Item("_Stop").Enabled = False
             mnuToolsPlayAll.Enabled = False
             mnuToolsPlay.Enabled = False
             mnuToolsPlayStop.Enabled = False
@@ -6357,7 +6357,6 @@ Err_Renamed:
         lstWAV.SelectedIndex = 0
         lstBMP.SelectedIndex = 0
         lstBGA.SelectedIndex = 0
-        lstMeasureLen.SelectedIndex = 0
 
         'UPGRADE_ISSUE: Frame プロパティ fraViewer.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         'fraViewer.BorderStyle = 0
@@ -6413,6 +6412,8 @@ Err_Renamed:
         cboNumerator.SelectedIndex = 3
         cboDenominator.SelectedIndex = 0
 
+        lstMeasureLen.SelectedIndex = 0
+
         m_blnPreview = True
 
         'UPGRADE_WARNING: オブジェクト strGet_ini(EasterEgg, Tips, 0, bmse.ini) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
@@ -6438,5 +6439,11 @@ Err_Renamed:
         Call GetCmdLine()
 
         AddHandler Me.Resize, AddressOf frmMain_Resize
+        AddHandler cboDispGridMain.SelectedIndexChanged, AddressOf cboDispGridMain_SelectedIndexChanged
+        AddHandler cboDispGridSub.SelectedIndexChanged, AddressOf cboDispGridSub_SelectedIndexChanged
+        AddHandler cboDispWidth.SelectedIndexChanged, AddressOf cboDispWidth_SelectedIndexChanged
+        AddHandler cboDispHeight.SelectedIndexChanged, AddressOf cboDispHeight_SelectedIndexChanged
+        AddHandler cboVScroll.SelectedIndexChanged, AddressOf cboVScroll_SelectedIndexChanged
+
     End Sub
 End Class

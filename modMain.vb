@@ -20,23 +20,23 @@ Module modMain
 
 #End If
 
-    Public Declare Function mciSendString Lib "winmm.dll" Alias "mciSendStringA" (ByRef lpstrCommand As String, ByRef lpstrTempurnString As String, ByVal uReturnLength As Integer, ByVal hwndCallback As Integer) As Integer
-    Public Declare Function mciGetErrorString Lib "winmm.dll" Alias "mciGetErrorStringA" (ByVal dwError As Integer, ByRef lpstrBuffer As String, ByVal uLength As Integer) As Integer
+    Public Declare Function mciSendString Lib "winmm.dll" Alias "mciSendStringW" (<MarshalAs(UnmanagedType.LPWStr)> ByVal lpstrCommand As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpstrTempurnString As String, ByVal uReturnLength As Integer, ByVal hwndCallback As Integer) As Integer
+    Public Declare Function mciGetErrorString Lib "winmm.dll" Alias "mciGetErrorStringW" (ByVal dwError As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpstrBuffer As String, ByVal uLength As Integer) As Integer
 
-    Public Declare Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringA" (<MarshalAs(UnmanagedType.LPStr)> ByVal lpApplicationName As String, <MarshalAs(UnmanagedType.LPStr)> ByVal lpKeyName As String, <MarshalAs(UnmanagedType.LPStr)> ByVal lpDefault As String, <MarshalAs(UnmanagedType.LPStr)> ByVal lpReturnedString As StringBuilder, ByVal nSize As UInt32, <MarshalAs(UnmanagedType.LPStr)> ByVal lpFileName As String) As UInt32
-    Private Declare Function WritePrivateProfileString Lib "kernel32" Alias "WritePrivateProfileStringA" (<MarshalAs(UnmanagedType.LPStr)> ByVal lpApplicationName As String, <MarshalAs(UnmanagedType.LPStr)> ByVal lpKeyName As String, <MarshalAs(UnmanagedType.LPStr)> ByVal lpString As String, <MarshalAs(UnmanagedType.LPStr)> ByVal lpFileName As String) As Integer
+    Public Declare Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringW" (<MarshalAs(UnmanagedType.LPWStr)> ByVal lpApplicationName As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpKeyName As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpDefault As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpReturnedString As StringBuilder, ByVal nSize As UInt32, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpFileName As String) As UInt32
+    Private Declare Function WritePrivateProfileString Lib "kernel32" Alias "WritePrivateProfileStringW" (<MarshalAs(UnmanagedType.LPWStr)> ByVal lpApplicationName As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpKeyName As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpString As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpFileName As String) As Integer
 
-    Public Declare Function GetWindowPlacement Lib "user32" (ByVal hwnd As Integer, ByRef lpwndpl As WINDOWPLACEMENT) As Integer
-    Public Declare Function SetWindowPlacement Lib "user32" (ByVal hwnd As Integer, ByRef lpwndpl As WINDOWPLACEMENT) As Integer
+    Public Declare Function GetWindowPlacement Lib "user32" (ByVal hwnd As Integer, <Out()> ByRef lpwndpl As WINDOWPLACEMENT) As Integer
+    Public Declare Function SetWindowPlacement Lib "user32" (ByVal hwnd As Integer, <[In]()> ByRef lpwndpl As WINDOWPLACEMENT) As Integer
 
-    Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hwnd As Integer, ByRef lpOperation As String, ByRef lpFile As String, ByRef lpParameters As String, ByRef lpDirectory As String, ByVal nShowCmd As Integer) As Integer
+    Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteW" (ByVal hwnd As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpOperation As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpFile As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpParameters As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpDirectory As String, ByVal nShowCmd As Integer) As Integer
 
-    Public Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hwnd As Integer, ByVal nIndex As Integer) As Integer
-    Public Declare Function AdjustWindowRectEx Lib "user32" (ByRef lpRect As RECT, ByVal dsStyle As Integer, ByVal bMenu As Integer, ByVal dwEsStyle As Integer) As Integer
+    Public Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongW" (ByVal hwnd As Integer, ByVal nIndex As Integer) As Integer
+    Public Declare Function AdjustWindowRectEx Lib "user32" (<[In]()> ByRef lpRect As RECT, ByVal dsStyle As Integer, ByVal bMenu As Integer, ByVal dwEsStyle As Integer) As Integer
 
     Private Declare Function GetStockObject Lib "gdi32" (ByVal nIndex As Integer) As Integer
     'UPGRADE_NOTE: GetObject は GetObject_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
-    Private Declare Function GetObject_Renamed Lib "gdi32" Alias "GetObjectA" (ByVal hObject As Integer, ByVal nCount As Integer, ByRef lpObject As LOGFONT) As Integer
+    Private Declare Function GetObject_Renamed Lib "gdi32" Alias "GetObjectW" (ByVal hObject As Integer, ByVal nCount As Integer, <Out()> ByRef lpObject As LOGFONT) As Integer
 
     'Get/SetWindowPlacement・ShellExecute 関連の定数
     Public Const SW_HIDE As Short = 0
@@ -72,30 +72,21 @@ Module modMain
     Private Const SPI_GETICONTITLELOGFONT As Short = 31
     Private Const SPI_GETNONCLIENTMETRICS As Short = 41
 
-    <Runtime.InteropServices.StructLayout(Runtime.InteropServices.LayoutKind.Sequential)>
-    Private Structure LOGFONT
-        Dim lfHeight As Integer
-        Dim lfWidth As Integer
-        Dim lfEscapement As Integer
-        Dim lfOrientation As Integer
-        Dim lfWeight As Integer
-        Dim lfItalic As Byte
-        Dim lfUnderline As Byte
-        Dim lfStrikeOut As Byte
-        Dim lfCharSet As Byte
-        Dim lfOutPrecision As Byte
-        Dim lfClipPrecision As Byte
-        Dim lfQuality As Byte
-        Dim lfPitchAndFamily As Byte
-        'UPGRADE_WARNING: オブジェクト LF_FACESIZE の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-        <VBFixedArray(LF_FACESIZE)> Dim lfFaceName() As Byte
-
-        'UPGRADE_TODO: この構造体のインスタンスを初期化するには、"Initialize" を呼び出さなければなりません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B4BFF9E0-8631-45CF-910E-62AB3970F27B"' をクリックしてください。
-        Public Sub Initialize()
-            'UPGRADE_WARNING: 配列 lfFaceName の下限が 1 から 0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="0F1C9BE1-AF9D-476E-83B1-17D43BECFF20"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト LF_FACESIZE の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            ReDim lfFaceName(LF_FACESIZE)
-        End Sub
+    <StructLayout(LayoutKind.Sequential, CharSet:=CharSet.Auto, Pack:=1)> Public Structure LOGFONT
+        Public lfHeight As Int32
+        Public lfWidth As Int32
+        Public lfEscapement As Int32
+        Public lfOrientation As Int32
+        Public lfWeight As Int32
+        Public lfItalic As Byte
+        Public lfUnderline As Byte
+        Public lfStrikeOut As Byte
+        Public lfCharSet As Byte
+        Public lfOutPrecision As Byte
+        Public lfClipPrecision As Byte
+        Public lfQuality As Byte
+        Public lfPitchAndFamily As Byte
+        <MarshalAs(UnmanagedType.ByValTStr, SizeConst:=LF_FACESIZE)> Public lfFaceName As String
     End Structure
 
     Private Structure NONCLIENTMETRICS
@@ -126,8 +117,7 @@ Module modMain
         Dim Y As Integer
     End Structure
 
-    <Runtime.InteropServices.StructLayout(Runtime.InteropServices.LayoutKind.Sequential)>
-    Public Structure RECT
+    <StructLayout(LayoutKind.Sequential)> Public Structure RECT
         'UPGRADE_NOTE: left は left_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
         Dim left_Renamed As Integer
         Dim Top As Integer
@@ -136,8 +126,7 @@ Module modMain
         Dim Bottom As Integer
     End Structure
 
-    <Runtime.InteropServices.StructLayout(Runtime.InteropServices.LayoutKind.Sequential)>
-    Public Structure WINDOWPLACEMENT
+    <StructLayout(LayoutKind.Sequential)> Public Structure WINDOWPLACEMENT
         Dim Length As Integer
         Dim flags As Integer
         Dim showCmd As Integer
@@ -145,8 +134,6 @@ Module modMain
         Dim ptMaxPosition As POINTAPI
         Dim rcNormalPosition As RECT
     End Structure
-
-
 
     Public Const PI As Single = 3.14159265358979
     Public Const RAD As Single = PI / 180
@@ -2023,10 +2010,10 @@ Err_Renamed:
 
             'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_NEW, New, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            .Items.Item("New").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_NEW", "New", strFileName)
+            .Items.Item("_New").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_NEW", "New", strFileName)
             'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            .Items.Item("New").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_NEW", "New", strFileName)
+            .Items.Item("_New").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_NEW", "New", strFileName)
             'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_OPEN, Open, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .Items.Item("Open").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_OPEN", "Open", strFileName)
@@ -2085,10 +2072,10 @@ Err_Renamed:
             .Items.Item("Play").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_PLAY", "Play From Current Position", strFileName)
             'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, TOOLTIP_STOP, Stop, strFileName) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            .Items.Item("Stop").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_STOP", "Stop", strFileName)
+            .Items.Item("_Stop").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_STOP", "Stop", strFileName)
             'UPGRADE_ISSUE: MSComctlLib.Button プロパティ tlbMenu.Buttons.Description はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            .Items.Item("Stop").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_STOP", "Stop", strFileName)
+            .Items.Item("_Stop").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_STOP", "Stop", strFileName)
 
         End With
 
@@ -2288,14 +2275,15 @@ Err_Renamed:
         'DefaultFont = StrConv(ncm.lfSMCaptionFont.lfFaceName, vbUnicode)
 
         'UPGRADE_ISSUE: LOGFONT オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
-        Dim lf As LOGFONT
+        Dim lf As LOGFONT = New LOGFONT
+        'lf.Initialize()
         'UPGRADE_WARNING: オブジェクト lf の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
         'UPGRADE_WARNING: オブジェクト GetStockObject() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         Call GetObject_Renamed(GetStockObject(DEFAULT_GUI_FONT), Runtime.InteropServices.Marshal.SizeOf(lf), lf)
         'UPGRADE_ISSUE: 定数 vbUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
         'UPGRADE_WARNING: オブジェクト lf.lfFaceName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-        DefaultFont = Trim(System.Text.Encoding.Default.GetString(lf.lfFaceName))
+        DefaultFont = Trim(lf.lfFaceName)
 
         'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         SystemFont = strGet_ini("Main", "Font", DefaultFont, strFileName)
@@ -2328,19 +2316,9 @@ Err_Renamed:
             For Each objCtl In My.Application.OpenForms.Item(i).Controls
 
                 If TypeOf objCtl Is System.Windows.Forms.Label Or TypeOf objCtl Is System.Windows.Forms.TextBox Or TypeOf objCtl Is System.Windows.Forms.ComboBox Or TypeOf objCtl Is System.Windows.Forms.Button Or TypeOf objCtl Is System.Windows.Forms.RadioButton Or TypeOf objCtl Is System.Windows.Forms.CheckBox Or TypeOf objCtl Is System.Windows.Forms.GroupBox Then
-
-                    'UPGRADE_WARNING: オブジェクト objCtl.Font の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                    objCtl.Font.Name = MainFont
-                    'UPGRADE_WARNING: オブジェクト objCtl.Font の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                    objCtl.Font.Charset = Charset
-
+                    objCtl.Font = New Font(MainFont, objCtl.Font.Size, objCtl.Font.Style, objCtl.Font.Unit, Charset)
                 ElseIf TypeOf objCtl Is System.Windows.Forms.PictureBox Or TypeOf objCtl Is System.Windows.Forms.ListBox Then
-
-                    'UPGRADE_WARNING: オブジェクト objCtl.Font の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                    objCtl.Font.Name = FixedFont
-                    'UPGRADE_WARNING: オブジェクト objCtl.Font の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                    objCtl.Font.Charset = Charset
-
+                    objCtl.Font = New Font(FixedFont, objCtl.Font.Size, objCtl.Font.Style, objCtl.Font.Unit, Charset)
                 End If
 
             Next objCtl
@@ -2597,7 +2575,7 @@ Err_Renamed:
 
             'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, New, True, bmse.ini) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            .tlbMenu.Items.Item("New").Visible = strGet_ini("ToolBar", "New", True, "bmse.ini")
+            .tlbMenu.Items.Item("_New").Visible = strGet_ini("ToolBar", "New", True, "bmse.ini")
             'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, Open, True, bmse.ini) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .tlbMenu.Items.Item("Open").Visible = strGet_ini("ToolBar", "Open", True, "bmse.ini")
@@ -2635,7 +2613,7 @@ Err_Renamed:
             .tlbMenu.Items.Item("Play").Visible = strGet_ini("ToolBar", "Preview", True, "bmse.ini")
             'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, Preview, True, bmse.ini) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            .tlbMenu.Items.Item("Stop").Visible = strGet_ini("ToolBar", "Preview", True, "bmse.ini")
+            .tlbMenu.Items.Item("_Stop").Visible = strGet_ini("ToolBar", "Preview", True, "bmse.ini")
 
             'UPGRADE_WARNING: オブジェクト strGet_ini(ToolBar, Grid, True, bmse.ini) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。

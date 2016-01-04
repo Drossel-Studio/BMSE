@@ -1,9 +1,11 @@
 Option Strict Off
 Option Explicit On
 Imports VB = Microsoft.VisualBasic
+Imports System.Runtime.InteropServices
+
 Friend Class frmWindowTips
 	Inherits System.Windows.Forms.Form
-    Private Declare Function DrawText Lib "user32" Alias "DrawTextA" (ByVal hdc As Integer, ByRef lpStr As String, ByVal nCount As Integer, ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
+    Private Declare Function DrawText Lib "user32" Alias "DrawTextW" (ByVal hdc As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpStr As String, ByVal nCount As Integer, <[In]()> ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
     Private Const DT_WORDBREAK As Integer = &H10
 	
 	Dim m_sngTwipsX As Single
@@ -137,15 +139,18 @@ Friend Class frmWindowTips
 
         Dim hDC As IntPtr = gp.GetHdc()
         Dim picIcon_gp As Graphics = picIcon.CreateGraphics()
-        Dim picIcon_hDC As IntPtr = gp.GetHdc()
+        Dim picIcon_hDC As IntPtr = picIcon_gp.GetHdc()
 
         'UPGRADE_ISSUE: PictureBox プロパティ picIcon.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         Call BitBlt(hDC, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
 
         m_lngTipsNum = 0
-		
-	End Sub
+
+        gp.ReleaseHdc()
+        picIcon_gp.ReleaseHdc()
+
+    End Sub
 	
 	'UPGRADE_WARNING: Form イベント frmWindowTips.Activate には新しい動作が含まれます。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' をクリックしてください。
 	Private Sub frmWindowTips_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
@@ -208,11 +213,9 @@ Friend Class frmWindowTips
         Dim hDC As IntPtr
 
         Dim picIcon_gp As Graphics = picIcon.CreateGraphics()
-        Dim picIcon_hDC As IntPtr = gp.GetHdc()
+        Dim picIcon_hDC As IntPtr = picIcon_gp.GetHdc()
 
         With Me
-
-            gp.ReleaseHdc()
 
             'UPGRADE_ISSUE: Form メソッド frmWindowTips.Line はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             gp.DrawRectangle(Pens.Gray, New Rectangle(VB6.TwipsToPixelsX(120), VB6.TwipsToPixelsY(120), VB6.TwipsToPixelsX(720), VB6.TwipsToPixelsY(3210)))
@@ -265,8 +268,11 @@ Friend Class frmWindowTips
 		tmrMain.Enabled = True
 		
 		Call cmdNext.Focus()
-		
-	End Sub
+
+        gp.ReleaseHdc()
+        picIcon_gp.ReleaseHdc()
+
+    End Sub
 	
 	Private Sub frmWindowTips_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 
@@ -279,7 +285,7 @@ Friend Class frmWindowTips
         Dim gp As Graphics = Me.CreateGraphics()
 
         Dim picIcon_gp As Graphics = picIcon.CreateGraphics()
-        Dim picIcon_hDC As IntPtr = gp.GetHdc()
+        Dim picIcon_hDC As IntPtr = picIcon_gp.GetHdc()
 
         m_lngTipsNum = m_lngTipsNum + 1
         tmrMain.Interval = 100
@@ -356,6 +362,9 @@ Friend Class frmWindowTips
             End Select
 
         End If
+
+        gp.ReleaseHdc()
+        picIcon_gp.ReleaseHdc()
 
     End Sub
 

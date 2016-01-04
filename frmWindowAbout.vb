@@ -42,6 +42,7 @@ Friend Class frmWindowAbout
             'UPGRADE_ISSUE: Form プロパティ frmWindowAbout.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call TextOut(hDC, X, Y, Text_Renamed, intTemp)
 
+            gp.ReleaseHdc()
         End With
 		
 	End Sub
@@ -212,6 +213,9 @@ Friend Class frmWindowAbout
             'lngTemp = LenB(StrConv(strTemp, vbFromUnicode))
 
             'Call PrintText(strTemp, 251, 174)
+
+            gp.ReleaseHdc()
+            picMain_gp.ReleaseHdc()
 
         End With
 

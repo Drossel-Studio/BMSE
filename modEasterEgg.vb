@@ -1,10 +1,12 @@
 Option Strict Off
 Option Explicit On
 Imports VB = Microsoft.VisualBasic
+Imports System.Runtime.InteropServices
+
 Module modEasterEgg
 	
 	Private Declare Function StretchBlt Lib "gdi32" (ByVal hdc As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal nWidth As Integer, ByVal nHeight As Integer, ByVal hSrcDC As Integer, ByVal xSrc As Integer, ByVal ySrc As Integer, ByVal nSrcWidth As Integer, ByVal nSrcHeight As Integer, ByVal dwRop As Integer) As Integer
-    Private Declare Function DrawText Lib "user32" Alias "DrawTextA" (ByVal hdc As Integer, ByRef lpStr As String, ByVal nCount As Integer, ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
+    Private Declare Function DrawText Lib "user32" Alias "DrawTextW" (ByVal hdc As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpStr As String, ByVal nCount As Integer, <[In]()> ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
 
     Private Const DT_WORDBREAK As Integer = &H10
 	
@@ -510,7 +512,7 @@ Module modEasterEgg
         Dim hDC As IntPtr = gp.GetHdc()
 
         Dim picSiromaru_gp As Graphics = frmMain.picSiromaru.CreateGraphics()
-        Dim picSiromaru_hDC As IntPtr = gp.GetHdc()
+        Dim picSiromaru_hDC As IntPtr = picSiromaru_gp.GetHdc()
 
         Width = (VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX)
 		Height = (VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) \ VB6.TwipsPerPixelY)
@@ -612,9 +614,11 @@ Module modEasterEgg
 
         'frmMain.cboDirectInput.Text = timeGetTime() - lngTemp
 
+        gp.ReleaseHdc()
+        picSiromaru_gp.ReleaseHdc()
         Exit Sub
-		
-	End Sub
+
+    End Sub
 	
 	Private Sub InitSiromaru2()
 		
@@ -667,7 +671,7 @@ Module modEasterEgg
             Dim hDC As IntPtr = gp.GetHdc()
 
             Dim picSiromaru_gp As Graphics = frmMain.picSiromaru.CreateGraphics()
-            Dim picSiromaru_hDC As IntPtr = gp.GetHdc()
+            Dim picSiromaru_hDC As IntPtr = picSiromaru_gp.GetHdc()
 
             X = (.ClientRectangle.Width - m_objSnow(0).X) \ 2
 			Y = Y + (.ClientRectangle.Height - m_objSnow(0).X) \ 2
@@ -678,6 +682,9 @@ Module modEasterEgg
             'UPGRADE_ISSUE: PictureBox プロパティ picSiromaru.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call StretchBlt(hDC, X, Y, m_objSnow(0).X, m_objSnow(0).X, picSiromaru_hDC, 0, srcY, 32, 32, SRCPAINT)
+
+            gp.ReleaseHdc()
+            picSiromaru_gp.ReleaseHdc()
 
         End With
 		
@@ -718,8 +725,10 @@ Module modEasterEgg
 
             'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call TextOut(hDC, X, Y, Text, intTemp)
-			
-		End With
+
+            gp.ReleaseHdc()
+
+        End With
 		
 	End Sub
 	
@@ -906,6 +915,8 @@ Module modEasterEgg
                                     'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                                     g_disp.intEffect = EASTEREGG.OFF
 
+                                    gp.ReleaseHdc()
+                                    picSiromaru_gp.ReleaseHdc()
                                     Exit Sub
 
                                 Case Is < 32 : Color = m_lngCounter * 8 '0-31
@@ -1004,6 +1015,9 @@ Module modEasterEgg
 
         End With
 
+        gp.ReleaseHdc()
+        picSiromaru_gp.ReleaseHdc()
+
     End Sub
 	
 	Public Sub DrawBlueScreen()
@@ -1011,8 +1025,8 @@ Module modEasterEgg
 		Dim hBrushNew As Integer
 		Dim hBrushOld As Integer
 		Dim rectTemp As RECT
-		
-		With frmMain.picMain
+
+        With frmMain.picMain
             Dim gp As Graphics = .CreateGraphics()
             Dim hDC As IntPtr = gp.GetHdc()
 
@@ -1031,18 +1045,19 @@ Module modEasterEgg
             Call SetTextColor(hDC, 16777215)
 
             rectTemp.left_Renamed = 8
-			rectTemp.right_Renamed = .ClientRectangle.Width - 8
-			rectTemp.Top = 8
-			rectTemp.Bottom = .ClientRectangle.Height
-			
-			.Font = VB6.FontChangeSize(.Font, 9)
+            rectTemp.right_Renamed = .ClientRectangle.Width - 8
+            rectTemp.Top = 8
+            rectTemp.Bottom = .ClientRectangle.Height
+
+            .Font = VB6.FontChangeSize(.Font, 9)
 
             'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call DrawText(hDC, "A problem has been detected and BMSE has been shut down to prevent damage to your mind." & vbCrLf & vbCrLf & "The problem seems to be caused by the following file: BMSE.EXE" & vbCrLf & vbCrLf & "EASTER_EGG_BLUE_SCREEN_OF_DEATH" & vbCrLf & vbCrLf & "If this is the first time you've seen this stop error screen, restart your BMSE. If this screen appears again, follow these steps:" & vbCrLf & vbCrLf & "1) Bury me from your computer." & vbCrLf & "2) Access UCN-Soft BBS, and write your shout of spirit." & vbCrLf & "       ex) ""BMSE is the worst software in the world!!!!!!!!!!!!!!111111""" & vbCrLf & "3) Sing ""asdf song"":" & vbCrLf & "       This is the sound of the asdf song." & vbCrLf & "       asdf fdsa" & vbCrLf & "       asdffdsa ye-ye" & vbCrLf & "       (clap clap clap)" & vbCrLf & "4) Throw your computer from window." & vbCrLf & vbCrLf & "If you are satiated with joke:" & vbCrLf & vbCrLf & "Launch BMSE and type your key ""OFF"", then press return key." & vbCrLf & vbCrLf & "Meaningless information:" & vbCrLf & vbCrLf & "*** STOP: 0x88710572 (0xASDFFDSA,0x00004126,0xD0SUK01,0x○0▽0○)" & vbCrLf & vbCrLf & vbCrLf & "***  BMSE.EXE - Public Sub DrawBlueScreen() at modEasterEgg.bas, DateStamp 2006-12-26", -1, rectTemp, DT_WORDBREAK)
 
+            gp.ReleaseHdc()
         End With
-		
-	End Sub
+
+    End Sub
 	
 	Private Sub QuickSortY(ByVal l As Integer, ByVal r As Integer)
 		

@@ -99,8 +99,8 @@ Friend Class frmWindowViewer
 				
 				.tlbMenu.Items.Item("PlayAll").Enabled = False
 				.tlbMenu.Items.Item("Play").Enabled = False
-				.tlbMenu.Items.Item("Stop").Enabled = False
-				.mnuToolsPlayAll.Enabled = False
+                .tlbMenu.Items.Item("_Stop").Enabled = False
+                .mnuToolsPlayAll.Enabled = False
 				.mnuToolsPlay.Enabled = False
 				.mnuToolsPlayStop.Enabled = False
 				.cboViewer.Enabled = False
@@ -109,8 +109,8 @@ Friend Class frmWindowViewer
 				
 				.tlbMenu.Items.Item("PlayAll").Enabled = True
 				.tlbMenu.Items.Item("Play").Enabled = True
-				.tlbMenu.Items.Item("Stop").Enabled = True
-				.mnuToolsPlayAll.Enabled = True
+                .tlbMenu.Items.Item("_Stop").Enabled = True
+                .mnuToolsPlayAll.Enabled = True
 				.mnuToolsPlay.Enabled = True
 				.mnuToolsPlayStop.Enabled = True
 				.cboViewer.Enabled = True
