@@ -48,27 +48,21 @@ Module modEasterEgg
     Public Sub InitEffect()
         'modInput.LoadBMSEnd にエイプリルフール用コードあり
         'If strGet_ini("EasterEgg", "Snow", False, "bmse.ini") = True Or (Month(Now) = 12 And Day(Now) = 25) Then
-        'UPGRADE_WARNING: オブジェクト strGet_ini(EasterEgg, Snow, False, bmse.ini) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         If strGet_ini("EasterEgg", "Snow", False, "bmse.ini") Then
 
-            'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             g_disp.intEffect = EASTEREGG.SNOW
 
             Call modEasterEgg.InitSnow()
 
-            'UPGRADE_WARNING: オブジェクト strGet_ini(EasterEgg, siromaru, False, bmse.ini) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         ElseIf strGet_ini("EasterEgg", "siromaru", False, "bmse.ini") Then
 
-            'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             g_disp.intEffect = EASTEREGG.SIROMARU
 
             Call modEasterEgg.InitSnow()
 
             'ElseIf Month(Now) = 12 And (Day(Now) = 24 Or Day(Now) = 25) And strGet_ini("EasterEgg", "Snow", True, "bmse.ini") = True Then
-            'UPGRADE_WARNING: オブジェクト strGet_ini(EasterEgg, Snow, True, bmse.ini) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         ElseIf Month(Now) = 12 And VB.Day(Now) = 25 And strGet_ini("EasterEgg", "Snow", True, "bmse.ini") = True Then
 
-            'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             g_disp.intEffect = EASTEREGG.SNOW
 
             Call modEasterEgg.InitSnow()
@@ -76,7 +70,6 @@ Module modEasterEgg
             g_strAppTitle = g_strAppTitle & " (Xmas mode: Only once!)"
             frmMain.Text = g_strAppTitle
 
-            'UPGRADE_WARNING: オブジェクト modMain.lngSet_ini の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             Call modMain.lngSet_ini("EasterEgg", "Snow", False)
 
         End If
@@ -86,13 +79,10 @@ Module modEasterEgg
     Public Sub LoadEffect()
         If Month(Now) = 2 And VB.Day(Now) = 15 Then 'シロマルの誕生日
 
-            'UPGRADE_WARNING: オブジェクト g_BMS.strArtist の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             If g_BMS.strArtist = "siromaru" Then
 
-                'UPGRADE_WARNING: オブジェクト modMain.strGet_ini の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 If modMain.strGet_ini("EasterEgg", "siromaru", False, "bmse.ini") = False And modMain.strGet_ini("EasterEgg", "siromaru", True, "bmse.ini") = True Then
 
-                    'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_disp.intEffect = EASTEREGG.SIROMARU
 
                     Call modEasterEgg.InitSnow()
@@ -111,80 +101,76 @@ Module modEasterEgg
         Dim strTemp As String
 
         If frmMain.tmrEffect.Enabled Then
-			
-			'If Month(Now) = 4 And Day(Now) = 1 And g_disp.intEffect = RASTER Then 'April Fool
-			'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			If Month(Now) = 2 And VB.Day(Now) = 15 And g_disp.intEffect = EASTEREGG.SIROMARU Then 'シロマルの誕生日
-				
-				'If modMain.strGet_ini("EasterEgg", "RasterScroll", False, "bmse.ini") = False And modMain.strGet_ini("EasterEgg", "RasterScroll", True, "bmse.ini") = True Then
-				'UPGRADE_WARNING: オブジェクト modMain.strGet_ini の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				If modMain.strGet_ini("EasterEgg", "siromaru", False, "bmse.ini") = False And modMain.strGet_ini("EasterEgg", "siromaru", True, "bmse.ini") = True Then
-					
-					'strTemp = "エイプリル・フールだというのにわざわざ BMSE を使ってくれてありがとう!"
-					'strTemp = strTemp & vbCrLf & "Thank you for using BMSE on April Fool's Day!"
-					'strTemp = strTemp & vbCrLf & "びっくりしたかな?"
-					'strTemp = strTemp & vbCrLf & "Were you surprised?"
-					'strTemp = strTemp & vbCrLf
-					'strTemp = strTemp & vbCrLf & "さて、この演出は今回限りだから安心してほしい。"
-					'strTemp = strTemp & vbCrLf & "So, be relieved that this effect is only once."
-					'strTemp = strTemp & vbCrLf & "それじゃ、、、"
-					'strTemp = strTemp & vbCrLf & "Well..."
-					'strTemp = strTemp & vbCrLf & """また後でな (ニヤリ)"""
-					'strTemp = strTemp & vbCrLf & """BE SEEING YOU! (GRIN)"""
-					
-					strTemp = "A Happy New Year!"
-					strTemp = strTemp & vbCrLf & "本年もよろしくお願いします。"
-					strTemp = strTemp & vbCrLf
-					strTemp = strTemp & vbCrLf & "*Please note that this effect will appear only once."
-					strTemp = strTemp & vbCrLf & "*大変恐縮ですが、このサービスは1回限りとさせて頂きます。"
-					
-					Call MsgBox(strTemp, MsgBoxStyle.Information, g_strAppTitle)
-					
-					'Call modMain.lngSet_ini("EasterEgg", "RasterScroll", False)
-					'UPGRADE_WARNING: オブジェクト modMain.lngSet_ini の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					Call modMain.lngSet_ini("EasterEgg", "siromaru", False)
-					
-				End If
-				
-			End If
-			
-		End If
+
+            'If Month(Now) = 4 And Day(Now) = 1 And g_disp.intEffect = RASTER Then 'April Fool
+            If Month(Now) = 2 And VB.Day(Now) = 15 And g_disp.intEffect = EASTEREGG.SIROMARU Then 'シロマルの誕生日
+
+                'If modMain.strGet_ini("EasterEgg", "RasterScroll", False, "bmse.ini") = False And modMain.strGet_ini("EasterEgg", "RasterScroll", True, "bmse.ini") = True Then
+                If modMain.strGet_ini("EasterEgg", "siromaru", False, "bmse.ini") = False And modMain.strGet_ini("EasterEgg", "siromaru", True, "bmse.ini") = True Then
+
+                    'strTemp = "エイプリル・フールだというのにわざわざ BMSE を使ってくれてありがとう!"
+                    'strTemp = strTemp & vbCrLf & "Thank you for using BMSE on April Fool's Day!"
+                    'strTemp = strTemp & vbCrLf & "びっくりしたかな?"
+                    'strTemp = strTemp & vbCrLf & "Were you surprised?"
+                    'strTemp = strTemp & vbCrLf
+                    'strTemp = strTemp & vbCrLf & "さて、この演出は今回限りだから安心してほしい。"
+                    'strTemp = strTemp & vbCrLf & "So, be relieved that this effect is only once."
+                    'strTemp = strTemp & vbCrLf & "それじゃ、、、"
+                    'strTemp = strTemp & vbCrLf & "Well..."
+                    'strTemp = strTemp & vbCrLf & """また後でな (ニヤリ)"""
+                    'strTemp = strTemp & vbCrLf & """BE SEEING YOU! (GRIN)"""
+
+                    strTemp = "A Happy New Year!"
+                    strTemp = strTemp & vbCrLf & "本年もよろしくお願いします。"
+                    strTemp = strTemp & vbCrLf
+                    strTemp = strTemp & vbCrLf & "*Please note that this effect will appear only once."
+                    strTemp = strTemp & vbCrLf & "*大変恐縮ですが、このサービスは1回限りとさせて頂きます。"
+
+                    Call MsgBox(strTemp, MsgBoxStyle.Information, g_strAppTitle)
+
+                    'Call modMain.lngSet_ini("EasterEgg", "RasterScroll", False)
+                    Call modMain.lngSet_ini("EasterEgg", "siromaru", False)
+
+                End If
+
+            End If
+
+        End If
 		
 	End Sub
 	
 	Public Sub DrawEffect()
-		
-		'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		Select Case g_disp.intEffect
-			
-			Case EASTEREGG.SNOW, EASTEREGG.SIROMARU
-				
-				Call DrawSnow()
-				
-			Case EASTEREGG.SIROMARU2
-				
-				Call DrawSiromaru2()
-				
-			Case EASTEREGG.STAFFROLL, EASTEREGG.STAFFROLL2
-				
-				Call DrawStaffRoll()
-				
-			Case EASTEREGG.DISP_LOG
-				
-				Call DrawLog()
-				
-			Case EASTEREGG.BLUESCREEN
-				
-				Call DrawBlueScreen()
-				
-			Case Else
+
+        Select Case g_disp.intEffect
+
+            Case EASTEREGG.SNOW, EASTEREGG.SIROMARU
+
+                Call DrawSnow()
+
+            Case EASTEREGG.SIROMARU2
+
+                Call DrawSiromaru2()
+
+            Case EASTEREGG.STAFFROLL, EASTEREGG.STAFFROLL2
+
+                Call DrawStaffRoll()
+
+            Case EASTEREGG.DISP_LOG
+
+                Call DrawLog()
+
+            Case EASTEREGG.BLUESCREEN
+
+                Call DrawBlueScreen()
+
+            Case Else
 
                 Dim gp As Graphics = frmMain.picMain.CreateGraphics()
                 Call gp.Clear(frmMain.picMain.BackColor)
 
         End Select
-		
-	End Sub
+
+    End Sub
 	
 	Public Sub KeyCheck(ByVal KeyCode As Short, ByVal Shift As Short)
 		
@@ -222,10 +208,9 @@ Module modEasterEgg
 				If Right(buf.Value, 3) = "OFF" Then 'OFF
 					
 					frmMain.tmrEffect.Enabled = False
-					'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					g_disp.intEffect = EASTEREGG.OFF
-					
-					Call DrawEffect()
+                    g_disp.intEffect = EASTEREGG.OFF
+
+                    Call DrawEffect()
 					
 				ElseIf Right(buf.Value, 4) = "TIPS" Then  'TIPS
 					
@@ -239,60 +224,51 @@ Module modEasterEgg
 					End With
 					
 				ElseIf Right(buf.Value, 4) = "SNOW" Then  'SNOW
-					
-					'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					If g_disp.intEffect = EASTEREGG.SNOW Then
-						
-						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						g_disp.intEffect = EASTEREGG.OFF
-						
-					Else
-						
-						'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						g_disp.intEffect = EASTEREGG.SNOW
-						
-						Call InitSnow()
+
+                    If g_disp.intEffect = EASTEREGG.SNOW Then
+
+                        frmMain.tmrEffect.Enabled = False
+                        g_disp.intEffect = EASTEREGG.OFF
+
+                    Else
+
+                        g_disp.intEffect = EASTEREGG.SNOW
+
+                        Call InitSnow()
 						
 					End If
 					
 					Call DrawEffect()
 					
 				ElseIf Right(buf.Value, 8) = "SIROMARU" Or Right(buf.Value, 9) = "SIROMARU1" Then  'SIROMARU
-					
-					'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					If g_disp.intEffect = EASTEREGG.SIROMARU Then
-						
-						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						g_disp.intEffect = EASTEREGG.OFF
-						
-					Else
-						
-						'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						g_disp.intEffect = EASTEREGG.SIROMARU
-						
-						Call InitSnow()
+
+                    If g_disp.intEffect = EASTEREGG.SIROMARU Then
+
+                        frmMain.tmrEffect.Enabled = False
+                        g_disp.intEffect = EASTEREGG.OFF
+
+                    Else
+
+                        g_disp.intEffect = EASTEREGG.SIROMARU
+
+                        Call InitSnow()
 						
 					End If
 					
 					Call DrawEffect()
 					
 				ElseIf Right(buf.Value, 9) = "SIROMARU2" Then  'SIROMARU2
-					
-					'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					If g_disp.intEffect = EASTEREGG.SIROMARU2 Then
-						
-						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						g_disp.intEffect = EASTEREGG.OFF
-						
-					Else
-						
-						'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						g_disp.intEffect = EASTEREGG.SIROMARU2
-						
-						Call InitSiromaru2()
+
+                    If g_disp.intEffect = EASTEREGG.SIROMARU2 Then
+
+                        frmMain.tmrEffect.Enabled = False
+                        g_disp.intEffect = EASTEREGG.OFF
+
+                    Else
+
+                        g_disp.intEffect = EASTEREGG.SIROMARU2
+
+                        Call InitSiromaru2()
 						
 					End If
 					
@@ -301,84 +277,72 @@ Module modEasterEgg
 				ElseIf Right(buf.Value, 3) = "LOG" Then  'LOG
 					
 					frmMain.tmrEffect.Enabled = False
-					
-					'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					If g_disp.intEffect = EASTEREGG.DISP_LOG Then
-						
-						'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						g_disp.intEffect = EASTEREGG.OFF
-						
-					Else
-						
-						'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						g_disp.intEffect = EASTEREGG.DISP_LOG
-						
-					End If
+
+                    If g_disp.intEffect = EASTEREGG.DISP_LOG Then
+
+                        g_disp.intEffect = EASTEREGG.OFF
+
+                    Else
+
+                        g_disp.intEffect = EASTEREGG.DISP_LOG
+
+                    End If
 					
 					Call DrawEffect()
 					Call modDraw.Redraw()
 					
 				ElseIf Right(buf.Value, 9) = "STAFFROLL" Then  'STAFFROLL, STAFFROLL2
-					
-					'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					If g_disp.intEffect = EASTEREGG.STAFFROLL Or g_disp.intEffect = EASTEREGG.STAFFROLL2 Then
-						
-						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						g_disp.intEffect = EASTEREGG.OFF
-						
-					Else
-						
-						frmMain.tmrEffect.Interval = 100
-						
-						'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						g_disp.intEffect = EASTEREGG.STAFFROLL
-						
-						Call InitStaffRoll()
+
+                    If g_disp.intEffect = EASTEREGG.STAFFROLL Or g_disp.intEffect = EASTEREGG.STAFFROLL2 Then
+
+                        frmMain.tmrEffect.Enabled = False
+                        g_disp.intEffect = EASTEREGG.OFF
+
+                    Else
+
+                        frmMain.tmrEffect.Interval = 100
+
+                        g_disp.intEffect = EASTEREGG.STAFFROLL
+
+                        Call InitStaffRoll()
 						
 					End If
 					
 					Call DrawEffect()
 					
 				ElseIf Right(buf.Value, 10) = "STAFFROLL2" Then  'STAFFROLL, STAFFROLL2
-					
-					'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					If g_disp.intEffect = EASTEREGG.STAFFROLL Or g_disp.intEffect = EASTEREGG.STAFFROLL2 Then
-						
-						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						g_disp.intEffect = EASTEREGG.OFF
-						
-					Else
-						
-						frmMain.tmrEffect.Interval = 10
-						
-						'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						g_disp.intEffect = EASTEREGG.STAFFROLL
-						
-						Call InitStaffRoll()
+
+                    If g_disp.intEffect = EASTEREGG.STAFFROLL Or g_disp.intEffect = EASTEREGG.STAFFROLL2 Then
+
+                        frmMain.tmrEffect.Enabled = False
+                        g_disp.intEffect = EASTEREGG.OFF
+
+                    Else
+
+                        frmMain.tmrEffect.Interval = 10
+
+                        g_disp.intEffect = EASTEREGG.STAFFROLL
+
+                        Call InitStaffRoll()
 						
 					End If
 					
 					Call DrawEffect()
 					
 				ElseIf Right(buf.Value, 10) = "BLUESCREEN" Or Right(buf.Value, 4) = "BSOD" Then  'BLUESCREEN OF DEATH
-					
-					'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					If g_disp.intEffect = EASTEREGG.BLUESCREEN Then
-						
-						'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						g_disp.intEffect = EASTEREGG.OFF
-						
-					Else
-						
-						'frmMain.tmrEffect.Interval = 1
-						'frmMain.tmrEffect.Enabled = True
-						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-						g_disp.intEffect = EASTEREGG.BLUESCREEN
-						
-					End If
+
+                    If g_disp.intEffect = EASTEREGG.BLUESCREEN Then
+
+                        g_disp.intEffect = EASTEREGG.OFF
+
+                    Else
+
+                        'frmMain.tmrEffect.Interval = 1
+                        'frmMain.tmrEffect.Enabled = True
+                        frmMain.tmrEffect.Enabled = False
+                        g_disp.intEffect = EASTEREGG.BLUESCREEN
+
+                    End If
 					
 					Call DrawEffect()
 					
@@ -395,16 +359,14 @@ Module modEasterEgg
 		Dim i As Integer
 		Dim lngTemp As Integer
 		Dim sngTemp As Single
-		
-		'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		If g_disp.intEffect = EASTEREGG.OFF Then Exit Sub
-		
-		ReDim m_objSnow((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX) * 0.5 - 1)
-		
-		'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		If g_disp.intEffect <> EASTEREGG.SNOW Then ReDim m_objSnow((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX) \ 8 - 1)
-		
-		lngTemp = VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) \ VB6.TwipsPerPixelY
+
+        If g_disp.intEffect = EASTEREGG.OFF Then Exit Sub
+
+        ReDim m_objSnow((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX) * 0.5 - 1)
+
+        If g_disp.intEffect <> EASTEREGG.SNOW Then ReDim m_objSnow((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX) \ 8 - 1)
+
+        lngTemp = VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) \ VB6.TwipsPerPixelY
 		sngTemp = ((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX) / UBound(m_objSnow))
 		
 		Call Randomize()
@@ -417,15 +379,14 @@ Module modEasterEgg
 				
 				.X = sngTemp * i
 				.Y = Rnd() * lngTemp + 1 - lngTemp
-				
-				'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				If g_disp.intEffect = EASTEREGG.SNOW Then
-					
-					.dY = Rnd() * 2 + 1
-					
-				Else
-					
-					.dY = Rnd() * 4 + 4
+
+                If g_disp.intEffect = EASTEREGG.SNOW Then
+
+                    .dY = Rnd() * 2 + 1
+
+                Else
+
+                    .dY = Rnd() * 4 + 4
 					
 				End If
 				
@@ -434,11 +395,10 @@ Module modEasterEgg
 			End With
 			
 		Next i
-		
-		'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		If g_disp.intEffect = EASTEREGG.SNOW Then Call QuickSortA(0, UBound(m_objSnow))
-		
-		frmMain.tmrEffect.Enabled = True
+
+        If g_disp.intEffect = EASTEREGG.SNOW Then Call QuickSortA(0, UBound(m_objSnow))
+
+        frmMain.tmrEffect.Enabled = True
 		frmMain.tmrEffect.Interval = 100
 		
 	End Sub
@@ -453,16 +413,15 @@ Module modEasterEgg
 			With m_objSnow(i)
 				
 				.counter = .counter + 4
-				
-				'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				If g_disp.intEffect = EASTEREGG.SNOW Then
-					
-					.Y = .Y + .dY
-					.X = .X + g_sngSin(.counter * 2 And 255) * .dY / 2
-					
-				Else
-					
-					lngTemp = (.counter \ 4) And 7
+
+                If g_disp.intEffect = EASTEREGG.SNOW Then
+
+                    .Y = .Y + .dY
+                    .X = .X + g_sngSin(.counter * 2 And 255) * .dY / 2
+
+                Else
+
+                    lngTemp = (.counter \ 4) And 7
 					
 					If lngTemp = 0 Then
 						
@@ -485,11 +444,10 @@ Module modEasterEgg
 			End With
 			
 		Next i
-		
-		'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		If g_disp.intEffect <> EASTEREGG.SNOW Then Call QuickSortY(0, UBound(m_objSnow))
-		
-	End Sub
+
+        If g_disp.intEffect <> EASTEREGG.SNOW Then Call QuickSortY(0, UBound(m_objSnow))
+
+    End Sub
 	
 	Public Sub DrawSnow()
 		
@@ -520,10 +478,8 @@ Module modEasterEgg
 
             With m_objSnow(i)
 
-                'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 'UPGRADE_WARNING: Mod に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
                 X = (.X - frmMain.hsbMain.Value * g_disp.Width) Mod Width
-                'UPGRADE_WARNING: オブジェクト g_disp.Height の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 'UPGRADE_WARNING: Mod に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
                 Y = (.Y + frmMain.vsbMain.Value * g_disp.Height) Mod Height
 
@@ -582,11 +538,7 @@ Module modEasterEgg
 
                             intTemp = X + 32 - Width
 
-                            'UPGRADE_ISSUE: PictureBox プロパティ picSiromaru.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             Call BitBlt(hDC, 0, Y, intTemp, 32, picSiromaru_hDC, 64 - intTemp, srcY, SRCAND)
-                            'UPGRADE_ISSUE: PictureBox プロパティ picSiromaru.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             Call BitBlt(hDC, 0, Y, intTemp, 32, picSiromaru_hDC, 32 - intTemp, srcY, SRCPAINT)
 
                         End If
@@ -707,11 +659,10 @@ Module modEasterEgg
 	End Sub
 	
 	Public Sub InitStaffRoll()
-		
-		'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		If g_disp.intEffect = EASTEREGG.OFF Then Exit Sub
-		
-		frmMain.tmrEffect.Enabled = True
+
+        If g_disp.intEffect = EASTEREGG.OFF Then Exit Sub
+
+        frmMain.tmrEffect.Enabled = True
 		
 		m_lngCounter = 0
 		
@@ -847,10 +798,8 @@ Module modEasterEgg
                     X = (frmMain.picMain.ClientRectangle.Width - sizeTemp.Width) \ 2
                     Y = lngTemp - sizeTemp.Height \ 2
 
-                    'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     If (Y < .ClientRectangle.Height And Y + sizeTemp.Height > 0) Or g_disp.intEffect = EASTEREGG.STAFFROLL2 Then
 
-                        'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         If g_disp.intEffect = EASTEREGG.STAFFROLL Then
 
                             If .ClientRectangle.Height < 128 Then
@@ -882,7 +831,6 @@ Module modEasterEgg
                                 Case Is > 95
 
                                     frmMain.tmrEffect.Enabled = False
-                                    'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                                     g_disp.intEffect = EASTEREGG.OFF
 
                                     gp.ReleaseHdc()
@@ -940,10 +888,8 @@ Module modEasterEgg
 
             If lngTemp < 0 Then
 
-                'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 If g_disp.intEffect = EASTEREGG.STAFFROLL Then
 
-                    'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_disp.intEffect = EASTEREGG.STAFFROLL2
 
                     ReDim m_strStaffRoll(0)
@@ -972,7 +918,6 @@ Module modEasterEgg
 
                     Erase m_strStaffRoll
 
-                    'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_disp.intEffect = EASTEREGG.OFF
 
                 End If
@@ -1091,13 +1036,10 @@ Module modEasterEgg
 	Private Sub SwapObj(ByRef Obj1 As m_udtSnow, ByRef Obj2 As m_udtSnow)
 		
 		Dim dummy As m_udtSnow
-		
-		'UPGRADE_WARNING: オブジェクト dummy の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		dummy = Obj1
-		'UPGRADE_WARNING: オブジェクト Obj1 の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		Obj1 = Obj2
-		'UPGRADE_WARNING: オブジェクト Obj2 の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		Obj2 = dummy
-		
-	End Sub
+
+        dummy = Obj1
+        Obj1 = Obj2
+        Obj2 = dummy
+
+    End Sub
 End Module

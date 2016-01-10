@@ -258,10 +258,6 @@ Friend Class frmWindowTips
         picIcon_gp.ReleaseHdc()
 
     End Sub
-	
-	Private Sub frmWindowTips_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-
-    End Sub
 
     Private Sub tmrMain_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles tmrMain.Tick
 
@@ -275,7 +271,6 @@ Friend Class frmWindowTips
         m_lngTipsNum = m_lngTipsNum + 1
         tmrMain.Interval = 100
 
-        'UPGRADE_ISSUE: Form メソッド frmWindowTips.Line はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         gp.DrawRectangle(Pens.White, New Rectangle(VB6.TwipsToPixelsX(945), VB6.TwipsToPixelsY(720), VB6.TwipsToPixelsX(6030), VB6.TwipsToPixelsY(3240)))
 
         Dim hDC As IntPtr = gp.GetHdc()
@@ -363,6 +358,16 @@ Friend Class frmWindowTips
     End Sub
 
     Private Sub frmWindowTips_FormClosed(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If Me.Visible Then Call lngSet_ini("EasterEgg", "Tips", chkNextDisp.CheckState)
 
+        e.Cancel = True
+
+        tmrMain.Enabled = False
+
+        Erase m_strTips
+
+        Call Me.Hide()
+
+        Call frmMain.picMain.Focus()
     End Sub
 End Class

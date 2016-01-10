@@ -205,7 +205,6 @@ Friend Class frmWindowConvert
         ReDim strDeleteList(0)
         lngTemp = 0
 
-        'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
         strTemp = Dir(g_BMS.strDir & "*.*", FileAttribute.Normal)
 
@@ -228,7 +227,6 @@ Friend Class frmWindowConvert
                     If j = UBound(strList) + 1 Then
 
                         ReDim Preserve strDeleteList(lngTemp)
-                        'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         strDeleteList(lngTemp) = g_BMS.strDir & strTemp
                         lngTemp = lngTemp + 1
 
@@ -269,8 +267,6 @@ Friend Class frmWindowConvert
 
             End If
 
-            'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             Call MsgBox(g_Message(modMain.Message.MSG_DELETE_FILE) & vbCrLf & vbCrLf & Replace(Join(strDeleteList, vbCrLf), g_BMS.strDir, ""), MsgBoxStyle.Information, g_strAppTitle)
 
         End If
@@ -750,14 +746,12 @@ Friend Class frmWindowConvert
 
             If Not blnWAV(i) Then
 
-                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
                 If Len(g_strWAV(i)) <> 0 And Dir(g_BMS.strDir & g_strWAV(i), FileAttribute.Normal) <> vbNullString Then
 
                     strArray = Split(g_strWAV(i), ".")
                     strTemp = strFromNum(i) & "." & strArray(UBound(strArray))
 
-                    'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
                     If Dir(g_BMS.strDir & strTemp, FileAttribute.Normal) = vbNullString Then
 
@@ -792,9 +786,7 @@ Friend Class frmWindowConvert
                         ReDim Preserve strNameFrom(lngTemp)
                         ReDim Preserve strNameTo(lngTemp)
 
-                        'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         strNameFrom(lngTemp) = g_BMS.strDir & g_strWAV(i)
-                        'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         strNameTo(lngTemp) = g_BMS.strDir & strTemp
 
                         lngTemp = lngTemp + 1
@@ -813,14 +805,12 @@ Friend Class frmWindowConvert
 
             If Not blnBMP(i) Then
 
-                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
                 If Len(g_strBMP(i)) <> 0 And Dir(g_BMS.strDir & g_strBMP(i), FileAttribute.Normal) <> vbNullString Then
 
                     strArray = Split(g_strBMP(i), ".")
                     strTemp = strFromNum(i) & "." & strArray(UBound(strArray))
 
-                    'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
                     If Dir(g_BMS.strDir & strTemp, FileAttribute.Normal) = vbNullString Then
 
@@ -855,9 +845,7 @@ Friend Class frmWindowConvert
                         ReDim Preserve strNameFrom(lngTemp)
                         ReDim Preserve strNameTo(lngTemp)
 
-                        'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         strNameFrom(lngTemp) = g_BMS.strDir & g_strBMP(i)
-                        'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         strNameTo(lngTemp) = g_BMS.strDir & strTemp
 
                         lngTemp = lngTemp + 1
@@ -878,14 +866,12 @@ Friend Class frmWindowConvert
 
         If Len(Trim(frmMain.txtMissBMP.Text)) Then
 
-            'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
             If Dir(g_BMS.strDir & frmMain.txtMissBMP.Text, FileAttribute.Normal) <> vbNullString Then
 
                 strArray = Split(frmMain.txtMissBMP.Text, ".")
                 strTemp = "00." & strArray(UBound(strArray))
 
-                'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
                 If Dir(g_BMS.strDir & strTemp, FileAttribute.Normal) = vbNullString Then
 
@@ -894,9 +880,7 @@ Friend Class frmWindowConvert
                     ReDim Preserve strNameFrom(lngTemp)
                     ReDim Preserve strNameTo(lngTemp)
 
-                    'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     strNameFrom(lngTemp) = g_BMS.strDir & frmMain.txtMissBMP.Text
-                    'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     strNameTo(lngTemp) = g_BMS.strDir & strTemp
 
                     lngTemp = lngTemp + 1
@@ -1010,7 +994,6 @@ Friend Class frmWindowConvert
 
         End With
 
-        'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         If Len(g_BMS.strDir) = 0 Then
 
             chkDeleteFile.Enabled = False
@@ -1034,11 +1017,11 @@ Friend Class frmWindowConvert
 
     End Sub
 
-    Private Sub frmWindowConvert_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs)
-
-    End Sub
-
     Private Sub frmWindowConvert_FormClosed(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        e.Cancel = True
 
+        Call Me.Hide()
+
+        Call frmMain.picMain.Focus()
     End Sub
 End Class

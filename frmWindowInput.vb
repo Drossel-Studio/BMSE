@@ -40,11 +40,13 @@ Friend Class frmWindowInput
 
     End Sub
 
-    Private Sub frmWindowInput_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs)
-
-    End Sub
-
     Private Sub frmWindowInput_FormClosed(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        e.Cancel = True
 
+        txtMain.Text = ""
+
+        Call Me.Hide()
+
+        Call frmMain.picMain.Focus()
     End Sub
 End Class

@@ -21,16 +21,14 @@ Friend Class frmWindowFind
 		For i = 0 To UBound(g_Obj) - 1
 			
 			With g_Obj(i)
-				
-				'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-				If (optSearchAll.Checked = True Or .intSelect = modMain.OBJ_SELECT.Selected) And (Val(txtMeasureMin.Text) <= .intMeasure And Val(txtMeasureMax.Text) >= .intMeasure) And ((modInput.strToNum((txtNumMin.Text)) <= .sngValue And modInput.strToNum((txtNumMax.Text)) >= .sngValue) Or .intCh = 8 Or .intCh = 9) Then
-					
-					'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					.intSelect = modMain.OBJ_SELECT.NON_SELECT
-					
-					Select Case .intCh
-						
-						Case 8 'BPM
+
+                If (optSearchAll.Checked = True Or .intSelect = modMain.OBJ_SELECT.Selected) And (Val(txtMeasureMin.Text) <= .intMeasure And Val(txtMeasureMax.Text) >= .intMeasure) And ((modInput.strToNum((txtNumMin.Text)) <= .sngValue And modInput.strToNum((txtNumMax.Text)) >= .sngValue) Or .intCh = 8 Or .intCh = 9) Then
+
+                    .intSelect = modMain.OBJ_SELECT.NON_SELECT
+
+                    Select Case .intCh
+
+                        Case 8 'BPM
 
                             If _lstGrid_3.GetItemChecked(0) Then Call SearchProcess(i)
 
@@ -79,13 +77,12 @@ Friend Class frmWindowFind
                             If _lstGrid_2.GetItemChecked(.intCh - 101) Then Call SearchProcess(i)
 
                     End Select
-					
-				Else
-					
-					'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-					.intSelect = modMain.OBJ_SELECT.NON_SELECT
-					
-				End If
+
+                Else
+
+                    .intSelect = modMain.OBJ_SELECT.NON_SELECT
+
+                End If
 				
 			End With
 			
@@ -320,11 +317,20 @@ Friend Class frmWindowFind
 	End Sub
 
     Private Sub frmWindowFind_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+        Dim i As Integer
 
-    End Sub
+        For i = 2 To 32
 
-    Private Sub frmWindowFind_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+            Call _lstGrid_2.Items.Add(VB6.Format(i, "00"))
 
+        Next i
+
+        Call cmdSelect_Click(cmdSelect, New System.EventArgs())
+
+        _lstGrid_0.SelectedIndex = 0
+        _lstGrid_1.SelectedIndex = 0
+        _lstGrid_2.SelectedIndex = 0
+        _lstGrid_3.SelectedIndex = 0
     End Sub
 
     Private Sub txtMeasureMax_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtMeasureMax.Enter
@@ -378,7 +384,6 @@ Friend Class frmWindowFind
 
             End If
 
-            'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .intSelect = modMain.OBJ_SELECT.Selected
 
         End With
@@ -386,6 +391,10 @@ Friend Class frmWindowFind
     End Sub
 
     Private Sub frmWindowFind_FormClosed(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        e.Cancel = True
 
+        Call Me.Hide()
+
+        Call frmMain.picMain.Focus()
     End Sub
 End Class

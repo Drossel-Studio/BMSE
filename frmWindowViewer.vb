@@ -245,10 +245,6 @@ Err_Renamed:
 		Call cmdOK.Focus()
 		
 	End Sub
-	
-	Private Sub frmWindowViewer_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-
-    End Sub
 
     'UPGRADE_WARNING: イベント lstViewer.SelectedIndexChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
     Private Sub lstViewer_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstViewer.SelectedIndexChanged
@@ -323,6 +319,13 @@ Err_Renamed:
     End Sub
 
     Private Sub frmWindowViewer_FormClosed(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        e.Cancel = True
+
+        Erase m_LocalViewer
+
+        Call Me.Hide()
+
+        Call frmMain.picMain.Focus()
 
     End Sub
 End Class

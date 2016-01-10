@@ -430,6 +430,7 @@
         '
         'picPreview
         '
+        Me.picPreview.AllowDrop = True
         Me.picPreview.BackColor = System.Drawing.Color.Black
         Me.picPreview.Cursor = System.Windows.Forms.Cursors.Default
         Me.picPreview.ForeColor = System.Drawing.Color.Green

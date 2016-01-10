@@ -2358,6 +2358,7 @@
         '
         'lstWAV
         '
+        Me.lstWAV.AllowDrop = True
         Me.lstWAV.BackColor = System.Drawing.SystemColors.Window
         Me.lstWAV.Cursor = System.Windows.Forms.Cursors.Default
         Me.lstWAV.ForeColor = System.Drawing.SystemColors.WindowText
@@ -2415,6 +2416,7 @@
         '
         'lstBMP
         '
+        Me.lstBMP.AllowDrop = True
         Me.lstBMP.BackColor = System.Drawing.SystemColors.Window
         Me.lstBMP.Cursor = System.Windows.Forms.Cursors.Default
         Me.lstBMP.ForeColor = System.Drawing.SystemColors.WindowText
@@ -2671,6 +2673,7 @@
         '
         'picMain
         '
+        Me.picMain.AllowDrop = True
         Me.picMain.BackColor = System.Drawing.Color.Black
         Me.picMain.Cursor = System.Windows.Forms.Cursors.Default
         Me.picMain.Font = New System.Drawing.Font("ＭＳ ゴシック", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -2988,6 +2991,7 @@
         '
         'frmMain
         '
+        Me.AllowDrop = True
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control

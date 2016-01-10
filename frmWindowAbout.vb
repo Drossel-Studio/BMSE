@@ -204,10 +204,6 @@ Friend Class frmWindowAbout
 
     End Sub
 
-    Private Sub frmWindowAbout_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-
-    End Sub
-
     Private Sub picMain_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles picMain.Click
 
         Call Me.Close()
@@ -222,6 +218,14 @@ Friend Class frmWindowAbout
     End Sub
 
     Private Sub frmWindowAbout_FormClosed(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        e.Cancel = True
 
+        tmrMain.Enabled = False
+
+        Erase m_sngRaster
+
+        Call Me.Hide()
+
+        Call frmMain.picMain.Focus()
     End Sub
 End Class

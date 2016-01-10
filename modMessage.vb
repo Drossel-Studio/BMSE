@@ -72,7 +72,6 @@ Module modMessage
     Public Sub SubClass(ByVal hwnd As Integer)
 
 
-        'UPGRADE_WARNING: AddressOf WindowProc の delegate を追加する 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="E9E157F7-EF0C-4016-87B7-7D7FBBC6EE08"' をクリックしてください。
         OldWindowhWnd = SetWindowLong(hwnd, GWL_WNDPROC, AddressOf WindowProc)
 
 

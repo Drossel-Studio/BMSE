@@ -271,30 +271,34 @@ Friend Class frmWindowPreview
 
     End Sub
 
-    Private Sub frmWindowPreview_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub frmWindowPreview_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        e.Cancel = True
 
+        Call Me.Hide()
+
+        Call frmMain.picMain.Focus()
     End Sub
 
-    'UPGRADE_ISSUE: VBRUN.DataObject 型 はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
-    'UPGRADE_ISSUE: PictureBox イベント picPreview.OLEDragDrop はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"' をクリックしてください。
-    Private Sub picPreview_OLEDragDrop(ByRef Data As Object, ByRef Effect As Integer, ByRef Button As Short, ByRef Shift As Short, ByRef X As Single, ByRef Y As Single)
+    Private Sub picPreview_DragEnter(sender As Object, e As DragEventArgs) Handles picPreview.DragEnter
+        If (e.Data.GetDataPresent(DataFormats.FileDrop)) Then
+            e.Effect = DragDropEffects.Copy
+        Else
+            e.Effect = DragDropEffects.None
+        End If
+    End Sub
+
+    Private Sub picPreview_DragDrop(sender As Object, e As DragEventArgs) Handles picPreview.DragDrop
         On Error GoTo Err_Renamed
 
         Dim i As Integer
         Dim strTemp As String
 
-        'UPGRADE_ISSUE: DataObject プロパティ Data.Files はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' をクリックしてください。
-        'UPGRADE_ISSUE: DataObjectFiles プロパティ Files.Count はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' をクリックしてください。
-        For i = 1 To Data.Files.Count
+        For i = 0 To CType(e.Data.GetData(DataFormats.FileDrop), String()).Length - 1
 
-            'UPGRADE_ISSUE: DataObject プロパティ Data.Files はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' をクリックしてください。
-            'UPGRADE_ISSUE: DataObjectFiles プロパティ Files.Item はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' をクリックしてください。
             'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
-            If Dir(Data.Files.Item(i), FileAttribute.Normal) <> vbNullString Then
+            If Dir(CType(e.Data.GetData(DataFormats.FileDrop), String())(i), FileAttribute.Normal) <> vbNullString Then
 
-                'UPGRADE_ISSUE: DataObject プロパティ Data.Files はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' をクリックしてください。
-                'UPGRADE_ISSUE: DataObjectFiles プロパティ Files.Item はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' をクリックしてください。
-                strTemp = Data.Files.Item(i)
+                strTemp = CType(e.Data.GetData(DataFormats.FileDrop), String())(i)
 
                 Call frmMain.PreviewBMP(strTemp)
 
@@ -320,7 +324,6 @@ Err_Renamed:
 
             Dim hDC As IntPtr = gp.GetHdc()
 
-            'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             Call BitBlt(hDC, (.ClientRectangle.Width \ 2 - 128) + Val(_txtBGAPara_5.Text) - Val(_txtBGAPara_1.Text), (.ClientRectangle.Height \ 2 - 128) + Val(_txtBGAPara_6.Text) - Val(_txtBGAPara_2.Text), picBackBuffer.ClientRectangle.Width, picBackBuffer.ClientRectangle.Height, picBackBuffer_hDC, 0, 0, SRCCOPY)
 
             If chkBGLine.CheckState Then
@@ -342,7 +345,6 @@ Err_Renamed:
 
             Call Rectangle(hDC, .ClientRectangle.Width \ 2 - 129, .ClientRectangle.Height \ 2 - 129, .ClientRectangle.Width \ 2 + 130, .ClientRectangle.Height \ 2 + 130)
 
-            'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             Call BitBlt(hDC, (.ClientRectangle.Width \ 2 - 128) + Val(_txtBGAPara_5.Text), (.ClientRectangle.Height \ 2 - 128) + Val(_txtBGAPara_6.Text), lngNumField(Val(_txtBGAPara_3.Text) - Val(_txtBGAPara_1.Text), 0, 256), lngNumField(Val(_txtBGAPara_4.Text) - Val(_txtBGAPara_2.Text), 0, 256), picBackBuffer_hDC, Val(_txtBGAPara_1.Text), Val(_txtBGAPara_2.Text), SRCCOPY)
 
             gp.ReleaseHdc()
@@ -412,4 +414,5 @@ Err_Renamed:
         lngNumField = lngNum
 
     End Function
+
 End Class

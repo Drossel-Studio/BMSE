@@ -47,7 +47,6 @@ Module modLog
             .intCh = Val("&H" & Mid(code, 14, 2))
             .intMeasure = modInput.strToNum(Mid(code, 16, 2))
             .lngPosition = modInput.strToNum(Mid(code, 18, 3))
-            'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .intSelect = modMain.OBJ_SELECT.Selected
 
         End With

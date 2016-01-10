@@ -303,60 +303,50 @@ Module modDraw
 
                 For i = GRID.NUM_1P_1KEY To GRID.NUM_1P_7KEY
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(i).intWidth = GRID_WIDTH
 
                 Next i
 
                 For i = GRID.NUM_2P_1KEY To GRID.NUM_2P_7KEY
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(i).intWidth = GRID_WIDTH
 
                 Next i
 
             Else
 
-                'UPGRADE_WARNING: オブジェクト g_VGrid().intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 g_VGrid(GRID.NUM_1P_1KEY).intWidth = GRID_HALF_EDGE_WIDTH
 
                 For i = GRID.NUM_1P_2KEY To GRID.NUM_1P_6KEY
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(i).intWidth = GRID_HALF_WIDTH
 
                 Next i
 
                 If frmMain.cboDispKey.SelectedIndex Then
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_1P_7KEY).intWidth = GRID_HALF_EDGE_WIDTH
 
                 Else
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_1P_5KEY).intWidth = GRID_HALF_EDGE_WIDTH
 
                 End If
 
-                'UPGRADE_WARNING: オブジェクト g_VGrid().intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 g_VGrid(GRID.NUM_2P_1KEY).intWidth = GRID_HALF_EDGE_WIDTH
 
                 For i = GRID.NUM_2P_2KEY To GRID.NUM_2P_6KEY
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(i).intWidth = GRID_HALF_WIDTH
 
                 Next i
 
                 If frmMain.cboDispKey.SelectedIndex Then
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_2P_7KEY).intWidth = GRID_HALF_EDGE_WIDTH
 
                 Else
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_2P_5KEY).intWidth = GRID_HALF_EDGE_WIDTH
 
                 End If
@@ -367,39 +357,29 @@ Module modDraw
 
                 Case 0, 1, 2 '1P/2P/DP
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_FOOTPEDAL).blnVisible = False
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_2P_SC_L - 1).blnVisible = True
 
                     If .cboDispKey.SelectedIndex = 0 Then
 
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         g_VGrid(GRID.NUM_1P_6KEY).blnVisible = False
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         g_VGrid(GRID.NUM_1P_7KEY).blnVisible = False
 
                     Else
 
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         g_VGrid(GRID.NUM_1P_6KEY).blnVisible = True
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         g_VGrid(GRID.NUM_1P_7KEY).blnVisible = True
 
                     End If
 
                     If .cboDispSC1P.SelectedIndex = 0 Then
 
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         g_VGrid(GRID.NUM_1P_SC_L).blnVisible = True
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         g_VGrid(GRID.NUM_1P_SC_R).blnVisible = False
 
                     Else
 
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         g_VGrid(GRID.NUM_1P_SC_L).blnVisible = False
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         g_VGrid(GRID.NUM_1P_SC_R).blnVisible = True
 
                     End If
@@ -408,39 +388,30 @@ Module modDraw
 
                         For i = GRID.NUM_2P_SC_L To GRID.NUM_2P_SC_R + 1
 
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             g_VGrid(i).blnVisible = True
 
                         Next i
 
                         If .cboDispKey.SelectedIndex = 0 Then
 
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             g_VGrid(GRID.NUM_2P_6KEY).blnVisible = False
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             g_VGrid(GRID.NUM_2P_7KEY).blnVisible = False
 
                         Else
 
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             g_VGrid(GRID.NUM_2P_6KEY).blnVisible = True
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             g_VGrid(GRID.NUM_2P_7KEY).blnVisible = True
 
                         End If
 
                         If .cboDispSC2P.SelectedIndex = 0 Then
 
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             g_VGrid(GRID.NUM_2P_SC_L).blnVisible = True
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             g_VGrid(GRID.NUM_2P_SC_R).blnVisible = False
 
                         Else
 
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             g_VGrid(GRID.NUM_2P_SC_L).blnVisible = False
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             g_VGrid(GRID.NUM_2P_SC_R).blnVisible = True
 
                         End If
@@ -449,7 +420,6 @@ Module modDraw
 
                         For i = GRID.NUM_2P_SC_L To GRID.NUM_2P_SC_R + 1
 
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             g_VGrid(i).blnVisible = False
 
                         Next i
@@ -458,83 +428,57 @@ Module modDraw
 
                 Case 3 'PMS
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_FOOTPEDAL).blnVisible = False
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_1P_SC_L).blnVisible = False
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_1P_6KEY).blnVisible = False
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_1P_7KEY).blnVisible = False
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_1P_SC_R).blnVisible = False
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_2P_SC_L - 1).blnVisible = False
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_2P_SC_L).blnVisible = False
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_2P_1KEY).blnVisible = False
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_2P_SC_R + 1).blnVisible = True
 
                     For i = GRID.NUM_2P_2KEY To GRID.NUM_2P_5KEY
 
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         g_VGrid(i).blnVisible = True
 
                     Next i
 
                     For i = GRID.NUM_2P_6KEY To GRID.NUM_2P_SC_R
 
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         g_VGrid(i).blnVisible = False
 
                     Next i
 
                     If .cboDispFrame.SelectedIndex = 0 Then
 
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         g_VGrid(GRID.NUM_1P_5KEY).intWidth = GRID_HALF_WIDTH
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         g_VGrid(GRID.NUM_2P_5KEY).intWidth = GRID_HALF_EDGE_WIDTH
 
                     End If
 
                 Case 4 'Oct
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_FOOTPEDAL).blnVisible = True
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_1P_SC_L).blnVisible = True
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_1P_6KEY).blnVisible = True
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_1P_7KEY).blnVisible = True
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_2P_SC_L - 1).blnVisible = False
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_2P_1KEY).blnVisible = False
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_2P_SC_R).blnVisible = True
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     g_VGrid(GRID.NUM_2P_SC_R + 1).blnVisible = True
 
                     For i = GRID.NUM_2P_2KEY To GRID.NUM_2P_7KEY
 
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         g_VGrid(i).blnVisible = True
 
                     Next i
 
                     If .cboDispFrame.SelectedIndex = 0 Then
 
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         g_VGrid(GRID.NUM_1P_5KEY).intWidth = GRID_HALF_WIDTH
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         g_VGrid(GRID.NUM_1P_7KEY).intWidth = GRID_HALF_WIDTH
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         g_VGrid(GRID.NUM_2P_5KEY).intWidth = GRID_HALF_WIDTH
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         g_VGrid(GRID.NUM_2P_7KEY).intWidth = GRID_HALF_EDGE_WIDTH
 
                     End If
@@ -552,7 +496,6 @@ Module modDraw
 
         Next i
 
-        'UPGRADE_WARNING: オブジェクト g_disp.lngMaxY の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         g_disp.lngMaxY = g_Measure(999).lngY + g_Measure(999).intLen
 
         Call Redraw()
@@ -560,7 +503,6 @@ Module modDraw
         Exit Sub
 
 Err_Renamed:
-        'UPGRADE_WARNING: オブジェクト modMain.CleanUp の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         Call modMain.CleanUp(Err.Number, Err.Description, "InitVerticalLine")
     End Sub
 
@@ -576,7 +518,6 @@ Err_Renamed:
         'If frmMain.Visible = False Or frmMain.Enabled = False Then Exit Sub
         If frmMain.Visible = False Then Exit Sub
 
-        'UPGRADE_WARNING: オブジェクト g_disp.intMaxMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         For i = 0 To g_disp.intMaxMeasure
 
             lngTemp = lngTemp + g_Measure(i).intLen
@@ -584,7 +525,6 @@ Err_Renamed:
         Next i
 
         'frmMain.vsbMain.Min = lngTemp \ 96
-        'UPGRADE_WARNING: オブジェクト g_disp.intResolution の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         frmMain.vsbMain.Minimum = lngTemp \ g_disp.intResolution
 
         'UPGRADE_ISSUE: PictureBox プロパティ picMain.AutoRedraw はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
@@ -594,21 +534,12 @@ Err_Renamed:
 
             '.Width = frmMain.hsbDispWidth.Value / 100
             '.Height = frmMain.hsbDispHeight.Value / 100
-            'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .Width = VB6.GetItemData(frmMain.cboDispWidth, frmMain.cboDispWidth.SelectedIndex) / 100
-            'UPGRADE_WARNING: オブジェクト g_disp.Height の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             Dim inasdka As Integer = frmMain.cboDispHeight.SelectedIndex
             .Height = VB6.GetItemData(frmMain.cboDispHeight, frmMain.cboDispHeight.SelectedIndex) / 100
-            'UPGRADE_WARNING: オブジェクト g_disp.intStartMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .intStartMeasure = 999
-            'UPGRADE_WARNING: オブジェクト g_disp.intEndMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .intEndMeasure = 999
-            'UPGRADE_WARNING: オブジェクト g_disp.lngStartPos の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_disp.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .lngStartPos = .Y - OBJ_HEIGHT
-            'UPGRADE_WARNING: オブジェクト g_disp.lngEndPos の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_disp.Height の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_disp.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .lngEndPos = .Y + frmMain.picMain.ClientRectangle.Height / .Height
 
         End With
@@ -626,55 +557,39 @@ Err_Renamed:
 
             With g_VGrid(i)
 
-                'UPGRADE_WARNING: オブジェクト g_VGrid(i).blnVisible の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 If .blnVisible Then
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid(i).intCh の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     Select Case .intCh
 
                         Case 11 To 29
 
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().intCh の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             g_intVGridNum(.intCh) = i
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().intCh の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             g_intVGridNum(.intCh + 20) = i
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().intCh の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             g_intVGridNum(.intCh + 40) = i
 
                         Case Is > 100
 
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().intCh の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             g_intVGridNum(.intCh) = i
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().intCh の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             g_intVGridNum(.intCh + 40) = i
 
                         Case Is > 0
 
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().intCh の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             g_intVGridNum(.intCh) = i
 
                     End Select
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     .lngLeft = lngTemp
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid(i).intCh の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     Select Case .intCh
 
                         Case 15
 
                             If frmMain.cboDispKey.SelectedIndex = 1 Or frmMain.cboPlayer.SelectedIndex > 2 Then
 
-                                'UPGRADE_WARNING: オブジェクト g_VGrid(i).lngObjLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                                'UPGRADE_WARNING: オブジェクト g_VGrid(i).intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                                'UPGRADE_WARNING: オブジェクト g_VGrid().lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                                 .lngObjLeft = .lngLeft + (.intWidth - GRID_WIDTH) \ 2
 
                             Else
 
-                                'UPGRADE_WARNING: オブジェクト g_VGrid(i).lngObjLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                                'UPGRADE_WARNING: オブジェクト g_VGrid(i).intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                                'UPGRADE_WARNING: オブジェクト g_VGrid().lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                                 .lngObjLeft = .lngLeft + .intWidth - GRID_WIDTH
 
                             End If
@@ -683,23 +598,14 @@ Err_Renamed:
 
                             If frmMain.cboPlayer.SelectedIndex = 4 Then
 
-                                'UPGRADE_WARNING: オブジェクト g_VGrid(i).lngObjLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                                'UPGRADE_WARNING: オブジェクト g_VGrid(i).intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                                'UPGRADE_WARNING: オブジェクト g_VGrid().lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                                 .lngObjLeft = .lngLeft + (.intWidth - GRID_WIDTH) \ 2
 
                             ElseIf frmMain.cboDispKey.SelectedIndex = 0 Or frmMain.cboPlayer.SelectedIndex = 3 Then
 
-                                'UPGRADE_WARNING: オブジェクト g_VGrid(i).lngObjLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                                'UPGRADE_WARNING: オブジェクト g_VGrid(i).intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                                'UPGRADE_WARNING: オブジェクト g_VGrid().lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                                 .lngObjLeft = .lngLeft + .intWidth - GRID_WIDTH
 
                             Else
 
-                                'UPGRADE_WARNING: オブジェクト g_VGrid(i).lngObjLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                                'UPGRADE_WARNING: オブジェクト g_VGrid(i).intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                                'UPGRADE_WARNING: オブジェクト g_VGrid().lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                                 .lngObjLeft = .lngLeft + (.intWidth - GRID_WIDTH) \ 2
 
                             End If
@@ -708,64 +614,43 @@ Err_Renamed:
 
                             If frmMain.cboPlayer.SelectedIndex > 2 Then
 
-                                'UPGRADE_WARNING: オブジェクト g_VGrid(i).lngObjLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                                'UPGRADE_WARNING: オブジェクト g_VGrid(i).intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                                'UPGRADE_WARNING: オブジェクト g_VGrid().lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                                 .lngObjLeft = .lngLeft + (.intWidth - GRID_WIDTH) \ 2
 
                             Else
 
-                                'UPGRADE_WARNING: オブジェクト g_VGrid(i).lngObjLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                                'UPGRADE_WARNING: オブジェクト g_VGrid(i).intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                                'UPGRADE_WARNING: オブジェクト g_VGrid().lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                                 .lngObjLeft = .lngLeft + .intWidth - GRID_WIDTH
 
                             End If
 
                         Case 29
 
-                            'UPGRADE_WARNING: オブジェクト g_VGrid(i).lngObjLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_WARNING: オブジェクト g_VGrid(i).intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             .lngObjLeft = .lngLeft + .intWidth - GRID_WIDTH
 
                         Case 12 To 18, 22 To 28
 
-                            'UPGRADE_WARNING: オブジェクト g_VGrid(i).lngObjLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_WARNING: オブジェクト g_VGrid(i).intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             .lngObjLeft = .lngLeft + (.intWidth - GRID_WIDTH) \ 2
 
                         Case Else
 
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().lngObjLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             .lngObjLeft = lngTemp
 
                     End Select
 
                     'If (lngTemp + .intWidth) * g_disp.Width >= g_disp.X And (g_disp.X + frmMain.picMain.ScaleWidth) / g_disp.Width >= lngTemp Then
-                    'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                    'UPGRADE_WARNING: オブジェクト g_VGrid(i).lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                    'UPGRADE_WARNING: オブジェクト g_disp.X の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                    'UPGRADE_WARNING: オブジェクト g_VGrid(i).intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     If .lngLeft + .intWidth >= g_disp.X And frmMain.picMain.ClientRectangle.Width + (g_disp.X - .lngLeft) * g_disp.Width >= 0 Then
 
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().blnDraw の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         .blnDraw = True
 
                     Else
 
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().blnDraw の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         .blnDraw = False
 
                     End If
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     lngTemp = lngTemp + .intWidth
 
                 Else
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid().blnDraw の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     .blnDraw = False
 
                 End If
@@ -774,7 +659,6 @@ Err_Renamed:
 
         Next i
 
-        'UPGRADE_WARNING: オブジェクト g_disp.lngMaxX の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         g_disp.lngMaxX = lngTemp
 
         lngTemp = 0
@@ -783,10 +667,8 @@ Err_Renamed:
 
             lngTemp = lngTemp + g_Measure(i).intLen
 
-            'UPGRADE_WARNING: オブジェクト g_disp.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             If lngTemp > g_disp.Y Then
 
-                'UPGRADE_WARNING: オブジェクト g_disp.intStartMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 g_disp.intStartMeasure = i
 
                 Exit For
@@ -795,16 +677,12 @@ Err_Renamed:
 
         Next i
 
-        'UPGRADE_WARNING: オブジェクト g_disp.intStartMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         For i = g_disp.intStartMeasure + 1 To 999
 
             lngTemp = lngTemp + g_Measure(i).intLen
 
-            'UPGRADE_WARNING: オブジェクト g_disp.Height の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_disp.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             If (lngTemp - g_disp.Y) * g_disp.Height >= frmMain.picMain.ClientRectangle.Height Then
 
-                'UPGRADE_WARNING: オブジェクト g_disp.intEndMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 g_disp.intEndMeasure = i
 
                 Exit For
@@ -846,11 +724,8 @@ Err_Renamed:
 
                 If 0 < .intCh And .intCh < 133 Then
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid(g_intVGridNum(g_Obj(i).intCh)).blnDraw の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     If g_VGrid(g_intVGridNum(.intCh)).blnDraw Then
 
-                        'UPGRADE_WARNING: オブジェクト g_disp.lngEndPos の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                        'UPGRADE_WARNING: オブジェクト g_disp.lngStartPos の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         If g_disp.lngStartPos <= g_Measure(.intMeasure).lngY + .lngPosition And g_disp.lngEndPos >= g_Measure(.intMeasure).lngY + .lngPosition Then
 
                             Call DrawObj(g_Obj(i))
@@ -869,9 +744,6 @@ Err_Renamed:
 
             With m_tempObj(i)
 
-                'UPGRADE_WARNING: オブジェクト g_VGrid(g_intVGridNum(m_tempObj(i).intCh)).blnDraw の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                'UPGRADE_WARNING: オブジェクト g_disp.lngEndPos の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                'UPGRADE_WARNING: オブジェクト g_disp.lngStartPos の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 If g_disp.lngStartPos <= g_Measure(.intMeasure).lngY + .lngPosition And g_disp.lngEndPos >= g_Measure(.intMeasure).lngY + .lngPosition And g_VGrid(g_intVGridNum(.intCh)).blnDraw = True And .intCh <> 0 Then
 
                     Call DrawObj(m_tempObj(i))
@@ -888,8 +760,6 @@ Err_Renamed:
 
         With frmMain.picMain
 
-            'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_disp.lngMaxX の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             If (g_disp.lngMaxX + 16) * g_disp.Width - .ClientRectangle.Width < 0 Then
 
                 frmMain.hsbMain.Maximum = (0 + frmMain.hsbMain.LargeChange - 1)
@@ -898,8 +768,6 @@ Err_Renamed:
 
                 'frmMain.hsbMain.Max = (g_disp.lngMaxX + 16) * g_disp.Width - .ScaleWidth
                 'frmMain.hsbMain.Max = (g_disp.lngMaxX + 16) - .ScaleWidth / g_disp.Width
-                'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                'UPGRADE_WARNING: オブジェクト g_disp.lngMaxX の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 frmMain.hsbMain.Maximum = ((g_disp.lngMaxX + FRAME_WIDTH) - .ClientRectangle.Width / g_disp.Width + frmMain.hsbMain.LargeChange - 1)
 
             End If
@@ -909,7 +777,6 @@ Err_Renamed:
 
         End With
 
-        'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         If g_disp.intEffect Then Call modEasterEgg.DrawEffect()
 
         'Debug.Print timeGetTime() - lngTimer
@@ -918,7 +785,6 @@ Err_Renamed:
         Exit Sub
 
 Err_Renamed:
-        'UPGRADE_WARNING: オブジェクト modMain.CleanUp の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         Call modMain.CleanUp(Err.Number, Err.Description, "Redraw")
     End Sub
 
@@ -939,25 +805,16 @@ Err_Renamed:
                     Dim gp As Graphics = frmMain.picMain.CreateGraphics()
                     Dim hDC As IntPtr = gp.GetHdc()
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid(i).blnDraw の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     If .blnDraw Then
 
-                        'UPGRADE_WARNING: オブジェクト g_VGrid(i).intCh の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         If .intCh Then
 
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().lngBackColor の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             hPenNew = CreatePen(PS_SOLID, 1, .lngBackColor)
                             hPenOld = SelectObject(hDC, hPenNew)
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().lngBackColor の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             hBrushNew = CreateSolidBrush(.lngBackColor)
                             hBrushOld = SelectObject(hDC, hBrushNew)
 
                             'Call Rectangle(frmMain.picMain.hdc, .lngLeft * g_disp.Width - g_disp.X, 0, (.lngLeft + .intWidth + 1) * g_disp.Width - g_disp.X, frmMain.picMain.ScaleHeight)
-                            'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_WARNING: オブジェクト g_disp.X の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_WARNING: オブジェクト g_VGrid(i).intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_WARNING: オブジェクト g_VGrid(i).lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             Call Rectangle(hDC, (.lngLeft - g_disp.X) * g_disp.Width, 0, (.lngLeft + .intWidth + 1 - g_disp.X) * g_disp.Width, frmMain.picMain.ClientRectangle.Height)
 
                             hPenNew = SelectObject(hDC, hPenOld)
@@ -992,8 +849,6 @@ Err_Renamed:
             .Font = VB6.FontChangeSize(.Font, 72)
             .Font = VB6.FontChangeItalic(.Font, True)
 
-            'UPGRADE_WARNING: オブジェクト g_disp.intEndMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_disp.intStartMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             For i = g_disp.intStartMeasure To g_disp.intEndMeasure '#小節番号
 
                 'strTemp = "#" & Format$(i, "000")
@@ -1002,8 +857,6 @@ Err_Renamed:
                 Call GetTextExtentPoint32(hDC, strTemp.Value, 4, sizeTemp)
 
                 Call SetTextColor(hDC, g_lngSystemColor(COLOR_NUM.MEASURE_NUM)) 'RGB(64, 64, 64)
-                'UPGRADE_WARNING: オブジェクト g_disp.Height の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                'UPGRADE_WARNING: オブジェクト g_disp.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 Call TextOut(hDC, (.ClientRectangle.Width - sizeTemp.Width) \ 2, .ClientRectangle.Height - sizeTemp.Height - (g_Measure(i).lngY - g_disp.Y) * g_disp.Height, strTemp.Value, 4)
 
             Next i
@@ -1027,7 +880,6 @@ Err_Renamed:
         hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.VERTICAL_SUB)) 'RGB(128, 128, 128)
         hOld = SelectObject(hDC, hNew)
 
-        'UPGRADE_WARNING: オブジェクト g_disp.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         Y = g_disp.Y
         H = frmMain.picMain.ClientRectangle.Height
 
@@ -1036,15 +888,11 @@ Err_Renamed:
 
             With g_VGrid(i)
 
-                'UPGRADE_WARNING: オブジェクト g_VGrid(i).blnDraw の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 If .blnDraw Then
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid(i).intCh の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     If .intCh Then
 
                         'Call PrintLine(.lngLeft + .intWidth, g_disp.Y, 0, frmMain.picMain.ScaleHeight)
-                        'UPGRADE_WARNING: オブジェクト g_VGrid(i).intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         Call PrintLine_Renamed(.lngLeft + .intWidth, Y, 0, H)
 
                     End If
@@ -1077,7 +925,6 @@ Err_Renamed:
         hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.GRID_MAIN)) 'RGB(96, 96, 96)
         hOld = SelectObject(hDC, hNew)
 
-        'UPGRADE_WARNING: オブジェクト g_disp.lngMaxX の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         W = g_disp.lngMaxX - RIGHT_SPACE
 
         '横線(灰色)
@@ -1085,8 +932,6 @@ Err_Renamed:
 
             If VB6.GetItemData(frmMain.cboDispGridSub, .SelectedIndex) Then
 
-                'UPGRADE_WARNING: オブジェクト g_disp.intEndMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                'UPGRADE_WARNING: オブジェクト g_disp.intStartMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 For i = g_disp.intStartMeasure To g_disp.intEndMeasure
 
                     intTemp = 192 \ VB6.GetItemData(frmMain.cboDispGridSub, .SelectedIndex)
@@ -1110,7 +955,6 @@ Err_Renamed:
         hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.GRID_SUB)) 'RGB(192, 192, 192))
         hOld = SelectObject(hDC, hNew)
 
-        'UPGRADE_WARNING: オブジェクト g_disp.lngMaxX の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         W = g_disp.lngMaxX - FRAME_WIDTH
 
         '横線(灰色・補助)
@@ -1118,8 +962,6 @@ Err_Renamed:
 
             If VB6.GetItemData(frmMain.cboDispGridMain, .SelectedIndex) Then
 
-                'UPGRADE_WARNING: オブジェクト g_disp.intEndMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                'UPGRADE_WARNING: オブジェクト g_disp.intStartMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 For i = g_disp.intStartMeasure To g_disp.intEndMeasure
 
                     intTemp = 192 \ VB6.GetItemData(frmMain.cboDispGridMain, .SelectedIndex)
@@ -1158,7 +1000,6 @@ Err_Renamed:
         hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.VERTICAL_MAIN))
         hOld = SelectObject(hDC, hNew)
 
-        'UPGRADE_WARNING: オブジェクト g_disp.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         Y = g_disp.Y
         H = frmMain.picMain.ClientRectangle.Height
 
@@ -1167,16 +1008,11 @@ Err_Renamed:
 
             With g_VGrid(i)
 
-                'UPGRADE_WARNING: オブジェクト g_VGrid(i).blnDraw の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 If .blnDraw = True Then
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid(i).intCh の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     If .intCh = 0 Then
 
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         Call PrintLine_Renamed(.lngLeft, Y, 0, H)
-                        'UPGRADE_WARNING: オブジェクト g_VGrid(i).intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         Call PrintLine_Renamed(.lngLeft + .intWidth, Y, 0, H)
 
                     End If
@@ -1207,12 +1043,9 @@ Err_Renamed:
         hNew = CreatePen(hNew, 1, g_lngSystemColor(COLOR_NUM.MEASURE_LINE))
         hOld = SelectObject(hDC, hNew)
 
-        'UPGRADE_WARNING: オブジェクト g_disp.lngMaxX の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         W = g_disp.lngMaxX - FRAME_WIDTH
 
         '横線(白)
-        'UPGRADE_WARNING: オブジェクト g_disp.intEndMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-        'UPGRADE_WARNING: オブジェクト g_disp.intStartMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         For i = g_disp.intStartMeasure To g_disp.intEndMeasure
 
             'Call PrintLine(16, g_Measure(i).lngY, g_disp.lngMaxX - 16, 0)
@@ -1221,10 +1054,8 @@ Err_Renamed:
         Next i
 
         'If g_disp.intEndMeasure = 999 Then Call PrintLine(16, g_Measure(999).lngY + g_Measure(999).intLen, g_disp.lngMaxX - 16, 0)
-        'UPGRADE_WARNING: オブジェクト g_disp.intEndMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         If g_disp.intEndMeasure = 999 Then
 
-            'UPGRADE_WARNING: オブジェクト g_disp.lngMaxX の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             Call PrintLine_Renamed(FRAME_WIDTH, g_Measure(999).lngY + g_Measure(999).intLen, g_disp.lngMaxX - FRAME_WIDTH, 0)
 
         End If
@@ -1255,25 +1086,17 @@ Err_Renamed:
 
             With g_VGrid(i)
 
-                'UPGRADE_WARNING: オブジェクト g_VGrid(i).blnDraw の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 If .blnDraw Then
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid(i).intCh の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     If .intCh Then
 
                         If frmMain._mnuOptionsItem_2.Checked Then
 
                             'lngTemp = (.lngLeft + (.intWidth \ 2)) * g_disp.Width - g_disp.X
-                            'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_WARNING: オブジェクト g_disp.X の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_WARNING: オブジェクト g_VGrid(i).intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             lngTemp = (.lngLeft + (.intWidth \ 2) - g_disp.X) * g_disp.Width
 
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().strText の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             For j = 0 To Len(.strText) - 1
 
-                                'UPGRADE_WARNING: オブジェクト g_VGrid().strText の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                                 strTemp = Mid(.strText, j + 1, 1)
                                 lngLength = LenB(strTemp)
                                 Call GetTextExtentPoint32(hDC, strTemp, lngLength, sizeTemp)
@@ -1297,34 +1120,23 @@ Err_Renamed:
 
                         Else
 
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().strText の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             lngLength = LenB(.strText)
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().strText の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             Call GetTextExtentPoint32(hDC, .strText, lngLength, sizeTemp)
 
                             'X = (.lngLeft + .intWidth \ 2) * g_disp.Width - (sizeTemp.Width) \ 2 - g_disp.X + 1
-                            'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_WARNING: オブジェクト g_disp.X の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_WARNING: オブジェクト g_VGrid(i).intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             X = (.lngLeft + .intWidth \ 2 - g_disp.X) * g_disp.Width - (sizeTemp.Width) \ 2 + 1
 
                             '無理やり縁取り
                             Call SetTextColor(hDC, 0)
                             'Call TextOut(frmMain.picMain.hdc, X - 1, 0, .strText, lngLength)
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().strText の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             Call TextOut(hDC, X, 0, .strText, lngLength)
                             'Call TextOut(frmMain.picMain.hdc, X + 1, 0, .strText, lngLength)
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().strText の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             Call TextOut(hDC, X - 1, 1, .strText, lngLength)
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().strText の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             Call TextOut(hDC, X + 1, 1, .strText, lngLength)
                             'Call TextOut(frmMain.picMain.hdc, X - 1, 2, .strText, lngLength)
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().strText の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             Call TextOut(hDC, X, 2, .strText, lngLength)
                             'Call TextOut(frmMain.picMain.hdc, X + 1, 2, .strText, lngLength)
                             Call SetTextColor(hDC, g_lngSystemColor(COLOR_NUM.INFO))
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().strText の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             Call TextOut(hDC, X, 1, .strText, lngLength)
 
                         End If
@@ -1343,16 +1155,12 @@ Err_Renamed:
 
     Private Sub PrintLine_Renamed(ByVal X As Integer, ByVal Y As Integer, ByVal Width As Integer, ByVal Height As Integer)
 
-        'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         Width = Width * g_disp.Width
         'X = X * g_disp.Width
 
-        'UPGRADE_WARNING: オブジェクト g_disp.X の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         If X - g_disp.X < 0 Then
 
             'If Width Then Width = Width + (X - g_disp.X)
-            'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_disp.X の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             If Width Then Width = Width + (X - g_disp.X) * g_disp.Width
 
             X = 0
@@ -1360,24 +1168,18 @@ Err_Renamed:
         Else
 
             'X = X - g_disp.X
-            'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_disp.X の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             X = (X - g_disp.X) * g_disp.Width
 
         End If
 
-        'UPGRADE_WARNING: オブジェクト g_disp.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         If Y + g_disp.Y < 0 Then
 
-            'UPGRADE_WARNING: オブジェクト g_disp.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             If Height Then Height = Height + (Y - g_disp.Y)
 
             Y = 0
 
         Else
 
-            'UPGRADE_WARNING: オブジェクト g_disp.Height の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_disp.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             Y = (Y - g_disp.Y) * g_disp.Height
 
         End If
@@ -1418,14 +1220,8 @@ Err_Renamed:
                 Exit Sub
             End If
 
-            'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_disp.X の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_VGrid().lngObjLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             X = (g_VGrid(g_intVGridNum(.intCh)).lngObjLeft - g_disp.X) * g_disp.Width + 1
-            'UPGRADE_WARNING: オブジェクト g_disp.Height の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_disp.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             Y = frmMain.picMain.ClientRectangle.Height + OBJ_DIFF - (g_Measure(.intMeasure).lngY + .lngPosition - g_disp.Y) * g_disp.Height
-            'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             Width = GRID_WIDTH * g_disp.Width - 1
 
             '文字列の決定
@@ -1466,7 +1262,6 @@ Err_Renamed:
                     End If
 
                     'ロングノート
-                    'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     If (.intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE Or (50 < .intCh And .intCh < 69)) And .intCh < 100 Then
 
                         X = X + 3
@@ -1475,10 +1270,8 @@ Err_Renamed:
                     End If
 
                     'ロングノートの場合、仮オブジェを生成
-                    'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     If .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE And 10 < .intCh And .intCh < 30 Then
 
-                        'UPGRADE_WARNING: オブジェクト m_tempObj(UBound()) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         m_tempObj(UBound(m_tempObj)) = tempObj
                         m_tempObj(UBound(m_tempObj)).intCh = .intCh + 40
 
@@ -1491,18 +1284,14 @@ Err_Renamed:
             End Select
 
             '色の決定
-            'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             Select Case .intSelect
 
                 Case modMain.OBJ_SELECT.NON_SELECT, modMain.OBJ_SELECT.SELECTAREA_IN, modMain.OBJ_SELECT.SELECTAREA_OUT, modMain.OBJ_SELECT.SELECTAREA_SELECTED
 
                     If .intCh < 10 Or 100 < .intCh Then
 
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().intLightNum の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         intLightNum = g_VGrid(g_intVGridNum(.intCh)).intLightNum
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().intShadowNum の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         intShadowNum = g_VGrid(g_intVGridNum(.intCh)).intShadowNum
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().intBrushNum の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         intBrushNum = g_VGrid(g_intVGridNum(.intCh)).intBrushNum
 
                     ElseIf 50 < .intCh Then  'ロングノート
@@ -1513,14 +1302,10 @@ Err_Renamed:
 
                     Else
 
-                        'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         If .intAtt = modMain.OBJ_ATT.OBJ_NORMAL Then
 
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().intLightNum の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             intLightNum = g_VGrid(g_intVGridNum(.intCh)).intLightNum
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().intShadowNum の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             intShadowNum = g_VGrid(g_intVGridNum(.intCh)).intShadowNum
-                            'UPGRADE_WARNING: オブジェクト g_VGrid().intBrushNum の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             intBrushNum = g_VGrid(g_intVGridNum(.intCh)).intBrushNum
 
                         Else 'If .intAtt =OBJ_INVISIBLE  Then
@@ -1591,7 +1376,6 @@ Err_Renamed:
 
                 Case Else
 
-                    'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     If .intSelect = modMain.OBJ_SELECT.EDIT_RECT Then '白枠(編集モード)
 
                         intLightNum = PEN_NUM.EDIT_FRAME
@@ -1643,7 +1427,6 @@ Err_Renamed:
             Y = Y - (OBJ_HEIGHT + sizeTemp.Height) \ 2 + 1
 
             'If g_Obj(lngNum).intSelect = Selected Then
-            'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             If tempObj.intSelect = modMain.OBJ_SELECT.Selected Then
 
                 Call SetTextColor(hDC, &HFFFFFF)
@@ -1666,7 +1449,6 @@ Err_Renamed:
         Exit Sub
 
 Err_Renamed:
-        'UPGRADE_WARNING: オブジェクト modMain.CleanUp の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         Call modMain.CleanUp(Err.Number, Err.Description, "DrawObj")
         gp.ReleaseHdc()
     End Sub
@@ -1683,17 +1465,10 @@ Err_Renamed:
             If g_intVGridNum(.intCh) = 0 Then Exit Sub
 
             'X = g_VGrid(g_intVGridNum(.intCh)).lngObjLeft * g_disp.Width - g_disp.X + 1
-            'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_disp.X の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_VGrid().lngObjLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             X = (g_VGrid(g_intVGridNum(.intCh)).lngObjLeft - g_disp.X) * g_disp.Width + 1
-            'UPGRADE_WARNING: オブジェクト g_disp.Height の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_disp.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             Y = frmMain.picMain.ClientRectangle.Height + OBJ_DIFF - (g_Measure(.intMeasure).lngY + .lngPosition - g_disp.Y) * g_disp.Height
-            'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             Width = GRID_WIDTH * g_disp.Width - 1
 
-            'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             If .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE Or (.intCh >= 51 And .intCh <= 69) Then
 
                 X = X + 3
@@ -1728,11 +1503,8 @@ Err_Renamed:
         'マウスの状態を変数に保存
         With g_Mouse
 
-            'UPGRADE_WARNING: オブジェクト g_Mouse.Shift の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .Shift = Shift
-            'UPGRADE_WARNING: オブジェクト g_Mouse.X の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .X = X
-            'UPGRADE_WARNING: オブジェクト g_Mouse.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .Y = Y
 
         End With
@@ -1751,13 +1523,11 @@ Err_Renamed:
 
                     If Shift And VB6.ShiftConstants.CtrlMask Then '不可視オブジェ
 
-                        'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         .intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE
 
                     ElseIf Shift And VB6.ShiftConstants.ShiftMask Then  'ロングノート
 
                         .intCh = .intCh + 40
-                        'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE
 
                     End If
@@ -1788,29 +1558,24 @@ Err_Renamed:
 
             For i = UBound(g_Obj) - 1 To 0 Step -1
 
-                'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 If (g_Obj(i).intCh = .intCh) Or (.intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE And g_Obj(i).intCh + 40 = .intCh) Then
 
-                    'UPGRADE_WARNING: オブジェクト g_disp.Height の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     If g_Measure(g_Obj(i).intMeasure).lngY + g_Obj(i).lngPosition + OBJ_HEIGHT / g_disp.Height >= lngTemp And g_Measure(g_Obj(i).intMeasure).lngY + g_Obj(i).lngPosition <= lngTemp Then
 
                         If frmMain.tlbMenu.Items.Item("Write").Pressed = False Then
 
                             If frmMain.tlbMenu.Items.Item("Edit").Pressed = True Then
 
-                                'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                                 .intSelect = modMain.OBJ_SELECT.EDIT_RECT
 
                             ElseIf frmMain.tlbMenu.Items.Item("Delete").Pressed = True Then
 
-                                'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                                 .intSelect = modMain.OBJ_SELECT.DELETE_RECT
 
                             End If
 
                             .intAtt = g_Obj(i).intAtt
 
-                            'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             If .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE Then .intCh = .intCh + 40
 
                             .sngValue = g_Obj(i).sngValue
@@ -1852,7 +1617,6 @@ Err_Renamed:
 
             If tempObj.intCh <> g_Obj(UBound(g_Obj)).intCh Or tempObj.intAtt <> g_Obj(UBound(g_Obj)).intAtt Or tempObj.intMeasure <> g_Obj(UBound(g_Obj)).intMeasure Or tempObj.lngPosition <> g_Obj(UBound(g_Obj)).lngPosition Or tempObj.sngValue <> g_Obj(UBound(g_Obj)).sngValue Then
 
-                'UPGRADE_WARNING: オブジェクト g_Obj(UBound()) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 g_Obj(UBound(g_Obj)) = tempObj
                 g_lngObjID(g_Obj(UBound(g_Obj)).lngID) = UBound(g_Obj)
 
@@ -1867,7 +1631,6 @@ Err_Renamed:
         Else '書き込みモード以外
 
             '描画すべきオブジェはない
-            'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             If tempObj.intSelect <> modMain.OBJ_SELECT.EDIT_RECT And tempObj.intSelect <> modMain.OBJ_SELECT.DELETE_RECT Then
 
                 tempObj.intCh = 0
@@ -1880,7 +1643,6 @@ Err_Renamed:
 
                 If g_Obj(tempObj.lngHeight).intCh Then tempObj.lngPosition = g_Obj(tempObj.lngHeight).lngPosition
 
-                'UPGRADE_WARNING: オブジェクト g_Obj(UBound()) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 g_Obj(UBound(g_Obj)) = tempObj
                 g_lngObjID(g_Obj(UBound(g_Obj)).lngID) = UBound(g_Obj)
 
@@ -1916,13 +1678,11 @@ Err_Renamed:
         End If
 
         'イースターエッグ描画
-        'UPGRADE_WARNING: オブジェクト g_disp.intEffect の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         If g_disp.intEffect Then Call modEasterEgg.DrawEffect()
 
         Exit Sub
 
 Err_Renamed:
-        'UPGRADE_WARNING: オブジェクト modMain.CleanUp の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         Call modMain.CleanUp(Err.Number, Err.Description, "DrawObjMax")
     End Sub
 
@@ -1942,8 +1702,6 @@ Err_Renamed:
         End If
 
         'lngTemp = (X + g_disp.X) / g_disp.Width
-        'UPGRADE_WARNING: オブジェクト g_disp.X の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-        'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         lngTemp = X / g_disp.Width + g_disp.X
 
         tempObj.intCh = 8
@@ -1952,14 +1710,10 @@ Err_Renamed:
 
             With g_VGrid(i)
 
-                'UPGRADE_WARNING: オブジェクト g_VGrid(i).intCh の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                'UPGRADE_WARNING: オブジェクト g_VGrid(i).blnDraw の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 If .blnDraw = True And .intCh <> 0 Then
 
-                    'UPGRADE_WARNING: オブジェクト g_VGrid(i).lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     If .lngLeft <= lngTemp Then
 
-                        'UPGRADE_WARNING: オブジェクト g_VGrid().intCh の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                         tempObj.intCh = .intCh
 
                     Else
@@ -1989,8 +1743,6 @@ Err_Renamed:
 
             End If
 
-            'UPGRADE_WARNING: オブジェクト g_disp.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_disp.Height の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             lngTemp = (frmMain.picMain.ClientRectangle.Height - Y + OBJ_DIFF) / g_disp.Height + g_disp.Y
 
             'For i = g_Disp.intStartMeasure To g_Disp.intEndMeasure
@@ -2062,7 +1814,6 @@ Err_Renamed:
 
             '小節
             strTemp = "Position:  " & .intMeasure & g_strStatusBar(23) & "  "
-            'UPGRADE_WARNING: オブジェクト g_Mouse.measure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             g_Mouse.measure = .intMeasure
 
             'If Not Shift And vbAltMask Then
@@ -2074,7 +1825,6 @@ Err_Renamed:
             'グリッド
             If lngTemp Then
 
-                'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 If .intSelect > modMain.OBJ_SELECT.Selected And .lngPosition <> 0 Then
 
                     lngTemp = modInput.intGCD(.lngPosition, g_Measure(.intMeasure).intLen)
@@ -2166,12 +1916,10 @@ Err_Renamed:
             '不可視 or ロングノート
             If 10 < .intCh And .intCh < 30 Then
 
-                'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 If .intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE Then
 
                     strTemp = strTemp & " " & g_strStatusBar(15)
 
-                    'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 ElseIf .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE Then
 
                     strTemp = strTemp & " " & g_strStatusBar(16)
@@ -2229,18 +1977,10 @@ Err_Renamed:
 
         With rectTemp
 
-            'UPGRADE_WARNING: オブジェクト g_disp.Height の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_disp.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_SelectArea.Y1 の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .Top = (g_SelectArea.Y1 - g_disp.Y) * -g_disp.Height + frmMain.picMain.ClientRectangle.Height
             '.Left = g_SelectArea.X1 * g_disp.Width - g_disp.X
-            'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_disp.X の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_WARNING: オブジェクト g_SelectArea.X1 の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .left_Renamed = (g_SelectArea.X1 - g_disp.X) * g_disp.Width
-            'UPGRADE_WARNING: オブジェクト g_Mouse.X の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .right_Renamed = g_Mouse.X
-            'UPGRADE_WARNING: オブジェクト g_Mouse.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .Bottom = g_Mouse.Y
 
             Call Rectangle(hDC, .left_Renamed, .Top, .right_Renamed, .Bottom)
@@ -2255,8 +1995,6 @@ Err_Renamed:
 
                     lngTemp = g_Measure(.intMeasure).lngY + .lngPosition
 
-                    'UPGRADE_WARNING: オブジェクト g_disp.lngEndPos の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                    'UPGRADE_WARNING: オブジェクト g_disp.lngStartPos の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     If g_disp.lngStartPos <= lngTemp And lngTemp <= g_disp.lngEndPos Then
 
                         Call modDraw.DrawObjRect(i)
@@ -2282,16 +2020,12 @@ Err_Renamed:
 
         With g_disp
 
-            'UPGRADE_WARNING: オブジェクト g_disp.intMaxMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             If .intMaxMeasure < intMeasure + 16 Then
 
-                'UPGRADE_WARNING: オブジェクト g_disp.intMaxMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 .intMaxMeasure = intMeasure + 16
 
-                'UPGRADE_WARNING: オブジェクト g_disp.intMaxMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 If 999 < g_disp.intMaxMeasure Then .intMaxMeasure = 999
 
-                'Call ChangeResolution
                 lngChangeMaxMeasure = 1
 
             End If
@@ -2309,10 +2043,8 @@ Err_Renamed:
 
         With g_disp
 
-            'UPGRADE_WARNING: オブジェクト g_disp.intResolution の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             intTemp = .intResolution
 
-            'UPGRADE_WARNING: オブジェクト g_disp.intMaxMeasure の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             For i = 0 To .intMaxMeasure
 
                 lngTemp = lngTemp + g_Measure(i).intLen
@@ -2324,32 +2056,23 @@ Err_Renamed:
 
             Select Case sngTemp
                 Case Is > 48
-                    'UPGRADE_WARNING: オブジェクト g_disp.intResolution の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     .intResolution = 96
                 Case Is > 24
-                    'UPGRADE_WARNING: オブジェクト g_disp.intResolution の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     .intResolution = 48
                 Case Is > 12
-                    'UPGRADE_WARNING: オブジェクト g_disp.intResolution の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     .intResolution = 24
                 Case Is > 6
-                    'UPGRADE_WARNING: オブジェクト g_disp.intResolution の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     .intResolution = 12
                 Case Is > 3
-                    'UPGRADE_WARNING: オブジェクト g_disp.intResolution の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     .intResolution = 6
                 Case Is > 1
-                    'UPGRADE_WARNING: オブジェクト g_disp.intResolution の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     .intResolution = 3
                 Case Else
-                    'UPGRADE_WARNING: オブジェクト g_disp.intResolution の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     .intResolution = 1
             End Select
 
-            'UPGRADE_WARNING: オブジェクト g_disp.intResolution の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             If intTemp = .intResolution Then Exit Sub
 
-            'UPGRADE_WARNING: オブジェクト g_disp.intResolution の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             frmMain.vsbMain.Value = (frmMain.vsbMain.Value / .intResolution) * intTemp
 
         End With
@@ -2366,11 +2089,9 @@ Err_Renamed:
                 'If i = 0 Then lngTemp = 1
                 lngTemp = 2 ^ i * 3
 
-                'UPGRADE_WARNING: オブジェクト g_disp.intResolution の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 If g_disp.intResolution <= lngTemp Then
 
                     Call .Items.Insert(intTemp, CStr(lngTemp))
-                    'UPGRADE_WARNING: オブジェクト g_disp.intResolution の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     VB6.SetItemData(frmMain.cboVScroll, intTemp, lngTemp \ g_disp.intResolution)
 
                     intTemp = intTemp + 1
@@ -2395,17 +2116,14 @@ Err_Renamed:
             .lngHeight = 0
             .intMeasure = 0
             .lngPosition = 0
-            'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .intSelect = modMain.OBJ_SELECT.NON_SELECT
             .sngValue = 0
-            'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .intAtt = modMain.OBJ_ATT.OBJ_NORMAL
         End With
 
         Exit Sub
 
 Err_Renamed:
-        'UPGRADE_WARNING: オブジェクト modMain.CleanUp の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         Call modMain.CleanUp(Err.Number, Err.Description, "RemoveObj")
     End Sub
 
@@ -2428,7 +2146,6 @@ Err_Renamed:
 
         Next i
 
-        'UPGRADE_WARNING: オブジェクト g_Obj(lngTemp) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         g_Obj(lngTemp) = g_Obj(UBound(g_Obj))
 
         ReDim Preserve g_Obj(lngTemp)
@@ -2445,7 +2162,6 @@ Err_Renamed:
 
         For i = 0 To UBound(g_Obj) - 1
 
-            'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             If g_Obj(i).intSelect <> modMain.OBJ_SELECT.NON_SELECT Then
 
                 lngTemp = lngTemp + 1
@@ -2466,7 +2182,6 @@ Err_Renamed:
 
         For i = 0 To j - 1
 
-            'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             If g_Obj(i).intSelect <> modMain.OBJ_SELECT.NON_SELECT Then
 
                 Call modInput.SwapObj(i, j + lngTemp)
@@ -2484,7 +2199,6 @@ Err_Renamed:
         Exit Sub
 
 Err_Renamed:
-        'UPGRADE_WARNING: オブジェクト modMain.CleanUp の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         Call modMain.CleanUp(Err.Number, Err.Description, "MoveSelectedObj")
     End Sub
 
@@ -2493,7 +2207,6 @@ Err_Renamed:
 
         For i = 0 To UBound(g_Obj) - 1
 
-            'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             g_Obj(i).intSelect = modMain.OBJ_SELECT.NON_SELECT
 
         Next i

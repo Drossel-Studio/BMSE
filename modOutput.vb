@@ -55,12 +55,10 @@ Module modOutput
 							Else
 								
 								If intBPMNum > MATERIAL_MAX Then
-									
-									'UPGRADE_WARNING: オブジェクト g_Message(ERR_SAVE_CANCEL) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-									'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-									Call MsgBox(g_Message(modMain.Message.ERR_OVERFLOW_BPM) & vbCrLf & g_Message(modMain.Message.ERR_SAVE_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
-									
-									lngTemp = i - 1
+
+                                    Call MsgBox(g_Message(modMain.Message.ERR_OVERFLOW_BPM) & vbCrLf & g_Message(modMain.Message.ERR_SAVE_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+
+                                    lngTemp = i - 1
 									
 									GoTo Init
 									
@@ -75,12 +73,10 @@ Module modOutput
 						Case modInput.OBJ_CH.CH_STOP
 							
 							If intSTOPNum > MATERIAL_MAX Then
-								
-								'UPGRADE_WARNING: オブジェクト g_Message(ERR_SAVE_CANCEL) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-								'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-								Call MsgBox(g_Message(modMain.Message.ERR_OVERFLOW_STOP) & vbCrLf & g_Message(modMain.Message.ERR_SAVE_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
-								
-								lngTemp = i - 1
+
+                                Call MsgBox(g_Message(modMain.Message.ERR_OVERFLOW_STOP) & vbCrLf & g_Message(modMain.Message.ERR_SAVE_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+
+                                lngTemp = i - 1
 								
 								GoTo Init
 								
@@ -91,16 +87,14 @@ Module modOutput
 							.sngValue = intSTOPNum
 							
 						Case 11 To 29
-							
-							'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-							If .intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE Then
-								
-								.intCh = .intCh + 20
-								
-								'UPGRADE_WARNING: オブジェクト modMain.OBJ_ATT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-							ElseIf .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE Then 
-								
-								.intCh = .intCh + 40
+
+                            If .intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE Then
+
+                                .intCh = .intCh + 20
+
+                            ElseIf .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE Then
+
+                                .intCh = .intCh + 40
 								
 							End If
 							
@@ -111,13 +105,11 @@ Module modOutput
 			End With
 			
 		Next i
-		
-		'UPGRADE_WARNING: 配列 strObjData の下限が 3,0 から 0,0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="0F1C9BE1-AF9D-476E-83B1-17D43BECFF20"' をクリックしてください。
-		ReDim strObjData(132, lngMaxMeasure)
-		'UPGRADE_WARNING: 配列 blnObjData の下限が 3,0 から 0,0 に変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="0F1C9BE1-AF9D-476E-83B1-17D43BECFF20"' をクリックしてください。
-		ReDim blnObjData(132, lngMaxMeasure)
-		
-		For i = 0 To lngMaxMeasure
+
+        ReDim strObjData(132, lngMaxMeasure)
+        ReDim blnObjData(132, lngMaxMeasure)
+
+        For i = 0 To lngMaxMeasure
 			
 			For j = LBound(strObjData, 1) To UBound(strObjData, 1)
 				
@@ -429,30 +421,20 @@ Module modOutput
 		lngTemp = UBound(g_Obj) - 1
 		
 		With g_BMS
-			
-			'UPGRADE_WARNING: オブジェクト g_BMS.intPlayerType の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.intPlayerType = frmMain.cboPlayer.SelectedIndex + 1
-			'UPGRADE_WARNING: オブジェクト g_BMS.strGenre の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.strGenre = frmMain.txtGenre.Text
-			'UPGRADE_WARNING: オブジェクト g_BMS.strTitle の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.strTitle = frmMain.txtTitle.Text
-			'UPGRADE_WARNING: オブジェクト g_BMS.strArtist の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.strArtist = frmMain.txtArtist.Text
-			'UPGRADE_WARNING: オブジェクト g_BMS.lngPlayLevel の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.lngPlayLevel = Val(frmMain.cboPlayLevel.Text)
-			'UPGRADE_WARNING: オブジェクト g_BMS.sngBPM の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.sngBPM = Val(frmMain.txtBPM.Text)
-			
-			'UPGRADE_WARNING: オブジェクト g_BMS.intPlayRank の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.intPlayRank = frmMain.cboPlayRank.SelectedIndex
-			'UPGRADE_WARNING: オブジェクト g_BMS.sngTotal の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.sngTotal = Val(frmMain.txtTotal.Text)
-			'UPGRADE_WARNING: オブジェクト g_BMS.intVolume の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.intVolume = Val(frmMain.txtVolume.Text)
-			'UPGRADE_WARNING: オブジェクト g_BMS.strStageFile の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			.strStageFile = frmMain.txtStageFile.Text
-			
-		End With
+
+            .intPlayerType = frmMain.cboPlayer.SelectedIndex + 1
+            .strGenre = frmMain.txtGenre.Text
+            .strTitle = frmMain.txtTitle.Text
+            .strArtist = frmMain.txtArtist.Text
+            .lngPlayLevel = Val(frmMain.cboPlayLevel.Text)
+            .sngBPM = Val(frmMain.txtBPM.Text)
+
+            .intPlayRank = frmMain.cboPlayRank.SelectedIndex
+            .sngTotal = Val(frmMain.txtTotal.Text)
+            .intVolume = Val(frmMain.txtVolume.Text)
+            .strStageFile = frmMain.txtStageFile.Text
+
+        End With
 		
 Init: 
 		
@@ -493,41 +475,32 @@ Init:
 		frmMain.Enabled = True
 		
 		If Flag = 0 Then
-			
-			'UPGRADE_WARNING: オブジェクト g_BMS.blnSaveFlag の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			g_BMS.blnSaveFlag = True
-			
-			'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-			If Len(g_BMS.strDir) Then
+
+            g_BMS.blnSaveFlag = True
+
+            If Len(g_BMS.strDir) Then
 
                 If frmMain._mnuOptionsItem_1.Checked Then
 
-                    'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     frmMain.Text = g_strAppTitle & " - " & g_BMS.strFileName
 
                 Else
 
-                    'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                    'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     frmMain.Text = g_strAppTitle & " - " & g_BMS.strDir & g_BMS.strFileName
-					
-				End If
-				
-			End If
-			
-		End If
+
+                End If
+
+            End If
+
+        End If
 		
 		Exit Sub
 		
-Err_Renamed: 
-		'UPGRADE_WARNING: オブジェクト g_Message(ERR_SAVE_CANCEL) の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		'UPGRADE_WARNING: オブジェクト g_Message() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		Call MsgBox(g_Message(modMain.Message.ERR_SAVE_ERROR) & vbCrLf & g_Message(modMain.Message.ERR_SAVE_CANCEL) & vbCrLf & "Error No." & Err.Number & " " & Err.Description, MsgBoxStyle.Critical, g_strAppTitle)
-		frmMain.Enabled = True
-		'UPGRADE_WARNING: オブジェクト g_BMS.strFileName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		'UPGRADE_WARNING: オブジェクト g_BMS.strDir の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-		frmMain.Text = g_strAppTitle & " - " & g_BMS.strDir & g_BMS.strFileName
-	End Sub
+Err_Renamed:
+        Call MsgBox(g_Message(modMain.Message.ERR_SAVE_ERROR) & vbCrLf & g_Message(modMain.Message.ERR_SAVE_CANCEL) & vbCrLf & "Error No." & Err.Number & " " & Err.Description, MsgBoxStyle.Critical, g_strAppTitle)
+        frmMain.Enabled = True
+        frmMain.Text = g_strAppTitle & " - " & g_BMS.strDir & g_BMS.strFileName
+    End Sub
 	
 	Private Function intGetMaxDev(ByRef BaseValue() As Short) As Short
 		
