@@ -117,7 +117,6 @@ Friend Class frmWindowTips
 		
 		If m_intTipsPos > UBound(m_strTips) Then m_intTipsPos = 1
 
-        'UPGRADE_ISSUE: Form メソッド frmWindowTips.Line はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         gp.DrawRectangle(Pens.White, New Rectangle(VB6.TwipsToPixelsX(5400), VB6.TwipsToPixelsY(360), VB6.TwipsToPixelsX(180), VB6.TwipsToPixelsY(150)))
 
         With Me
@@ -125,7 +124,6 @@ Friend Class frmWindowTips
 
             .Font = VB6.FontChangeSize(.Font, 9)
 
-            'UPGRADE_ISSUE: Form メソッド frmWindowTips.Print はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Dim stringBrush As SolidBrush = New SolidBrush(.ForeColor)
             Dim Current As PointF = New PointF(VB6.TwipsToPixelsX(5400), VB6.TwipsToPixelsX(345))
             frmWindowTips_gp.DrawString(VB.Right(" " & m_intTipsPos, 2), .Font, stringBrush, Current)
@@ -134,15 +132,12 @@ Friend Class frmWindowTips
 			
 		End With
 
-        'UPGRADE_ISSUE: Form メソッド frmWindowTips.Line はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         gp.DrawRectangle(Pens.White, New Rectangle(VB6.TwipsToPixelsX(945), VB6.TwipsToPixelsY(720), VB6.TwipsToPixelsY(5085), VB6.TwipsToPixelsY(2530)))
 
         Dim hDC As IntPtr = gp.GetHdc()
         Dim picIcon_gp As Graphics = picIcon.CreateGraphics()
         Dim picIcon_hDC As IntPtr = picIcon_gp.GetHdc()
 
-        'UPGRADE_ISSUE: PictureBox プロパティ picIcon.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-        'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         Call BitBlt(hDC, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
 
         m_lngTipsNum = 0
@@ -217,13 +212,10 @@ Friend Class frmWindowTips
 
         With Me
 
-            'UPGRADE_ISSUE: Form メソッド frmWindowTips.Line はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             gp.DrawRectangle(Pens.Gray, New Rectangle(VB6.TwipsToPixelsX(120), VB6.TwipsToPixelsY(120), VB6.TwipsToPixelsX(720), VB6.TwipsToPixelsY(3210)))
 
-            'UPGRADE_ISSUE: Form メソッド frmWindowTips.Line はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             gp.DrawRectangle(Pens.White, New Rectangle(VB6.TwipsToPixelsX(855), VB6.TwipsToPixelsY(120), VB6.TwipsToPixelsX(5265), VB6.TwipsToPixelsY(3210)))
 
-            'UPGRADE_ISSUE: Form メソッド frmWindowTips.Line はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             gp.DrawRectangle(Pens.Black, New Rectangle(VB6.TwipsToPixelsX(855), VB6.TwipsToPixelsY(615), VB6.TwipsToPixelsX(5265), VB6.TwipsToPixelsY(0)))
 
             .Font = VB6.FontChangeSize(.Font, 16)
@@ -238,24 +230,17 @@ Friend Class frmWindowTips
 
             Current = New PointF(VB6.TwipsToPixelsX(5400), VB6.TwipsToPixelsX(345))
             gp.DrawString(" 0 / " & UBound(m_strTips), .Font, stringBrush, Current)
-            'UPGRADE_ISSUE: Form メソッド frmWindowTips.Print はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
 
             .Font = VB6.FontChangeSize(.Font, 12)
 
             hDC = gp.GetHdc()
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picIcon.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-            'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call BitBlt(hDC, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
 
             gp.ReleaseHdc()
         End With
 
-        'UPGRADE_ISSUE: Form メソッド frmWindowTips.Line はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         gp.DrawRectangle(Pens.White, New Rectangle(VB6.TwipsToPixelsX(960), VB6.TwipsToPixelsY(720), VB6.TwipsToPixelsX(6075), VB6.TwipsToPixelsY(3270)))
-        'UPGRADE_ISSUE: 定数 vbFromUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
-        'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
-        'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
 
         hDC = gp.GetHdc()
 
@@ -314,31 +299,21 @@ Friend Class frmWindowTips
             If m_lngTipsNum And 1 Then
 
                 'Call BitBlt(frmWindowTips.hdc, 16 * m_sngTwipsX, 16 * m_sngTwipsY, 32, 32, picIcon.hdc, 0, 32, SRCCOPY)
-                'UPGRADE_ISSUE: PictureBox プロパティ picIcon.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-                'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                 Call BitBlt(hDC, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
 
             Else
 
                 'Call BitBlt(frmWindowTips.hdc, 16 * m_sngTwipsX, 16 * m_sngTwipsY, 32, 32, picIcon.hdc, 0, 0, SRCCOPY)
-                'UPGRADE_ISSUE: PictureBox プロパティ picIcon.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-                'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                 Call BitBlt(hDC, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon_hDC, 0, 0, SRCCOPY)
 
             End If
 
-            'UPGRADE_ISSUE: 定数 vbFromUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
-            'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
-            'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call DrawText(hDC, strTemp, LenB(strTemp), ddRect(63, 48, 402, 216), DT_WORDBREAK)
 
         Else
 
             strTemp = VB.Left(m_strTips(m_intTipsPos), m_lngTipsNum) & "_"
 
-            'UPGRADE_ISSUE: 定数 vbFromUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
-            'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
-            'UPGRADE_ISSUE: Form プロパティ frmWindowTips.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call DrawText(hDC, strTemp, LenB(strTemp), ddRect(63, 48, 402, 216), DT_WORDBREAK)
 
             Select Case VB.Right(strTemp, 2)
@@ -379,7 +354,6 @@ Friend Class frmWindowTips
 
     End Function
 
-    'UPGRADE_NOTE: str は str_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
     Private Sub AddTutorial(ByRef str_Renamed As String)
 
         ReDim Preserve m_strTips(UBound(m_strTips) + 1)

@@ -35,7 +35,6 @@ Module modMain
     Public Declare Function AdjustWindowRectEx Lib "user32" (<[In]()> ByRef lpRect As RECT, ByVal dsStyle As Integer, ByVal bMenu As Integer, ByVal dwEsStyle As Integer) As Integer
 
     Private Declare Function GetStockObject Lib "gdi32" (ByVal nIndex As Integer) As Integer
-    'UPGRADE_NOTE: GetObject は GetObject_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
     Private Declare Function GetObject_Renamed Lib "gdi32" Alias "GetObjectW" (ByVal hObject As Integer, ByVal nCount As Integer, <Out()> ByRef lpObject As LOGFONT) As Integer
 
     'Get/SetWindowPlacement・ShellExecute 関連の定数
@@ -96,19 +95,14 @@ Module modMain
         Dim iScrollHeight As Integer
         Dim iCaptionWidth As Integer
         Dim iCaptionHeight As Integer
-        'UPGRADE_ISSUE: LOGFONT オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
         Dim lfCaptionFont As LOGFONT
         Dim iSMCaptionWidth As Integer
         Dim iSMCaptionHeight As Integer
-        'UPGRADE_ISSUE: LOGFONT オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
         Dim lfSMCaptionFont As LOGFONT
         Dim iMenuWidth As Integer
         Dim iMenuHeight As Integer
-        'UPGRADE_ISSUE: LOGFONT オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
         Dim lfMenuFont As LOGFONT
-        'UPGRADE_ISSUE: LOGFONT オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
         Dim lfStatusFont As LOGFONT
-        'UPGRADE_ISSUE: LOGFONT オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
         Dim lfMessageFont As LOGFONT
     End Structure
 
@@ -118,10 +112,8 @@ Module modMain
     End Structure
 
     <StructLayout(LayoutKind.Sequential)> Public Structure RECT
-        'UPGRADE_NOTE: left は left_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
         Dim left_Renamed As Integer
         Dim Top As Integer
-        'UPGRADE_NOTE: right は right_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
         Dim right_Renamed As Integer
         Dim Bottom As Integer
     End Structure
@@ -330,7 +322,6 @@ Module modMain
         Max
     End Enum
 
-    'UPGRADE_WARNING:  に変換されていないステートメントがあります。ソース コードを確認してください。
     Public g_Message(Message.Max - 1) As String
 
     Public Function LenB(ByVal stTarget As String) As Integer
@@ -357,11 +348,12 @@ Module modMain
         g_strAppTitle = g_strAppTitle & " beta 14"
 
 #If MODE_DEBUG = False Then
-		'UPGRADE_NOTE: 式 MODE_DEBUG = False が True に評価されなかったか、またはまったく評価されなかったため、#If #EndIf ブロックはアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="27EE2C3C-05AF-4C04-B2AF-657B4FB6B5FC"' をクリックしてください。
 		
 		Call modMessage.SubClass(frmMain.hwnd)
-		
-#Else
+
+#End If
+
+#If MODE_SPEEDTEST Then
 
         Call timeBeginPeriod(1)
 
@@ -810,17 +802,17 @@ Module modMain
         Dim i As Integer
 
 #If MODE_DEBUG = False Then
-		'UPGRADE_NOTE: 式 MODE_DEBUG = False が True に評価されなかったか、またはまったく評価されなかったため、#If #EndIf ブロックはアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="27EE2C3C-05AF-4C04-B2AF-657B4FB6B5FC"' をクリックしてください。
 		
 		Call modMessage.UnSubClass(frmMain.hwnd)
 		
-#Else
+#End If
+
+#If MODE_SPEEDTEST Then
 
         Call timeEndPeriod(1)
 
 #End If
 
-        'UPGRADE_NOTE: オブジェクト g_InputLog をガベージ コレクトするまでこのオブジェクトを破棄することはできません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"' をクリックしてください。
         g_InputLog = Nothing
 
         Call modEasterEgg.EndEffect()
@@ -2274,15 +2266,8 @@ Err_Renamed:
         'Call SystemParametersInfo(SPI_GETNONCLIENTMETRICS, LenB(ncm), ncm, 0)
         'DefaultFont = StrConv(ncm.lfSMCaptionFont.lfFaceName, vbUnicode)
 
-        'UPGRADE_ISSUE: LOGFONT オブジェクト はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' をクリックしてください。
         Dim lf As LOGFONT = New LOGFONT
-        'lf.Initialize()
-        'UPGRADE_WARNING: オブジェクト lf の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-        'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
-        'UPGRADE_WARNING: オブジェクト GetStockObject() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         Call GetObject_Renamed(GetStockObject(DEFAULT_GUI_FONT), Runtime.InteropServices.Marshal.SizeOf(lf), lf)
-        'UPGRADE_ISSUE: 定数 vbUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
-        'UPGRADE_WARNING: オブジェクト lf.lfFaceName の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         DefaultFont = Trim(lf.lfFaceName)
 
         'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
@@ -2375,7 +2360,7 @@ Err_Renamed:
             'UPGRADE_WARNING: オブジェクト strGet_ini() の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             If strGet_ini("Main", "ini", "", "bmse.ini") <> INI_VERSION Then
 
-                'UPGRADE_WARNING: LoadConfig に変換されていないステートメントがあります。ソース コードを確認してください。
+                Call MsgBox(g_Message(Message.MSG_INI_CHANGED), vbInformation, g_strAppTitle)
 
                 GoTo InitConfig
 

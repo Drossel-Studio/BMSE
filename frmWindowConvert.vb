@@ -707,7 +707,6 @@ Friend Class frmWindowConvert
 
     Private Sub swapString(ByRef strArray() As String, ByVal i As Integer, ByVal j As Integer)
 
-        'UPGRADE_NOTE: str は str_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
         Dim str_Renamed As String
 
         str_Renamed = strArray(i)

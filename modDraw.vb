@@ -813,8 +813,6 @@ Err_Renamed:
 
         Next i
 
-        'UPGRADE_ISSUE: PictureBox メソッド picMain.Cls はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-
         Dim gp As Graphics = frmMain.picMain.CreateGraphics()
 
         Call gp.Clear(frmMain.picMain.BackColor)
@@ -949,11 +947,9 @@ Err_Renamed:
 
                             'UPGRADE_WARNING: オブジェクト g_VGrid().lngBackColor の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             hPenNew = CreatePen(PS_SOLID, 1, .lngBackColor)
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             hPenOld = SelectObject(hDC, hPenNew)
                             'UPGRADE_WARNING: オブジェクト g_VGrid().lngBackColor の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             hBrushNew = CreateSolidBrush(.lngBackColor)
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             hBrushOld = SelectObject(hDC, hBrushNew)
 
                             'Call Rectangle(frmMain.picMain.hdc, .lngLeft * g_disp.Width - g_disp.X, 0, (.lngLeft + .intWidth + 1) * g_disp.Width - g_disp.X, frmMain.picMain.ScaleHeight)
@@ -962,13 +958,10 @@ Err_Renamed:
                             'UPGRADE_WARNING: オブジェクト g_VGrid(i).intWidth の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             'UPGRADE_WARNING: オブジェクト g_VGrid(i).lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                             'UPGRADE_WARNING: オブジェクト g_VGrid().lngLeft の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             Call Rectangle(hDC, (.lngLeft - g_disp.X) * g_disp.Width, 0, (.lngLeft + .intWidth + 1 - g_disp.X) * g_disp.Width, frmMain.picMain.ClientRectangle.Height)
 
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             hPenNew = SelectObject(hDC, hPenOld)
                             Call DeleteObject(hPenNew)
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             hBrushNew = SelectObject(hDC, hBrushOld)
                             Call DeleteObject(hBrushNew)
 
@@ -1006,14 +999,11 @@ Err_Renamed:
                 'strTemp = "#" & Format$(i, "000")
                 strTemp.Value = "#" & Right("00" & i, 3)
 
-                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                 Call GetTextExtentPoint32(hDC, strTemp.Value, 4, sizeTemp)
 
-                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                 Call SetTextColor(hDC, g_lngSystemColor(COLOR_NUM.MEASURE_NUM)) 'RGB(64, 64, 64)
                 'UPGRADE_WARNING: オブジェクト g_disp.Height の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 'UPGRADE_WARNING: オブジェクト g_disp.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                 Call TextOut(hDC, (.ClientRectangle.Width - sizeTemp.Width) \ 2, .ClientRectangle.Height - sizeTemp.Height - (g_Measure(i).lngY - g_disp.Y) * g_disp.Height, strTemp.Value, 4)
 
             Next i
@@ -1035,7 +1025,6 @@ Err_Renamed:
         Dim hDC As IntPtr = gp.GetHdc()
 
         hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.VERTICAL_SUB)) 'RGB(128, 128, 128)
-        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         hOld = SelectObject(hDC, hNew)
 
         'UPGRADE_WARNING: オブジェクト g_disp.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
@@ -1066,7 +1055,6 @@ Err_Renamed:
 
         Next i
 
-        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         hNew = SelectObject(hDC, hOld)
         Call DeleteObject(hNew)
 
@@ -1087,7 +1075,6 @@ Err_Renamed:
         Dim hDC As IntPtr = gp.GetHdc()
 
         hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.GRID_MAIN)) 'RGB(96, 96, 96)
-        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         hOld = SelectObject(hDC, hNew)
 
         'UPGRADE_WARNING: オブジェクト g_disp.lngMaxX の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
@@ -1117,12 +1104,10 @@ Err_Renamed:
         End With
 
 
-        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         hNew = SelectObject(hDC, hOld)
         Call DeleteObject(hNew)
 
         hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.GRID_SUB)) 'RGB(192, 192, 192))
-        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         hOld = SelectObject(hDC, hNew)
 
         'UPGRADE_WARNING: オブジェクト g_disp.lngMaxX の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
@@ -1152,7 +1137,6 @@ Err_Renamed:
 
         End With
 
-        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         hNew = SelectObject(hDC, hOld)
         Call DeleteObject(hNew)
 
@@ -1172,7 +1156,6 @@ Err_Renamed:
         Dim hDC As IntPtr = gp.GetHdc()
 
         hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.VERTICAL_MAIN))
-        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         hOld = SelectObject(hDC, hNew)
 
         'UPGRADE_WARNING: オブジェクト g_disp.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
@@ -1204,7 +1187,6 @@ Err_Renamed:
 
         Next i
 
-        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         hNew = SelectObject(hDC, hOld)
         Call DeleteObject(hNew)
 
@@ -1223,7 +1205,6 @@ Err_Renamed:
         Dim hDC As IntPtr = gp.GetHdc()
 
         hNew = CreatePen(hNew, 1, g_lngSystemColor(COLOR_NUM.MEASURE_LINE))
-        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         hOld = SelectObject(hDC, hNew)
 
         'UPGRADE_WARNING: オブジェクト g_disp.lngMaxX の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
@@ -1248,7 +1229,6 @@ Err_Renamed:
 
         End If
 
-        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         hNew = SelectObject(hDC, hOld)
         Call DeleteObject(hNew)
 
@@ -1295,44 +1275,31 @@ Err_Renamed:
 
                                 'UPGRADE_WARNING: オブジェクト g_VGrid().strText の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                                 strTemp = Mid(.strText, j + 1, 1)
-                                'UPGRADE_ISSUE: 定数 vbFromUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
-                                'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
                                 lngLength = LenB(strTemp)
-                                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                                 Call GetTextExtentPoint32(hDC, strTemp, lngLength, sizeTemp)
 
                                 X = lngTemp - sizeTemp.Width \ 2
 
                                 '無理やり縁取り
-                                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                                 Call SetTextColor(hDC, 0)
                                 'Call TextOut(frmMain.picMain.hdc, X - 1, 0 + 11 * j, strTemp, lngLength)
-                                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                                 Call TextOut(hDC, X, 0 + 11 * j, strTemp, lngLength)
                                 'Call TextOut(frmMain.picMain.hdc, X + 1, 0 + 11 * j, strTemp, lngLength)
-                                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                                 Call TextOut(hDC, X - 1, 1 + 11 * j, strTemp, lngLength)
-                                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                                 Call TextOut(hDC, X + 1, 1 + 11 * j, strTemp, lngLength)
                                 'Call TextOut(frmMain.picMain.hdc, X - 1, 2 + 11 * j, strTemp, lngLength)
-                                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                                 Call TextOut(hDC, X, 2 + 11 * j, strTemp, lngLength)
                                 'Call TextOut(frmMain.picMain.hdc, X + 1, 2 + 11 * j, strTemp, lngLength)
-                                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                                 Call SetTextColor(hDC, g_lngSystemColor(COLOR_NUM.INFO))
-                                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                                 Call TextOut(hDC, X, 1 + 11 * j, strTemp, lngLength)
 
                             Next j
 
                         Else
 
-                            'UPGRADE_ISSUE: 定数 vbFromUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
                             'UPGRADE_WARNING: オブジェクト g_VGrid().strText の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
                             lngLength = LenB(.strText)
                             'UPGRADE_WARNING: オブジェクト g_VGrid().strText の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             Call GetTextExtentPoint32(hDC, .strText, lngLength, sizeTemp)
 
                             'X = (.lngLeft + .intWidth \ 2) * g_disp.Width - (sizeTemp.Width) \ 2 - g_disp.X + 1
@@ -1343,28 +1310,21 @@ Err_Renamed:
                             X = (.lngLeft + .intWidth \ 2 - g_disp.X) * g_disp.Width - (sizeTemp.Width) \ 2 + 1
 
                             '無理やり縁取り
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             Call SetTextColor(hDC, 0)
                             'Call TextOut(frmMain.picMain.hdc, X - 1, 0, .strText, lngLength)
                             'UPGRADE_WARNING: オブジェクト g_VGrid().strText の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             Call TextOut(hDC, X, 0, .strText, lngLength)
                             'Call TextOut(frmMain.picMain.hdc, X + 1, 0, .strText, lngLength)
                             'UPGRADE_WARNING: オブジェクト g_VGrid().strText の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             Call TextOut(hDC, X - 1, 1, .strText, lngLength)
                             'UPGRADE_WARNING: オブジェクト g_VGrid().strText の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             Call TextOut(hDC, X + 1, 1, .strText, lngLength)
                             'Call TextOut(frmMain.picMain.hdc, X - 1, 2, .strText, lngLength)
                             'UPGRADE_WARNING: オブジェクト g_VGrid().strText の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             Call TextOut(hDC, X, 2, .strText, lngLength)
                             'Call TextOut(frmMain.picMain.hdc, X + 1, 2, .strText, lngLength)
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             Call SetTextColor(hDC, g_lngSystemColor(COLOR_NUM.INFO))
                             'UPGRADE_WARNING: オブジェクト g_VGrid().strText の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             Call TextOut(hDC, X, 1, .strText, lngLength)
 
                         End If
@@ -1381,7 +1341,6 @@ Err_Renamed:
 
     End Sub
 
-    'UPGRADE_NOTE: PrintLine は PrintLine_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
     Private Sub PrintLine_Renamed(ByVal X As Integer, ByVal Y As Integer, ByVal Width As Integer, ByVal Height As Integer)
 
         'UPGRADE_WARNING: オブジェクト g_disp.Width の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
@@ -1426,9 +1385,7 @@ Err_Renamed:
         Dim gp As Graphics = frmMain.picMain.CreateGraphics()
         Dim hDC As IntPtr = gp.GetHdc()
 
-        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         Call MoveToEx(hDC, X, frmMain.picMain.ClientRectangle.Height - 1 - Y, 0)
-        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         Call LineTo(hDC, X + Width, frmMain.picMain.ClientRectangle.Height - 1 - Y - Height)
 
         gp.ReleaseHdc()
@@ -1647,17 +1604,12 @@ Err_Renamed:
 
                     intBrushNum = UBound(m_hBrush)
 
-                    'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                     hOldBrush = SelectObject(hDC, m_hBrush(intBrushNum))
-                    'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                     hOldPen = SelectObject(hDC, m_hPen(intLightNum))
 
-                    'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                     Call Rectangle(hDC, X - 1, Y - OBJ_HEIGHT - 1, X + Width + 1, Y + 2)
 
-                    'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                     m_hPen(intLightNum) = SelectObject(hDC, hOldPen)
-                    'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                     m_hBrush(intBrushNum) = SelectObject(hDC, hOldBrush)
 
                     gp.ReleaseHdc()
@@ -1669,35 +1621,23 @@ Err_Renamed:
 
         With frmMain.picMain
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             hOldBrush = SelectObject(hDC, m_hBrush(intBrushNum))
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             hOldPen = SelectObject(hDC, m_hPen(intLightNum))
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call Rectangle(hDC, X, Y - OBJ_HEIGHT, X + Width, Y + 1)
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             m_hPen(intLightNum) = SelectObject(hDC, m_hPen(intShadowNum))
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call MoveToEx(hDC, X, Y, 0)
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call LineTo(hDC, X + Width - 1, Y)
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call LineTo(hDC, X + Width - 1, Y - OBJ_HEIGHT)
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             m_hPen(intShadowNum) = SelectObject(hDC, hOldPen)
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             m_hBrush(intBrushNum) = SelectObject(hDC, hOldBrush)
 
             'Text = g_Obj(lngNum).lngID
-            'UPGRADE_ISSUE: 定数 vbFromUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
-            'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
             intTemp = LenB(Text)
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call GetTextExtentPoint32(hDC, Text, intTemp, sizeTemp)
 
             Y = Y - (OBJ_HEIGHT + sizeTemp.Height) \ 2 + 1
@@ -1706,24 +1646,16 @@ Err_Renamed:
             'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             If tempObj.intSelect = modMain.OBJ_SELECT.Selected Then
 
-                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                 Call SetTextColor(hDC, &HFFFFFF)
-                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                 Call TextOut(hDC, X + 3, Y, Text, intTemp)
-                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                 Call SetTextColor(hDC, &H0)
-                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                 Call TextOut(hDC, X + 2, Y, Text, intTemp)
 
             Else
 
-                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                 Call SetTextColor(hDC, &H0)
-                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                 Call TextOut(hDC, X + 3, Y, Text, intTemp)
-                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                 Call SetTextColor(hDC, &HFFFFFF)
-                'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                 Call TextOut(hDC, X + 2, Y, Text, intTemp)
 
             End If
@@ -1775,7 +1707,6 @@ Err_Renamed:
             Dim gp As Graphics = .CreateGraphics()
             Dim hDC As IntPtr = gp.GetHdc()
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call Rectangle(hDC, X - 1, Y - OBJ_HEIGHT - 1, X + Width + 1, Y + 2)
 
             gp.ReleaseHdc()
@@ -1784,7 +1715,6 @@ Err_Renamed:
         Exit Sub
 
 Err_Renamed:
-        'UPGRADE_WARNING: オブジェクト modMain.CleanUp の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         Call modMain.CleanUp(Err.Number, Err.Description, "DrawObjRect")
     End Sub
 
@@ -1965,7 +1895,6 @@ Err_Renamed:
         'Call DrawStatusBar(UBound(g_Obj), Shift)
 
         '画面消去
-        'UPGRADE_ISSUE: PictureBox メソッド picMain.Cls はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         Dim gp As Graphics = frmMain.picMain.CreateGraphics()
         Call gp.Clear(frmMain.picMain.BackColor)
 
@@ -2281,7 +2210,6 @@ Err_Renamed:
         Dim hDC As IntPtr = gp.GetHdc()
 
         hNewPen = CreatePen(PS_SOLID, 1, g_lngPenColor(PEN_NUM.EDIT_FRAME))
-        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         hOldPen = SelectObject(hDC, hNewPen)
 
         With objBrush
@@ -2292,10 +2220,8 @@ Err_Renamed:
 
         'hNewBrush = CreateHatchBrush(HS_BDIAGONAL, g_lngPenColor(PEN_NUM.EDIT_FRAME))
         hNewBrush = CreateBrushIndirect(objBrush)
-        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         hOldBrush = SelectObject(hDC, hNewBrush)
 
-        'UPGRADE_ISSUE: PictureBox メソッド picMain.Cls はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         gp.ReleaseHdc()
         Call gp.Clear(frmMain.picMain.BackColor)
 
@@ -2317,7 +2243,6 @@ Err_Renamed:
             'UPGRADE_WARNING: オブジェクト g_Mouse.Y の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
             .Bottom = g_Mouse.Y
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call Rectangle(hDC, .left_Renamed, .Top, .right_Renamed, .Bottom)
 
         End With
@@ -2326,7 +2251,6 @@ Err_Renamed:
 
             With g_Obj(i)
 
-                'UPGRADE_WARNING: オブジェクト modMain.OBJ_SELECT の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                 If .intSelect = modMain.OBJ_SELECT.SELECTAREA_IN Or .intSelect = modMain.OBJ_SELECT.SELECTAREA_OUT Then
 
                     lngTemp = g_Measure(.intMeasure).lngY + .lngPosition
@@ -2345,11 +2269,9 @@ Err_Renamed:
 
         Next i
 
-        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         hNewPen = SelectObject(hDC, hOldPen)
         Call DeleteObject(hNewPen)
 
-        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         hNewBrush = SelectObject(hDC, hOldBrush)
         Call DeleteObject(hNewBrush)
 

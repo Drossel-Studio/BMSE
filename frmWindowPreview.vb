@@ -316,14 +316,11 @@ Err_Renamed:
             Dim picBackBuffer_gp As Graphics = picBackBuffer.CreateGraphics()
             Dim picBackBuffer_hDC As IntPtr = picBackBuffer_gp.GetHdc()
 
-            'UPGRADE_ISSUE: PictureBox メソッド picPreview.Cls はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call gp.Clear(.BackColor)
 
             Dim hDC As IntPtr = gp.GetHdc()
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picBackBuffer.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_ISSUE: PictureBox プロパティ picPreview.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call BitBlt(hDC, (.ClientRectangle.Width \ 2 - 128) + Val(_txtBGAPara_5.Text) - Val(_txtBGAPara_1.Text), (.ClientRectangle.Height \ 2 - 128) + Val(_txtBGAPara_6.Text) - Val(_txtBGAPara_2.Text), picBackBuffer.ClientRectangle.Width, picBackBuffer.ClientRectangle.Height, picBackBuffer_hDC, 0, 0, SRCCOPY)
 
             If chkBGLine.CheckState Then
@@ -333,9 +330,7 @@ Err_Renamed:
 
                 For i = 4 To .ClientRectangle.Height Step 8
 
-                    'UPGRADE_ISSUE: PictureBox プロパティ picPreview.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                     Call MoveToEx(hDC, 0, i, 0)
-                    'UPGRADE_ISSUE: PictureBox プロパティ picPreview.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                     Call LineTo(hDC, .ClientRectangle.Width, i)
 
                 Next i
@@ -345,12 +340,9 @@ Err_Renamed:
             'UPGRADE_ISSUE: PictureBox プロパティ picPreview.DrawWidth はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             '.DrawWidth = 2
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picPreview.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call Rectangle(hDC, .ClientRectangle.Width \ 2 - 129, .ClientRectangle.Height \ 2 - 129, .ClientRectangle.Width \ 2 + 130, .ClientRectangle.Height \ 2 + 130)
 
             'UPGRADE_WARNING: オブジェクト modMain.BGA_PARA の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
-            'UPGRADE_ISSUE: PictureBox プロパティ picBackBuffer.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-            'UPGRADE_ISSUE: PictureBox プロパティ picPreview.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call BitBlt(hDC, (.ClientRectangle.Width \ 2 - 128) + Val(_txtBGAPara_5.Text), (.ClientRectangle.Height \ 2 - 128) + Val(_txtBGAPara_6.Text), lngNumField(Val(_txtBGAPara_3.Text) - Val(_txtBGAPara_1.Text), 0, 256), lngNumField(Val(_txtBGAPara_4.Text) - Val(_txtBGAPara_2.Text), 0, 256), picBackBuffer_hDC, Val(_txtBGAPara_1.Text), Val(_txtBGAPara_2.Text), SRCCOPY)
 
             gp.ReleaseHdc()

@@ -179,7 +179,6 @@ Module modEasterEgg
 				
 			Case Else
 
-                'UPGRADE_ISSUE: PictureBox メソッド picMain.Cls はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                 Dim gp As Graphics = frmMain.picMain.CreateGraphics()
                 Call gp.Clear(frmMain.picMain.BackColor)
 
@@ -499,10 +498,9 @@ Module modEasterEgg
 		Dim Y As Integer
 		Dim Width As Integer
 		Dim Height As Integer
-		'UPGRADE_NOTE: Size は Size_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
-		Dim Size_Renamed As Integer
-		'Dim srcX    As Long
-		Dim srcY As Integer
+        Dim Size_Renamed As Integer
+        'Dim srcX    As Long
+        Dim srcY As Integer
 		Dim intTemp As Short
         'Dim lngTemp As Long
 
@@ -537,14 +535,12 @@ Module modEasterEgg
 
                         Size_Renamed = Int(3 + (.dY - 1) * 3) '3-8
 
-                        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                         Call Ellipse(hDC, X, Y, X + Size_Renamed, Y + Size_Renamed)
 
                         If Y + Size_Renamed > Height Then
 
                             intTemp = Y - Height
 
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             Call Ellipse(hDC, X, intTemp, X + Size_Renamed, intTemp + Size_Renamed)
 
                         End If
@@ -553,7 +549,6 @@ Module modEasterEgg
 
                             intTemp = X - Width
 
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             Call Ellipse(hDC, intTemp, Y, intTemp + Size_Renamed, Y + Size_Renamed)
 
                         End If
@@ -571,22 +566,14 @@ Module modEasterEgg
                         srcY = srcY * 32
 
                         'Call Ellipse(frmMain.picmain.hdc, X - 16, .y - 16, X + 16, .y + 16)
-                        'UPGRADE_ISSUE: PictureBox プロパティ picSiromaru.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-                        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                         Call BitBlt(hDC, X, Y, 32, 32, picSiromaru_hDC, 32, srcY, SRCAND)
-                        'UPGRADE_ISSUE: PictureBox プロパティ picSiromaru.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-                        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                         Call BitBlt(hDC, X, Y, 32, 32, picSiromaru_hDC, 0, srcY, SRCPAINT)
 
                         If Y + 32 > Height Then
 
                             intTemp = Y + 32 - Height
 
-                            'UPGRADE_ISSUE: PictureBox プロパティ picSiromaru.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             Call BitBlt(hDC, X, 0, 32, intTemp, picSiromaru_hDC, 32, srcY + 32 - intTemp, SRCAND)
-                            'UPGRADE_ISSUE: PictureBox プロパティ picSiromaru.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-                            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                             Call BitBlt(hDC, X, 0, 32, intTemp, picSiromaru_hDC, 0, srcY + 32 - intTemp, SRCPAINT)
 
                         End If
@@ -676,11 +663,7 @@ Module modEasterEgg
             X = (.ClientRectangle.Width - m_objSnow(0).X) \ 2
 			Y = Y + (.ClientRectangle.Height - m_objSnow(0).X) \ 2
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picSiromaru.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call StretchBlt(hDC, X, Y, m_objSnow(0).X, m_objSnow(0).X, picSiromaru_hDC, 32, srcY, 32, 32, SRCAND)
-            'UPGRADE_ISSUE: PictureBox プロパティ picSiromaru.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call StretchBlt(hDC, X, Y, m_objSnow(0).X, m_objSnow(0).X, picSiromaru_hDC, 0, srcY, 32, 32, SRCPAINT)
 
             gp.ReleaseHdc()
@@ -704,26 +687,17 @@ Module modEasterEgg
             Dim gp As Graphics = .CreateGraphics()
             Dim hDC As IntPtr = gp.GetHdc()
 
-            'UPGRADE_ISSUE: 定数 vbFromUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
-            'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
             intTemp = LenB(Text)
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call SetTextColor(hDC, 0) 'RGB(0, 0, 0)
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call TextOut(hDC, X, Y - 1, Text, intTemp)
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call TextOut(hDC, X + 1, Y, Text, intTemp)
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call TextOut(hDC, X, Y + 1, Text, intTemp)
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call TextOut(hDC, X - 1, Y, Text, intTemp)
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call SetTextColor(hDC, Color)
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call TextOut(hDC, X, Y, Text, intTemp)
 
             gp.ReleaseHdc()
@@ -857,7 +831,6 @@ Module modEasterEgg
         Dim picSiromaru_hDC As IntPtr = gp.GetHdc()
 
         With frmMain.picMain
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call SetTextColor(hDC, RGB(255, 255, 255))
             .Font = VB6.FontChangeSize(.Font, 12)
 
@@ -867,11 +840,8 @@ Module modEasterEgg
 
                 If Len(m_strStaffRoll(i)) Then
 
-                    'UPGRADE_ISSUE: 定数 vbFromUnicode はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' をクリックしてください。
-                    'UPGRADE_ISSUE: LenB 関数はサポートされません。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' をクリックしてください。
                     intTemp = LenB(m_strStaffRoll(i))
 
-                    'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                     Call GetTextExtentPoint32(hDC, m_strStaffRoll(i), intTemp, sizeTemp)
 
                     X = (frmMain.picMain.ClientRectangle.Width - sizeTemp.Width) \ 2
@@ -953,11 +923,7 @@ Module modEasterEgg
 
                         srcY = srcY * 32
 
-                        'UPGRADE_ISSUE: PictureBox プロパティ picSiromaru.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-                        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                         Call BitBlt(hDC, X, Y, 32, 32, picSiromaru_hDC, 32, srcY, SRCAND)
-                        'UPGRADE_ISSUE: PictureBox プロパティ picSiromaru.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-                        'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
                         Call BitBlt(hDC, X, Y, 32, 32, picSiromaru_hDC, 0, srcY, SRCPAINT)
 
                     End If
@@ -1031,17 +997,13 @@ Module modEasterEgg
             Dim hDC As IntPtr = gp.GetHdc()
 
             hBrushNew = CreateSolidBrush(System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Blue))
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             hBrushOld = SelectObject(hDC, hBrushNew)
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call Rectangle(hDC, 0, 0, .ClientRectangle.Width, .ClientRectangle.Height)
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             hBrushNew = SelectObject(hDC, hBrushOld)
             Call DeleteObject(hBrushNew)
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call SetTextColor(hDC, 16777215)
 
             rectTemp.left_Renamed = 8
@@ -1051,7 +1013,6 @@ Module modEasterEgg
 
             .Font = VB6.FontChangeSize(.Font, 9)
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.hdc はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Call DrawText(hDC, "A problem has been detected and BMSE has been shut down to prevent damage to your mind." & vbCrLf & vbCrLf & "The problem seems to be caused by the following file: BMSE.EXE" & vbCrLf & vbCrLf & "EASTER_EGG_BLUE_SCREEN_OF_DEATH" & vbCrLf & vbCrLf & "If this is the first time you've seen this stop error screen, restart your BMSE. If this screen appears again, follow these steps:" & vbCrLf & vbCrLf & "1) Bury me from your computer." & vbCrLf & "2) Access UCN-Soft BBS, and write your shout of spirit." & vbCrLf & "       ex) ""BMSE is the worst software in the world!!!!!!!!!!!!!!111111""" & vbCrLf & "3) Sing ""asdf song"":" & vbCrLf & "       This is the sound of the asdf song." & vbCrLf & "       asdf fdsa" & vbCrLf & "       asdffdsa ye-ye" & vbCrLf & "       (clap clap clap)" & vbCrLf & "4) Throw your computer from window." & vbCrLf & vbCrLf & "If you are satiated with joke:" & vbCrLf & vbCrLf & "Launch BMSE and type your key ""OFF"", then press return key." & vbCrLf & vbCrLf & "Meaningless information:" & vbCrLf & vbCrLf & "*** STOP: 0x88710572 (0xASDFFDSA,0x00004126,0xD0SUK01,0x○0▽0○)" & vbCrLf & vbCrLf & vbCrLf & "***  BMSE.EXE - Public Sub DrawBlueScreen() at modEasterEgg.bas, DateStamp 2006-12-26", -1, rectTemp, DT_WORDBREAK)
 
             gp.ReleaseHdc()

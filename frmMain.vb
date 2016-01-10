@@ -36,23 +36,22 @@ Friend Class frmMain
 	Private m_blnPreview As Boolean
 	
 	Private m_blnIgnoreMenu As Boolean
-	
-	'UPGRADE_NOTE: str は str_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
-	Public Function lngFromString(ByRef str_Renamed As String) As Integer
-		
-		'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-		
-		'lngFromString = Val("&H" & str)
-		
-		'Else
-		
-		lngFromString = modInput.strToNum(str_Renamed)
-		
-		'End If
-		
-	End Function
-	
-	Public Function lngFromLong(ByVal value As Integer) As Integer
+
+    Public Function lngFromString(ByRef str_Renamed As String) As Integer
+
+        'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+
+        'lngFromString = Val("&H" & str)
+
+        'Else
+
+        lngFromString = modInput.strToNum(str_Renamed)
+
+        'End If
+
+    End Function
+
+    Public Function lngFromLong(ByVal value As Integer) As Integer
 		
 		'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
 		
@@ -573,7 +572,6 @@ Err_Renamed:
 
                 If VB.Right(UCase(strTemp), 4) = ".BMS" Or VB.Right(UCase(strTemp), 4) = ".BME" Or VB.Right(UCase(strTemp), 4) = ".BML" Or VB.Right(UCase(strTemp), 4) = ".PMS" Then
 
-                    'UPGRADE_WARNING: オブジェクト modMain.intSaveCheck の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
                     If modMain.intSaveCheck() Or blnReadFlag Then
 
                         'UPGRADE_WARNING: App プロパティ App.EXEName には新しい動作が含まれます。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' をクリックしてください。
@@ -1849,7 +1847,6 @@ Err_Renamed:
 
         ElseIf TypeOf ActiveControl Is System.Windows.Forms.ComboBox Then
 
-            'UPGRADE_ISSUE: Control Style は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
             If DirectCast(ActiveControl(), System.Windows.Forms.ComboBox).DropDownStyle = 0 Then
                 Exit Sub
             End If
@@ -2133,7 +2130,6 @@ Err_Renamed:
 
         If Button = VB6.MouseButtonConstants.RightButton Then
 
-            'UPGRADE_ISSUE: Form メソッド frmMain.PopupMenu はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Me.ContextMenuStrip = mnuContextList
 
         End If
@@ -2291,7 +2287,6 @@ Err_Renamed:
 
         If Button = VB6.MouseButtonConstants.RightButton Then
 
-            'UPGRADE_ISSUE: Form メソッド frmMain.PopupMenu はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             Me.ContextMenuStrip = mnuContextList
 
         End If
@@ -2761,7 +2756,6 @@ Err_Renamed:
 
         ElseIf TypeOf ActiveControl() Is System.Windows.Forms.ComboBox Then
 
-            'UPGRADE_ISSUE: Control Style は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
             If DirectCast(ActiveControl(), System.Windows.Forms.ComboBox).DropDownStyle = 0 Then
 
                 'UPGRADE_ISSUE: Control hwnd は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
@@ -3145,7 +3139,6 @@ Err_Renamed:
 
         ElseIf TypeOf ActiveControl() Is System.Windows.Forms.ComboBox Then
 
-            'UPGRADE_ISSUE: Control Style は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
             If DirectCast(ActiveControl(), ComboBox).DropDownStyle = 0 Then
 
                 'UPGRADE_ISSUE: Control hwnd は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
@@ -3692,18 +3685,15 @@ Err_Renamed:
         If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
 
             Call My.Computer.Clipboard.Clear()
-            'UPGRADE_ISSUE: Control SelText は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
             Call My.Computer.Clipboard.SetText(DirectCast(ActiveControl(), TextBox).SelectedText)
 
             Exit Sub
 
         ElseIf TypeOf ActiveControl() Is System.Windows.Forms.ComboBox Then
 
-            'UPGRADE_ISSUE: Control Style は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
             If DirectCast(ActiveControl(), ComboBox).DropDownStyle = 0 Then
 
                 Call My.Computer.Clipboard.Clear()
-                'UPGRADE_ISSUE: Control SelText は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
                 Call My.Computer.Clipboard.SetText(DirectCast(ActiveControl(), ComboBox).SelectedText)
 
                 Exit Sub
@@ -3754,22 +3744,17 @@ Err_Renamed:
         If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
 
             Call My.Computer.Clipboard.Clear()
-            'UPGRADE_ISSUE: Control SelText は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
             Call My.Computer.Clipboard.SetText(DirectCast(ActiveControl(), TextBox).SelectedText)
-            'UPGRADE_ISSUE: Control SelText は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
             DirectCast(ActiveControl(), TextBox).SelectedText = ""
 
             Exit Sub
 
         ElseIf TypeOf ActiveControl() Is System.Windows.Forms.ComboBox Then
 
-            'UPGRADE_ISSUE: Control Style は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
             If DirectCast(ActiveControl(), ComboBox).DropDownStyle = 0 Then
 
                 Call My.Computer.Clipboard.Clear()
-                'UPGRADE_ISSUE: Control SelText は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
                 Call My.Computer.Clipboard.SetText(DirectCast(ActiveControl(), ComboBox).SelectedText)
-                'UPGRADE_ISSUE: Control SelText は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
                 DirectCast(ActiveControl(), ComboBox).SelectedText = ""
 
                 Exit Sub
@@ -3813,33 +3798,26 @@ Err_Renamed:
 
         If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
 
-            'UPGRADE_ISSUE: Control SelText は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
             If Len(DirectCast(ActiveControl(), TextBox).SelectedText) = 0 Then
 
-                'UPGRADE_ISSUE: Control SelLength は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
                 DirectCast(ActiveControl(), TextBox).SelectionLength = 1
 
             End If
 
-            'UPGRADE_ISSUE: Control SelText は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
             DirectCast(ActiveControl(), TextBox).SelectedText = ""
 
             Exit Sub
 
         ElseIf TypeOf ActiveControl() Is System.Windows.Forms.ComboBox Then
 
-            'UPGRADE_ISSUE: Control Style は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
             If DirectCast(ActiveControl(), ComboBox).DropDownStyle = 0 Then
 
-                'UPGRADE_ISSUE: Control SelText は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
                 If Len(DirectCast(ActiveControl(), ComboBox).SelectedText) = 0 Then
 
-                    'UPGRADE_ISSUE: Control SelLength は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
                     DirectCast(ActiveControl(), ComboBox).SelectionLength = 1
 
                 End If
 
-                'UPGRADE_ISSUE: Control SelText は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
                 DirectCast(ActiveControl(), ComboBox).SelectedText = ""
 
                 Exit Sub
@@ -3926,7 +3904,6 @@ Err_Renamed:
 
         If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
 
-            'UPGRADE_ISSUE: Control SelText は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
             'UPGRADE_ISSUE: Clipboard メソッド Clipboard.GetText はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' をクリックしてください。
             DirectCast(ActiveControl(), TextBox).SelectedText = My.Computer.Clipboard.GetText()
 
@@ -3934,10 +3911,8 @@ Err_Renamed:
 
         ElseIf TypeOf ActiveControl() Is System.Windows.Forms.ComboBox Then
 
-            'UPGRADE_ISSUE: Control Style は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
             If DirectCast(ActiveControl(), ComboBox).DropDownStyle = 0 Then
 
-                'UPGRADE_ISSUE: Control SelText は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
                 'UPGRADE_ISSUE: Clipboard メソッド Clipboard.GetText はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' をクリックしてください。
                 DirectCast(ActiveControl(), ComboBox).SelectedText = My.Computer.Clipboard.GetText()
 
@@ -4536,23 +4511,16 @@ Err_Renamed:
 
         If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
 
-            'UPGRADE_ISSUE: Control SelStart は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
             DirectCast(ActiveControl(), TextBox).SelectionStart = 0
-            'UPGRADE_ISSUE: Control SelLength は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
-            'UPGRADE_ISSUE: Control Text は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
             DirectCast(ActiveControl(), TextBox).SelectionLength = Len(DirectCast(ActiveControl(), TextBox).Text)
 
             Exit Sub
 
         ElseIf TypeOf ActiveControl() Is System.Windows.Forms.ComboBox Then
 
-            'UPGRADE_ISSUE: Control Style は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
             If DirectCast(ActiveControl(), ComboBox).DropDownStyle = 0 Then
 
-                'UPGRADE_ISSUE: Control SelStart は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
                 DirectCast(ActiveControl(), ComboBox).SelectionStart = 0
-                'UPGRADE_ISSUE: Control SelLength は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
-                'UPGRADE_ISSUE: Control Text は、汎用名前空間 ActiveControl 内にあるため、解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' をクリックしてください。
                 DirectCast(ActiveControl(), ComboBox).SelectionLength = Len(DirectCast(ActiveControl(), ComboBox).Text)
 
                 Exit Sub
@@ -5471,7 +5439,6 @@ Err_Renamed:
 
         ElseIf Button = VB6.MouseButtonConstants.RightButton Then
 
-            'UPGRADE_ISSUE: Form メソッド frmMain.PopupMenu はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             If Not m_blnIgnoreMenu Then Me.ContextMenuStrip = mnuContext
 
             m_blnIgnoreMenu = False
@@ -5481,7 +5448,6 @@ Err_Renamed:
         Exit Sub
 
 Err_Renamed:
-        'UPGRADE_WARNING: オブジェクト modMain.CleanUp の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         Call modMain.CleanUp(Err.Number, Err.Description, "picMain_MouseUp")
     End Sub
 
@@ -5512,7 +5478,6 @@ Err_Renamed:
 
         'UPGRADE_WARNING: オブジェクト g_SelectArea.blnFlag の既定プロパティを解決できませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' をクリックしてください。
         Dim value As Integer
-        'UPGRADE_NOTE: str は str_Renamed にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' をクリックしてください。
         Dim str_Renamed As String
         If Not g_SelectArea.blnFlag Then '選択範囲なし
 
@@ -5900,7 +5865,6 @@ Err_Renamed:
     Private Sub staMain_PanelDblClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _staMain_Panel6.DoubleClick, Measure.DoubleClick, BMP.DoubleClick, WAV.DoubleClick, Position.DoubleClick, Mode.DoubleClick
         Dim Panel As System.Windows.Forms.ToolStripStatusLabel = CType(eventSender, System.Windows.Forms.ToolStripStatusLabel)
 
-        'UPGRADE_ISSUE: MSComctlLib.Panel プロパティ Panel.Key はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         If Panel.Name = staMain.Items.Item("Mode").Name Then
             If tlbMenu.Items.Item("Edit").Pressed = True Then
                 Call mnuEditMode_Click(_mnuEditMode_1, New System.EventArgs())
@@ -6089,7 +6053,6 @@ Err_Renamed:
 
     Public Sub tmrEffect_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles tmrEffect.Tick
 
-        'UPGRADE_ISSUE: PictureBox メソッド picMain.Cls はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         Dim gp As Graphics = picMain.CreateGraphics()
         Call gp.Clear(picMain.BackColor)
 
