@@ -152,7 +152,7 @@ Friend Class frmWindowConvert
         Dim strList() As String
         Dim strDeleteList() As String
         Dim strTemp As String
-        Dim sh As SHFILEOPSTRUCT
+        Dim sh As SHFILEOPSTRUCT = New SHFILEOPSTRUCT
 
         If Len(Trim(txtExtension.Text)) = 0 Then Exit Sub
 
@@ -734,7 +734,7 @@ Friend Class frmWindowConvert
         Dim lngTemp As Integer
         Dim strNameFrom() As String
         Dim strNameTo() As String
-        Dim sh As SHFILEOPSTRUCT
+        Dim sh As SHFILEOPSTRUCT = New SHFILEOPSTRUCT
 
         ReDim strNameFrom(0)
         ReDim strNameTo(0)

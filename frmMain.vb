@@ -4246,7 +4246,7 @@ Err_Renamed:
     End Sub
 
     Public Sub mnuRecentFiles_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _mnuRecentFiles_9.Click, _mnuRecentFiles_8.Click, _mnuRecentFiles_7.Click, _mnuRecentFiles_6.Click, _mnuRecentFiles_5.Click, _mnuRecentFiles_4.Click, _mnuRecentFiles_3.Click, _mnuRecentFiles_2.Click, _mnuRecentFiles_1.Click, _mnuRecentFiles_0.Click
-        Dim strArray() As String
+        Dim strArray() As String = Nothing
 
         If modMain.intSaveCheck() Then Exit Sub
         Select Case DirectCast(eventSender, ToolStripMenuItem).Name
