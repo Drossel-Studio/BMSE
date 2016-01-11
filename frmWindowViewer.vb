@@ -201,11 +201,11 @@ Err_Renamed:
 	Private Sub frmWindowViewer_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
 		
 		Dim i As Integer
-		
-		Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(frmMain.Left) + VB6.PixelsToTwipsX(frmMain.Width) \ 2) - VB6.PixelsToTwipsX(Me.Width) \ 2)
-		Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(frmMain.Top) + VB6.PixelsToTwipsY(frmMain.Height) \ 2) - VB6.PixelsToTwipsY(Me.Height) \ 2)
-		
-		m_lngViewerNum = 0
+
+        Me.Left = frmMain.Left + frmMain.Width \ 2 - Me.Width \ 2
+        Me.Top = frmMain.Top + frmMain.Height \ 2 - Me.Height \ 2
+
+        m_lngViewerNum = 0
 		
 		ReDim m_LocalViewer(UBound(g_Viewer))
 		
@@ -274,10 +274,6 @@ Err_Renamed:
     End Sub
 
     Private Sub lstViewer_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles lstViewer.MouseDown
-        Dim Button As Short = eventArgs.Button \ &H100000
-        Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys \ &H10000
-        Dim X As Single = VB6.PixelsToTwipsX(eventArgs.X)
-        Dim Y As Single = VB6.PixelsToTwipsY(eventArgs.Y)
 
         Call lstViewer_SelectedIndexChanged(lstViewer, New System.EventArgs())
 

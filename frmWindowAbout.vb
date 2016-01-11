@@ -37,10 +37,10 @@ Friend Class frmWindowAbout
     Private Sub frmWindowAbout_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
 		
 		Dim i As Integer
-		
-		ReDim m_sngRaster(VB6.PixelsToTwipsY(Me.ClientRectangle.Height) - 1)
-		
-		For i = 0 To UBound(m_sngRaster)
+
+        ReDim m_sngRaster(Me.ClientRectangle.Height - 1)
+
+        For i = 0 To UBound(m_sngRaster)
 			
 			m_sngRaster(i) = 0
 			
@@ -82,8 +82,9 @@ Friend Class frmWindowAbout
 
         With Me
 
-            .Width = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(.Width) * VB6.TwipsPerPixelX) / 15)
-            .Height = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(.Height) * VB6.TwipsPerPixelY) / 15)
+            '2016/01/11 所: .width = .widthになる、結局何をやっているかわからない
+            '.Width = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(.Width) * VB6.TwipsPerPixelX) / 15)
+            '.Height = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(.Height) * VB6.TwipsPerPixelY) / 15)
             .Text = "About: " & g_strAppTitle & " (" & RELEASEDATE & " ver.)"
 
         End With
@@ -103,14 +104,14 @@ Friend Class frmWindowAbout
 
             Call AdjustWindowRectEx(rectTemp, GetWindowLong(.Handle.ToInt32, GWL_STYLE), False, GetWindowLong(.Handle.ToInt32, GWL_EXSTYLE))
 
-            Call .SetBounds(.Left, .Top, VB6.TwipsToPixelsX((rectTemp.right_Renamed - rectTemp.left_Renamed) * VB6.TwipsPerPixelX), VB6.TwipsToPixelsY((rectTemp.Bottom - rectTemp.Top) * VB6.TwipsPerPixelY))
+            Call .SetBounds(.Left, .Top, rectTemp.right_Renamed - rectTemp.left_Renamed, rectTemp.Bottom - rectTemp.Top)
 
         End With
 
         'Activate
         Dim i As Integer
 
-        ReDim m_sngRaster(VB6.PixelsToTwipsY(Me.ClientRectangle.Height) - 1)
+        ReDim m_sngRaster(Me.ClientRectangle.Height - 1)
 
         For i = 0 To UBound(m_sngRaster)
 
@@ -142,7 +143,7 @@ Friend Class frmWindowAbout
             sngTemp = m_lngCounter / 10
             If sngTemp > 8 Then sngTemp = 8
 
-            For i = 0 To VB6.PixelsToTwipsY(.ClientRectangle.Height) - 1
+            For i = 0 To .ClientRectangle.Height - 1
 
                 'm_sngRaster(i) = m_sngRaster(i) + Sin((i + m_lngCounter) * RAD * 8)
                 'm_sngRaster(i) = m_sngRaster(i) + g_sngSin(((i + m_lngCounter) * 8) And 255)
@@ -153,7 +154,7 @@ Friend Class frmWindowAbout
 
                 'Call StretchBlt(.hdc, lngTemp - .ScaleWidth, i, .ScaleWidth, 1, picMain.hdc, 0, i, .ScaleWidth, 1, SRCCOPY)
                 'Call StretchBlt(.hdc, lngTemp, i, .ScaleWidth, 1, picMain.hdc, 0, i, .ScaleWidth, 1, SRCCOPY)
-                Call BitBlt(hDC, lngTemp, i, VB6.PixelsToTwipsX(.ClientRectangle.Width), 1, picMain_hDC, 0, i, SRCCOPY)
+                Call BitBlt(hDC, lngTemp, i, .ClientRectangle.Width, 1, picMain_hDC, 0, i, SRCCOPY)
 
             Next i
 
@@ -189,7 +190,7 @@ Friend Class frmWindowAbout
 
             Call PrintText(strTemp, 1, 1)
 
-            Call PrintText("Undo Counter: " & g_InputLog.GetPos & " / " & g_InputLog.Max, 1, 13 * (15 / VB6.TwipsPerPixelY))
+            Call PrintText("Undo Counter: " & g_InputLog.GetPos & " / " & g_InputLog.Max, 1, 13)
 
             '.Font.SIZE = 12 * (Screen.TwipsPerPixelX / 15)
             '.Font.Underline = True

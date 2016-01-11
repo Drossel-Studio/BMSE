@@ -1971,71 +1971,71 @@ Err_Renamed:
         Dim lngDirectInputHeight As Integer
         Dim lngStatusBarHeight As Integer
 
-        Const PADDING_Renamed As Short = 60 '各パディングの大きさ
-        Const SCROLLBAR_SIZE As Short = 255 'スクロールバーの大きさ
-        Const COLUMN_HEIGHT As Short = 315 '各カラムの高さ
-        Const FRAME_WIDTH As Short = 3255 'フレームの幅
-        Const FRAME_TOP_HEIGHT As Short = 2190 'ヘッダフレームの高さ
-        Const FRAME_BOTTOM_TOP As Short = 630 'ボトムフレームのY位置。タブボタンの大きさ
+        Const PADDING_Renamed As Short = 4 '各パディングの大きさ
+        Const SCROLLBAR_SIZE As Short = 17 'スクロールバーの大きさ
+        Const COLUMN_HEIGHT As Short = 21 '各カラムの高さ
+        Const FRAME_WIDTH As Short = 217 'フレームの幅
+        Const FRAME_TOP_HEIGHT As Short = 146 'ヘッダフレームの高さ
+        Const FRAME_BOTTOM_TOP As Short = 42 'ボトムフレームのY位置。タブボタンの大きさ
         Const FRAME_BOTTOM_BUTTONS_HEIGHT As Short = COLUMN_HEIGHT '消去とか入力とかのボタン
 
         With Me
 
             If .WindowState = System.Windows.Forms.FormWindowState.Minimized Then Exit Sub
 
-            lngLineWidth = 2 * VB6.TwipsPerPixelX
-            lngLineHeight = 2 * VB6.TwipsPerPixelY
-            If _mnuViewItem_0.Checked Then lngToolBarHeight = VB6.PixelsToTwipsY(tlbMenu.Height)
+            lngLineWidth = 2
+            lngLineHeight = 2
+            If _mnuViewItem_0.Checked Then lngToolBarHeight = tlbMenu.Height
             If _mnuViewItem_1.Checked Then lngDirectInputHeight = COLUMN_HEIGHT + PADDING_Renamed * 2
-            If _mnuViewItem_2.Checked Then lngStatusBarHeight = VB6.PixelsToTwipsY(staMain.Height) + VB6.TwipsPerPixelY * 2
+            If _mnuViewItem_2.Checked Then lngStatusBarHeight = staMain.Height + 2
 
             staMain.Visible = _mnuViewItem_2.Checked
 
             _linToolbarBottom_0.X1 = 0
-            _linToolbarBottom_0.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width))
-            _linToolbarBottom_0.Y1 = VB6.TwipsToPixelsY(lngToolBarHeight)
-            _linToolbarBottom_0.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linToolbarBottom_0.Y1))
+            _linToolbarBottom_0.X2 = .ClientRectangle.Width
+            _linToolbarBottom_0.Y1 = lngToolBarHeight
+            _linToolbarBottom_0.Y2 = _linToolbarBottom_0.Y1
             _linToolbarBottom_1.X1 = 0
-            _linToolbarBottom_1.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width))
-            _linToolbarBottom_1.Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linToolbarBottom_0.Y1) + VB6.TwipsPerPixelY)
-            _linToolbarBottom_1.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linToolbarBottom_0.Y2) + VB6.TwipsPerPixelY)
+            _linToolbarBottom_1.X2 = .ClientRectangle.Width
+            _linToolbarBottom_1.Y1 = _linToolbarBottom_0.Y1 + 1
+            _linToolbarBottom_1.Y2 = _linToolbarBottom_0.Y2 + 1
 
-            _linVertical_0.X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width) - FRAME_WIDTH - PADDING_Renamed - lngLineWidth)
-            _linVertical_0.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linVertical_0.X1))
-            _linVertical_1.X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linVertical_0.X1) + VB6.TwipsPerPixelX)
-            _linVertical_1.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linVertical_1.X1))
+            _linVertical_0.X1 = .ClientRectangle.Width - FRAME_WIDTH - PADDING_Renamed - lngLineWidth
+            _linVertical_0.X2 = _linVertical_0.X1
+            _linVertical_1.X1 = _linVertical_0.X1 + 1
+            _linVertical_1.X2 = _linVertical_1.X1
 
-            _linVertical_0.Y1 = VB6.TwipsToPixelsY(lngToolBarHeight)
-            _linVertical_0.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight)
-            _linVertical_1.Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linVertical_0.Y1))
-            _linVertical_1.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linVertical_0.Y2))
+            _linVertical_0.Y1 = lngToolBarHeight
+            _linVertical_0.Y2 = .ClientRectangle.Height - lngStatusBarHeight
+            _linVertical_1.Y1 = _linVertical_0.Y1
+            _linVertical_1.Y2 = _linVertical_0.Y2
 
-            _linHeader_0.X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linHeader_0.X1))
-            _linHeader_0.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width))
-            _linHeader_0.Y1 = VB6.TwipsToPixelsY(lngToolBarHeight + PADDING_Renamed + FRAME_TOP_HEIGHT + PADDING_Renamed)
-            _linHeader_0.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linHeader_0.Y1))
-            _linHeader_1.X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linHeader_0.X1))
-            _linHeader_1.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linHeader_0.X2))
-            _linHeader_1.Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linHeader_0.Y1) + VB6.TwipsPerPixelY)
-            _linHeader_1.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linHeader_0.Y2) + VB6.TwipsPerPixelY)
+            _linHeader_0.X1 = _linHeader_0.X1
+            _linHeader_0.X2 = .ClientRectangle.Width
+            _linHeader_0.Y1 = lngToolBarHeight + PADDING_Renamed + FRAME_TOP_HEIGHT + PADDING_Renamed
+            _linHeader_0.Y2 = _linHeader_0.Y1
+            _linHeader_1.X1 = _linHeader_0.X1
+            _linHeader_1.X2 = _linHeader_0.X2
+            _linHeader_1.Y1 = _linHeader_0.Y1 + 1
+            _linHeader_1.Y2 = _linHeader_0.Y2 + 1
 
             _linDirectInput_0.X1 = 0
-            _linDirectInput_0.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linVertical_0.X1))
-            _linDirectInput_0.Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight - PADDING_Renamed - COLUMN_HEIGHT - PADDING_Renamed)
-            _linDirectInput_0.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linDirectInput_0.Y1))
-            _linDirectInput_1.X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linDirectInput_0.X1))
-            _linDirectInput_1.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linDirectInput_0.X2))
-            _linDirectInput_1.Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linDirectInput_0.Y1) + VB6.TwipsPerPixelY)
-            _linDirectInput_1.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linDirectInput_0.Y2) + VB6.TwipsPerPixelY)
+            _linDirectInput_0.X2 = _linVertical_0.X1
+            _linDirectInput_0.Y1 = .ClientRectangle.Height - lngStatusBarHeight - PADDING_Renamed - COLUMN_HEIGHT - PADDING_Renamed
+            _linDirectInput_0.Y2 = _linDirectInput_0.Y1
+            _linDirectInput_1.X1 = _linDirectInput_0.X1
+            _linDirectInput_1.X2 = _linDirectInput_0.X2
+            _linDirectInput_1.Y1 = _linDirectInput_0.Y1 + 1
+            _linDirectInput_1.Y2 = _linDirectInput_0.Y2 + 1
 
             _linStatusBar_0.X1 = 0
-            _linStatusBar_0.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width))
-            _linStatusBar_0.Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight)
-            _linStatusBar_0.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight)
-            _linStatusBar_1.X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linStatusBar_0.X1))
-            _linStatusBar_1.X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(_linStatusBar_0.X2))
-            _linStatusBar_1.Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linStatusBar_0.Y1) + VB6.TwipsPerPixelY)
-            _linStatusBar_1.Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(_linStatusBar_0.Y2) + VB6.TwipsPerPixelY)
+            _linStatusBar_0.X2 = .ClientRectangle.Width
+            _linStatusBar_0.Y1 = .ClientRectangle.Height - lngStatusBarHeight
+            _linStatusBar_0.Y2 = .ClientRectangle.Height - lngStatusBarHeight
+            _linStatusBar_1.X1 = _linStatusBar_0.X1
+            _linStatusBar_1.X2 = _linStatusBar_0.X2
+            _linStatusBar_1.Y1 = _linStatusBar_0.Y1 + 1
+            _linStatusBar_1.Y2 = _linStatusBar_0.Y2 + 1
 
             _linStatusBar_0.Visible = _mnuViewItem_2.Checked
             _linStatusBar_1.Visible = _mnuViewItem_2.Checked
@@ -2045,13 +2045,13 @@ Err_Renamed:
             fraGrid.Visible = _mnuViewItem_0.Checked
             fraDispSize.Visible = _mnuViewItem_0.Checked
 
-            lngTemp = VB6.PixelsToTwipsX(.ClientRectangle.Width) - FRAME_WIDTH - PADDING_Renamed - lngLineWidth - PADDING_Renamed - SCROLLBAR_SIZE
+            lngTemp = .ClientRectangle.Width - FRAME_WIDTH - PADDING_Renamed - lngLineWidth - PADDING_Renamed - SCROLLBAR_SIZE
 
-            Call vsbMain.SetBounds(VB6.TwipsToPixelsX(lngTemp), VB6.TwipsToPixelsY(lngToolBarHeight + PADDING_Renamed), VB6.TwipsToPixelsX(SCROLLBAR_SIZE), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngToolBarHeight - PADDING_Renamed - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed))
+            Call vsbMain.SetBounds(lngTemp, lngToolBarHeight + PADDING_Renamed, SCROLLBAR_SIZE, .ClientRectangle.Height - lngToolBarHeight - PADDING_Renamed - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed)
 
-            Call hsbMain.SetBounds(0, VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed), VB6.TwipsToPixelsX(lngTemp), VB6.TwipsToPixelsY(SCROLLBAR_SIZE))
+            Call hsbMain.SetBounds(0, .ClientRectangle.Height - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed, lngTemp, SCROLLBAR_SIZE)
 
-            Call picMain.SetBounds(0, VB6.TwipsToPixelsY(lngToolBarHeight + PADDING_Renamed), VB6.TwipsToPixelsX(lngTemp), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngToolBarHeight - PADDING_Renamed - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed))
+            Call picMain.SetBounds(0, lngToolBarHeight + PADDING_Renamed, lngTemp, .ClientRectangle.Height - lngToolBarHeight - PADDING_Renamed - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed)
 
             _linDirectInput_0.Visible = _mnuViewItem_1.Checked
             _linDirectInput_1.Visible = _mnuViewItem_1.Checked
@@ -2059,45 +2059,45 @@ Err_Renamed:
             cboDirectInput.Visible = _mnuViewItem_1.Checked
             cmdDirectInput.Visible = _mnuViewItem_1.Checked
 
-            Call lblDirectInput.SetBounds(VB6.TwipsToPixelsX(PADDING_Renamed), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight - PADDING_Renamed - (COLUMN_HEIGHT + VB6.PixelsToTwipsY(lblDirectInput.Height)) \ 2), 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
+            Call lblDirectInput.SetBounds(PADDING_Renamed, .ClientRectangle.Height - lngStatusBarHeight - PADDING_Renamed - (COLUMN_HEIGHT + lblDirectInput.Height) \ 2, 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
 
-            Call cmdDirectInput.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width) - FRAME_WIDTH - VB6.PixelsToTwipsX(cmdDirectInput.Width) - PADDING_Renamed * 2 - lngLineWidth), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight - PADDING_Renamed - VB6.PixelsToTwipsY(cmdDirectInput.Height)), 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
+            Call cmdDirectInput.SetBounds(.ClientRectangle.Width - FRAME_WIDTH - cmdDirectInput.Width - PADDING_Renamed * 2 - lngLineWidth, .ClientRectangle.Height - lngStatusBarHeight - PADDING_Renamed - cmdDirectInput.Height, 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
 
-            Call cboDirectInput.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(lblDirectInput.Left) + VB6.PixelsToTwipsX(lblDirectInput.Width) + PADDING_Renamed), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight - PADDING_Renamed - (COLUMN_HEIGHT + VB6.PixelsToTwipsY(cboDirectInput.Height)) \ 2), VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(cmdDirectInput.Left) - VB6.PixelsToTwipsX(lblDirectInput.Width) - PADDING_Renamed * 3), 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
+            Call cboDirectInput.SetBounds(lblDirectInput.Left + lblDirectInput.Width + PADDING_Renamed, .ClientRectangle.Height - lngStatusBarHeight - PADDING_Renamed - (COLUMN_HEIGHT + cboDirectInput.Height) \ 2, cmdDirectInput.Left - lblDirectInput.Width - PADDING_Renamed * 3, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
 
             With tlbMenu.Items.Item("Viewer")
-                .Width = VB6.PixelsToTwipsX(fraViewer.Width)
-                Call fraViewer.SetBounds(VB6.TwipsToPixelsX(.Bounds.Left + PADDING_Renamed), VB6.TwipsToPixelsY(.Bounds.Top + PADDING_Renamed), VB6.TwipsToPixelsX(.Width), 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
+                .Width = fraViewer.Width
+                Call fraViewer.SetBounds(.Bounds.Left + PADDING_Renamed, .Bounds.Top + PADDING_Renamed, .Width, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
                 Call fraViewer.BringToFront()
             End With
 
             With tlbMenu.Items.Item("ChangeGrid")
-                lblGridMain.Left = VB6.TwipsToPixelsX(PADDING_Renamed)
-                cboDispGridSub.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(lblGridMain.Left) + VB6.PixelsToTwipsX(lblGridMain.Width) + PADDING_Renamed)
-                lblGridSub.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(cboDispGridSub.Left) + VB6.PixelsToTwipsX(cboDispGridSub.Width) + PADDING_Renamed * 3)
-                cboDispGridMain.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(lblGridSub.Left) + VB6.PixelsToTwipsX(lblGridSub.Width) + PADDING_Renamed)
-                fraGrid.Width = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(cboDispGridMain.Left) + VB6.PixelsToTwipsX(cboDispGridMain.Width) + PADDING_Renamed)
-                .Width = VB6.PixelsToTwipsX(fraGrid.Width)
-                Call fraGrid.SetBounds(VB6.TwipsToPixelsX(.Bounds.Left), VB6.TwipsToPixelsY(.Bounds.Top + PADDING_Renamed), VB6.TwipsToPixelsX(.Width), 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
+                lblGridMain.Left = PADDING_Renamed
+                cboDispGridSub.Left = lblGridMain.Left + lblGridMain.Width + PADDING_Renamed
+                lblGridSub.Left = cboDispGridSub.Left + cboDispGridSub.Width + PADDING_Renamed * 3
+                cboDispGridMain.Left = lblGridSub.Left + lblGridSub.Width + PADDING_Renamed
+                fraGrid.Width = cboDispGridMain.Left + cboDispGridMain.Width + PADDING_Renamed
+                .Width = fraGrid.Width
+                Call fraGrid.SetBounds(.Bounds.Left, .Bounds.Top + PADDING_Renamed, .Width, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
                 Call fraGrid.BringToFront()
             End With
 
             With tlbMenu.Items.Item("DispSize")
-                lblDispHeight.Left = VB6.TwipsToPixelsX(PADDING_Renamed)
-                cboDispHeight.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(lblDispHeight.Left) + VB6.PixelsToTwipsX(lblDispHeight.Width) + PADDING_Renamed)
-                lblDispWidth.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(cboDispHeight.Left) + VB6.PixelsToTwipsX(cboDispHeight.Width) + PADDING_Renamed * 3)
-                cboDispWidth.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(lblDispWidth.Left) + VB6.PixelsToTwipsX(lblDispWidth.Width) + PADDING_Renamed)
-                fraDispSize.Width = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(cboDispWidth.Left) + VB6.PixelsToTwipsX(cboDispWidth.Width) + PADDING_Renamed)
-                .Width = VB6.PixelsToTwipsX(fraDispSize.Width)
-                Call fraDispSize.SetBounds(VB6.TwipsToPixelsX(.Bounds.Left), VB6.TwipsToPixelsY(.Bounds.Top + PADDING_Renamed), VB6.TwipsToPixelsX(.Width), 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
+                lblDispHeight.Left = PADDING_Renamed
+                cboDispHeight.Left = lblDispHeight.Left + lblDispHeight.Width + PADDING_Renamed
+                lblDispWidth.Left = cboDispHeight.Left + cboDispHeight.Width + PADDING_Renamed * 3
+                cboDispWidth.Left = lblDispWidth.Left + lblDispWidth.Width + PADDING_Renamed
+                fraDispSize.Width = cboDispWidth.Left + cboDispWidth.Width + PADDING_Renamed
+                .Width = fraDispSize.Width
+                Call fraDispSize.SetBounds(.Bounds.Left, .Bounds.Top + PADDING_Renamed, .Width, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
                 Call fraDispSize.BringToFront()
             End With
 
             With tlbMenu.Items.Item("Resolution")
-                lblVScroll.Left = VB6.TwipsToPixelsX(PADDING_Renamed)
-                cboVScroll.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(lblVScroll.Left) + VB6.PixelsToTwipsX(lblVScroll.Width) + PADDING_Renamed)
-                fraResolution.Width = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(cboVScroll.Left) + VB6.PixelsToTwipsX(cboVScroll.Width) + PADDING_Renamed)
-                Call fraResolution.SetBounds(VB6.TwipsToPixelsX(.Bounds.Left), VB6.TwipsToPixelsY(.Bounds.Top + PADDING_Renamed), VB6.TwipsToPixelsX(.Width), 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
+                lblVScroll.Left = PADDING_Renamed
+                cboVScroll.Left = lblVScroll.Left + lblVScroll.Width + PADDING_Renamed
+                fraResolution.Width = cboVScroll.Left + cboVScroll.Width + PADDING_Renamed
+                Call fraResolution.SetBounds(.Bounds.Left, .Bounds.Top + PADDING_Renamed, .Width, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
                 Call fraResolution.BringToFront()
             End With
 
@@ -2107,55 +2107,55 @@ Err_Renamed:
 
         With fraHeader
 
-            Call fraHeader.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.ClientRectangle.Width) - FRAME_WIDTH), VB6.TwipsToPixelsY(lngToolBarHeight + PADDING_Renamed), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(FRAME_TOP_HEIGHT))
+            Call fraHeader.SetBounds(Me.ClientRectangle.Width - FRAME_WIDTH, lngToolBarHeight + PADDING_Renamed, FRAME_WIDTH, FRAME_TOP_HEIGHT)
 
-            _fraTop_0.Top = VB6.TwipsToPixelsY(COLUMN_HEIGHT)
-            _fraTop_1.Top = VB6.TwipsToPixelsY(COLUMN_HEIGHT)
-            _fraTop_2.Top = VB6.TwipsToPixelsY(COLUMN_HEIGHT)
+            _fraTop_0.Top = COLUMN_HEIGHT
+            _fraTop_1.Top = COLUMN_HEIGHT
+            _fraTop_2.Top = COLUMN_HEIGHT
 
         End With
 
         With fraMaterial
 
-            Call fraMaterial.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.ClientRectangle.Width) - FRAME_WIDTH), VB6.TwipsToPixelsY(FRAME_TOP_HEIGHT + PADDING_Renamed + lngLineHeight + PADDING_Renamed + lngToolBarHeight + PADDING_Renamed), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(Me.ClientRectangle.Height) - lngToolBarHeight - PADDING_Renamed - VB6.PixelsToTwipsY(fraHeader.Height) - lngLineHeight - PADDING_Renamed - lngStatusBarHeight - PADDING_Renamed))
+            Call fraMaterial.SetBounds(Me.ClientRectangle.Width - FRAME_WIDTH, FRAME_TOP_HEIGHT + PADDING_Renamed + lngLineHeight + PADDING_Renamed + lngToolBarHeight + PADDING_Renamed, FRAME_WIDTH, Me.ClientRectangle.Height - lngToolBarHeight - PADDING_Renamed - fraHeader.Height - lngLineHeight - PADDING_Renamed - lngStatusBarHeight - PADDING_Renamed)
 
-            lngTemp = VB6.PixelsToTwipsY(.Height) - FRAME_BOTTOM_TOP
+            lngTemp = .Height - FRAME_BOTTOM_TOP
 
-            Call _fraBottom_0.SetBounds(0, VB6.TwipsToPixelsY(FRAME_BOTTOM_TOP), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(lngTemp))
-            Call _fraBottom_1.SetBounds(0, VB6.TwipsToPixelsY(FRAME_BOTTOM_TOP), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(lngTemp))
-            Call _fraBottom_2.SetBounds(0, VB6.TwipsToPixelsY(FRAME_BOTTOM_TOP), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(lngTemp))
-            Call _fraBottom_3.SetBounds(0, VB6.TwipsToPixelsY(FRAME_BOTTOM_TOP), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(lngTemp))
-            Call _fraBottom_4.SetBounds(0, VB6.TwipsToPixelsY(FRAME_BOTTOM_TOP), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(lngTemp))
+            Call _fraBottom_0.SetBounds(0, FRAME_BOTTOM_TOP, FRAME_WIDTH, lngTemp)
+            Call _fraBottom_1.SetBounds(0, FRAME_BOTTOM_TOP, FRAME_WIDTH, lngTemp)
+            Call _fraBottom_2.SetBounds(0, FRAME_BOTTOM_TOP, FRAME_WIDTH, lngTemp)
+            Call _fraBottom_3.SetBounds(0, FRAME_BOTTOM_TOP, FRAME_WIDTH, lngTemp)
+            Call _fraBottom_4.SetBounds(0, FRAME_BOTTOM_TOP, FRAME_WIDTH, lngTemp)
 
-            lngTemp = VB6.PixelsToTwipsY(.Height) - FRAME_BOTTOM_BUTTONS_HEIGHT - FRAME_BOTTOM_TOP - PADDING_Renamed * 4
-            lstWAV.Height = VB6.TwipsToPixelsY(lngTemp)
-            lstBMP.Height = VB6.TwipsToPixelsY(lngTemp)
-            lstMeasureLen.Height = VB6.TwipsToPixelsY(lngTemp)
-            txtBGAInput.Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.Height) - VB6.PixelsToTwipsY(txtBGAInput.Height) - FRAME_BOTTOM_BUTTONS_HEIGHT - FRAME_BOTTOM_TOP - PADDING_Renamed * 2)
-            lstBGA.Height = VB6.TwipsToPixelsY(lngTemp - VB6.PixelsToTwipsY(txtBGAInput.Height) - PADDING_Renamed)
-            txtExInfo.Height = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.Height) - FRAME_BOTTOM_TOP - PADDING_Renamed * 3)
+            lngTemp = .Height - FRAME_BOTTOM_BUTTONS_HEIGHT - FRAME_BOTTOM_TOP - PADDING_Renamed * 4
+            lstWAV.Height = lngTemp
+            lstBMP.Height = lngTemp
+            lstMeasureLen.Height = lngTemp
+            txtBGAInput.Top = .Height - txtBGAInput.Height - FRAME_BOTTOM_BUTTONS_HEIGHT - FRAME_BOTTOM_TOP - PADDING_Renamed * 2
+            lstBGA.Height = lngTemp - txtBGAInput.Height - PADDING_Renamed
+            txtExInfo.Height = .Height - FRAME_BOTTOM_TOP - PADDING_Renamed * 3
 
-            lngTemp = VB6.PixelsToTwipsY(_fraBottom_0.Height) - COLUMN_HEIGHT - PADDING_Renamed
-            cmdSoundStop.Top = VB6.TwipsToPixelsY(lngTemp)
-            cmdSoundExcUp.Top = VB6.TwipsToPixelsY(lngTemp)
-            cmdSoundExcDown.Top = VB6.TwipsToPixelsY(lngTemp)
-            cmdSoundDelete.Top = VB6.TwipsToPixelsY(lngTemp)
-            cmdSoundLoad.Top = VB6.TwipsToPixelsY(lngTemp)
-            cmdBMPPreview.Top = VB6.TwipsToPixelsY(lngTemp)
-            cmdBMPExcUp.Top = VB6.TwipsToPixelsY(lngTemp)
-            cmdBMPExcDown.Top = VB6.TwipsToPixelsY(lngTemp)
-            cmdBMPDelete.Top = VB6.TwipsToPixelsY(lngTemp)
-            cmdBMPLoad.Top = VB6.TwipsToPixelsY(lngTemp)
-            cmdBGAPreview.Top = VB6.TwipsToPixelsY(lngTemp)
-            cmdBGAExcUp.Top = VB6.TwipsToPixelsY(lngTemp)
-            cmdBGAExcDown.Top = VB6.TwipsToPixelsY(lngTemp)
-            cmdBGADelete.Top = VB6.TwipsToPixelsY(lngTemp)
-            cmdBGASet.Top = VB6.TwipsToPixelsY(lngTemp)
-            cmdMeasureSelectAll.Top = VB6.TwipsToPixelsY(lngTemp)
-            cboNumerator.Top = VB6.TwipsToPixelsY(lngTemp)
-            cboDenominator.Top = VB6.TwipsToPixelsY(lngTemp)
-            lblFraction.Top = VB6.TwipsToPixelsY(lngTemp + PADDING_Renamed)
-            cmdInputMeasureLen.Top = VB6.TwipsToPixelsY(lngTemp)
+            lngTemp = _fraBottom_0.Height - COLUMN_HEIGHT - PADDING_Renamed
+            cmdSoundStop.Top = lngTemp
+            cmdSoundExcUp.Top = lngTemp
+            cmdSoundExcDown.Top = lngTemp
+            cmdSoundDelete.Top = lngTemp
+            cmdSoundLoad.Top = lngTemp
+            cmdBMPPreview.Top = lngTemp
+            cmdBMPExcUp.Top = lngTemp
+            cmdBMPExcDown.Top = lngTemp
+            cmdBMPDelete.Top = lngTemp
+            cmdBMPLoad.Top = lngTemp
+            cmdBGAPreview.Top = lngTemp
+            cmdBGAExcUp.Top = lngTemp
+            cmdBGAExcDown.Top = lngTemp
+            cmdBGADelete.Top = lngTemp
+            cmdBGASet.Top = lngTemp
+            cmdMeasureSelectAll.Top = lngTemp
+            cboNumerator.Top = lngTemp
+            cboDenominator.Top = lngTemp
+            lblFraction.Top = lngTemp
+            cmdInputMeasureLen.Top = lngTemp
 
         End With
 
@@ -2796,8 +2796,8 @@ Err_Renamed:
 
             If Not .Visible Then
 
-                .Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.Left) + (VB6.PixelsToTwipsX(Me.Width) - VB6.PixelsToTwipsX(.Width)) \ 2)
-                .Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(Me.Top) + (VB6.PixelsToTwipsY(Me.Height) - VB6.PixelsToTwipsY(.Height)) \ 2)
+                .Left = Me.Left + (Me.Width - .Width) \ 2
+                .Top = Me.Top + (Me.Height - .Height) \ 2
 
             End If
 
@@ -3554,8 +3554,8 @@ Err_Renamed:
 
         With frmWindowConvert
 
-            .Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.Left) + (VB6.PixelsToTwipsX(Me.Width) - VB6.PixelsToTwipsX(.Width)) \ 2)
-            .Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(Me.Top) + (VB6.PixelsToTwipsY(Me.Height) - VB6.PixelsToTwipsY(.Height)) \ 2)
+            .Left = Me.Left + (Me.Width - .Width) \ 2
+            .Top = Me.Top + (Me.Height - .Height) \ 2
 
         End With
 
@@ -3586,8 +3586,8 @@ Err_Renamed:
 
         With frmWindowAbout
 
-            .Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(Me.Left) + VB6.PixelsToTwipsX(Me.Width) \ 2) - VB6.PixelsToTwipsX(.Width) \ 2)
-            .Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(Me.Top) + VB6.PixelsToTwipsY(Me.Height) \ 2) - VB6.PixelsToTwipsY(.Height) \ 2)
+            .Left = (Me.Left + Me.Width \ 2) - .Width \ 2
+            .Top = (Me.Top + Me.Height \ 2) - .Height \ 2
 
             Call .Show()
 
@@ -3690,8 +3690,8 @@ Err_Renamed:
 
         With frmWindowViewer
 
-            .Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.Left) + (VB6.PixelsToTwipsX(Me.Width) - VB6.PixelsToTwipsX(.Width)) \ 2)
-            .Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(Me.Top) + (VB6.PixelsToTwipsY(Me.Height) - VB6.PixelsToTwipsY(.Height)) \ 2)
+            .Left = Me.Left + (Me.Width - .Width) \ 2
+            .Top = Me.Top + (Me.Height - .Height) \ 2
 
             Call frmWindowViewer.ShowDialog(Me)
 
@@ -6202,8 +6202,8 @@ Err_Renamed:
 
             With frmWindowTips
 
-                .Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.Left) + (VB6.PixelsToTwipsX(Me.Width) - VB6.PixelsToTwipsX(.Width)) \ 2)
-                .Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(Me.Top) + (VB6.PixelsToTwipsY(Me.Height) - VB6.PixelsToTwipsY(.Height)) \ 2)
+                .Left = Me.Left + (Me.Width - .Width) \ 2
+                .Top = Me.Top + (Me.Height - .Height) \ 2
 
                 Call frmWindowTips.ShowDialog(Me)
 

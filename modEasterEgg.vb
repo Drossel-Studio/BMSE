@@ -216,8 +216,8 @@ Module modEasterEgg
 
                     With frmWindowTips
 
-                        .Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(frmMain.Left) + (VB6.PixelsToTwipsX(frmMain.Width) - VB6.PixelsToTwipsX(.Width)) \ 2)
-                        .Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(frmMain.Top) + (VB6.PixelsToTwipsY(frmMain.Height) - VB6.PixelsToTwipsY(.Height)) \ 2)
+                        .Left = frmMain.Left + (frmMain.Width - .Width) \ 2
+                        .Top = frmMain.Top + (frmMain.Height - .Height) \ 2
 
                         Call frmWindowTips.ShowDialog(frmMain)
 
@@ -362,14 +362,14 @@ Module modEasterEgg
 
         If g_disp.intEffect = EASTEREGG.OFF Then Exit Sub
 
-        ReDim m_objSnow((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX) * 0.5 - 1)
+        ReDim m_objSnow(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width * 0.5 - 1)
 
-        If g_disp.intEffect <> EASTEREGG.SNOW Then ReDim m_objSnow((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX) \ 8 - 1)
+        If g_disp.intEffect <> EASTEREGG.SNOW Then ReDim m_objSnow(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width \ 8 - 1)
 
-        lngTemp = VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) \ VB6.TwipsPerPixelY
-		sngTemp = ((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX) / UBound(m_objSnow))
-		
-		Call Randomize()
+        lngTemp = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height
+        sngTemp = (System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width / UBound(m_objSnow))
+
+        Call Randomize()
 		
 		For i = 0 To UBound(m_objSnow)
 			
@@ -470,8 +470,8 @@ Module modEasterEgg
         Dim picSiromaru_gp As Graphics = frmMain.picSiromaru.CreateGraphics()
         Dim picSiromaru_hDC As IntPtr = picSiromaru_gp.GetHdc()
 
-        Width = (VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX)
-		Height = (VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) \ VB6.TwipsPerPixelY)
+        Width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width
+        Height = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height
 
 
         For i = 0 To UBound(m_objSnow)

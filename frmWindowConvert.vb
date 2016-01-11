@@ -990,7 +990,7 @@ Friend Class frmWindowConvert
 
         With txtExtension
 
-            Call .SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(lblExtension.Left) + VB6.PixelsToTwipsX(lblExtension.Width) + 60), .Top, VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.ClientRectangle.Width) - (VB6.PixelsToTwipsX(lblExtension.Left) + VB6.PixelsToTwipsX(lblExtension.Width)) - 180), .Height)
+            Call .SetBounds(lblExtension.Left + lblExtension.Width + 4, .Top, Me.ClientRectangle.Width - lblExtension.Left + lblExtension.Width - 12, .Height)
 
         End With
 

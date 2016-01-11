@@ -17,8 +17,8 @@ Friend Class frmWindowPreview
 			
 			.left_Renamed = 0
 			.Top = 0
-			.right_Renamed = 256 + VB6.PixelsToTwipsX(fraBGAPara.Width) \ VB6.TwipsPerPixelX
-			.Bottom = 256
+            .right_Renamed = 256 + fraBGAPara.Width
+            .Bottom = 256
 			
 		End With
 		
@@ -26,9 +26,9 @@ Friend Class frmWindowPreview
 
             Call AdjustWindowRectEx(rectTemp, GetWindowLong(.Handle.ToInt32, GWL_STYLE), False, GetWindowLong(.Handle.ToInt32, GWL_EXSTYLE))
 
-            Call .SetBounds(.Left, .Top, VB6.TwipsToPixelsX((rectTemp.right_Renamed - rectTemp.left_Renamed) * VB6.TwipsPerPixelX), VB6.TwipsToPixelsY((rectTemp.Bottom - rectTemp.Top) * VB6.TwipsPerPixelY))
-			
-		End With
+            Call .SetBounds(.Left, .Top, rectTemp.right_Renamed - rectTemp.left_Renamed, rectTemp.Bottom - rectTemp.Top)
+
+        End With
 		
 	End Sub
 	
@@ -199,8 +199,8 @@ Friend Class frmWindowPreview
 
         With Me
 
-            Call .picPreview.SetBounds(0, 0, VB6.TwipsToPixelsX(256 * VB6.TwipsPerPixelX), VB6.TwipsToPixelsY(256 * VB6.TwipsPerPixelY))
-            Call .picBackBuffer.SetBounds(0, 0, VB6.TwipsToPixelsX(256 * VB6.TwipsPerPixelX), VB6.TwipsToPixelsY(256 * VB6.TwipsPerPixelY))
+            Call .picPreview.SetBounds(0, 0, 256, 256)
+            Call .picBackBuffer.SetBounds(0, 0, 256, 256)
             'UPGRADE_ISSUE: Frame プロパティ fraBGAPara.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
             '.fraBGAPara.BorderStyle = 0
             'UPGRADE_ISSUE: Frame プロパティ fraBGACmd.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
@@ -220,50 +220,50 @@ Friend Class frmWindowPreview
 
             lngTemp = 120
 
-            ._lblBGAPara_0.Left = VB6.TwipsToPixelsX(lngTemp)
-            ._lblBGAPara_1.Left = VB6.TwipsToPixelsX(lngTemp)
-            ._lblBGAPara_3.Left = VB6.TwipsToPixelsX(lngTemp)
-            ._lblBGAPara_5.Left = VB6.TwipsToPixelsX(lngTemp)
-            .cmdCopy.Left = VB6.TwipsToPixelsX(lngTemp)
-            .chkBGLine.Left = VB6.TwipsToPixelsX(lngTemp)
-            .chkLock.Left = VB6.TwipsToPixelsX(lngTemp)
+            ._lblBGAPara_0.Left = lngTemp
+            ._lblBGAPara_1.Left = lngTemp
+            ._lblBGAPara_3.Left = lngTemp
+            ._lblBGAPara_5.Left = lngTemp
+            .cmdCopy.Left = lngTemp
+            .chkBGLine.Left = lngTemp
+            .chkLock.Left = lngTemp
 
-            .cmdPreviewHome.Left = VB6.TwipsToPixelsX(lngTemp)
-            .cmdPreviewBack.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.cmdPreviewHome.Left) + VB6.PixelsToTwipsX(.cmdPreviewHome.Width) + 60)
-            .cmdPreviewNext.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.cmdPreviewBack.Left) + VB6.PixelsToTwipsX(.cmdPreviewBack.Width) + 60)
-            .cmdPreviewEnd.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.cmdPreviewNext.Left) + VB6.PixelsToTwipsX(.cmdPreviewNext.Width) + 60)
-            .fraBGACmd.Width = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.cmdPreviewEnd.Left) + VB6.PixelsToTwipsX(.cmdPreviewEnd.Width) + 60)
+            .cmdPreviewHome.Left = lngTemp
+            .cmdPreviewBack.Left = .cmdPreviewHome.Left + .cmdPreviewHome.Width + 4
+            .cmdPreviewNext.Left = .cmdPreviewBack.Left + .cmdPreviewBack.Width + 4
+            .cmdPreviewEnd.Left = .cmdPreviewNext.Left + .cmdPreviewNext.Width + 4
+            .fraBGACmd.Width = .cmdPreviewEnd.Left + .cmdPreviewEnd.Width + 4
             .fraBGACmd.Height = .cmdPreviewEnd.Height
 
-            lngTemp = lngTemp + VB6.PixelsToTwipsX(._lblBGAPara_0.Width) + 60
+            lngTemp = lngTemp + ._lblBGAPara_0.Width + 4
 
-            ._lblBGAPara_0.Left = VB6.TwipsToPixelsX(lngTemp)
-            ._lblBGAPara_1.Left = VB6.TwipsToPixelsX(lngTemp)
-            ._lblBGAPara_3.Left = VB6.TwipsToPixelsX(lngTemp)
-            ._lblBGAPara_5.Left = VB6.TwipsToPixelsX(lngTemp)
+            ._lblBGAPara_0.Left = lngTemp
+            ._lblBGAPara_1.Left = lngTemp
+            ._lblBGAPara_3.Left = lngTemp
+            ._lblBGAPara_5.Left = lngTemp
 
-            lngTemp = lngTemp + VB6.PixelsToTwipsX(._lblBGAPara_0.Width) + 180
+            lngTemp = lngTemp + ._lblBGAPara_0.Width + 12
 
-            ._lblBGAPara_2.Left = VB6.TwipsToPixelsX(lngTemp)
-            ._lblBGAPara_4.Left = VB6.TwipsToPixelsX(lngTemp)
-            ._lblBGAPara_6.Left = VB6.TwipsToPixelsX(lngTemp)
+            ._lblBGAPara_2.Left = lngTemp
+            ._lblBGAPara_4.Left = lngTemp
+            ._lblBGAPara_6.Left = lngTemp
 
-            lngTemp = lngTemp + VB6.PixelsToTwipsX(._lblBGAPara_0.Width) + 60
+            lngTemp = lngTemp + ._lblBGAPara_0.Width + 4
 
-            ._lblBGAPara_2.Left = VB6.TwipsToPixelsX(lngTemp)
-            ._lblBGAPara_4.Left = VB6.TwipsToPixelsX(lngTemp)
-            ._lblBGAPara_6.Left = VB6.TwipsToPixelsX(lngTemp)
+            ._lblBGAPara_2.Left = lngTemp
+            ._lblBGAPara_4.Left = lngTemp
+            ._lblBGAPara_6.Left = lngTemp
 
-            lngTemp = lngTemp + VB6.PixelsToTwipsX(._lblBGAPara_0.Width)
+            lngTemp = lngTemp + ._lblBGAPara_0.Width
 
-            .chkBGLine.Width = VB6.TwipsToPixelsX(lngTemp - 120)
-            .chkLock.Width = VB6.TwipsToPixelsX(lngTemp - 120)
+            .chkBGLine.Width = lngTemp - 8
+            .chkLock.Width = lngTemp - 8
 
-            .fraBGAPara.Width = VB6.TwipsToPixelsX(lngTemp + 60)
+            .fraBGAPara.Width = lngTemp + 4
 
-            Call .picPreview.SetBounds(0, 0, VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width) - VB6.PixelsToTwipsX(fraBGAPara.Width)), .ClientRectangle.Height)
-            Call .fraBGAPara.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width) - VB6.PixelsToTwipsX(fraBGAPara.Width)), VB6.TwipsToPixelsY(60), 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
-            Call .fraBGACmd.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width) - VB6.PixelsToTwipsX(fraBGAPara.Width)), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - VB6.PixelsToTwipsY(fraBGACmd.Height) - 60), 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
+            Call .picPreview.SetBounds(0, 0, .ClientRectangle.Width - fraBGAPara.Width, .ClientRectangle.Height)
+            Call .fraBGAPara.SetBounds(.ClientRectangle.Width - fraBGAPara.Width, 4, 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
+            Call .fraBGACmd.SetBounds(.ClientRectangle.Width - fraBGAPara.Width, .ClientRectangle.Height - fraBGACmd.Height - 4, 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
 
             Call .Invalidate()
 

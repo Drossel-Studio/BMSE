@@ -7,12 +7,9 @@ Friend Class frmWindowTips
 	Inherits System.Windows.Forms.Form
     Private Declare Function DrawText Lib "user32" Alias "DrawTextW" (ByVal hdc As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpStr As String, ByVal nCount As Integer, <[In]()> ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
     Private Const DT_WORDBREAK As Integer = &H10
-	
-	Dim m_sngTwipsX As Single
-	Dim m_sngTwipsY As Single
-	
-	Dim m_strTips() As String
-	Dim m_intTipsPos As Short
+
+    Dim m_strTips() As String
+    Dim m_intTipsPos As Short
 	Dim m_lngTipsNum As Integer
 
     'UPGRADE_WARNING: イベント chkNextDisp.CheckStateChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
@@ -115,7 +112,7 @@ Friend Class frmWindowTips
 		
 		If m_intTipsPos > UBound(m_strTips) Then m_intTipsPos = 1
 
-        gp.DrawRectangle(Pens.White, New Rectangle(VB6.TwipsToPixelsX(5400), VB6.TwipsToPixelsY(360), VB6.TwipsToPixelsX(180), VB6.TwipsToPixelsY(150)))
+        gp.DrawRectangle(Pens.White, New Rectangle(360, 24, 12, 10))
 
         With Me
             Dim frmWindowTips_gp As Graphics = .CreateGraphics()
@@ -123,20 +120,20 @@ Friend Class frmWindowTips
             .Font = New Font(.Font.FontFamily, 9, .Font.Style, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
 
             Dim stringBrush As SolidBrush = New SolidBrush(.ForeColor)
-            Dim Current As PointF = New PointF(VB6.TwipsToPixelsX(5400), VB6.TwipsToPixelsX(345))
+            Dim Current As PointF = New PointF(360, 23)
             frmWindowTips_gp.DrawString(VB.Right(" " & m_intTipsPos, 2), .Font, stringBrush, Current)
 
             .Font = New Font(.Font.FontFamily, 12, .Font.Style, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
 
         End With
 
-        gp.DrawRectangle(Pens.White, New Rectangle(VB6.TwipsToPixelsX(945), VB6.TwipsToPixelsY(720), VB6.TwipsToPixelsY(5085), VB6.TwipsToPixelsY(2530)))
+        gp.DrawRectangle(Pens.White, New Rectangle(63, 48, 339, 168))
 
         Dim hDC As IntPtr = gp.GetHdc()
         Dim picIcon_gp As Graphics = picIcon.CreateGraphics()
         Dim picIcon_hDC As IntPtr = picIcon_gp.GetHdc()
 
-        Call BitBlt(hDC, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
+        Call BitBlt(hDC, 16, 16, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
 
         m_lngTipsNum = 0
 
@@ -149,16 +146,13 @@ Friend Class frmWindowTips
 	Private Sub frmWindowTips_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
 		
 		With Me
-			
-			.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(frmMain.Left) + (VB6.PixelsToTwipsX(frmMain.Width) - VB6.PixelsToTwipsX(.Width)) \ 2)
-			.Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(frmMain.Top) + (VB6.PixelsToTwipsY(frmMain.Height) - VB6.PixelsToTwipsY(.Height)) \ 2)
-			
-		End With
-		
-		m_sngTwipsX = 15 / VB6.TwipsPerPixelX
-		m_sngTwipsY = 15 / VB6.TwipsPerPixelY
-		
-		m_intTipsPos = 0
+
+            .Left = frmMain.Left + (frmMain.Width - .Width) \ 2
+            .Top = frmMain.Top + (frmMain.Height - .Height) \ 2
+
+        End With
+
+        m_intTipsPos = 0
 		
 		ReDim m_strTips(0)
 		
@@ -210,16 +204,16 @@ Friend Class frmWindowTips
 
         With Me
 
-            gp.DrawRectangle(Pens.Gray, New Rectangle(VB6.TwipsToPixelsX(120), VB6.TwipsToPixelsY(120), VB6.TwipsToPixelsX(720), VB6.TwipsToPixelsY(3210)))
+            gp.DrawRectangle(Pens.Gray, New Rectangle(8, 8, 48, 214))
 
-            gp.DrawRectangle(Pens.White, New Rectangle(VB6.TwipsToPixelsX(855), VB6.TwipsToPixelsY(120), VB6.TwipsToPixelsX(5265), VB6.TwipsToPixelsY(3210)))
+            gp.DrawRectangle(Pens.White, New Rectangle(57, 8, 351, 214))
 
-            gp.DrawRectangle(Pens.Black, New Rectangle(VB6.TwipsToPixelsX(855), VB6.TwipsToPixelsY(615), VB6.TwipsToPixelsX(5265), VB6.TwipsToPixelsY(0)))
+            gp.DrawRectangle(Pens.Black, New Rectangle(57, 41, 351, 0))
 
             .Font = New Font(.Font.FontFamily, 16, .Font.Style Or FontStyle.Bold, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
 
             Dim stringBrush As SolidBrush = New SolidBrush(.ForeColor)
-            Dim Current As PointF = New PointF(VB6.TwipsToPixelsX(960), VB6.TwipsToPixelsX(210))
+            Dim Current As PointF = New PointF(64, 14)
             gp.DrawString("ご存知ですか...", .Font, stringBrush, Current)
 
 
@@ -229,19 +223,19 @@ Friend Class frmWindowTips
             End If
             .Font = New Font(.Font.FontFamily, 9, newstyle, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
 
-            Current = New PointF(VB6.TwipsToPixelsX(5400), VB6.TwipsToPixelsX(345))
+            Current = New PointF(360, 23)
             gp.DrawString(" 0 / " & UBound(m_strTips), .Font, stringBrush, Current)
 
             .Font = New Font(.Font.FontFamily, 12, .Font.Style, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
 
             hDC = gp.GetHdc()
 
-            Call BitBlt(hDC, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
+            Call BitBlt(hDC, 16, 16, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
 
             gp.ReleaseHdc()
         End With
 
-        gp.DrawRectangle(Pens.White, New Rectangle(VB6.TwipsToPixelsX(960), VB6.TwipsToPixelsY(720), VB6.TwipsToPixelsX(6075), VB6.TwipsToPixelsY(3270)))
+        gp.DrawRectangle(Pens.White, New Rectangle(64, 48, 341, 170))
 
         hDC = gp.GetHdc()
 
@@ -272,7 +266,7 @@ Friend Class frmWindowTips
         m_lngTipsNum = m_lngTipsNum + 1
         tmrMain.Interval = 100
 
-        gp.DrawRectangle(Pens.White, New Rectangle(VB6.TwipsToPixelsX(945), VB6.TwipsToPixelsY(720), VB6.TwipsToPixelsX(6030), VB6.TwipsToPixelsY(3240)))
+        gp.DrawRectangle(Pens.White, New Rectangle(63, 48, 402, 216))
 
         Dim hDC As IntPtr = gp.GetHdc()
 
@@ -295,12 +289,12 @@ Friend Class frmWindowTips
             If m_lngTipsNum And 1 Then
 
                 'Call BitBlt(frmWindowTips.hdc, 16 * m_sngTwipsX, 16 * m_sngTwipsY, 32, 32, picIcon.hdc, 0, 32, SRCCOPY)
-                Call BitBlt(hDC, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
+                Call BitBlt(hDC, 16, 16, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
 
             Else
 
                 'Call BitBlt(frmWindowTips.hdc, 16 * m_sngTwipsX, 16 * m_sngTwipsY, 32, 32, picIcon.hdc, 0, 0, SRCCOPY)
-                Call BitBlt(hDC, 240 * m_sngTwipsX / VB6.TwipsPerPixelX, 240 * m_sngTwipsY / VB6.TwipsPerPixelY, 32, 32, picIcon_hDC, 0, 0, SRCCOPY)
+                Call BitBlt(hDC, 16, 16, 32, 32, picIcon_hDC, 0, 0, SRCCOPY)
 
             End If
 
@@ -342,10 +336,10 @@ Friend Class frmWindowTips
     Private Function ddRect(ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As RECT
 
         With ddRect
-            .Top = Y1 * m_sngTwipsY
-            .left_Renamed = X1 * m_sngTwipsX
-            .right_Renamed = X2 * m_sngTwipsX
-            .Bottom = Y2 * m_sngTwipsY
+            .Top = Y1
+            .left_Renamed = X1
+            .right_Renamed = X2
+            .Bottom = Y2
         End With
 
     End Function

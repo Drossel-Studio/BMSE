@@ -25,14 +25,14 @@ Friend Class frmWindowInput
 
         lblMainDisp.AutoSize = True
 
-        Call lblMainDisp.SetBounds(VB6.TwipsToPixelsX(60), VB6.TwipsToPixelsY(60), VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.Width) - 60 - 60), 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
-        Call txtMain.SetBounds(VB6.TwipsToPixelsX(60), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(lblMainDisp.Top) + VB6.PixelsToTwipsY(lblMainDisp.Height) + 60), VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.ClientRectangle.Width) - 120), 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
-        Call cmdCancel.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.ClientRectangle.Width) - 60 - VB6.PixelsToTwipsX(cmdCancel.Width)), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(txtMain.Top) + VB6.PixelsToTwipsY(txtMain.Height) + 60), 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
-        Call cmdDecide.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(cmdCancel.Left) - 60 - VB6.PixelsToTwipsX(cmdDecide.Width)), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(txtMain.Top) + VB6.PixelsToTwipsY(txtMain.Height) + 60), 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
+        Call lblMainDisp.SetBounds(4, 4, Me.Width - 4 - 4, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
+        Call txtMain.SetBounds(4, lblMainDisp.Top + lblMainDisp.Height + 4, Me.ClientRectangle.Width - 8, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
+        Call cmdCancel.SetBounds(Me.ClientRectangle.Width - 4 - cmdCancel.Width, txtMain.Top + txtMain.Height + 4, 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
+        Call cmdDecide.SetBounds(cmdCancel.Left - 4 - cmdDecide.Width, txtMain.Top + txtMain.Height + 4, 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
 
         With frmMain
 
-            Call Me.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.Left) + (VB6.PixelsToTwipsX(.Width) - VB6.PixelsToTwipsX(Me.Width)) \ 2), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.Top) + (VB6.PixelsToTwipsY(.Height) - VB6.PixelsToTwipsY(Me.Height)) \ 2), Me.Width, VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(cmdDecide.Top) + VB6.PixelsToTwipsY(cmdDecide.Height) + 60 + (VB6.PixelsToTwipsY(Me.Height) - VB6.PixelsToTwipsY(Me.ClientRectangle.Height))))
+            Call Me.SetBounds(.Left + (.Width - Me.Width) \ 2, .Top + (.Height - Me.Height) \ 2, Me.Width, cmdDecide.Top + cmdDecide.Height + 60 + (Me.Height - Me.ClientRectangle.Height))
 
         End With
 

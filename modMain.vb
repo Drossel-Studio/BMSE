@@ -1832,19 +1832,19 @@ Err_Renamed:
                     .right_Renamed = .left_Renamed + .right_Renamed
                     .Bottom = .Top + .Bottom
 
-                    If .right_Renamed > VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX Then
+                    If .right_Renamed > System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width Then
 
-                        .left_Renamed = VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX - (.right_Renamed - .left_Renamed)
-                        .right_Renamed = VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX
+                        .left_Renamed = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width - .right_Renamed - .left_Renamed
+                        .right_Renamed = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width
 
                     End If
 
                     If .left_Renamed < 0 Then .left_Renamed = 0
 
-                    If .Bottom > VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) \ VB6.TwipsPerPixelY Then
+                    If .Bottom > System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height Then
 
-                        .Top = VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) \ VB6.TwipsPerPixelY - (.Bottom - .Top)
-                        .Bottom = VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) \ VB6.TwipsPerPixelY
+                        .Top = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height - (.Bottom - .Top)
+                        .Bottom = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height
 
                     End If
 
@@ -2161,13 +2161,13 @@ Err_Renamed:
 
         With frmWindowPreview
 
-            .Left = VB6.TwipsToPixelsX(strGet_ini("Preview", "X", (VB6.PixelsToTwipsX(frmMain.Left) + VB6.PixelsToTwipsX(frmMain.Width) \ 2) - VB6.PixelsToTwipsX(.Width) \ 2, "bmse.ini"))
-            If VB6.PixelsToTwipsX(.Left) < 0 Then .Left = 0
-            If VB6.PixelsToTwipsX(.Left) > VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) Then .Left = 0
+            .Left = strGet_ini("Preview", "X", (frmMain.Left + frmMain.Width \ 2) - .Width \ 2, "bmse.ini")
+            If .Left < 0 Then .Left = 0
+            If .Left > System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width Then .Left = 0
 
-            .Top = VB6.TwipsToPixelsY(strGet_ini("Preview", "Y", (VB6.PixelsToTwipsY(frmMain.Top) + VB6.PixelsToTwipsY(frmMain.Height) \ 2) - VB6.PixelsToTwipsY(.Height) \ 2, "bmse.ini"))
-            If VB6.PixelsToTwipsY(.Top) < 0 Then .Top = 0
-            If VB6.PixelsToTwipsY(.Top) > VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) Then .Top = 0
+            .Top = strGet_ini("Preview", "Y", (frmMain.Top + frmMain.Height \ 2) - .Height \ 2, "bmse.ini")
+            If .Top < 0 Then .Top = 0
+            If .Top > System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height Then .Top = 0
 
         End With
 
@@ -2349,8 +2349,8 @@ InitConfig:
 
         With frmWindowPreview
 
-            Call lngSet_ini("Preview", "X", VB6.PixelsToTwipsX(.Left))
-            Call lngSet_ini("Preview", "Y", VB6.PixelsToTwipsY(.Top))
+            Call lngSet_ini("Preview", "X", .Left)
+            Call lngSet_ini("Preview", "Y", .Top)
 
         End With
 
