@@ -244,7 +244,7 @@ Friend Class frmWindowTips
 
         hDC = gp.GetHdc()
 
-        Call DrawText(hDC, m_strTips(0), LenB(m_strTips(0)), ddRect(63, 48, 402, 216), DT_WORDBREAK)
+        Call DrawText(hDC, m_strTips(0), Len(m_strTips(0)), ddRect(63, 48, 402, 216), DT_WORDBREAK)
 
         m_lngTipsNum = Len(m_strTips(0))
 
@@ -303,13 +303,13 @@ Friend Class frmWindowTips
 
             End If
 
-            Call DrawText(hDC, strTemp, LenB(strTemp), ddRect(63, 48, 402, 216), DT_WORDBREAK)
+            Call DrawText(hDC, strTemp, Len(strTemp), ddRect(63, 48, 402, 216), DT_WORDBREAK)
 
         Else
 
             strTemp = VB.Left(m_strTips(m_intTipsPos), m_lngTipsNum) & "_"
 
-            Call DrawText(hDC, strTemp, LenB(strTemp), ddRect(63, 48, 402, 216), DT_WORDBREAK)
+            Call DrawText(hDC, strTemp, Len(strTemp), ddRect(63, 48, 402, 216), DT_WORDBREAK)
 
             Select Case VB.Right(strTemp, 2)
 
