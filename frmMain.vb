@@ -6038,6 +6038,13 @@ Err_Renamed:
         Dim i As Integer
         Dim wp As WINDOWPLACEMENT
 
+        AddHandler Me.Resize, AddressOf frmMain_Resize
+        AddHandler cboDispGridMain.SelectedIndexChanged, AddressOf cboDispGridMain_SelectedIndexChanged
+        AddHandler cboDispGridSub.SelectedIndexChanged, AddressOf cboDispGridSub_SelectedIndexChanged
+        AddHandler cboDispWidth.SelectedIndexChanged, AddressOf cboDispWidth_SelectedIndexChanged
+        AddHandler cboDispHeight.SelectedIndexChanged, AddressOf cboDispHeight_SelectedIndexChanged
+        AddHandler cboVScroll.SelectedIndexChanged, AddressOf cboVScroll_SelectedIndexChanged
+
         Call modMain.StartUp()
 
         If cboViewer.Items.Count = 0 Then
@@ -6210,13 +6217,6 @@ Err_Renamed:
         Call SetWindowPlacement(Me.Handle.ToInt32, wp)
 
         Call GetCmdLine()
-
-        AddHandler Me.Resize, AddressOf frmMain_Resize
-        AddHandler cboDispGridMain.SelectedIndexChanged, AddressOf cboDispGridMain_SelectedIndexChanged
-        AddHandler cboDispGridSub.SelectedIndexChanged, AddressOf cboDispGridSub_SelectedIndexChanged
-        AddHandler cboDispWidth.SelectedIndexChanged, AddressOf cboDispWidth_SelectedIndexChanged
-        AddHandler cboDispHeight.SelectedIndexChanged, AddressOf cboDispHeight_SelectedIndexChanged
-        AddHandler cboVScroll.SelectedIndexChanged, AddressOf cboVScroll_SelectedIndexChanged
 
     End Sub
 
