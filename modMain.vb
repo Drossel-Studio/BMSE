@@ -2330,7 +2330,7 @@ InitConfig:
             Call lngSet_ini("Options", "UseOldFormat", ._mnuOptionsItem_7.Checked)
             'Call lngSet_ini("Options", "RightClickDelete", .mnuOptionsItem(RCLICK_DELETE).Checked)
 
-            Call lngSet_ini("ToolBar", "New", .tlbMenu.Items.Item("New").Visible)
+            Call lngSet_ini("ToolBar", "New", .tlbMenu.Items.Item("_New").Visible)
             Call lngSet_ini("ToolBar", "Open", .tlbMenu.Items.Item("Open").Visible)
             Call lngSet_ini("ToolBar", "Reload", .tlbMenu.Items.Item("Reload").Visible)
             Call lngSet_ini("ToolBar", "Save", .tlbMenu.Items.Item("Save").Visible)
