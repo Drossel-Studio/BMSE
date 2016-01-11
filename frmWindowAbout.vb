@@ -161,9 +161,11 @@ Friend Class frmWindowAbout
 
             lngTemp = 0
 
-            .Font = VB6.FontChangeSize(.Font, 9)
-            .Font = VB6.FontChangeUnderline(.Font, False)
-            .Font = VB6.FontChangeBold(.Font, True)
+            Dim newstyle As FontStyle
+            If newstyle And FontStyle.Underline Then
+                newstyle = newstyle Xor FontStyle.Underline
+            End If
+            .Font = New Font(.Font.FontFamily, 9, newstyle Or FontStyle.Bold, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
 
             lngTemp = g_InputLog.GetBufferSize
 

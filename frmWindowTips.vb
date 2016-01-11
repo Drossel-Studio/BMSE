@@ -120,15 +120,15 @@ Friend Class frmWindowTips
         With Me
             Dim frmWindowTips_gp As Graphics = .CreateGraphics()
 
-            .Font = VB6.FontChangeSize(.Font, 9)
+            .Font = New Font(.Font.FontFamily, 9, .Font.Style, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
 
             Dim stringBrush As SolidBrush = New SolidBrush(.ForeColor)
             Dim Current As PointF = New PointF(VB6.TwipsToPixelsX(5400), VB6.TwipsToPixelsX(345))
             frmWindowTips_gp.DrawString(VB.Right(" " & m_intTipsPos, 2), .Font, stringBrush, Current)
 
-            .Font = VB6.FontChangeSize(.Font, 12)
-			
-		End With
+            .Font = New Font(.Font.FontFamily, 12, .Font.Style, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
+
+        End With
 
         gp.DrawRectangle(Pens.White, New Rectangle(VB6.TwipsToPixelsX(945), VB6.TwipsToPixelsY(720), VB6.TwipsToPixelsY(5085), VB6.TwipsToPixelsY(2530)))
 
@@ -216,20 +216,23 @@ Friend Class frmWindowTips
 
             gp.DrawRectangle(Pens.Black, New Rectangle(VB6.TwipsToPixelsX(855), VB6.TwipsToPixelsY(615), VB6.TwipsToPixelsX(5265), VB6.TwipsToPixelsY(0)))
 
-            .Font = VB6.FontChangeSize(.Font, 16)
-            .Font = VB6.FontChangeBold(.Font, True)
+            .Font = New Font(.Font.FontFamily, 16, .Font.Style Or FontStyle.Bold, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
 
             Dim stringBrush As SolidBrush = New SolidBrush(.ForeColor)
             Dim Current As PointF = New PointF(VB6.TwipsToPixelsX(960), VB6.TwipsToPixelsX(210))
             gp.DrawString("ご存知ですか...", .Font, stringBrush, Current)
 
-            .Font = VB6.FontChangeSize(.Font, 9)
-            .Font = VB6.FontChangeBold(.Font, False)
+
+            Dim newstyle As FontStyle = .Font.Style
+            If newstyle And FontStyle.Bold Then
+                newstyle = newstyle Xor FontStyle.Bold
+            End If
+            .Font = New Font(.Font.FontFamily, 9, newstyle, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
 
             Current = New PointF(VB6.TwipsToPixelsX(5400), VB6.TwipsToPixelsX(345))
             gp.DrawString(" 0 / " & UBound(m_strTips), .Font, stringBrush, Current)
 
-            .Font = VB6.FontChangeSize(.Font, 12)
+            .Font = New Font(.Font.FontFamily, 12, .Font.Style, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
 
             hDC = gp.GetHdc()
 

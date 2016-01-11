@@ -1749,8 +1749,7 @@ Err_Renamed:
 
         For i = 0 To My.Application.OpenForms.Count - 1
 
-            My.Application.OpenForms.Item(i).Font = VB6.FontChangeName(My.Application.OpenForms.Item(i).Font, MainFont)
-            My.Application.OpenForms.Item(i).Font = VB6.FontChangeGdiCharSet(My.Application.OpenForms.Item(i).Font, Charset)
+            My.Application.OpenForms.Item(i).Font = New Font(MainFont, My.Application.OpenForms.Item(i).Font.Size, My.Application.OpenForms.Item(i).Font.Style, My.Application.OpenForms.Item(i).Font.Unit, Charset, My.Application.OpenForms.Item(i).Font.GdiVerticalFont)
 
             For Each objCtl In My.Application.OpenForms.Item(i).Controls
 

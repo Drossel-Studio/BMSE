@@ -5004,7 +5004,7 @@ Err_Renamed:
                 Call modDraw.ObjSelectCancel()
                 Call modDraw.Redraw()
 
-                picMain.Font = VB6.FontChangeSize(picMain.Font, 8)
+                picMain.Font = New Font(picMain.Font.FontFamily, 8, picMain.Font.Style, picMain.Font.Unit, picMain.Font.GdiCharSet, picMain.Font.GdiVerticalFont)
 
                 Call modDraw.InitPen()
                 Call modDraw.DrawObj(g_Obj(UBound(g_Obj)))

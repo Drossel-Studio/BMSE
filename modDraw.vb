@@ -711,8 +711,11 @@ Err_Renamed:
 
         With frmMain.picMain.Font
 
-            frmMain.picMain.Font = VB6.FontChangeSize(frmMain.picMain.Font, 8)
-            frmMain.picMain.Font = VB6.FontChangeItalic(frmMain.picMain.Font, False)
+            Dim newstyle As FontStyle = frmMain.picMain.Font.Style
+            If newstyle And FontStyle.Italic Then
+                newstyle = newstyle Xor FontStyle.Italic
+            End If
+            frmMain.picMain.Font = New Font(frmMain.picMain.Font.FontFamily, 8, newstyle, frmMain.picMain.Font.Unit, frmMain.picMain.Font.GdiCharSet, frmMain.picMain.Font.GdiVerticalFont)
 
         End With
 
@@ -846,8 +849,7 @@ Err_Renamed:
             Dim gp As Graphics = .CreateGraphics()
             Dim hDC As IntPtr = gp.GetHdc()
 
-            .Font = VB6.FontChangeSize(.Font, 72)
-            .Font = VB6.FontChangeItalic(.Font, True)
+            .Font = New Font(.Font.FontFamily, 72, .Font.Style Or FontStyle.Italic, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
 
             For i = g_disp.intStartMeasure To g_disp.intEndMeasure '#小節番号
 
@@ -1080,7 +1082,7 @@ Err_Renamed:
         Dim gp As Graphics = frmMain.picMain.CreateGraphics()
         Dim hDC As IntPtr = gp.GetHdc()
 
-        frmMain.picMain.Font = VB6.FontChangeSize(frmMain.picMain.Font, 9)
+        frmMain.picMain.Font = New Font(frmMain.picMain.Font.FontFamily, 9, frmMain.picMain.Font.Style, frmMain.picMain.Font.Unit, frmMain.picMain.Font.GdiCharSet, frmMain.picMain.Font.GdiVerticalFont)
 
         For i = 0 To UBound(g_VGrid) '文字
 
@@ -1667,7 +1669,7 @@ Err_Renamed:
             Call InitPen()
 
             'フォントサイズ変更
-            frmMain.picMain.Font = VB6.FontChangeSize(frmMain.picMain.Font, 8)
+            frmMain.picMain.Font = New Font(frmMain.picMain.Font.FontFamily, 8, frmMain.picMain.Font.Style, frmMain.picMain.Font.Unit, frmMain.picMain.Font.GdiCharSet, frmMain.picMain.Font.GdiVerticalFont)
 
             'オブジェ描画
             Call DrawObj(g_Obj(UBound(g_Obj)))

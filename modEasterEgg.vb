@@ -783,7 +783,7 @@ Module modEasterEgg
 
         With frmMain.picMain
             Call SetTextColor(hDC, RGB(255, 255, 255))
-            .Font = VB6.FontChangeSize(.Font, 12)
+            .Font = New Font(.Font.FontFamily, 12, .Font.Style, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
 
             lngTemp = .ClientRectangle.Height - m_lngCounter
 
@@ -956,7 +956,7 @@ Module modEasterEgg
             rectTemp.Top = 8
             rectTemp.Bottom = .ClientRectangle.Height
 
-            .Font = VB6.FontChangeSize(.Font, 9)
+            .Font = New Font(.Font.FontFamily, 9, .Font.Style, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
 
             Call DrawText(hDC, "A problem has been detected and BMSE has been shut down to prevent damage to your mind." & vbCrLf & vbCrLf & "The problem seems to be caused by the following file: BMSE.EXE" & vbCrLf & vbCrLf & "EASTER_EGG_BLUE_SCREEN_OF_DEATH" & vbCrLf & vbCrLf & "If this is the first time you've seen this stop error screen, restart your BMSE. If this screen appears again, follow these steps:" & vbCrLf & vbCrLf & "1) Bury me from your computer." & vbCrLf & "2) Access UCN-Soft BBS, and write your shout of spirit." & vbCrLf & "       ex) ""BMSE is the worst software in the world!!!!!!!!!!!!!!111111""" & vbCrLf & "3) Sing ""asdf song"":" & vbCrLf & "       This is the sound of the asdf song." & vbCrLf & "       asdf fdsa" & vbCrLf & "       asdffdsa ye-ye" & vbCrLf & "       (clap clap clap)" & vbCrLf & "4) Throw your computer from window." & vbCrLf & vbCrLf & "If you are satiated with joke:" & vbCrLf & vbCrLf & "Launch BMSE and type your key ""OFF"", then press return key." & vbCrLf & vbCrLf & "Meaningless information:" & vbCrLf & vbCrLf & "*** STOP: 0x88710572 (0xASDFFDSA,0x00004126,0xD0SUK01,0x○0▽0○)" & vbCrLf & vbCrLf & vbCrLf & "***  BMSE.EXE - Public Sub DrawBlueScreen() at modEasterEgg.bas, DateStamp 2006-12-26", -1, rectTemp, DT_WORDBREAK)
 
