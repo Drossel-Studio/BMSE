@@ -490,7 +490,6 @@
         Me.SepResolution = New System.Windows.Forms.ToolStripSeparator()
         Me.Resolution = New System.Windows.Forms.ToolStripSeparator()
         Me.lblDirectInput = New System.Windows.Forms.Label()
-        Me.dlgMain = New System.Windows.Forms.OpenFileDialog()
         Me.MainMenu1.SuspendLayout()
         Me.mnuContext.SuspendLayout()
         Me.mnuContextList.SuspendLayout()
@@ -2978,11 +2977,6 @@
         Me.lblDirectInput.TabIndex = 95
         Me.lblDirectInput.Text = "Direct"
         '
-        'dlgMain
-        '
-        Me.dlgMain.FileName = "dlgMain"
-        Me.dlgMain.Filter = "BMS ﾌｧｲﾙ (*.bms,*.bme,*.bml)|*.bms;*.bme;*.bml"
-        '
         'frmMain
         '
         Me.AllowDrop = True
@@ -3052,7 +3046,6 @@
 
     End Sub
 
-    Friend WithEvents dlgMain As OpenFileDialog
     Friend WithEvents ToolStripMenuItem0 As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem2 As ToolStripMenuItem

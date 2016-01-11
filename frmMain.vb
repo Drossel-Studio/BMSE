@@ -1365,7 +1365,7 @@ Err_Renamed:
         Dim strArray() As String
         'Dim strTemp     As String * 2
 
-        With dlgMain
+        With dlgMainOpen
 
             'UPGRADE_WARNING: Filter に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
             .Filter = "Image files (*.bmp,*.jpg,*.gif)|*.bmp;*.jpg;*.gif|All files (*.*)|*.*"
@@ -1525,7 +1525,7 @@ Err_Renamed:
 
         Dim strArray() As String
 
-        With dlgMain
+        With dlgMainOpen
 
             'UPGRADE_WARNING: Filter に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
             .Filter = "Image files (*.bmp,*.jpg,*.gif)|*.bmp;*.jpg;*.gif|All files (*.*)|*.*"
@@ -1550,7 +1550,7 @@ Err_Renamed:
 
         Dim strArray() As String
 
-        With dlgMain
+        With dlgMainOpen
 
             'UPGRADE_WARNING: Filter に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
             .Filter = "Image files (*.bmp,*.jpg,*.gif)|*.bmp;*.jpg;*.gif|All files (*.*)|*.*"
@@ -1732,7 +1732,7 @@ Err_Renamed:
 
         Call mciSendString("close PREVIEW", vbNullString, 0, 0)
 
-        With dlgMain
+        With dlgMainOpen
 
             'UPGRADE_WARNING: Filter に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
             .Filter = "Sound files (*.wav,*.mp3)|*.wav;*.mp3|All files (*.*)|*.*"
@@ -1746,7 +1746,8 @@ Err_Renamed:
             modMain.SetItemString(lstWAV, lstWAV.SelectedIndex, "#WAV" & strFromLong(lstWAV.SelectedIndex + 1) & ":" & strArray(UBound(strArray)))
             g_strWAV(lngFromLong(lstWAV.SelectedIndex + 1)) = strArray(UBound(strArray))
 
-            .InitialDirectory = VB.Left(dlgMainOpen.FileName, Len(dlgMainOpen.FileName) - Len(strArray(UBound(strArray))))
+            dlgMainOpen.InitialDirectory = VB.Left(dlgMainOpen.FileName, Len(dlgMainOpen.FileName) - Len(strArray(UBound(strArray))))
+            dlgMainSave.InitialDirectory = VB.Left(dlgMainOpen.FileName, Len(dlgMainOpen.FileName) - Len(strArray(UBound(strArray))))
 
             Call SaveChanges()
 
@@ -4091,7 +4092,7 @@ Err_Renamed:
 
         If modMain.intSaveCheck() Then Exit Sub
 
-        With dlgMain
+        With dlgMainOpen
 
             'UPGRADE_WARNING: Filter に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
             .Filter = "BMS files (*.bms,*.bme,*.bml,*.pms)|*.bms;*.bme;*.bml;*.pms|All files (*.*)|*.*"
@@ -4110,7 +4111,8 @@ Err_Renamed:
 
             Call modMain.RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
 
-            .InitialDirectory = g_BMS.strDir
+            dlgMainOpen.InitialDirectory = g_BMS.strDir
+            dlgMainSave.InitialDirectory = g_BMS.strDir
 
         End With
 
@@ -4420,7 +4422,7 @@ Err_Renamed:
         Dim strArray() As String
 
         'UPGRADE_WARNING: CommonDialog 変数はアップグレードされませんでした 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="671167DC-EA81-475D-B690-7A40C7BF4A23"' をクリックしてください。
-        With dlgMain
+        With dlgMainSave
 
             'UPGRADE_WARNING: Filter に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
             .Filter = "BMS files (*.bms,*.bme,*.bml,*.pms)|*.bms;*.bme;*.bml;*.pms|All files (*.*)|*.*"
@@ -4437,7 +4439,8 @@ Err_Renamed:
 
             Call modMain.RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
 
-            .InitialDirectory = g_BMS.strDir
+            dlgMainOpen.InitialDirectory = g_BMS.strDir
+            dlgMainSave.InitialDirectory = g_BMS.strDir
 
         End With
 

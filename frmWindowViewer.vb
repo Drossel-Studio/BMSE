@@ -175,23 +175,24 @@ Friend Class frmWindowViewer
 		On Error GoTo Err_Renamed
 		
 		Dim strArray() As String
-		
-		'UPGRADE_WARNING: CommonDialog 変数はアップグレードされませんでした 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="671167DC-EA81-475D-B690-7A40C7BF4A23"' をクリックしてください。
-		With frmMain.dlgMain
-			
-			'UPGRADE_WARNING: Filter に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
-			.Filter = "EXE files (*.exe)|*.exe|All files (*.*)|*.*"
-			.FileName = txtViewerPath.Text
-			
-			Call .ShowDialog()
-			
-			txtViewerPath.Text = .FileName
-			strArray = Split(.FileName, "\")
-			.InitialDirectory = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
-			
-		End With
-		
-		Exit Sub
+
+        'UPGRADE_WARNING: CommonDialog 変数はアップグレードされませんでした 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="671167DC-EA81-475D-B690-7A40C7BF4A23"' をクリックしてください。
+        With frmMain.dlgMainOpen
+
+            'UPGRADE_WARNING: Filter に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
+            .Filter = "EXE files (*.exe)|*.exe|All files (*.*)|*.*"
+            .FileName = txtViewerPath.Text
+
+            Call .ShowDialog()
+
+            txtViewerPath.Text = .FileName
+            strArray = Split(.FileName, "\")
+            frmMain.dlgMainOpen.InitialDirectory = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
+            frmMain.dlgMainSave.InitialDirectory = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
+
+        End With
+
+        Exit Sub
 		
 Err_Renamed: 
 		
