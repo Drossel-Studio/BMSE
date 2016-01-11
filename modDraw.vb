@@ -839,7 +839,7 @@ Err_Renamed:
     Private Sub DrawMeasureNum()
 
         Dim i As Integer
-        Dim strTemp As New VB6.FixedLengthString(4)
+        Dim strTemp As String = Space(4)
         Dim sizeTemp As Size
 
         With frmMain.picMain
@@ -852,12 +852,12 @@ Err_Renamed:
             For i = g_disp.intStartMeasure To g_disp.intEndMeasure '#小節番号
 
                 'strTemp = "#" & Format$(i, "000")
-                strTemp.Value = "#" & Right("00" & i, 3)
+                strTemp = "#" & Right("00" & i, 3)
 
-                Call GetTextExtentPoint32(hDC, strTemp.Value, 4, sizeTemp)
+                Call GetTextExtentPoint32(hDC, strTemp, 4, sizeTemp)
 
                 Call SetTextColor(hDC, g_lngSystemColor(COLOR_NUM.MEASURE_NUM)) 'RGB(64, 64, 64)
-                Call TextOut(hDC, (.ClientRectangle.Width - sizeTemp.Width) \ 2, .ClientRectangle.Height - sizeTemp.Height - (g_Measure(i).lngY - g_disp.Y) * g_disp.Height, strTemp.Value, 4)
+                Call TextOut(hDC, (.ClientRectangle.Width - sizeTemp.Width) \ 2, .ClientRectangle.Height - sizeTemp.Height - (g_Measure(i).lngY - g_disp.Y) * g_disp.Height, strTemp, 4)
 
             Next i
 

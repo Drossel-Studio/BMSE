@@ -571,7 +571,7 @@ Err_Renamed:
 		Dim intMeasure As Short
 		Dim intCh As Short
 		Dim lngSepaNum As Integer
-        Dim Value As New VB6.FixedLengthString(2)
+        Dim Value As String = Space(2)
 
         intMeasure = Val(Mid(strFunc, 2, 3))
 		intCh = Val(Mid(strFunc, 5, 2))
@@ -632,69 +632,69 @@ Err_Renamed:
 			End If
 			
 			For i = 1 To lngSepaNum
-				
-				Value.Value = Mid(strParam, i * 2 - 1, 2)
-				
-				If Value.Value <> "00" Then
-					
-					With g_Obj(UBound(g_Obj))
-						
-						.lngID = g_lngIDNum
-						g_lngObjID(g_lngIDNum) = g_lngIDNum
-						.lngPosition = i - 1
-						.lngHeight = lngSepaNum
-						.intMeasure = intMeasure
-						.intCh = intCh
-						
-						Call modDraw.lngChangeMaxMeasure(.intMeasure)
-						
-						Select Case intCh
-							
-							Case OBJ_CH.CH_BGM 'BGM
-								
-								.sngValue = strToNum(Value.Value)
-								.intCh = intTemp
-								
-							Case OBJ_CH.CH_BGA, OBJ_CH.CH_POOR, OBJ_CH.CH_LAYER, OBJ_CH.CH_EXBPM, OBJ_CH.CH_STOP 'BGA,Poor,Layer,拡張BPM,ストップシーケンス
-								
-								.sngValue = strToNum(Value.Value)
-								
-							Case OBJ_CH.CH_BPM 'BPM
-								
-								.sngValue = Val("&H" & Value.Value)
-								
-							Case 11 To 16, 18, 19, 21 To 26, 28, 29 'キー音
-								
-								.sngValue = strToNum(Value.Value)
-								
-							Case 31 To 36, 38, 39, 41 To 46, 48, 49 'キー音 (INV)
-								
-								.sngValue = strToNum(Value.Value)
-								.intCh = .intCh - 20
+
+                Value = Mid(strParam, i * 2 - 1, 2)
+
+                If Value <> "00" Then
+
+                    With g_Obj(UBound(g_Obj))
+
+                        .lngID = g_lngIDNum
+                        g_lngObjID(g_lngIDNum) = g_lngIDNum
+                        .lngPosition = i - 1
+                        .lngHeight = lngSepaNum
+                        .intMeasure = intMeasure
+                        .intCh = intCh
+
+                        Call modDraw.lngChangeMaxMeasure(.intMeasure)
+
+                        Select Case intCh
+
+                            Case OBJ_CH.CH_BGM 'BGM
+
+                                .sngValue = strToNum(Value)
+                                .intCh = intTemp
+
+                            Case OBJ_CH.CH_BGA, OBJ_CH.CH_POOR, OBJ_CH.CH_LAYER, OBJ_CH.CH_EXBPM, OBJ_CH.CH_STOP 'BGA,Poor,Layer,拡張BPM,ストップシーケンス
+
+                                .sngValue = strToNum(Value)
+
+                            Case OBJ_CH.CH_BPM 'BPM
+
+                                .sngValue = Val("&H" & Value)
+
+                            Case 11 To 16, 18, 19, 21 To 26, 28, 29 'キー音
+
+                                .sngValue = strToNum(Value)
+
+                            Case 31 To 36, 38, 39, 41 To 46, 48, 49 'キー音 (INV)
+
+                                .sngValue = strToNum(Value)
+                                .intCh = .intCh - 20
                                 .intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE
 
                             Case 51 To 56, 58, 59, 61 To 66, 68, 69 'キー音 (LN)
-								
-								.sngValue = strToNum(Value.Value)
-								.intCh = .intCh - 40
+
+                                .sngValue = strToNum(Value)
+                                .intCh = .intCh - 40
                                 .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE
 
                             Case Else
-								
-								Exit Function
-								
-						End Select
-						
-					End With
-					
-					ReDim Preserve g_Obj(UBound(g_Obj) + 1)
-					
-					g_lngIDNum = g_lngIDNum + 1
-					ReDim Preserve g_lngObjID(g_lngIDNum)
-					
-				End If
-				
-			Next i
+
+                                Exit Function
+
+                        End Select
+
+                    End With
+
+                    ReDim Preserve g_Obj(UBound(g_Obj) + 1)
+
+                    g_lngIDNum = g_lngIDNum + 1
+                    ReDim Preserve g_lngObjID(g_lngIDNum)
+
+                End If
+
+            Next i
 			
 		End If
 		
@@ -807,38 +807,38 @@ Err_Renamed:
 	Public Function strToNumFF(ByRef strNum As String) As Integer
 		
 		Dim ret As Integer
-		Dim l As New VB6.FixedLengthString(1)
-		Dim r As New VB6.FixedLengthString(1)
-		
-		r.Value = UCase(Right(strNum, 1))
-		
-		If Len(strNum) > 1 Then
-			
-			l.Value = UCase(Mid(strNum, Len(strNum) - 1, 1))
-			
-		Else
-			
-			l.Value = "0"
-			
-		End If
-		
-		If Asc(l.Value) <= 70 Then 'F 以下
-			
-			If Asc(r.Value) <= 70 Then 'FF 以下
-				
-				ret = Val("&H" & l.Value & r.Value)
-				
-			Else 'FZ 以下
-				
-				ret = Val("&H" & l.Value) * 20 + subStrToNumFF(r.Value)
-				
-			End If
-			
-		Else 'ZZ
-			
-			ret = strToNumZZ(l.Value & r.Value)
-			
-		End If
+        Dim l As String = Space(1)
+        Dim r As String = Space(1)
+
+        r = UCase(Right(strNum, 1))
+
+        If Len(strNum) > 1 Then
+
+            l = UCase(Mid(strNum, Len(strNum) - 1, 1))
+
+        Else
+
+            l = "0"
+
+        End If
+
+        If Asc(l) <= 70 Then 'F 以下
+
+            If Asc(r) <= 70 Then 'FF 以下
+
+                ret = Val("&H" & l & r)
+
+            Else 'FZ 以下
+
+                ret = Val("&H" & l) * 20 + subStrToNumFF(r)
+
+            End If
+
+        Else 'ZZ
+
+            ret = strToNumZZ(l & r)
+
+        End If
 		
 		strToNumFF = ret
 		

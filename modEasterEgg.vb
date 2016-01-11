@@ -173,10 +173,10 @@ Module modEasterEgg
     End Sub
 	
 	Public Sub KeyCheck(ByVal KeyCode As Short, ByVal Shift As Short)
-		
-		Static buf As New VB6.FixedLengthString(16)
-		
-		Select Case KeyCode
+
+        Static buf As String = Space(16)
+
+        Select Case KeyCode
 			
 			Case System.Windows.Forms.Keys.F9 'ほわいる
 				
@@ -192,38 +192,38 @@ Module modEasterEgg
 				Call ShellExecute(0, vbNullString, "sirodius.exe", vbNullString, vbNullString, SW_SHOWNORMAL)
 				
 			Case System.Windows.Forms.Keys.A To System.Windows.Forms.Keys.Z, System.Windows.Forms.Keys.D0 To System.Windows.Forms.Keys.D9 'バッファに保存
-				
-				buf.Value = Right(buf.Value, 15) & Chr(KeyCode)
-				
-			Case System.Windows.Forms.Keys.NumPad0 To System.Windows.Forms.Keys.NumPad9 'バッファに保存
-				
-				buf.Value = Right(buf.Value, 15) & KeyCode - System.Windows.Forms.Keys.NumPad0
-				
-			Case System.Windows.Forms.Keys.Space 'バッファに保存
-				
-				buf.Value = Right(buf.Value, 15) & " "
-				
-			Case System.Windows.Forms.Keys.Return 'イースターエッグ発動
-				
-				If Right(buf.Value, 3) = "OFF" Then 'OFF
-					
-					frmMain.tmrEffect.Enabled = False
+
+                buf = Right(buf, 15) & Chr(KeyCode)
+
+            Case System.Windows.Forms.Keys.NumPad0 To System.Windows.Forms.Keys.NumPad9 'バッファに保存
+
+                buf = Right(buf, 15) & KeyCode - System.Windows.Forms.Keys.NumPad0
+
+            Case System.Windows.Forms.Keys.Space 'バッファに保存
+
+                buf = Right(buf, 15) & " "
+
+            Case System.Windows.Forms.Keys.Return 'イースターエッグ発動
+
+                If Right(buf, 3) = "OFF" Then 'OFF
+
+                    frmMain.tmrEffect.Enabled = False
                     g_disp.intEffect = EASTEREGG.OFF
 
                     Call DrawEffect()
-					
-				ElseIf Right(buf.Value, 4) = "TIPS" Then  'TIPS
-					
-					With frmWindowTips
-						
-						.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(frmMain.Left) + (VB6.PixelsToTwipsX(frmMain.Width) - VB6.PixelsToTwipsX(.Width)) \ 2)
-						.Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(frmMain.Top) + (VB6.PixelsToTwipsY(frmMain.Height) - VB6.PixelsToTwipsY(.Height)) \ 2)
+
+                ElseIf Right(buf, 4) = "TIPS" Then  'TIPS
+
+                    With frmWindowTips
+
+                        .Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(frmMain.Left) + (VB6.PixelsToTwipsX(frmMain.Width) - VB6.PixelsToTwipsX(.Width)) \ 2)
+                        .Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(frmMain.Top) + (VB6.PixelsToTwipsY(frmMain.Height) - VB6.PixelsToTwipsY(.Height)) \ 2)
 
                         Call frmWindowTips.ShowDialog(frmMain)
 
                     End With
-					
-				ElseIf Right(buf.Value, 4) = "SNOW" Then  'SNOW
+
+                ElseIf Right(buf, 4) = "SNOW" Then  'SNOW
 
                     If g_disp.intEffect = EASTEREGG.SNOW Then
 
@@ -235,12 +235,12 @@ Module modEasterEgg
                         g_disp.intEffect = EASTEREGG.SNOW
 
                         Call InitSnow()
-						
-					End If
-					
-					Call DrawEffect()
-					
-				ElseIf Right(buf.Value, 8) = "SIROMARU" Or Right(buf.Value, 9) = "SIROMARU1" Then  'SIROMARU
+
+                    End If
+
+                    Call DrawEffect()
+
+                ElseIf Right(buf, 8) = "SIROMARU" Or Right(buf, 9) = "SIROMARU1" Then  'SIROMARU
 
                     If g_disp.intEffect = EASTEREGG.SIROMARU Then
 
@@ -252,12 +252,12 @@ Module modEasterEgg
                         g_disp.intEffect = EASTEREGG.SIROMARU
 
                         Call InitSnow()
-						
-					End If
-					
-					Call DrawEffect()
-					
-				ElseIf Right(buf.Value, 9) = "SIROMARU2" Then  'SIROMARU2
+
+                    End If
+
+                    Call DrawEffect()
+
+                ElseIf Right(buf, 9) = "SIROMARU2" Then  'SIROMARU2
 
                     If g_disp.intEffect = EASTEREGG.SIROMARU2 Then
 
@@ -269,14 +269,14 @@ Module modEasterEgg
                         g_disp.intEffect = EASTEREGG.SIROMARU2
 
                         Call InitSiromaru2()
-						
-					End If
-					
-					Call DrawEffect()
-					
-				ElseIf Right(buf.Value, 3) = "LOG" Then  'LOG
-					
-					frmMain.tmrEffect.Enabled = False
+
+                    End If
+
+                    Call DrawEffect()
+
+                ElseIf Right(buf, 3) = "LOG" Then  'LOG
+
+                    frmMain.tmrEffect.Enabled = False
 
                     If g_disp.intEffect = EASTEREGG.DISP_LOG Then
 
@@ -287,11 +287,11 @@ Module modEasterEgg
                         g_disp.intEffect = EASTEREGG.DISP_LOG
 
                     End If
-					
-					Call DrawEffect()
-					Call modDraw.Redraw()
-					
-				ElseIf Right(buf.Value, 9) = "STAFFROLL" Then  'STAFFROLL, STAFFROLL2
+
+                    Call DrawEffect()
+                    Call modDraw.Redraw()
+
+                ElseIf Right(buf, 9) = "STAFFROLL" Then  'STAFFROLL, STAFFROLL2
 
                     If g_disp.intEffect = EASTEREGG.STAFFROLL Or g_disp.intEffect = EASTEREGG.STAFFROLL2 Then
 
@@ -305,12 +305,12 @@ Module modEasterEgg
                         g_disp.intEffect = EASTEREGG.STAFFROLL
 
                         Call InitStaffRoll()
-						
-					End If
-					
-					Call DrawEffect()
-					
-				ElseIf Right(buf.Value, 10) = "STAFFROLL2" Then  'STAFFROLL, STAFFROLL2
+
+                    End If
+
+                    Call DrawEffect()
+
+                ElseIf Right(buf, 10) = "STAFFROLL2" Then  'STAFFROLL, STAFFROLL2
 
                     If g_disp.intEffect = EASTEREGG.STAFFROLL Or g_disp.intEffect = EASTEREGG.STAFFROLL2 Then
 
@@ -324,12 +324,12 @@ Module modEasterEgg
                         g_disp.intEffect = EASTEREGG.STAFFROLL
 
                         Call InitStaffRoll()
-						
-					End If
-					
-					Call DrawEffect()
-					
-				ElseIf Right(buf.Value, 10) = "BLUESCREEN" Or Right(buf.Value, 4) = "BSOD" Then  'BLUESCREEN OF DEATH
+
+                    End If
+
+                    Call DrawEffect()
+
+                ElseIf Right(buf, 10) = "BLUESCREEN" Or Right(buf, 4) = "BSOD" Then  'BLUESCREEN OF DEATH
 
                     If g_disp.intEffect = EASTEREGG.BLUESCREEN Then
 
@@ -347,10 +347,10 @@ Module modEasterEgg
 					Call DrawEffect()
 					
 				End If
-				
-				buf.Value = ""
-				
-		End Select
+
+                buf = Space(16)
+
+        End Select
 		
 	End Sub
 	

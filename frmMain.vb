@@ -485,7 +485,7 @@ Err_Renamed:
         On Error GoTo Err_Renamed
 
         Dim lngError As Integer
-        Dim strError As New VB6.FixedLengthString(256)
+        Dim strError As String = Space(256)
         Dim strTemp As String = ""
 
         If m_blnPreview = False Then Exit Sub
@@ -510,9 +510,9 @@ Err_Renamed:
 
         If lngError Then
 
-            If mciGetErrorString(lngError, strError.Value, 256) Then
+            If mciGetErrorString(lngError, strError, 256) Then
 
-                strTemp = VB.Left(strError.Value, InStr(strError.Value, Chr(0)) - 1)
+                strTemp = VB.Left(strError, InStr(strError, Chr(0)) - 1)
 
             Else
 
@@ -663,7 +663,7 @@ Err_Renamed:
     Public Sub RefreshList()
 
         Dim i As Integer
-        Dim strTemp As New VB6.FixedLengthString(2)
+        Dim strTemp As String = Space(2)
         Dim lngTemp As Integer
         Dim lngIndex(2) As Integer
 
@@ -684,12 +684,12 @@ Err_Renamed:
             'strTemp = Right$("0" & Hex$(i), 2)
             'lngTemp = modInput.strToNum(strTemp)
 
-            strTemp.Value = modInput.strFromNum(i)
+            strTemp = modInput.strFromNum(i)
             lngTemp = modInput.strToNum(modInput.strFromNumZZ(i))
 
-            modMain.SetItemString(lstWAV, i - 1, "#WAV" & strTemp.Value & ":" & g_strWAV(i))
-            modMain.SetItemString(lstBMP, i - 1, "#BMP" & strTemp.Value & ":" & g_strBMP(i))
-            modMain.SetItemString(lstBGA, i - 1, "#BGA" & strTemp.Value & ":" & g_strBGA(i))
+            modMain.SetItemString(lstWAV, i - 1, "#WAV" & strTemp & ":" & g_strWAV(i))
+            modMain.SetItemString(lstBMP, i - 1, "#BMP" & strTemp & ":" & g_strBMP(i))
+            modMain.SetItemString(lstBGA, i - 1, "#BGA" & strTemp & ":" & g_strBGA(i))
 
         Next i
 
@@ -1261,13 +1261,13 @@ Err_Renamed:
 
     Private Sub cmdBGADelete_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBGADelete.Click
 
-        Dim strTemp As New VB6.FixedLengthString(7)
+        Dim strTemp As String = Space(7)
 
         With lstBGA
 
             If Len(modMain.GetItemString(lstBGA, .SelectedIndex)) > 7 Then
 
-                strTemp.Value = "#BGA00:"
+                strTemp = "#BGA00:"
 
                 'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
 
@@ -1281,10 +1281,10 @@ Err_Renamed:
 
                 'End If
 
-                Mid(strTemp.Value, 5, 2) = strFromLong(.SelectedIndex + 1)
+                Mid(strTemp, 5, 2) = strFromLong(.SelectedIndex + 1)
                 g_strBGA(lngFromLong(.SelectedIndex + 1)) = ""
 
-                modMain.SetItemString(lstBGA, .SelectedIndex, strTemp.Value)
+                modMain.SetItemString(lstBGA, .SelectedIndex, strTemp)
 
                 Call SaveChanges()
 
@@ -1339,18 +1339,18 @@ Err_Renamed:
 
     Private Sub cmdBmpDelete_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBMPDelete.Click
 
-        Dim strTemp As New VB6.FixedLengthString(7)
+        Dim strTemp As String = Space(7)
 
         With lstBMP
 
             If Len(modMain.GetItemString(lstBMP, .SelectedIndex)) > 7 Then
 
-                strTemp.Value = "#BMP00:"
+                strTemp = "#BMP00:"
 
-                Mid(strTemp.Value, 5, 2) = strFromLong(.SelectedIndex + 1)
+                Mid(strTemp, 5, 2) = strFromLong(.SelectedIndex + 1)
                 g_strBMP(lngFromLong(.SelectedIndex + 1)) = ""
 
-                modMain.SetItemString(lstBMP, .SelectedIndex, strTemp.Value)
+                modMain.SetItemString(lstBMP, .SelectedIndex, strTemp)
 
                 Call SaveChanges()
 
@@ -1573,7 +1573,7 @@ Err_Renamed:
 
     Private Sub cmdSoundDelete_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSoundDelete.Click
 
-        Dim strTemp As New VB6.FixedLengthString(7)
+        Dim strTemp As String = Space(7)
 
         Call mciSendString("close PREVIEW", vbNullString, 0, 0)
 
@@ -1581,7 +1581,7 @@ Err_Renamed:
 
             If Len(modMain.GetItemString(lstWAV, .SelectedIndex)) > 7 Then
 
-                strTemp.Value = "#WAV00:"
+                strTemp = "#WAV00:"
 
                 'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
 
@@ -1595,10 +1595,10 @@ Err_Renamed:
 
                 'End If
 
-                Mid(strTemp.Value, 5, 2) = strFromLong(.SelectedIndex + 1)
+                Mid(strTemp, 5, 2) = strFromLong(.SelectedIndex + 1)
                 g_strWAV(lngFromLong(.SelectedIndex + 1)) = ""
 
-                modMain.SetItemString(lstWAV, .SelectedIndex, strTemp.Value)
+                modMain.SetItemString(lstWAV, .SelectedIndex, strTemp)
 
                 Call SaveChanges()
 
