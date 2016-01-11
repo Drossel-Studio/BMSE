@@ -148,7 +148,7 @@ Friend Class frmMain
         End With
 
         'Y 軸固定移動
-        If Shift And VB6.ShiftConstants.ShiftMask Then
+        If Shift And Keys.Shift Then
 
             newObj.lngPosition = oldObj.lngPosition
 
@@ -1783,7 +1783,7 @@ Err_Renamed:
         End If
 
         'Shift が押されていたら3回繰り返すよ
-        If Shift And VB6.ShiftConstants.ShiftMask Then j = 2
+        If Shift And Keys.Shift Then j = 2
 
         For i = 0 To j
 
@@ -1795,7 +1795,7 @@ Err_Renamed:
 
                         If lstWAV.SelectedIndex <> lstWAV.Items.Count - 1 Then
 
-                            If Shift And VB6.ShiftConstants.CtrlMask Then
+                            If Shift And Keys.Control Then
 
                                 Call cmdSoundExcDown_Click(cmdSoundExcDown, New System.EventArgs())
 
@@ -1811,7 +1811,7 @@ Err_Renamed:
 
                         If lstBMP.SelectedIndex <> lstBMP.Items.Count - 1 Then
 
-                            If Shift And VB6.ShiftConstants.CtrlMask Then
+                            If Shift And Keys.Control Then
 
                                 Call cmdBMPExcDown_Click(cmdBMPExcDown, New System.EventArgs())
 
@@ -1834,7 +1834,7 @@ Err_Renamed:
 
                         If lstWAV.SelectedIndex <> 0 Then
 
-                            If Shift And VB6.ShiftConstants.CtrlMask Then
+                            If Shift And Keys.Control Then
 
                                 Call cmdSoundExcUp_Click(cmdSoundExcUp, New System.EventArgs())
 
@@ -1850,7 +1850,7 @@ Err_Renamed:
 
                         If lstBMP.SelectedIndex <> 0 Then
 
-                            If Shift And VB6.ShiftConstants.CtrlMask Then
+                            If Shift And Keys.Control Then
 
                                 Call cmdBMPExcUp_Click(cmdBMPExcUp, New System.EventArgs())
 
@@ -2246,14 +2246,9 @@ Err_Renamed:
     End Sub
 
     Private Sub lstBMP_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles lstBMP.MouseDown
-        Dim Button As Short = eventArgs.Button \ &H100000
-        Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys \ &H10000
-        Dim X As Single = VB6.PixelsToTwipsX(eventArgs.X)
-        Dim Y As Single = VB6.PixelsToTwipsY(eventArgs.Y)
+        If eventArgs.Button = Windows.Forms.MouseButtons.Right Then
 
-        If Button = VB6.MouseButtonConstants.RightButton Then
-
-            Me.ContextMenuStrip = mnuContextList
+            mnuContextList.Show(Me, eventArgs.X, eventArgs.Y)
 
         End If
 
@@ -2401,14 +2396,9 @@ Err_Renamed:
     End Sub
 
     Private Sub lstWAV_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles lstWAV.MouseDown
-        Dim Button As Short = eventArgs.Button \ &H100000
-        Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys \ &H10000
-        Dim X As Single = VB6.PixelsToTwipsX(eventArgs.X)
-        Dim Y As Single = VB6.PixelsToTwipsY(eventArgs.Y)
+        If eventArgs.Button = Windows.Forms.MouseButtons.Right Then
 
-        If Button = VB6.MouseButtonConstants.RightButton Then
-
-            Me.ContextMenuStrip = mnuContextList
+            mnuContextList.Show(Me, eventArgs.X, eventArgs.Y)
 
         End If
 
@@ -4537,22 +4527,10 @@ Err_Renamed:
         Dim lngTemp As Integer
         Dim intTemp As Short
         Dim blnTemp As Boolean
-        Dim shift As Short
 
         blnTemp = True
 
-        shift = 0
-        If (e.Modifiers And Keys.Shift) = Keys.Shift Then
-            shift = shift Or VB6.ShiftConstants.ShiftMask
-        End If
-        If (e.Modifiers And Keys.Control) = Keys.Control Then
-            shift = shift Or VB6.ShiftConstants.CtrlMask
-        End If
-        If (e.Modifiers And Keys.Alt) = Keys.Alt Then
-            shift = shift Or VB6.ShiftConstants.AltMask
-        End If
-
-        g_Mouse.Shift = shift
+        g_Mouse.Shift = e.Modifiers
 
         lngTemp = vsbMain.Value
         intTemp = hsbMain.Value
@@ -4671,13 +4649,13 @@ Err_Renamed:
 
                 If g_SelectArea.blnFlag = True Or (g_Obj(UBound(g_Obj)).intCh <> 0 And g_Mouse.Button <> 0) Then
 
-                    Call picMain_MouseMove(picMain, New System.Windows.Forms.MouseEventArgs(VB6.MouseButtonConstants.LeftButton * &H100000, 0, g_Mouse.X, g_Mouse.Y, 0))
+                    Call picMain_MouseMove(picMain, New System.Windows.Forms.MouseEventArgs(Windows.Forms.MouseButtons.Left, 0, g_Mouse.X, g_Mouse.Y, 0))
 
                 End If
 
             Else
 
-                Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, shift)
+                Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, e.Modifiers)
 
             End If
 
@@ -4686,21 +4664,7 @@ Err_Renamed:
     End Sub
 
     Private Sub picMain_KeyUp(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles picMain.KeyUp
-
-        Dim shift As Short
-
-        shift = 0
-        If (e.Modifiers And Keys.Shift) = Keys.Shift Then
-            shift = shift Or VB6.ShiftConstants.ShiftMask
-        End If
-        If (e.Modifiers And Keys.Control) = Keys.Control Then
-            shift = shift Or VB6.ShiftConstants.CtrlMask
-        End If
-        If (e.Modifiers And Keys.Alt) = Keys.Alt Then
-            shift = shift Or VB6.ShiftConstants.AltMask
-        End If
-
-        g_Mouse.Shift = shift
+        g_Mouse.Shift = e.Modifiers
 
         Select Case e.KeyCode
 
@@ -4708,7 +4672,7 @@ Err_Renamed:
 
                 If tlbMenu.Items.Item("Write").Pressed = True Then
 
-                    Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, shift)
+                    Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, e.Modifiers)
 
                 End If
 
@@ -4717,11 +4681,9 @@ Err_Renamed:
     End Sub
 
     Private Sub picMain_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles picMain.MouseDown
-        Dim Button As Short = eventArgs.Button \ &H100000
-        Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys \ &H10000
-        Dim X As Single = eventArgs.X
-        Dim Y As Single = eventArgs.Y
         On Error GoTo Err_Renamed
+
+        Dim Shift As Keys = System.Windows.Forms.Control.ModifierKeys
 
         Dim strTemp As String
         'Dim intNum      As Long
@@ -4734,7 +4696,7 @@ Err_Renamed:
 
         m_blnMouseDown = True
 
-        If Button = VB6.MouseButtonConstants.LeftButton Then '左クリック
+        If eventArgs.Button = Windows.Forms.MouseButtons.Left Then '左クリック
 
             If tlbMenu.Items.Item("Delete").Pressed = True Then
 
@@ -4775,7 +4737,7 @@ Err_Renamed:
 
                     If g_Obj(g_Obj(UBound(g_Obj)).lngHeight).intSelect <> modMain.OBJ_SELECT.NON_SELECT Then '複数選択っぽいよ
 
-                        If Shift And VB6.ShiftConstants.CtrlMask Then
+                        If Shift And System.Windows.Forms.Keys.Control Then
 
                             tempObj = g_Obj(UBound(g_Obj))
 
@@ -4898,7 +4860,7 @@ Err_Renamed:
 
                     Else '単数選択っぽいよ
 
-                        If Not Shift And VB6.ShiftConstants.CtrlMask Then
+                        If Not Shift And System.Windows.Forms.Keys.Control Then
 
                             Call modDraw.ObjSelectCancel()
 
@@ -4993,7 +4955,7 @@ Err_Renamed:
 
                 Else 'オブジェのないところで押したっぽいよ
 
-                    If Not Shift And VB6.ShiftConstants.CtrlMask Then
+                    If Not Shift And System.Windows.Forms.Keys.Control Then
 
                         Call modDraw.ObjSelectCancel()
 
@@ -5023,8 +4985,8 @@ Err_Renamed:
 
                         .blnFlag = True
                         '.X1 = (X + g_disp.X) / g_disp.Width
-                        .X1 = X / g_disp.Width + g_disp.X
-                        .Y1 = (picMain.ClientRectangle.Height - Y) / g_disp.Height + g_disp.Y
+                        .X1 = eventArgs.X / g_disp.Width + g_disp.X
+                        .Y1 = (picMain.ClientRectangle.Height - eventArgs.Y) / g_disp.Height + g_disp.Y
                         .X2 = .X1
                         .Y2 = .Y1
 
@@ -5050,20 +5012,20 @@ Err_Renamed:
 
             End If
 
-        ElseIf Button = VB6.MouseButtonConstants.RightButton Then  '右クリック
+        ElseIf eventArgs.Button = Windows.Forms.MouseButtons.Right Then  '右クリック
 
             With g_Mouse
 
-                .Button = Button
+                .Button = eventArgs.Button
                 .Shift = Shift
-                .X = X
-                .Y = Y
+                .X = eventArgs.X
+                .Y = eventArgs.Y
 
             End With
 
-            Call DrawObjMax(X, Y, Shift)
+            Call DrawObjMax(eventArgs.X, eventArgs.Y, Shift)
 
-        ElseIf Button = VB6.MouseButtonConstants.MiddleButton Then  '中クリック
+        ElseIf eventArgs.Button = Windows.Forms.MouseButtons.Middle Then  '中クリック
 
             'オブジェ削除
             If g_Obj(UBound(g_Obj)).lngHeight < UBound(g_Obj) Then 'オブジェ選択中
@@ -5100,10 +5062,6 @@ Err_Renamed:
     End Sub
 
     Private Sub picMain_MouseUp(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles picMain.MouseUp
-        Dim Button As Short = eventArgs.Button \ &H100000
-        Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys \ &H10000
-        Dim X As Single = eventArgs.X
-        Dim Y As Single = eventArgs.Y
         On Error GoTo Err_Renamed
 
         Dim i As Integer
@@ -5126,7 +5084,7 @@ Err_Renamed:
 
         m_blnMouseDown = False
 
-        If Button = VB6.MouseButtonConstants.LeftButton Then
+        If eventArgs.Button = Windows.Forms.MouseButtons.Left Then
 
             If tlbMenu.Items.Item("Write").Pressed = True Then
 
@@ -5350,9 +5308,9 @@ Err_Renamed:
 
             End If
 
-        ElseIf Button = VB6.MouseButtonConstants.RightButton Then
+        ElseIf eventArgs.Button = Windows.Forms.MouseButtons.Right Then
 
-            If Not m_blnIgnoreMenu Then Me.ContextMenuStrip = mnuContext
+            If Not m_blnIgnoreMenu Then mnuContext.Show(Me, eventArgs.X, eventArgs.Y)
 
             m_blnIgnoreMenu = False
 
@@ -5365,10 +5323,7 @@ Err_Renamed:
     End Sub
 
     Public Sub picMain_MouseMove(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles picMain.MouseMove
-        Dim Button As Short = eventArgs.Button \ &H100000
-        Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys \ &H10000
-        Dim X As Single = eventArgs.X
-        Dim Y As Single = eventArgs.Y
+        Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys
         On Error GoTo Err_Renamed
 
         Dim i As Integer
@@ -5379,7 +5334,7 @@ Err_Renamed:
         Dim blnYAxisFixed As Boolean
 
         'VB6 バグ対策
-        If Button And VB6.MouseButtonConstants.LeftButton Then
+        If eventArgs.Button And Windows.Forms.MouseButtons.Left Then
 
             If Not m_blnMouseDown Then
 
@@ -5393,19 +5348,19 @@ Err_Renamed:
         Dim str_Renamed As String
         If Not g_SelectArea.blnFlag Then '選択範囲なし
 
-            If Button = VB6.MouseButtonConstants.LeftButton And tlbMenu.Items.Item("Edit").Pressed = True And g_Obj(UBound(g_Obj)).intCh <> 0 Then 'オブジェ移動中
+            If eventArgs.Button = Windows.Forms.MouseButtons.Left And tlbMenu.Items.Item("Edit").Pressed = True And g_Obj(UBound(g_Obj)).intCh <> 0 Then 'オブジェ移動中
 
-                Call MoveObj(X, Y, Shift)
+                Call MoveObj(eventArgs.X, eventArgs.Y, Shift)
 
                 'Y 軸固定移動
-                If Shift And VB6.ShiftConstants.ShiftMask Then blnYAxisFixed = True
+                If Shift And Keys.Shift Then blnYAxisFixed = True
 
             Else 'それ以外
 
-                Call modDraw.DrawObjMax(X, Y, Shift)
+                Call modDraw.DrawObjMax(eventArgs.X, eventArgs.Y, Shift)
 
                 'スポイト機能
-                If Button = VB6.MouseButtonConstants.RightButton And g_Obj(UBound(g_Obj)).lngHeight < UBound(g_Obj) Then
+                If eventArgs.Button = Windows.Forms.MouseButtons.Right And g_Obj(UBound(g_Obj)).lngHeight < UBound(g_Obj) Then
 
                     With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
 
@@ -5474,18 +5429,18 @@ Err_Renamed:
 
             With g_Mouse
 
-                .Button = Button
+                .Button = eventArgs.Button
                 .Shift = Shift
-                .X = X
-                .Y = Y
+                .X = eventArgs.X
+                .Y = eventArgs.Y
 
             End With
 
             With g_SelectArea
 
                 '.X2 = (X + g_disp.X) / g_disp.Width
-                .X2 = X / g_disp.Width + g_disp.X
-                .Y2 = (picMain.ClientRectangle.Height - Y) / g_disp.Height + g_disp.Y
+                .X2 = eventArgs.X / g_disp.Width + g_disp.X
+                .Y2 = (picMain.ClientRectangle.Height - eventArgs.Y) / g_disp.Height + g_disp.Y
 
             End With
 
@@ -5674,20 +5629,20 @@ Err_Renamed:
 
         With g_Mouse
 
-            .Button = Button
+            .Button = eventArgs.Button
             .Shift = Shift
-            .X = X
-            If Not blnYAxisFixed Then .Y = Y
+            .X = eventArgs.X
+            If Not blnYAxisFixed Then .Y = eventArgs.Y
 
         End With
 
         m_intScrollDir = 0
 
-        If X < 0 Then
+        If eventArgs.X < 0 Then
 
             m_intScrollDir = 20
 
-        ElseIf X > picMain.ClientRectangle.Width Then
+        ElseIf eventArgs.X > picMain.ClientRectangle.Width Then
 
             m_intScrollDir = 10
 
@@ -5695,11 +5650,11 @@ Err_Renamed:
 
         If Not blnYAxisFixed Then
 
-            If Y < 0 Then
+            If eventArgs.Y < 0 Then
 
                 m_intScrollDir = m_intScrollDir + 1
 
-            ElseIf Y > picMain.ClientRectangle.Height Then
+            ElseIf eventArgs.Y > picMain.ClientRectangle.Height Then
 
                 m_intScrollDir = m_intScrollDir + 2
 
@@ -5914,7 +5869,7 @@ Err_Renamed:
 
         If m_intScrollDir Then
 
-            Call picMain_MouseMove(picMain, New System.Windows.Forms.MouseEventArgs(VB6.MouseButtonConstants.LeftButton * &H100000, 0, g_Mouse.X, g_Mouse.Y, 0))
+            Call picMain_MouseMove(picMain, New System.Windows.Forms.MouseEventArgs(Windows.Forms.MouseButtons.Left, 0, g_Mouse.X, g_Mouse.Y, 0))
             'Call MoveObj(g_Mouse.X, g_Mouse.Y, g_Mouse.Shift)
 
         End If

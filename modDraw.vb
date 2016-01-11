@@ -1521,11 +1521,11 @@ Err_Renamed:
 
                 If 10 < .intCh And .intCh < 30 Then 'オブジェはキーオブジェである
 
-                    If Shift And VB6.ShiftConstants.CtrlMask Then '不可視オブジェ
+                    If Shift And Keys.Control Then '不可視オブジェ
 
                         .intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE
 
-                    ElseIf Shift And VB6.ShiftConstants.ShiftMask Then  'ロングノート
+                    ElseIf Shift And Keys.Shift Then  'ロングノート
 
                         .intCh = .intCh + 40
                         .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE

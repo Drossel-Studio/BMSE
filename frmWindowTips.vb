@@ -14,13 +14,11 @@ Friend Class frmWindowTips
 	Dim m_strTips() As String
 	Dim m_intTipsPos As Short
 	Dim m_lngTipsNum As Integer
-	
-	'UPGRADE_WARNING: イベント chkNextDisp.CheckStateChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
-	Private Sub chkNextDisp_CheckStateChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles chkNextDisp.CheckStateChanged
-		
-		Dim i As Integer
-		Dim lngTemp As Integer
-		Dim lngArg As Integer
+
+    'UPGRADE_WARNING: イベント chkNextDisp.CheckStateChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
+    Private Sub chkNextDisp_CheckStateChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles chkNextDisp.CheckStateChanged
+        Dim lngTemp As Integer
+        Dim lngArg As Integer
 
         If frmMain._mnuLanguage_0.Checked Then
             If g_strLangFileName(0) <> "japanese.ini" Then

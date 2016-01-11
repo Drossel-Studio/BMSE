@@ -224,10 +224,10 @@ Module modMain
     Public g_strAppTitle As String
 
     Public Structure m_udtMouse
-        Dim X As Single
-        Dim Y As Single
-        Dim Shift As Short
-        Dim Button As Short
+        Dim X As Integer
+        Dim Y As Integer
+        Dim Shift As Keys
+        Dim Button As MouseButtons
         Dim measure As Short
     End Structure
 
