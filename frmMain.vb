@@ -784,7 +784,7 @@ Err_Renamed:
                 .txtMain.Text = VB6.Format(g_disp.Height, "#0.00")
                 If .txtMain.Text = "100.00" Then .txtMain.Text = "1.00"
 
-                Call VB6.ShowForm(frmWindowInput, VB6.FormShowConstants.Modal, Me)
+                Call frmWindowInput.ShowDialog(Me)
 
                 sngTemp = System.Math.Round(Val(.txtMain.Text), 2)
 
@@ -860,7 +860,7 @@ Err_Renamed:
                 .txtMain.Text = VB6.Format(g_disp.Width, "#0.00")
                 If .txtMain.Text = "100.00" Then .txtMain.Text = "1.00"
 
-                Call VB6.ShowForm(frmWindowInput, VB6.FormShowConstants.Modal, Me)
+                Call frmWindowInput.ShowDialog(Me)
 
                 sngTemp = System.Math.Round(Val(.txtMain.Text), 2)
 
@@ -942,7 +942,7 @@ Err_Renamed:
                 '.Left = frmMain.Left + (frmMain.Width - .Width) \ 2
                 '.Top = frmMain.Top + (frmMain.Height - .Height) \ 2
 
-                Call VB6.ShowForm(frmWindowPreview, 0, Me)
+                Call frmWindowPreview.Show(Me)
 
             Else
 
@@ -1329,7 +1329,7 @@ Err_Renamed:
             If .Visible Then
 
                 Call PreviewBGA(lstBGA.SelectedIndex + 1)
-                Call VB6.ShowForm(frmWindowPreview, 0, Me)
+                Call frmWindowPreview.Show(Me)
 
             End If
 
@@ -1390,7 +1390,7 @@ Err_Renamed:
             If .Visible Then
 
                 Call PreviewBMP(Mid(modMain.GetItemString(lstBMP, lstBMP.SelectedIndex), 8))
-                Call VB6.ShowForm(frmWindowPreview, 0, Me)
+                Call frmWindowPreview.Show(Me)
 
             End If
 
@@ -1507,7 +1507,7 @@ Err_Renamed:
                 '.Left = frmMain.Left + (frmMain.Width - .Width) \ 2
                 '.Top = frmMain.Top + (frmMain.Height - .Height) \ 2
 
-                Call VB6.ShowForm(frmWindowPreview, 0, Me)
+                Call frmWindowPreview.Show(Me)
 
             Else
 
@@ -2698,7 +2698,7 @@ Err_Renamed:
                             .lblMainDisp.Text = g_Message(modMain.Message.INPUT_RENAME)
                             .txtMain.Text = strTemp
 
-                            Call VB6.ShowForm(frmWindowInput, VB6.FormShowConstants.Modal, Me)
+                            Call frmWindowInput.ShowDialog(Me)
 
                         End With
 
@@ -2746,7 +2746,7 @@ Err_Renamed:
                             .lblMainDisp.Text = g_Message(modMain.Message.INPUT_RENAME)
                             .txtMain.Text = strTemp
 
-                            Call VB6.ShowForm(frmWindowInput, VB6.FormShowConstants.Modal, Me)
+                            Call frmWindowInput.ShowDialog(Me)
 
                         End With
 
@@ -2812,7 +2812,7 @@ Err_Renamed:
 
             End If
 
-            Call VB6.ShowForm(frmWindowFind, 0, Me)
+            Call frmWindowFind.Show(Me)
 
         End With
 
@@ -3570,7 +3570,7 @@ Err_Renamed:
 
         End With
 
-        Call VB6.ShowForm(frmWindowConvert, VB6.FormShowConstants.Modal, Me)
+        Call frmWindowConvert.ShowDialog(Me)
 
     End Sub
 
@@ -3704,7 +3704,7 @@ Err_Renamed:
             .Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.Left) + (VB6.PixelsToTwipsX(Me.Width) - VB6.PixelsToTwipsX(.Width)) \ 2)
             .Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(Me.Top) + (VB6.PixelsToTwipsY(Me.Height) - VB6.PixelsToTwipsY(.Height)) \ 2)
 
-            Call VB6.ShowForm(frmWindowViewer, VB6.FormShowConstants.Modal, Me)
+            Call frmWindowViewer.ShowDialog(Me)
 
         End With
 
@@ -4503,11 +4503,11 @@ Err_Renamed:
                 Case _optChangeBottom_1.Name
                     _fraBottom_1.Visible = True
                 Case _optChangeBottom_2.Name
-                    _fraBottom_0.Visible = True
+                    _fraBottom_2.Visible = True
                 Case _optChangeBottom_3.Name
-                    _fraBottom_0.Visible = True
+                    _fraBottom_3.Visible = True
                 Case _optChangeBottom_4.Name
-                    _fraBottom_0.Visible = True
+                    _fraBottom_4.Visible = True
             End Select
 
         End If
@@ -4518,7 +4518,7 @@ Err_Renamed:
         If eventSender.Checked Then
             _fraTop_0.Visible = False
             _fraTop_1.Visible = False
-            _fraTop_1.Visible = False
+            _fraTop_2.Visible = False
 
             Select Case DirectCast(eventSender, RadioButton).Name
                 Case _optChangeTop_0.Name
@@ -5141,7 +5141,7 @@ Err_Renamed:
                                 .lblMainDisp.Text = g_Message(modMain.Message.INPUT_BPM)
                                 .txtMain.Text = "" 'strTemp
 
-                                Call VB6.ShowForm(frmWindowInput, VB6.FormShowConstants.Modal, Me)
+                                Call frmWindowInput.ShowDialog(Me)
 
                             End With
 
@@ -5177,7 +5177,7 @@ Err_Renamed:
                                 .lblMainDisp.Text = g_Message(modMain.Message.INPUT_STOP)
                                 .txtMain.Text = "" 'strTemp
 
-                                Call VB6.ShowForm(frmWindowInput, VB6.FormShowConstants.Modal, Me)
+                                Call frmWindowInput.ShowDialog(Me)
 
                             End With
 
@@ -6244,7 +6244,7 @@ Err_Renamed:
                 .Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.Left) + (VB6.PixelsToTwipsX(Me.Width) - VB6.PixelsToTwipsX(.Width)) \ 2)
                 .Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(Me.Top) + (VB6.PixelsToTwipsY(Me.Height) - VB6.PixelsToTwipsY(.Height)) \ 2)
 
-                Call VB6.ShowForm(frmWindowTips, VB6.FormShowConstants.Modal, Me)
+                Call frmWindowTips.ShowDialog(Me)
 
             End With
 

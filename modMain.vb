@@ -1795,13 +1795,13 @@ Err_Renamed:
                 ._mnuLanguage_2.Checked = True
             End If
 
-            frmWindowAbout.Show()
-            frmWindowFind.Show()
-            frmWindowInput.Show()
-            frmWindowPreview.Show()
-            frmWindowTips.Show()
-            frmWindowViewer.Show()
-            frmWindowConvert.Show()
+            'frmWindowAbout.Show()
+            'frmWindowFind.Show()
+            'frmWindowInput.Show()
+            'frmWindowPreview.Show()
+            'frmWindowTips.Show()
+            'frmWindowViewer.Show()
+            'frmWindowConvert.Show()
 
             Call LoadLanguageFile("lang\" & strTemp)
 

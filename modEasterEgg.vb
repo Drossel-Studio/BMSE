@@ -218,10 +218,10 @@ Module modEasterEgg
 						
 						.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(frmMain.Left) + (VB6.PixelsToTwipsX(frmMain.Width) - VB6.PixelsToTwipsX(.Width)) \ 2)
 						.Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(frmMain.Top) + (VB6.PixelsToTwipsY(frmMain.Height) - VB6.PixelsToTwipsY(.Height)) \ 2)
-						
-						Call VB6.ShowForm(frmWindowTips, VB6.FormShowConstants.Modal, frmMain)
-						
-					End With
+
+                        Call frmWindowTips.ShowDialog(frmMain)
+
+                    End With
 					
 				ElseIf Right(buf.Value, 4) = "SNOW" Then  'SNOW
 
