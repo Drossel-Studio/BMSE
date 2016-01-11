@@ -2163,7 +2163,6 @@ Err_Renamed:
         Call modDraw.InitVerticalLine()
     End Sub
 
-    'UPGRADE_NOTE: hsbMain.Change はイベントからプロシージャに変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="4E2DC008-5EDA-4547-8317-C9316952674F"' をクリックしてください。
     'UPGRADE_WARNING: HScrollBar イベント hsbMain.Change には新しい動作が含まれます。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' をクリックしてください。
     Private Sub hsbMain_Change(ByVal newScrollValue As Integer)
 
@@ -2180,7 +2179,6 @@ Err_Renamed:
 
     End Sub
 
-    'UPGRADE_NOTE: hsbMain.Scroll はイベントからプロシージャに変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="4E2DC008-5EDA-4547-8317-C9316952674F"' をクリックしてください。
     Private Sub hsbMain_Scroll_Renamed(ByVal newScrollValue As Integer)
 
         Call hsbMain_Change(0)
@@ -4421,7 +4419,6 @@ Err_Renamed:
 
         Dim strArray() As String
 
-        'UPGRADE_WARNING: CommonDialog 変数はアップグレードされませんでした 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="671167DC-EA81-475D-B690-7A40C7BF4A23"' をクリックしてください。
         With dlgMainSave
 
             'UPGRADE_WARNING: Filter に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
@@ -5993,7 +5990,6 @@ Err_Renamed:
 
     End Sub
 
-    'UPGRADE_NOTE: vsbMain.Change はイベントからプロシージャに変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="4E2DC008-5EDA-4547-8317-C9316952674F"' をクリックしてください。
     'UPGRADE_WARNING: VScrollBar イベント vsbMain.Change には新しい動作が含まれます。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' をクリックしてください。
     Private Sub vsbMain_Change(ByVal newScrollValue As Integer)
         On Error Resume Next
@@ -6012,7 +6008,6 @@ Err_Renamed:
 
     End Sub
 
-    'UPGRADE_NOTE: vsbMain.Scroll はイベントからプロシージャに変更されました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="4E2DC008-5EDA-4547-8317-C9316952674F"' をクリックしてください。
     Private Sub vsbMain_Scroll_Renamed(ByVal newScrollValue As Integer)
 
         Call vsbMain_Change(0)
