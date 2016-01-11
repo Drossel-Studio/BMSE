@@ -571,9 +571,9 @@ Err_Renamed:
 		Dim intMeasure As Short
 		Dim intCh As Short
 		Dim lngSepaNum As Integer
-		Dim Value As New VB6.FixedLengthString(2)
-		
-		intMeasure = Val(Mid(strFunc, 2, 3))
+        Dim Value As New VB6.FixedLengthString(2)
+
+        intMeasure = Val(Mid(strFunc, 2, 3))
 		intCh = Val(Mid(strFunc, 5, 2))
 		
 		lngSepaNum = Len(strParam) \ 2

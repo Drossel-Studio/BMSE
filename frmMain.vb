@@ -741,13 +741,13 @@ Err_Renamed:
 
     Private Sub cboDirectInput_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDirectInput.Enter
 
-        VB6.SetDefault(cmdDirectInput, True)
+        Me.AcceptButton = cmdDirectInput
 
     End Sub
 
     Private Sub cboDirectInput_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDirectInput.Leave
 
-        VB6.SetDefault(cmdDirectInput, False)
+        Me.AcceptButton = NoThing
 
     End Sub
 
