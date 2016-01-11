@@ -534,9 +534,9 @@ Err_Renamed:
 
             '.Width = frmMain.hsbDispWidth.Value / 100
             '.Height = frmMain.hsbDispHeight.Value / 100
-            .Width = VB6.GetItemData(frmMain.cboDispWidth, frmMain.cboDispWidth.SelectedIndex) / 100
+            .Width = CType(frmMain.cboDispWidth.SelectedItem, modMain.ItemWithData).ItemData / 100
             Dim inasdka As Integer = frmMain.cboDispHeight.SelectedIndex
-            .Height = VB6.GetItemData(frmMain.cboDispHeight, frmMain.cboDispHeight.SelectedIndex) / 100
+            .Height = CType(frmMain.cboDispHeight.SelectedItem, modMain.ItemWithData).ItemData / 100
             .intStartMeasure = 999
             .intEndMeasure = 999
             .lngStartPos = .Y - OBJ_HEIGHT
@@ -930,11 +930,11 @@ Err_Renamed:
         '横線(灰色)
         With frmMain.cboDispGridSub
 
-            If VB6.GetItemData(frmMain.cboDispGridSub, .SelectedIndex) Then
+            If CType(frmMain.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
 
                 For i = g_disp.intStartMeasure To g_disp.intEndMeasure
 
-                    intTemp = 192 \ VB6.GetItemData(frmMain.cboDispGridSub, .SelectedIndex)
+                    intTemp = 192 \ CType(frmMain.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData
 
                     For j = 0 To g_Measure(i).intLen Step intTemp
 
@@ -960,11 +960,11 @@ Err_Renamed:
         '横線(灰色・補助)
         With frmMain.cboDispGridMain
 
-            If VB6.GetItemData(frmMain.cboDispGridMain, .SelectedIndex) Then
+            If CType(frmMain.cboDispGridMain.SelectedItem, modMain.ItemWithData).ItemData Then
 
                 For i = g_disp.intStartMeasure To g_disp.intEndMeasure
 
-                    intTemp = 192 \ VB6.GetItemData(frmMain.cboDispGridMain, .SelectedIndex)
+                    intTemp = 192 \ CType(frmMain.cboDispGridMain.SelectedItem, modMain.ItemWithData).ItemData
 
                     For j = intTemp To g_Measure(i).intLen Step intTemp
 
@@ -1537,9 +1537,9 @@ Err_Renamed:
                 'オブジェ位置をグリッドにあわせる
                 'If Shift And vbAltMask Then
 
-                If VB6.GetItemData(frmMain.cboDispGridSub, frmMain.cboDispGridSub.SelectedIndex) Then
+                If CType(frmMain.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
 
-                    lngTemp = 192 \ (VB6.GetItemData(frmMain.cboDispGridSub, frmMain.cboDispGridSub.SelectedIndex))
+                    lngTemp = 192 \ (CType(frmMain.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData)
                     .lngPosition = (.lngPosition \ lngTemp) * lngTemp
 
                 End If
@@ -1818,7 +1818,7 @@ Err_Renamed:
 
             'If Not Shift And vbAltMask Then
 
-            lngTemp = VB6.GetItemData(frmMain.cboDispGridSub, frmMain.cboDispGridSub.SelectedIndex)
+            lngTemp = CType(frmMain.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData
 
             'End If
 
@@ -1829,9 +1829,9 @@ Err_Renamed:
 
                     lngTemp = modInput.intGCD(.lngPosition, g_Measure(.intMeasure).intLen)
 
-                    If 192 \ VB6.GetItemData(frmMain.cboDispGridSub, frmMain.cboDispGridSub.SelectedIndex) < lngTemp Then
+                    If 192 \ CType(frmMain.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData < lngTemp Then
 
-                        lngTemp = VB6.GetItemData(frmMain.cboDispGridSub, frmMain.cboDispGridSub.SelectedIndex)
+                        lngTemp = CType(frmMain.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData
 
                     Else
 
@@ -1936,7 +1936,7 @@ Err_Renamed:
 
             frmMain.staMain.Items.Item("Position").Text = strTemp
 
-            strArray = Split(Mid(VB6.GetItemString(frmMain.lstMeasureLen, .intMeasure), 6), "/")
+            strArray = Split(Mid(modMain.GetItemString(frmMain.lstMeasureLen, .intMeasure), 6), "/")
 
             frmMain.staMain.Items.Item("Measure").Text = Right(" " & strArray(0), 2) & "/" & Left(strArray(1) & " ", 2)
 
@@ -2091,8 +2091,7 @@ Err_Renamed:
 
                 If g_disp.intResolution <= lngTemp Then
 
-                    Call .Items.Insert(intTemp, CStr(lngTemp))
-                    VB6.SetItemData(frmMain.cboVScroll, intTemp, lngTemp \ g_disp.intResolution)
+                    Call .Items.Insert(intTemp, New modMain.ItemWithData(CStr(lngTemp), lngTemp \ g_disp.intResolution))
 
                     intTemp = intTemp + 1
 

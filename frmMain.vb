@@ -98,8 +98,8 @@ Friend Class frmMain
             'If Not Shift And vbAltMask Then
 
             'グリッドにあわせる
-            If VB6.GetItemData(Me.cboDispGridSub, Me.cboDispGridSub.SelectedIndex) Then
-                lngTemp = 192 \ (VB6.GetItemData(Me.cboDispGridSub, Me.cboDispGridSub.SelectedIndex))
+            If CType(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
+                lngTemp = 192 \ (CType(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData)
                 .lngPosition = (.lngPosition \ lngTemp) * lngTemp
 
                 'If Not Shift And vbShiftMask Then
@@ -134,9 +134,9 @@ Friend Class frmMain
 
             'If Not Shift And vbAltMask Then
 
-            If VB6.GetItemData(Me.cboDispGridSub, Me.cboDispGridSub.SelectedIndex) Then
+            If CType(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
 
-                lngTemp = 192 \ VB6.GetItemData(Me.cboDispGridSub, Me.cboDispGridSub.SelectedIndex)
+                lngTemp = 192 \ CType(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData
                 .lngPosition = (.lngPosition \ lngTemp) * lngTemp
 
             End If
@@ -687,9 +687,9 @@ Err_Renamed:
             strTemp.Value = modInput.strFromNum(i)
             lngTemp = modInput.strToNum(modInput.strFromNumZZ(i))
 
-            VB6.SetItemString(lstWAV, i - 1, "#WAV" & strTemp.Value & ":" & g_strWAV(i))
-            VB6.SetItemString(lstBMP, i - 1, "#BMP" & strTemp.Value & ":" & g_strBMP(i))
-            VB6.SetItemString(lstBGA, i - 1, "#BGA" & strTemp.Value & ":" & g_strBGA(i))
+            modMain.SetItemString(lstWAV, i - 1, "#WAV" & strTemp.Value & ":" & g_strWAV(i))
+            modMain.SetItemString(lstBMP, i - 1, "#BMP" & strTemp.Value & ":" & g_strBMP(i))
+            modMain.SetItemString(lstBGA, i - 1, "#BGA" & strTemp.Value & ":" & g_strBGA(i))
 
         Next i
 
@@ -800,16 +800,15 @@ Err_Renamed:
 
                 For i = 0 To cboDispHeight.Items.Count - 1
 
-                    If VB6.GetItemData(cboDispHeight, i) = sngTemp * 100 Then
+                    If CType(Me.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData = sngTemp * 100 Then
 
                         cboDispHeight.SelectedIndex = i
 
                         Exit For
 
-                    ElseIf VB6.GetItemData(cboDispHeight, i) > sngTemp * 100 Then
+                    ElseIf CType(Me.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData > sngTemp * 100 Then
 
-                        Call cboDispHeight.Items.Insert(i, "x" & VB6.Format(sngTemp, "#0.00"))
-                        VB6.SetItemData(cboDispHeight, i, sngTemp * 100)
+                        Call cboDispHeight.Items.Insert(i, New modMain.ItemWithData("x" & VB6.Format(sngTemp, "#0.00"), sngTemp * 100))
                         cboDispHeight.SelectedIndex = i
 
                         Exit For
@@ -877,16 +876,15 @@ Err_Renamed:
 
                 For i = 0 To cboDispWidth.Items.Count - 1
 
-                    If VB6.GetItemData(cboDispWidth, i) = sngTemp * 100 Then
+                    If CType(Me.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData = sngTemp * 100 Then
 
                         cboDispWidth.SelectedIndex = i
 
                         Exit For
 
-                    ElseIf VB6.GetItemData(cboDispWidth, i) > sngTemp * 100 Then
+                    ElseIf CType(Me.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData > sngTemp * 100 Then
 
-                        Call cboDispWidth.Items.Insert(i, "x" & VB6.Format(sngTemp, "#0.00"))
-                        VB6.SetItemData(cboDispWidth, i, sngTemp * 100)
+                        Call cboDispWidth.Items.Insert(i, New modMain.ItemWithData("x" & VB6.Format(sngTemp, "#0.00"), sngTemp * 100))
                         cboDispWidth.SelectedIndex = i
 
                         Exit For
@@ -913,7 +911,7 @@ Err_Renamed:
     Private Sub cboVScroll_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
         Dim NewLargeChange As Short
 
-        vsbMain.SmallChange = VB6.GetItemData(cboVScroll, cboVScroll.SelectedIndex)
+        vsbMain.SmallChange = CType(Me.cboVScroll.SelectedItem, modMain.ItemWithData).ItemData
         NewLargeChange = Me.vsbMain.SmallChange * 8
         vsbMain.Maximum = vsbMain.Maximum + NewLargeChange - vsbMain.LargeChange
         vsbMain.LargeChange = NewLargeChange
@@ -1208,7 +1206,7 @@ Err_Renamed:
 
                 For i = 1 To .Items.Count
 
-                    If .Text = VB6.GetItemString(cboDirectInput, i) Then
+                    If .Text = modMain.GetItemString(cboDirectInput, i) Then
 
                         Call .Items.RemoveAt(i)
 
@@ -1267,7 +1265,7 @@ Err_Renamed:
 
         With lstBGA
 
-            If Len(VB6.GetItemString(lstBGA, .SelectedIndex)) > 7 Then
+            If Len(modMain.GetItemString(lstBGA, .SelectedIndex)) > 7 Then
 
                 strTemp.Value = "#BGA00:"
 
@@ -1286,7 +1284,7 @@ Err_Renamed:
                 Mid(strTemp.Value, 5, 2) = strFromLong(.SelectedIndex + 1)
                 g_strBGA(lngFromLong(.SelectedIndex + 1)) = ""
 
-                VB6.SetItemString(lstBGA, .SelectedIndex, strTemp.Value)
+                modMain.SetItemString(lstBGA, .SelectedIndex, strTemp.Value)
 
                 Call SaveChanges()
 
@@ -1317,7 +1315,7 @@ Err_Renamed:
 
             'End If
 
-            VB6.SetItemString(lstBGA, .SelectedIndex, "#BGA" & strFromLong(.SelectedIndex + 1) & ":" & txtBGAInput.Text)
+            modMain.SetItemString(lstBGA, .SelectedIndex, "#BGA" & strFromLong(.SelectedIndex + 1) & ":" & txtBGAInput.Text)
             g_strBGA(lngFromLong(.SelectedIndex + 1)) = txtBGAInput.Text
 
             txtBGAInput.Text = ""
@@ -1345,14 +1343,14 @@ Err_Renamed:
 
         With lstBMP
 
-            If Len(VB6.GetItemString(lstBMP, .SelectedIndex)) > 7 Then
+            If Len(modMain.GetItemString(lstBMP, .SelectedIndex)) > 7 Then
 
                 strTemp.Value = "#BMP00:"
 
                 Mid(strTemp.Value, 5, 2) = strFromLong(.SelectedIndex + 1)
                 g_strBMP(lngFromLong(.SelectedIndex + 1)) = ""
 
-                VB6.SetItemString(lstBMP, .SelectedIndex, strTemp.Value)
+                modMain.SetItemString(lstBMP, .SelectedIndex, strTemp.Value)
 
                 Call SaveChanges()
 
@@ -1372,13 +1370,13 @@ Err_Renamed:
 
             'UPGRADE_WARNING: Filter に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
             .Filter = "Image files (*.bmp,*.jpg,*.gif)|*.bmp;*.jpg;*.gif|All files (*.*)|*.*"
-            .FileName = Mid(VB6.GetItemString(lstBMP, lstBMP.SelectedIndex), 8)
+            .FileName = Mid(modMain.GetItemString(lstBMP, lstBMP.SelectedIndex), 8)
 
             Call .ShowDialog()
 
             strArray = Split(.FileName, "\")
 
-            VB6.SetItemString(lstBMP, lstBMP.SelectedIndex, "#BMP" & strFromLong(lstBMP.SelectedIndex + 1) & ":" & strArray(UBound(strArray)))
+            modMain.SetItemString(lstBMP, lstBMP.SelectedIndex, "#BMP" & strFromLong(lstBMP.SelectedIndex + 1) & ":" & strArray(UBound(strArray)))
             g_strBMP(lngFromLong(lstBMP.SelectedIndex + 1)) = strArray(UBound(strArray))
 
             .InitialDirectory = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
@@ -1391,7 +1389,7 @@ Err_Renamed:
 
             If .Visible Then
 
-                Call PreviewBMP(Mid(VB6.GetItemString(lstBMP, lstBMP.SelectedIndex), 8))
+                Call PreviewBMP(Mid(modMain.GetItemString(lstBMP, lstBMP.SelectedIndex), 8))
                 Call VB6.ShowForm(frmWindowPreview, 0, Me)
 
             End If
@@ -1434,7 +1432,7 @@ Err_Renamed:
 
                 If .GetSelected(i) Then
 
-                    VB6.SetItemString(lstMeasureLen, i, "#" & VB6.Format(i, "000") & ":" & cboNumerator.Text & "/" & cboDenominator.Text)
+                    modMain.SetItemString(lstMeasureLen, i, "#" & VB6.Format(i, "000") & ":" & cboNumerator.Text & "/" & cboDenominator.Text)
                     lngTemp = (192 / CDbl(cboDenominator.Text)) * CDbl(cboNumerator.Text)
 
                     strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.MSR_CHANGE) & modInput.strFromNum(i) & VB.Right("00" & Hex(g_Measure(i).intLen), 3) & VB.Right("00" & Hex(lngTemp), 3)
@@ -1499,7 +1497,7 @@ Err_Renamed:
 
     Private Sub cmdBMPPreview_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBMPPreview.Click
 
-        Call PreviewBMP(Mid(VB6.GetItemString(lstBMP, lstBMP.SelectedIndex), 8))
+        Call PreviewBMP(Mid(modMain.GetItemString(lstBMP, lstBMP.SelectedIndex), 8))
 
         With frmWindowPreview
 
@@ -1581,7 +1579,7 @@ Err_Renamed:
 
         With lstWAV
 
-            If Len(VB6.GetItemString(lstWAV, .SelectedIndex)) > 7 Then
+            If Len(modMain.GetItemString(lstWAV, .SelectedIndex)) > 7 Then
 
                 strTemp.Value = "#WAV00:"
 
@@ -1600,7 +1598,7 @@ Err_Renamed:
                 Mid(strTemp.Value, 5, 2) = strFromLong(.SelectedIndex + 1)
                 g_strWAV(lngFromLong(.SelectedIndex + 1)) = ""
 
-                VB6.SetItemString(lstWAV, .SelectedIndex, strTemp.Value)
+                modMain.SetItemString(lstWAV, .SelectedIndex, strTemp.Value)
 
                 Call SaveChanges()
 
@@ -1639,11 +1637,11 @@ Err_Renamed:
             g_strWAV(intTemp) = g_strWAV(lngTemp)
             g_strWAV(lngTemp) = strTemp
 
-            VB6.SetItemString(lstWAV, .SelectedIndex + 1, "")
+            modMain.SetItemString(lstWAV, .SelectedIndex + 1, "")
             .SelectedIndex = .SelectedIndex + 1
 
-            VB6.SetItemString(lstWAV, .SelectedIndex, "#WAV" & strFromNum(intTemp) & ":" & g_strWAV(intTemp))
-            VB6.SetItemString(lstWAV, .SelectedIndex - 1, "#WAV" & strFromNum(lngTemp) & ":" & g_strWAV(lngTemp))
+            modMain.SetItemString(lstWAV, .SelectedIndex, "#WAV" & strFromNum(intTemp) & ":" & g_strWAV(intTemp))
+            modMain.SetItemString(lstWAV, .SelectedIndex - 1, "#WAV" & strFromNum(lngTemp) & ":" & g_strWAV(lngTemp))
 
         End With
 
@@ -1692,11 +1690,11 @@ Err_Renamed:
             g_strWAV(intTemp) = g_strWAV(lngTemp)
             g_strWAV(lngTemp) = strTemp
 
-            VB6.SetItemString(lstWAV, .SelectedIndex - 1, "")
+            modMain.SetItemString(lstWAV, .SelectedIndex - 1, "")
             .SelectedIndex = .SelectedIndex - 1
 
-            VB6.SetItemString(lstWAV, .SelectedIndex, "#WAV" & strFromNum(intTemp) & ":" & g_strWAV(intTemp))
-            VB6.SetItemString(lstWAV, .SelectedIndex + 1, "#WAV" & strFromNum(lngTemp) & ":" & g_strWAV(lngTemp))
+            modMain.SetItemString(lstWAV, .SelectedIndex, "#WAV" & strFromNum(intTemp) & ":" & g_strWAV(intTemp))
+            modMain.SetItemString(lstWAV, .SelectedIndex + 1, "#WAV" & strFromNum(lngTemp) & ":" & g_strWAV(lngTemp))
 
         End With
 
@@ -1739,14 +1737,14 @@ Err_Renamed:
 
             'UPGRADE_WARNING: Filter に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
             .Filter = "Sound files (*.wav,*.mp3)|*.wav;*.mp3|All files (*.*)|*.*"
-            .FileName = Mid(VB6.GetItemString(lstWAV, lstWAV.SelectedIndex), 8)
+            .FileName = Mid(modMain.GetItemString(lstWAV, lstWAV.SelectedIndex), 8)
 
             Call dlgMainOpen.ShowDialog()
             dlgMainSave.FileName = dlgMainOpen.FileName
 
             strArray = Split(.FileName, "\")
 
-            VB6.SetItemString(lstWAV, lstWAV.SelectedIndex, "#WAV" & strFromLong(lstWAV.SelectedIndex + 1) & ":" & strArray(UBound(strArray)))
+            modMain.SetItemString(lstWAV, lstWAV.SelectedIndex, "#WAV" & strFromLong(lstWAV.SelectedIndex + 1) & ":" & strArray(UBound(strArray)))
             g_strWAV(lngFromLong(lstWAV.SelectedIndex + 1)) = strArray(UBound(strArray))
 
             .InitialDirectory = VB.Left(dlgMainOpen.FileName, Len(dlgMainOpen.FileName) - Len(strArray(UBound(strArray))))
@@ -2206,7 +2204,7 @@ Err_Renamed:
 
         staMain.Items.Item("BMP").Text = "#BMP " & strFromLong(lstBGA.SelectedIndex + 1)
 
-        txtBGAInput.Text = Mid(VB6.GetItemString(lstBGA, lstBGA.SelectedIndex), 8)
+        txtBGAInput.Text = Mid(modMain.GetItemString(lstBGA, lstBGA.SelectedIndex), 8)
 
         If frmWindowPreview.Visible Then
 
@@ -2235,7 +2233,7 @@ Err_Renamed:
 
         If frmWindowPreview.Visible Then
 
-            Call PreviewBMP(Mid(VB6.GetItemString(lstBMP, lstBMP.SelectedIndex), 8))
+            Call PreviewBMP(Mid(modMain.GetItemString(lstBMP, lstBMP.SelectedIndex), 8))
 
         End If
 
@@ -2289,7 +2287,7 @@ Err_Renamed:
 
                     'If Right$(UCase$(strTemp), 4) = ".BMP" Or Right$(UCase$(strTemp), 4) = ".JPG" Or Right$(UCase$(strTemp), 4) = ".GIF" Then
 
-                    Do Until Len(VB6.GetItemString(lstBMP, j)) < 8
+                    Do Until Len(modMain.GetItemString(lstBMP, j)) < 8
 
                         j = j + 1
                         If j >= lstBMP.Items.Count Then Exit For
@@ -2311,7 +2309,7 @@ Err_Renamed:
 
                     'End If
 
-                    VB6.SetItemString(lstBMP, j, "#BMP" & strFromLong(j + 1) & ":" & strArray(UBound(strArray)))
+                    modMain.SetItemString(lstBMP, j, "#BMP" & strFromLong(j + 1) & ":" & strArray(UBound(strArray)))
                     g_strBMP(lngFromLong(j + 1)) = strArray(UBound(strArray))
 
                     j = j + 1
@@ -2338,7 +2336,7 @@ Err_Renamed:
 
         Dim strArray() As String
 
-        strArray = Split(Mid(VB6.GetItemString(lstMeasureLen, lstMeasureLen.SelectedIndex), 6), "/")
+        strArray = Split(Mid(modMain.GetItemString(lstMeasureLen, lstMeasureLen.SelectedIndex), 6), "/")
 
         cboNumerator.SelectedIndex = CDbl(strArray(0)) - 1
 
@@ -2386,7 +2384,7 @@ Err_Renamed:
 
         staMain.Items.Item("WAV").Text = "#WAV " & strTemp
 
-        strTemp = Mid(VB6.GetItemString(lstWAV, lstWAV.SelectedIndex), 8)
+        strTemp = Mid(modMain.GetItemString(lstWAV, lstWAV.SelectedIndex), 8)
 
         If strTemp = "" Then Exit Sub
         'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
@@ -2446,7 +2444,7 @@ Err_Renamed:
 
                     'If Right$(UCase$(strTemp), 4) = ".WAV" Or Right$(UCase$(strTemp), 4) = ".MP3" Then
 
-                    Do Until Len(VB6.GetItemString(lstWAV, j)) < 8
+                    Do Until Len(modMain.GetItemString(lstWAV, j)) < 8
 
                         j = j + 1
                         If j >= lstWAV.Items.Count Then Exit For
@@ -2468,7 +2466,7 @@ Err_Renamed:
 
                     'End If
 
-                    VB6.SetItemString(lstWAV, j, "#WAV" & strFromLong(j + 1) & ":" & strArray(UBound(strArray)))
+                    modMain.SetItemString(lstWAV, j, "#WAV" & strFromLong(j + 1) & ":" & strArray(UBound(strArray)))
                     g_strWAV(lngFromLong(j + 1)) = strArray(UBound(strArray))
 
                     Call SaveChanges()
@@ -2545,13 +2543,13 @@ Err_Renamed:
             With g_Measure(i)
 
                 .intLen = g_Measure(i + 1).intLen
-                VB6.SetItemString(lstMeasureLen, i, VB.Left(VB6.GetItemString(lstMeasureLen, i), 5) & Mid(VB6.GetItemString(lstMeasureLen, i + 1), 6))
+                modMain.SetItemString(lstMeasureLen, i, VB.Left(modMain.GetItemString(lstMeasureLen, i), 5) & Mid(modMain.GetItemString(lstMeasureLen, i + 1), 6))
 
             End With
 
         Next i
 
-        VB6.SetItemString(lstMeasureLen, 999, "#999:4/4")
+        modMain.SetItemString(lstMeasureLen, 999, "#999:4/4")
         g_Measure(999).intLen = 192
 
         Call g_InputLog.AddData(Join(strArray, modLog.getSeparator))
@@ -2602,7 +2600,7 @@ Err_Renamed:
                 'If .lngY < g_disp.Y + picMain.ScaleHeight - g_Mouse.Y - 6 Then
                 If .lngY < g_disp.Y + (picMain.ClientRectangle.Height - g_Mouse.Y) / g_disp.Height - 1 Then
 
-                    VB6.SetItemString(lstMeasureLen, i, "#" & VB6.Format(i, "000") & ":4/4")
+                    modMain.SetItemString(lstMeasureLen, i, "#" & VB6.Format(i, "000") & ":4/4")
                     .intLen = 192
                     intTemp = i
 
@@ -2610,7 +2608,7 @@ Err_Renamed:
 
                 End If
 
-                VB6.SetItemString(lstMeasureLen, i, VB.Left(VB6.GetItemString(lstMeasureLen, i), 5) & Mid(VB6.GetItemString(lstMeasureLen, i - 1), 6))
+                modMain.SetItemString(lstMeasureLen, i, VB.Left(modMain.GetItemString(lstMeasureLen, i), 5) & Mid(modMain.GetItemString(lstMeasureLen, i - 1), 6))
                 .intLen = g_Measure(i - 1).intLen
 
             End With
@@ -2688,9 +2686,9 @@ Err_Renamed:
             With lstWAV
 
                 Call mciSendString("close PREVIEW", vbNullString, 0, 0)
-                strTemp = Mid(VB6.GetItemString(lstWAV, .SelectedIndex), 8)
+                strTemp = Mid(modMain.GetItemString(lstWAV, .SelectedIndex), 8)
 
-                If Len(VB6.GetItemString(lstWAV, .SelectedIndex)) > 8 Then
+                If Len(modMain.GetItemString(lstWAV, .SelectedIndex)) > 8 Then
 
                     'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
                     If Dir(g_BMS.strDir & strTemp, FileAttribute.Normal) <> vbNullString Then
@@ -2711,7 +2709,7 @@ Err_Renamed:
 
                                 Rename(g_BMS.strDir & strTemp, g_BMS.strDir & frmWindowInput.txtMain.Text)
 
-                                VB6.SetItemString(lstWAV, .SelectedIndex, VB.Left(VB6.GetItemString(lstWAV, .SelectedIndex), 7) & frmWindowInput.txtMain.Text)
+                                modMain.SetItemString(lstWAV, .SelectedIndex, VB.Left(modMain.GetItemString(lstWAV, .SelectedIndex), 7) & frmWindowInput.txtMain.Text)
                                 g_strWAV(lngFromLong(.SelectedIndex + 1)) = frmWindowInput.txtMain.Text
 
                             Else
@@ -2736,9 +2734,9 @@ Err_Renamed:
 
             With lstBMP
 
-                strTemp = Mid(VB6.GetItemString(lstBMP, .SelectedIndex), 8)
+                strTemp = Mid(modMain.GetItemString(lstBMP, .SelectedIndex), 8)
 
-                If Len(VB6.GetItemString(lstBMP, .SelectedIndex)) > 8 Then
+                If Len(modMain.GetItemString(lstBMP, .SelectedIndex)) > 8 Then
 
                     'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
                     If Dir(g_BMS.strDir & strTemp, FileAttribute.Normal) <> vbNullString Then
@@ -2759,7 +2757,7 @@ Err_Renamed:
 
                                 Rename(g_BMS.strDir & strTemp, g_BMS.strDir & frmWindowInput.txtMain.Text)
 
-                                VB6.SetItemString(lstBMP, .SelectedIndex, VB.Left(VB6.GetItemString(lstBMP, .SelectedIndex), 7) & frmWindowInput.txtMain.Text)
+                                modMain.SetItemString(lstBMP, .SelectedIndex, VB.Left(modMain.GetItemString(lstBMP, .SelectedIndex), 7) & frmWindowInput.txtMain.Text)
                                 g_strBMP(lngFromLong(.SelectedIndex + 1)) = frmWindowInput.txtMain.Text
 
                             Else
@@ -2921,12 +2919,12 @@ Err_Renamed:
                     For j = 999 To lngTemp + 1 Step -1
 
                         g_Measure(j).intLen = g_Measure(j - 1).intLen
-                        VB6.SetItemString(lstMeasureLen, j, VB.Left(VB6.GetItemString(lstMeasureLen, j), 5) & Mid(VB6.GetItemString(lstMeasureLen, j - 1), 6))
+                        modMain.SetItemString(lstMeasureLen, j, VB.Left(modMain.GetItemString(lstMeasureLen, j), 5) & Mid(modMain.GetItemString(lstMeasureLen, j - 1), 6))
 
                     Next j
 
                     g_Measure(lngTemp).intLen = 192
-                    VB6.SetItemString(lstMeasureLen, lngTemp, VB.Left(VB6.GetItemString(lstMeasureLen, lngTemp), 5) & "4/4")
+                    modMain.SetItemString(lstMeasureLen, lngTemp, VB.Left(modMain.GetItemString(lstMeasureLen, lngTemp), 5) & "4/4")
 
                     For j = 0 To UBound(g_Obj) - 1
 
@@ -2949,12 +2947,12 @@ Err_Renamed:
                     For j = lngTemp + 1 To 998
 
                         g_Measure(j).intLen = g_Measure(j + 1).intLen
-                        VB6.SetItemString(lstMeasureLen, j, VB.Left(VB6.GetItemString(lstMeasureLen, j), 5) & Mid(VB6.GetItemString(lstMeasureLen, j + 1), 6))
+                        modMain.SetItemString(lstMeasureLen, j, VB.Left(modMain.GetItemString(lstMeasureLen, j), 5) & Mid(modMain.GetItemString(lstMeasureLen, j + 1), 6))
 
                     Next j
 
                     g_Measure(999).intLen = 192
-                    VB6.SetItemString(lstMeasureLen, 999, "#999:4/4")
+                    modMain.SetItemString(lstMeasureLen, 999, "#999:4/4")
 
                     For j = 0 To UBound(g_Obj) - 1
 
@@ -2979,7 +2977,7 @@ Err_Renamed:
                     intTemp = intGCD(g_Measure(lngTemp).intLen, 192)
                     If intTemp <= 2 Then intTemp = 3
                     If intTemp >= 48 Then intTemp = 48
-                    VB6.SetItemString(lstMeasureLen, lngTemp, VB.Left(VB6.GetItemString(lstMeasureLen, lngTemp), 5) & (g_Measure(lngTemp).intLen / intTemp) & "/" & (192 \ intTemp))
+                    modMain.SetItemString(lstMeasureLen, lngTemp, VB.Left(modMain.GetItemString(lstMeasureLen, lngTemp), 5) & (g_Measure(lngTemp).intLen / intTemp) & "/" & (192 \ intTemp))
 
                 Case modMain.CMD_LOG.WAV_CHANGE
 
@@ -3286,7 +3284,7 @@ Err_Renamed:
                     For j = lngTemp To 998
 
                         g_Measure(j).intLen = g_Measure(j + 1).intLen
-                        VB6.SetItemString(lstMeasureLen, j, VB.Left(VB6.GetItemString(lstMeasureLen, j), 5) & Mid(VB6.GetItemString(lstMeasureLen, j + 1), 6))
+                        modMain.SetItemString(lstMeasureLen, j, VB.Left(modMain.GetItemString(lstMeasureLen, j), 5) & Mid(modMain.GetItemString(lstMeasureLen, j + 1), 6))
 
                     Next j
 
@@ -3295,7 +3293,7 @@ Err_Renamed:
                     intTemp = intGCD(g_Measure(999).intLen, 192)
                     If intTemp <= 2 Then intTemp = 3
                     If intTemp >= 48 Then intTemp = 48
-                    VB6.SetItemString(lstMeasureLen, 999, "#999:" & (g_Measure(999).intLen / intTemp) & "/" & (192 \ intTemp))
+                    modMain.SetItemString(lstMeasureLen, 999, "#999:" & (g_Measure(999).intLen / intTemp) & "/" & (192 \ intTemp))
 
                     For j = 0 To UBound(g_Obj) - 1
 
@@ -3318,7 +3316,7 @@ Err_Renamed:
                     For j = 999 To lngTemp + 1 Step -1
 
                         g_Measure(j).intLen = g_Measure(j - 1).intLen
-                        VB6.SetItemString(lstMeasureLen, j, VB.Left(VB6.GetItemString(lstMeasureLen, j), 5) & Mid(VB6.GetItemString(lstMeasureLen, j - 1), 6))
+                        modMain.SetItemString(lstMeasureLen, j, VB.Left(modMain.GetItemString(lstMeasureLen, j), 5) & Mid(modMain.GetItemString(lstMeasureLen, j - 1), 6))
 
                     Next j
 
@@ -3327,7 +3325,7 @@ Err_Renamed:
                     intTemp = intGCD(g_Measure(lngTemp).intLen, 192)
                     If intTemp <= 2 Then intTemp = 3
                     If intTemp >= 48 Then intTemp = 48
-                    VB6.SetItemString(lstMeasureLen, lngTemp, VB.Left(VB6.GetItemString(lstMeasureLen, lngTemp), 5) & (g_Measure(lngTemp).intLen / intTemp) & "/" & (192 \ intTemp))
+                    modMain.SetItemString(lstMeasureLen, lngTemp, VB.Left(modMain.GetItemString(lstMeasureLen, lngTemp), 5) & (g_Measure(lngTemp).intLen / intTemp) & "/" & (192 \ intTemp))
 
                     For j = 0 To UBound(g_Obj) - 1
 
@@ -3352,7 +3350,7 @@ Err_Renamed:
                     intTemp = intGCD(g_Measure(lngTemp).intLen, 192)
                     If intTemp <= 2 Then intTemp = 3
                     If intTemp >= 48 Then intTemp = 48
-                    VB6.SetItemString(lstMeasureLen, lngTemp, VB.Left(VB6.GetItemString(lstMeasureLen, lngTemp), 5) & (g_Measure(lngTemp).intLen / intTemp) & "/" & (192 \ intTemp))
+                    modMain.SetItemString(lstMeasureLen, lngTemp, VB.Left(modMain.GetItemString(lstMeasureLen, lngTemp), 5) & (g_Measure(lngTemp).intLen / intTemp) & "/" & (192 \ intTemp))
 
                 Case modMain.CMD_LOG.WAV_CHANGE
 
@@ -4766,9 +4764,9 @@ Err_Renamed:
 
                     With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
 
-                        If VB6.GetItemData(cboDispGridSub, cboDispGridSub.SelectedIndex) Then
+                        If CType(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
 
-                            lngTemp = 192 \ (VB6.GetItemData(cboDispGridSub, cboDispGridSub.SelectedIndex))
+                            lngTemp = 192 \ (CType(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData)
                             lngTemp = .lngPosition - (.lngPosition \ lngTemp) * lngTemp
 
                         End If

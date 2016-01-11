@@ -155,7 +155,7 @@ Err_Renamed:
 			For i = 0 To MEASURE_MAX
 				
 				g_Measure(i).intLen = MEASURE_LENGTH
-				VB6.SetItemString(.lstMeasureLen, i, "#" & VB6.Format(i, "000") & ":4/4")
+				modMain.SetItemString(.lstMeasureLen, i, "#" & VB6.Format(i, "000") & ":4/4")
 				
 			Next i
 			
@@ -608,7 +608,7 @@ Err_Renamed:
 					
 				Loop 
 				
-				VB6.SetItemString(frmMain.lstMeasureLen, intMeasure, "#" & VB6.Format(intMeasure, "000") & ":" & (.intLen \ intTemp) & "/" & (MEASURE_LENGTH \ intTemp))
+				modMain.SetItemString(frmMain.lstMeasureLen, intMeasure, "#" & VB6.Format(intMeasure, "000") & ":" & (.intLen \ intTemp) & "/" & (MEASURE_LENGTH \ intTemp))
 				
 			End With
 			

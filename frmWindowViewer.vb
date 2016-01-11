@@ -160,10 +160,10 @@ Friend Class frmWindowViewer
 				m_LocalViewer(Num).strArgAll = .strArgAll
 				m_LocalViewer(Num).strArgPlay = .strArgPlay
 				m_LocalViewer(Num).strArgStop = .strArgStop
-				
-				VB6.SetItemString(lstViewer, Num - 1, VB6.GetItemString(lstViewer, Num))
-				
-			End With
+
+                modMain.SetItemString(lstViewer, Num - 1, modMain.GetItemString(lstViewer, Num))
+
+            End With
 			
 			Call ViewerDelete(Num + 1)
 			

@@ -71,6 +71,56 @@ Module modMain
     Private Const SPI_GETICONTITLELOGFONT As Short = 31
     Private Const SPI_GETNONCLIENTMETRICS As Short = 41
 
+    Public Structure ItemWithData
+        Public ItemString As String
+        Public ItemData As Integer
+
+        'ComboBoxには、ToString()メソッドの内容が表示される
+        Public Overrides Function ToString() As String
+            Return ItemString
+        End Function
+
+        '登録を簡単にするため、引数付きのコンストラクタを定義
+        Public Sub New(ByVal S As String, ByVal I As Integer)
+            ItemString = S
+            ItemData = I
+        End Sub
+
+        Public Sub SetItemString(ByVal S As String)
+            ItemString = S
+        End Sub
+
+        Public Sub SetItemData(ByVal I As Integer)
+            ItemData = I
+        End Sub
+    End Structure
+
+    Public Sub SetItemString(obj As Control, index As Integer, itemstring As String)
+        If TypeOf obj Is System.Windows.Forms.ComboBox Then
+            CType(obj, System.Windows.Forms.ComboBox).Items.Insert(index, itemstring)
+            If CType(obj, System.Windows.Forms.ComboBox).Items.Count > index + 1 Then
+                CType(obj, System.Windows.Forms.ComboBox).Items.RemoveAt(index + 1)
+            End If
+        ElseIf TypeOf obj Is System.Windows.Forms.ListBox
+            CType(obj, System.Windows.Forms.ListBox).Items.Insert(index, itemstring)
+            If CType(obj, System.Windows.Forms.ListBox).Items.Count > index + 1 Then
+                CType(obj, System.Windows.Forms.ListBox).Items.RemoveAt(index + 1)
+            End If
+        Else
+            Throw New Exception("Invalid Argument Type")
+        End If
+    End Sub
+
+    Public Function GetItemString(obj As Control, index As Integer) As String
+        If TypeOf obj Is System.Windows.Forms.ComboBox Then
+            GetItemString = CType(obj, System.Windows.Forms.ComboBox).Items.Item(index).ToString()
+        ElseIf TypeOf obj Is System.Windows.Forms.ListBox
+            GetItemString = CType(obj, System.Windows.Forms.ListBox).Items.Item(index).ToString()
+        Else
+            Throw New Exception("Invalid Argument Type")
+        End If
+    End Function
+
     <StructLayout(LayoutKind.Sequential, CharSet:=CharSet.Auto, Pack:=1)> Public Structure LOGFONT
         Public lfHeight As Int32
         Public lfWidth As Int32
@@ -1448,11 +1498,11 @@ Err_Renamed:
             ._optChangeTop_2.Text = strGet_ini("Header", "TAB_CONFIG", "Config", strFileName)
 
             .lblPlayMode.Text = strGet_ini("Header", "BASIC_PLAYER", "#PLAYER", strFileName)
-            VB6.SetItemString(.cboPlayer, 0, strGet_ini("Header", "BASIC_PLAYER_1P", "1 Player", strFileName))
-            VB6.SetItemString(.cboPlayer, 1, strGet_ini("Header", "BASIC_PLAYER_2P", "2 Player", strFileName))
-            VB6.SetItemString(.cboPlayer, 2, strGet_ini("Header", "BASIC_PLAYER_DP", "Double Play", strFileName))
-            VB6.SetItemString(.cboPlayer, 3, strGet_ini("Header", "BASIC_PLAYER_PMS", "9 Keys (PMS)", strFileName))
-            VB6.SetItemString(.cboPlayer, 4, strGet_ini("Header", "BASIC_PLAYER_OCT", "13 Keys (Oct)", strFileName))
+            modMain.SetItemString(.cboPlayer, 0, strGet_ini("Header", "BASIC_PLAYER_1P", "1 Player", strFileName))
+            modMain.SetItemString(.cboPlayer, 1, strGet_ini("Header", "BASIC_PLAYER_2P", "2 Player", strFileName))
+            modMain.SetItemString(.cboPlayer, 2, strGet_ini("Header", "BASIC_PLAYER_DP", "Double Play", strFileName))
+            modMain.SetItemString(.cboPlayer, 3, strGet_ini("Header", "BASIC_PLAYER_PMS", "9 Keys (PMS)", strFileName))
+            modMain.SetItemString(.cboPlayer, 4, strGet_ini("Header", "BASIC_PLAYER_OCT", "13 Keys (Oct)", strFileName))
             .lblGenre.Text = strGet_ini("Header", "BASIC_GENRE", "#GENRE", strFileName)
             .lblTitle.Text = strGet_ini("Header", "BASIC_TITLE", "#TITLE", strFileName)
             .lblArtist.Text = strGet_ini("Header", "BASIC_ARTIST", "#ARTIST", strFileName)
@@ -1460,10 +1510,10 @@ Err_Renamed:
             .lblBPM.Text = strGet_ini("Header", "BASIC_BPM", "#BPM", strFileName)
 
             .lblPlayRank.Text = strGet_ini("Header", "EXPAND_RANK", "#RANK", strFileName)
-            VB6.SetItemString(.cboPlayRank, 0, strGet_ini("Header", "EXPAND_RANK_VERY_HARD", "Very Hard", strFileName))
-            VB6.SetItemString(.cboPlayRank, 1, strGet_ini("Header", "EXPAND_RANK_HARD", "Hard", strFileName))
-            VB6.SetItemString(.cboPlayRank, 2, strGet_ini("Header", "EXPAND_RANK_NORMAL", "Normal", strFileName))
-            VB6.SetItemString(.cboPlayRank, 3, strGet_ini("Header", "EXPAND_RANK_EASY", "Easy", strFileName))
+            modMain.SetItemString(.cboPlayRank, 0, strGet_ini("Header", "EXPAND_RANK_VERY_HARD", "Very Hard", strFileName))
+            modMain.SetItemString(.cboPlayRank, 1, strGet_ini("Header", "EXPAND_RANK_HARD", "Hard", strFileName))
+            modMain.SetItemString(.cboPlayRank, 2, strGet_ini("Header", "EXPAND_RANK_NORMAL", "Normal", strFileName))
+            modMain.SetItemString(.cboPlayRank, 3, strGet_ini("Header", "EXPAND_RANK_EASY", "Easy", strFileName))
             .lblTotal.Text = strGet_ini("Header", "EXPAND_TOTAL", "#TOTAL", strFileName)
             .lblVolume.Text = strGet_ini("Header", "EXPAND_VOLWAV", "#VOLWAV", strFileName)
             .lblStageFile.Text = strGet_ini("Header", "EXPAND_STAGEFILE", "#STAGEFILE", strFileName)
@@ -1472,17 +1522,17 @@ Err_Renamed:
             .cmdLoadStageFile.Text = strGet_ini("Header", "EXPAND_SET_FILE", "...", strFileName)
 
             .lblDispFrame.Text = strGet_ini("Header", "CONFIG_KEY_FRAME", "Key Frame", strFileName)
-            VB6.SetItemString(.cboDispFrame, 0, strGet_ini("Header", "CONFIG_KEY_HALF", "Half", strFileName))
-            VB6.SetItemString(.cboDispFrame, 1, strGet_ini("Header", "CONFIG_KEY_SEPARATE", "Separate", strFileName))
+            modMain.SetItemString(.cboDispFrame, 0, strGet_ini("Header", "CONFIG_KEY_HALF", "Half", strFileName))
+            modMain.SetItemString(.cboDispFrame, 1, strGet_ini("Header", "CONFIG_KEY_SEPARATE", "Separate", strFileName))
             .lblDispKey.Text = strGet_ini("Header", "CONFIG_KEY_POSITION", "Key Position", strFileName)
-            VB6.SetItemString(.cboDispKey, 0, strGet_ini("Header", "CONFIG_KEY_5KEYS", "5Keys/10Keys", strFileName))
-            VB6.SetItemString(.cboDispKey, 1, strGet_ini("Header", "CONFIG_KEY_7KEYS", "7Keys/14Keys", strFileName))
+            modMain.SetItemString(.cboDispKey, 0, strGet_ini("Header", "CONFIG_KEY_5KEYS", "5Keys/10Keys", strFileName))
+            modMain.SetItemString(.cboDispKey, 1, strGet_ini("Header", "CONFIG_KEY_7KEYS", "7Keys/14Keys", strFileName))
             .lblDispSC1P.Text = strGet_ini("Header", "CONFIG_SCRATCH_1P", "Scratch 1P", strFileName)
-            VB6.SetItemString(.cboDispSC1P, 0, strGet_ini("Header", "CONFIG_SCRATCH_LEFT", "L", strFileName))
-            VB6.SetItemString(.cboDispSC1P, 1, strGet_ini("Header", "CONFIG_SCRATCH_RIGHT", "R", strFileName))
+            modMain.SetItemString(.cboDispSC1P, 0, strGet_ini("Header", "CONFIG_SCRATCH_LEFT", "L", strFileName))
+            modMain.SetItemString(.cboDispSC1P, 1, strGet_ini("Header", "CONFIG_SCRATCH_RIGHT", "R", strFileName))
             .lblDispSC2P.Text = strGet_ini("Header", "CONFIG_SCRATCH_2P", "2P", strFileName)
-            VB6.SetItemString(.cboDispSC2P, 0, strGet_ini("Header", "CONFIG_SCRATCH_LEFT", "L", strFileName))
-            VB6.SetItemString(.cboDispSC2P, 1, strGet_ini("Header", "CONFIG_SCRATCH_RIGHT", "R", strFileName))
+            modMain.SetItemString(.cboDispSC2P, 0, strGet_ini("Header", "CONFIG_SCRATCH_LEFT", "L", strFileName))
+            modMain.SetItemString(.cboDispSC2P, 1, strGet_ini("Header", "CONFIG_SCRATCH_RIGHT", "R", strFileName))
 
             ._optChangeBottom_0.Text = strGet_ini("Material", "TAB_WAV", "#WAV", strFileName)
             ._optChangeBottom_1.Text = strGet_ini("Material", "TAB_BMP", "#BMP", strFileName)
@@ -1516,8 +1566,8 @@ Err_Renamed:
             .lblGridSub.Text = strGet_ini("ToolBar", "GRID_SUB", "Sub", strFileName)
             .lblDispHeight.Text = strGet_ini("ToolBar", "DISP_HEIGHT", "Height", strFileName)
             .lblDispWidth.Text = strGet_ini("ToolBar", "DISP_WIDTH", "Width", strFileName)
-            VB6.SetItemString(.cboDispHeight, .cboDispHeight.Items.Count - 1, strGet_ini("ToolBar", "DISP_VALUE_OTHER", "Other", strFileName))
-            VB6.SetItemString(.cboDispWidth, .cboDispHeight.Items.Count - 1, strGet_ini("ToolBar", "DISP_VALUE_OTHER", "Other", strFileName))
+            CType(.cboDispHeight.Items.Item(.cboDispHeight.Items.Count - 1), modMain.ItemWithData).SetItemString(strGet_ini("ToolBar", "DISP_VALUE_OTHER", "Other", strFileName))
+            CType(.cboDispWidth.Items.Item(.cboDispWidth.Items.Count - 1), modMain.ItemWithData).SetItemString(strGet_ini("ToolBar", "DISP_VALUE_OTHER", "Other", strFileName))
             .lblVScroll.Text = strGet_ini("ToolBar", "VSCROLL", "VScroll", strFileName)
 
             If .tlbMenu.Items.Item("Edit").Pressed = True Then
@@ -1837,16 +1887,15 @@ Err_Renamed:
 
                 For i = 0 To .Items.Count - 1
 
-                    If VB6.GetItemData(frmMain.cboDispWidth, i) = lngTemp Then
+                    If CType(frmMain.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData = lngTemp Then
 
                         .SelectedIndex = i
 
                         Exit For
 
-                    ElseIf VB6.GetItemData(frmMain.cboDispWidth, i) > lngTemp Then
+                    ElseIf CType(frmMain.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData > lngTemp Then
 
-                        Call .Items.Insert(i, "x" & VB6.Format(lngTemp / 100, "#0.00"))
-                        VB6.SetItemData(frmMain.cboDispWidth, i, lngTemp)
+                        Call .Items.Insert(i, New modMain.ItemWithData("x" & VB6.Format(lngTemp / 100, "#0.00"), lngTemp))
                         .SelectedIndex = i
 
                         Exit For
@@ -1863,16 +1912,15 @@ Err_Renamed:
 
                 For i = 0 To .Items.Count - 1
 
-                    If VB6.GetItemData(frmMain.cboDispHeight, i) = lngTemp Then
+                    If CType(frmMain.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData = lngTemp Then
 
                         .SelectedIndex = i
 
                         Exit For
 
-                    ElseIf VB6.GetItemData(frmMain.cboDispHeight, i) > lngTemp Then
+                    ElseIf CType(frmMain.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData > lngTemp Then
 
-                        Call .Items.Insert(i, "x" & VB6.Format(lngTemp / 100, "#0.00"))
-                        VB6.SetItemData(frmMain.cboDispHeight, i, lngTemp)
+                        Call .Items.Insert(i, New modMain.ItemWithData("x" & VB6.Format(lngTemp / 100, "#0.00"), lngTemp))
                         .SelectedIndex = i
 
                         Exit For
@@ -2253,8 +2301,8 @@ InitConfig:
                 Call lngSet_ini("Main", "Theme", Chr(34) & g_strThemeFileName(2) & Chr(34))
             End If
 
-            Call lngSet_ini("View", "Width", VB6.GetItemData(.cboDispWidth, .cboDispWidth.SelectedIndex))
-            Call lngSet_ini("View", "Height", VB6.GetItemData(.cboDispHeight, .cboDispHeight.SelectedIndex))
+            Call lngSet_ini("View", "Width", CType(.cboDispWidth.SelectedItem, modMain.ItemWithData).ItemData)
+            Call lngSet_ini("View", "Height", CType(.cboDispHeight.SelectedItem, modMain.ItemWithData).ItemData)
             Call lngSet_ini("View", "VGridMain", .cboDispGridMain.SelectedIndex)
             Call lngSet_ini("View", "VGridSub", .cboDispGridSub.SelectedIndex)
             Call lngSet_ini("View", "Frame", .cboDispFrame.SelectedIndex)

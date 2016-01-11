@@ -74,7 +74,7 @@ Friend Class frmWindowPreview
 
                 Do While i = 0
 
-                    If Len(VB6.GetItemString(.lstBGA, i)) > 8 Then
+                    If Len(modMain.GetItemString(.lstBGA, i)) > 8 Then
 
                         .lstBGA.SelectedIndex = i
 
@@ -89,31 +89,31 @@ Friend Class frmWindowPreview
             Else
 
                 i = .lstBMP.SelectedIndex - 1
-				
-				Do While i >= 0
-					
-					If Len(VB6.GetItemString(.lstBMP, i)) > 8 Then
-						
-						.lstBMP.SelectedIndex = i
-						
-						Exit Sub
-						
-					End If
-					
-					i = i - 1
-					
-					
-				Loop 
-				
-			End If
-			
-		End With
-		
-	End Sub
-	
-	Private Sub cmdPreviewEnd_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdPreviewEnd.Click
-		
-		With frmMain
+
+                Do While i >= 0
+
+                    If Len(modMain.GetItemString(.lstBMP, i)) > 8 Then
+
+                        .lstBMP.SelectedIndex = i
+
+                        Exit Sub
+
+                    End If
+
+                    i = i - 1
+
+
+                Loop
+
+            End If
+
+        End With
+
+    End Sub
+
+    Private Sub cmdPreviewEnd_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdPreviewEnd.Click
+
+        With frmMain
 
             If ._optChangeBottom_2.Checked Then
 
@@ -122,16 +122,16 @@ Friend Class frmWindowPreview
             Else
 
                 .lstBMP.SelectedIndex = .lstBMP.Items.Count - 1
-				
-			End If
-			
-		End With
-		
-	End Sub
-	
-	Private Sub cmdPreviewHome_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdPreviewHome.Click
-		
-		With frmMain
+
+            End If
+
+        End With
+
+    End Sub
+
+    Private Sub cmdPreviewHome_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdPreviewHome.Click
+
+        With frmMain
 
             If ._optChangeBottom_2.Checked Then
 
@@ -140,18 +140,18 @@ Friend Class frmWindowPreview
             Else
 
                 .lstBMP.SelectedIndex = 0
-				
-			End If
-			
-		End With
-		
-	End Sub
-	
-	Private Sub cmdPreviewNext_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdPreviewNext.Click
-		
-		Dim i As Integer
-		
-		With frmMain
+
+            End If
+
+        End With
+
+    End Sub
+
+    Private Sub cmdPreviewNext_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdPreviewNext.Click
+
+        Dim i As Integer
+
+        With frmMain
 
             If ._optChangeBottom_2.Checked Then
 
@@ -159,7 +159,7 @@ Friend Class frmWindowPreview
 
                 Do While i < .lstBGA.Items.Count
 
-                    If Len(VB6.GetItemString(.lstBGA, i)) > 8 Then
+                    If Len(modMain.GetItemString(.lstBGA, i)) > 8 Then
 
                         .lstBGA.SelectedIndex = i
 
@@ -174,18 +174,18 @@ Friend Class frmWindowPreview
             Else
 
                 i = .lstBMP.SelectedIndex + 1
-				
-				Do While i < .lstBMP.Items.Count
-					
-					If Len(VB6.GetItemString(.lstBMP, i)) > 8 Then
-						
-						.lstBMP.SelectedIndex = i
-						
-						Exit Sub
-						
-					End If
-					
-					i = i + 1
+
+                Do While i < .lstBMP.Items.Count
+
+                    If Len(modMain.GetItemString(.lstBMP, i)) > 8 Then
+
+                        .lstBMP.SelectedIndex = i
+
+                        Exit Sub
+
+                    End If
+
+                    i = i + 1
 					
 				Loop 
 				
@@ -271,7 +271,7 @@ Friend Class frmWindowPreview
 
     End Sub
 
-    Private Sub frmWindowPreview_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+    Private Sub frmWindowPreview_FormClosed(ByVal eventSender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         e.Cancel = True
 
         Call Me.Hide()

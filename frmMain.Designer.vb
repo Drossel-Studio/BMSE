@@ -1,106 +1,59 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmMain
 #Region "Windows フォーム デザイナによって生成されたコード "
-	<System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
-		MyBase.New()
+    <System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
+        MyBase.New()
         'この呼び出しは、Windows フォーム デザイナで必要です。
         InitializeComponent()
-
-        VB6.SetItemData(cboDispGridMain, 0, 2)
-        VB6.SetItemData(cboDispGridMain, 1, 4)
-        VB6.SetItemData(cboDispGridMain, 2, 8)
-        VB6.SetItemData(cboDispGridMain, 3, 16)
-        VB6.SetItemData(cboDispGridMain, 4, 32)
-        VB6.SetItemData(cboDispGridMain, 5, 64)
-        VB6.SetItemData(cboDispGridMain, 6, 3)
-        VB6.SetItemData(cboDispGridMain, 7, 6)
-        VB6.SetItemData(cboDispGridMain, 8, 12)
-        VB6.SetItemData(cboDispGridMain, 9, 24)
-        VB6.SetItemData(cboDispGridMain, 10, 48)
-        VB6.SetItemData(cboDispGridMain, 11, 0)
-
-        VB6.SetItemData(cboDispGridSub, 0, 4)
-        VB6.SetItemData(cboDispGridSub, 1, 8)
-        VB6.SetItemData(cboDispGridSub, 2, 16)
-        VB6.SetItemData(cboDispGridSub, 3, 32)
-        VB6.SetItemData(cboDispGridSub, 4, 64)
-        VB6.SetItemData(cboDispGridSub, 5, 3)
-        VB6.SetItemData(cboDispGridSub, 6, 6)
-        VB6.SetItemData(cboDispGridSub, 7, 12)
-        VB6.SetItemData(cboDispGridSub, 8, 24)
-        VB6.SetItemData(cboDispGridSub, 9, 48)
-        VB6.SetItemData(cboDispGridSub, 10, 0)
-
-        VB6.SetItemData(cboDispWidth, 0, 50)
-        VB6.SetItemData(cboDispWidth, 1, 100)
-        VB6.SetItemData(cboDispWidth, 2, 150)
-        VB6.SetItemData(cboDispWidth, 3, 200)
-        VB6.SetItemData(cboDispWidth, 4, 250)
-        VB6.SetItemData(cboDispWidth, 5, 300)
-        VB6.SetItemData(cboDispWidth, 6, 350)
-        VB6.SetItemData(cboDispWidth, 7, 400)
-        VB6.SetItemData(cboDispWidth, 8, 10000)
-
-        VB6.SetItemData(cboDispHeight, 0, 50)
-        VB6.SetItemData(cboDispHeight, 1, 100)
-        VB6.SetItemData(cboDispHeight, 2, 150)
-        VB6.SetItemData(cboDispHeight, 3, 200)
-        VB6.SetItemData(cboDispHeight, 4, 250)
-        VB6.SetItemData(cboDispHeight, 5, 300)
-        VB6.SetItemData(cboDispHeight, 6, 350)
-        VB6.SetItemData(cboDispHeight, 7, 400)
-        VB6.SetItemData(cboDispHeight, 8, 10000)
-
-        VB6.SetItemData(cboVScroll, 0, 1)
     End Sub
     'Form は、コンポーネント一覧に後処理を実行するために dispose をオーバーライドします。
     <System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
-		If Disposing Then
-			If Not components Is Nothing Then
-				components.Dispose()
-			End If
-		End If
-		MyBase.Dispose(Disposing)
-	End Sub
-	'Windows フォーム デザイナで必要です。
-	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents mnuFileNew As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuFileOpen As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuFileSave As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuFileSaveAs As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuFileOpenDirectory As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuLineFile As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents _mnuRecentFiles_0 As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents _mnuRecentFiles_1 As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents _mnuRecentFiles_2 As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents _mnuRecentFiles_3 As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents _mnuRecentFiles_4 As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents _mnuRecentFiles_5 As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents _mnuRecentFiles_6 As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents _mnuRecentFiles_7 As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents _mnuRecentFiles_8 As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents _mnuRecentFiles_9 As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuLineRecent As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents mnuFileConvertWizard As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuLineExit As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents mnuFileExit As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuFile As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuEditUndo As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuEditRedo As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuLineEdit1 As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents mnuEditCut As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuEditCopy As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuEditPaste As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuEditDelete As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuLineEdit2 As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents mnuEditSelectAll As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuLineEdit3 As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents mnuEditFind As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuLineEdit4 As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents _mnuEditMode_0 As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents _mnuEditMode_1 As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents _mnuEditMode_2 As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuEdit As System.Windows.Forms.ToolStripMenuItem
+        If Disposing Then
+            If Not components Is Nothing Then
+                components.Dispose()
+            End If
+        End If
+        MyBase.Dispose(Disposing)
+    End Sub
+    'Windows フォーム デザイナで必要です。
+    Private components As System.ComponentModel.IContainer
+    Public ToolTip1 As System.Windows.Forms.ToolTip
+    Public WithEvents mnuFileNew As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuFileOpen As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuFileSave As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuFileSaveAs As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuFileOpenDirectory As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuLineFile As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents _mnuRecentFiles_0 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents _mnuRecentFiles_1 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents _mnuRecentFiles_2 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents _mnuRecentFiles_3 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents _mnuRecentFiles_4 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents _mnuRecentFiles_5 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents _mnuRecentFiles_6 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents _mnuRecentFiles_7 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents _mnuRecentFiles_8 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents _mnuRecentFiles_9 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuLineRecent As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents mnuFileConvertWizard As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuLineExit As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents mnuFileExit As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuFile As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuEditUndo As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuEditRedo As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuLineEdit1 As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents mnuEditCut As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuEditCopy As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuEditPaste As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuEditDelete As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuLineEdit2 As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents mnuEditSelectAll As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuLineEdit3 As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents mnuEditFind As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuLineEdit4 As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents _mnuEditMode_0 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents _mnuEditMode_1 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents _mnuEditMode_2 As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuEdit As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents _mnuViewItem_0 As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents _mnuViewItem_1 As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents _mnuViewItem_2 As System.Windows.Forms.ToolStripMenuItem
@@ -123,31 +76,31 @@
     Public WithEvents _mnuTheme_2 As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents mnuThemeParent As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents mnuOptions As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuToolsPlayAll As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuToolsPlay As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuToolsPlayStop As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuLineTools As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents mnuToolsSetting As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuTools As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuHelpOpen As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuLineHelp As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents mnuHelpWeb As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuHelpAbout As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuHelp As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuContextPlayAll As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuContextPlay As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuContextBar1 As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents mnuContextInsertMeasure As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuContextDeleteMeasure As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuContextBar2 As System.Windows.Forms.ToolStripSeparator
-	Public WithEvents mnuContextEditCut As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuContextEditCopy As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuContextEditPaste As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuContextEditDelete As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuToolsPlayAll As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuToolsPlay As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuToolsPlayStop As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuLineTools As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents mnuToolsSetting As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuTools As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuHelpOpen As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuLineHelp As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents mnuHelpWeb As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuHelpAbout As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuHelp As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuContextPlayAll As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuContextPlay As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuContextBar1 As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents mnuContextInsertMeasure As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuContextDeleteMeasure As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuContextBar2 As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents mnuContextEditCut As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuContextEditCopy As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuContextEditPaste As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuContextEditDelete As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents mnuContext As System.Windows.Forms.ContextMenuStrip
     Public WithEvents mnuContextListLoad As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuContextListDelete As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuContextListRename As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuContextListDelete As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuContextListRename As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents mnuContextList As System.Windows.Forms.ContextMenuStrip
     Public WithEvents MainMenu1 As System.Windows.Forms.MenuStrip
     Public WithEvents Mode As System.Windows.Forms.ToolStripStatusLabel
@@ -1339,7 +1292,7 @@
         Me.cboVScroll.Cursor = System.Windows.Forms.Cursors.Default
         Me.cboVScroll.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboVScroll.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.cboVScroll.Items.AddRange(New Object() {"1"})
+        Me.cboVScroll.Items.Add(New modMain.ItemWithData("1", 1))
         Me.cboVScroll.Location = New System.Drawing.Point(48, 0)
         Me.cboVScroll.Name = "cboVScroll"
         Me.cboVScroll.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1381,12 +1334,21 @@
         Me.cboDispHeight.Cursor = System.Windows.Forms.Cursors.Default
         Me.cboDispHeight.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboDispHeight.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.cboDispHeight.Items.AddRange(New Object() {"x0.5", "x1.0", "x1.5", "x2.0", "x2.5", "x3.0", "x3.5", "x4.0", "..."})
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x0.5", 50))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x1.0", 100))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x1.5", 150))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x2.0", 200))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x2.5", 250))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x3.0", 300))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x3.5", 350))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x4.0", 400))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("...", 10000))
         Me.cboDispHeight.Location = New System.Drawing.Point(32, 0)
         Me.cboDispHeight.Name = "cboDispHeight"
         Me.cboDispHeight.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cboDispHeight.Size = New System.Drawing.Size(57, 20)
         Me.cboDispHeight.TabIndex = 13
+        Me.cboDispHeight.SelectedIndex = 0
         '
         'cboDispWidth
         '
@@ -1394,12 +1356,21 @@
         Me.cboDispWidth.Cursor = System.Windows.Forms.Cursors.Default
         Me.cboDispWidth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboDispWidth.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.cboDispWidth.Items.AddRange(New Object() {"x0.5", "x1.0", "x1.5", "x2.0", "x2.5", "x3.0", "x3.5", "x4.0", "..."})
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x0.5", 50))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x1.0", 100))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x1.5", 150))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x2.0", 200))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x2.5", 250))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x3.0", 300))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x3.5", 350))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x4.0", 400))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("...", 10000))
         Me.cboDispWidth.Location = New System.Drawing.Point(116, 0)
         Me.cboDispWidth.Name = "cboDispWidth"
         Me.cboDispWidth.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cboDispWidth.Size = New System.Drawing.Size(57, 20)
         Me.cboDispWidth.TabIndex = 15
+        Me.cboDispWidth.SelectedIndex = 0
         '
         'lblDispWidth
         '
@@ -1517,12 +1488,24 @@
         Me.cboDispGridMain.Cursor = System.Windows.Forms.Cursors.Default
         Me.cboDispGridMain.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboDispGridMain.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.cboDispGridMain.Items.AddRange(New Object() {"2", "4", "8", "16", "32", "64", "3", "6", "12", "24", "48", "NONE"})
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("2", 2))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("4", 4))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("8", 8))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("16", 16))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("32", 32))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("64", 64))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("3", 3))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("6", 6))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("12", 12))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("24", 24))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("48", 48))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("NONE", 0))
         Me.cboDispGridMain.Location = New System.Drawing.Point(128, 0)
         Me.cboDispGridMain.Name = "cboDispGridMain"
         Me.cboDispGridMain.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cboDispGridMain.Size = New System.Drawing.Size(57, 20)
         Me.cboDispGridMain.TabIndex = 10
+        Me.cboDispGridMain.SelectedIndex = 0
         '
         'cboDispGridSub
         '
@@ -1530,12 +1513,23 @@
         Me.cboDispGridSub.Cursor = System.Windows.Forms.Cursors.Default
         Me.cboDispGridSub.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboDispGridSub.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.cboDispGridSub.Items.AddRange(New Object() {"4", "8", "16", "32", "64", "3", "6", "12", "24", "48", "FREE"})
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("4", 4))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("8", 8))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("16", 16))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("32", 32))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("64", 64))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("3", 3))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("6", 6))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("12", 12))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("24", 24))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("48", 48))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("FREE", 0))
         Me.cboDispGridSub.Location = New System.Drawing.Point(32, 0)
         Me.cboDispGridSub.Name = "cboDispGridSub"
         Me.cboDispGridSub.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cboDispGridSub.Size = New System.Drawing.Size(57, 20)
         Me.cboDispGridSub.TabIndex = 8
+        Me.cboDispGridSub.SelectedIndex = 0
         '
         'lblGridSub
         '
