@@ -321,7 +321,7 @@ Friend Class frmWindowFind
 
         For i = 2 To 32
 
-            Call _lstGrid_2.Items.Add(VB6.Format(i, "00"))
+            Call _lstGrid_2.Items.Add(Format(i, "00"))
 
         Next i
 

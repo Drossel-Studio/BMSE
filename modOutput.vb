@@ -371,30 +371,30 @@ Module modOutput
 			For j = 101 To 132
 				
 				If blnObjData(j, i) Then
-					
-					PrintLine(lngFFile, "#" & VB6.Format(i, "000") & "01" & ":" & strObjData(j, i))
-					
-				End If
+
+                    PrintLine(lngFFile, "#" & Format(i, "000") & "01" & ":" & strObjData(j, i))
+
+                End If
 				
 			Next j
 			
 			With g_Measure(i)
 				
 				If .intLen <> MEASURE_LENGTH Then
-					
-					PrintLine(lngFFile, "#" & VB6.Format(i, "000") & "02:" & .intLen / MEASURE_LENGTH)
-					
-				End If
+
+                    PrintLine(lngFFile, "#" & Format(i, "000") & "02:" & .intLen / MEASURE_LENGTH)
+
+                End If
 				
 			End With
 			
 			For j = 3 To 99
 				
 				If blnObjData(j, i) Then
-					
-					PrintLine(lngFFile, "#" & VB6.Format(i, "000") & VB6.Format(j, "00") & ":" & strObjData(j, i))
-					
-				End If
+
+                    PrintLine(lngFFile, "#" & Format(i, "000") & Format(j, "00") & ":" & strObjData(j, i))
+
+                End If
 				
 			Next j
 			
@@ -409,10 +409,10 @@ Module modOutput
 			With g_Measure(i)
 				
 				If .intLen <> MEASURE_LENGTH Then
-					
-					PrintLine(lngFFile, "#" & VB6.Format(i, "000") & "02:" & .intLen / MEASURE_LENGTH)
-					
-				End If
+
+                    PrintLine(lngFFile, "#" & Format(i, "000") & "02:" & .intLen / MEASURE_LENGTH)
+
+                End If
 				
 			End With
 			

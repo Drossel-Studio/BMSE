@@ -800,7 +800,7 @@ Module modMain
 
             For i = 0 To 9999
 
-                g_BMS.strFileName = "temp" & VB6.Format(i, "0000") & ".bms"
+                g_BMS.strFileName = "temp" & Format(i, "0000") & ".bms"
 
                 If i = 9999 Then
 
@@ -1894,7 +1894,7 @@ Err_Renamed:
 
                     ElseIf CType(frmMain.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData > lngTemp Then
 
-                        Call .Items.Insert(i, New modMain.ItemWithData("x" & VB6.Format(lngTemp / 100, "#0.00"), lngTemp))
+                        Call .Items.Insert(i, New modMain.ItemWithData("x" & Format(lngTemp / 100, "#0.00"), lngTemp))
                         .SelectedIndex = i
 
                         Exit For
@@ -1919,7 +1919,7 @@ Err_Renamed:
 
                     ElseIf CType(frmMain.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData > lngTemp Then
 
-                        Call .Items.Insert(i, New modMain.ItemWithData("x" & VB6.Format(lngTemp / 100, "#0.00"), lngTemp))
+                        Call .Items.Insert(i, New modMain.ItemWithData("x" & Format(lngTemp / 100, "#0.00"), lngTemp))
                         .SelectedIndex = i
 
                         Exit For

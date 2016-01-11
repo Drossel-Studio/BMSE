@@ -1858,7 +1858,7 @@ Err_Renamed:
 
                 Case Is > 100
 
-                    strTemp = strTemp & g_strStatusBar(1) & " " & VB6.Format(.intCh - 100, "00")
+                    strTemp = strTemp & g_strStatusBar(1) & " " & Format(.intCh - 100, "00")
 
                 Case Is < 10
 

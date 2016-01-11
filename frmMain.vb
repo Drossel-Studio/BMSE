@@ -2,7 +2,6 @@ Option Strict Off
 Option Explicit On
 Imports VB = Microsoft.VisualBasic
 Imports Microsoft.VisualBasic.PowerPacks
-Imports Microsoft.VisualBasic.Compatibility.VB6
 
 Friend Class frmMain
     Inherits System.Windows.Forms.Form
@@ -609,7 +608,7 @@ Err_Renamed:
 
                 If .intSelect = modMain.OBJ_SELECT.Selected Then
 
-                    strArray(lngTemp) = VB6.Format(.intCh, "000") & .intAtt & VB6.Format(g_Measure(.intMeasure).lngY + .lngPosition - g_Measure(intTemp).lngY, "0000000") & .sngValue
+                    strArray(lngTemp) = Format(.intCh, "000") & .intAtt & Format(g_Measure(.intMeasure).lngY + .lngPosition - g_Measure(intTemp).lngY, "0000000") & .sngValue
                     lngTemp = lngTemp + 1
 
                 End If
@@ -781,7 +780,7 @@ Err_Renamed:
             With frmWindowInput
 
                 .lblMainDisp.Text = g_Message(modMain.Message.INPUT_SIZE)
-                .txtMain.Text = VB6.Format(g_disp.Height, "#0.00")
+                .txtMain.Text = Format(g_disp.Height, "#0.00")
                 If .txtMain.Text = "100.00" Then .txtMain.Text = "1.00"
 
                 Call frmWindowInput.ShowDialog(Me)
@@ -808,7 +807,7 @@ Err_Renamed:
 
                     ElseIf CType(Me.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData > sngTemp * 100 Then
 
-                        Call cboDispHeight.Items.Insert(i, New modMain.ItemWithData("x" & VB6.Format(sngTemp, "#0.00"), sngTemp * 100))
+                        Call cboDispHeight.Items.Insert(i, New modMain.ItemWithData("x" & Format(sngTemp, "#0.00"), sngTemp * 100))
                         cboDispHeight.SelectedIndex = i
 
                         Exit For
@@ -857,7 +856,7 @@ Err_Renamed:
             With frmWindowInput
 
                 .lblMainDisp.Text = g_Message(modMain.Message.INPUT_SIZE)
-                .txtMain.Text = VB6.Format(g_disp.Width, "#0.00")
+                .txtMain.Text = Format(g_disp.Width, "#0.00")
                 If .txtMain.Text = "100.00" Then .txtMain.Text = "1.00"
 
                 Call frmWindowInput.ShowDialog(Me)
@@ -884,7 +883,7 @@ Err_Renamed:
 
                     ElseIf CType(Me.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData > sngTemp * 100 Then
 
-                        Call cboDispWidth.Items.Insert(i, New modMain.ItemWithData("x" & VB6.Format(sngTemp, "#0.00"), sngTemp * 100))
+                        Call cboDispWidth.Items.Insert(i, New modMain.ItemWithData("x" & Format(sngTemp, "#0.00"), sngTemp * 100))
                         cboDispWidth.SelectedIndex = i
 
                         Exit For
@@ -1432,7 +1431,7 @@ Err_Renamed:
 
                 If .GetSelected(i) Then
 
-                    modMain.SetItemString(lstMeasureLen, i, "#" & VB6.Format(i, "000") & ":" & cboNumerator.Text & "/" & cboDenominator.Text)
+                    modMain.SetItemString(lstMeasureLen, i, "#" & Format(i, "000") & ":" & cboNumerator.Text & "/" & cboDenominator.Text)
                     lngTemp = (192 / CDbl(cboDenominator.Text)) * CDbl(cboNumerator.Text)
 
                     strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.MSR_CHANGE) & modInput.strFromNum(i) & VB.Right("00" & Hex(g_Measure(i).intLen), 3) & VB.Right("00" & Hex(lngTemp), 3)
@@ -2590,7 +2589,7 @@ Err_Renamed:
                 'If .lngY < g_disp.Y + picMain.ScaleHeight - g_Mouse.Y - 6 Then
                 If .lngY < g_disp.Y + (picMain.ClientRectangle.Height - g_Mouse.Y) / g_disp.Height - 1 Then
 
-                    modMain.SetItemString(lstMeasureLen, i, "#" & VB6.Format(i, "000") & ":4/4")
+                    modMain.SetItemString(lstMeasureLen, i, "#" & Format(i, "000") & ":4/4")
                     .intLen = 192
                     intTemp = i
 
@@ -6125,7 +6124,7 @@ Err_Renamed:
 
         For i = 0 To 999
 
-            Call lstMeasureLen.Items.Insert(i, "#" & VB6.Format(i, "000") & ":4/4")
+            Call lstMeasureLen.Items.Insert(i, "#" & Format(i, "000") & ":4/4")
             g_Measure(i).intLen = 192
 
         Next i
