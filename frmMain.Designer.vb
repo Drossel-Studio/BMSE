@@ -378,6 +378,9 @@
         Me.lblGridSub = New System.Windows.Forms.Label()
         Me.lblGridMain = New System.Windows.Forms.Label()
         Me.fraHeader = New System.Windows.Forms.GroupBox()
+        Me._optChangeTop_2 = New System.Windows.Forms.RadioButton()
+        Me._optChangeTop_1 = New System.Windows.Forms.RadioButton()
+        Me._optChangeTop_0 = New System.Windows.Forms.RadioButton()
         Me._fraTop_0 = New System.Windows.Forms.GroupBox()
         Me.cboPlayer = New System.Windows.Forms.ComboBox()
         Me.txtGenre = New System.Windows.Forms.TextBox()
@@ -413,9 +416,6 @@
         Me.lblDispSC2P = New System.Windows.Forms.Label()
         Me.lblDispSC1P = New System.Windows.Forms.Label()
         Me.lblDispKey = New System.Windows.Forms.Label()
-        Me._optChangeTop_0 = New System.Windows.Forms.RadioButton()
-        Me._optChangeTop_2 = New System.Windows.Forms.RadioButton()
-        Me._optChangeTop_1 = New System.Windows.Forms.RadioButton()
         Me.fraMaterial = New System.Windows.Forms.GroupBox()
         Me._optChangeBottom_0 = New System.Windows.Forms.RadioButton()
         Me._optChangeBottom_1 = New System.Windows.Forms.RadioButton()
@@ -1513,12 +1513,12 @@
         'fraHeader
         '
         Me.fraHeader.BackColor = System.Drawing.SystemColors.Control
+        Me.fraHeader.Controls.Add(Me._optChangeTop_2)
+        Me.fraHeader.Controls.Add(Me._optChangeTop_1)
+        Me.fraHeader.Controls.Add(Me._optChangeTop_0)
         Me.fraHeader.Controls.Add(Me._fraTop_0)
         Me.fraHeader.Controls.Add(Me._fraTop_1)
         Me.fraHeader.Controls.Add(Me._fraTop_2)
-        Me.fraHeader.Controls.Add(Me._optChangeTop_0)
-        Me.fraHeader.Controls.Add(Me._optChangeTop_2)
-        Me.fraHeader.Controls.Add(Me._optChangeTop_1)
         Me.fraHeader.ForeColor = System.Drawing.SystemColors.ControlText
         Me.fraHeader.Location = New System.Drawing.Point(140, 56)
         Me.fraHeader.Name = "fraHeader"
@@ -1527,6 +1527,54 @@
         Me.fraHeader.Size = New System.Drawing.Size(666, 165)
         Me.fraHeader.TabIndex = 19
         Me.fraHeader.TabStop = False
+        '
+        '_optChangeTop_2
+        '
+        Me._optChangeTop_2.Appearance = System.Windows.Forms.Appearance.Button
+        Me._optChangeTop_2.BackColor = System.Drawing.SystemColors.Control
+        Me._optChangeTop_2.Cursor = System.Windows.Forms.Cursors.Default
+        Me._optChangeTop_2.ForeColor = System.Drawing.SystemColors.ControlText
+        Me._optChangeTop_2.Location = New System.Drawing.Point(130, 0)
+        Me._optChangeTop_2.Name = "_optChangeTop_2"
+        Me._optChangeTop_2.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me._optChangeTop_2.Size = New System.Drawing.Size(61, 21)
+        Me._optChangeTop_2.TabIndex = 22
+        Me._optChangeTop_2.TabStop = True
+        Me._optChangeTop_2.Text = "環境"
+        Me._optChangeTop_2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me._optChangeTop_2.UseVisualStyleBackColor = False
+        '
+        '_optChangeTop_1
+        '
+        Me._optChangeTop_1.Appearance = System.Windows.Forms.Appearance.Button
+        Me._optChangeTop_1.BackColor = System.Drawing.SystemColors.Control
+        Me._optChangeTop_1.Cursor = System.Windows.Forms.Cursors.Default
+        Me._optChangeTop_1.ForeColor = System.Drawing.SystemColors.ControlText
+        Me._optChangeTop_1.Location = New System.Drawing.Point(65, 0)
+        Me._optChangeTop_1.Name = "_optChangeTop_1"
+        Me._optChangeTop_1.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me._optChangeTop_1.Size = New System.Drawing.Size(61, 21)
+        Me._optChangeTop_1.TabIndex = 21
+        Me._optChangeTop_1.TabStop = True
+        Me._optChangeTop_1.Text = "拡張"
+        Me._optChangeTop_1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me._optChangeTop_1.UseVisualStyleBackColor = False
+        '
+        '_optChangeTop_0
+        '
+        Me._optChangeTop_0.Appearance = System.Windows.Forms.Appearance.Button
+        Me._optChangeTop_0.BackColor = System.Drawing.SystemColors.Control
+        Me._optChangeTop_0.Cursor = System.Windows.Forms.Cursors.Default
+        Me._optChangeTop_0.ForeColor = System.Drawing.SystemColors.ControlText
+        Me._optChangeTop_0.Location = New System.Drawing.Point(0, 0)
+        Me._optChangeTop_0.Name = "_optChangeTop_0"
+        Me._optChangeTop_0.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me._optChangeTop_0.Size = New System.Drawing.Size(61, 21)
+        Me._optChangeTop_0.TabIndex = 20
+        Me._optChangeTop_0.TabStop = True
+        Me._optChangeTop_0.Text = "基本"
+        Me._optChangeTop_0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me._optChangeTop_0.UseVisualStyleBackColor = False
         '
         '_fraTop_0
         '
@@ -2038,54 +2086,6 @@
         Me.lblDispKey.TabIndex = 52
         Me.lblDispKey.Text = "キー配置"
         Me.lblDispKey.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        '_optChangeTop_0
-        '
-        Me._optChangeTop_0.Appearance = System.Windows.Forms.Appearance.Button
-        Me._optChangeTop_0.BackColor = System.Drawing.SystemColors.Control
-        Me._optChangeTop_0.Cursor = System.Windows.Forms.Cursors.Default
-        Me._optChangeTop_0.ForeColor = System.Drawing.SystemColors.ControlText
-        Me._optChangeTop_0.Location = New System.Drawing.Point(0, 0)
-        Me._optChangeTop_0.Name = "_optChangeTop_0"
-        Me._optChangeTop_0.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._optChangeTop_0.Size = New System.Drawing.Size(61, 21)
-        Me._optChangeTop_0.TabIndex = 20
-        Me._optChangeTop_0.TabStop = True
-        Me._optChangeTop_0.Text = "基本"
-        Me._optChangeTop_0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me._optChangeTop_0.UseVisualStyleBackColor = False
-        '
-        '_optChangeTop_2
-        '
-        Me._optChangeTop_2.Appearance = System.Windows.Forms.Appearance.Button
-        Me._optChangeTop_2.BackColor = System.Drawing.SystemColors.Control
-        Me._optChangeTop_2.Cursor = System.Windows.Forms.Cursors.Default
-        Me._optChangeTop_2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me._optChangeTop_2.Location = New System.Drawing.Point(130, 0)
-        Me._optChangeTop_2.Name = "_optChangeTop_2"
-        Me._optChangeTop_2.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._optChangeTop_2.Size = New System.Drawing.Size(61, 21)
-        Me._optChangeTop_2.TabIndex = 22
-        Me._optChangeTop_2.TabStop = True
-        Me._optChangeTop_2.Text = "環境"
-        Me._optChangeTop_2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me._optChangeTop_2.UseVisualStyleBackColor = False
-        '
-        '_optChangeTop_1
-        '
-        Me._optChangeTop_1.Appearance = System.Windows.Forms.Appearance.Button
-        Me._optChangeTop_1.BackColor = System.Drawing.SystemColors.Control
-        Me._optChangeTop_1.Cursor = System.Windows.Forms.Cursors.Default
-        Me._optChangeTop_1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me._optChangeTop_1.Location = New System.Drawing.Point(65, 0)
-        Me._optChangeTop_1.Name = "_optChangeTop_1"
-        Me._optChangeTop_1.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._optChangeTop_1.Size = New System.Drawing.Size(61, 21)
-        Me._optChangeTop_1.TabIndex = 21
-        Me._optChangeTop_1.TabStop = True
-        Me._optChangeTop_1.Text = "拡張"
-        Me._optChangeTop_1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me._optChangeTop_1.UseVisualStyleBackColor = False
         '
         'fraMaterial
         '
@@ -2850,7 +2850,7 @@
         '
         Me.Viewer.AutoSize = False
         Me.Viewer.Name = "Viewer"
-        Me.Viewer.Size = New System.Drawing.Size(1395, 22)
+        Me.Viewer.Size = New System.Drawing.Size(93, 22)
         '
         'PlayAll
         '
@@ -2892,7 +2892,7 @@
         '
         Me.ChangeGrid.AutoSize = False
         Me.ChangeGrid.Name = "ChangeGrid"
-        Me.ChangeGrid.Size = New System.Drawing.Size(2955, 22)
+        Me.ChangeGrid.Size = New System.Drawing.Size(197, 22)
         '
         'SepSize
         '
@@ -2904,7 +2904,7 @@
         '
         Me.DispSize.AutoSize = False
         Me.DispSize.Name = "DispSize"
-        Me.DispSize.Size = New System.Drawing.Size(2955, 22)
+        Me.DispSize.Size = New System.Drawing.Size(197, 22)
         '
         'SepResolution
         '
@@ -2916,7 +2916,7 @@
         '
         Me.Resolution.AutoSize = False
         Me.Resolution.Name = "Resolution"
-        Me.Resolution.Size = New System.Drawing.Size(2055, 22)
+        Me.Resolution.Size = New System.Drawing.Size(137, 22)
         '
         'lblDirectInput
         '

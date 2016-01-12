@@ -2097,11 +2097,11 @@ Err_Renamed:
 
             lngTemp = .ClientRectangle.Width - FRAME_WIDTH - PADDING_Renamed - lngLineWidth - PADDING_Renamed - SCROLLBAR_SIZE
 
-            Call vsbMain.SetBounds(lngTemp, lngToolBarHeight + PADDING_Renamed, SCROLLBAR_SIZE, .ClientRectangle.Height - lngToolBarHeight - PADDING_Renamed - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed)
+            Call vsbMain.SetBounds(lngTemp, MainMenu1.Height + lngToolBarHeight + PADDING_Renamed, SCROLLBAR_SIZE, .ClientRectangle.Height - MainMenu1.Height - lngToolBarHeight - PADDING_Renamed - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed)
 
             Call hsbMain.SetBounds(0, .ClientRectangle.Height - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed, lngTemp, SCROLLBAR_SIZE)
 
-            Call picMain.SetBounds(0, lngToolBarHeight + PADDING_Renamed, lngTemp, .ClientRectangle.Height - lngToolBarHeight - PADDING_Renamed - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed)
+            Call picMain.SetBounds(0, MainMenu1.Height + lngToolBarHeight + PADDING_Renamed, lngTemp, .ClientRectangle.Height - MainMenu1.Height - lngToolBarHeight - PADDING_Renamed - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed)
 
             _linDirectInput_0.Visible = _mnuViewItem_1.Checked
             _linDirectInput_1.Visible = _mnuViewItem_1.Checked
@@ -2117,7 +2117,7 @@ Err_Renamed:
 
             With tlbMenu.Items.Item("Viewer")
                 .Width = fraViewer.Width
-                Call fraViewer.SetBounds(.Bounds.Left + PADDING_Renamed, .Bounds.Top + PADDING_Renamed, .Width, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
+                Call fraViewer.SetBounds(.Bounds.Left + PADDING_Renamed, .Bounds.Top + MainMenu1.Height + PADDING_Renamed, .Width, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
                 Call fraViewer.BringToFront()
             End With
 
@@ -2128,7 +2128,7 @@ Err_Renamed:
                 cboDispGridMain.Left = lblGridSub.Left + lblGridSub.Width + PADDING_Renamed
                 fraGrid.Width = cboDispGridMain.Left + cboDispGridMain.Width + PADDING_Renamed
                 .Width = fraGrid.Width
-                Call fraGrid.SetBounds(.Bounds.Left, .Bounds.Top + PADDING_Renamed, .Width, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
+                Call fraGrid.SetBounds(.Bounds.Left, .Bounds.Top + MainMenu1.Height + PADDING_Renamed, .Width, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
                 Call fraGrid.BringToFront()
             End With
 
@@ -2139,7 +2139,7 @@ Err_Renamed:
                 cboDispWidth.Left = lblDispWidth.Left + lblDispWidth.Width + PADDING_Renamed
                 fraDispSize.Width = cboDispWidth.Left + cboDispWidth.Width + PADDING_Renamed
                 .Width = fraDispSize.Width
-                Call fraDispSize.SetBounds(.Bounds.Left, .Bounds.Top + PADDING_Renamed, .Width, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
+                Call fraDispSize.SetBounds(.Bounds.Left, .Bounds.Top + MainMenu1.Height + PADDING_Renamed, .Width, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
                 Call fraDispSize.BringToFront()
             End With
 
@@ -2147,7 +2147,7 @@ Err_Renamed:
                 lblVScroll.Left = PADDING_Renamed
                 cboVScroll.Left = lblVScroll.Left + lblVScroll.Width + PADDING_Renamed
                 fraResolution.Width = cboVScroll.Left + cboVScroll.Width + PADDING_Renamed
-                Call fraResolution.SetBounds(.Bounds.Left, .Bounds.Top + PADDING_Renamed, .Width, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
+                Call fraResolution.SetBounds(.Bounds.Left, .Bounds.Top + MainMenu1.Height + PADDING_Renamed, .Width, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
                 Call fraResolution.BringToFront()
             End With
 
