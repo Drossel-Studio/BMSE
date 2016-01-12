@@ -6187,30 +6187,12 @@ Err_Renamed:
         lstBMP.SelectedIndex = 0
         lstBGA.SelectedIndex = 0
 
-        'UPGRADE_ISSUE: Frame プロパティ fraViewer.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-        'fraViewer.BorderStyle = 0
-        'UPGRADE_ISSUE: Frame プロパティ fraGrid.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-        'fraGrid.BorderStyle = 0
-        'UPGRADE_ISSUE: Frame プロパティ fraDispSize.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-        'fraDispSize.BorderStyle = 0
-        'UPGRADE_ISSUE: Frame プロパティ fraResolution.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-        'fraResolution.BorderStyle = 0
-
-        'UPGRADE_ISSUE: Frame プロパティ fraHeader.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-        'fraHeader.BorderStyle = 0
-        'UPGRADE_ISSUE: Frame プロパティ fraMaterial.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-        'fraMaterial.BorderStyle = 0
-
-
         _fraTop_0.Top = 0
         _fraTop_0.Left = 0
-        '_fraTop_0.BorderStyle = 0
         _fraTop_1.Top = 0
         _fraTop_1.Left = 0
-        '_fraTop_1.BorderStyle = 0
         _fraTop_2.Top = 0
         _fraTop_2.Left = 0
-        '_fraTop_2.BorderStyle = 0
 
 
         _fraTop_0.Visible = True
@@ -6218,16 +6200,12 @@ Err_Renamed:
 
         _fraBottom_0.Top = 0
         _fraBottom_0.Left = 0
-        '_fraBottom_0.BorderStyle = 0
         _fraBottom_1.Top = 0
         _fraBottom_1.Left = 0
-        '_fraBottom_1.BorderStyle = 0
         _fraBottom_2.Top = 0
         _fraBottom_2.Left = 0
-        '_fraBottom_2.BorderStyle = 0
         _fraBottom_3.Top = 0
         _fraBottom_3.Left = 0
-        '_fraBottom_3.BorderStyle = 0
 
         _fraBottom_0.Visible = True
         _optChangeBottom_0.Checked = True

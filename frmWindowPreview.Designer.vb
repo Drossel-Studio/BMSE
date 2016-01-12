@@ -21,8 +21,8 @@
 	Public WithEvents cmdPreviewNext As System.Windows.Forms.Button
 	Public WithEvents cmdPreviewEnd As System.Windows.Forms.Button
 	Public WithEvents cmdPreviewHome As System.Windows.Forms.Button
-	Public WithEvents fraBGACmd As System.Windows.Forms.GroupBox
-	Public WithEvents cmdCopy As System.Windows.Forms.Button
+    Public WithEvents fraBGACmd As System.Windows.Forms.Panel
+    Public WithEvents cmdCopy As System.Windows.Forms.Button
 	Public WithEvents chkLock As System.Windows.Forms.CheckBox
 	Public WithEvents chkBGLine As System.Windows.Forms.CheckBox
 	Public WithEvents _txtBGAPara_0 As System.Windows.Forms.TextBox
@@ -39,8 +39,8 @@
 	Public WithEvents _lblBGAPara_4 As System.Windows.Forms.Label
 	Public WithEvents _lblBGAPara_5 As System.Windows.Forms.Label
 	Public WithEvents _lblBGAPara_6 As System.Windows.Forms.Label
-	Public WithEvents fraBGAPara As System.Windows.Forms.GroupBox
-	Public WithEvents picBackBuffer As System.Windows.Forms.PictureBox
+    Public WithEvents fraBGAPara As System.Windows.Forms.Panel
+    Public WithEvents picBackBuffer As System.Windows.Forms.PictureBox
 	Public WithEvents picPreview As System.Windows.Forms.PictureBox
     'メモ: 以下のプロシージャは Windows フォーム デザイナで必要です。
     'Windows フォーム デザイナを使って変更できます。
@@ -48,12 +48,12 @@
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.fraBGACmd = New System.Windows.Forms.GroupBox()
+        Me.fraBGACmd = New System.Windows.Forms.Panel()
         Me.cmdPreviewBack = New System.Windows.Forms.Button()
         Me.cmdPreviewNext = New System.Windows.Forms.Button()
         Me.cmdPreviewEnd = New System.Windows.Forms.Button()
         Me.cmdPreviewHome = New System.Windows.Forms.Button()
-        Me.fraBGAPara = New System.Windows.Forms.GroupBox()
+        Me.fraBGAPara = New System.Windows.Forms.Panel()
         Me.cmdCopy = New System.Windows.Forms.Button()
         Me.chkLock = New System.Windows.Forms.CheckBox()
         Me.chkBGLine = New System.Windows.Forms.CheckBox()

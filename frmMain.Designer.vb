@@ -114,14 +114,14 @@
     Public WithEvents tmrEffect As System.Windows.Forms.Timer
     Public WithEvents cboVScroll As System.Windows.Forms.ComboBox
     Public WithEvents lblVScroll As System.Windows.Forms.Label
-    Public WithEvents fraResolution As System.Windows.Forms.GroupBox
+    Public WithEvents fraResolution As System.Windows.Forms.Panel
     Public WithEvents cboDispHeight As System.Windows.Forms.ComboBox
     Public WithEvents cboDispWidth As System.Windows.Forms.ComboBox
     Public WithEvents lblDispWidth As System.Windows.Forms.Label
     Public WithEvents lblDispHeight As System.Windows.Forms.Label
-    Public WithEvents fraDispSize As System.Windows.Forms.GroupBox
+    Public WithEvents fraDispSize As System.Windows.Forms.Panel
     Public WithEvents cboViewer As System.Windows.Forms.ComboBox
-    Public WithEvents fraViewer As System.Windows.Forms.GroupBox
+    Public WithEvents fraViewer As System.Windows.Forms.Panel
     Public WithEvents tmrMain As System.Windows.Forms.Timer
     Public WithEvents ilsMenu As System.Windows.Forms.ImageList
     Public WithEvents cboDirectInput As System.Windows.Forms.ComboBox
@@ -130,7 +130,7 @@
     Public WithEvents cboDispGridSub As System.Windows.Forms.ComboBox
     Public WithEvents lblGridSub As System.Windows.Forms.Label
     Public WithEvents lblGridMain As System.Windows.Forms.Label
-    Public WithEvents fraGrid As System.Windows.Forms.GroupBox
+    Public WithEvents fraGrid As System.Windows.Forms.Panel
     Public WithEvents cboPlayer As System.Windows.Forms.ComboBox
     Public WithEvents txtGenre As System.Windows.Forms.TextBox
     Public WithEvents txtTitle As System.Windows.Forms.TextBox
@@ -143,7 +143,7 @@
     Public WithEvents lblArtist As System.Windows.Forms.Label
     Public WithEvents lblPlayLevel As System.Windows.Forms.Label
     Public WithEvents lblBPM As System.Windows.Forms.Label
-    Public WithEvents _fraTop_0 As System.Windows.Forms.GroupBox
+    Public WithEvents _fraTop_0 As System.Windows.Forms.Panel
     Public WithEvents cboPlayRank As System.Windows.Forms.ComboBox
     Public WithEvents txtTotal As System.Windows.Forms.TextBox
     Public WithEvents txtVolume As System.Windows.Forms.TextBox
@@ -156,7 +156,7 @@
     Public WithEvents lblVolume As System.Windows.Forms.Label
     Public WithEvents lblStageFile As System.Windows.Forms.Label
     Public WithEvents lblMissBMP As System.Windows.Forms.Label
-    Public WithEvents _fraTop_1 As System.Windows.Forms.GroupBox
+    Public WithEvents _fraTop_1 As System.Windows.Forms.Panel
     Public WithEvents cboDispFrame As System.Windows.Forms.ComboBox
     Public WithEvents cboDispSC2P As System.Windows.Forms.ComboBox
     Public WithEvents cboDispSC1P As System.Windows.Forms.ComboBox
@@ -165,32 +165,32 @@
     Public WithEvents lblDispSC2P As System.Windows.Forms.Label
     Public WithEvents lblDispSC1P As System.Windows.Forms.Label
     Public WithEvents lblDispKey As System.Windows.Forms.Label
-    Public WithEvents _fraTop_2 As System.Windows.Forms.GroupBox
+    Public WithEvents _fraTop_2 As System.Windows.Forms.Panel
     Public WithEvents _optChangeTop_0 As System.Windows.Forms.RadioButton
     Public WithEvents _optChangeTop_2 As System.Windows.Forms.RadioButton
     Public WithEvents _optChangeTop_1 As System.Windows.Forms.RadioButton
-    Public WithEvents fraHeader As System.Windows.Forms.GroupBox
+    Public WithEvents fraHeader As System.Windows.Forms.Panel
     Public WithEvents _optChangeBottom_0 As System.Windows.Forms.RadioButton
     Public WithEvents _optChangeBottom_1 As System.Windows.Forms.RadioButton
     Public WithEvents _optChangeBottom_2 As System.Windows.Forms.RadioButton
     Public WithEvents _optChangeBottom_3 As System.Windows.Forms.RadioButton
     Public WithEvents _optChangeBottom_4 As System.Windows.Forms.RadioButton
     Public WithEvents txtExInfo As System.Windows.Forms.TextBox
-    Public WithEvents _fraBottom_4 As System.Windows.Forms.GroupBox
+    Public WithEvents _fraBottom_4 As System.Windows.Forms.Panel
     Public WithEvents cmdSoundExcUp As System.Windows.Forms.Button
     Public WithEvents cmdSoundExcDown As System.Windows.Forms.Button
     Public WithEvents cmdSoundDelete As System.Windows.Forms.Button
     Public WithEvents cmdSoundLoad As System.Windows.Forms.Button
     Public WithEvents cmdSoundStop As System.Windows.Forms.Button
     Public WithEvents lstWAV As System.Windows.Forms.ListBox
-    Public WithEvents _fraBottom_0 As System.Windows.Forms.GroupBox
+    Public WithEvents _fraBottom_0 As System.Windows.Forms.Panel
     Public WithEvents cmdBMPExcDown As System.Windows.Forms.Button
     Public WithEvents cmdBMPExcUp As System.Windows.Forms.Button
     Public WithEvents lstBMP As System.Windows.Forms.ListBox
     Public WithEvents cmdBMPDelete As System.Windows.Forms.Button
     Public WithEvents cmdBMPLoad As System.Windows.Forms.Button
     Public WithEvents cmdBMPPreview As System.Windows.Forms.Button
-    Public WithEvents _fraBottom_1 As System.Windows.Forms.GroupBox
+    Public WithEvents _fraBottom_1 As System.Windows.Forms.Panel
     Public WithEvents cmdBGAExcDown As System.Windows.Forms.Button
     Public WithEvents cmdBGAExcUp As System.Windows.Forms.Button
     Public WithEvents txtBGAInput As System.Windows.Forms.TextBox
@@ -198,15 +198,15 @@
     Public WithEvents cmdBGASet As System.Windows.Forms.Button
     Public WithEvents cmdBGADelete As System.Windows.Forms.Button
     Public WithEvents lstBGA As System.Windows.Forms.ListBox
-    Public WithEvents _fraBottom_2 As System.Windows.Forms.GroupBox
+    Public WithEvents _fraBottom_2 As System.Windows.Forms.Panel
     Public WithEvents cboNumerator As System.Windows.Forms.ComboBox
     Public WithEvents cboDenominator As System.Windows.Forms.ComboBox
     Public WithEvents cmdMeasureSelectAll As System.Windows.Forms.Button
     Public WithEvents cmdInputMeasureLen As System.Windows.Forms.Button
     Public WithEvents lstMeasureLen As System.Windows.Forms.ListBox
     Public WithEvents lblFraction As System.Windows.Forms.Label
-    Public WithEvents _fraBottom_3 As System.Windows.Forms.GroupBox
-    Public WithEvents fraMaterial As System.Windows.Forms.GroupBox
+    Public WithEvents _fraBottom_3 As System.Windows.Forms.Panel
+    Public WithEvents fraMaterial As System.Windows.Forms.Panel
     Public WithEvents picMain As System.Windows.Forms.PictureBox
     Public WithEvents hsbMain As System.Windows.Forms.HScrollBar
     Public WithEvents vsbMain As System.Windows.Forms.VScrollBar
@@ -358,30 +358,30 @@
         Me._staMain_Panel6 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.picSiromaru = New System.Windows.Forms.PictureBox()
         Me.tmrEffect = New System.Windows.Forms.Timer(Me.components)
-        Me.fraResolution = New System.Windows.Forms.GroupBox()
+        Me.fraResolution = New System.Windows.Forms.Panel()
         Me.cboVScroll = New System.Windows.Forms.ComboBox()
         Me.lblVScroll = New System.Windows.Forms.Label()
-        Me.fraDispSize = New System.Windows.Forms.GroupBox()
+        Me.fraDispSize = New System.Windows.Forms.Panel()
         Me.cboDispHeight = New System.Windows.Forms.ComboBox()
         Me.cboDispWidth = New System.Windows.Forms.ComboBox()
         Me.lblDispWidth = New System.Windows.Forms.Label()
         Me.lblDispHeight = New System.Windows.Forms.Label()
-        Me.fraViewer = New System.Windows.Forms.GroupBox()
+        Me.fraViewer = New System.Windows.Forms.Panel()
         Me.cboViewer = New System.Windows.Forms.ComboBox()
         Me.tmrMain = New System.Windows.Forms.Timer(Me.components)
         Me.ilsMenu = New System.Windows.Forms.ImageList(Me.components)
         Me.cboDirectInput = New System.Windows.Forms.ComboBox()
         Me.cmdDirectInput = New System.Windows.Forms.Button()
-        Me.fraGrid = New System.Windows.Forms.GroupBox()
+        Me.fraGrid = New System.Windows.Forms.Panel()
         Me.cboDispGridMain = New System.Windows.Forms.ComboBox()
         Me.cboDispGridSub = New System.Windows.Forms.ComboBox()
         Me.lblGridSub = New System.Windows.Forms.Label()
         Me.lblGridMain = New System.Windows.Forms.Label()
-        Me.fraHeader = New System.Windows.Forms.GroupBox()
+        Me.fraHeader = New System.Windows.Forms.Panel()
         Me._optChangeTop_2 = New System.Windows.Forms.RadioButton()
         Me._optChangeTop_1 = New System.Windows.Forms.RadioButton()
         Me._optChangeTop_0 = New System.Windows.Forms.RadioButton()
-        Me._fraTop_0 = New System.Windows.Forms.GroupBox()
+        Me._fraTop_0 = New System.Windows.Forms.Panel()
         Me.cboPlayer = New System.Windows.Forms.ComboBox()
         Me.txtGenre = New System.Windows.Forms.TextBox()
         Me.txtTitle = New System.Windows.Forms.TextBox()
@@ -394,7 +394,7 @@
         Me.lblArtist = New System.Windows.Forms.Label()
         Me.lblPlayLevel = New System.Windows.Forms.Label()
         Me.lblBPM = New System.Windows.Forms.Label()
-        Me._fraTop_1 = New System.Windows.Forms.GroupBox()
+        Me._fraTop_1 = New System.Windows.Forms.Panel()
         Me.cboPlayRank = New System.Windows.Forms.ComboBox()
         Me.txtTotal = New System.Windows.Forms.TextBox()
         Me.txtVolume = New System.Windows.Forms.TextBox()
@@ -407,7 +407,7 @@
         Me.lblVolume = New System.Windows.Forms.Label()
         Me.lblStageFile = New System.Windows.Forms.Label()
         Me.lblMissBMP = New System.Windows.Forms.Label()
-        Me._fraTop_2 = New System.Windows.Forms.GroupBox()
+        Me._fraTop_2 = New System.Windows.Forms.Panel()
         Me.cboDispFrame = New System.Windows.Forms.ComboBox()
         Me.cboDispSC2P = New System.Windows.Forms.ComboBox()
         Me.cboDispSC1P = New System.Windows.Forms.ComboBox()
@@ -416,29 +416,29 @@
         Me.lblDispSC2P = New System.Windows.Forms.Label()
         Me.lblDispSC1P = New System.Windows.Forms.Label()
         Me.lblDispKey = New System.Windows.Forms.Label()
-        Me.fraMaterial = New System.Windows.Forms.GroupBox()
+        Me.fraMaterial = New System.Windows.Forms.Panel()
         Me._optChangeBottom_0 = New System.Windows.Forms.RadioButton()
         Me._optChangeBottom_1 = New System.Windows.Forms.RadioButton()
         Me._optChangeBottom_2 = New System.Windows.Forms.RadioButton()
         Me._optChangeBottom_3 = New System.Windows.Forms.RadioButton()
         Me._optChangeBottom_4 = New System.Windows.Forms.RadioButton()
-        Me._fraBottom_4 = New System.Windows.Forms.GroupBox()
+        Me._fraBottom_4 = New System.Windows.Forms.Panel()
         Me.txtExInfo = New System.Windows.Forms.TextBox()
-        Me._fraBottom_0 = New System.Windows.Forms.GroupBox()
+        Me._fraBottom_0 = New System.Windows.Forms.Panel()
         Me.cmdSoundExcUp = New System.Windows.Forms.Button()
         Me.cmdSoundExcDown = New System.Windows.Forms.Button()
         Me.cmdSoundDelete = New System.Windows.Forms.Button()
         Me.cmdSoundLoad = New System.Windows.Forms.Button()
         Me.cmdSoundStop = New System.Windows.Forms.Button()
         Me.lstWAV = New System.Windows.Forms.ListBox()
-        Me._fraBottom_1 = New System.Windows.Forms.GroupBox()
+        Me._fraBottom_1 = New System.Windows.Forms.Panel()
         Me.cmdBMPExcDown = New System.Windows.Forms.Button()
         Me.cmdBMPExcUp = New System.Windows.Forms.Button()
         Me.lstBMP = New System.Windows.Forms.ListBox()
         Me.cmdBMPDelete = New System.Windows.Forms.Button()
         Me.cmdBMPLoad = New System.Windows.Forms.Button()
         Me.cmdBMPPreview = New System.Windows.Forms.Button()
-        Me._fraBottom_2 = New System.Windows.Forms.GroupBox()
+        Me._fraBottom_2 = New System.Windows.Forms.Panel()
         Me.cmdBGAExcDown = New System.Windows.Forms.Button()
         Me.cmdBGAExcUp = New System.Windows.Forms.Button()
         Me.txtBGAInput = New System.Windows.Forms.TextBox()
@@ -446,7 +446,7 @@
         Me.cmdBGASet = New System.Windows.Forms.Button()
         Me.cmdBGADelete = New System.Windows.Forms.Button()
         Me.lstBGA = New System.Windows.Forms.ListBox()
-        Me._fraBottom_3 = New System.Windows.Forms.GroupBox()
+        Me._fraBottom_3 = New System.Windows.Forms.Panel()
         Me.cboNumerator = New System.Windows.Forms.ComboBox()
         Me.cboDenominator = New System.Windows.Forms.ComboBox()
         Me.cmdMeasureSelectAll = New System.Windows.Forms.Button()

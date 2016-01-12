@@ -201,10 +201,6 @@ Friend Class frmWindowPreview
 
             Call .picPreview.SetBounds(0, 0, 256, 256)
             Call .picBackBuffer.SetBounds(0, 0, 256, 256)
-            'UPGRADE_ISSUE: Frame プロパティ fraBGAPara.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-            '.fraBGAPara.BorderStyle = 0
-            'UPGRADE_ISSUE: Frame プロパティ fraBGACmd.BorderStyle はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-            '.fraBGACmd.BorderStyle = 0
 
         End With
 
