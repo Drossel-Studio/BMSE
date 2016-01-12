@@ -539,7 +539,6 @@ Module modMain
         Loop
 
         If intTemp Then
-            frmMain._mnuLanguage_0.Visible = False
         Else
             frmMain.mnuLanguageParent.Enabled = False
         End If
@@ -588,7 +587,6 @@ Module modMain
         Loop
 
         If intTemp Then
-            frmMain._mnuTheme_0.Visible = False
         Else
             frmMain.mnuThemeParent.Enabled = False
         End If
