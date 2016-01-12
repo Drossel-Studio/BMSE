@@ -97,8 +97,8 @@ Friend Class frmMain
             'If Not Shift And vbAltMask Then
 
             'グリッドにあわせる
-            If CType(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
-                lngTemp = 192 \ (CType(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData)
+            If DirectCast(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
+                lngTemp = 192 \ (DirectCast(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData)
                 .lngPosition = (.lngPosition \ lngTemp) * lngTemp
 
                 'If Not Shift And vbShiftMask Then
@@ -133,9 +133,9 @@ Friend Class frmMain
 
             'If Not Shift And vbAltMask Then
 
-            If CType(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
+            If DirectCast(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
 
-                lngTemp = 192 \ CType(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData
+                lngTemp = 192 \ DirectCast(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData
                 .lngPosition = (.lngPosition \ lngTemp) * lngTemp
 
             End If
@@ -799,13 +799,13 @@ Err_Renamed:
 
                 For i = 0 To cboDispHeight.Items.Count - 1
 
-                    If CType(Me.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData = sngTemp * 100 Then
+                    If DirectCast(Me.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData = sngTemp * 100 Then
 
                         cboDispHeight.SelectedIndex = i
 
                         Exit For
 
-                    ElseIf CType(Me.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData > sngTemp * 100 Then
+                    ElseIf DirectCast(Me.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData > sngTemp * 100 Then
 
                         Call cboDispHeight.Items.Insert(i, New modMain.ItemWithData("x" & Format(sngTemp, "#0.00"), sngTemp * 100))
                         cboDispHeight.SelectedIndex = i
@@ -875,13 +875,13 @@ Err_Renamed:
 
                 For i = 0 To cboDispWidth.Items.Count - 1
 
-                    If CType(Me.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData = sngTemp * 100 Then
+                    If DirectCast(Me.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData = sngTemp * 100 Then
 
                         cboDispWidth.SelectedIndex = i
 
                         Exit For
 
-                    ElseIf CType(Me.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData > sngTemp * 100 Then
+                    ElseIf DirectCast(Me.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData > sngTemp * 100 Then
 
                         Call cboDispWidth.Items.Insert(i, New modMain.ItemWithData("x" & Format(sngTemp, "#0.00"), sngTemp * 100))
                         cboDispWidth.SelectedIndex = i
@@ -910,7 +910,7 @@ Err_Renamed:
     Private Sub cboVScroll_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
         Dim NewLargeChange As Short
 
-        vsbMain.SmallChange = CType(Me.cboVScroll.SelectedItem, modMain.ItemWithData).ItemData
+        vsbMain.SmallChange = DirectCast(Me.cboVScroll.SelectedItem, modMain.ItemWithData).ItemData
         NewLargeChange = Me.vsbMain.SmallChange * 8
         vsbMain.Maximum = vsbMain.Maximum + NewLargeChange - vsbMain.LargeChange
         vsbMain.LargeChange = NewLargeChange
@@ -3952,20 +3952,20 @@ Err_Renamed:
     End Sub
 
     Public Sub mnuEditMode_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _mnuEditMode_2.Click, _mnuEditMode_1.Click, _mnuEditMode_0.Click
-        CType(tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = False
-        CType(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = False
-        CType(tlbMenu.Items.Item("Delete"), ToolStripButton).Checked = False
+        DirectCast(tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = False
+        DirectCast(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = False
+        DirectCast(tlbMenu.Items.Item("Delete"), ToolStripButton).Checked = False
 
 
         Select Case DirectCast(eventSender, ToolStripMenuItem).Name
             Case _mnuEditMode_0.Name
-                CType(tlbMenu.Items.Item(0 + 7), ToolStripButton).Checked = True
+                DirectCast(tlbMenu.Items.Item(0 + 7), ToolStripButton).Checked = True
                 staMain.Items.Item("Mode").Text = g_strStatusBar(20)
             Case _mnuEditMode_1.Name
-                CType(tlbMenu.Items.Item(1 + 7), ToolStripButton).Checked = True
+                DirectCast(tlbMenu.Items.Item(1 + 7), ToolStripButton).Checked = True
                 staMain.Items.Item("Mode").Text = g_strStatusBar(21)
             Case _mnuEditMode_2.Name
-                CType(tlbMenu.Items.Item(2 + 7), ToolStripButton).Checked = True
+                DirectCast(tlbMenu.Items.Item(2 + 7), ToolStripButton).Checked = True
                 staMain.Items.Item("Mode").Text = g_strStatusBar(22)
         End Select
 
@@ -4774,9 +4774,9 @@ Err_Renamed:
 
                     With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
 
-                        If CType(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
+                        If DirectCast(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
 
-                            lngTemp = 192 \ (CType(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData)
+                            lngTemp = 192 \ (DirectCast(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData)
                             lngTemp = .lngPosition - (.lngPosition \ lngTemp) * lngTemp
 
                         End If
@@ -5739,7 +5739,7 @@ Err_Renamed:
     End Sub
 
     Private Sub staMain_PanelDblClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _staMain_Panel6.DoubleClick, Measure.DoubleClick, BMP.DoubleClick, WAV.DoubleClick, Position.DoubleClick, Mode.DoubleClick
-        Dim Panel As System.Windows.Forms.ToolStripStatusLabel = CType(eventSender, System.Windows.Forms.ToolStripStatusLabel)
+        Dim Panel As System.Windows.Forms.ToolStripStatusLabel = DirectCast(eventSender, System.Windows.Forms.ToolStripStatusLabel)
 
         If Panel.Name = staMain.Items.Item("Mode").Name Then
             If tlbMenu.Items.Item("Edit").Pressed = True Then
@@ -5754,7 +5754,7 @@ Err_Renamed:
     End Sub
 
     Private Sub tlbMenu_ButtonClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Delete.Click, Write.Click, Edit.Click, SepMode.Click, SaveAs.Click, Save.Click, Reload.Click, Resolution.Click, Open.Click, SepResolution.Click, DispSize.Click, SepSize.Click, ChangeGrid.Click, SepGrid.Click, _Stop.Click, Play.Click, PlayAll.Click, Viewer.Click, SepViewer.Click, _New.Click
-        Dim Button As System.Windows.Forms.ToolStripItem = CType(eventSender, System.Windows.Forms.ToolStripItem)
+        Dim Button As System.Windows.Forms.ToolStripItem = DirectCast(eventSender, System.Windows.Forms.ToolStripItem)
         On Error GoTo Err_Renamed
 
         Select Case Button.Name

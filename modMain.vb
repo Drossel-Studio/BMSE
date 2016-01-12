@@ -97,14 +97,14 @@ Module modMain
 
     Public Sub SetItemString(obj As Control, index As Integer, itemstring As String)
         If TypeOf obj Is System.Windows.Forms.ComboBox Then
-            CType(obj, System.Windows.Forms.ComboBox).Items.Insert(index, itemstring)
-            If CType(obj, System.Windows.Forms.ComboBox).Items.Count > index + 1 Then
-                CType(obj, System.Windows.Forms.ComboBox).Items.RemoveAt(index + 1)
+            DirectCast(obj, System.Windows.Forms.ComboBox).Items.Insert(index, itemstring)
+            If DirectCast(obj, System.Windows.Forms.ComboBox).Items.Count > index + 1 Then
+                DirectCast(obj, System.Windows.Forms.ComboBox).Items.RemoveAt(index + 1)
             End If
         ElseIf TypeOf obj Is System.Windows.Forms.ListBox
-            CType(obj, System.Windows.Forms.ListBox).Items.Insert(index, itemstring)
-            If CType(obj, System.Windows.Forms.ListBox).Items.Count > index + 1 Then
-                CType(obj, System.Windows.Forms.ListBox).Items.RemoveAt(index + 1)
+            DirectCast(obj, System.Windows.Forms.ListBox).Items.Insert(index, itemstring)
+            If DirectCast(obj, System.Windows.Forms.ListBox).Items.Count > index + 1 Then
+                DirectCast(obj, System.Windows.Forms.ListBox).Items.RemoveAt(index + 1)
             End If
         Else
             Throw New Exception("Invalid Argument Type")
@@ -113,9 +113,9 @@ Module modMain
 
     Public Function GetItemString(obj As Control, index As Integer) As String
         If TypeOf obj Is System.Windows.Forms.ComboBox Then
-            GetItemString = CType(obj, System.Windows.Forms.ComboBox).Items.Item(index).ToString()
+            GetItemString = DirectCast(obj, System.Windows.Forms.ComboBox).Items.Item(index).ToString()
         ElseIf TypeOf obj Is System.Windows.Forms.ListBox
-            GetItemString = CType(obj, System.Windows.Forms.ListBox).Items.Item(index).ToString()
+            GetItemString = DirectCast(obj, System.Windows.Forms.ListBox).Items.Item(index).ToString()
         Else
             Throw New Exception("Invalid Argument Type")
         End If
@@ -1567,8 +1567,8 @@ Err_Renamed:
             .lblGridSub.Text = strGet_ini("ToolBar", "GRID_SUB", "Sub", strFileName)
             .lblDispHeight.Text = strGet_ini("ToolBar", "DISP_HEIGHT", "Height", strFileName)
             .lblDispWidth.Text = strGet_ini("ToolBar", "DISP_WIDTH", "Width", strFileName)
-            CType(.cboDispHeight.Items.Item(.cboDispHeight.Items.Count - 1), modMain.ItemWithData).SetItemString(strGet_ini("ToolBar", "DISP_VALUE_OTHER", "Other", strFileName))
-            CType(.cboDispWidth.Items.Item(.cboDispWidth.Items.Count - 1), modMain.ItemWithData).SetItemString(strGet_ini("ToolBar", "DISP_VALUE_OTHER", "Other", strFileName))
+            DirectCast(.cboDispHeight.Items.Item(.cboDispHeight.Items.Count - 1), modMain.ItemWithData).SetItemString(strGet_ini("ToolBar", "DISP_VALUE_OTHER", "Other", strFileName))
+            DirectCast(.cboDispWidth.Items.Item(.cboDispWidth.Items.Count - 1), modMain.ItemWithData).SetItemString(strGet_ini("ToolBar", "DISP_VALUE_OTHER", "Other", strFileName))
             .lblVScroll.Text = strGet_ini("ToolBar", "VSCROLL", "VScroll", strFileName)
 
             If .tlbMenu.Items.Item("Edit").Pressed = True Then
@@ -1887,13 +1887,13 @@ Err_Renamed:
 
                 For i = 0 To .Items.Count - 1
 
-                    If CType(frmMain.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData = lngTemp Then
+                    If DirectCast(frmMain.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData = lngTemp Then
 
                         .SelectedIndex = i
 
                         Exit For
 
-                    ElseIf CType(frmMain.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData > lngTemp Then
+                    ElseIf DirectCast(frmMain.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData > lngTemp Then
 
                         Call .Items.Insert(i, New modMain.ItemWithData("x" & Format(lngTemp / 100, "#0.00"), lngTemp))
                         .SelectedIndex = i
@@ -1912,13 +1912,13 @@ Err_Renamed:
 
                 For i = 0 To .Items.Count - 1
 
-                    If CType(frmMain.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData = lngTemp Then
+                    If DirectCast(frmMain.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData = lngTemp Then
 
                         .SelectedIndex = i
 
                         Exit For
 
-                    ElseIf CType(frmMain.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData > lngTemp Then
+                    ElseIf DirectCast(frmMain.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData > lngTemp Then
 
                         Call .Items.Insert(i, New modMain.ItemWithData("x" & Format(lngTemp / 100, "#0.00"), lngTemp))
                         .SelectedIndex = i
@@ -2301,8 +2301,8 @@ InitConfig:
                 Call lngSet_ini("Main", "Theme", Chr(34) & g_strThemeFileName(2) & Chr(34))
             End If
 
-            Call lngSet_ini("View", "Width", CType(.cboDispWidth.SelectedItem, modMain.ItemWithData).ItemData)
-            Call lngSet_ini("View", "Height", CType(.cboDispHeight.SelectedItem, modMain.ItemWithData).ItemData)
+            Call lngSet_ini("View", "Width", DirectCast(.cboDispWidth.SelectedItem, modMain.ItemWithData).ItemData)
+            Call lngSet_ini("View", "Height", DirectCast(.cboDispHeight.SelectedItem, modMain.ItemWithData).ItemData)
             Call lngSet_ini("View", "VGridMain", .cboDispGridMain.SelectedIndex)
             Call lngSet_ini("View", "VGridSub", .cboDispGridSub.SelectedIndex)
             Call lngSet_ini("View", "Frame", .cboDispFrame.SelectedIndex)
