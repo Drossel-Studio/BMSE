@@ -1279,11 +1279,9 @@
         Me.fraResolution.ForeColor = System.Drawing.SystemColors.ControlText
         Me.fraResolution.Location = New System.Drawing.Point(1008, 200)
         Me.fraResolution.Name = "fraResolution"
-        Me.fraResolution.Padding = New System.Windows.Forms.Padding(0)
         Me.fraResolution.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.fraResolution.Size = New System.Drawing.Size(117, 21)
         Me.fraResolution.TabIndex = 16
-        Me.fraResolution.TabStop = False
         '
         'cboVScroll
         '
@@ -1320,11 +1318,9 @@
         Me.fraDispSize.ForeColor = System.Drawing.SystemColors.ControlText
         Me.fraDispSize.Location = New System.Drawing.Point(808, 200)
         Me.fraDispSize.Name = "fraDispSize"
-        Me.fraDispSize.Padding = New System.Windows.Forms.Padding(0)
         Me.fraDispSize.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.fraDispSize.Size = New System.Drawing.Size(197, 21)
         Me.fraDispSize.TabIndex = 11
-        Me.fraDispSize.TabStop = False
         '
         'cboDispHeight
         '
@@ -1383,11 +1379,9 @@
         Me.fraViewer.ForeColor = System.Drawing.SystemColors.ControlText
         Me.fraViewer.Location = New System.Drawing.Point(808, 136)
         Me.fraViewer.Name = "fraViewer"
-        Me.fraViewer.Padding = New System.Windows.Forms.Padding(0)
         Me.fraViewer.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.fraViewer.Size = New System.Drawing.Size(97, 21)
         Me.fraViewer.TabIndex = 4
-        Me.fraViewer.TabStop = False
         '
         'cboViewer
         '
@@ -1454,11 +1448,9 @@
         Me.fraGrid.ForeColor = System.Drawing.SystemColors.ControlText
         Me.fraGrid.Location = New System.Drawing.Point(808, 168)
         Me.fraGrid.Name = "fraGrid"
-        Me.fraGrid.Padding = New System.Windows.Forms.Padding(0)
         Me.fraGrid.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.fraGrid.Size = New System.Drawing.Size(197, 21)
         Me.fraGrid.TabIndex = 6
-        Me.fraGrid.TabStop = False
         '
         'cboDispGridMain
         '
@@ -1522,11 +1514,9 @@
         Me.fraHeader.ForeColor = System.Drawing.SystemColors.ControlText
         Me.fraHeader.Location = New System.Drawing.Point(140, 56)
         Me.fraHeader.Name = "fraHeader"
-        Me.fraHeader.Padding = New System.Windows.Forms.Padding(0)
         Me.fraHeader.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.fraHeader.Size = New System.Drawing.Size(666, 165)
         Me.fraHeader.TabIndex = 19
-        Me.fraHeader.TabStop = False
         '
         '_optChangeTop_2
         '
@@ -1594,11 +1584,9 @@
         Me._fraTop_0.ForeColor = System.Drawing.SystemColors.ControlText
         Me._fraTop_0.Location = New System.Drawing.Point(0, 32)
         Me._fraTop_0.Name = "_fraTop_0"
-        Me._fraTop_0.Padding = New System.Windows.Forms.Padding(0)
         Me._fraTop_0.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._fraTop_0.Size = New System.Drawing.Size(217, 125)
         Me._fraTop_0.TabIndex = 23
-        Me._fraTop_0.TabStop = False
         Me._fraTop_0.Visible = False
         '
         'cboPlayer
@@ -1781,13 +1769,11 @@
         Me._fraTop_1.Controls.Add(Me.lblStageFile)
         Me._fraTop_1.Controls.Add(Me.lblMissBMP)
         Me._fraTop_1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me._fraTop_1.Location = New System.Drawing.Point(220, 32)
+        Me._fraTop_1.Location = New System.Drawing.Point(0, 32)
         Me._fraTop_1.Name = "_fraTop_1"
-        Me._fraTop_1.Padding = New System.Windows.Forms.Padding(0)
         Me._fraTop_1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._fraTop_1.Size = New System.Drawing.Size(217, 125)
         Me._fraTop_1.TabIndex = 36
-        Me._fraTop_1.TabStop = False
         Me._fraTop_1.Visible = False
         '
         'cboPlayRank
@@ -1966,13 +1952,11 @@
         Me._fraTop_2.Controls.Add(Me.lblDispSC1P)
         Me._fraTop_2.Controls.Add(Me.lblDispKey)
         Me._fraTop_2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me._fraTop_2.Location = New System.Drawing.Point(440, 32)
+        Me._fraTop_2.Location = New System.Drawing.Point(0, 32)
         Me._fraTop_2.Name = "_fraTop_2"
-        Me._fraTop_2.Padding = New System.Windows.Forms.Padding(0)
         Me._fraTop_2.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._fraTop_2.Size = New System.Drawing.Size(217, 125)
         Me._fraTop_2.TabIndex = 49
-        Me._fraTop_2.TabStop = False
         Me._fraTop_2.Visible = False
         '
         'cboDispFrame
@@ -2103,11 +2087,9 @@
         Me.fraMaterial.ForeColor = System.Drawing.SystemColors.ControlText
         Me.fraMaterial.Location = New System.Drawing.Point(140, 228)
         Me.fraMaterial.Name = "fraMaterial"
-        Me.fraMaterial.Padding = New System.Windows.Forms.Padding(0)
         Me.fraMaterial.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.fraMaterial.Size = New System.Drawing.Size(1105, 269)
         Me.fraMaterial.TabIndex = 58
-        Me.fraMaterial.TabStop = False
         '
         '_optChangeBottom_0
         '
@@ -2194,13 +2176,11 @@
         Me._fraBottom_4.BackColor = System.Drawing.SystemColors.Control
         Me._fraBottom_4.Controls.Add(Me.txtExInfo)
         Me._fraBottom_4.ForeColor = System.Drawing.SystemColors.ControlText
-        Me._fraBottom_4.Location = New System.Drawing.Point(884, 32)
+        Me._fraBottom_4.Location = New System.Drawing.Point(0, 32)
         Me._fraBottom_4.Name = "_fraBottom_4"
-        Me._fraBottom_4.Padding = New System.Windows.Forms.Padding(0)
         Me._fraBottom_4.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._fraBottom_4.Size = New System.Drawing.Size(217, 233)
         Me._fraBottom_4.TabIndex = 93
-        Me._fraBottom_4.TabStop = False
         Me._fraBottom_4.Visible = False
         '
         'txtExInfo
@@ -2231,11 +2211,9 @@
         Me._fraBottom_0.ForeColor = System.Drawing.SystemColors.ControlText
         Me._fraBottom_0.Location = New System.Drawing.Point(4, 56)
         Me._fraBottom_0.Name = "_fraBottom_0"
-        Me._fraBottom_0.Padding = New System.Windows.Forms.Padding(0)
         Me._fraBottom_0.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._fraBottom_0.Size = New System.Drawing.Size(217, 209)
         Me._fraBottom_0.TabIndex = 64
-        Me._fraBottom_0.TabStop = False
         Me._fraBottom_0.Visible = False
         '
         'cmdSoundExcUp
@@ -2326,13 +2304,11 @@
         Me._fraBottom_1.Controls.Add(Me.cmdBMPLoad)
         Me._fraBottom_1.Controls.Add(Me.cmdBMPPreview)
         Me._fraBottom_1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me._fraBottom_1.Location = New System.Drawing.Point(224, 32)
+        Me._fraBottom_1.Location = New System.Drawing.Point(0, 32)
         Me._fraBottom_1.Name = "_fraBottom_1"
-        Me._fraBottom_1.Padding = New System.Windows.Forms.Padding(0)
         Me._fraBottom_1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._fraBottom_1.Size = New System.Drawing.Size(217, 233)
         Me._fraBottom_1.TabIndex = 71
-        Me._fraBottom_1.TabStop = False
         Me._fraBottom_1.Visible = False
         '
         'cmdBMPExcDown
@@ -2424,13 +2400,11 @@
         Me._fraBottom_2.Controls.Add(Me.cmdBGADelete)
         Me._fraBottom_2.Controls.Add(Me.lstBGA)
         Me._fraBottom_2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me._fraBottom_2.Location = New System.Drawing.Point(444, 32)
+        Me._fraBottom_2.Location = New System.Drawing.Point(0, 32)
         Me._fraBottom_2.Name = "_fraBottom_2"
-        Me._fraBottom_2.Padding = New System.Windows.Forms.Padding(0)
         Me._fraBottom_2.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._fraBottom_2.Size = New System.Drawing.Size(217, 233)
         Me._fraBottom_2.TabIndex = 78
-        Me._fraBottom_2.TabStop = False
         Me._fraBottom_2.Visible = False
         '
         'cmdBGAExcDown
@@ -2533,13 +2507,11 @@
         Me._fraBottom_3.Controls.Add(Me.lstMeasureLen)
         Me._fraBottom_3.Controls.Add(Me.lblFraction)
         Me._fraBottom_3.ForeColor = System.Drawing.SystemColors.ControlText
-        Me._fraBottom_3.Location = New System.Drawing.Point(664, 32)
+        Me._fraBottom_3.Location = New System.Drawing.Point(0, 32)
         Me._fraBottom_3.Name = "_fraBottom_3"
-        Me._fraBottom_3.Padding = New System.Windows.Forms.Padding(0)
         Me._fraBottom_3.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._fraBottom_3.Size = New System.Drawing.Size(217, 233)
         Me._fraBottom_3.TabIndex = 86
-        Me._fraBottom_3.TabStop = False
         Me._fraBottom_3.Visible = False
         '
         'cboNumerator
