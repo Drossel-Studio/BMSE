@@ -1928,7 +1928,56 @@ Err_Renamed:
     End Sub
 
     Private Sub frmMain_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x0.5", 50))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x1.0", 100))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x1.5", 150))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x2.0", 200))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x2.5", 250))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x3.0", 300))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x3.5", 350))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x4.0", 400))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("...", 10000))
+        Me.cboDispHeight.SelectedIndex = 0
 
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x0.5", 50))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x1.0", 100))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x1.5", 150))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x2.0", 200))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x2.5", 250))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x3.0", 300))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x3.5", 350))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x4.0", 400))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("...", 10000))
+        Me.cboDispWidth.SelectedIndex = 0
+
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("2", 2))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("4", 4))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("8", 8))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("16", 16))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("32", 32))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("64", 64))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("3", 3))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("6", 6))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("12", 12))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("24", 24))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("48", 48))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("NONE", 0))
+        Me.cboDispGridMain.SelectedIndex = 0
+
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("4", 4))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("8", 8))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("16", 16))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("32", 32))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("64", 64))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("3", 3))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("6", 6))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("12", 12))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("24", 24))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("48", 48))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("FREE", 0))
+        Me.cboDispGridSub.SelectedIndex = 0
+
+        Me.cboVScroll.Items.Add(New modMain.ItemWithData("1", 1))
     End Sub
 
     Private Sub frmMain_DragEnter(sender As Object, e As DragEventArgs) Handles MyBase.DragEnter

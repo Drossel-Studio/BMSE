@@ -1291,7 +1291,6 @@
         Me.cboVScroll.Cursor = System.Windows.Forms.Cursors.Default
         Me.cboVScroll.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboVScroll.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.cboVScroll.Items.Add(New modMain.ItemWithData("1", 1))
         Me.cboVScroll.Location = New System.Drawing.Point(48, 0)
         Me.cboVScroll.Name = "cboVScroll"
         Me.cboVScroll.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1333,21 +1332,11 @@
         Me.cboDispHeight.Cursor = System.Windows.Forms.Cursors.Default
         Me.cboDispHeight.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboDispHeight.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x0.5", 50))
-        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x1.0", 100))
-        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x1.5", 150))
-        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x2.0", 200))
-        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x2.5", 250))
-        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x3.0", 300))
-        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x3.5", 350))
-        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x4.0", 400))
-        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("...", 10000))
         Me.cboDispHeight.Location = New System.Drawing.Point(32, 0)
         Me.cboDispHeight.Name = "cboDispHeight"
         Me.cboDispHeight.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cboDispHeight.Size = New System.Drawing.Size(57, 20)
         Me.cboDispHeight.TabIndex = 13
-        Me.cboDispHeight.SelectedIndex = 0
         '
         'cboDispWidth
         '
@@ -1355,21 +1344,11 @@
         Me.cboDispWidth.Cursor = System.Windows.Forms.Cursors.Default
         Me.cboDispWidth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboDispWidth.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x0.5", 50))
-        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x1.0", 100))
-        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x1.5", 150))
-        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x2.0", 200))
-        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x2.5", 250))
-        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x3.0", 300))
-        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x3.5", 350))
-        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x4.0", 400))
-        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("...", 10000))
         Me.cboDispWidth.Location = New System.Drawing.Point(116, 0)
         Me.cboDispWidth.Name = "cboDispWidth"
         Me.cboDispWidth.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cboDispWidth.Size = New System.Drawing.Size(57, 20)
         Me.cboDispWidth.TabIndex = 15
-        Me.cboDispWidth.SelectedIndex = 0
         '
         'lblDispWidth
         '
@@ -1487,24 +1466,11 @@
         Me.cboDispGridMain.Cursor = System.Windows.Forms.Cursors.Default
         Me.cboDispGridMain.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboDispGridMain.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("2", 2))
-        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("4", 4))
-        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("8", 8))
-        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("16", 16))
-        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("32", 32))
-        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("64", 64))
-        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("3", 3))
-        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("6", 6))
-        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("12", 12))
-        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("24", 24))
-        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("48", 48))
-        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("NONE", 0))
         Me.cboDispGridMain.Location = New System.Drawing.Point(128, 0)
         Me.cboDispGridMain.Name = "cboDispGridMain"
         Me.cboDispGridMain.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cboDispGridMain.Size = New System.Drawing.Size(57, 20)
         Me.cboDispGridMain.TabIndex = 10
-        Me.cboDispGridMain.SelectedIndex = 0
         '
         'cboDispGridSub
         '
@@ -1512,23 +1478,11 @@
         Me.cboDispGridSub.Cursor = System.Windows.Forms.Cursors.Default
         Me.cboDispGridSub.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboDispGridSub.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("4", 4))
-        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("8", 8))
-        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("16", 16))
-        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("32", 32))
-        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("64", 64))
-        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("3", 3))
-        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("6", 6))
-        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("12", 12))
-        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("24", 24))
-        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("48", 48))
-        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("FREE", 0))
         Me.cboDispGridSub.Location = New System.Drawing.Point(32, 0)
         Me.cboDispGridSub.Name = "cboDispGridSub"
         Me.cboDispGridSub.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cboDispGridSub.Size = New System.Drawing.Size(57, 20)
         Me.cboDispGridSub.TabIndex = 8
-        Me.cboDispGridSub.SelectedIndex = 0
         '
         'lblGridSub
         '
