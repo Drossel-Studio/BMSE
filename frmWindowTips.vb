@@ -112,7 +112,7 @@ Friend Class frmWindowTips
 		
 		If m_intTipsPos > UBound(m_strTips) Then m_intTipsPos = 1
 
-        gp.DrawRectangle(Pens.White, New Rectangle(360, 24, 12, 10))
+        gp.FillRectangle(Brushes.White, New Rectangle(360, 24, 12, 10))
 
         With Me
             Dim frmWindowTips_gp As Graphics = .CreateGraphics()
@@ -128,7 +128,7 @@ Friend Class frmWindowTips
             frmWindowTips_gp.Dispose()
         End With
 
-        gp.DrawRectangle(Pens.White, New Rectangle(63, 48, 339, 168))
+        gp.FillRectangle(Brushes.White, New Rectangle(63, 48, 339, 168))
 
         Dim hDC As IntPtr = gp.GetHdc()
         Dim picIcon_gp As Graphics = picIcon.CreateGraphics()
@@ -208,11 +208,11 @@ Friend Class frmWindowTips
 
         With Me
 
-            gp.DrawRectangle(Pens.Gray, New Rectangle(8, 8, 48, 214))
+            gp.FillRectangle(Brushes.Gray, New Rectangle(8, 8, 48, 214))
 
-            gp.DrawRectangle(Pens.White, New Rectangle(57, 8, 351, 214))
+            gp.FillRectangle(Brushes.White, New Rectangle(57, 8, 351, 214))
 
-            gp.DrawRectangle(Pens.Black, New Rectangle(57, 41, 351, 0))
+            gp.FillRectangle(Brushes.Black, New Rectangle(57, 41, 351, 0))
 
             .Font = New Font(.Font.FontFamily, 16, .Font.Style Or FontStyle.Bold, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
 
@@ -239,7 +239,7 @@ Friend Class frmWindowTips
             gp.ReleaseHdc()
         End With
 
-        gp.DrawRectangle(Pens.White, New Rectangle(64, 48, 341, 170))
+        gp.FillRectangle(Brushes.White, New Rectangle(64, 48, 341, 170))
 
         hDC = gp.GetHdc()
 
@@ -273,7 +273,7 @@ Friend Class frmWindowTips
         m_lngTipsNum = m_lngTipsNum + 1
         tmrMain.Interval = 100
 
-        gp.DrawRectangle(Pens.White, New Rectangle(63, 48, 402, 216))
+        gp.FillRectangle(Brushes.White, New Rectangle(63, 48, 402, 216))
 
         Dim hDC As IntPtr = gp.GetHdc()
 
