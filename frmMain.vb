@@ -6187,8 +6187,25 @@ Err_Renamed:
         lstBMP.SelectedIndex = 0
         lstBGA.SelectedIndex = 0
 
+        _fraTop_0.Top = 0
+        _fraTop_0.Left = 0
+        _fraTop_1.Top = 0
+        _fraTop_1.Left = 0
+        _fraTop_2.Top = 0
+        _fraTop_2.Left = 0
+
+
         _fraTop_0.Visible = True
         _optChangeTop_0.Checked = True
+
+        _fraBottom_0.Top = 0
+        _fraBottom_0.Left = 0
+        _fraBottom_1.Top = 0
+        _fraBottom_1.Left = 0
+        _fraBottom_2.Top = 0
+        _fraBottom_2.Left = 0
+        _fraBottom_3.Top = 0
+        _fraBottom_3.Left = 0
 
         _fraBottom_0.Visible = True
         _optChangeBottom_0.Checked = True
