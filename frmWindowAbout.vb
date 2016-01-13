@@ -29,6 +29,7 @@ Friend Class frmWindowAbout
             Call TextOut(hDC, X, Y, Text_Renamed, intTemp)
 
             gp.ReleaseHdc()
+            gp.Dispose()
         End With
 
     End Sub
@@ -200,9 +201,11 @@ Friend Class frmWindowAbout
 
             'Call PrintText(strTemp, 251, 174)
 
-            gp.ReleaseHdc()
             picMain_gp.ReleaseHdc()
+            picMain_gp.Dispose()
 
+            gp.ReleaseHdc()
+            gp.Dispose()
         End With
 
     End Sub

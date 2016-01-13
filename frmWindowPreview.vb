@@ -343,8 +343,11 @@ Err_Renamed:
 
             Call BitBlt(hDC, (.ClientRectangle.Width \ 2 - 128) + Val(_txtBGAPara_5.Text), (.ClientRectangle.Height \ 2 - 128) + Val(_txtBGAPara_6.Text), lngNumField(Val(_txtBGAPara_3.Text) - Val(_txtBGAPara_1.Text), 0, 256), lngNumField(Val(_txtBGAPara_4.Text) - Val(_txtBGAPara_2.Text), 0, 256), picBackBuffer_hDC, Val(_txtBGAPara_1.Text), Val(_txtBGAPara_2.Text), SRCCOPY)
 
-            gp.ReleaseHdc()
             picBackBuffer_gp.ReleaseHdc()
+            picBackBuffer_gp.Dispose()
+
+            gp.ReleaseHdc()
+            gp.Dispose()
 
         End With
 

@@ -5928,6 +5928,7 @@ Err_Renamed:
 
         Dim gp As Graphics = picMain.CreateGraphics()
         Call gp.Clear(picMain.BackColor)
+        gp.Dispose()
 
         If g_Obj(UBound(g_Obj)).intCh Then
 

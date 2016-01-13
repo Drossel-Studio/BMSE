@@ -695,6 +695,8 @@ Err_Renamed:
 
         Call gp.Clear(frmMain.picMain.BackColor)
 
+        gp.Dispose()
+
         Call DrawGridBG() '背景色
 
         Call DrawMeasureNum() '小節番号
@@ -830,6 +832,7 @@ Err_Renamed:
                     End If
 
                     gp.ReleaseHdc()
+                    gp.Dispose()
 
                 End With
 
@@ -864,6 +867,7 @@ Err_Renamed:
             Next i
 
             gp.ReleaseHdc()
+            gp.Dispose()
         End With
 
     End Sub
@@ -909,6 +913,7 @@ Err_Renamed:
         Call DeleteObject(hNew)
 
         gp.ReleaseHdc()
+        gp.Dispose()
 
     End Sub
 
@@ -985,6 +990,7 @@ Err_Renamed:
         Call DeleteObject(hNew)
 
         gp.ReleaseHdc()
+        gp.Dispose()
 
     End Sub
 
@@ -1029,6 +1035,7 @@ Err_Renamed:
         Call DeleteObject(hNew)
 
         gp.ReleaseHdc()
+        gp.Dispose()
 
     End Sub
 
@@ -1066,6 +1073,7 @@ Err_Renamed:
         Call DeleteObject(hNew)
 
         gp.ReleaseHdc()
+        gp.Dispose()
 
     End Sub
 
@@ -1152,6 +1160,7 @@ Err_Renamed:
         Next i
 
         gp.ReleaseHdc()
+        gp.Dispose()
 
     End Sub
 
@@ -1193,6 +1202,7 @@ Err_Renamed:
         Call LineTo(hDC, X + Width, frmMain.picMain.ClientRectangle.Height - 1 - Y - Height)
 
         gp.ReleaseHdc()
+        gp.Dispose()
 
     End Sub
 
@@ -1219,6 +1229,7 @@ Err_Renamed:
 
             If g_intVGridNum(.intCh) = 0 Then
                 gp.ReleaseHdc()
+                gp.Dispose()
                 Exit Sub
             End If
 
@@ -1399,6 +1410,7 @@ Err_Renamed:
                     m_hBrush(intBrushNum) = SelectObject(hDC, hOldBrush)
 
                     gp.ReleaseHdc()
+                    gp.Dispose()
                     Exit Sub
 
             End Select
@@ -1448,11 +1460,13 @@ Err_Renamed:
         End With
 
         gp.ReleaseHdc()
+        gp.Dispose()
         Exit Sub
 
 Err_Renamed:
         Call modMain.CleanUp(Err.Number, Err.Description, "DrawObj")
         gp.ReleaseHdc()
+        gp.Dispose()
     End Sub
 
     Public Sub DrawObjRect(ByVal Num As Integer)
@@ -1487,6 +1501,7 @@ Err_Renamed:
             Call Rectangle(hDC, X - 1, Y - OBJ_HEIGHT - 1, X + Width + 1, Y + 2)
 
             gp.ReleaseHdc()
+            gp.Dispose()
         End With
 
         Exit Sub
@@ -1661,6 +1676,7 @@ Err_Renamed:
         '画面消去
         Dim gp As Graphics = frmMain.picMain.CreateGraphics()
         Call gp.Clear(frmMain.picMain.BackColor)
+        gp.Dispose()
 
         '描画すべきオブジェはあるか？
         If g_Obj(UBound(g_Obj)).intCh Then
@@ -2016,6 +2032,7 @@ Err_Renamed:
         Call DeleteObject(hNewBrush)
 
         gp.ReleaseHdc()
+        gp.Dispose()
     End Sub
 
     Public Function lngChangeMaxMeasure(ByVal intMeasure As Short) As Integer

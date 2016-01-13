@@ -125,6 +125,7 @@ Friend Class frmWindowTips
 
             .Font = New Font(.Font.FontFamily, 12, .Font.Style, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
 
+            frmWindowTips_gp.Dispose()
         End With
 
         gp.DrawRectangle(Pens.White, New Rectangle(63, 48, 339, 168))
@@ -137,8 +138,11 @@ Friend Class frmWindowTips
 
         m_lngTipsNum = 0
 
-        gp.ReleaseHdc()
         picIcon_gp.ReleaseHdc()
+        picIcon_gp.Dispose()
+
+        gp.ReleaseHdc()
+        gp.Dispose()
 
     End Sub
 	
@@ -249,8 +253,11 @@ Friend Class frmWindowTips
 		
 		Call cmdNext.Focus()
 
-        gp.ReleaseHdc()
         picIcon_gp.ReleaseHdc()
+        picIcon_gp.Dispose()
+
+        gp.ReleaseHdc()
+        gp.Dispose()
 
     End Sub
 
@@ -328,8 +335,11 @@ Friend Class frmWindowTips
 
         End If
 
-        gp.ReleaseHdc()
         picIcon_gp.ReleaseHdc()
+        picIcon_gp.Dispose()
+
+        gp.ReleaseHdc()
+        gp.Dispose()
 
     End Sub
 

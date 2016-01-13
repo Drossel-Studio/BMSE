@@ -167,6 +167,7 @@ Module modEasterEgg
 
                 Dim gp As Graphics = frmMain.picMain.CreateGraphics()
                 Call gp.Clear(frmMain.picMain.BackColor)
+                gp.Dispose()
 
         End Select
 
@@ -553,8 +554,11 @@ Module modEasterEgg
 
         'frmMain.cboDirectInput.Text = timeGetTime() - lngTemp
 
-        gp.ReleaseHdc()
         picSiromaru_gp.ReleaseHdc()
+        picSiromaru_gp.Dispose()
+
+        gp.ReleaseHdc()
+        gp.Dispose()
         Exit Sub
 
     End Sub
@@ -618,12 +622,14 @@ Module modEasterEgg
             Call StretchBlt(hDC, X, Y, m_objSnow(0).X, m_objSnow(0).X, picSiromaru_hDC, 32, srcY, 32, 32, SRCAND)
             Call StretchBlt(hDC, X, Y, m_objSnow(0).X, m_objSnow(0).X, picSiromaru_hDC, 0, srcY, 32, 32, SRCPAINT)
 
-            gp.ReleaseHdc()
             picSiromaru_gp.ReleaseHdc()
+            picSiromaru_gp.Dispose()
 
+            gp.ReleaseHdc()
+            gp.Dispose()
         End With
-		
-	End Sub
+
+    End Sub
 	
 	Public Sub DrawLog()
 		
@@ -653,6 +659,7 @@ Module modEasterEgg
             Call TextOut(hDC, X, Y, Text, intTemp)
 
             gp.ReleaseHdc()
+            gp.Dispose()
 
         End With
 		
@@ -833,8 +840,11 @@ Module modEasterEgg
                                     frmMain.tmrEffect.Enabled = False
                                     g_disp.intEffect = EASTEREGG.OFF
 
-                                    gp.ReleaseHdc()
                                     picSiromaru_gp.ReleaseHdc()
+                                    picSiromaru_gp.Dispose()
+
+                                    gp.ReleaseHdc()
+                                    gp.Dispose()
                                     Exit Sub
 
                                 Case Is < 32 : Color = m_lngCounter * 8 '0-31
@@ -926,12 +936,14 @@ Module modEasterEgg
 
         End With
 
-        gp.ReleaseHdc()
         picSiromaru_gp.ReleaseHdc()
+        picSiromaru_gp.Dispose()
 
+        gp.ReleaseHdc()
+        gp.Dispose()
     End Sub
-	
-	Public Sub DrawBlueScreen()
+
+    Public Sub DrawBlueScreen()
 		
 		Dim hBrushNew As Integer
 		Dim hBrushOld As Integer
@@ -961,6 +973,7 @@ Module modEasterEgg
             Call DrawText(hDC, "A problem has been detected and BMSE has been shut down to prevent damage to your mind." & vbCrLf & vbCrLf & "The problem seems to be caused by the following file: BMSE.EXE" & vbCrLf & vbCrLf & "EASTER_EGG_BLUE_SCREEN_OF_DEATH" & vbCrLf & vbCrLf & "If this is the first time you've seen this stop error screen, restart your BMSE. If this screen appears again, follow these steps:" & vbCrLf & vbCrLf & "1) Bury me from your computer." & vbCrLf & "2) Access UCN-Soft BBS, and write your shout of spirit." & vbCrLf & "       ex) ""BMSE is the worst software in the world!!!!!!!!!!!!!!111111""" & vbCrLf & "3) Sing ""asdf song"":" & vbCrLf & "       This is the sound of the asdf song." & vbCrLf & "       asdf fdsa" & vbCrLf & "       asdffdsa ye-ye" & vbCrLf & "       (clap clap clap)" & vbCrLf & "4) Throw your computer from window." & vbCrLf & vbCrLf & "If you are satiated with joke:" & vbCrLf & vbCrLf & "Launch BMSE and type your key ""OFF"", then press return key." & vbCrLf & vbCrLf & "Meaningless information:" & vbCrLf & vbCrLf & "*** STOP: 0x88710572 (0xASDFFDSA,0x00004126,0xD0SUK01,0x○0▽0○)" & vbCrLf & vbCrLf & vbCrLf & "***  BMSE.EXE - Public Sub DrawBlueScreen() at modEasterEgg.bas, DateStamp 2006-12-26", -1, rectTemp, DT_WORDBREAK)
 
             gp.ReleaseHdc()
+            gp.Dispose()
         End With
 
     End Sub
