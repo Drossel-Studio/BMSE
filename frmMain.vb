@@ -6243,6 +6243,8 @@ Err_Renamed:
 
         Call GetCmdLine()
 
+        Call frmMain_Resize(Me, New EventArgs)
+
     End Sub
 
 End Class
