@@ -5536,7 +5536,7 @@ Err_Renamed:
     End Sub
 
     Public Sub picMain_MouseMove(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles picMain.MouseMove
-        Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys
+        Dim Shift As Keys = System.Windows.Forms.Control.ModifierKeys
         On Error GoTo Err_Renamed
 
         Dim i As Integer
