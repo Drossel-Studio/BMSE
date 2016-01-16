@@ -35,7 +35,7 @@ Friend Class frmWindowPreview
 	'UPGRADE_WARNING: イベント chkBGLine.CheckStateChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
 	Private Sub chkBGLine_CheckStateChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles chkBGLine.CheckStateChanged
 
-        picPreview.Invalidate()
+        picPreview.Refresh()
 
     End Sub
 
@@ -261,7 +261,7 @@ Friend Class frmWindowPreview
             Call .fraBGAPara.SetBounds(.ClientRectangle.Width - fraBGAPara.Width, 4, 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
             Call .fraBGACmd.SetBounds(.ClientRectangle.Width - fraBGAPara.Width, .ClientRectangle.Height - fraBGACmd.Height - 4, 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
 
-            Call .Invalidate()
+            Call .picPreview.Refresh()
 
         End With
 
@@ -372,7 +372,7 @@ Err_Renamed:
                 If Val(_txtBGAPara_6.Text) < 0 Then _txtBGAPara_6.Text = CStr(0)
         End Select
 
-        picPreview.Invalidate()
+        picPreview.Refresh()
 
     End Sub
 

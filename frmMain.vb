@@ -408,7 +408,7 @@ Err_Renamed:
 
             ._txtBGAPara_6.Text = CStr(0)
 
-            Call .Invalidate()
+            Call .picPreview.Refresh()
 
         End With
 
@@ -473,7 +473,7 @@ Err_Renamed:
 
             End If
 
-            Call .Invalidate()
+            Call .picPreview.Refresh()
 
         End With
 

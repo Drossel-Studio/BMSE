@@ -49,7 +49,7 @@ Friend Class frmWindowAbout
 
         m_lngCounter = 0
 
-        Invalidate()
+        Refresh()
     End Sub
 	
 	Private Sub frmWindowAbout_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Click
