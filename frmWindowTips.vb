@@ -9,7 +9,6 @@ Friend Class frmWindowTips
 
     Private Const DT_WORDBREAK As Integer = &H10
 
-    Dim m_bFirstTips As Boolean
     Dim m_strTips() As String
     Dim m_intTipsPos As Short
 	Dim m_lngTipsNum As Integer
@@ -108,8 +107,6 @@ Friend Class frmWindowTips
 	End Sub
 	
 	Private Sub cmdNext_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdNext.Click
-        m_bFirstTips = False
-
         m_intTipsPos = m_intTipsPos + 1
 
         If m_intTipsPos > UBound(m_strTips) Then m_intTipsPos = 1
@@ -128,11 +125,9 @@ Friend Class frmWindowTips
 
         End With
 
-        m_bFirstTips = True
-
         m_intTipsPos = 0
-		
-		ReDim m_strTips(0)
+
+        ReDim m_strTips(0)
 		
 		m_strTips(0) = " これから Tips を表示します。" & vbCrLf & vbCrLf & " これらの情報はあなたが BMSE を使い BMS を作成するのを手助けしてくれることもあるかもしれません。" & vbCrLf & vbCrLf & " 「次へ」のボタンを押して Tips を開始してください。" & vbCrLf & vbCrLf & " (この文章は一度しか表示されません)"
 		
@@ -282,19 +277,10 @@ Friend Class frmWindowTips
         End If
         stringFont = New Font(stringFont.FontFamily, 9, newstyle, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
 
-        e.Graphics.DrawString(" 0 / " & UBound(m_strTips), stringFont, stringBrush, New PointF(420, 23))
+        e.Graphics.DrawString(VB.Right(" " & m_intTipsPos, 2), stringFont, stringBrush, New PointF(420, 23))
+        e.Graphics.DrawString("   / " & UBound(m_strTips), stringFont, stringBrush, New PointF(420, 23))
 
         stringFont = New Font(stringFont.FontFamily, 12, stringFont.Style, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
-
-        If (Not m_bFirstTips) Then
-            e.Graphics.FillRectangle(Brushes.White, New Rectangle(420, 24, 12, 10))
-
-            stringFont = New Font(stringFont.FontFamily, 9, stringFont.Style, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
-
-            e.Graphics.DrawString(VB.Right(" " & m_intTipsPos, 2), stringFont, stringBrush, New PointF(420, 23))
-
-            stringFont = New Font(stringFont.FontFamily, 12, stringFont.Style, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
-        End If
 
         hDC = e.Graphics.GetHdc()
 
