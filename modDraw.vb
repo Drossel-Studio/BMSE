@@ -17,6 +17,9 @@ Module modDraw
     Public Declare Function SelectObject Lib "gdi32" (ByVal hdc As Integer, ByVal hObject As Integer) As Integer
     Public Declare Function DeleteObject Lib "gdi32" (ByVal hObject As Integer) As Integer
 
+    Public Declare Function CreateCompatibleDC Lib "gdi32" (ByVal hDC As IntPtr) As IntPtr
+    Public Declare Function DeleteDC Lib "gdi32" (ByVal hDC As IntPtr) As Integer
+
     Public Declare Function TextOut Lib "gdi32" Alias "TextOutW" (ByVal hdc As Integer, ByVal X As Integer, ByVal Y As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpString As String, ByVal nCount As Integer) As Integer
     Public Declare Function SetTextColor Lib "gdi32" (ByVal hdc As Integer, ByVal crColor As Integer) As Integer
 

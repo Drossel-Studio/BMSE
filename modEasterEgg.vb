@@ -468,9 +468,6 @@ Module modEasterEgg
         Dim gp As Graphics = frmMain.picMain.CreateGraphics()
         Dim hDC As IntPtr = gp.GetHdc()
 
-        Dim picSiromaru_gp As Graphics = frmMain.picSiromaru.CreateGraphics()
-        Dim picSiromaru_hDC As IntPtr = picSiromaru_gp.GetHdc()
-
         Width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width
         Height = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height
 
@@ -522,16 +519,21 @@ Module modEasterEgg
 
                         srcY = srcY * 32
 
+                        Dim picSiromaru_BitMap As Bitmap = New Bitmap(frmMain.picSiromaru.Image)
+                        Dim hBitMap As IntPtr = picSiromaru_BitMap.GetHbitmap
+                        Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
+                        SelectObject(hMDC, hBitMap)
+
                         'Call Ellipse(frmMain.picmain.hdc, X - 16, .y - 16, X + 16, .y + 16)
-                        Call BitBlt(hDC, X, Y, 32, 32, picSiromaru_hDC, 32, srcY, SRCAND)
-                        Call BitBlt(hDC, X, Y, 32, 32, picSiromaru_hDC, 0, srcY, SRCPAINT)
+                        Call BitBlt(hDC, X, Y, 32, 32, hMDC, 32, srcY, SRCAND)
+                        Call BitBlt(hDC, X, Y, 32, 32, hMDC, 0, srcY, SRCPAINT)
 
                         If Y + 32 > Height Then
 
                             intTemp = Y + 32 - Height
 
-                            Call BitBlt(hDC, X, 0, 32, intTemp, picSiromaru_hDC, 32, srcY + 32 - intTemp, SRCAND)
-                            Call BitBlt(hDC, X, 0, 32, intTemp, picSiromaru_hDC, 0, srcY + 32 - intTemp, SRCPAINT)
+                            Call BitBlt(hDC, X, 0, 32, intTemp, hMDC, 32, srcY + 32 - intTemp, SRCAND)
+                            Call BitBlt(hDC, X, 0, 32, intTemp, hMDC, 0, srcY + 32 - intTemp, SRCPAINT)
 
                         End If
 
@@ -539,10 +541,14 @@ Module modEasterEgg
 
                             intTemp = X + 32 - Width
 
-                            Call BitBlt(hDC, 0, Y, intTemp, 32, picSiromaru_hDC, 64 - intTemp, srcY, SRCAND)
-                            Call BitBlt(hDC, 0, Y, intTemp, 32, picSiromaru_hDC, 32 - intTemp, srcY, SRCPAINT)
+                            Call BitBlt(hDC, 0, Y, intTemp, 32, hMDC, 64 - intTemp, srcY, SRCAND)
+                            Call BitBlt(hDC, 0, Y, intTemp, 32, hMDC, 32 - intTemp, srcY, SRCPAINT)
 
                         End If
+
+                        DeleteDC(hMDC)
+                        DeleteObject(hBitMap)
+                        picSiromaru_BitMap.Dispose()
 
                 End Select
 
@@ -553,9 +559,6 @@ Module modEasterEgg
         Next i
 
         'frmMain.cboDirectInput.Text = timeGetTime() - lngTemp
-
-        picSiromaru_gp.ReleaseHdc()
-        picSiromaru_gp.Dispose()
 
         gp.ReleaseHdc()
         gp.Dispose()
@@ -785,9 +788,6 @@ Module modEasterEgg
         Dim gp As Graphics = frmMain.picMain.CreateGraphics()
         Dim hDC As IntPtr = gp.GetHdc()
 
-        Dim picSiromaru_gp As Graphics = frmMain.picSiromaru.CreateGraphics()
-        Dim picSiromaru_hDC As IntPtr = gp.GetHdc()
-
         With frmMain.picMain
             Call SetTextColor(hDC, RGB(255, 255, 255))
             .Font = New Font(.Font.FontFamily, 12, .Font.Style, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
@@ -840,9 +840,6 @@ Module modEasterEgg
                                     frmMain.tmrEffect.Enabled = False
                                     g_disp.intEffect = EASTEREGG.OFF
 
-                                    picSiromaru_gp.ReleaseHdc()
-                                    picSiromaru_gp.Dispose()
-
                                     gp.ReleaseHdc()
                                     gp.Dispose()
                                     Exit Sub
@@ -881,9 +878,17 @@ Module modEasterEgg
 
                         srcY = srcY * 32
 
-                        Call BitBlt(hDC, X, Y, 32, 32, picSiromaru_hDC, 32, srcY, SRCAND)
-                        Call BitBlt(hDC, X, Y, 32, 32, picSiromaru_hDC, 0, srcY, SRCPAINT)
+                        Dim picSiromaru_BitMap As Bitmap = New Bitmap(frmMain.picSiromaru.Image)
+                        Dim hBitMap As IntPtr = picSiromaru_BitMap.GetHbitmap
+                        Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
+                        SelectObject(hMDC, hBitMap)
 
+                        Call BitBlt(hDC, X, Y, 32, 32, hMDC, 32, srcY, SRCAND)
+                        Call BitBlt(hDC, X, Y, 32, 32, hMDC, 0, srcY, SRCPAINT)
+
+                        DeleteDC(hMDC)
+                        DeleteObject(hBitMap)
+                        picSiromaru_BitMap.Dispose()
                     End If
 
                     lngTemp = lngTemp + sizeTemp.Height + 2
@@ -935,9 +940,6 @@ Module modEasterEgg
             End If
 
         End With
-
-        picSiromaru_gp.ReleaseHdc()
-        picSiromaru_gp.Dispose()
 
         gp.ReleaseHdc()
         gp.Dispose()

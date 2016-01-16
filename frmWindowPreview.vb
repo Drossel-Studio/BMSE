@@ -313,14 +313,16 @@ Err_Renamed:
         With picPreview
             Dim gp As Graphics = .CreateGraphics()
 
-            Dim picBackBuffer_gp As Graphics = picBackBuffer.CreateGraphics()
-            Dim picBackBuffer_hDC As IntPtr = picBackBuffer_gp.GetHdc()
-
             Call gp.Clear(.BackColor)
 
             Dim hDC As IntPtr = gp.GetHdc()
 
-            Call BitBlt(hDC, (.ClientRectangle.Width \ 2 - 128) + Val(_txtBGAPara_5.Text) - Val(_txtBGAPara_1.Text), (.ClientRectangle.Height \ 2 - 128) + Val(_txtBGAPara_6.Text) - Val(_txtBGAPara_2.Text), picBackBuffer.ClientRectangle.Width, picBackBuffer.ClientRectangle.Height, picBackBuffer_hDC, 0, 0, SRCCOPY)
+            Dim picBackBuffer_BitMap As Bitmap = New Bitmap(picBackBuffer.Image)
+            Dim hBitMap As IntPtr = picBackBuffer_BitMap.GetHbitmap
+            Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
+
+            SelectObject(hMDC, hBitMap)
+            Call BitBlt(hDC, (.ClientRectangle.Width \ 2 - 128) + Val(_txtBGAPara_5.Text) - Val(_txtBGAPara_1.Text), (.ClientRectangle.Height \ 2 - 128) + Val(_txtBGAPara_6.Text) - Val(_txtBGAPara_2.Text), picBackBuffer.ClientRectangle.Width, picBackBuffer.ClientRectangle.Height, hMDC, 0, 0, SRCCOPY)
 
             If chkBGLine.CheckState Then
 
@@ -341,14 +343,14 @@ Err_Renamed:
 
             Call Rectangle(hDC, .ClientRectangle.Width \ 2 - 129, .ClientRectangle.Height \ 2 - 129, .ClientRectangle.Width \ 2 + 130, .ClientRectangle.Height \ 2 + 130)
 
-            Call BitBlt(hDC, (.ClientRectangle.Width \ 2 - 128) + Val(_txtBGAPara_5.Text), (.ClientRectangle.Height \ 2 - 128) + Val(_txtBGAPara_6.Text), lngNumField(Val(_txtBGAPara_3.Text) - Val(_txtBGAPara_1.Text), 0, 256), lngNumField(Val(_txtBGAPara_4.Text) - Val(_txtBGAPara_2.Text), 0, 256), picBackBuffer_hDC, Val(_txtBGAPara_1.Text), Val(_txtBGAPara_2.Text), SRCCOPY)
+            Call BitBlt(hDC, (.ClientRectangle.Width \ 2 - 128) + Val(_txtBGAPara_5.Text), (.ClientRectangle.Height \ 2 - 128) + Val(_txtBGAPara_6.Text), lngNumField(Val(_txtBGAPara_3.Text) - Val(_txtBGAPara_1.Text), 0, 256), lngNumField(Val(_txtBGAPara_4.Text) - Val(_txtBGAPara_2.Text), 0, 256), hMDC, Val(_txtBGAPara_1.Text), Val(_txtBGAPara_2.Text), SRCCOPY)
 
-            picBackBuffer_gp.ReleaseHdc()
-            picBackBuffer_gp.Dispose()
+            DeleteDC(hMDC)
+            DeleteObject(hBitMap)
+            picBackBuffer_BitMap.Dispose()
 
             gp.ReleaseHdc()
             gp.Dispose()
-
         End With
 
     End Sub

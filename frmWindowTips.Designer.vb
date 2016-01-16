@@ -99,8 +99,7 @@
         'frmWindowTips
         '
         Me.AcceptButton = Me.cmdNext
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 18.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(478, 304)
         Me.Controls.Add(Me.picIcon)

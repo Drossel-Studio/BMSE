@@ -2,8 +2,8 @@ Option Strict Off
 Option Explicit On
 Friend Class frmWindowAbout
 	Inherits System.Windows.Forms.Form
-	
-	Private m_sngRaster() As Single
+
+    Private m_sngRaster() As Single
 	Private m_lngCounter As Integer
 
     Private Sub PrintText(ByVal hDC As IntPtr, ByRef Text_Renamed As String, ByVal X As Integer, ByVal Y As Integer)
@@ -126,15 +126,17 @@ Friend Class frmWindowAbout
         Dim sngTemp As Single
 
         With Me
-            Dim picMain_gp As Graphics = picMain.CreateGraphics()
-            Dim picMain_hDC As IntPtr = picMain_gp.GetHdc()
-
             Call eventArgs.Graphics.Clear(.BackColor)
 
             Dim hDC As IntPtr = eventArgs.Graphics.GetHdc()
 
             sngTemp = m_lngCounter / 10
             If sngTemp > 8 Then sngTemp = 8
+
+            Dim picMain_BitMap As Bitmap = New Bitmap(picMain.BackgroundImage)
+            Dim hBitMap As IntPtr = picMain_BitMap.GetHbitmap
+            Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
+            SelectObject(hMDC, hBitMap)
 
             For i = 0 To .ClientRectangle.Height - 1
 
@@ -147,9 +149,14 @@ Friend Class frmWindowAbout
 
                 'Call StretchBlt(.hdc, lngTemp - .ScaleWidth, i, .ScaleWidth, 1, picMain.hdc, 0, i, .ScaleWidth, 1, SRCCOPY)
                 'Call StretchBlt(.hdc, lngTemp, i, .ScaleWidth, 1, picMain.hdc, 0, i, .ScaleWidth, 1, SRCCOPY)
-                Call BitBlt(hDC, lngTemp, i, .ClientRectangle.Width, 1, picMain_hDC, 0, i, SRCCOPY)
+
+                Call BitBlt(hDC, lngTemp, i, .ClientRectangle.Width, 1, hMDC, 0, i, SRCCOPY)
 
             Next i
+
+            DeleteDC(hMDC)
+            DeleteObject(hBitMap)
+            picMain_BitMap.Dispose()
 
             'Call BitBlt(.hWnd, 0, 0, .ScaleWidth, .ScaleHeight, picMain.hWnd, 0, 0, SRCCOPY)
 
@@ -192,9 +199,6 @@ Friend Class frmWindowAbout
             'lngTemp = LenB(StrConv(strTemp, vbFromUnicode))
 
             'Call PrintText(strTemp, 251, 174)
-
-            picMain_gp.ReleaseHdc()
-            picMain_gp.Dispose()
 
             eventArgs.Graphics.ReleaseHdc()
         End With

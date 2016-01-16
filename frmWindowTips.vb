@@ -6,6 +6,7 @@ Imports System.Runtime.InteropServices
 Friend Class frmWindowTips
 	Inherits System.Windows.Forms.Form
     Private Declare Function DrawText Lib "user32" Alias "DrawTextW" (ByVal hdc As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpStr As String, ByVal nCount As Integer, <[In]()> ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
+
     Private Const DT_WORDBREAK As Integer = &H10
 
     Dim m_bFirstTips As Boolean
@@ -259,9 +260,6 @@ Friend Class frmWindowTips
     Private Sub frmWindowTips_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
         Dim hDC As IntPtr
 
-        Dim picIcon_gp As Graphics = picIcon.CreateGraphics()
-        Dim picIcon_hDC As IntPtr = picIcon_gp.GetHdc()
-
         Dim stringFont As Font = Font
         Dim stringBrush As SolidBrush
 
@@ -288,12 +286,6 @@ Friend Class frmWindowTips
 
         stringFont = New Font(stringFont.FontFamily, 12, stringFont.Style, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
 
-        hDC = e.Graphics.GetHdc()
-
-        Call BitBlt(hDC, 16, 16, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
-
-        e.Graphics.ReleaseHdc()
-
         If (Not m_bFirstTips) Then
             e.Graphics.FillRectangle(Brushes.White, New Rectangle(420, 24, 12, 10))
 
@@ -302,12 +294,6 @@ Friend Class frmWindowTips
             e.Graphics.DrawString(VB.Right(" " & m_intTipsPos, 2), stringFont, stringBrush, New PointF(420, 23))
 
             stringFont = New Font(stringFont.FontFamily, 12, stringFont.Style, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
-
-            hDC = e.Graphics.GetHdc()
-
-            Call BitBlt(hDC, 16, 16, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
-
-            e.Graphics.ReleaseHdc()
         End If
 
         hDC = e.Graphics.GetHdc()
@@ -324,15 +310,25 @@ Friend Class frmWindowTips
 
             End If
 
+            Dim picIcon_BitMap As Bitmap = New Bitmap(picIcon.Image)
+            Dim hBitMap As IntPtr = picIcon_BitMap.GetHbitmap
+            Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
+
             If m_lngTipsNum And 1 Then
 
-                Call BitBlt(hDC, 16, 16, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
+                SelectObject(hMDC, hBitMap)
+                Call BitBlt(hDC, 16, 16, 32, 32, hMDC, 0, 32, SRCCOPY)
 
             Else
 
-                Call BitBlt(hDC, 16, 16, 32, 32, picIcon_hDC, 0, 0, SRCCOPY)
+                SelectObject(hMDC, hBitMap)
+                Call BitBlt(hDC, 16, 16, 32, 32, hMDC, 0, 0, SRCCOPY)
 
             End If
+
+            DeleteDC(hMDC)
+            DeleteObject(hBitMap)
+            picIcon_BitMap.Dispose()
 
             Call DrawText(hDC, strTemp, Len(strTemp), ddRect(63, 48, 462, 256), DT_WORDBREAK)
 
@@ -343,9 +339,6 @@ Friend Class frmWindowTips
             Call DrawText(hDC, strTemp, Len(strTemp), ddRect(63, 48, 462, 256), DT_WORDBREAK)
 
         End If
-
-        picIcon_gp.ReleaseHdc()
-        picIcon_gp.Dispose()
 
         e.Graphics.ReleaseHdc()
     End Sub
