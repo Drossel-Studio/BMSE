@@ -6,16 +6,13 @@ Friend Class frmWindowAbout
 	Private m_sngRaster() As Single
 	Private m_lngCounter As Integer
 
-    Private Sub PrintText(ByRef Text_Renamed As String, ByVal X As Integer, ByVal Y As Integer)
+    Private Sub PrintText(ByVal hDC As IntPtr, ByRef Text_Renamed As String, ByVal X As Integer, ByVal Y As Integer)
 
         Dim intTemp As Short
 
         intTemp = LenB(Text_Renamed)
 
         With Me
-            Dim gp As Graphics = .CreateGraphics()
-            Dim hDC As IntPtr = gp.GetHdc()
-
             Call SetTextColor(hDC, 0)
             Call TextOut(hDC, X - 1, Y - 1, Text_Renamed, intTemp)
             Call TextOut(hDC, X, Y - 1, Text_Renamed, intTemp)
@@ -27,9 +24,6 @@ Friend Class frmWindowAbout
             Call TextOut(hDC, X + 1, Y + 1, Text_Renamed, intTemp)
             Call SetTextColor(hDC, 16777215)
             Call TextOut(hDC, X, Y, Text_Renamed, intTemp)
-
-            gp.ReleaseHdc()
-            gp.Dispose()
         End With
 
     End Sub
@@ -132,14 +126,12 @@ Friend Class frmWindowAbout
         Dim sngTemp As Single
 
         With Me
-            Dim gp As Graphics = .CreateGraphics()
-
             Dim picMain_gp As Graphics = picMain.CreateGraphics()
             Dim picMain_hDC As IntPtr = picMain_gp.GetHdc()
 
-            Call gp.Clear(.BackColor)
+            Call eventArgs.Graphics.Clear(.BackColor)
 
-            Dim hDC As IntPtr = gp.GetHdc()
+            Dim hDC As IntPtr = eventArgs.Graphics.GetHdc()
 
             sngTemp = m_lngCounter / 10
             If sngTemp > 8 Then sngTemp = 8
@@ -189,9 +181,9 @@ Friend Class frmWindowAbout
 
             strTemp = "Undo Buffer Size: " & strTemp
 
-            Call PrintText(strTemp, 1, 1)
+            Call PrintText(hDC, strTemp, 1, 1)
 
-            Call PrintText("Undo Counter: " & g_InputLog.GetPos & " / " & g_InputLog.Max, 1, 13)
+            Call PrintText(hDC, "Undo Counter: " & g_InputLog.GetPos & " / " & g_InputLog.Max, 1, 13)
 
             '.Font.SIZE = 12 * (Screen.TwipsPerPixelX / 15)
             '.Font.Underline = True
@@ -204,8 +196,7 @@ Friend Class frmWindowAbout
             picMain_gp.ReleaseHdc()
             picMain_gp.Dispose()
 
-            gp.ReleaseHdc()
-            gp.Dispose()
+            eventArgs.Graphics.ReleaseHdc()
         End With
 
     End Sub
@@ -219,7 +210,7 @@ Friend Class frmWindowAbout
     Private Sub tmrMain_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles tmrMain.Tick
 
         m_lngCounter = m_lngCounter + 1
-        Call frmWindowAbout_Paint(Me, New System.Windows.Forms.PaintEventArgs(Nothing, Nothing))
+        Refresh()
 
     End Sub
 
