@@ -62,7 +62,7 @@
         Me.chkNextDisp.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkNextDisp.Cursor = System.Windows.Forms.Cursors.Default
         Me.chkNextDisp.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.chkNextDisp.Location = New System.Drawing.Point(8, 276)
+        Me.chkNextDisp.Location = New System.Drawing.Point(8, 236)
         Me.chkNextDisp.Name = "chkNextDisp"
         Me.chkNextDisp.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.chkNextDisp.Size = New System.Drawing.Size(185, 17)
@@ -75,7 +75,7 @@
         Me.cmdNext.BackColor = System.Drawing.SystemColors.Control
         Me.cmdNext.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdNext.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdNext.Location = New System.Drawing.Point(264, 272)
+        Me.cmdNext.Location = New System.Drawing.Point(204, 232)
         Me.cmdNext.Name = "cmdNext"
         Me.cmdNext.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdNext.Size = New System.Drawing.Size(101, 25)
@@ -88,7 +88,7 @@
         Me.cmdClose.BackColor = System.Drawing.SystemColors.Control
         Me.cmdClose.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdClose.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdClose.Location = New System.Drawing.Point(372, 272)
+        Me.cmdClose.Location = New System.Drawing.Point(312, 232)
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClose.Size = New System.Drawing.Size(97, 25)
@@ -101,7 +101,7 @@
         Me.AcceptButton = Me.cmdNext
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(478, 304)
+        Me.ClientSize = New System.Drawing.Size(418, 264)
         Me.Controls.Add(Me.picIcon)
         Me.Controls.Add(Me.chkNextDisp)
         Me.Controls.Add(Me.cmdNext)

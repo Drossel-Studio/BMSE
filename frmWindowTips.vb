@@ -260,11 +260,11 @@ Friend Class frmWindowTips
 
         Dim strTemp As String
 
-        e.Graphics.FillRectangle(Brushes.Gray, New Rectangle(8, 8, 48, 254))
+        e.Graphics.FillRectangle(Brushes.Gray, New Rectangle(8, 8, 48, 214))
 
-        e.Graphics.FillRectangle(Brushes.White, New Rectangle(57, 8, 411, 254))
+        e.Graphics.FillRectangle(Brushes.White, New Rectangle(57, 8, 351, 214))
 
-        e.Graphics.DrawLine(Pens.Black, New Point(56, 40), New Point(467, 40))
+        e.Graphics.DrawLine(Pens.Black, New Point(56, 40), New Point(407, 40))
 
         stringFont = New Font(stringFont.FontFamily, 16, stringFont.Style Or FontStyle.Bold, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
 
@@ -277,12 +277,15 @@ Friend Class frmWindowTips
         End If
         stringFont = New Font(stringFont.FontFamily, 9, newstyle, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
 
-        e.Graphics.DrawString(VB.Right(" " & m_intTipsPos, 2), stringFont, stringBrush, New PointF(420, 23))
-        e.Graphics.DrawString("   / " & UBound(m_strTips), stringFont, stringBrush, New PointF(420, 23))
+        e.Graphics.DrawString(VB.Right(" " & m_intTipsPos, 2), stringFont, stringBrush, New PointF(360, 23))
+        e.Graphics.DrawString("   / " & UBound(m_strTips), stringFont, stringBrush, New PointF(360, 23))
 
         stringFont = New Font(stringFont.FontFamily, 12, stringFont.Style, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
 
         hDC = e.Graphics.GetHdc()
+
+        Dim hFont As IntPtr = Font.ToHfont()
+        Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
 
         If m_lngTipsNum >= Len(m_strTips(m_intTipsPos)) + 1 Then
 
@@ -316,15 +319,18 @@ Friend Class frmWindowTips
             DeleteObject(hBitMap)
             picIcon_BitMap.Dispose()
 
-            Call DrawText(hDC, strTemp, Len(strTemp), ddRect(63, 48, 462, 256), DT_WORDBREAK)
+            Call DrawText(hDC, strTemp, Len(strTemp), ddRect(63, 48, 402, 216), DT_WORDBREAK)
 
         Else
 
             strTemp = VB.Left(m_strTips(m_intTipsPos), m_lngTipsNum) & "_"
 
-            Call DrawText(hDC, strTemp, Len(strTemp), ddRect(63, 48, 462, 256), DT_WORDBREAK)
+            Call DrawText(hDC, strTemp, Len(strTemp), ddRect(63, 48, 402, 216), DT_WORDBREAK)
 
         End If
+
+        SelectObject(hDC, hOldFont)
+        DeleteObject(hFont)
 
         e.Graphics.ReleaseHdc()
     End Sub

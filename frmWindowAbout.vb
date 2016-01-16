@@ -188,11 +188,16 @@ Friend Class frmWindowAbout
 
             End Select
 
-            strTemp = "Undo Buffer Size: " & strTemp
+            Dim hFont As IntPtr = Font.ToHfont()
+            Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
 
+            strTemp = "Undo Buffer Size: " & strTemp
             Call PrintText(hDC, strTemp, 1, 1)
 
-            Call PrintText(hDC, "Undo Counter: " & g_InputLog.GetPos & " / " & g_InputLog.Max, 1, 16)
+            Call PrintText(hDC, "Undo Counter: " & g_InputLog.GetPos & " / " & g_InputLog.Max, 1, 13)
+
+            SelectObject(hDC, hOldFont)
+            DeleteObject(hFont)
 
             '.Font.SIZE = 12 * (Screen.TwipsPerPixelX / 15)
             '.Font.Underline = True
