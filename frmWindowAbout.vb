@@ -10,6 +10,8 @@ Friend Class frmWindowAbout
 
         Dim intTemp As Short
 
+        SetBkMode(hDC, TRANSPARENT)
+
         intTemp = LenB(Text_Renamed)
 
         With Me
@@ -190,7 +192,7 @@ Friend Class frmWindowAbout
 
             Call PrintText(hDC, strTemp, 1, 1)
 
-            Call PrintText(hDC, "Undo Counter: " & g_InputLog.GetPos & " / " & g_InputLog.Max, 1, 13)
+            Call PrintText(hDC, "Undo Counter: " & g_InputLog.GetPos & " / " & g_InputLog.Max, 1, 16)
 
             '.Font.SIZE = 12 * (Screen.TwipsPerPixelX / 15)
             '.Font.Underline = True

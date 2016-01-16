@@ -22,6 +22,7 @@ Module modDraw
 
     Public Declare Function TextOut Lib "gdi32" Alias "TextOutW" (ByVal hdc As Integer, ByVal X As Integer, ByVal Y As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpString As String, ByVal nCount As Integer) As Integer
     Public Declare Function SetTextColor Lib "gdi32" (ByVal hdc As Integer, ByVal crColor As Integer) As Integer
+    Public Declare Function SetBkMode Lib "gdi32" (ByVal hdc As Integer, ByVal iBkMode As Integer) As Integer
 
     Public Declare Function Rectangle Lib "gdi32" (ByVal hdc As Integer, ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As Integer
     Public Declare Function LineTo Lib "gdi32" (ByVal hdc As Integer, ByVal X As Integer, ByVal Y As Integer) As Integer
@@ -56,6 +57,11 @@ Module modDraw
     Public Const BS_DIBPATTERNPT As Short = 6
     Public Const BS_PATTERN8X8 As Short = 7
     Public Const BS_DIBPATTERN8X8 As Short = 8
+
+    'SetBkMode 関連
+    Public Const TRANSPARENT As Integer = 1
+    Public Const OPAQUE As Integer = 2
+    Public Const BKMODE_LAST As Integer = 2
 
     <StructLayout(LayoutKind.Sequential)> Public Structure LOGBRUSH
         Dim lbStyle As Integer
