@@ -746,7 +746,7 @@ Err_Renamed:
 
     Private Sub cboDirectInput_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDirectInput.Leave
 
-        Me.AcceptButton = NoThing
+        Me.AcceptButton = Nothing
 
     End Sub
 
@@ -907,7 +907,7 @@ Err_Renamed:
 
     End Sub
 
-    Private Sub cboVScroll_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
+    Private Sub cboVScroll_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboVScroll.SelectedIndexChanged
         Dim NewLargeChange As Short
 
         vsbMain.SmallChange = DirectCast(Me.cboVScroll.SelectedItem, modMain.ItemWithData).ItemData
@@ -1978,6 +1978,171 @@ Err_Renamed:
         Me.cboDispGridSub.SelectedIndex = 0
 
         Me.cboVScroll.Items.Add(New modMain.ItemWithData("1", 1))
+
+        Dim NewLargeChange As Short
+
+        Dim i As Integer
+        Dim wp As WINDOWPLACEMENT
+
+        Call modMain.StartUp()
+
+        AddHandler Me.Resize, AddressOf frmMain_Resize
+        AddHandler cboDispGridMain.SelectedIndexChanged, AddressOf cboDispGridMain_SelectedIndexChanged
+        AddHandler cboDispGridSub.SelectedIndexChanged, AddressOf cboDispGridSub_SelectedIndexChanged
+        AddHandler cboDispWidth.SelectedIndexChanged, AddressOf cboDispWidth_SelectedIndexChanged
+        AddHandler cboDispHeight.SelectedIndexChanged, AddressOf cboDispHeight_SelectedIndexChanged
+
+        If cboViewer.Items.Count = 0 Then
+
+            tlbMenu.Items.Item("PlayAll").Enabled = False
+            tlbMenu.Items.Item("Play").Enabled = False
+            tlbMenu.Items.Item("_Stop").Enabled = False
+            mnuToolsPlayAll.Enabled = False
+            mnuToolsPlay.Enabled = False
+            mnuToolsPlayStop.Enabled = False
+            cboViewer.Enabled = False
+
+        End If
+
+        _mnuRecentFiles_0.Visible = False
+        _mnuRecentFiles_1.Visible = False
+        _mnuRecentFiles_2.Visible = False
+        _mnuRecentFiles_3.Visible = False
+        _mnuRecentFiles_4.Visible = False
+        _mnuRecentFiles_5.Visible = False
+        _mnuRecentFiles_6.Visible = False
+        _mnuRecentFiles_7.Visible = False
+        _mnuRecentFiles_8.Visible = False
+        _mnuRecentFiles_9.Visible = False
+
+        mnuLineRecent.Visible = False
+        mnuHelpOpen.Enabled = False
+
+        Me.Text = g_strAppTitle
+
+        Call LoadConfig()
+
+        dlgMainOpen.InitialDirectory = g_strAppDir
+        dlgMainSave.InitialDirectory = g_strAppDir
+        'UPGRADE_WARNING: FileOpenConstants 定数 FileOpenConstants.cdlOFNHideReadOnly は、新しい動作をもつ OpenFileDialog.ShowReadOnly にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' をクリックしてください。
+        'UPGRADE_WARNING: MSComDlg.CommonDialog プロパティ dlgMain.Flags は、新しい動作をもつ dlgMainOpen.CheckFileExists にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' をクリックしてください。
+        dlgMainOpen.CheckFileExists = True
+        dlgMainOpen.CheckPathExists = True
+        dlgMainSave.CheckPathExists = True
+        'UPGRADE_WARNING: MSComDlg.CommonDialog プロパティ dlgMain.Flags は、新しい動作をもつ dlgMainOpen.ShowReadOnly にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' をクリックしてください。
+        'UPGRADE_WARNING: FileOpenConstants 定数 FileOpenConstants.cdlOFNHideReadOnly は、新しい動作をもつ OpenFileDialog.ShowReadOnly にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' をクリックしてください。
+        dlgMainOpen.ShowReadOnly = False
+        'UPGRADE_WARNING: MSComDlg.CommonDialog プロパティ dlgMain.Flags は、新しい動作をもつ dlgMainSave.OverwritePrompt にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' をクリックしてください。
+        dlgMainSave.OverwritePrompt = True
+
+        g_disp.lngMaxY = (vsbMain.Maximum - vsbMain.LargeChange + 1)
+        g_disp.lngMaxX = hsbMain.Minimum
+
+        hsbMain.SmallChange = OBJ_WIDTH
+        NewLargeChange = OBJ_WIDTH * 4
+        hsbMain.Maximum = hsbMain.Maximum + NewLargeChange - hsbMain.LargeChange
+        hsbMain.LargeChange = NewLargeChange
+
+        cboPlayer.SelectedIndex = g_BMS.intPlayerType - 1
+        cboPlayLevel.Text = g_BMS.lngPlayLevel
+        cboPlayRank.SelectedIndex = g_BMS.intPlayRank
+
+        '        If strGet_ini("Options", "UseOldFormat", False, "bmse.ini") Then
+        '
+        '            For i = 1 To 255
+        '
+        '                strTemp = right$("0" & Hex$(i), 2)
+        '                Call .lstWAV.AddItem("#WAV" & strTemp & ":", i - 1)
+        '                Call .lstBMP.AddItem("#BMP" & strTemp & ":", i - 1)
+        '                Call .lstBGA.AddItem("#BGA" & strTemp & ":", i - 1)
+        '
+        '            Next i
+        '
+        '            frmWindowPreview.cmdPreviewEnd.Caption = "FF"
+        '
+        '        Else
+
+        '        For i = 1 To 1295
+        '
+        '            strTemp = modInput.strFromNum(i)
+        '            Call lstWAV.AddItem("#WAV" & strTemp & ":", i - 1)
+        '            Call lstBMP.AddItem("#BMP" & strTemp & ":", i - 1)
+        '            Call lstBGA.AddItem("#BGA" & strTemp & ":", i - 1)
+        '
+        '        Next i
+        Call RefreshList()
+
+        '        End If
+
+        For i = 0 To 999
+
+            Call lstMeasureLen.Items.Insert(i, "#" & Format(i, "000") & ":4/4")
+            g_Measure(i).intLen = 192
+
+        Next i
+
+        lstWAV.SelectedIndex = 0
+        lstBMP.SelectedIndex = 0
+        lstBGA.SelectedIndex = 0
+
+        _fraTop_0.Top = 0
+        _fraTop_0.Left = 0
+        _fraTop_1.Top = 0
+        _fraTop_1.Left = 0
+        _fraTop_2.Top = 0
+        _fraTop_2.Left = 0
+
+
+        _fraTop_0.Visible = True
+        _optChangeTop_0.Checked = True
+
+        _fraBottom_0.Top = 0
+        _fraBottom_0.Left = 0
+        _fraBottom_1.Top = 0
+        _fraBottom_1.Left = 0
+        _fraBottom_2.Top = 0
+        _fraBottom_2.Left = 0
+        _fraBottom_3.Top = 0
+        _fraBottom_3.Left = 0
+
+        _fraBottom_0.Visible = True
+        _optChangeBottom_0.Checked = True
+
+        For i = 1 To 64
+
+            Call cboNumerator.Items.Insert(i - 1, CStr(i))
+
+        Next i
+
+        cboNumerator.SelectedIndex = 3
+        cboDenominator.SelectedIndex = 0
+
+        lstMeasureLen.SelectedIndex = 0
+
+        m_blnPreview = True
+
+        If strGet_ini("EasterEgg", "Tips", 0, "bmse.ini") Then
+
+            With frmWindowTips
+
+                .Left = Me.Left + (Me.Width - .Width) \ 2
+                .Top = Me.Top + (Me.Height - .Height) \ 2
+
+                Call frmWindowTips.ShowDialog(Me)
+
+            End With
+
+        End If
+
+        wp.Length = 44
+        Call GetWindowPlacement(Me.Handle.ToInt32, wp)
+        wp.showCmd = strGet_ini("Main", "State", SW_SHOW, "bmse.ini")
+        Call SetWindowPlacement(Me.Handle.ToInt32, wp)
+
+        Call GetCmdLine()
+
+        Call frmMain_Resize(Me, New EventArgs)
+
     End Sub
 
     Private Sub frmMain_DragEnter(sender As Object, e As DragEventArgs) Handles MyBase.DragEnter
@@ -6078,174 +6243,6 @@ Err_Renamed:
             Case System.Windows.Forms.ScrollEventType.EndScroll
                 vsbMain_Change(eventArgs.NewValue)
         End Select
-    End Sub
-
-    Private Sub frmMain_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        Dim NewLargeChange As Short
-
-        Dim i As Integer
-        Dim wp As WINDOWPLACEMENT
-
-        AddHandler Me.Resize, AddressOf frmMain_Resize
-        AddHandler cboDispGridMain.SelectedIndexChanged, AddressOf cboDispGridMain_SelectedIndexChanged
-        AddHandler cboDispGridSub.SelectedIndexChanged, AddressOf cboDispGridSub_SelectedIndexChanged
-        AddHandler cboDispWidth.SelectedIndexChanged, AddressOf cboDispWidth_SelectedIndexChanged
-        AddHandler cboDispHeight.SelectedIndexChanged, AddressOf cboDispHeight_SelectedIndexChanged
-        AddHandler cboVScroll.SelectedIndexChanged, AddressOf cboVScroll_SelectedIndexChanged
-
-        Call modMain.StartUp()
-
-        If cboViewer.Items.Count = 0 Then
-
-            tlbMenu.Items.Item("PlayAll").Enabled = False
-            tlbMenu.Items.Item("Play").Enabled = False
-            tlbMenu.Items.Item("_Stop").Enabled = False
-            mnuToolsPlayAll.Enabled = False
-            mnuToolsPlay.Enabled = False
-            mnuToolsPlayStop.Enabled = False
-            cboViewer.Enabled = False
-
-        End If
-
-        _mnuRecentFiles_0.Visible = False
-        _mnuRecentFiles_1.Visible = False
-        _mnuRecentFiles_2.Visible = False
-        _mnuRecentFiles_3.Visible = False
-        _mnuRecentFiles_4.Visible = False
-        _mnuRecentFiles_5.Visible = False
-        _mnuRecentFiles_6.Visible = False
-        _mnuRecentFiles_7.Visible = False
-        _mnuRecentFiles_8.Visible = False
-        _mnuRecentFiles_9.Visible = False
-
-        mnuLineRecent.Visible = False
-        mnuHelpOpen.Enabled = False
-
-        Me.Text = g_strAppTitle
-
-        Call LoadConfig()
-
-        dlgMainOpen.InitialDirectory = g_strAppDir
-        dlgMainSave.InitialDirectory = g_strAppDir
-        'UPGRADE_WARNING: FileOpenConstants 定数 FileOpenConstants.cdlOFNHideReadOnly は、新しい動作をもつ OpenFileDialog.ShowReadOnly にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' をクリックしてください。
-        'UPGRADE_WARNING: MSComDlg.CommonDialog プロパティ dlgMain.Flags は、新しい動作をもつ dlgMainOpen.CheckFileExists にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' をクリックしてください。
-        dlgMainOpen.CheckFileExists = True
-        dlgMainOpen.CheckPathExists = True
-        dlgMainSave.CheckPathExists = True
-        'UPGRADE_WARNING: MSComDlg.CommonDialog プロパティ dlgMain.Flags は、新しい動作をもつ dlgMainOpen.ShowReadOnly にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' をクリックしてください。
-        'UPGRADE_WARNING: FileOpenConstants 定数 FileOpenConstants.cdlOFNHideReadOnly は、新しい動作をもつ OpenFileDialog.ShowReadOnly にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' をクリックしてください。
-        dlgMainOpen.ShowReadOnly = False
-        'UPGRADE_WARNING: MSComDlg.CommonDialog プロパティ dlgMain.Flags は、新しい動作をもつ dlgMainSave.OverwritePrompt にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' をクリックしてください。
-        dlgMainSave.OverwritePrompt = True
-
-        g_disp.lngMaxY = (vsbMain.Maximum - vsbMain.LargeChange + 1)
-        g_disp.lngMaxX = hsbMain.Minimum
-
-        hsbMain.SmallChange = OBJ_WIDTH
-        NewLargeChange = OBJ_WIDTH * 4
-        hsbMain.Maximum = hsbMain.Maximum + NewLargeChange - hsbMain.LargeChange
-        hsbMain.LargeChange = NewLargeChange
-
-        cboPlayer.SelectedIndex = g_BMS.intPlayerType - 1
-        cboPlayLevel.Text = g_BMS.lngPlayLevel
-        cboPlayRank.SelectedIndex = g_BMS.intPlayRank
-
-        '        If strGet_ini("Options", "UseOldFormat", False, "bmse.ini") Then
-        '
-        '            For i = 1 To 255
-        '
-        '                strTemp = right$("0" & Hex$(i), 2)
-        '                Call .lstWAV.AddItem("#WAV" & strTemp & ":", i - 1)
-        '                Call .lstBMP.AddItem("#BMP" & strTemp & ":", i - 1)
-        '                Call .lstBGA.AddItem("#BGA" & strTemp & ":", i - 1)
-        '
-        '            Next i
-        '
-        '            frmWindowPreview.cmdPreviewEnd.Caption = "FF"
-        '
-        '        Else
-
-        '        For i = 1 To 1295
-        '
-        '            strTemp = modInput.strFromNum(i)
-        '            Call lstWAV.AddItem("#WAV" & strTemp & ":", i - 1)
-        '            Call lstBMP.AddItem("#BMP" & strTemp & ":", i - 1)
-        '            Call lstBGA.AddItem("#BGA" & strTemp & ":", i - 1)
-        '
-        '        Next i
-        Call RefreshList()
-
-        '        End If
-
-        For i = 0 To 999
-
-            Call lstMeasureLen.Items.Insert(i, "#" & Format(i, "000") & ":4/4")
-            g_Measure(i).intLen = 192
-
-        Next i
-
-        lstWAV.SelectedIndex = 0
-        lstBMP.SelectedIndex = 0
-        lstBGA.SelectedIndex = 0
-
-        _fraTop_0.Top = 0
-        _fraTop_0.Left = 0
-        _fraTop_1.Top = 0
-        _fraTop_1.Left = 0
-        _fraTop_2.Top = 0
-        _fraTop_2.Left = 0
-
-
-        _fraTop_0.Visible = True
-        _optChangeTop_0.Checked = True
-
-        _fraBottom_0.Top = 0
-        _fraBottom_0.Left = 0
-        _fraBottom_1.Top = 0
-        _fraBottom_1.Left = 0
-        _fraBottom_2.Top = 0
-        _fraBottom_2.Left = 0
-        _fraBottom_3.Top = 0
-        _fraBottom_3.Left = 0
-
-        _fraBottom_0.Visible = True
-        _optChangeBottom_0.Checked = True
-
-        For i = 1 To 64
-
-            Call cboNumerator.Items.Insert(i - 1, CStr(i))
-
-        Next i
-
-        cboNumerator.SelectedIndex = 3
-        cboDenominator.SelectedIndex = 0
-
-        lstMeasureLen.SelectedIndex = 0
-
-        m_blnPreview = True
-
-        If strGet_ini("EasterEgg", "Tips", 0, "bmse.ini") Then
-
-            With frmWindowTips
-
-                .Left = Me.Left + (Me.Width - .Width) \ 2
-                .Top = Me.Top + (Me.Height - .Height) \ 2
-
-                Call frmWindowTips.ShowDialog(Me)
-
-            End With
-
-        End If
-
-        wp.Length = 44
-        Call GetWindowPlacement(Me.Handle.ToInt32, wp)
-        wp.showCmd = strGet_ini("Main", "State", SW_SHOW, "bmse.ini")
-        Call SetWindowPlacement(Me.Handle.ToInt32, wp)
-
-        Call GetCmdLine()
-
-        Call frmMain_Resize(Me, New EventArgs)
-
     End Sub
 
 End Class
