@@ -49,6 +49,7 @@
         Me.picIcon.Size = New System.Drawing.Size(32, 64)
         Me.picIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
         Me.picIcon.TabIndex = 0
+        Me.picIcon.TabStop = False
         Me.picIcon.Visible = False
         '
         'tmrMain
@@ -61,7 +62,7 @@
         Me.chkNextDisp.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkNextDisp.Cursor = System.Windows.Forms.Cursors.Default
         Me.chkNextDisp.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.chkNextDisp.Location = New System.Drawing.Point(8, 236)
+        Me.chkNextDisp.Location = New System.Drawing.Point(8, 276)
         Me.chkNextDisp.Name = "chkNextDisp"
         Me.chkNextDisp.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.chkNextDisp.Size = New System.Drawing.Size(185, 17)
@@ -74,7 +75,7 @@
         Me.cmdNext.BackColor = System.Drawing.SystemColors.Control
         Me.cmdNext.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdNext.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdNext.Location = New System.Drawing.Point(204, 232)
+        Me.cmdNext.Location = New System.Drawing.Point(264, 272)
         Me.cmdNext.Name = "cmdNext"
         Me.cmdNext.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdNext.Size = New System.Drawing.Size(101, 25)
@@ -87,7 +88,7 @@
         Me.cmdClose.BackColor = System.Drawing.SystemColors.Control
         Me.cmdClose.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdClose.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdClose.Location = New System.Drawing.Point(312, 232)
+        Me.cmdClose.Location = New System.Drawing.Point(372, 272)
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClose.Size = New System.Drawing.Size(97, 25)
@@ -98,15 +99,16 @@
         'frmWindowTips
         '
         Me.AcceptButton = Me.cmdNext
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(418, 264)
+        Me.ClientSize = New System.Drawing.Size(478, 304)
         Me.Controls.Add(Me.picIcon)
         Me.Controls.Add(Me.chkNextDisp)
         Me.Controls.Add(Me.cmdNext)
         Me.Controls.Add(Me.cmdClose)
         Me.Cursor = System.Windows.Forms.Cursors.Default
+        Me.DoubleBuffered = True
         Me.Font = New System.Drawing.Font("ＭＳ ゴシック", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Location = New System.Drawing.Point(3, 19)

@@ -8,6 +8,7 @@ Friend Class frmWindowTips
     Private Declare Function DrawText Lib "user32" Alias "DrawTextW" (ByVal hdc As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpStr As String, ByVal nCount As Integer, <[In]()> ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
     Private Const DT_WORDBREAK As Integer = &H10
 
+    Dim m_bFirstTips As Boolean
     Dim m_strTips() As String
     Dim m_intTipsPos As Short
 	Dim m_lngTipsNum As Integer
@@ -106,48 +107,18 @@ Friend Class frmWindowTips
 	End Sub
 	
 	Private Sub cmdNext_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdNext.Click
-        Dim gp As Graphics = Me.CreateGraphics()
+        m_bFirstTips = False
 
         m_intTipsPos = m_intTipsPos + 1
-		
-		If m_intTipsPos > UBound(m_strTips) Then m_intTipsPos = 1
 
-        gp.FillRectangle(Brushes.White, New Rectangle(360, 24, 12, 10))
-
-        With Me
-            Dim frmWindowTips_gp As Graphics = .CreateGraphics()
-
-            .Font = New Font(.Font.FontFamily, 9, .Font.Style, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
-
-            Dim stringBrush As SolidBrush = New SolidBrush(.ForeColor)
-            Dim Current As PointF = New PointF(360, 23)
-            frmWindowTips_gp.DrawString(VB.Right(" " & m_intTipsPos, 2), .Font, stringBrush, Current)
-
-            .Font = New Font(.Font.FontFamily, 12, .Font.Style, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
-
-            frmWindowTips_gp.Dispose()
-        End With
-
-        gp.FillRectangle(Brushes.White, New Rectangle(63, 48, 339, 168))
-
-        Dim hDC As IntPtr = gp.GetHdc()
-        Dim picIcon_gp As Graphics = picIcon.CreateGraphics()
-        Dim picIcon_hDC As IntPtr = picIcon_gp.GetHdc()
-
-        Call BitBlt(hDC, 16, 16, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
+        If m_intTipsPos > UBound(m_strTips) Then m_intTipsPos = 1
 
         m_lngTipsNum = 0
 
-        picIcon_gp.ReleaseHdc()
-        picIcon_gp.Dispose()
-
-        gp.ReleaseHdc()
-        gp.Dispose()
-
     End Sub
-	
-	'UPGRADE_WARNING: Form イベント frmWindowTips.Activate には新しい動作が含まれます。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' をクリックしてください。
-	Private Sub frmWindowTips_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
+
+    'UPGRADE_WARNING: Form イベント frmWindowTips.Activate には新しい動作が含まれます。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' をクリックしてください。
+    Private Sub frmWindowTips_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
 		
 		With Me
 
@@ -155,6 +126,8 @@ Friend Class frmWindowTips
             .Top = frmMain.Top + (frmMain.Height - .Height) \ 2
 
         End With
+
+        m_bFirstTips = True
 
         m_intTipsPos = 0
 		
@@ -200,51 +173,6 @@ Friend Class frmWindowTips
 		Call AddTutorial(" 最新版の BMSE がリリースされているか確認してください！" & vbCrLf & vbCrLf & " お友達全員に BMS が作れるクールな BMSE のすばらしさを教えてあげよう！")
 		Call AddTutorial(" この Tips はイースターエッグです。" & vbCrLf & vbCrLf & " 夜寝ながら働かずに作ったこのソフトウェアがみなさんに気に入っていただけるよう、tokonats氏が望んでいることでしょう。")
 
-        Dim gp As Graphics = Me.CreateGraphics()
-        Dim hDC As IntPtr
-
-        Dim picIcon_gp As Graphics = picIcon.CreateGraphics()
-        Dim picIcon_hDC As IntPtr = picIcon_gp.GetHdc()
-
-        With Me
-
-            gp.FillRectangle(Brushes.Gray, New Rectangle(8, 8, 48, 214))
-
-            gp.FillRectangle(Brushes.White, New Rectangle(57, 8, 351, 214))
-
-            gp.FillRectangle(Brushes.Black, New Rectangle(57, 41, 351, 0))
-
-            .Font = New Font(.Font.FontFamily, 16, .Font.Style Or FontStyle.Bold, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
-
-            Dim stringBrush As SolidBrush = New SolidBrush(.ForeColor)
-            Dim Current As PointF = New PointF(64, 14)
-            gp.DrawString("ご存知ですか...", .Font, stringBrush, Current)
-
-
-            Dim newstyle As FontStyle = .Font.Style
-            If newstyle And FontStyle.Bold Then
-                newstyle = newstyle Xor FontStyle.Bold
-            End If
-            .Font = New Font(.Font.FontFamily, 9, newstyle, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
-
-            Current = New PointF(360, 23)
-            gp.DrawString(" 0 / " & UBound(m_strTips), .Font, stringBrush, Current)
-
-            .Font = New Font(.Font.FontFamily, 12, .Font.Style, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
-
-            hDC = gp.GetHdc()
-
-            Call BitBlt(hDC, 16, 16, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
-
-            gp.ReleaseHdc()
-        End With
-
-        gp.FillRectangle(Brushes.White, New Rectangle(64, 48, 341, 170))
-
-        hDC = gp.GetHdc()
-
-        Call DrawText(hDC, m_strTips(0), Len(m_strTips(0)), ddRect(63, 48, 402, 216), DT_WORDBREAK)
-
         m_lngTipsNum = Len(m_strTips(0))
 
         chkNextDisp.CheckState = System.Windows.Forms.CheckState.Checked
@@ -253,65 +181,22 @@ Friend Class frmWindowTips
 		
 		Call cmdNext.Focus()
 
-        picIcon_gp.ReleaseHdc()
-        picIcon_gp.Dispose()
-
-        gp.ReleaseHdc()
-        gp.Dispose()
-
     End Sub
 
     Private Sub tmrMain_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles tmrMain.Tick
 
         Dim strTemp As String
 
-        Dim gp As Graphics = Me.CreateGraphics()
-
-        Dim picIcon_gp As Graphics = picIcon.CreateGraphics()
-        Dim picIcon_hDC As IntPtr = picIcon_gp.GetHdc()
-
         m_lngTipsNum = m_lngTipsNum + 1
         tmrMain.Interval = 100
-
-        gp.FillRectangle(Brushes.White, New Rectangle(63, 48, 402, 216))
-
-        Dim hDC As IntPtr = gp.GetHdc()
 
         If m_lngTipsNum >= Len(m_strTips(m_intTipsPos)) + 1 Then
 
             tmrMain.Interval = 250
 
-            'If (m_lngTipsNum \ 2) Mod 2 Then
-            If (m_lngTipsNum \ 2) And 1 Then
-
-                strTemp = m_strTips(m_intTipsPos)
-
-            Else
-
-                strTemp = m_strTips(m_intTipsPos) & "_"
-
-            End If
-
-            'If m_lngTipsNum Mod 2 Then
-            If m_lngTipsNum And 1 Then
-
-                'Call BitBlt(frmWindowTips.hdc, 16 * m_sngTwipsX, 16 * m_sngTwipsY, 32, 32, picIcon.hdc, 0, 32, SRCCOPY)
-                Call BitBlt(hDC, 16, 16, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
-
-            Else
-
-                'Call BitBlt(frmWindowTips.hdc, 16 * m_sngTwipsX, 16 * m_sngTwipsY, 32, 32, picIcon.hdc, 0, 0, SRCCOPY)
-                Call BitBlt(hDC, 16, 16, 32, 32, picIcon_hDC, 0, 0, SRCCOPY)
-
-            End If
-
-            Call DrawText(hDC, strTemp, Len(strTemp), ddRect(63, 48, 402, 216), DT_WORDBREAK)
-
         Else
 
             strTemp = VB.Left(m_strTips(m_intTipsPos), m_lngTipsNum) & "_"
-
-            Call DrawText(hDC, strTemp, Len(strTemp), ddRect(63, 48, 402, 216), DT_WORDBREAK)
 
             Select Case VB.Right(strTemp, 2)
 
@@ -335,12 +220,7 @@ Friend Class frmWindowTips
 
         End If
 
-        picIcon_gp.ReleaseHdc()
-        picIcon_gp.Dispose()
-
-        gp.ReleaseHdc()
-        gp.Dispose()
-
+        Refresh()
     End Sub
 
     Private Function ddRect(ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As RECT
@@ -374,5 +254,99 @@ Friend Class frmWindowTips
         Call Me.Hide()
 
         Call frmMain.picMain.Focus()
+    End Sub
+
+    Private Sub frmWindowTips_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
+        Dim hDC As IntPtr
+
+        Dim picIcon_gp As Graphics = picIcon.CreateGraphics()
+        Dim picIcon_hDC As IntPtr = picIcon_gp.GetHdc()
+
+        Dim stringFont As Font = Font
+        Dim stringBrush As SolidBrush
+
+        Dim strTemp As String
+
+        e.Graphics.FillRectangle(Brushes.Gray, New Rectangle(8, 8, 48, 254))
+
+        e.Graphics.FillRectangle(Brushes.White, New Rectangle(57, 8, 411, 254))
+
+        e.Graphics.DrawLine(Pens.Black, New Point(56, 40), New Point(467, 40))
+
+        stringFont = New Font(stringFont.FontFamily, 16, stringFont.Style Or FontStyle.Bold, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
+
+        stringBrush = New SolidBrush(ForeColor)
+        e.Graphics.DrawString("ご存知ですか...", stringFont, stringBrush, New PointF(64, 14))
+
+        Dim newstyle As FontStyle = stringFont.Style
+        If newstyle And FontStyle.Bold Then
+            newstyle = newstyle Xor FontStyle.Bold
+        End If
+        stringFont = New Font(stringFont.FontFamily, 9, newstyle, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
+
+        e.Graphics.DrawString(" 0 / " & UBound(m_strTips), stringFont, stringBrush, New PointF(420, 23))
+
+        stringFont = New Font(stringFont.FontFamily, 12, stringFont.Style, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
+
+        hDC = e.Graphics.GetHdc()
+
+        Call BitBlt(hDC, 16, 16, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
+
+        e.Graphics.ReleaseHdc()
+
+        If (Not m_bFirstTips) Then
+            e.Graphics.FillRectangle(Brushes.White, New Rectangle(420, 24, 12, 10))
+
+            stringFont = New Font(stringFont.FontFamily, 9, stringFont.Style, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
+
+            e.Graphics.DrawString(VB.Right(" " & m_intTipsPos, 2), stringFont, stringBrush, New PointF(420, 23))
+
+            stringFont = New Font(stringFont.FontFamily, 12, stringFont.Style, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
+
+            hDC = e.Graphics.GetHdc()
+
+            Call BitBlt(hDC, 16, 16, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
+
+            e.Graphics.ReleaseHdc()
+        End If
+
+        hDC = e.Graphics.GetHdc()
+
+        If m_lngTipsNum >= Len(m_strTips(m_intTipsPos)) + 1 Then
+
+            If (m_lngTipsNum \ 2) And 1 Then
+
+                strTemp = m_strTips(m_intTipsPos)
+
+            Else
+
+                strTemp = m_strTips(m_intTipsPos) & "_"
+
+            End If
+
+            If m_lngTipsNum And 1 Then
+
+                Call BitBlt(hDC, 16, 16, 32, 32, picIcon_hDC, 0, 32, SRCCOPY)
+
+            Else
+
+                Call BitBlt(hDC, 16, 16, 32, 32, picIcon_hDC, 0, 0, SRCCOPY)
+
+            End If
+
+            Call DrawText(hDC, strTemp, Len(strTemp), ddRect(63, 48, 462, 256), DT_WORDBREAK)
+
+        Else
+
+            strTemp = VB.Left(m_strTips(m_intTipsPos), m_lngTipsNum) & "_"
+
+            Call DrawText(hDC, strTemp, Len(strTemp), ddRect(63, 48, 462, 256), DT_WORDBREAK)
+
+        End If
+
+        picIcon_gp.ReleaseHdc()
+        picIcon_gp.Dispose()
+
+        e.Graphics.ReleaseHdc()
     End Sub
 End Class
