@@ -756,7 +756,6 @@ Err_Renamed:
     Private Sub cboDispFrame_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispFrame.SelectedIndexChanged
 
         Call modDraw.InitVerticalLine()
-        picMain.Refresh()
 
     End Sub
 
@@ -831,7 +830,6 @@ Err_Renamed:
     Private Sub cboDispKey_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispKey.SelectedIndexChanged
 
         Call modDraw.InitVerticalLine()
-        picMain.Refresh()
 
     End Sub
 
@@ -839,7 +837,6 @@ Err_Renamed:
     Private Sub cboDispSC1P_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispSC1P.SelectedIndexChanged
 
         Call modDraw.InitVerticalLine()
-        picMain.Refresh()
 
     End Sub
 
@@ -847,7 +844,6 @@ Err_Renamed:
     Private Sub cboDispSC2P_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispSC2P.SelectedIndexChanged
 
         Call modDraw.InitVerticalLine()
-        picMain.Refresh()
 
     End Sub
 
@@ -910,7 +906,6 @@ Err_Renamed:
     Private Sub cboPlayer_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboPlayer.SelectedIndexChanged
 
         Call modDraw.InitVerticalLine()
-        picMain.Refresh()
 
     End Sub
 
@@ -1231,7 +1226,6 @@ Err_Renamed:
                 Call SaveChanges()
 
                 Call modDraw.InitVerticalLine()
-                picMain.Refresh()
 
             End If
 
@@ -1499,7 +1493,6 @@ Err_Renamed:
         Call modDraw.ChangeResolution()
 
         Call modDraw.InitVerticalLine()
-        picMain.Refresh()
 
     End Sub
 
@@ -2383,7 +2376,6 @@ Err_Renamed:
         End With
 
         Call modDraw.InitVerticalLine()
-        picMain.Refresh()
     End Sub
 
     'UPGRADE_WARNING: HScrollBar イベント hsbMain.Change には新しい動作が含まれます。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' をクリックしてください。
@@ -2770,7 +2762,6 @@ Err_Renamed:
         Call modDraw.ArrangeObj()
 
         Call modDraw.InitVerticalLine()
-        picMain.Refresh()
 
     End Sub
 
@@ -2859,7 +2850,6 @@ Err_Renamed:
         Call modDraw.ArrangeObj()
 
         Call modDraw.InitVerticalLine()
-        picMain.Refresh()
 
     End Sub
 
@@ -3397,7 +3387,6 @@ Err_Renamed:
         Call SaveChanges()
 
         Call modDraw.InitVerticalLine()
-        picMain.Refresh()
 
     End Sub
 
@@ -3772,7 +3761,6 @@ Err_Renamed:
         Call SaveChanges()
 
         Call modDraw.InitVerticalLine()
-        picMain.Refresh()
 
     End Sub
 
