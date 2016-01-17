@@ -4761,7 +4761,7 @@ Err_Renamed:
 
             Case System.Windows.Forms.Keys.ControlKey, System.Windows.Forms.Keys.ShiftKey ', vbKeyMenu
 
-                If tlbMenu.Items.Item("Write").Pressed = False Then blnTemp = False
+                If DirectCast(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = False Then blnTemp = False
 
             Case System.Windows.Forms.Keys.NumPad0
 
@@ -4867,7 +4867,7 @@ Err_Renamed:
 
         If blnTemp Then
 
-            If Me.tlbMenu.Items.Item("Write").Pressed = False Then
+            If DirectCast(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = False Then
 
                 If g_SelectArea.blnFlag = True Or (g_Obj(UBound(g_Obj)).intCh <> 0 And g_Mouse.Button <> 0) Then
 
@@ -4892,7 +4892,7 @@ Err_Renamed:
 
             Case System.Windows.Forms.Keys.ControlKey, System.Windows.Forms.Keys.ShiftKey
 
-                If tlbMenu.Items.Item("Write").Pressed = True Then
+                If DirectCast(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = True Then
 
                     Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, e.Modifiers)
 
@@ -4920,7 +4920,7 @@ Err_Renamed:
 
         If eventArgs.Button = Windows.Forms.MouseButtons.Left Then '左クリック
 
-            If tlbMenu.Items.Item("Delete").Pressed = True Then
+            If DirectCast(tlbMenu.Items.Item("Delete"), ToolStripButton).Checked = True Then
 
                 If g_Obj(UBound(g_Obj)).intCh Then
 
@@ -4942,7 +4942,7 @@ Err_Renamed:
                 Call modDraw.ObjSelectCancel()
                 picMain.Refresh()
 
-            ElseIf tlbMenu.Items.Item("Edit").Pressed = True Then
+            ElseIf DirectCast(tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = True Then
 
                 If g_Obj(UBound(g_Obj)).intCh <> 0 Then 'オブジェのあるところで押したっぽいよ
 
@@ -5302,7 +5302,7 @@ Err_Renamed:
 
         If eventArgs.Button = Windows.Forms.MouseButtons.Left Then
 
-            If tlbMenu.Items.Item("Write").Pressed = True Then
+            If DirectCast(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = True Then
 
                 With g_Obj(UBound(g_Obj))
 
@@ -5434,7 +5434,7 @@ Err_Renamed:
 
                 picMain.Refresh()
 
-            ElseIf tlbMenu.Items.Item("Edit").Pressed = True Then
+            ElseIf DirectCast(tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = True Then
 
                 If g_SelectArea.blnFlag Then
 
@@ -5565,7 +5565,7 @@ Err_Renamed:
 
         If Not g_SelectArea.blnFlag Then '選択範囲なし
 
-            If eventArgs.Button = Windows.Forms.MouseButtons.Left And tlbMenu.Items.Item("Edit").Pressed = True And g_Obj(UBound(g_Obj)).intCh <> 0 Then 'オブジェ移動中
+            If eventArgs.Button = Windows.Forms.MouseButtons.Left And DirectCast(tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = True And g_Obj(UBound(g_Obj)).intCh <> 0 Then 'オブジェ移動中
 
                 Call MoveObj(eventArgs.X, eventArgs.Y, Shift)
 
@@ -5909,11 +5909,11 @@ Err_Renamed:
         Dim Panel As System.Windows.Forms.ToolStripStatusLabel = DirectCast(eventSender, System.Windows.Forms.ToolStripStatusLabel)
 
         If Panel.Name = staMain.Items.Item("Mode").Name Then
-            If tlbMenu.Items.Item("Edit").Pressed = True Then
+            If DirectCast(tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = True Then
                 Call mnuEditMode_Click(_mnuEditMode_1, New System.EventArgs())
-            ElseIf tlbMenu.Items.Item("Write").Pressed = True Then
+            ElseIf DirectCast(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = True Then
                 Call mnuEditMode_Click(_mnuEditMode_2, New System.EventArgs())
-            ElseIf tlbMenu.Items.Item("Delete").Pressed = True Then
+            ElseIf DirectCast(tlbMenu.Items.Item("Delete"), ToolStripButton).Checked = True Then
                 Call mnuEditMode_Click(_mnuEditMode_0, New System.EventArgs())
             End If
         End If
