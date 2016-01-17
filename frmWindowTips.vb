@@ -255,7 +255,6 @@ Friend Class frmWindowTips
     Private Sub frmWindowTips_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
         Dim hDC As IntPtr
 
-        Dim stringFont As Font = Font
         Dim stringBrush As SolidBrush
 
         Dim strTemp As String
@@ -266,21 +265,21 @@ Friend Class frmWindowTips
 
         e.Graphics.DrawLine(Pens.Black, New Point(56, 40), New Point(407, 40))
 
-        stringFont = New Font(stringFont.FontFamily, 16, stringFont.Style Or FontStyle.Bold, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
+        Font = New Font(Font.FontFamily, 16, Font.Style Or FontStyle.Bold, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
 
         stringBrush = New SolidBrush(ForeColor)
-        e.Graphics.DrawString("ご存知ですか...", stringFont, stringBrush, New PointF(64, 14))
+        e.Graphics.DrawString("ご存知ですか...", Font, stringBrush, New PointF(64, 14))
 
-        Dim newstyle As FontStyle = stringFont.Style
+        Dim newstyle As FontStyle = Font.Style
         If newstyle And FontStyle.Bold Then
             newstyle = newstyle Xor FontStyle.Bold
         End If
-        stringFont = New Font(stringFont.FontFamily, 9, newstyle, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
+        Font = New Font(Font.FontFamily, 9, newstyle, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
 
-        e.Graphics.DrawString(VB.Right(" " & m_intTipsPos, 2), stringFont, stringBrush, New PointF(360, 23))
-        e.Graphics.DrawString("   / " & UBound(m_strTips), stringFont, stringBrush, New PointF(360, 23))
+        e.Graphics.DrawString(VB.Right(" " & m_intTipsPos, 2), Font, stringBrush, New PointF(360, 23))
+        e.Graphics.DrawString("   / " & UBound(m_strTips), Font, stringBrush, New PointF(360, 23))
 
-        stringFont = New Font(stringFont.FontFamily, 12, stringFont.Style, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
+        Font = New Font(Font.FontFamily, 12, Font.Style, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
 
         hDC = e.Graphics.GetHdc()
 
