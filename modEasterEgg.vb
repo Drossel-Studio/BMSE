@@ -139,29 +139,21 @@ Module modEasterEgg
 		
 	End Sub
 
-    Public Sub DrawEffect(ByVal gp As Graphics)
-
-        Dim hDC As IntPtr
+    Public Sub DrawEffect(ByVal hDC As IntPtr)
 
         Select Case g_disp.intEffect
 
             Case EASTEREGG.SNOW, EASTEREGG.SIROMARU
 
-                hDC = gp.GetHdc()
                 Call DrawSnow(hDC)
-                gp.ReleaseHdc()
 
             Case EASTEREGG.SIROMARU2
 
-                hDC = gp.GetHdc()
                 Call DrawSiromaru2(hDC)
-                gp.ReleaseHdc()
 
             Case EASTEREGG.STAFFROLL, EASTEREGG.STAFFROLL2
 
-                hDC = gp.GetHdc()
                 Call DrawStaffRoll(hDC)
-                gp.ReleaseHdc()
 
             Case EASTEREGG.DISP_LOG
 
@@ -169,23 +161,7 @@ Module modEasterEgg
 
             Case EASTEREGG.BLUESCREEN
 
-                hDC = gp.GetHdc()
-
-                Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
-                Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
-
-                SetBkMode(hDC, TRANSPARENT)
-
                 Call DrawBlueScreen(hDC)
-
-                SelectObject(hDC, hOldFont)
-                DeleteObject(hFont)
-
-                gp.ReleaseHdc()
-
-            Case Else
-
-                Call gp.Clear(frmMain.picMain.BackColor)
 
         End Select
 
@@ -979,7 +955,15 @@ Module modEasterEgg
 
             frmMain.stringFont = New Font(frmMain.stringFont.FontFamily, 9, frmMain.stringFont.Style, frmMain.stringFont.Unit, frmMain.stringFont.GdiCharSet, frmMain.stringFont.GdiVerticalFont)
 
+            Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
+            Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
+
+            SetBkMode(hDC, TRANSPARENT)
+
             Call DrawText(hDC, "A problem has been detected and BMSE has been shut down to prevent damage to your mind." & vbCrLf & vbCrLf & "The problem seems to be caused by the following file: BMSE.EXE" & vbCrLf & vbCrLf & "EASTER_EGG_BLUE_SCREEN_OF_DEATH" & vbCrLf & vbCrLf & "If this is the first time you've seen this stop error screen, restart your BMSE. If this screen appears again, follow these steps:" & vbCrLf & vbCrLf & "1) Bury me from your computer." & vbCrLf & "2) Access UCN-Soft BBS, and write your shout of spirit." & vbCrLf & "       ex) ""BMSE is the worst software in the world!!!!!!!!!!!!!!111111""" & vbCrLf & "3) Sing ""asdf song"":" & vbCrLf & "       This is the sound of the asdf song." & vbCrLf & "       asdf fdsa" & vbCrLf & "       asdffdsa ye-ye" & vbCrLf & "       (clap clap clap)" & vbCrLf & "4) Throw your computer from window." & vbCrLf & vbCrLf & "If you are satiated with joke:" & vbCrLf & vbCrLf & "Launch BMSE and type your key ""OFF"", then press return key." & vbCrLf & vbCrLf & "Meaningless information:" & vbCrLf & vbCrLf & "*** STOP: 0x88710572 (0xASDFFDSA,0x00004126,0xD0SUK01,0x○0▽0○)" & vbCrLf & vbCrLf & vbCrLf & "***  BMSE.EXE - Public Sub DrawBlueScreen() at modEasterEgg.bas, DateStamp 2006-12-26", -1, rectTemp, DT_WORDBREAK)
+
+            SelectObject(hDC, hOldFont)
+            DeleteObject(hFont)
 
         End With
 

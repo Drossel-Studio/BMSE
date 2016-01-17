@@ -515,7 +515,7 @@ Err_Renamed:
         Call modMain.CleanUp(Err.Number, Err.Description, "InitVerticalLine")
     End Sub
 
-    Public Sub Redraw(ByVal gp As Graphics)
+    Public Sub Redraw(ByVal hDC As IntPtr)
         On Error GoTo Err_Renamed
 
         Dim i As Integer
@@ -700,10 +700,6 @@ Err_Renamed:
 
         Next i
 
-        Call gp.Clear(frmMain.picMain.BackColor)
-
-        Dim hDC As IntPtr = gp.GetHdc()
-
         Call DrawGridBG(hDC) '背景色
 
         Call DrawMeasureNum(hDC) '小節番号
@@ -715,8 +711,6 @@ Err_Renamed:
         Call DrawVerticalWhiteLine(hDC) '縦線(白)
 
         Call DrawMeasureLine(hDC) '横線(白)
-
-        gp.ReleaseHdc()
 
         Call InitPen()
 
@@ -738,7 +732,7 @@ Err_Renamed:
 
                         If g_disp.lngStartPos <= g_Measure(.intMeasure).lngY + .lngPosition And g_disp.lngEndPos >= g_Measure(.intMeasure).lngY + .lngPosition Then
 
-                            Call DrawObj(gp, g_Obj(i))
+                            Call DrawObj(hDC, g_Obj(i))
 
                         End If
 
@@ -756,7 +750,7 @@ Err_Renamed:
 
                 If g_disp.lngStartPos <= g_Measure(.intMeasure).lngY + .lngPosition And g_disp.lngEndPos >= g_Measure(.intMeasure).lngY + .lngPosition And g_VGrid(g_intVGridNum(.intCh)).blnDraw = True And .intCh <> 0 Then
 
-                    Call DrawObj(gp, m_tempObj(i))
+                    Call DrawObj(hDC, m_tempObj(i))
 
                 End If
 
@@ -766,11 +760,7 @@ Err_Renamed:
 
         Call DeletePen()
 
-        hDC = gp.GetHdc()
-
         Call DrawGridInfo(hDC) 'グリッド情報
-
-        gp.ReleaseHdc()
 
         With frmMain.picMain
 
@@ -791,7 +781,17 @@ Err_Renamed:
 
         End With
 
-        If g_disp.intEffect Then Call modEasterEgg.DrawEffect(gp)
+        If g_Obj(UBound(g_Obj)).intCh Then
+
+            Call modDraw.InitPen()
+            Call modDraw.DrawObj(hDC, g_Obj(UBound(g_Obj)))
+            Call modDraw.DeletePen()
+
+        End If
+
+        If g_SelectArea.blnFlag Then Call modDraw.DrawSelectArea(hDC)
+
+        If g_disp.intEffect Then Call modEasterEgg.DrawEffect(hDC)
 
         'Debug.Print timeGetTime() - lngTimer
         'frmMain.staMain.Items.Item("Time").Text = timeGetTime() - lngTimer & "ms"
@@ -1185,7 +1185,7 @@ Err_Renamed:
 
     End Sub
 
-    Public Sub DrawObj(ByVal gp As Graphics, ByRef tempObj As g_udtObj)
+    Public Sub DrawObj(ByVal hDC As IntPtr, ByRef tempObj As g_udtObj)
         On Error GoTo Err_Renamed
 
         Dim intTemp As Short
@@ -1201,12 +1201,9 @@ Err_Renamed:
         Dim hOldBrush As Integer
         Dim hOldPen As Integer
 
-        Dim hDC As IntPtr = gp.GetHdc()
-
         With tempObj
 
             If g_intVGridNum(.intCh) = 0 Then
-                gp.ReleaseHdc()
                 Exit Sub
             End If
 
@@ -1386,7 +1383,6 @@ Err_Renamed:
                     m_hPen(intLightNum) = SelectObject(hDC, hOldPen)
                     m_hBrush(intBrushNum) = SelectObject(hDC, hOldBrush)
 
-                    gp.ReleaseHdc()
                     Exit Sub
 
             End Select
@@ -1443,11 +1439,9 @@ Err_Renamed:
 
         End With
 
-        gp.ReleaseHdc()
         Exit Sub
 
 Err_Renamed:
-        gp.ReleaseHdc()
         Call modMain.CleanUp(Err.Number, Err.Description, "DrawObj")
     End Sub
 
@@ -1915,7 +1909,7 @@ Err_Renamed:
 
     End Sub
 
-    Public Sub DrawSelectArea(ByVal gp As Graphics)
+    Public Sub DrawSelectArea(ByVal hDC As IntPtr)
         Dim i As Integer
         Dim lngTemp As Integer
         Dim hOldPen As Integer
@@ -1924,8 +1918,6 @@ Err_Renamed:
         Dim hOldBrush As Integer
         Dim hNewBrush As Integer
         Dim rectTemp As RECT
-
-        Dim hDC As IntPtr = gp.GetHdc()
 
         hNewPen = CreatePen(PS_SOLID, 1, g_lngPenColor(PEN_NUM.EDIT_FRAME))
         hOldPen = SelectObject(hDC, hNewPen)
@@ -1978,7 +1970,6 @@ Err_Renamed:
         hNewBrush = SelectObject(hDC, hOldBrush)
         Call DeleteObject(hNewBrush)
 
-        gp.ReleaseHdc()
     End Sub
 
     Public Function lngChangeMaxMeasure(ByVal intMeasure As Short) As Integer

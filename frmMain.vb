@@ -6244,19 +6244,14 @@ Err_Renamed:
     End Sub
 
     Private Sub picMain_Paint(ByVal sender As System.Object, ByVal e As PaintEventArgs)
-        Redraw(e.Graphics)
 
-        If g_Obj(UBound(g_Obj)).intCh Then
+        e.Graphics.Clear(picMain.BackColor)
 
-            Call modDraw.InitPen()
-            Call modDraw.DrawObj(e.Graphics, g_Obj(UBound(g_Obj)))
-            Call modDraw.DeletePen()
+        Dim hDC As IntPtr = e.Graphics.GetHdc()
 
-        End If
+        Redraw(hDC)
 
-        If g_SelectArea.blnFlag Then Call modDraw.DrawSelectArea(e.Graphics)
-
-        If g_disp.intEffect Then Call modEasterEgg.DrawEffect(e.Graphics)
+        e.Graphics.ReleaseHdc()
 
     End Sub
 
