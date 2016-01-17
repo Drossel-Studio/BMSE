@@ -89,11 +89,9 @@
         Me.fraBGACmd.ForeColor = System.Drawing.SystemColors.ControlText
         Me.fraBGACmd.Location = New System.Drawing.Point(260, 234)
         Me.fraBGACmd.Name = "fraBGACmd"
-        Me.fraBGACmd.Padding = New System.Windows.Forms.Padding(0)
         Me.fraBGACmd.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.fraBGACmd.Size = New System.Drawing.Size(152, 21)
         Me.fraBGACmd.TabIndex = 20
-        Me.fraBGACmd.TabStop = False
         '
         'cmdPreviewBack
         '
@@ -170,11 +168,9 @@
         Me.fraBGAPara.ForeColor = System.Drawing.SystemColors.ControlText
         Me.fraBGAPara.Location = New System.Drawing.Point(260, 0)
         Me.fraBGAPara.Name = "fraBGAPara"
-        Me.fraBGAPara.Padding = New System.Windows.Forms.Padding(0)
         Me.fraBGAPara.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.fraBGAPara.Size = New System.Drawing.Size(153, 157)
         Me.fraBGAPara.TabIndex = 2
-        Me.fraBGAPara.TabStop = False
         '
         'cmdCopy
         '
@@ -443,8 +439,7 @@
         '
         'frmWindowPreview
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(414, 256)
         Me.Controls.Add(Me.fraBGACmd)

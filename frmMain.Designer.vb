@@ -2912,8 +2912,7 @@
         'frmMain
         '
         Me.AllowDrop = True
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(1192, 530)
         Me.Controls.Add(Me.staMain)

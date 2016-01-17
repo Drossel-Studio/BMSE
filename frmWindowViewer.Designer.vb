@@ -122,7 +122,7 @@
         Me.txtStop.MaxLength = 0
         Me.txtStop.Name = "txtStop"
         Me.txtStop.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtStop.Size = New System.Drawing.Size(221, 18)
+        Me.txtStop.Size = New System.Drawing.Size(221, 19)
         Me.txtStop.TabIndex = 14
         '
         'txtPlay
@@ -135,7 +135,7 @@
         Me.txtPlay.MaxLength = 0
         Me.txtPlay.Name = "txtPlay"
         Me.txtPlay.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtPlay.Size = New System.Drawing.Size(221, 18)
+        Me.txtPlay.Size = New System.Drawing.Size(221, 19)
         Me.txtPlay.TabIndex = 12
         '
         'txtPlayAll
@@ -148,7 +148,7 @@
         Me.txtPlayAll.MaxLength = 0
         Me.txtPlayAll.Name = "txtPlayAll"
         Me.txtPlayAll.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtPlayAll.Size = New System.Drawing.Size(221, 18)
+        Me.txtPlayAll.Size = New System.Drawing.Size(221, 19)
         Me.txtPlayAll.TabIndex = 10
         '
         'cmdViewerPath
@@ -174,7 +174,7 @@
         Me.txtViewerPath.MaxLength = 0
         Me.txtViewerPath.Name = "txtViewerPath"
         Me.txtViewerPath.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtViewerPath.Size = New System.Drawing.Size(181, 18)
+        Me.txtViewerPath.Size = New System.Drawing.Size(181, 19)
         Me.txtViewerPath.TabIndex = 7
         '
         'txtViewerName
@@ -187,7 +187,7 @@
         Me.txtViewerName.MaxLength = 0
         Me.txtViewerName.Name = "txtViewerName"
         Me.txtViewerName.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtViewerName.Size = New System.Drawing.Size(221, 18)
+        Me.txtViewerName.Size = New System.Drawing.Size(221, 19)
         Me.txtViewerName.TabIndex = 5
         '
         'lblNotice
@@ -303,8 +303,7 @@
         'frmWindowViewer
         '
         Me.AcceptButton = Me.cmdOK
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(400, 323)
         Me.Controls.Add(Me.cmdDelete)
@@ -324,6 +323,7 @@
         Me.ShowInTaskbar = False
         Me.Text = "Viewer Config"
         Me.fraViewer.ResumeLayout(False)
+        Me.fraViewer.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub

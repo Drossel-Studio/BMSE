@@ -146,7 +146,7 @@
         Me.txtReplace.MaxLength = 2
         Me.txtReplace.Name = "txtReplace"
         Me.txtReplace.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtReplace.Size = New System.Drawing.Size(25, 18)
+        Me.txtReplace.Size = New System.Drawing.Size(25, 19)
         Me.txtReplace.TabIndex = 28
         Me.txtReplace.Text = "01"
         '
@@ -384,7 +384,7 @@
         Me.txtNumMax.MaxLength = 2
         Me.txtNumMax.Name = "txtNumMax"
         Me.txtNumMax.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtNumMax.Size = New System.Drawing.Size(37, 18)
+        Me.txtNumMax.Size = New System.Drawing.Size(37, 19)
         Me.txtNumMax.TabIndex = 10
         Me.txtNumMax.Text = "ZZ"
         '
@@ -399,7 +399,7 @@
         Me.txtNumMin.MaxLength = 2
         Me.txtNumMin.Name = "txtNumMin"
         Me.txtNumMin.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtNumMin.Size = New System.Drawing.Size(37, 18)
+        Me.txtNumMin.Size = New System.Drawing.Size(37, 19)
         Me.txtNumMin.TabIndex = 8
         Me.txtNumMin.Text = "01"
         '
@@ -456,7 +456,7 @@
         Me.txtMeasureMax.MaxLength = 3
         Me.txtMeasureMax.Name = "txtMeasureMax"
         Me.txtMeasureMax.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtMeasureMax.Size = New System.Drawing.Size(37, 18)
+        Me.txtMeasureMax.Size = New System.Drawing.Size(37, 19)
         Me.txtMeasureMax.TabIndex = 6
         Me.txtMeasureMax.Text = "999"
         '
@@ -471,7 +471,7 @@
         Me.txtMeasureMin.MaxLength = 3
         Me.txtMeasureMin.Name = "txtMeasureMin"
         Me.txtMeasureMin.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtMeasureMin.Size = New System.Drawing.Size(37, 18)
+        Me.txtMeasureMin.Size = New System.Drawing.Size(37, 19)
         Me.txtMeasureMin.TabIndex = 4
         Me.txtMeasureMin.Text = "0"
         '
@@ -536,8 +536,7 @@
         'frmWindowFind
         '
         Me.AcceptButton = Me.cmdDecide
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(566, 193)
         Me.Controls.Add(Me.cmdClose)
@@ -558,6 +557,7 @@
         Me.ShowInTaskbar = False
         Me.Text = "検索・削除・置換"
         Me.fraProcess.ResumeLayout(False)
+        Me.fraProcess.PerformLayout()
         Me.fraSearchGrid.ResumeLayout(False)
         Me.fraSearchGrid.PerformLayout()
         Me.fraSearchNum.ResumeLayout(False)

@@ -101,7 +101,7 @@
         Me.txtExtension.MaxLength = 0
         Me.txtExtension.Name = "txtExtension"
         Me.txtExtension.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtExtension.Size = New System.Drawing.Size(193, 18)
+        Me.txtExtension.Size = New System.Drawing.Size(193, 19)
         Me.txtExtension.TabIndex = 5
         Me.txtExtension.Text = "wav,mp3,bmp,jpg,gif"
         '
@@ -216,8 +216,7 @@
         'frmWindowConvert
         '
         Me.AcceptButton = Me.cmdDecide
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(312, 330)
         Me.Controls.Add(Me.chkSortByName)

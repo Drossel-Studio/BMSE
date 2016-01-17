@@ -70,7 +70,7 @@
         Me.txtMain.MaxLength = 0
         Me.txtMain.Name = "txtMain"
         Me.txtMain.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtMain.Size = New System.Drawing.Size(257, 18)
+        Me.txtMain.Size = New System.Drawing.Size(257, 19)
         Me.txtMain.TabIndex = 1
         '
         'lblMainDisp
@@ -88,8 +88,7 @@
         'frmWindowInput
         '
         Me.AcceptButton = Me.cmdDecide
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(266, 89)
         Me.Controls.Add(Me.cmdCancel)
@@ -107,6 +106,7 @@
         Me.ShowInTaskbar = False
         Me.Text = "入力フォーム"
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 #End Region
