@@ -147,9 +147,9 @@ Err_Renamed:
 			.lstMeasureLen.Visible = False
 			.txtExInfo.Text = ""
 			.Enabled = False
-			
-			.vsbMain.Value = 0
-			.hsbMain.Value = 0
+
+            .vsbMain.Value = .vsbMain.Maximum - frmMain.vsbMain.LargeChange + 1
+            .hsbMain.Value = 0
 			.cboVScroll.SelectedIndex = .cboVScroll.Items.Count - 2
 			
 			For i = 0 To MEASURE_MAX

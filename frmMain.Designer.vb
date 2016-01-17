@@ -2628,6 +2628,7 @@
         Me.vsbMain.Name = "vsbMain"
         Me.vsbMain.Size = New System.Drawing.Size(17, 397)
         Me.vsbMain.TabIndex = 1
+        Me.vsbMain.Value = 64
         '
         'dlgMainOpen
         '

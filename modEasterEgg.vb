@@ -493,7 +493,7 @@ Module modEasterEgg
                 'UPGRADE_WARNING: Mod に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
                 X = (.X - frmMain.hsbMain.Value * g_disp.Width) Mod Width
                 'UPGRADE_WARNING: Mod に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
-                Y = (.Y + frmMain.vsbMain.Value * g_disp.Height) Mod Height
+                Y = (.Y + ((frmMain.vsbMain.Maximum - frmMain.vsbMain.LargeChange + 1) - frmMain.vsbMain.Value) * g_disp.Height) Mod Height
 
                 'If Y < frmMain.picMain.ScaleHeight And X < frmMain.picMain.ScaleWidth Then
 

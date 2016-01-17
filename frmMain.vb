@@ -2046,7 +2046,7 @@ Err_Renamed:
         'UPGRADE_WARNING: MSComDlg.CommonDialog プロパティ dlgMain.Flags は、新しい動作をもつ dlgMainSave.OverwritePrompt にアップグレードされました。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' をクリックしてください。
         dlgMainSave.OverwritePrompt = True
 
-        g_disp.lngMaxY = (vsbMain.Maximum - vsbMain.LargeChange + 1)
+        g_disp.lngMaxY = vsbMain.Minimum
         g_disp.lngMaxX = hsbMain.Minimum
 
         hsbMain.SmallChange = OBJ_WIDTH
@@ -2153,6 +2153,7 @@ Err_Renamed:
         Call GetCmdLine()
 
         Call frmMain_Resize(Me, New EventArgs)
+        vsbMain.Value = vsbMain.Maximum - vsbMain.LargeChange + 1
 
     End Sub
 
@@ -2407,7 +2408,7 @@ Err_Renamed:
 
     Private Sub hsbMain_Scroll_Renamed(ByVal newScrollValue As Integer)
 
-        Call hsbMain_Change(0)
+        Call hsbMain_Change(newScrollValue)
 
     End Sub
 
@@ -4798,27 +4799,27 @@ Err_Renamed:
 
                 cboDispGridSub.SelectedIndex = 8
 
-            Case System.Windows.Forms.Keys.Home
-
-                lngTemp = (vsbMain.Maximum - vsbMain.LargeChange + 1)
-
             Case System.Windows.Forms.Keys.End
 
                 lngTemp = vsbMain.Minimum
 
-            Case System.Windows.Forms.Keys.PageUp
+            Case System.Windows.Forms.Keys.Home
 
-                lngTemp = lngTemp + vsbMain.LargeChange
+                lngTemp = vsbMain.Maximum - vsbMain.LargeChange + 1
 
             Case System.Windows.Forms.Keys.PageDown
 
+                lngTemp = lngTemp + vsbMain.LargeChange
+
+            Case System.Windows.Forms.Keys.PageUp
+
                 lngTemp = lngTemp - vsbMain.LargeChange
 
-            Case System.Windows.Forms.Keys.Up
+            Case System.Windows.Forms.Keys.Down
 
                 lngTemp = lngTemp + vsbMain.SmallChange
 
-            Case System.Windows.Forms.Keys.Down
+            Case System.Windows.Forms.Keys.Up
 
                 lngTemp = lngTemp - vsbMain.SmallChange
 
@@ -4838,9 +4839,9 @@ Err_Renamed:
 
         With vsbMain
 
-            If lngTemp > .Minimum Then
+            If lngTemp > (.Maximum - .LargeChange + 1) Then
 
-                .Value = .Minimum
+                .Value = (.Maximum - .LargeChange + 1)
 
             ElseIf lngTemp < 0 Then
 
@@ -6061,13 +6062,13 @@ Err_Renamed:
 
                 Case 1
 
-                    If .Value + .SmallChange < .Minimum Then
+                    If .Value + .SmallChange < (.Maximum - .LargeChange + 1) Then
 
                         .Value = .Value + .SmallChange
 
                     Else
 
-                        .Value = .Minimum
+                        .Value = (.Maximum - .LargeChange + 1)
 
                         m_intScrollDir = m_intScrollDir - 1
 
@@ -6075,13 +6076,13 @@ Err_Renamed:
 
                 Case 2
 
-                    If .Value - .SmallChange > (.Maximum - .LargeChange + 1) Then
+                    If .Value - .SmallChange > .Minimum Then
 
                         .Value = .Value - .SmallChange
 
                     Else
 
-                        .Value = (.Maximum - .LargeChange + 1)
+                        .Value = .Minimum
 
                         m_intScrollDir = m_intScrollDir - 2
 
@@ -6209,7 +6210,7 @@ Err_Renamed:
         With g_disp
 
             '.Y = CLng(vsbMain.Value) * 96
-            .Y = CInt(newScrollValue) * .intResolution
+            .Y = CInt((vsbMain.Maximum - vsbMain.LargeChange + 1) - newScrollValue) * .intResolution
 
         End With
 
@@ -6222,7 +6223,7 @@ Err_Renamed:
 
     Private Sub vsbMain_Scroll_Renamed(ByVal newScrollValue As Integer)
 
-        Call vsbMain_Change(0)
+        Call vsbMain_Change(newScrollValue)
 
     End Sub
     Private Sub hsbMain_Scroll(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.ScrollEventArgs) Handles hsbMain.Scroll
@@ -6259,4 +6260,11 @@ Err_Renamed:
 
     End Sub
 
+    Private Sub vsbMain_ValueChanged(sender As Object, e As EventArgs) Handles vsbMain.ValueChanged
+        vsbMain_Change(vsbMain.Value)
+    End Sub
+
+    Private Sub hsbMain_ValueChanged(sender As Object, e As EventArgs) Handles hsbMain.ValueChanged
+        hsbMain_Change(hsbMain.Value)
+    End Sub
 End Class

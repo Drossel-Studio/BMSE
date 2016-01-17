@@ -534,7 +534,7 @@ Err_Renamed:
         Next i
 
         'frmMain.vsbMain.Min = lngTemp \ 96
-        frmMain.vsbMain.Minimum = lngTemp \ g_disp.intResolution
+        frmMain.vsbMain.Maximum = lngTemp \ g_disp.intResolution + frmMain.vsbMain.LargeChange - 1
 
         'UPGRADE_ISSUE: PictureBox プロパティ picMain.AutoRedraw はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
         'frmMain.picMain.AutoRedraw = True
@@ -776,13 +776,13 @@ Err_Renamed:
 
             If (g_disp.lngMaxX + 16) * g_disp.Width - .ClientRectangle.Width < 0 Then
 
-                frmMain.hsbMain.Maximum = (0 + frmMain.hsbMain.LargeChange - 1)
+                frmMain.hsbMain.Maximum = 0 + frmMain.hsbMain.LargeChange - 1
 
             Else
 
                 'frmMain.hsbMain.Max = (g_disp.lngMaxX + 16) * g_disp.Width - .ScaleWidth
                 'frmMain.hsbMain.Max = (g_disp.lngMaxX + 16) - .ScaleWidth / g_disp.Width
-                frmMain.hsbMain.Maximum = ((g_disp.lngMaxX + FRAME_WIDTH) - .ClientRectangle.Width / g_disp.Width + frmMain.hsbMain.LargeChange - 1)
+                frmMain.hsbMain.Maximum = (g_disp.lngMaxX + FRAME_WIDTH) - .ClientRectangle.Width / g_disp.Width + frmMain.hsbMain.LargeChange - 1
 
             End If
 
@@ -2038,7 +2038,7 @@ Err_Renamed:
 
             If intTemp = .intResolution Then Exit Sub
 
-            frmMain.vsbMain.Value = (frmMain.vsbMain.Value / .intResolution) * intTemp
+            frmMain.vsbMain.Value = (frmMain.vsbMain.Maximum - frmMain.vsbMain.LargeChange + 1) - ((((frmMain.vsbMain.Maximum - frmMain.vsbMain.LargeChange + 1) - frmMain.vsbMain.Value) / .intResolution) * intTemp)
 
         End With
 
