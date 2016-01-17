@@ -5,6 +5,8 @@ Friend Class frmWindowInput
 
     Private Sub cmdCancel_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdCancel.Click
 
+        DialogResult = DialogResult.Cancel
+
         Call Me.Close()
 
     End Sub
@@ -14,6 +16,8 @@ Friend Class frmWindowInput
         Call Me.Hide()
 
         Call frmMain.picMain.Focus()
+
+        DialogResult = DialogResult.OK
 
     End Sub
 
@@ -43,7 +47,10 @@ Friend Class frmWindowInput
     Private Sub frmWindowInput_FormClosed(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         e.Cancel = True
 
-        txtMain.Text = ""
+        If DialogResult <> DialogResult.OK Then
+            txtMain.Text = ""
+            DialogResult = DialogResult.Cancel
+        End If
 
         Call Me.Hide()
 
