@@ -2473,7 +2473,7 @@ Err_Renamed:
     Private Sub lstBMP_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles lstBMP.MouseDown
         If eventArgs.Button = Windows.Forms.MouseButtons.Right Then
 
-            mnuContextList.Show(Me, eventArgs.X, eventArgs.Y)
+            mnuContextList.Show(lstBMP, eventArgs.X, eventArgs.Y)
 
         End If
 
@@ -2623,7 +2623,7 @@ Err_Renamed:
     Private Sub lstWAV_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles lstWAV.MouseDown
         If eventArgs.Button = Windows.Forms.MouseButtons.Right Then
 
-            mnuContextList.Show(Me, eventArgs.X, eventArgs.Y)
+            mnuContextList.Show(lstWAV, eventArgs.X, eventArgs.Y)
 
         End If
 
@@ -5535,7 +5535,7 @@ Err_Renamed:
 
         ElseIf eventArgs.Button = Windows.Forms.MouseButtons.Right Then
 
-            If Not m_blnIgnoreMenu Then mnuContext.Show(Me, eventArgs.X, eventArgs.Y)
+            If Not m_blnIgnoreMenu Then mnuContext.Show(picMain, eventArgs.X, eventArgs.Y)
 
             m_blnIgnoreMenu = False
 
