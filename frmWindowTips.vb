@@ -289,6 +289,8 @@ Friend Class frmWindowTips
         Dim hFont As IntPtr = stringFont.ToHfont()
         Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
 
+        SetBkMode(hDC, TRANSPARENT)
+
         If m_lngTipsNum >= Len(m_strTips(m_intTipsPos)) + 1 Then
 
             If (m_lngTipsNum \ 2) And 1 Then

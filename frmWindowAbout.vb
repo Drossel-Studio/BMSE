@@ -11,8 +11,6 @@ Friend Class frmWindowAbout
 
         Dim intTemp As Short
 
-        SetBkMode(hDC, TRANSPARENT)
-
         intTemp = LenB(Text_Renamed)
 
         With Me
@@ -193,6 +191,8 @@ Friend Class frmWindowAbout
 
             Dim hFont As IntPtr = stringFont.ToHfont()
             Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
+
+            SetBkMode(hDC, TRANSPARENT)
 
             strTemp = "Undo Buffer Size: " & strTemp
             Call PrintText(hDC, strTemp, 1, 1)

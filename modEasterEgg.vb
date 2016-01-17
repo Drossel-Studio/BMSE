@@ -174,6 +174,8 @@ Module modEasterEgg
                 Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
                 Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
 
+                SetBkMode(hDC, TRANSPARENT)
+
                 Call DrawBlueScreen(hDC)
 
                 SelectObject(hDC, hOldFont)
@@ -795,6 +797,8 @@ Module modEasterEgg
 
             Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
             Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
+
+            SetBkMode(hDC, TRANSPARENT)
 
             lngTemp = .ClientRectangle.Height - m_lngCounter
 

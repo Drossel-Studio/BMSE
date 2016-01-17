@@ -856,6 +856,8 @@ Err_Renamed:
             Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
             Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
 
+            SetBkMode(hDC, TRANSPARENT)
+
             For i = g_disp.intStartMeasure To g_disp.intEndMeasure '#小節番号
 
                 'strTemp = "#" & Format$(i, "000")
@@ -1070,6 +1072,8 @@ Err_Renamed:
 
         Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
         Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
+
+        SetBkMode(hDC, TRANSPARENT)
 
         For i = 0 To UBound(g_VGrid) '文字
 
@@ -1412,6 +1416,8 @@ Err_Renamed:
 
             Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
             Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
+
+            SetBkMode(hDC, TRANSPARENT)
 
             'If g_Obj(lngNum).intSelect = Selected Then
             If tempObj.intSelect = modMain.OBJ_SELECT.Selected Then
