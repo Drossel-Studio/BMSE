@@ -1828,6 +1828,7 @@ Err_Renamed:
                     End If
 
                     Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, Shift)
+                    picMain.Refresh()
 
                 Case System.Windows.Forms.Keys.Subtract '-
 
@@ -1867,6 +1868,7 @@ Err_Renamed:
                     End If
 
                     Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, Shift)
+                    picMain.Refresh()
 
             End Select
 
@@ -4870,6 +4872,7 @@ Err_Renamed:
             Else
 
                 Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, e.Modifiers)
+                picMain.Refresh()
 
             End If
 
@@ -4887,6 +4890,7 @@ Err_Renamed:
                 If DirectCast(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = True Then
 
                     Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, e.Modifiers)
+                    picMain.Refresh()
 
                 End If
 
@@ -5216,8 +5220,6 @@ Err_Renamed:
                 Call modDraw.ObjSelectCancel()
                 picMain.Refresh()
 
-                stringFont = New Font(stringFont.FontFamily, 8, stringFont.Style, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
-
             End If
 
         ElseIf eventArgs.Button = Windows.Forms.MouseButtons.Right Then  '右クリック
@@ -5232,6 +5234,7 @@ Err_Renamed:
             End With
 
             Call DrawObjMax(eventArgs.X, eventArgs.Y, Shift)
+            picMain.Refresh()
 
         ElseIf eventArgs.Button = Windows.Forms.MouseButtons.Middle Then  '中クリック
 
@@ -5567,6 +5570,7 @@ Err_Renamed:
             Else 'それ以外
 
                 Call modDraw.DrawObjMax(eventArgs.X, eventArgs.Y, Shift)
+                picMain.Refresh()
 
                 'スポイト機能
                 If eventArgs.Button = Windows.Forms.MouseButtons.Right And g_Obj(UBound(g_Obj)).lngHeight < UBound(g_Obj) Then
