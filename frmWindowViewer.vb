@@ -182,7 +182,9 @@ Friend Class frmWindowViewer
             .Filter = "EXE files (*.exe)|*.exe|All files (*.*)|*.*"
             .FileName = txtViewerPath.Text
 
-            Call .ShowDialog()
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
 
             txtViewerPath.Text = .FileName
             strArray = Split(.FileName, "\")

@@ -1373,7 +1373,9 @@ Err_Renamed:
             .Filter = "Image files (*.bmp,*.jpg,*.gif)|*.bmp;*.jpg;*.gif|All files (*.*)|*.*"
             .FileName = Mid(modMain.GetItemString(lstBMP, lstBMP.SelectedIndex), 8)
 
-            Call .ShowDialog()
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
 
             strArray = Split(.FileName, "\")
 
@@ -1533,7 +1535,9 @@ Err_Renamed:
             .Filter = "Image files (*.bmp,*.jpg,*.gif)|*.bmp;*.jpg;*.gif|All files (*.*)|*.*"
             .FileName = txtStageFile.Text
 
-            Call .ShowDialog()
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
 
             strArray = Split(.FileName, "\")
             txtMissBMP.Text = strArray(UBound(strArray))
@@ -1558,7 +1562,9 @@ Err_Renamed:
             .Filter = "Image files (*.bmp,*.jpg,*.gif)|*.bmp;*.jpg;*.gif|All files (*.*)|*.*"
             .FileName = txtStageFile.Text
 
-            Call .ShowDialog()
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
 
             strArray = Split(.FileName, "\")
             txtStageFile.Text = strArray(UBound(strArray))
@@ -1740,7 +1746,10 @@ Err_Renamed:
             .Filter = "Sound files (*.wav,*.mp3)|*.wav;*.mp3|All files (*.*)|*.*"
             .FileName = Mid(modMain.GetItemString(lstWAV, lstWAV.SelectedIndex), 8)
 
-            Call dlgMainOpen.ShowDialog()
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+
             dlgMainSave.FileName = dlgMainOpen.FileName
 
             strArray = Split(.FileName, "\")
@@ -4314,7 +4323,9 @@ Err_Renamed:
 
             .FileName = g_BMS.strFileName
 
-            Call .ShowDialog()
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
 
             Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
 
@@ -4643,7 +4654,9 @@ Err_Renamed:
 
             .FileName = g_BMS.strFileName
 
-            Call .ShowDialog()
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
 
             strArray = Split(.FileName, "\")
             g_BMS.strDir = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))

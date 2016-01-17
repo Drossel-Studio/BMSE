@@ -912,7 +912,10 @@ Err_Renamed:
 
                         .FileName = g_BMS.strFileName
 
-                        Call .ShowDialog()
+                        If .ShowDialog() <> DialogResult.OK Then
+                            intSaveCheck = 1
+                            Exit Function
+                        End If
 
                         strArray = Split(.FileName, "\")
                         g_BMS.strDir = Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
