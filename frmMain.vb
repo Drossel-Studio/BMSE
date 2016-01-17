@@ -4137,13 +4137,13 @@ Err_Renamed:
 
         Select Case DirectCast(eventSender, ToolStripMenuItem).Name
             Case _mnuEditMode_0.Name
-                DirectCast(tlbMenu.Items.Item(0 + 7), ToolStripButton).Checked = True
+                DirectCast(tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = True
                 staMain.Items.Item("Mode").Text = g_strStatusBar(20)
             Case _mnuEditMode_1.Name
-                DirectCast(tlbMenu.Items.Item(1 + 7), ToolStripButton).Checked = True
+                DirectCast(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = True
                 staMain.Items.Item("Mode").Text = g_strStatusBar(21)
             Case _mnuEditMode_2.Name
-                DirectCast(tlbMenu.Items.Item(2 + 7), ToolStripButton).Checked = True
+                DirectCast(tlbMenu.Items.Item("Delete"), ToolStripButton).Checked = True
                 staMain.Items.Item("Mode").Text = g_strStatusBar(22)
         End Select
 

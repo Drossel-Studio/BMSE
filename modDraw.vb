@@ -1938,11 +1938,6 @@ Err_Renamed:
         hNewBrush = CreateBrushIndirect(objBrush)
         hOldBrush = SelectObject(hDC, hNewBrush)
 
-        gp.ReleaseHdc()
-        Call gp.Clear(frmMain.picMain.BackColor)
-
-        hDC = gp.GetHdc()
-
         With rectTemp
 
             .Top = (g_SelectArea.Y1 - g_disp.Y) * -g_disp.Height + frmMain.picMain.ClientRectangle.Height
