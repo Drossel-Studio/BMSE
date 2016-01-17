@@ -6060,7 +6060,7 @@ Err_Renamed:
 
             Select Case m_intScrollDir Mod 10
 
-                Case 1
+                Case 2
 
                     If .Value + .SmallChange < (.Maximum - .LargeChange + 1) Then
 
@@ -6074,7 +6074,7 @@ Err_Renamed:
 
                     End If
 
-                Case 2
+                Case 1
 
                     If .Value - .SmallChange > .Minimum Then
 
