@@ -171,7 +171,7 @@ Module modEasterEgg
 
                 hDC = gp.GetHdc()
 
-                Dim hFont As IntPtr = frmMain.picMain.Font.ToHfont()
+                Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
                 Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
 
                 Call DrawBlueScreen(hDC)
@@ -371,10 +371,10 @@ Module modEasterEgg
     End Sub
 
     Public Sub InitSnow()
-		
-		Dim i As Integer
-		Dim lngTemp As Integer
-		Dim sngTemp As Single
+
+        Dim i As Integer
+        Dim lngTemp As Integer
+        Dim sngTemp As Single
 
         If g_disp.intEffect = EASTEREGG.OFF Then Exit Sub
 
@@ -386,15 +386,15 @@ Module modEasterEgg
         sngTemp = (System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width / UBound(m_objSnow))
 
         Call Randomize()
-		
-		For i = 0 To UBound(m_objSnow)
-			
-			With m_objSnow(i)
-				
-				.counter = (Rnd() * 1024) \ 4
-				
-				.X = sngTemp * i
-				.Y = Rnd() * lngTemp + 1 - lngTemp
+
+        For i = 0 To UBound(m_objSnow)
+
+            With m_objSnow(i)
+
+                .counter = (Rnd() * 1024) \ 4
+
+                .X = sngTemp * i
+                .Y = Rnd() * lngTemp + 1 - lngTemp
 
                 If g_disp.intEffect = EASTEREGG.SNOW Then
 
@@ -403,32 +403,32 @@ Module modEasterEgg
                 Else
 
                     .dY = Rnd() * 4 + 4
-					
-				End If
-				
-				.dX = .X + g_sngSin(.counter And 255) * 5 * .dY
-				
-			End With
-			
-		Next i
+
+                End If
+
+                .dX = .X + g_sngSin(.counter And 255) * 5 * .dY
+
+            End With
+
+        Next i
 
         If g_disp.intEffect = EASTEREGG.SNOW Then Call QuickSortA(0, UBound(m_objSnow))
 
         frmMain.tmrEffect.Enabled = True
-		frmMain.tmrEffect.Interval = 100
-		
-	End Sub
-	
-	Public Sub FallingSnow()
-		
-		Dim i As Integer
-		Dim lngTemp As Integer
-		
-		For i = 0 To UBound(m_objSnow)
-			
-			With m_objSnow(i)
-				
-				.counter = .counter + 4
+        frmMain.tmrEffect.Interval = 100
+
+    End Sub
+
+    Public Sub FallingSnow()
+
+        Dim i As Integer
+        Dim lngTemp As Integer
+
+        For i = 0 To UBound(m_objSnow)
+
+            With m_objSnow(i)
+
+                .counter = .counter + 4
 
                 If g_disp.intEffect = EASTEREGG.SNOW Then
 
@@ -438,28 +438,28 @@ Module modEasterEgg
                 Else
 
                     lngTemp = (.counter \ 4) And 7
-					
-					If lngTemp = 0 Then
-						
-						.Angle = Rnd() * 128
-						
-					ElseIf lngTemp > 1 Then 
-						
-						.X = .X + g_sngSin(.Angle + 64) * .dY
-						.Y = .Y + g_sngSin(.Angle) * .dY
-						
-						'.x = .x + g_sngSin((.Counter \ 32 And 7) * 32 + 16) * .dY
-						'.y = .y + g_sngSin(((.Counter \ 32 And 7) * 32 + 16 + 64) And 127) * .dY
-						'.X = .X + g_sngSin((.Counter) And 255) * .dY
-						'.Y = .Y + g_sngSin((.Counter + 64) And 127) * .dY
-						
-					End If
-					
-				End If
-				
-			End With
-			
-		Next i
+
+                    If lngTemp = 0 Then
+
+                        .Angle = Rnd() * 128
+
+                    ElseIf lngTemp > 1 Then
+
+                        .X = .X + g_sngSin(.Angle + 64) * .dY
+                        .Y = .Y + g_sngSin(.Angle) * .dY
+
+                        '.x = .x + g_sngSin((.Counter \ 32 And 7) * 32 + 16) * .dY
+                        '.y = .y + g_sngSin(((.Counter \ 32 And 7) * 32 + 16 + 64) And 127) * .dY
+                        '.X = .X + g_sngSin((.Counter) And 255) * .dY
+                        '.Y = .Y + g_sngSin((.Counter + 64) And 127) * .dY
+
+                    End If
+
+                End If
+
+            End With
+
+        Next i
 
         If g_disp.intEffect <> EASTEREGG.SNOW Then Call QuickSortY(0, UBound(m_objSnow))
 
@@ -577,34 +577,34 @@ Module modEasterEgg
     End Sub
 
     Private Sub InitSiromaru2()
-		
-		frmMain.tmrEffect.Enabled = True
-		frmMain.tmrEffect.Interval = 100
-		
-		m_lngCounter = 0
-		
-		ReDim m_objSnow(0)
-		m_objSnow(0).X = 1
-		m_objSnow(0).dX = 0
-		
-	End Sub
-	
-	Public Sub ZoomSiromaru2()
-		
-		m_lngCounter = m_lngCounter + 1
-		
-		If (m_lngCounter And 7) > 1 And (m_lngCounter And 7) < 7 Then
-			
-			If m_objSnow(0).X < frmMain.picMain.ClientRectangle.Width * 2 Then
-				
-				m_objSnow(0).dX = m_objSnow(0).dX + 0.1
-				m_objSnow(0).X = m_objSnow(0).X + m_objSnow(0).dX
-				
-			End If
-			
-		End If
-		
-	End Sub
+
+        frmMain.tmrEffect.Enabled = True
+        frmMain.tmrEffect.Interval = 100
+
+        m_lngCounter = 0
+
+        ReDim m_objSnow(0)
+        m_objSnow(0).X = 1
+        m_objSnow(0).dX = 0
+
+    End Sub
+
+    Public Sub ZoomSiromaru2()
+
+        m_lngCounter = m_lngCounter + 1
+
+        If (m_lngCounter And 7) > 1 And (m_lngCounter And 7) < 7 Then
+
+            If m_objSnow(0).X < frmMain.picMain.ClientRectangle.Width * 2 Then
+
+                m_objSnow(0).dX = m_objSnow(0).dX + 0.1
+                m_objSnow(0).X = m_objSnow(0).X + m_objSnow(0).dX
+
+            End If
+
+        End If
+
+    End Sub
 
     Public Sub DrawSiromaru2(ByVal hDC As IntPtr)
 
@@ -644,10 +644,10 @@ Module modEasterEgg
     End Sub
 
     Public Sub DrawLog()
-		
-		'1.3.6 にて削除
-		
-	End Sub
+
+        '1.3.6 にて削除
+
+    End Sub
 
     Private Sub DrawLogText(ByVal hDC As IntPtr, ByVal X As Integer, ByVal Y As Integer, ByRef Text As String, Optional ByVal Color As Integer = 16777215)
 
@@ -677,105 +677,105 @@ Module modEasterEgg
         If g_disp.intEffect = EASTEREGG.OFF Then Exit Sub
 
         frmMain.tmrEffect.Enabled = True
-		
-		m_lngCounter = 0
-		
-		ReDim m_strStaffRoll(0)
-		
-		Call AddStaffRoll("BMx Sequence Editor", 1)
-		Call AddStaffRoll(My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Revision, 1)
-		Call AddStaffRoll("Staff Credit", 5)
-		
-		Call AddStaffRoll("-Program-", 1)
-		'Call AddStaffRoll("tokonats", 3)
-		Call AddStaffRoll("Hayana", 0)
-		Call AddStaffRoll("(aka tokonats)", 3)
-		
-		Call AddStaffRoll("-Program Icon, Toolbar Icon, BMSE Image-", 1)
-		Call AddStaffRoll("AOiRO_Manbow", 3)
-		
-		Call AddStaffRoll("-Technical Adviser-", 1)
-		Call AddStaffRoll("aska sakurano", 3)
-		
-		Call AddStaffRoll("-Language File Support-", 1)
-		Call AddStaffRoll("Aruhito", 0)
-		Call AddStaffRoll("sfmddrex", 0)
-		Call AddStaffRoll("MW", 3)
-		
-		Call AddStaffRoll("-Tips Writing-", 1)
-		Call AddStaffRoll("sfmddrex", 0)
-		Call AddStaffRoll("Aruhito", 3)
-		
-		Call AddStaffRoll("-siromaru Animation-", 1)
-		Call AddStaffRoll("tutidama", 0)
-		Call AddStaffRoll("●▼●", 3)
-		
-		Call AddStaffRoll("-Easter Egg Adviser-", 1)
-		Call AddStaffRoll("shammy", 0)
-		'Call AddStaffRoll("Clock", 0)
-		Call AddStaffRoll("sfmddrex", 0)
-		Call AddStaffRoll("Lai", 0)
-		Call AddStaffRoll("Yamajet", 0)
-		Call AddStaffRoll("AOiRO_Manbow", 3)
-		
-		Call AddStaffRoll("-Programming Assistant-", 1)
-		Call AddStaffRoll("Coca-Cola Classic", 3)
-		
-		Call AddStaffRoll("-Special Thanks-", 1)
-		Call AddStaffRoll("tix", 0)
-		Call AddStaffRoll("J.T.", 1)
-		'Call AddStaffRoll("Shunsuke Kudo a.k.a. OBONO", 3)
-		Call AddStaffRoll("Shunsuke Kudo", 0)
-		Call AddStaffRoll("(aka OBONO)", 3)
-		
-		Call AddStaffRoll("-Special ""NO"" Thanks-", 1)
-		Call AddStaffRoll("FontSize Property", 0)
-		Call AddStaffRoll("FontBold Property", 0)
-		Call AddStaffRoll("FontItalic Property", 0)
-		Call AddStaffRoll("FontName Property", 0)
-		Call AddStaffRoll("FontStrikethru Property", 0)
-		Call AddStaffRoll("FontUnderline Property", 1)
-		Call AddStaffRoll("TabStrip Control", 0)
-		Call AddStaffRoll("SSTab Control", 1)
-		Call AddStaffRoll("PitcureBox.MouseDown", 0)
-		Call AddStaffRoll("PitcureBox.MouseMove", 0)
-		Call AddStaffRoll("PictureBox.MouseUp", 1)
-		'Call AddStaffRoll("Microsoft Visual Basic 6.0", 3)
-		Call AddStaffRoll("Microsoft Visual Basic 6.0", 0)
-		Call AddStaffRoll("(Oh No, I Love Her!)", 1)
-		Call AddStaffRoll("tokonats", 3)
-		
-		Call AddStaffRoll("-Debugger-", 1)
-		Call AddStaffRoll("All BMSE Users:)", 5)
-		
-		'Call AddStaffRoll("Copyright(C) tokonats/UCN-Soft 2004.", 0)
-		Call AddStaffRoll("Copyright(C) Hayana/UCN-Soft 2004-2007.", 0)
-		Call AddStaffRoll("http://ucn.tokonats.net/", 0)
-		Call AddStaffRoll("ucn@tokonats.net", 0)
-		
-		'ReDim Preserve m_strStaffRoll(1)
-		
-	End Sub
-	
-	Private Sub AddStaffRoll(ByRef Text As String, Optional ByVal Break As Short = 0)
-		
-		Dim lngTemp As Integer
-		
-		If Break < 0 Then Break = 0
-		
-		lngTemp = UBound(m_strStaffRoll) + 1
-		
-		ReDim Preserve m_strStaffRoll(lngTemp + Break)
-		
-		m_strStaffRoll(lngTemp) = Text
-		
-	End Sub
-	
-	Public Sub StaffRollScroll()
-		
-		m_lngCounter = m_lngCounter + 100 \ frmMain.tmrEffect.Interval
-		
-	End Sub
+
+        m_lngCounter = 0
+
+        ReDim m_strStaffRoll(0)
+
+        Call AddStaffRoll("BMx Sequence Editor", 1)
+        Call AddStaffRoll(My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Revision, 1)
+        Call AddStaffRoll("Staff Credit", 5)
+
+        Call AddStaffRoll("-Program-", 1)
+        'Call AddStaffRoll("tokonats", 3)
+        Call AddStaffRoll("Hayana", 0)
+        Call AddStaffRoll("(aka tokonats)", 3)
+
+        Call AddStaffRoll("-Program Icon, Toolbar Icon, BMSE Image-", 1)
+        Call AddStaffRoll("AOiRO_Manbow", 3)
+
+        Call AddStaffRoll("-Technical Adviser-", 1)
+        Call AddStaffRoll("aska sakurano", 3)
+
+        Call AddStaffRoll("-Language File Support-", 1)
+        Call AddStaffRoll("Aruhito", 0)
+        Call AddStaffRoll("sfmddrex", 0)
+        Call AddStaffRoll("MW", 3)
+
+        Call AddStaffRoll("-Tips Writing-", 1)
+        Call AddStaffRoll("sfmddrex", 0)
+        Call AddStaffRoll("Aruhito", 3)
+
+        Call AddStaffRoll("-siromaru Animation-", 1)
+        Call AddStaffRoll("tutidama", 0)
+        Call AddStaffRoll("●▼●", 3)
+
+        Call AddStaffRoll("-Easter Egg Adviser-", 1)
+        Call AddStaffRoll("shammy", 0)
+        'Call AddStaffRoll("Clock", 0)
+        Call AddStaffRoll("sfmddrex", 0)
+        Call AddStaffRoll("Lai", 0)
+        Call AddStaffRoll("Yamajet", 0)
+        Call AddStaffRoll("AOiRO_Manbow", 3)
+
+        Call AddStaffRoll("-Programming Assistant-", 1)
+        Call AddStaffRoll("Coca-Cola Classic", 3)
+
+        Call AddStaffRoll("-Special Thanks-", 1)
+        Call AddStaffRoll("tix", 0)
+        Call AddStaffRoll("J.T.", 1)
+        'Call AddStaffRoll("Shunsuke Kudo a.k.a. OBONO", 3)
+        Call AddStaffRoll("Shunsuke Kudo", 0)
+        Call AddStaffRoll("(aka OBONO)", 3)
+
+        Call AddStaffRoll("-Special ""NO"" Thanks-", 1)
+        Call AddStaffRoll("FontSize Property", 0)
+        Call AddStaffRoll("FontBold Property", 0)
+        Call AddStaffRoll("FontItalic Property", 0)
+        Call AddStaffRoll("FontName Property", 0)
+        Call AddStaffRoll("FontStrikethru Property", 0)
+        Call AddStaffRoll("FontUnderline Property", 1)
+        Call AddStaffRoll("TabStrip Control", 0)
+        Call AddStaffRoll("SSTab Control", 1)
+        Call AddStaffRoll("PitcureBox.MouseDown", 0)
+        Call AddStaffRoll("PitcureBox.MouseMove", 0)
+        Call AddStaffRoll("PictureBox.MouseUp", 1)
+        'Call AddStaffRoll("Microsoft Visual Basic 6.0", 3)
+        Call AddStaffRoll("Microsoft Visual Basic 6.0", 0)
+        Call AddStaffRoll("(Oh No, I Love Her!)", 1)
+        Call AddStaffRoll("tokonats", 3)
+
+        Call AddStaffRoll("-Debugger-", 1)
+        Call AddStaffRoll("All BMSE Users:)", 5)
+
+        'Call AddStaffRoll("Copyright(C) tokonats/UCN-Soft 2004.", 0)
+        Call AddStaffRoll("Copyright(C) Hayana/UCN-Soft 2004-2007.", 0)
+        Call AddStaffRoll("http://ucn.tokonats.net/", 0)
+        Call AddStaffRoll("ucn@tokonats.net", 0)
+
+        'ReDim Preserve m_strStaffRoll(1)
+
+    End Sub
+
+    Private Sub AddStaffRoll(ByRef Text As String, Optional ByVal Break As Short = 0)
+
+        Dim lngTemp As Integer
+
+        If Break < 0 Then Break = 0
+
+        lngTemp = UBound(m_strStaffRoll) + 1
+
+        ReDim Preserve m_strStaffRoll(lngTemp + Break)
+
+        m_strStaffRoll(lngTemp) = Text
+
+    End Sub
+
+    Public Sub StaffRollScroll()
+
+        m_lngCounter = m_lngCounter + 100 \ frmMain.tmrEffect.Interval
+
+    End Sub
 
     Public Sub DrawStaffRoll(ByVal hDC As IntPtr)
 
@@ -791,9 +791,9 @@ Module modEasterEgg
 
         With frmMain.picMain
             Call SetTextColor(hDC, RGB(255, 255, 255))
-            .Font = New Font(.Font.FontFamily, 12, .Font.Style, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
+            frmMain.stringFont = New Font(frmMain.stringFont.FontFamily, 12, frmMain.stringFont.Style, frmMain.stringFont.Unit, frmMain.stringFont.GdiCharSet, frmMain.stringFont.GdiVerticalFont)
 
-            Dim hFont As IntPtr = frmMain.picMain.Font.ToHfont()
+            Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
             Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
 
             lngTemp = .ClientRectangle.Height - m_lngCounter
@@ -973,7 +973,7 @@ Module modEasterEgg
             rectTemp.Top = 8
             rectTemp.Bottom = .ClientRectangle.Height
 
-            .Font = New Font(.Font.FontFamily, 9, .Font.Style, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
+            frmMain.stringFont = New Font(frmMain.stringFont.FontFamily, 9, frmMain.stringFont.Style, frmMain.stringFont.Unit, frmMain.stringFont.GdiCharSet, frmMain.stringFont.GdiVerticalFont)
 
             Call DrawText(hDC, "A problem has been detected and BMSE has been shut down to prevent damage to your mind." & vbCrLf & vbCrLf & "The problem seems to be caused by the following file: BMSE.EXE" & vbCrLf & vbCrLf & "EASTER_EGG_BLUE_SCREEN_OF_DEATH" & vbCrLf & vbCrLf & "If this is the first time you've seen this stop error screen, restart your BMSE. If this screen appears again, follow these steps:" & vbCrLf & vbCrLf & "1) Bury me from your computer." & vbCrLf & "2) Access UCN-Soft BBS, and write your shout of spirit." & vbCrLf & "       ex) ""BMSE is the worst software in the world!!!!!!!!!!!!!!111111""" & vbCrLf & "3) Sing ""asdf song"":" & vbCrLf & "       This is the sound of the asdf song." & vbCrLf & "       asdf fdsa" & vbCrLf & "       asdffdsa ye-ye" & vbCrLf & "       (clap clap clap)" & vbCrLf & "4) Throw your computer from window." & vbCrLf & vbCrLf & "If you are satiated with joke:" & vbCrLf & vbCrLf & "Launch BMSE and type your key ""OFF"", then press return key." & vbCrLf & vbCrLf & "Meaningless information:" & vbCrLf & vbCrLf & "*** STOP: 0x88710572 (0xASDFFDSA,0x00004126,0xD0SUK01,0x○0▽0○)" & vbCrLf & vbCrLf & vbCrLf & "***  BMSE.EXE - Public Sub DrawBlueScreen() at modEasterEgg.bas, DateStamp 2006-12-26", -1, rectTemp, DT_WORDBREAK)
 

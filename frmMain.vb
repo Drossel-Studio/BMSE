@@ -26,6 +26,8 @@ Friend Class frmMain
         Max
     End Enum
 
+    Public stringFont As Font
+
     Private m_intScrollDir As Short
 
     Private m_tempObj() As g_udtObj
@@ -1984,6 +1986,8 @@ Err_Renamed:
         Me.cboDispGridSub.SelectedIndex = 0
 
         Me.cboVScroll.Items.Add(New modMain.ItemWithData("1", 1))
+
+        stringFont = Font
 
         Dim NewLargeChange As Short
 
@@ -5224,7 +5228,7 @@ Err_Renamed:
                 Call modDraw.ObjSelectCancel()
                 picMain.Refresh()
 
-                picMain.Font = New Font(picMain.Font.FontFamily, 8, picMain.Font.Style, picMain.Font.Unit, picMain.Font.GdiCharSet, picMain.Font.GdiVerticalFont)
+                stringFont = New Font(stringFont.FontFamily, 8, stringFont.Style, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
 
             End If
 

@@ -9,6 +9,7 @@ Friend Class frmWindowTips
 
     Private Const DT_WORDBREAK As Integer = &H10
 
+    Public stringFont As Font
     Dim m_strTips() As String
     Dim m_intTipsPos As Short
 	Dim m_lngTipsNum As Integer
@@ -117,8 +118,10 @@ Friend Class frmWindowTips
 
     'UPGRADE_WARNING: Form イベント frmWindowTips.Activate には新しい動作が含まれます。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' をクリックしてください。
     Private Sub frmWindowTips_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
-		
-		With Me
+
+        stringFont = Font
+
+        With Me
 
             .Left = frmMain.Left + (frmMain.Width - .Width) \ 2
             .Top = frmMain.Top + (frmMain.Height - .Height) \ 2
@@ -265,25 +268,25 @@ Friend Class frmWindowTips
 
         e.Graphics.DrawLine(Pens.Black, New Point(56, 40), New Point(407, 40))
 
-        Font = New Font(Font.FontFamily, 16, Font.Style Or FontStyle.Bold, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
+        stringFont = New Font(stringFont.FontFamily, 16, stringFont.Style Or FontStyle.Bold, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
 
         stringBrush = New SolidBrush(ForeColor)
-        e.Graphics.DrawString("ご存知ですか...", Font, stringBrush, New PointF(64, 14))
+        e.Graphics.DrawString("ご存知ですか...", stringFont, stringBrush, New PointF(64, 14))
 
-        Dim newstyle As FontStyle = Font.Style
+        Dim newstyle As FontStyle = stringFont.Style
         If newstyle And FontStyle.Bold Then
             newstyle = newstyle Xor FontStyle.Bold
         End If
-        Font = New Font(Font.FontFamily, 9, newstyle, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
+        stringFont = New Font(stringFont.FontFamily, 9, newstyle, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
 
-        e.Graphics.DrawString(VB.Right(" " & m_intTipsPos, 2), Font, stringBrush, New PointF(360, 23))
-        e.Graphics.DrawString("   / " & UBound(m_strTips), Font, stringBrush, New PointF(360, 23))
+        e.Graphics.DrawString(VB.Right(" " & m_intTipsPos, 2), stringFont, stringBrush, New PointF(360, 23))
+        e.Graphics.DrawString("   / " & UBound(m_strTips), stringFont, stringBrush, New PointF(360, 23))
 
-        Font = New Font(Font.FontFamily, 12, Font.Style, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
+        stringFont = New Font(stringFont.FontFamily, 12, stringFont.Style, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
 
         hDC = e.Graphics.GetHdc()
 
-        Dim hFont As IntPtr = Font.ToHfont()
+        Dim hFont As IntPtr = stringFont.ToHfont()
         Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
 
         If m_lngTipsNum >= Len(m_strTips(m_intTipsPos)) + 1 Then

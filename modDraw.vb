@@ -718,15 +718,11 @@ Err_Renamed:
 
         Call InitPen()
 
-        With frmMain.picMain.Font
-
-            Dim newstyle As FontStyle = frmMain.picMain.Font.Style
-            If newstyle And FontStyle.Italic Then
-                newstyle = newstyle Xor FontStyle.Italic
-            End If
-            frmMain.picMain.Font = New Font(frmMain.picMain.Font.FontFamily, 8, newstyle, frmMain.picMain.Font.Unit, frmMain.picMain.Font.GdiCharSet, frmMain.picMain.Font.GdiVerticalFont)
-
-        End With
+        Dim newstyle As FontStyle = frmMain.stringFont.Style
+        If newstyle And FontStyle.Italic Then
+            newstyle = newstyle Xor FontStyle.Italic
+        End If
+        frmMain.stringFont = New Font(frmMain.stringFont.FontFamily, 8, newstyle, frmMain.stringFont.Unit, frmMain.stringFont.GdiCharSet, frmMain.stringFont.GdiVerticalFont)
 
         ReDim m_tempObj(0)
 
@@ -855,9 +851,9 @@ Err_Renamed:
 
         With frmMain.picMain
 
-            .Font = New Font(.Font.FontFamily, 72, .Font.Style Or FontStyle.Italic, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
+            frmMain.stringFont = New Font(frmMain.stringFont.FontFamily, 72, frmMain.stringFont.Style Or FontStyle.Italic, frmMain.stringFont.Unit, frmMain.stringFont.GdiCharSet, frmMain.stringFont.GdiVerticalFont)
 
-            Dim hFont As IntPtr = .Font.ToHfont()
+            Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
             Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
 
             For i = g_disp.intStartMeasure To g_disp.intEndMeasure '#小節番号
@@ -1070,9 +1066,9 @@ Err_Renamed:
         Dim strTemp As String
         Dim sizeTemp As Size
 
-        frmMain.picMain.Font = New Font(frmMain.picMain.Font.FontFamily, 9, frmMain.picMain.Font.Style, frmMain.picMain.Font.Unit, frmMain.picMain.Font.GdiCharSet, frmMain.picMain.Font.GdiVerticalFont)
+        frmMain.stringFont = New Font(frmMain.stringFont.FontFamily, 9, frmMain.stringFont.Style, frmMain.stringFont.Unit, frmMain.stringFont.GdiCharSet, frmMain.stringFont.GdiVerticalFont)
 
-        Dim hFont As IntPtr = frmMain.picMain.Font.ToHfont()
+        Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
         Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
 
         For i = 0 To UBound(g_VGrid) '文字
@@ -1414,7 +1410,7 @@ Err_Renamed:
 
             Y = Y - (OBJ_HEIGHT + sizeTemp.Height) \ 2 + 1
 
-            Dim hFont As IntPtr = frmMain.picMain.Font.ToHfont()
+            Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
             Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
 
             'If g_Obj(lngNum).intSelect = Selected Then

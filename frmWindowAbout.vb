@@ -4,7 +4,8 @@ Friend Class frmWindowAbout
 	Inherits System.Windows.Forms.Form
 
     Private m_sngRaster() As Single
-	Private m_lngCounter As Integer
+    Private m_lngCounter As Integer
+    Public stringFont As Font
 
     Private Sub PrintText(ByVal hDC As IntPtr, ByRef Text_Renamed As String, ByVal X As Integer, ByVal Y As Integer)
 
@@ -76,6 +77,8 @@ Friend Class frmWindowAbout
     End Sub
 
     Private Sub frmWindowAbout_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+
+        stringFont = Font
 
         With Me
 
@@ -168,7 +171,7 @@ Friend Class frmWindowAbout
             If newstyle And FontStyle.Underline Then
                 newstyle = newstyle Xor FontStyle.Underline
             End If
-            .Font = New Font(.Font.FontFamily, 9, newstyle Or FontStyle.Bold, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
+            .stringFont = New Font(.stringFont.FontFamily, 9, newstyle Or FontStyle.Bold, .stringFont.Unit, .stringFont.GdiCharSet, .stringFont.GdiVerticalFont)
 
             lngTemp = g_InputLog.GetBufferSize
 
@@ -188,7 +191,7 @@ Friend Class frmWindowAbout
 
             End Select
 
-            Dim hFont As IntPtr = Font.ToHfont()
+            Dim hFont As IntPtr = stringFont.ToHfont()
             Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
 
             strTemp = "Undo Buffer Size: " & strTemp
