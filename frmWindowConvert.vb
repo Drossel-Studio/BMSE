@@ -643,7 +643,7 @@ Friend Class frmWindowConvert
 
             Next i
 
-            Call modDraw.Redraw()
+            frmMain.picMain.Refresh()
 
         End If
 

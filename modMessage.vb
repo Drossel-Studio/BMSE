@@ -178,7 +178,7 @@ Module modMessage
                         frmMain.staMain.Items.Item("Position").Text = "Position:"
 
                         'Call frmMain.picMain.Cls
-                        Call modEasterEgg.DrawEffect()
+                        'Call modEasterEgg.DrawEffect()
 
                         Select Case wParam
 

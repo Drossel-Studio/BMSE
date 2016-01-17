@@ -353,7 +353,7 @@ Friend Class frmMain
 
             'Call SaveChanges
 
-            Call modDraw.Redraw()
+            picMain.Refresh()
 
         End If
 
@@ -754,22 +754,23 @@ Err_Renamed:
     Private Sub cboDispFrame_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispFrame.SelectedIndexChanged
 
         Call modDraw.InitVerticalLine()
+        picMain.Refresh()
 
     End Sub
 
-    Private Sub cboDispGridMain_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
+    Private Sub cboDispGridMain_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispGridMain.SelectedIndexChanged
 
-        Call modDraw.Redraw()
-
-    End Sub
-
-    Private Sub cboDispGridSub_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
-
-        Call modDraw.Redraw()
+        picMain.Refresh()
 
     End Sub
 
-    Private Sub cboDispHeight_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
+    Private Sub cboDispGridSub_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispGridSub.SelectedIndexChanged
+
+        picMain.Refresh()
+
+    End Sub
+
+    Private Sub cboDispHeight_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispHeight.SelectedIndexChanged
         Dim i As Integer
         Dim sngTemp As Single
 
@@ -820,7 +821,7 @@ Err_Renamed:
 
         End If
 
-        Call modDraw.Redraw()
+        picMain.Refresh()
 
     End Sub
 
@@ -828,6 +829,7 @@ Err_Renamed:
     Private Sub cboDispKey_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispKey.SelectedIndexChanged
 
         Call modDraw.InitVerticalLine()
+        picMain.Refresh()
 
     End Sub
 
@@ -835,6 +837,7 @@ Err_Renamed:
     Private Sub cboDispSC1P_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispSC1P.SelectedIndexChanged
 
         Call modDraw.InitVerticalLine()
+        picMain.Refresh()
 
     End Sub
 
@@ -842,10 +845,11 @@ Err_Renamed:
     Private Sub cboDispSC2P_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispSC2P.SelectedIndexChanged
 
         Call modDraw.InitVerticalLine()
+        picMain.Refresh()
 
     End Sub
 
-    Private Sub cboDispWidth_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
+    Private Sub cboDispWidth_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispWidth.SelectedIndexChanged
         Dim i As Integer
         Dim sngTemp As Single
 
@@ -896,7 +900,7 @@ Err_Renamed:
 
         End If
 
-        Call modDraw.Redraw()
+        picMain.Refresh()
 
     End Sub
 
@@ -904,6 +908,7 @@ Err_Renamed:
     Private Sub cboPlayer_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboPlayer.SelectedIndexChanged
 
         Call modDraw.InitVerticalLine()
+        picMain.Refresh()
 
     End Sub
 
@@ -1050,7 +1055,7 @@ Err_Renamed:
 
         Call RefreshList()
 
-        Call Redraw()
+        picMain.Refresh()
 
         lstBMP.SelectedIndex = lngIndex
         lstBGA.SelectedIndex = lngIndex
@@ -1152,7 +1157,7 @@ Err_Renamed:
 
         Call RefreshList()
 
-        Call Redraw()
+        picMain.Refresh()
 
         lstBMP.SelectedIndex = lngIndex
         lstBGA.SelectedIndex = lngIndex
@@ -1224,6 +1229,7 @@ Err_Renamed:
                 Call SaveChanges()
 
                 Call modDraw.InitVerticalLine()
+                picMain.Refresh()
 
             End If
 
@@ -1491,6 +1497,7 @@ Err_Renamed:
         Call modDraw.ChangeResolution()
 
         Call modDraw.InitVerticalLine()
+        picMain.Refresh()
 
     End Sub
 
@@ -1668,7 +1675,7 @@ Err_Renamed:
 
         Call g_InputLog.AddData(modInput.strFromNum(modMain.CMD_LOG.WAV_CHANGE) & modInput.strFromNum(intTemp) & modInput.strFromNum(lngTemp) & modLog.getSeparator)
 
-        Call Redraw()
+        picMain.Refresh()
 
     End Sub
 
@@ -1721,7 +1728,7 @@ Err_Renamed:
 
         Call g_InputLog.AddData(modInput.strFromNum(modMain.CMD_LOG.WAV_CHANGE) & modInput.strFromNum(intTemp) & modInput.strFromNum(lngTemp) & modLog.getSeparator)
 
-        Call Redraw()
+        picMain.Refresh()
 
     End Sub
 
@@ -1778,7 +1785,6 @@ Err_Renamed:
             If DirectCast(ActiveControl(), System.Windows.Forms.ComboBox).DropDownStyle = 0 Then
                 Exit Sub
             End If
-
 
         End If
 
@@ -1986,11 +1992,8 @@ Err_Renamed:
 
         Call modMain.StartUp()
 
+        AddHandler picMain.Paint, AddressOf picMain_Paint
         AddHandler Me.Resize, AddressOf frmMain_Resize
-        AddHandler cboDispGridMain.SelectedIndexChanged, AddressOf cboDispGridMain_SelectedIndexChanged
-        AddHandler cboDispGridSub.SelectedIndexChanged, AddressOf cboDispGridSub_SelectedIndexChanged
-        AddHandler cboDispWidth.SelectedIndexChanged, AddressOf cboDispWidth_SelectedIndexChanged
-        AddHandler cboDispHeight.SelectedIndexChanged, AddressOf cboDispHeight_SelectedIndexChanged
 
         If cboViewer.Items.Count = 0 Then
 
@@ -2167,6 +2170,7 @@ Err_Renamed:
 
         Else
 
+            RemoveHandler picMain.Paint, AddressOf picMain_Paint
             Call modMain.CleanUp()
 
         End If
@@ -2375,6 +2379,7 @@ Err_Renamed:
         End With
 
         Call modDraw.InitVerticalLine()
+        picMain.Refresh()
     End Sub
 
     'UPGRADE_WARNING: HScrollBar イベント hsbMain.Change には新しい動作が含まれます。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' をクリックしてください。
@@ -2386,7 +2391,7 @@ Err_Renamed:
 
         End With
 
-        Call modDraw.Redraw()
+        picMain.Refresh()
 
         'Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, g_Mouse.Shift)
         'スクロール＆オブジェ移動実現のため
@@ -2761,6 +2766,7 @@ Err_Renamed:
         Call modDraw.ArrangeObj()
 
         Call modDraw.InitVerticalLine()
+        picMain.Refresh()
 
     End Sub
 
@@ -2849,6 +2855,7 @@ Err_Renamed:
         Call modDraw.ArrangeObj()
 
         Call modDraw.InitVerticalLine()
+        picMain.Refresh()
 
     End Sub
 
@@ -3386,6 +3393,7 @@ Err_Renamed:
         Call SaveChanges()
 
         Call modDraw.InitVerticalLine()
+        picMain.Refresh()
 
     End Sub
 
@@ -3760,6 +3768,7 @@ Err_Renamed:
         Call SaveChanges()
 
         Call modDraw.InitVerticalLine()
+        picMain.Refresh()
 
     End Sub
 
@@ -3841,11 +3850,11 @@ Err_Renamed:
 
             Case _mnuOptionsItem_2.Name
                 _mnuOptionsItem_2.Checked = Not _mnuOptionsItem_2.Checked
-                Call modDraw.Redraw()
+                picMain.Refresh()
 
             Case _mnuOptionsItem_3.Name
                 _mnuOptionsItem_3.Checked = Not _mnuOptionsItem_3.Checked
-                Call modDraw.Redraw()
+                picMain.Refresh()
 
             Case _mnuOptionsItem_4.Name
                 _mnuOptionsItem_4.Checked = Not _mnuOptionsItem_4.Checked
@@ -3855,7 +3864,7 @@ Err_Renamed:
 
             Case _mnuOptionsItem_6.Name
                 _mnuOptionsItem_6.Checked = Not _mnuOptionsItem_6.Checked
-                Call modDraw.Redraw()
+                picMain.Refresh()
 
             Case _mnuOptionsItem_7.Name
                 _mnuOptionsItem_7.Checked = Not _mnuOptionsItem_7.Checked
@@ -3866,7 +3875,7 @@ Err_Renamed:
                 m_blnPreview = True
 
                 Call RefreshList()
-                Call modDraw.Redraw()
+                picMain.Refresh()
         End Select
     End Sub
 
@@ -3895,7 +3904,7 @@ Err_Renamed:
                 End With
         End Select
 
-        Call Redraw()
+        picMain.Refresh()
 
     End Sub
 
@@ -3974,7 +3983,7 @@ Err_Renamed:
 
         Next i
 
-        Call modDraw.Redraw()
+        picMain.Refresh()
 
         Exit Sub
 
@@ -4108,7 +4117,7 @@ Err_Renamed:
 
         Call modDraw.ArrangeObj()
 
-        Call modDraw.Redraw()
+        picMain.Refresh()
 
         Exit Sub
 
@@ -4227,7 +4236,7 @@ Err_Renamed:
 
         Call g_InputLog.AddData(Join(strArray, modLog.getSeparator))
 
-        Call modDraw.Redraw()
+        picMain.Refresh()
 
         Exit Sub
 
@@ -4274,7 +4283,7 @@ Err_Renamed:
                 End With
         End Select
 
-        Call modDraw.Redraw()
+        picMain.Refresh()
     End Sub
 
     Public Sub mnuFileNew_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileNew.Click
@@ -4687,7 +4696,7 @@ Err_Renamed:
 
         Next i
 
-        Call modDraw.Redraw()
+        picMain.Refresh()
 
     End Sub
 
@@ -4931,7 +4940,7 @@ Err_Renamed:
                 End If
 
                 Call modDraw.ObjSelectCancel()
-                Call modDraw.Redraw()
+                picMain.Refresh()
 
             ElseIf tlbMenu.Items.Item("Edit").Pressed = True Then
 
@@ -5164,7 +5173,7 @@ Err_Renamed:
 
                     End If
 
-                    Call modDraw.Redraw()
+                    picMain.Refresh()
 
                 Else 'オブジェのないところで押したっぽいよ
 
@@ -5172,7 +5181,7 @@ Err_Renamed:
 
                         Call modDraw.ObjSelectCancel()
 
-                        Call modDraw.Redraw()
+                        picMain.Refresh()
 
                     Else
 
@@ -5190,7 +5199,7 @@ Err_Renamed:
 
                         Next i
 
-                        Call modDraw.Redraw()
+                        picMain.Refresh()
 
                     End If
 
@@ -5205,23 +5214,17 @@ Err_Renamed:
 
                     End With
 
-                    Call modDraw.DrawSelectArea()
-
                 End If
 
                 'Call modDraw.Redraw
-                If g_disp.intEffect Then Call modEasterEgg.DrawEffect()
+                picMain.Refresh()
 
             Else 'If tlbMenu.Buttons("Write").Value = tbrPressed Then
 
                 Call modDraw.ObjSelectCancel()
-                Call modDraw.Redraw()
+                picMain.Refresh()
 
                 picMain.Font = New Font(picMain.Font.FontFamily, 8, picMain.Font.Style, picMain.Font.Unit, picMain.Font.GdiCharSet, picMain.Font.GdiVerticalFont)
-
-                Call modDraw.InitPen()
-                Call modDraw.DrawObj(g_Obj(UBound(g_Obj)))
-                Call modDraw.DeletePen()
 
             End If
 
@@ -5260,7 +5263,7 @@ Err_Renamed:
                 Call modDraw.ArrangeObj()
 
                 '再描画
-                Call modDraw.Redraw()
+                picMain.Refresh()
 
             End If
 
@@ -5429,7 +5432,7 @@ Err_Renamed:
 
                 Call modDraw.ArrangeObj()
 
-                Call modDraw.Redraw()
+                picMain.Refresh()
 
             ElseIf tlbMenu.Items.Item("Edit").Pressed = True Then
 
@@ -5517,7 +5520,7 @@ Err_Renamed:
 
                 End If
 
-                Call modDraw.Redraw()
+                picMain.Refresh()
 
             End If
 
@@ -5559,6 +5562,7 @@ Err_Renamed:
 
         Dim value As Integer
         Dim str_Renamed As String
+
         If Not g_SelectArea.blnFlag Then '選択範囲なし
 
             If eventArgs.Button = Windows.Forms.MouseButtons.Left And tlbMenu.Items.Item("Edit").Pressed = True And g_Obj(UBound(g_Obj)).intCh <> 0 Then 'オブジェ移動中
@@ -5766,9 +5770,7 @@ Err_Renamed:
 
             Next i
 
-            Call modDraw.DrawSelectArea()
-
-            If g_disp.intEffect Then Call modEasterEgg.DrawEffect()
+            picMain.Refresh()
 
         End If
 
@@ -6091,18 +6093,6 @@ Err_Renamed:
 
     Public Sub tmrEffect_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles tmrEffect.Tick
 
-        Dim gp As Graphics = picMain.CreateGraphics()
-        Call gp.Clear(picMain.BackColor)
-        gp.Dispose()
-
-        If g_Obj(UBound(g_Obj)).intCh Then
-
-            Call modDraw.InitPen()
-            Call modDraw.DrawObj(g_Obj(UBound(g_Obj)))
-            Call modDraw.DeletePen()
-
-        End If
-
         Select Case g_disp.intEffect
 
             Case modEasterEgg.EASTEREGG.RASTER, modEasterEgg.EASTEREGG.NOISE, modEasterEgg.EASTEREGG.STORM
@@ -6125,9 +6115,7 @@ Err_Renamed:
 
         End Select
 
-        If g_SelectArea.blnFlag Then Call modDraw.DrawSelectArea()
-
-        If g_disp.intEffect Then Call modEasterEgg.DrawEffect()
+        picMain.Refresh()
 
     End Sub
 
@@ -6216,7 +6204,7 @@ Err_Renamed:
 
         End With
 
-        Call modDraw.Redraw()
+        picMain.Refresh()
 
         'Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, g_Mouse.Shift)
         'スクロール＆オブジェ移動実現のため
@@ -6243,6 +6231,23 @@ Err_Renamed:
             Case System.Windows.Forms.ScrollEventType.EndScroll
                 vsbMain_Change(eventArgs.NewValue)
         End Select
+    End Sub
+
+    Private Sub picMain_Paint(ByVal sender As System.Object, ByVal e As PaintEventArgs)
+        Redraw(e.Graphics)
+
+        If g_Obj(UBound(g_Obj)).intCh Then
+
+            Call modDraw.InitPen()
+            Call modDraw.DrawObj(e.Graphics, g_Obj(UBound(g_Obj)))
+            Call modDraw.DeletePen()
+
+        End If
+
+        If g_SelectArea.blnFlag Then Call modDraw.DrawSelectArea(e.Graphics)
+
+        If g_disp.intEffect Then Call modEasterEgg.DrawEffect(e.Graphics)
+
     End Sub
 
 End Class

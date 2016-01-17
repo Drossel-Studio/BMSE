@@ -507,15 +507,13 @@ Module modDraw
 
         g_disp.lngMaxY = g_Measure(999).lngY + g_Measure(999).intLen
 
-        Call Redraw()
-
         Exit Sub
 
 Err_Renamed:
         Call modMain.CleanUp(Err.Number, Err.Description, "InitVerticalLine")
     End Sub
 
-    Public Sub Redraw()
+    Public Sub Redraw(ByVal gp As Graphics)
         On Error GoTo Err_Renamed
 
         Dim i As Integer
@@ -700,23 +698,23 @@ Err_Renamed:
 
         Next i
 
-        Dim gp As Graphics = frmMain.picMain.CreateGraphics()
-
         Call gp.Clear(frmMain.picMain.BackColor)
 
-        gp.Dispose()
+        Dim hDC As IntPtr = gp.GetHdc()
 
-        Call DrawGridBG() '背景色
+        Call DrawGridBG(hDC) '背景色
 
-        Call DrawMeasureNum() '小節番号
+        Call DrawMeasureNum(hDC) '小節番号
 
-        Call DrawVerticalGrayLine() '縦線(灰色)
+        Call DrawVerticalGrayLine(hDC) '縦線(灰色)
 
-        Call DrawHorizonalLine() '横線(灰色)
+        Call DrawHorizonalLine(hDC) '横線(灰色)
 
-        Call DrawVerticalWhiteLine() '縦線(白)
+        Call DrawVerticalWhiteLine(hDC) '縦線(白)
 
-        Call DrawMeasureLine() '横線(白)
+        Call DrawMeasureLine(hDC) '横線(白)
+
+        gp.ReleaseHdc()
 
         Call InitPen()
 
@@ -742,7 +740,7 @@ Err_Renamed:
 
                         If g_disp.lngStartPos <= g_Measure(.intMeasure).lngY + .lngPosition And g_disp.lngEndPos >= g_Measure(.intMeasure).lngY + .lngPosition Then
 
-                            Call DrawObj(g_Obj(i))
+                            Call DrawObj(gp, g_Obj(i))
 
                         End If
 
@@ -760,7 +758,7 @@ Err_Renamed:
 
                 If g_disp.lngStartPos <= g_Measure(.intMeasure).lngY + .lngPosition And g_disp.lngEndPos >= g_Measure(.intMeasure).lngY + .lngPosition And g_VGrid(g_intVGridNum(.intCh)).blnDraw = True And .intCh <> 0 Then
 
-                    Call DrawObj(m_tempObj(i))
+                    Call DrawObj(gp, m_tempObj(i))
 
                 End If
 
@@ -770,7 +768,11 @@ Err_Renamed:
 
         Call DeletePen()
 
-        Call DrawGridInfo() 'グリッド情報
+        hDC = gp.GetHdc()
+
+        Call DrawGridInfo(hDC) 'グリッド情報
+
+        gp.ReleaseHdc()
 
         With frmMain.picMain
 
@@ -791,7 +793,7 @@ Err_Renamed:
 
         End With
 
-        If g_disp.intEffect Then Call modEasterEgg.DrawEffect()
+        If g_disp.intEffect Then Call modEasterEgg.DrawEffect(gp)
 
         'Debug.Print timeGetTime() - lngTimer
         'frmMain.staMain.Items.Item("Time").Text = timeGetTime() - lngTimer & "ms"
@@ -802,7 +804,7 @@ Err_Renamed:
         Call modMain.CleanUp(Err.Number, Err.Description, "Redraw")
     End Sub
 
-    Private Sub DrawGridBG()
+    Private Sub DrawGridBG(ByVal hDC As IntPtr)
 
         Dim i As Integer
         Dim hPenNew As Integer
@@ -815,9 +817,6 @@ Err_Renamed:
             For i = 0 To UBound(g_VGrid) '背景色
 
                 With g_VGrid(i)
-
-                    Dim gp As Graphics = frmMain.picMain.CreateGraphics()
-                    Dim hDC As IntPtr = gp.GetHdc()
 
                     If .blnDraw Then
 
@@ -840,9 +839,6 @@ Err_Renamed:
 
                     End If
 
-                    gp.ReleaseHdc()
-                    gp.Dispose()
-
                 End With
 
             Next i
@@ -851,17 +847,18 @@ Err_Renamed:
 
     End Sub
 
-    Private Sub DrawMeasureNum()
+    Private Sub DrawMeasureNum(ByVal hDC As IntPtr)
 
         Dim i As Integer
         Dim strTemp As String = Space(4)
         Dim sizeTemp As Size
 
         With frmMain.picMain
-            Dim gp As Graphics = .CreateGraphics()
-            Dim hDC As IntPtr = gp.GetHdc()
 
             .Font = New Font(.Font.FontFamily, 72, .Font.Style Or FontStyle.Italic, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
+
+            Dim hFont As IntPtr = .Font.ToHfont()
+            Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
 
             For i = g_disp.intStartMeasure To g_disp.intEndMeasure '#小節番号
 
@@ -875,22 +872,20 @@ Err_Renamed:
 
             Next i
 
-            gp.ReleaseHdc()
-            gp.Dispose()
+            SelectObject(hDC, hOldFont)
+            DeleteObject(hFont)
+
         End With
 
     End Sub
 
-    Private Sub DrawVerticalGrayLine()
+    Private Sub DrawVerticalGrayLine(ByVal hDC As IntPtr)
 
         Dim i As Integer
         Dim Y As Integer
         Dim H As Integer
         Dim hNew As Integer
         Dim hOld As Integer
-
-        Dim gp As Graphics = frmMain.picMain.CreateGraphics()
-        Dim hDC As IntPtr = gp.GetHdc()
 
         hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.VERTICAL_SUB)) 'RGB(128, 128, 128)
         hOld = SelectObject(hDC, hNew)
@@ -908,7 +903,7 @@ Err_Renamed:
                     If .intCh Then
 
                         'Call PrintLine(.lngLeft + .intWidth, g_disp.Y, 0, frmMain.picMain.ScaleHeight)
-                        Call PrintLine_Renamed(.lngLeft + .intWidth, Y, 0, H)
+                        Call PrintLine_Renamed(hDC, .lngLeft + .intWidth, Y, 0, H)
 
                     End If
 
@@ -921,12 +916,9 @@ Err_Renamed:
         hNew = SelectObject(hDC, hOld)
         Call DeleteObject(hNew)
 
-        gp.ReleaseHdc()
-        gp.Dispose()
-
     End Sub
 
-    Private Sub DrawHorizonalLine()
+    Private Sub DrawHorizonalLine(ByVal hDC As IntPtr)
 
         Dim i As Integer
         Dim j As Integer
@@ -934,9 +926,6 @@ Err_Renamed:
         Dim intTemp As Short
         Dim hNew As Integer
         Dim hOld As Integer
-
-        Dim gp As Graphics = frmMain.picMain.CreateGraphics()
-        Dim hDC As IntPtr = gp.GetHdc()
 
         hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.GRID_MAIN)) 'RGB(96, 96, 96)
         hOld = SelectObject(hDC, hNew)
@@ -954,7 +943,7 @@ Err_Renamed:
 
                     For j = 0 To g_Measure(i).intLen Step intTemp
 
-                        Call PrintLine_Renamed(LEFT_SPACE, g_Measure(i).lngY + j, W, 0)
+                        Call PrintLine_Renamed(hDC, LEFT_SPACE, g_Measure(i).lngY + j, W, 0)
 
                     Next j
 
@@ -985,7 +974,7 @@ Err_Renamed:
                     For j = intTemp To g_Measure(i).intLen Step intTemp
 
                         'Call PrintLine(16, g_Measure(i).lngY + j, g_disp.lngMaxX - 16, 0)
-                        Call PrintLine_Renamed(FRAME_WIDTH, g_Measure(i).lngY + j, W, 0)
+                        Call PrintLine_Renamed(hDC, FRAME_WIDTH, g_Measure(i).lngY + j, W, 0)
 
                     Next j
 
@@ -998,21 +987,15 @@ Err_Renamed:
         hNew = SelectObject(hDC, hOld)
         Call DeleteObject(hNew)
 
-        gp.ReleaseHdc()
-        gp.Dispose()
-
     End Sub
 
-    Private Sub DrawVerticalWhiteLine()
+    Private Sub DrawVerticalWhiteLine(ByVal hDC As IntPtr)
 
         Dim i As Integer
         Dim Y As Integer
         Dim H As Integer
         Dim hNew As Integer
         Dim hOld As Integer
-
-        Dim gp As Graphics = frmMain.picMain.CreateGraphics()
-        Dim hDC As IntPtr = gp.GetHdc()
 
         hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.VERTICAL_MAIN))
         hOld = SelectObject(hDC, hNew)
@@ -1029,8 +1012,8 @@ Err_Renamed:
 
                     If .intCh = 0 Then
 
-                        Call PrintLine_Renamed(.lngLeft, Y, 0, H)
-                        Call PrintLine_Renamed(.lngLeft + .intWidth, Y, 0, H)
+                        Call PrintLine_Renamed(hDC, .lngLeft, Y, 0, H)
+                        Call PrintLine_Renamed(hDC, .lngLeft + .intWidth, Y, 0, H)
 
                     End If
 
@@ -1043,20 +1026,14 @@ Err_Renamed:
         hNew = SelectObject(hDC, hOld)
         Call DeleteObject(hNew)
 
-        gp.ReleaseHdc()
-        gp.Dispose()
-
     End Sub
 
-    Private Sub DrawMeasureLine()
+    Private Sub DrawMeasureLine(ByVal hDC As IntPtr)
 
         Dim i As Integer
         Dim W As Integer
         Dim hNew As Integer
         Dim hOld As Integer
-
-        Dim gp As Graphics = frmMain.picMain.CreateGraphics()
-        Dim hDC As IntPtr = gp.GetHdc()
 
         hNew = CreatePen(hNew, 1, g_lngSystemColor(COLOR_NUM.MEASURE_LINE))
         hOld = SelectObject(hDC, hNew)
@@ -1067,26 +1044,23 @@ Err_Renamed:
         For i = g_disp.intStartMeasure To g_disp.intEndMeasure
 
             'Call PrintLine(16, g_Measure(i).lngY, g_disp.lngMaxX - 16, 0)
-            Call PrintLine_Renamed(FRAME_WIDTH, g_Measure(i).lngY, W, 0)
+            Call PrintLine_Renamed(hDC, FRAME_WIDTH, g_Measure(i).lngY, W, 0)
 
         Next i
 
         'If g_disp.intEndMeasure = 999 Then Call PrintLine(16, g_Measure(999).lngY + g_Measure(999).intLen, g_disp.lngMaxX - 16, 0)
         If g_disp.intEndMeasure = 999 Then
 
-            Call PrintLine_Renamed(FRAME_WIDTH, g_Measure(999).lngY + g_Measure(999).intLen, g_disp.lngMaxX - FRAME_WIDTH, 0)
+            Call PrintLine_Renamed(hDC, FRAME_WIDTH, g_Measure(999).lngY + g_Measure(999).intLen, g_disp.lngMaxX - FRAME_WIDTH, 0)
 
         End If
 
         hNew = SelectObject(hDC, hOld)
         Call DeleteObject(hNew)
 
-        gp.ReleaseHdc()
-        gp.Dispose()
-
     End Sub
 
-    Private Sub DrawGridInfo()
+    Private Sub DrawGridInfo(ByVal hDC As IntPtr)
 
         Dim i As Integer
         Dim j As Integer
@@ -1096,10 +1070,10 @@ Err_Renamed:
         Dim strTemp As String
         Dim sizeTemp As Size
 
-        Dim gp As Graphics = frmMain.picMain.CreateGraphics()
-        Dim hDC As IntPtr = gp.GetHdc()
-
         frmMain.picMain.Font = New Font(frmMain.picMain.Font.FontFamily, 9, frmMain.picMain.Font.Style, frmMain.picMain.Font.Unit, frmMain.picMain.Font.GdiCharSet, frmMain.picMain.Font.GdiVerticalFont)
+
+        Dim hFont As IntPtr = frmMain.picMain.Font.ToHfont()
+        Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
 
         For i = 0 To UBound(g_VGrid) '文字
 
@@ -1168,12 +1142,12 @@ Err_Renamed:
 
         Next i
 
-        gp.ReleaseHdc()
-        gp.Dispose()
+        SelectObject(hDC, hOldFont)
+        DeleteObject(hFont)
 
     End Sub
 
-    Private Sub PrintLine_Renamed(ByVal X As Integer, ByVal Y As Integer, ByVal Width As Integer, ByVal Height As Integer)
+    Private Sub PrintLine_Renamed(ByVal hDC As IntPtr, ByVal X As Integer, ByVal Y As Integer, ByVal Width As Integer, ByVal Height As Integer)
 
         Width = Width * g_disp.Width
         'X = X * g_disp.Width
@@ -1204,18 +1178,12 @@ Err_Renamed:
 
         End If
 
-        Dim gp As Graphics = frmMain.picMain.CreateGraphics()
-        Dim hDC As IntPtr = gp.GetHdc()
-
         Call MoveToEx(hDC, X, frmMain.picMain.ClientRectangle.Height - 1 - Y, 0)
         Call LineTo(hDC, X + Width, frmMain.picMain.ClientRectangle.Height - 1 - Y - Height)
 
-        gp.ReleaseHdc()
-        gp.Dispose()
-
     End Sub
 
-    Public Sub DrawObj(ByRef tempObj As g_udtObj)
+    Public Sub DrawObj(ByVal gp As Graphics, ByRef tempObj As g_udtObj)
         On Error GoTo Err_Renamed
 
         Dim intTemp As Short
@@ -1231,14 +1199,12 @@ Err_Renamed:
         Dim hOldBrush As Integer
         Dim hOldPen As Integer
 
-        Dim gp As Graphics = frmMain.picMain.CreateGraphics()
         Dim hDC As IntPtr = gp.GetHdc()
 
         With tempObj
 
             If g_intVGridNum(.intCh) = 0 Then
                 gp.ReleaseHdc()
-                gp.Dispose()
                 Exit Sub
             End If
 
@@ -1419,7 +1385,6 @@ Err_Renamed:
                     m_hBrush(intBrushNum) = SelectObject(hDC, hOldBrush)
 
                     gp.ReleaseHdc()
-                    gp.Dispose()
                     Exit Sub
 
             End Select
@@ -1449,6 +1414,9 @@ Err_Renamed:
 
             Y = Y - (OBJ_HEIGHT + sizeTemp.Height) \ 2 + 1
 
+            Dim hFont As IntPtr = frmMain.picMain.Font.ToHfont()
+            Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
+
             'If g_Obj(lngNum).intSelect = Selected Then
             If tempObj.intSelect = modMain.OBJ_SELECT.Selected Then
 
@@ -1466,19 +1434,20 @@ Err_Renamed:
 
             End If
 
+            SelectObject(hDC, hOldFont)
+            DeleteObject(hFont)
+
         End With
 
         gp.ReleaseHdc()
-        gp.Dispose()
         Exit Sub
 
 Err_Renamed:
-        Call modMain.CleanUp(Err.Number, Err.Description, "DrawObj")
         gp.ReleaseHdc()
-        gp.Dispose()
+        Call modMain.CleanUp(Err.Number, Err.Description, "DrawObj")
     End Sub
 
-    Public Sub DrawObjRect(ByVal Num As Integer)
+    Public Sub DrawObjRect(ByVal hDC As IntPtr, ByVal Num As Integer)
         On Error GoTo Err_Renamed
 
         Dim X As Integer
@@ -1504,13 +1473,9 @@ Err_Renamed:
         End With
 
         With frmMain.picMain
-            Dim gp As Graphics = .CreateGraphics()
-            Dim hDC As IntPtr = gp.GetHdc()
 
             Call Rectangle(hDC, X - 1, Y - OBJ_HEIGHT - 1, X + Width + 1, Y + 2)
 
-            gp.ReleaseHdc()
-            gp.Dispose()
         End With
 
         Exit Sub
@@ -1681,31 +1646,6 @@ Err_Renamed:
         End If
 
         'Call DrawStatusBar(UBound(g_Obj), Shift)
-
-        '画面消去
-        Dim gp As Graphics = frmMain.picMain.CreateGraphics()
-        Call gp.Clear(frmMain.picMain.BackColor)
-        gp.Dispose()
-
-        '描画すべきオブジェはあるか？
-        If g_Obj(UBound(g_Obj)).intCh Then
-
-            'ペン生成
-            Call InitPen()
-
-            'フォントサイズ変更
-            frmMain.picMain.Font = New Font(frmMain.picMain.Font.FontFamily, 8, frmMain.picMain.Font.Style, frmMain.picMain.Font.Unit, frmMain.picMain.Font.GdiCharSet, frmMain.picMain.Font.GdiVerticalFont)
-
-            'オブジェ描画
-            Call DrawObj(g_Obj(UBound(g_Obj)))
-
-            'ペン削除
-            Call DeletePen()
-
-        End If
-
-        'イースターエッグ描画
-        If g_disp.intEffect Then Call modEasterEgg.DrawEffect()
 
         Exit Sub
 
@@ -1971,7 +1911,7 @@ Err_Renamed:
 
     End Sub
 
-    Public Sub DrawSelectArea()
+    Public Sub DrawSelectArea(ByVal gp As Graphics)
         Dim i As Integer
         Dim lngTemp As Integer
         Dim hOldPen As Integer
@@ -1981,7 +1921,6 @@ Err_Renamed:
         Dim hNewBrush As Integer
         Dim rectTemp As RECT
 
-        Dim gp As Graphics = frmMain.picMain.CreateGraphics()
         Dim hDC As IntPtr = gp.GetHdc()
 
         hNewPen = CreatePen(PS_SOLID, 1, g_lngPenColor(PEN_NUM.EDIT_FRAME))
@@ -2024,7 +1963,7 @@ Err_Renamed:
 
                     If g_disp.lngStartPos <= lngTemp And lngTemp <= g_disp.lngEndPos Then
 
-                        Call modDraw.DrawObjRect(i)
+                        Call modDraw.DrawObjRect(hDC, i)
 
                     End If
 
@@ -2041,7 +1980,6 @@ Err_Renamed:
         Call DeleteObject(hNewBrush)
 
         gp.ReleaseHdc()
-        gp.Dispose()
     End Sub
 
     Public Function lngChangeMaxMeasure(ByVal intMeasure As Short) As Integer

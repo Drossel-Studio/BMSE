@@ -311,11 +311,9 @@ Err_Renamed:
         Dim i As Integer
 
         With picPreview
-            Dim gp As Graphics = .CreateGraphics()
+            Call eventArgs.Graphics.Clear(.BackColor)
 
-            Call gp.Clear(.BackColor)
-
-            Dim hDC As IntPtr = gp.GetHdc()
+            Dim hDC As IntPtr = eventArgs.Graphics.GetHdc()
 
             Dim picBackBuffer_BitMap As Bitmap = New Bitmap(picBackBuffer.Image)
             Dim hBitMap As IntPtr = picBackBuffer_BitMap.GetHbitmap
@@ -349,8 +347,8 @@ Err_Renamed:
             DeleteObject(hBitMap)
             picBackBuffer_BitMap.Dispose()
 
-            gp.ReleaseHdc()
-            gp.Dispose()
+            eventArgs.Graphics.ReleaseHdc()
+
         End With
 
     End Sub

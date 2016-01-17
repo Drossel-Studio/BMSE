@@ -138,22 +138,30 @@ Module modEasterEgg
         End If
 		
 	End Sub
-	
-	Public Sub DrawEffect()
+
+    Public Sub DrawEffect(ByVal gp As Graphics)
+
+        Dim hDC As IntPtr
 
         Select Case g_disp.intEffect
 
             Case EASTEREGG.SNOW, EASTEREGG.SIROMARU
 
-                Call DrawSnow()
+                hDC = gp.GetHdc()
+                Call DrawSnow(hDC)
+                gp.ReleaseHdc()
 
             Case EASTEREGG.SIROMARU2
 
-                Call DrawSiromaru2()
+                hDC = gp.GetHdc()
+                Call DrawSiromaru2(hDC)
+                gp.ReleaseHdc()
 
             Case EASTEREGG.STAFFROLL, EASTEREGG.STAFFROLL2
 
-                Call DrawStaffRoll()
+                hDC = gp.GetHdc()
+                Call DrawStaffRoll(hDC)
+                gp.ReleaseHdc()
 
             Case EASTEREGG.DISP_LOG
 
@@ -161,38 +169,46 @@ Module modEasterEgg
 
             Case EASTEREGG.BLUESCREEN
 
-                Call DrawBlueScreen()
+                hDC = gp.GetHdc()
+
+                Dim hFont As IntPtr = frmMain.picMain.Font.ToHfont()
+                Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
+
+                Call DrawBlueScreen(hDC)
+
+                SelectObject(hDC, hOldFont)
+                DeleteObject(hFont)
+
+                gp.ReleaseHdc()
 
             Case Else
 
-                Dim gp As Graphics = frmMain.picMain.CreateGraphics()
                 Call gp.Clear(frmMain.picMain.BackColor)
-                gp.Dispose()
 
         End Select
 
     End Sub
-	
-	Public Sub KeyCheck(ByVal KeyCode As Short, ByVal Shift As Short)
+
+    Public Sub KeyCheck(ByVal KeyCode As Short, ByVal Shift As Short)
 
         Static buf As String = Space(16)
 
         Select Case KeyCode
-			
-			Case System.Windows.Forms.Keys.F9 'ほわいる
-				
-				If Len(frmMain.txtGenre.Text) = 0 And Len(frmMain.txtArtist.Text) = 0 Then
-					
-					frmMain.txtGenre.Text = "Unstable Pitch Song"
-					frmMain.txtArtist.Text = "while"
-					
-				End If
-				
-			Case System.Windows.Forms.Keys.F10 'シロディウス
-				
-				Call ShellExecute(0, vbNullString, "sirodius.exe", vbNullString, vbNullString, SW_SHOWNORMAL)
-				
-			Case System.Windows.Forms.Keys.A To System.Windows.Forms.Keys.Z, System.Windows.Forms.Keys.D0 To System.Windows.Forms.Keys.D9 'バッファに保存
+
+            Case System.Windows.Forms.Keys.F9 'ほわいる
+
+                If Len(frmMain.txtGenre.Text) = 0 And Len(frmMain.txtArtist.Text) = 0 Then
+
+                    frmMain.txtGenre.Text = "Unstable Pitch Song"
+                    frmMain.txtArtist.Text = "while"
+
+                End If
+
+            Case System.Windows.Forms.Keys.F10 'シロディウス
+
+                Call ShellExecute(0, vbNullString, "sirodius.exe", vbNullString, vbNullString, SW_SHOWNORMAL)
+
+            Case System.Windows.Forms.Keys.A To System.Windows.Forms.Keys.Z, System.Windows.Forms.Keys.D0 To System.Windows.Forms.Keys.D9 'バッファに保存
 
                 buf = Right(buf, 15) & Chr(KeyCode)
 
@@ -211,7 +227,7 @@ Module modEasterEgg
                     frmMain.tmrEffect.Enabled = False
                     g_disp.intEffect = EASTEREGG.OFF
 
-                    Call DrawEffect()
+                    frmMain.picMain.Refresh()
 
                 ElseIf Right(buf, 4) = "TIPS" Then  'TIPS
 
@@ -239,7 +255,7 @@ Module modEasterEgg
 
                     End If
 
-                    Call DrawEffect()
+                    frmMain.picMain.Refresh()
 
                 ElseIf Right(buf, 8) = "SIROMARU" Or Right(buf, 9) = "SIROMARU1" Then  'SIROMARU
 
@@ -256,7 +272,7 @@ Module modEasterEgg
 
                     End If
 
-                    Call DrawEffect()
+                    frmMain.picMain.Refresh()
 
                 ElseIf Right(buf, 9) = "SIROMARU2" Then  'SIROMARU2
 
@@ -273,7 +289,7 @@ Module modEasterEgg
 
                     End If
 
-                    Call DrawEffect()
+                    frmMain.picMain.Refresh()
 
                 ElseIf Right(buf, 3) = "LOG" Then  'LOG
 
@@ -289,8 +305,7 @@ Module modEasterEgg
 
                     End If
 
-                    Call DrawEffect()
-                    Call modDraw.Redraw()
+                    frmMain.picMain.Refresh()
 
                 ElseIf Right(buf, 9) = "STAFFROLL" Then  'STAFFROLL, STAFFROLL2
 
@@ -309,7 +324,7 @@ Module modEasterEgg
 
                     End If
 
-                    Call DrawEffect()
+                    frmMain.picMain.Refresh()
 
                 ElseIf Right(buf, 10) = "STAFFROLL2" Then  'STAFFROLL, STAFFROLL2
 
@@ -328,7 +343,7 @@ Module modEasterEgg
 
                     End If
 
-                    Call DrawEffect()
+                    frmMain.picMain.Refresh()
 
                 ElseIf Right(buf, 10) = "BLUESCREEN" Or Right(buf, 4) = "BSOD" Then  'BLUESCREEN OF DEATH
 
@@ -344,18 +359,18 @@ Module modEasterEgg
                         g_disp.intEffect = EASTEREGG.BLUESCREEN
 
                     End If
-					
-					Call DrawEffect()
-					
-				End If
+
+                    frmMain.picMain.Refresh()
+
+                End If
 
                 buf = Space(16)
 
         End Select
-		
-	End Sub
-	
-	Public Sub InitSnow()
+
+    End Sub
+
+    Public Sub InitSnow()
 		
 		Dim i As Integer
 		Dim lngTemp As Integer
@@ -449,24 +464,21 @@ Module modEasterEgg
         If g_disp.intEffect <> EASTEREGG.SNOW Then Call QuickSortY(0, UBound(m_objSnow))
 
     End Sub
-	
-	Public Sub DrawSnow()
-		
-		Dim i As Integer
-		Dim X As Integer
-		Dim Y As Integer
-		Dim Width As Integer
-		Dim Height As Integer
+
+    Public Sub DrawSnow(ByVal hDC As IntPtr)
+
+        Dim i As Integer
+        Dim X As Integer
+        Dim Y As Integer
+        Dim Width As Integer
+        Dim Height As Integer
         Dim Size_Renamed As Integer
         'Dim srcX    As Long
         Dim srcY As Integer
-		Dim intTemp As Short
+        Dim intTemp As Short
         'Dim lngTemp As Long
 
         'lngTemp = timeGetTime()
-
-        Dim gp As Graphics = frmMain.picMain.CreateGraphics()
-        Dim hDC As IntPtr = gp.GetHdc()
 
         Width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width
         Height = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height
@@ -560,13 +572,11 @@ Module modEasterEgg
 
         'frmMain.cboDirectInput.Text = timeGetTime() - lngTemp
 
-        gp.ReleaseHdc()
-        gp.Dispose()
         Exit Sub
 
     End Sub
-	
-	Private Sub InitSiromaru2()
+
+    Private Sub InitSiromaru2()
 		
 		frmMain.tmrEffect.Enabled = True
 		frmMain.tmrEffect.Interval = 100
@@ -595,58 +605,55 @@ Module modEasterEgg
 		End If
 		
 	End Sub
-	
-	Public Sub DrawSiromaru2()
-		
-		Dim X As Integer
-		Dim Y As Integer
-		Dim srcY As Short
-		
-		srcY = m_lngCounter And 7
-		
-		If srcY > 1 Then
-			
-			Y = Y - g_sngSin((srcY - 1) * 128 \ 6 And 127) * m_objSnow(0).X
-			
-		End If
-		
-		srcY = srcY * 32
-		
-		With frmMain.picMain
-            Dim gp As Graphics = .CreateGraphics()
-            Dim hDC As IntPtr = gp.GetHdc()
 
-            Dim picSiromaru_gp As Graphics = frmMain.picSiromaru.CreateGraphics()
-            Dim picSiromaru_hDC As IntPtr = picSiromaru_gp.GetHdc()
+    Public Sub DrawSiromaru2(ByVal hDC As IntPtr)
+
+        Dim X As Integer
+        Dim Y As Integer
+        Dim srcY As Short
+
+        srcY = m_lngCounter And 7
+
+        If srcY > 1 Then
+
+            Y = Y - g_sngSin((srcY - 1) * 128 \ 6 And 127) * m_objSnow(0).X
+
+        End If
+
+        srcY = srcY * 32
+
+        With frmMain.picMain
+
+            Dim picSiromaru_BitMap As Bitmap = New Bitmap(frmMain.picSiromaru.Image)
+            Dim hBitMap As IntPtr = picSiromaru_BitMap.GetHbitmap
+            Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
+            SelectObject(hMDC, hBitMap)
 
             X = (.ClientRectangle.Width - m_objSnow(0).X) \ 2
-			Y = Y + (.ClientRectangle.Height - m_objSnow(0).X) \ 2
+            Y = Y + (.ClientRectangle.Height - m_objSnow(0).X) \ 2
 
-            Call StretchBlt(hDC, X, Y, m_objSnow(0).X, m_objSnow(0).X, picSiromaru_hDC, 32, srcY, 32, 32, SRCAND)
-            Call StretchBlt(hDC, X, Y, m_objSnow(0).X, m_objSnow(0).X, picSiromaru_hDC, 0, srcY, 32, 32, SRCPAINT)
+            Call StretchBlt(hDC, X, Y, m_objSnow(0).X, m_objSnow(0).X, hMDC, 32, srcY, 32, 32, SRCAND)
+            Call StretchBlt(hDC, X, Y, m_objSnow(0).X, m_objSnow(0).X, hMDC, 0, srcY, 32, 32, SRCPAINT)
 
-            picSiromaru_gp.ReleaseHdc()
-            picSiromaru_gp.Dispose()
+            DeleteDC(hMDC)
+            DeleteObject(hBitMap)
+            picSiromaru_BitMap.Dispose()
 
-            gp.ReleaseHdc()
-            gp.Dispose()
         End With
 
     End Sub
-	
-	Public Sub DrawLog()
+
+    Public Sub DrawLog()
 		
 		'1.3.6 にて削除
 		
 	End Sub
-	
-	Private Sub DrawLogText(ByVal X As Integer, ByVal Y As Integer, ByRef Text As String, Optional ByVal Color As Integer = 16777215)
-		
-		Dim intTemp As Short
-		
-		With frmMain.picMain
-            Dim gp As Graphics = .CreateGraphics()
-            Dim hDC As IntPtr = gp.GetHdc()
+
+    Private Sub DrawLogText(ByVal hDC As IntPtr, ByVal X As Integer, ByVal Y As Integer, ByRef Text As String, Optional ByVal Color As Integer = 16777215)
+
+        Dim intTemp As Short
+
+        With frmMain.picMain
 
             intTemp = LenB(Text)
 
@@ -661,14 +668,11 @@ Module modEasterEgg
 
             Call TextOut(hDC, X, Y, Text, intTemp)
 
-            gp.ReleaseHdc()
-            gp.Dispose()
-
         End With
-		
-	End Sub
-	
-	Public Sub InitStaffRoll()
+
+    End Sub
+
+    Public Sub InitStaffRoll()
 
         If g_disp.intEffect = EASTEREGG.OFF Then Exit Sub
 
@@ -772,25 +776,25 @@ Module modEasterEgg
 		m_lngCounter = m_lngCounter + 100 \ frmMain.tmrEffect.Interval
 		
 	End Sub
-	
-	Public Sub DrawStaffRoll()
-		
-		Dim i As Integer
-		Dim X As Integer
-		Dim Y As Integer
-		Dim Color As Integer
-		Dim intTemp As Integer
-		Dim lngTemp As Integer
-		Dim sizeTemp As Size
+
+    Public Sub DrawStaffRoll(ByVal hDC As IntPtr)
+
+        Dim i As Integer
+        Dim X As Integer
+        Dim Y As Integer
+        Dim Color As Integer
+        Dim intTemp As Integer
+        Dim lngTemp As Integer
+        Dim sizeTemp As Size
 
         Dim srcY As Short
-
-        Dim gp As Graphics = frmMain.picMain.CreateGraphics()
-        Dim hDC As IntPtr = gp.GetHdc()
 
         With frmMain.picMain
             Call SetTextColor(hDC, RGB(255, 255, 255))
             .Font = New Font(.Font.FontFamily, 12, .Font.Style, .Font.Unit, .Font.GdiCharSet, .Font.GdiVerticalFont)
+
+            Dim hFont As IntPtr = frmMain.picMain.Font.ToHfont()
+            Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
 
             lngTemp = .ClientRectangle.Height - m_lngCounter
 
@@ -840,8 +844,8 @@ Module modEasterEgg
                                     frmMain.tmrEffect.Enabled = False
                                     g_disp.intEffect = EASTEREGG.OFF
 
-                                    gp.ReleaseHdc()
-                                    gp.Dispose()
+                                    SelectObject(hDC, hOldFont)
+                                    DeleteObject(hFont)
                                     Exit Sub
 
                                 Case Is < 32 : Color = m_lngCounter * 8 '0-31
@@ -901,6 +905,9 @@ Module modEasterEgg
 
             Next i
 
+            SelectObject(hDC, hOldFont)
+            DeleteObject(hFont)
+
             If lngTemp < 0 Then
 
                 If g_disp.intEffect = EASTEREGG.STAFFROLL Then
@@ -941,19 +948,15 @@ Module modEasterEgg
 
         End With
 
-        gp.ReleaseHdc()
-        gp.Dispose()
     End Sub
 
-    Public Sub DrawBlueScreen()
-		
-		Dim hBrushNew As Integer
-		Dim hBrushOld As Integer
-		Dim rectTemp As RECT
+    Public Sub DrawBlueScreen(ByVal hDC As IntPtr)
+
+        Dim hBrushNew As Integer
+        Dim hBrushOld As Integer
+        Dim rectTemp As RECT
 
         With frmMain.picMain
-            Dim gp As Graphics = .CreateGraphics()
-            Dim hDC As IntPtr = gp.GetHdc()
 
             hBrushNew = CreateSolidBrush(System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Blue))
             hBrushOld = SelectObject(hDC, hBrushNew)
@@ -974,13 +977,11 @@ Module modEasterEgg
 
             Call DrawText(hDC, "A problem has been detected and BMSE has been shut down to prevent damage to your mind." & vbCrLf & vbCrLf & "The problem seems to be caused by the following file: BMSE.EXE" & vbCrLf & vbCrLf & "EASTER_EGG_BLUE_SCREEN_OF_DEATH" & vbCrLf & vbCrLf & "If this is the first time you've seen this stop error screen, restart your BMSE. If this screen appears again, follow these steps:" & vbCrLf & vbCrLf & "1) Bury me from your computer." & vbCrLf & "2) Access UCN-Soft BBS, and write your shout of spirit." & vbCrLf & "       ex) ""BMSE is the worst software in the world!!!!!!!!!!!!!!111111""" & vbCrLf & "3) Sing ""asdf song"":" & vbCrLf & "       This is the sound of the asdf song." & vbCrLf & "       asdf fdsa" & vbCrLf & "       asdffdsa ye-ye" & vbCrLf & "       (clap clap clap)" & vbCrLf & "4) Throw your computer from window." & vbCrLf & vbCrLf & "If you are satiated with joke:" & vbCrLf & vbCrLf & "Launch BMSE and type your key ""OFF"", then press return key." & vbCrLf & vbCrLf & "Meaningless information:" & vbCrLf & vbCrLf & "*** STOP: 0x88710572 (0xASDFFDSA,0x00004126,0xD0SUK01,0x○0▽0○)" & vbCrLf & vbCrLf & vbCrLf & "***  BMSE.EXE - Public Sub DrawBlueScreen() at modEasterEgg.bas, DateStamp 2006-12-26", -1, rectTemp, DT_WORDBREAK)
 
-            gp.ReleaseHdc()
-            gp.Dispose()
         End With
 
     End Sub
-	
-	Private Sub QuickSortY(ByVal l As Integer, ByVal r As Integer)
+
+    Private Sub QuickSortY(ByVal l As Integer, ByVal r As Integer)
 		
 		Dim i As Integer
 		Dim j As Integer

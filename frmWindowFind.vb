@@ -105,10 +105,10 @@ Friend Class frmWindowFind
 			End If
 			
 		End If
-		
-		Call modDraw.Redraw()
-		
-	End Sub
+
+        frmMain.picMain.Refresh()
+
+    End Sub
 	
 	Private Sub cmdReset_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdReset.Click
 
