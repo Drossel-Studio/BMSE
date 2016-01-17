@@ -1510,7 +1510,7 @@ Err_Renamed:
 
         With tempObj
 
-            If frmMain.tlbMenu.Items.Item("Write").Pressed = True Then '書き込みモード
+            If DirectCast(frmMain.tlbMenu.Items.Item("Write"), ToolStripButton).Checked = True Then '書き込みモード
 
                 If 10 < .intCh And .intCh < 30 Then 'オブジェはキーオブジェである
 
@@ -1555,13 +1555,13 @@ Err_Renamed:
 
                     If g_Measure(g_Obj(i).intMeasure).lngY + g_Obj(i).lngPosition + OBJ_HEIGHT / g_disp.Height >= lngTemp And g_Measure(g_Obj(i).intMeasure).lngY + g_Obj(i).lngPosition <= lngTemp Then
 
-                        If frmMain.tlbMenu.Items.Item("Write").Pressed = False Then
+                        If DirectCast(frmMain.tlbMenu.Items.Item("Write"), ToolStripButton).Checked = False Then
 
-                            If frmMain.tlbMenu.Items.Item("Edit").Pressed = True Then
+                            If DirectCast(frmMain.tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = True Then
 
                                 .intSelect = modMain.OBJ_SELECT.EDIT_RECT
 
-                            ElseIf frmMain.tlbMenu.Items.Item("Delete").Pressed = True Then
+                            ElseIf DirectCast(frmMain.tlbMenu.Items.Item("Delete"), ToolStripButton).Checked = True Then
 
                                 .intSelect = modMain.OBJ_SELECT.DELETE_RECT
 
@@ -1606,7 +1606,7 @@ Err_Renamed:
         'ステータスバー更新
         Call DrawStatusBar(tempObj, Shift)
 
-        If frmMain.tlbMenu.Items.Item("Write").Pressed = True Then '書き込みモード
+        If DirectCast(frmMain.tlbMenu.Items.Item("Write"), ToolStripButton).Checked = True Then '書き込みモード
 
             If tempObj.intCh <> g_Obj(UBound(g_Obj)).intCh Or tempObj.intAtt <> g_Obj(UBound(g_Obj)).intAtt Or tempObj.intMeasure <> g_Obj(UBound(g_Obj)).intMeasure Or tempObj.lngPosition <> g_Obj(UBound(g_Obj)).lngPosition Or tempObj.sngValue <> g_Obj(UBound(g_Obj)).sngValue Then
 

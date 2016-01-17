@@ -1569,11 +1569,11 @@ Err_Renamed:
             DirectCast(.cboDispWidth.Items.Item(.cboDispWidth.Items.Count - 1), modMain.ItemWithData).SetItemString(strGet_ini("ToolBar", "DISP_VALUE_OTHER", "Other", strFileName))
             .lblVScroll.Text = strGet_ini("ToolBar", "VSCROLL", "VScroll", strFileName)
 
-            If .tlbMenu.Items.Item("Edit").Pressed = True Then
+            If DirectCast(.tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = True Then
 
                 .staMain.Items.Item("Mode").Text = g_strStatusBar(20)
 
-            ElseIf .tlbMenu.Items.Item("Write").Pressed = True Then
+            ElseIf DirectCast(.tlbMenu.Items.Item("Write"), ToolStripButton).Checked = True Then
 
                 .staMain.Items.Item("Mode").Text = g_strStatusBar(21)
 
