@@ -2152,7 +2152,6 @@ Err_Renamed:
         Call GetCmdLine()
 
         Call frmMain_Resize(Me, New EventArgs)
-        vsbMain.Value = vsbMain.Maximum - vsbMain.LargeChange + 1
 
     End Sub
 

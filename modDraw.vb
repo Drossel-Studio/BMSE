@@ -533,11 +533,15 @@ Err_Renamed:
 
         Next i
 
+        Dim MaximumChange As Integer = (lngTemp \ g_disp.intResolution + frmMain.vsbMain.LargeChange - 1) - frmMain.vsbMain.Maximum
         'frmMain.vsbMain.Min = lngTemp \ 96
-        frmMain.vsbMain.Maximum = lngTemp \ g_disp.intResolution + frmMain.vsbMain.LargeChange - 1
-
-        'UPGRADE_ISSUE: PictureBox プロパティ picMain.AutoRedraw はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-        'frmMain.picMain.AutoRedraw = True
+        If MaximumChange >= 0 Then
+            frmMain.vsbMain.Maximum += MaximumChange
+            frmMain.vsbMain.Value += MaximumChange
+        Else
+            frmMain.vsbMain.Value += MaximumChange
+            frmMain.vsbMain.Maximum += MaximumChange
+        End If
 
         With g_disp
 
@@ -775,9 +779,6 @@ Err_Renamed:
                 frmMain.hsbMain.Maximum = (g_disp.lngMaxX + FRAME_WIDTH) - .ClientRectangle.Width / g_disp.Width + frmMain.hsbMain.LargeChange - 1
 
             End If
-
-            'UPGRADE_ISSUE: PictureBox プロパティ picMain.AutoRedraw はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-            '.AutoRedraw = False
 
         End With
 
