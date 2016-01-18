@@ -533,8 +533,15 @@ Err_Renamed:
 
         Next i
 
+        Dim MaximumChange As Integer = (lngTemp \ g_disp.intResolution + frmMain.vsbMain.LargeChange - 1) - frmMain.vsbMain.Maximum
         'frmMain.vsbMain.Min = lngTemp \ 96
-        frmMain.vsbMain.Maximum = lngTemp \ g_disp.intResolution + frmMain.vsbMain.LargeChange - 1
+        If MaximumChange >= 0 Then
+            frmMain.vsbMain.Maximum += MaximumChange
+            frmMain.vsbMain.Value += MaximumChange
+        Else
+            frmMain.vsbMain.Value += MaximumChange
+            frmMain.vsbMain.Maximum += MaximumChange
+        End If
 
         With g_disp
 
