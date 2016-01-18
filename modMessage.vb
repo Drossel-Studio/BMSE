@@ -1,6 +1,5 @@
 Option Strict Off
 Option Explicit On
-Imports System.Runtime.InteropServices
 
 Module modMessage
 

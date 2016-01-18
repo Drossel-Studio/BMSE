@@ -1,7 +1,6 @@
 Option Strict Off
 Option Explicit On
 Imports VB = Microsoft.VisualBasic
-Imports Microsoft.VisualBasic.PowerPacks
 
 Friend Class frmMain
     Inherits System.Windows.Forms.Form
