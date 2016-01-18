@@ -369,7 +369,11 @@ Module modMain
     Public g_Message(Message.Max - 1) As String
 
     Public Function LenB(ByVal stTarget As String) As Integer
-        Return System.Text.Encoding.Default.GetByteCount(stTarget)
+        If stTarget <> Nothing Then
+            Return System.Text.Encoding.Default.GetByteCount(stTarget)
+        Else
+            Return 0
+        End If
     End Function
 
     Public Sub StartUp()
