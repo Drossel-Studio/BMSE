@@ -322,10 +322,13 @@ Err_Renamed:
             SelectObject(hMDC, hBitMap)
             Call BitBlt(hDC, (.ClientRectangle.Width \ 2 - 128) + Val(_txtBGAPara_5.Text) - Val(_txtBGAPara_1.Text), (.ClientRectangle.Height \ 2 - 128) + Val(_txtBGAPara_6.Text) - Val(_txtBGAPara_2.Text), picBackBuffer.ClientRectangle.Width, picBackBuffer.ClientRectangle.Height, hMDC, 0, 0, SRCCOPY)
 
+            Dim hPen As IntPtr
+            Dim hOldPen As IntPtr
+
             If chkBGLine.CheckState Then
 
-                'UPGRADE_ISSUE: PictureBox プロパティ picPreview.DrawWidth はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-                '.DrawWidth = 1
+                hPen = CreatePen(PS_SOLID, 1, 0)
+                hOldPen = SelectObject(hDC, hPen)
 
                 For i = 4 To .ClientRectangle.Height Step 8
 
@@ -334,12 +337,18 @@ Err_Renamed:
 
                 Next i
 
+                SelectObject(hDC, hOldPen)
+                DeleteObject(hPen)
+
             End If
 
-            'UPGRADE_ISSUE: PictureBox プロパティ picPreview.DrawWidth はアップグレードされませんでした。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' をクリックしてください。
-            '.DrawWidth = 2
+            hPen = CreatePen(PS_SOLID, 2, 0)
+            hOldPen = SelectObject(hDC, hPen)
 
             Call Rectangle(hDC, .ClientRectangle.Width \ 2 - 129, .ClientRectangle.Height \ 2 - 129, .ClientRectangle.Width \ 2 + 130, .ClientRectangle.Height \ 2 + 130)
+
+            SelectObject(hDC, hOldPen)
+            DeleteObject(hPen)
 
             Call BitBlt(hDC, (.ClientRectangle.Width \ 2 - 128) + Val(_txtBGAPara_5.Text), (.ClientRectangle.Height \ 2 - 128) + Val(_txtBGAPara_6.Text), lngNumField(Val(_txtBGAPara_3.Text) - Val(_txtBGAPara_1.Text), 0, 256), lngNumField(Val(_txtBGAPara_4.Text) - Val(_txtBGAPara_2.Text), 0, 256), hMDC, Val(_txtBGAPara_1.Text), Val(_txtBGAPara_2.Text), SRCCOPY)
 
