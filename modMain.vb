@@ -370,7 +370,7 @@ Module modMain
 
     Public Function LenB(ByVal stTarget As String) As Integer
         If stTarget <> Nothing Then
-            Return System.Text.Encoding.Default.GetByteCount(stTarget)
+            Return System.Text.Encoding.Unicode.GetByteCount(stTarget)
         Else
             Return 0
         End If
