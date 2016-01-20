@@ -25,6 +25,23 @@ Friend Class frmMain
         Max
     End Enum
 
+    Public Structure LineData
+        Public pt1 As Point
+        Public pt2 As Point
+        Public Visible As Boolean
+    End Structure
+
+    Private _linStatusBar_0 As LineData
+    Private _linStatusBar_1 As LineData
+    Private _linToolbarBottom_0 As LineData
+    Private _linToolbarBottom_1 As LineData
+    Private _linHeader_0 As LineData
+    Private _linHeader_1 As LineData
+    Private _linVertical_0 As LineData
+    Private _linVertical_1 As LineData
+    Private _linDirectInput_0 As LineData
+    Private _linDirectInput_1 As LineData
+
     Public stringFont As Font
 
     Private m_intScrollDir As Short
@@ -1990,6 +2007,66 @@ Err_Renamed:
 
         Me.cboVScroll.Items.Add(New modMain.ItemWithData("1", 1))
 
+        _linStatusBar_0.pt1.X = 0
+        _linStatusBar_0.pt1.Y = 480 + MainMenu1.Height
+        _linStatusBar_0.pt2.X = 1244
+        _linStatusBar_0.pt2.Y = 480 + MainMenu1.Height
+        _linStatusBar_0.Visible = True
+
+        _linStatusBar_1.pt1.X = 0
+        _linStatusBar_1.pt1.Y = 481 + MainMenu1.Height
+        _linStatusBar_1.pt2.X = 1244
+        _linStatusBar_1.pt2.Y = 481 + MainMenu1.Height
+        _linStatusBar_1.Visible = True
+
+        _linToolbarBottom_0.pt1.X = 0
+        _linToolbarBottom_0.pt1.Y = 30 + MainMenu1.Height
+        _linToolbarBottom_0.pt2.X = 1244
+        _linToolbarBottom_0.pt2.Y = 30 + MainMenu1.Height
+        _linToolbarBottom_0.Visible = True
+
+        _linToolbarBottom_1.pt1.X = 0
+        _linToolbarBottom_1.pt1.Y = 31 + MainMenu1.Height
+        _linToolbarBottom_1.pt2.X = 1244
+        _linToolbarBottom_1.pt2.Y = 31 + MainMenu1.Height
+        _linToolbarBottom_1.Visible = True
+
+        _linHeader_0.pt1.X = 136
+        _linHeader_0.pt1.Y = 200 + MainMenu1.Height
+        _linHeader_0.pt2.X = 1248
+        _linHeader_0.pt2.Y = 200 + MainMenu1.Height
+        _linHeader_0.Visible = True
+
+        _linHeader_1.pt1.X = 136
+        _linHeader_1.pt1.Y = 201 + MainMenu1.Height
+        _linHeader_1.pt2.X = 1248
+        _linHeader_1.pt2.Y = 201 + MainMenu1.Height
+        _linHeader_1.Visible = True
+
+        _linVertical_0.pt1.X = 136
+        _linVertical_0.pt1.Y = 28 + MainMenu1.Height
+        _linVertical_0.pt2.X = 136
+        _linVertical_0.pt2.Y = 489 + MainMenu1.Height
+        _linVertical_0.Visible = True
+
+        _linVertical_1.pt1.X = 137
+        _linVertical_1.pt1.Y = 28 + MainMenu1.Height
+        _linVertical_1.pt2.X = 137
+        _linVertical_1.pt2.Y = 489 + MainMenu1.Height
+        _linVertical_1.Visible = True
+
+        _linDirectInput_0.pt1.X = 136
+        _linDirectInput_0.pt1.Y = 456 + MainMenu1.Height
+        _linDirectInput_0.pt2.X = 0
+        _linDirectInput_0.pt2.Y = 456 + MainMenu1.Height
+        _linDirectInput_0.Visible = True
+
+        _linDirectInput_1.pt1.X = 136
+        _linDirectInput_1.pt1.Y = 457 + MainMenu1.Height
+        _linDirectInput_1.pt2.X = 0
+        _linDirectInput_1.pt2.Y = 457 + MainMenu1.Height
+        _linDirectInput_1.Visible = True
+
         stringFont = Font
 
         Dim NewLargeChange As Short
@@ -2217,51 +2294,51 @@ Err_Renamed:
 
             staMain.Visible = _mnuViewItem_2.Checked
 
-            _linToolbarBottom_0.X1 = 0
-            _linToolbarBottom_0.X2 = .ClientRectangle.Width
-            _linToolbarBottom_0.Y1 = lngToolBarHeight
-            _linToolbarBottom_0.Y2 = _linToolbarBottom_0.Y1
-            _linToolbarBottom_1.X1 = 0
-            _linToolbarBottom_1.X2 = .ClientRectangle.Width
-            _linToolbarBottom_1.Y1 = _linToolbarBottom_0.Y1 + 1
-            _linToolbarBottom_1.Y2 = _linToolbarBottom_0.Y2 + 1
+            _linToolbarBottom_0.pt1.X = 0
+            _linToolbarBottom_0.pt2.X = .ClientRectangle.Width
+            _linToolbarBottom_0.pt1.Y = lngToolBarHeight
+            _linToolbarBottom_0.pt2.Y = _linToolbarBottom_0.pt1.Y
+            _linToolbarBottom_1.pt1.X = 0
+            _linToolbarBottom_1.pt2.X = .ClientRectangle.Width
+            _linToolbarBottom_1.pt1.Y = _linToolbarBottom_0.pt1.Y + 1
+            _linToolbarBottom_1.pt2.Y = _linToolbarBottom_0.pt2.Y + 1
 
-            _linVertical_0.X1 = .ClientRectangle.Width - FRAME_WIDTH - PADDING_Renamed - lngLineWidth
-            _linVertical_0.X2 = _linVertical_0.X1
-            _linVertical_1.X1 = _linVertical_0.X1 + 1
-            _linVertical_1.X2 = _linVertical_1.X1
+            _linVertical_0.pt1.X = .ClientRectangle.Width - FRAME_WIDTH - PADDING_Renamed - lngLineWidth
+            _linVertical_0.pt2.X = _linVertical_0.pt1.X
+            _linVertical_1.pt1.X = _linVertical_0.pt1.X + 1
+            _linVertical_1.pt2.X = _linVertical_1.pt1.X
 
-            _linVertical_0.Y1 = lngToolBarHeight
-            _linVertical_0.Y2 = .ClientRectangle.Height - lngStatusBarHeight
-            _linVertical_1.Y1 = _linVertical_0.Y1
-            _linVertical_1.Y2 = _linVertical_0.Y2
+            _linVertical_0.pt1.Y = lngToolBarHeight
+            _linVertical_0.pt2.Y = .ClientRectangle.Height - lngStatusBarHeight
+            _linVertical_1.pt1.Y = _linVertical_0.pt1.Y
+            _linVertical_1.pt2.Y = _linVertical_0.pt2.Y
 
-            _linHeader_0.X1 = _linHeader_0.X1
-            _linHeader_0.X2 = .ClientRectangle.Width
-            _linHeader_0.Y1 = lngToolBarHeight + PADDING_Renamed + FRAME_TOP_HEIGHT + PADDING_Renamed
-            _linHeader_0.Y2 = _linHeader_0.Y1
-            _linHeader_1.X1 = _linHeader_0.X1
-            _linHeader_1.X2 = _linHeader_0.X2
-            _linHeader_1.Y1 = _linHeader_0.Y1 + 1
-            _linHeader_1.Y2 = _linHeader_0.Y2 + 1
+            _linHeader_0.pt1.X = _linHeader_0.pt1.X
+            _linHeader_0.pt2.X = .ClientRectangle.Width
+            _linHeader_0.pt1.Y = lngToolBarHeight + PADDING_Renamed + FRAME_TOP_HEIGHT + PADDING_Renamed
+            _linHeader_0.pt2.Y = _linHeader_0.pt1.Y
+            _linHeader_1.pt1.X = _linHeader_0.pt1.X
+            _linHeader_1.pt2.X = _linHeader_0.pt2.X
+            _linHeader_1.pt1.Y = _linHeader_0.pt1.Y + 1
+            _linHeader_1.pt2.Y = _linHeader_0.pt2.Y + 1
 
-            _linDirectInput_0.X1 = 0
-            _linDirectInput_0.X2 = _linVertical_0.X1
-            _linDirectInput_0.Y1 = .ClientRectangle.Height - lngStatusBarHeight - PADDING_Renamed - COLUMN_HEIGHT - PADDING_Renamed
-            _linDirectInput_0.Y2 = _linDirectInput_0.Y1
-            _linDirectInput_1.X1 = _linDirectInput_0.X1
-            _linDirectInput_1.X2 = _linDirectInput_0.X2
-            _linDirectInput_1.Y1 = _linDirectInput_0.Y1 + 1
-            _linDirectInput_1.Y2 = _linDirectInput_0.Y2 + 1
+            _linDirectInput_0.pt1.X = 0
+            _linDirectInput_0.pt2.X = _linVertical_0.pt1.X
+            _linDirectInput_0.pt1.Y = .ClientRectangle.Height - lngStatusBarHeight - PADDING_Renamed - COLUMN_HEIGHT - PADDING_Renamed
+            _linDirectInput_0.pt2.Y = _linDirectInput_0.pt1.Y
+            _linDirectInput_1.pt1.X = _linDirectInput_0.pt1.X
+            _linDirectInput_1.pt2.X = _linDirectInput_0.pt2.X
+            _linDirectInput_1.pt1.Y = _linDirectInput_0.pt1.Y + 1
+            _linDirectInput_1.pt2.Y = _linDirectInput_0.pt2.Y + 1
 
-            _linStatusBar_0.X1 = 0
-            _linStatusBar_0.X2 = .ClientRectangle.Width
-            _linStatusBar_0.Y1 = .ClientRectangle.Height - lngStatusBarHeight
-            _linStatusBar_0.Y2 = .ClientRectangle.Height - lngStatusBarHeight
-            _linStatusBar_1.X1 = _linStatusBar_0.X1
-            _linStatusBar_1.X2 = _linStatusBar_0.X2
-            _linStatusBar_1.Y1 = _linStatusBar_0.Y1 + 1
-            _linStatusBar_1.Y2 = _linStatusBar_0.Y2 + 1
+            _linStatusBar_0.pt1.X = 0
+            _linStatusBar_0.pt2.X = .ClientRectangle.Width
+            _linStatusBar_0.pt1.Y = .ClientRectangle.Height - lngStatusBarHeight
+            _linStatusBar_0.pt2.Y = .ClientRectangle.Height - lngStatusBarHeight
+            _linStatusBar_1.pt1.X = _linStatusBar_0.pt1.X
+            _linStatusBar_1.pt2.X = _linStatusBar_0.pt2.X
+            _linStatusBar_1.pt1.Y = _linStatusBar_0.pt1.Y + 1
+            _linStatusBar_1.pt2.Y = _linStatusBar_0.pt2.Y + 1
 
             _linStatusBar_0.Visible = _mnuViewItem_2.Checked
             _linStatusBar_1.Visible = _mnuViewItem_2.Checked
@@ -6259,5 +6336,45 @@ Err_Renamed:
 
     Private Sub hsbMain_ValueChanged(sender As Object, e As EventArgs) Handles hsbMain.ValueChanged
         hsbMain_Change(hsbMain.Value)
+    End Sub
+
+    Private Sub frmMain_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
+        Dim DarkPen As Pen = New Pen(System.Drawing.SystemColors.ControlDark)
+        Dim LightPen As Pen = New Pen(System.Drawing.SystemColors.ControlLight)
+
+        If _linStatusBar_0.Visible Then
+            e.Graphics.DrawLine(DarkPen, _linStatusBar_0.pt1, _linStatusBar_0.pt2)
+        End If
+        If _linStatusBar_1.Visible Then
+            e.Graphics.DrawLine(LightPen, _linStatusBar_1.pt1, _linStatusBar_1.pt2)
+        End If
+        If _linToolbarBottom_0.Visible Then
+            e.Graphics.DrawLine(DarkPen, _linToolbarBottom_0.pt1, _linToolbarBottom_0.pt2)
+        End If
+        If _linToolbarBottom_1.Visible Then
+            e.Graphics.DrawLine(LightPen, _linToolbarBottom_1.pt1, _linToolbarBottom_1.pt2)
+        End If
+        If _linHeader_0.Visible Then
+            e.Graphics.DrawLine(DarkPen, _linHeader_0.pt1, _linHeader_0.pt2)
+        End If
+        If _linHeader_1.Visible Then
+            e.Graphics.DrawLine(LightPen, _linHeader_1.pt1, _linHeader_1.pt2)
+        End If
+        If _linVertical_0.Visible Then
+            e.Graphics.DrawLine(DarkPen, _linVertical_0.pt1, _linVertical_0.pt2)
+        End If
+        If _linVertical_1.Visible Then
+            e.Graphics.DrawLine(LightPen, _linVertical_1.pt1, _linVertical_1.pt2)
+        End If
+        If _linDirectInput_0.Visible Then
+            e.Graphics.DrawLine(DarkPen, _linDirectInput_0.pt1, _linDirectInput_0.pt2)
+        End If
+        If _linDirectInput_1.Visible Then
+            e.Graphics.DrawLine(LightPen, _linDirectInput_1.pt1, _linDirectInput_1.pt2)
+        End If
+
+        DarkPen.Dispose()
+        LightPen.Dispose()
+
     End Sub
 End Class

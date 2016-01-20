@@ -233,18 +233,7 @@
     Public WithEvents SepResolution As System.Windows.Forms.ToolStripSeparator
     Public WithEvents Resolution As System.Windows.Forms.ToolStripSeparator
     Public WithEvents tlbMenu As System.Windows.Forms.ToolStrip
-    Public WithEvents _linStatusBar_0 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Public WithEvents _linStatusBar_1 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Public WithEvents _linToolbarBottom_0 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Public WithEvents _linHeader_0 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Public WithEvents _linVertical_0 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Public WithEvents _linDirectInput_0 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Public WithEvents _linDirectInput_1 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Public WithEvents _linHeader_1 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Public WithEvents _linVertical_1 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Public WithEvents _linToolbarBottom_1 As Microsoft.VisualBasic.PowerPacks.LineShape
     Public WithEvents lblDirectInput As System.Windows.Forms.Label
-    Public WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
     'メモ: 以下のプロシージャは Windows フォーム デザイナで必要です。
     'Windows フォーム デザイナを使って変更できます。
     'コード エディタを使用して、変更しないでください。
@@ -252,17 +241,6 @@
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
-        Me._linStatusBar_0 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me._linStatusBar_1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me._linToolbarBottom_0 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me._linHeader_0 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me._linVertical_0 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me._linDirectInput_0 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me._linDirectInput_1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me._linHeader_1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me._linVertical_1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me._linToolbarBottom_1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
         Me.MainMenu1 = New System.Windows.Forms.MenuStrip()
         Me.mnuFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuFileNew = New System.Windows.Forms.ToolStripMenuItem()
@@ -513,382 +491,282 @@
         Me.tlbMenu.SuspendLayout()
         Me.SuspendLayout()
         '
-        'ShapeContainer1
-        '
-        Me.ShapeContainer1.Location = New System.Drawing.Point(0, 0)
-        Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
-        Me.ShapeContainer1.Name = "ShapeContainer1"
-        Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me._linStatusBar_0, Me._linStatusBar_1, Me._linToolbarBottom_0, Me._linHeader_0, Me._linVertical_0, Me._linDirectInput_0, Me._linDirectInput_1, Me._linHeader_1, Me._linVertical_1, Me._linToolbarBottom_1})
-        Me.ShapeContainer1.Size = New System.Drawing.Size(1192, 530)
-        Me.ShapeContainer1.TabIndex = 100
-        Me.ShapeContainer1.TabStop = False
-        '
-        '_linStatusBar_0
-        '
-        Me._linStatusBar_0.BorderColor = System.Drawing.SystemColors.ControlDark
-        Me._linStatusBar_0.Name = "_linStatusBar_0"
-        Me._linStatusBar_0.X1 = 0
-        Me._linStatusBar_0.X2 = 1244
-        Me._linStatusBar_0.Y1 = 480
-        Me._linStatusBar_0.Y2 = 480
-        '
-        '_linStatusBar_1
-        '
-        Me._linStatusBar_1.BorderColor = System.Drawing.SystemColors.ControlLight
-        Me._linStatusBar_1.Name = "_linStatusBar_1"
-        Me._linStatusBar_1.X1 = 0
-        Me._linStatusBar_1.X2 = 1244
-        Me._linStatusBar_1.Y1 = 481
-        Me._linStatusBar_1.Y2 = 481
-        '
-        '_linToolbarBottom_0
-        '
-        Me._linToolbarBottom_0.BorderColor = System.Drawing.SystemColors.ControlDark
-        Me._linToolbarBottom_0.Name = "_linToolbarBottom_0"
-        Me._linToolbarBottom_0.X1 = 0
-        Me._linToolbarBottom_0.X2 = 1244
-        Me._linToolbarBottom_0.Y1 = 30
-        Me._linToolbarBottom_0.Y2 = 30
-        '
-        '_linHeader_0
-        '
-        Me._linHeader_0.BorderColor = System.Drawing.SystemColors.ControlDark
-        Me._linHeader_0.Name = "_linHeader_0"
-        Me._linHeader_0.X1 = 136
-        Me._linHeader_0.X2 = 1248
-        Me._linHeader_0.Y1 = 200
-        Me._linHeader_0.Y2 = 200
-        '
-        '_linVertical_0
-        '
-        Me._linVertical_0.BorderColor = System.Drawing.SystemColors.ControlDark
-        Me._linVertical_0.Name = "_linVertical_0"
-        Me._linVertical_0.X1 = 136
-        Me._linVertical_0.X2 = 136
-        Me._linVertical_0.Y1 = 28
-        Me._linVertical_0.Y2 = 490
-        '
-        '_linDirectInput_0
-        '
-        Me._linDirectInput_0.BorderColor = System.Drawing.SystemColors.ControlDark
-        Me._linDirectInput_0.Name = "_linDirectInput_0"
-        Me._linDirectInput_0.X1 = 136
-        Me._linDirectInput_0.X2 = 0
-        Me._linDirectInput_0.Y1 = 456
-        Me._linDirectInput_0.Y2 = 456
-        '
-        '_linDirectInput_1
-        '
-        Me._linDirectInput_1.BorderColor = System.Drawing.SystemColors.ControlLight
-        Me._linDirectInput_1.Name = "_linDirectInput_1"
-        Me._linDirectInput_1.X1 = 136
-        Me._linDirectInput_1.X2 = 0
-        Me._linDirectInput_1.Y1 = 457
-        Me._linDirectInput_1.Y2 = 457
-        '
-        '_linHeader_1
-        '
-        Me._linHeader_1.BorderColor = System.Drawing.SystemColors.ControlLight
-        Me._linHeader_1.Name = "_linHeader_1"
-        Me._linHeader_1.X1 = 136
-        Me._linHeader_1.X2 = 1248
-        Me._linHeader_1.Y1 = 201
-        Me._linHeader_1.Y2 = 201
-        '
-        '_linVertical_1
-        '
-        Me._linVertical_1.BorderColor = System.Drawing.SystemColors.ControlLight
-        Me._linVertical_1.Name = "_linVertical_1"
-        Me._linVertical_1.X1 = 137
-        Me._linVertical_1.X2 = 137
-        Me._linVertical_1.Y1 = 28
-        Me._linVertical_1.Y2 = 490
-        '
-        '_linToolbarBottom_1
-        '
-        Me._linToolbarBottom_1.BorderColor = System.Drawing.SystemColors.ControlLight
-        Me._linToolbarBottom_1.Name = "_linToolbarBottom_1"
-        Me._linToolbarBottom_1.X1 = 0
-        Me._linToolbarBottom_1.X2 = 1244
-        Me._linToolbarBottom_1.Y1 = 31
-        Me._linToolbarBottom_1.Y2 = 31
-        '
         'MainMenu1
         '
         Me.MainMenu1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.MainMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFile, Me.mnuEdit, Me.mnuView, Me.mnuOptions, Me.mnuTools, Me.mnuHelp})
         Me.MainMenu1.Location = New System.Drawing.Point(0, 0)
         Me.MainMenu1.Name = "MainMenu1"
-        Me.MainMenu1.Size = New System.Drawing.Size(1192, 33)
+        Me.MainMenu1.Size = New System.Drawing.Size(1192, 24)
         Me.MainMenu1.TabIndex = 101
         '
         'mnuFile
         '
         Me.mnuFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFileNew, Me.mnuFileOpen, Me.mnuFileSave, Me.mnuFileSaveAs, Me.mnuFileOpenDirectory, Me.mnuLineFile, Me._mnuRecentFiles_0, Me._mnuRecentFiles_1, Me._mnuRecentFiles_2, Me._mnuRecentFiles_3, Me._mnuRecentFiles_4, Me._mnuRecentFiles_5, Me._mnuRecentFiles_6, Me._mnuRecentFiles_7, Me._mnuRecentFiles_8, Me._mnuRecentFiles_9, Me.mnuLineRecent, Me.mnuFileConvertWizard, Me.mnuLineExit, Me.mnuFileExit})
         Me.mnuFile.Name = "mnuFile"
-        Me.mnuFile.Size = New System.Drawing.Size(86, 29)
+        Me.mnuFile.Size = New System.Drawing.Size(61, 20)
         Me.mnuFile.Text = "mnuFile"
         '
         'mnuFileNew
         '
         Me.mnuFileNew.Name = "mnuFileNew"
         Me.mnuFileNew.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.N), System.Windows.Forms.Keys)
-        Me.mnuFileNew.Size = New System.Drawing.Size(339, 30)
+        Me.mnuFileNew.Size = New System.Drawing.Size(234, 22)
         Me.mnuFileNew.Text = "mnuFileNew"
         '
         'mnuFileOpen
         '
         Me.mnuFileOpen.Name = "mnuFileOpen"
         Me.mnuFileOpen.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.O), System.Windows.Forms.Keys)
-        Me.mnuFileOpen.Size = New System.Drawing.Size(339, 30)
+        Me.mnuFileOpen.Size = New System.Drawing.Size(234, 22)
         Me.mnuFileOpen.Text = "mnuFileOpen"
         '
         'mnuFileSave
         '
         Me.mnuFileSave.Name = "mnuFileSave"
         Me.mnuFileSave.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-        Me.mnuFileSave.Size = New System.Drawing.Size(339, 30)
+        Me.mnuFileSave.Size = New System.Drawing.Size(234, 22)
         Me.mnuFileSave.Text = "mnuFileSave"
         '
         'mnuFileSaveAs
         '
         Me.mnuFileSaveAs.Name = "mnuFileSaveAs"
-        Me.mnuFileSaveAs.Size = New System.Drawing.Size(339, 30)
+        Me.mnuFileSaveAs.Size = New System.Drawing.Size(234, 22)
         Me.mnuFileSaveAs.Text = "mnuFileSaveAs"
         '
         'mnuFileOpenDirectory
         '
         Me.mnuFileOpenDirectory.Name = "mnuFileOpenDirectory"
         Me.mnuFileOpenDirectory.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.D), System.Windows.Forms.Keys)
-        Me.mnuFileOpenDirectory.Size = New System.Drawing.Size(339, 30)
+        Me.mnuFileOpenDirectory.Size = New System.Drawing.Size(234, 22)
         Me.mnuFileOpenDirectory.Text = "mnuFileOpenDirectory"
         '
         'mnuLineFile
         '
         Me.mnuLineFile.Name = "mnuLineFile"
-        Me.mnuLineFile.Size = New System.Drawing.Size(336, 6)
+        Me.mnuLineFile.Size = New System.Drawing.Size(231, 6)
         '
         '_mnuRecentFiles_0
         '
         Me._mnuRecentFiles_0.Name = "_mnuRecentFiles_0"
-        Me._mnuRecentFiles_0.Size = New System.Drawing.Size(339, 30)
+        Me._mnuRecentFiles_0.Size = New System.Drawing.Size(234, 22)
         Me._mnuRecentFiles_0.Text = "&1:"
         '
         '_mnuRecentFiles_1
         '
         Me._mnuRecentFiles_1.Name = "_mnuRecentFiles_1"
-        Me._mnuRecentFiles_1.Size = New System.Drawing.Size(339, 30)
+        Me._mnuRecentFiles_1.Size = New System.Drawing.Size(234, 22)
         Me._mnuRecentFiles_1.Text = "&2:"
         '
         '_mnuRecentFiles_2
         '
         Me._mnuRecentFiles_2.Name = "_mnuRecentFiles_2"
-        Me._mnuRecentFiles_2.Size = New System.Drawing.Size(339, 30)
+        Me._mnuRecentFiles_2.Size = New System.Drawing.Size(234, 22)
         Me._mnuRecentFiles_2.Text = "&3:"
         '
         '_mnuRecentFiles_3
         '
         Me._mnuRecentFiles_3.Name = "_mnuRecentFiles_3"
-        Me._mnuRecentFiles_3.Size = New System.Drawing.Size(339, 30)
+        Me._mnuRecentFiles_3.Size = New System.Drawing.Size(234, 22)
         Me._mnuRecentFiles_3.Text = "&4:"
         '
         '_mnuRecentFiles_4
         '
         Me._mnuRecentFiles_4.Name = "_mnuRecentFiles_4"
-        Me._mnuRecentFiles_4.Size = New System.Drawing.Size(339, 30)
+        Me._mnuRecentFiles_4.Size = New System.Drawing.Size(234, 22)
         Me._mnuRecentFiles_4.Text = "&5:"
         '
         '_mnuRecentFiles_5
         '
         Me._mnuRecentFiles_5.Name = "_mnuRecentFiles_5"
-        Me._mnuRecentFiles_5.Size = New System.Drawing.Size(339, 30)
+        Me._mnuRecentFiles_5.Size = New System.Drawing.Size(234, 22)
         Me._mnuRecentFiles_5.Text = "&6:"
         Me._mnuRecentFiles_5.Visible = False
         '
         '_mnuRecentFiles_6
         '
         Me._mnuRecentFiles_6.Name = "_mnuRecentFiles_6"
-        Me._mnuRecentFiles_6.Size = New System.Drawing.Size(339, 30)
+        Me._mnuRecentFiles_6.Size = New System.Drawing.Size(234, 22)
         Me._mnuRecentFiles_6.Text = "&7:"
         Me._mnuRecentFiles_6.Visible = False
         '
         '_mnuRecentFiles_7
         '
         Me._mnuRecentFiles_7.Name = "_mnuRecentFiles_7"
-        Me._mnuRecentFiles_7.Size = New System.Drawing.Size(339, 30)
+        Me._mnuRecentFiles_7.Size = New System.Drawing.Size(234, 22)
         Me._mnuRecentFiles_7.Text = "&8:"
         Me._mnuRecentFiles_7.Visible = False
         '
         '_mnuRecentFiles_8
         '
         Me._mnuRecentFiles_8.Name = "_mnuRecentFiles_8"
-        Me._mnuRecentFiles_8.Size = New System.Drawing.Size(339, 30)
+        Me._mnuRecentFiles_8.Size = New System.Drawing.Size(234, 22)
         Me._mnuRecentFiles_8.Text = "&9:"
         Me._mnuRecentFiles_8.Visible = False
         '
         '_mnuRecentFiles_9
         '
         Me._mnuRecentFiles_9.Name = "_mnuRecentFiles_9"
-        Me._mnuRecentFiles_9.Size = New System.Drawing.Size(339, 30)
+        Me._mnuRecentFiles_9.Size = New System.Drawing.Size(234, 22)
         Me._mnuRecentFiles_9.Text = "&0:"
         Me._mnuRecentFiles_9.Visible = False
         '
         'mnuLineRecent
         '
         Me.mnuLineRecent.Name = "mnuLineRecent"
-        Me.mnuLineRecent.Size = New System.Drawing.Size(336, 6)
+        Me.mnuLineRecent.Size = New System.Drawing.Size(231, 6)
         '
         'mnuFileConvertWizard
         '
         Me.mnuFileConvertWizard.Name = "mnuFileConvertWizard"
-        Me.mnuFileConvertWizard.Size = New System.Drawing.Size(339, 30)
+        Me.mnuFileConvertWizard.Size = New System.Drawing.Size(234, 22)
         Me.mnuFileConvertWizard.Text = "mnuFileConvertWizard"
         '
         'mnuLineExit
         '
         Me.mnuLineExit.Name = "mnuLineExit"
-        Me.mnuLineExit.Size = New System.Drawing.Size(336, 6)
+        Me.mnuLineExit.Size = New System.Drawing.Size(231, 6)
         '
         'mnuFileExit
         '
         Me.mnuFileExit.Name = "mnuFileExit"
-        Me.mnuFileExit.Size = New System.Drawing.Size(339, 30)
+        Me.mnuFileExit.Size = New System.Drawing.Size(234, 22)
         Me.mnuFileExit.Text = "mnuFileExit"
         '
         'mnuEdit
         '
         Me.mnuEdit.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEditUndo, Me.mnuEditRedo, Me.mnuLineEdit1, Me.mnuEditCut, Me.mnuEditCopy, Me.mnuEditPaste, Me.mnuEditDelete, Me.mnuLineEdit2, Me.mnuEditSelectAll, Me.mnuLineEdit3, Me.mnuEditFind, Me.mnuLineEdit4, Me._mnuEditMode_0, Me._mnuEditMode_1, Me._mnuEditMode_2})
         Me.mnuEdit.Name = "mnuEdit"
-        Me.mnuEdit.Size = New System.Drawing.Size(90, 29)
+        Me.mnuEdit.Size = New System.Drawing.Size(63, 20)
         Me.mnuEdit.Text = "mnuEdit"
         '
         'mnuEditUndo
         '
         Me.mnuEditUndo.Name = "mnuEditUndo"
         Me.mnuEditUndo.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Z), System.Windows.Forms.Keys)
-        Me.mnuEditUndo.Size = New System.Drawing.Size(292, 30)
+        Me.mnuEditUndo.Size = New System.Drawing.Size(204, 22)
         Me.mnuEditUndo.Text = "mnuEditUndo"
         '
         'mnuEditRedo
         '
         Me.mnuEditRedo.Name = "mnuEditRedo"
         Me.mnuEditRedo.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Y), System.Windows.Forms.Keys)
-        Me.mnuEditRedo.Size = New System.Drawing.Size(292, 30)
+        Me.mnuEditRedo.Size = New System.Drawing.Size(204, 22)
         Me.mnuEditRedo.Text = "mnuEditRedo"
         '
         'mnuLineEdit1
         '
         Me.mnuLineEdit1.Name = "mnuLineEdit1"
-        Me.mnuLineEdit1.Size = New System.Drawing.Size(289, 6)
+        Me.mnuLineEdit1.Size = New System.Drawing.Size(201, 6)
         '
         'mnuEditCut
         '
         Me.mnuEditCut.Name = "mnuEditCut"
         Me.mnuEditCut.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.mnuEditCut.Size = New System.Drawing.Size(292, 30)
+        Me.mnuEditCut.Size = New System.Drawing.Size(204, 22)
         Me.mnuEditCut.Text = "mnuEditCut"
         '
         'mnuEditCopy
         '
         Me.mnuEditCopy.Name = "mnuEditCopy"
         Me.mnuEditCopy.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.C), System.Windows.Forms.Keys)
-        Me.mnuEditCopy.Size = New System.Drawing.Size(292, 30)
+        Me.mnuEditCopy.Size = New System.Drawing.Size(204, 22)
         Me.mnuEditCopy.Text = "mnuEditCopy"
         '
         'mnuEditPaste
         '
         Me.mnuEditPaste.Name = "mnuEditPaste"
         Me.mnuEditPaste.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.V), System.Windows.Forms.Keys)
-        Me.mnuEditPaste.Size = New System.Drawing.Size(292, 30)
+        Me.mnuEditPaste.Size = New System.Drawing.Size(204, 22)
         Me.mnuEditPaste.Text = "mnuEditPaste"
         '
         'mnuEditDelete
         '
         Me.mnuEditDelete.Name = "mnuEditDelete"
         Me.mnuEditDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete
-        Me.mnuEditDelete.Size = New System.Drawing.Size(292, 30)
+        Me.mnuEditDelete.Size = New System.Drawing.Size(204, 22)
         Me.mnuEditDelete.Text = "mnuEditDelete"
         '
         'mnuLineEdit2
         '
         Me.mnuLineEdit2.Name = "mnuLineEdit2"
-        Me.mnuLineEdit2.Size = New System.Drawing.Size(289, 6)
+        Me.mnuLineEdit2.Size = New System.Drawing.Size(201, 6)
         '
         'mnuEditSelectAll
         '
         Me.mnuEditSelectAll.Name = "mnuEditSelectAll"
         Me.mnuEditSelectAll.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.A), System.Windows.Forms.Keys)
-        Me.mnuEditSelectAll.Size = New System.Drawing.Size(292, 30)
+        Me.mnuEditSelectAll.Size = New System.Drawing.Size(204, 22)
         Me.mnuEditSelectAll.Text = "mnuEditSelectAll"
         '
         'mnuLineEdit3
         '
         Me.mnuLineEdit3.Name = "mnuLineEdit3"
-        Me.mnuLineEdit3.Size = New System.Drawing.Size(289, 6)
+        Me.mnuLineEdit3.Size = New System.Drawing.Size(201, 6)
         '
         'mnuEditFind
         '
         Me.mnuEditFind.Name = "mnuEditFind"
         Me.mnuEditFind.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.F), System.Windows.Forms.Keys)
-        Me.mnuEditFind.Size = New System.Drawing.Size(292, 30)
+        Me.mnuEditFind.Size = New System.Drawing.Size(204, 22)
         Me.mnuEditFind.Text = "mnuEditFind"
         '
         'mnuLineEdit4
         '
         Me.mnuLineEdit4.Name = "mnuLineEdit4"
-        Me.mnuLineEdit4.Size = New System.Drawing.Size(289, 6)
+        Me.mnuLineEdit4.Size = New System.Drawing.Size(201, 6)
         '
         '_mnuEditMode_0
         '
         Me._mnuEditMode_0.Name = "_mnuEditMode_0"
         Me._mnuEditMode_0.ShortcutKeys = System.Windows.Forms.Keys.F2
-        Me._mnuEditMode_0.Size = New System.Drawing.Size(292, 30)
+        Me._mnuEditMode_0.Size = New System.Drawing.Size(204, 22)
         Me._mnuEditMode_0.Text = "mnuEditMode(0)"
         '
         '_mnuEditMode_1
         '
         Me._mnuEditMode_1.Name = "_mnuEditMode_1"
         Me._mnuEditMode_1.ShortcutKeys = System.Windows.Forms.Keys.F3
-        Me._mnuEditMode_1.Size = New System.Drawing.Size(292, 30)
+        Me._mnuEditMode_1.Size = New System.Drawing.Size(204, 22)
         Me._mnuEditMode_1.Text = "mnuEditMode(1)"
         '
         '_mnuEditMode_2
         '
         Me._mnuEditMode_2.Name = "_mnuEditMode_2"
         Me._mnuEditMode_2.ShortcutKeys = System.Windows.Forms.Keys.F4
-        Me._mnuEditMode_2.Size = New System.Drawing.Size(292, 30)
+        Me._mnuEditMode_2.Size = New System.Drawing.Size(204, 22)
         Me._mnuEditMode_2.Text = "mnuEditMode(2)"
         '
         'mnuView
         '
         Me.mnuView.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me._mnuViewItem_0, Me._mnuViewItem_1, Me._mnuViewItem_2})
         Me.mnuView.Name = "mnuView"
-        Me.mnuView.Size = New System.Drawing.Size(97, 29)
+        Me.mnuView.Size = New System.Drawing.Size(68, 20)
         Me.mnuView.Text = "mnuView"
         '
         '_mnuViewItem_0
         '
         Me._mnuViewItem_0.Name = "_mnuViewItem_0"
-        Me._mnuViewItem_0.Size = New System.Drawing.Size(226, 30)
+        Me._mnuViewItem_0.Size = New System.Drawing.Size(160, 22)
         Me._mnuViewItem_0.Text = "mnuViewItem(0)"
         '
         '_mnuViewItem_1
         '
         Me._mnuViewItem_1.Name = "_mnuViewItem_1"
-        Me._mnuViewItem_1.Size = New System.Drawing.Size(226, 30)
+        Me._mnuViewItem_1.Size = New System.Drawing.Size(160, 22)
         Me._mnuViewItem_1.Text = "mnuViewItem(1)"
         '
         '_mnuViewItem_2
         '
         Me._mnuViewItem_2.Name = "_mnuViewItem_2"
-        Me._mnuViewItem_2.Size = New System.Drawing.Size(226, 30)
+        Me._mnuViewItem_2.Size = New System.Drawing.Size(160, 22)
         Me._mnuViewItem_2.Text = "mnuViewItem(2)"
         '
         'mnuOptions
         '
         Me.mnuOptions.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me._mnuOptionsItem_0, Me._mnuOptionsItem_1, Me._mnuOptionsItem_2, Me._mnuOptionsItem_3, Me._mnuOptionsItem_4, Me._mnuOptionsItem_5, Me._mnuOptionsItem_6, Me._mnuOptionsItem_7, Me.mnuLineOptions, Me.mnuLanguageParent, Me.mnuThemeParent})
         Me.mnuOptions.Name = "mnuOptions"
-        Me.mnuOptions.Size = New System.Drawing.Size(124, 29)
+        Me.mnuOptions.Size = New System.Drawing.Size(85, 20)
         Me.mnuOptions.Text = "mnuOptions"
         '
         '_mnuOptionsItem_0
@@ -896,7 +774,7 @@
         Me._mnuOptionsItem_0.Checked = True
         Me._mnuOptionsItem_0.CheckState = System.Windows.Forms.CheckState.Checked
         Me._mnuOptionsItem_0.Name = "_mnuOptionsItem_0"
-        Me._mnuOptionsItem_0.Size = New System.Drawing.Size(253, 30)
+        Me._mnuOptionsItem_0.Size = New System.Drawing.Size(177, 22)
         Me._mnuOptionsItem_0.Text = "mnuOptionsItem(0)"
         '
         '_mnuOptionsItem_1
@@ -904,7 +782,7 @@
         Me._mnuOptionsItem_1.Checked = True
         Me._mnuOptionsItem_1.CheckState = System.Windows.Forms.CheckState.Checked
         Me._mnuOptionsItem_1.Name = "_mnuOptionsItem_1"
-        Me._mnuOptionsItem_1.Size = New System.Drawing.Size(253, 30)
+        Me._mnuOptionsItem_1.Size = New System.Drawing.Size(177, 22)
         Me._mnuOptionsItem_1.Text = "mnuOptionsItem(1)"
         '
         '_mnuOptionsItem_2
@@ -912,7 +790,7 @@
         Me._mnuOptionsItem_2.Checked = True
         Me._mnuOptionsItem_2.CheckState = System.Windows.Forms.CheckState.Checked
         Me._mnuOptionsItem_2.Name = "_mnuOptionsItem_2"
-        Me._mnuOptionsItem_2.Size = New System.Drawing.Size(253, 30)
+        Me._mnuOptionsItem_2.Size = New System.Drawing.Size(177, 22)
         Me._mnuOptionsItem_2.Text = "mnuOptionsItem(2)"
         '
         '_mnuOptionsItem_3
@@ -920,7 +798,7 @@
         Me._mnuOptionsItem_3.Checked = True
         Me._mnuOptionsItem_3.CheckState = System.Windows.Forms.CheckState.Checked
         Me._mnuOptionsItem_3.Name = "_mnuOptionsItem_3"
-        Me._mnuOptionsItem_3.Size = New System.Drawing.Size(253, 30)
+        Me._mnuOptionsItem_3.Size = New System.Drawing.Size(177, 22)
         Me._mnuOptionsItem_3.Text = "mnuOptionsItem(3)"
         '
         '_mnuOptionsItem_4
@@ -928,7 +806,7 @@
         Me._mnuOptionsItem_4.Checked = True
         Me._mnuOptionsItem_4.CheckState = System.Windows.Forms.CheckState.Checked
         Me._mnuOptionsItem_4.Name = "_mnuOptionsItem_4"
-        Me._mnuOptionsItem_4.Size = New System.Drawing.Size(253, 30)
+        Me._mnuOptionsItem_4.Size = New System.Drawing.Size(177, 22)
         Me._mnuOptionsItem_4.Text = "mnuOptionsItem(4)"
         '
         '_mnuOptionsItem_5
@@ -936,7 +814,7 @@
         Me._mnuOptionsItem_5.Checked = True
         Me._mnuOptionsItem_5.CheckState = System.Windows.Forms.CheckState.Checked
         Me._mnuOptionsItem_5.Name = "_mnuOptionsItem_5"
-        Me._mnuOptionsItem_5.Size = New System.Drawing.Size(253, 30)
+        Me._mnuOptionsItem_5.Size = New System.Drawing.Size(177, 22)
         Me._mnuOptionsItem_5.Text = "mnuOptionsItem(5)"
         '
         '_mnuOptionsItem_6
@@ -944,7 +822,7 @@
         Me._mnuOptionsItem_6.Checked = True
         Me._mnuOptionsItem_6.CheckState = System.Windows.Forms.CheckState.Checked
         Me._mnuOptionsItem_6.Name = "_mnuOptionsItem_6"
-        Me._mnuOptionsItem_6.Size = New System.Drawing.Size(253, 30)
+        Me._mnuOptionsItem_6.Size = New System.Drawing.Size(177, 22)
         Me._mnuOptionsItem_6.Text = "mnuOptionsItem(6)"
         '
         '_mnuOptionsItem_7
@@ -952,132 +830,132 @@
         Me._mnuOptionsItem_7.Checked = True
         Me._mnuOptionsItem_7.CheckState = System.Windows.Forms.CheckState.Checked
         Me._mnuOptionsItem_7.Name = "_mnuOptionsItem_7"
-        Me._mnuOptionsItem_7.Size = New System.Drawing.Size(253, 30)
+        Me._mnuOptionsItem_7.Size = New System.Drawing.Size(177, 22)
         Me._mnuOptionsItem_7.Text = "mnuOptionsItem(7)"
         '
         'mnuLineOptions
         '
         Me.mnuLineOptions.Name = "mnuLineOptions"
-        Me.mnuLineOptions.Size = New System.Drawing.Size(250, 6)
+        Me.mnuLineOptions.Size = New System.Drawing.Size(174, 6)
         '
         'mnuLanguageParent
         '
         Me.mnuLanguageParent.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me._mnuLanguage_0, Me._mnuLanguage_1, Me._mnuLanguage_2})
         Me.mnuLanguageParent.Name = "mnuLanguageParent"
-        Me.mnuLanguageParent.Size = New System.Drawing.Size(253, 30)
+        Me.mnuLanguageParent.Size = New System.Drawing.Size(177, 22)
         Me.mnuLanguageParent.Text = "Select &Language"
         '
         '_mnuLanguage_0
         '
         Me._mnuLanguage_0.Name = "_mnuLanguage_0"
-        Me._mnuLanguage_0.Size = New System.Drawing.Size(230, 30)
+        Me._mnuLanguage_0.Size = New System.Drawing.Size(164, 22)
         Me._mnuLanguage_0.Text = "mnuLanguage(0)"
         '
         '_mnuLanguage_1
         '
         Me._mnuLanguage_1.Name = "_mnuLanguage_1"
-        Me._mnuLanguage_1.Size = New System.Drawing.Size(230, 30)
+        Me._mnuLanguage_1.Size = New System.Drawing.Size(164, 22)
         Me._mnuLanguage_1.Text = "mnuLanguage(1)"
         '
         '_mnuLanguage_2
         '
         Me._mnuLanguage_2.Name = "_mnuLanguage_2"
-        Me._mnuLanguage_2.Size = New System.Drawing.Size(230, 30)
+        Me._mnuLanguage_2.Size = New System.Drawing.Size(164, 22)
         Me._mnuLanguage_2.Text = "mnuLanguage(2)"
         '
         'mnuThemeParent
         '
         Me.mnuThemeParent.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me._mnuTheme_0, Me._mnuTheme_1, Me._mnuTheme_2})
         Me.mnuThemeParent.Name = "mnuThemeParent"
-        Me.mnuThemeParent.Size = New System.Drawing.Size(253, 30)
+        Me.mnuThemeParent.Size = New System.Drawing.Size(177, 22)
         Me.mnuThemeParent.Text = "Select &Theme"
         '
         '_mnuTheme_0
         '
         Me._mnuTheme_0.Name = "_mnuTheme_0"
-        Me._mnuTheme_0.Size = New System.Drawing.Size(206, 30)
+        Me._mnuTheme_0.Size = New System.Drawing.Size(147, 22)
         Me._mnuTheme_0.Text = "mnuTheme(0)"
         '
         '_mnuTheme_1
         '
         Me._mnuTheme_1.Name = "_mnuTheme_1"
-        Me._mnuTheme_1.Size = New System.Drawing.Size(206, 30)
+        Me._mnuTheme_1.Size = New System.Drawing.Size(147, 22)
         Me._mnuTheme_1.Text = "mnuTheme(1)"
         '
         '_mnuTheme_2
         '
         Me._mnuTheme_2.Name = "_mnuTheme_2"
-        Me._mnuTheme_2.Size = New System.Drawing.Size(206, 30)
+        Me._mnuTheme_2.Size = New System.Drawing.Size(147, 22)
         Me._mnuTheme_2.Text = "mnuTheme(2)"
         '
         'mnuTools
         '
         Me.mnuTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuToolsPlayAll, Me.mnuToolsPlay, Me.mnuToolsPlayStop, Me.mnuLineTools, Me.mnuToolsSetting})
         Me.mnuTools.Name = "mnuTools"
-        Me.mnuTools.Size = New System.Drawing.Size(101, 29)
+        Me.mnuTools.Size = New System.Drawing.Size(70, 20)
         Me.mnuTools.Text = "mnuTools"
         '
         'mnuToolsPlayAll
         '
         Me.mnuToolsPlayAll.Name = "mnuToolsPlayAll"
         Me.mnuToolsPlayAll.ShortcutKeys = System.Windows.Forms.Keys.F6
-        Me.mnuToolsPlayAll.Size = New System.Drawing.Size(275, 30)
+        Me.mnuToolsPlayAll.Size = New System.Drawing.Size(190, 22)
         Me.mnuToolsPlayAll.Text = "mnuToolsPlayAll"
         '
         'mnuToolsPlay
         '
         Me.mnuToolsPlay.Name = "mnuToolsPlay"
         Me.mnuToolsPlay.ShortcutKeys = System.Windows.Forms.Keys.F7
-        Me.mnuToolsPlay.Size = New System.Drawing.Size(275, 30)
+        Me.mnuToolsPlay.Size = New System.Drawing.Size(190, 22)
         Me.mnuToolsPlay.Text = "mnuToolsPlay"
         '
         'mnuToolsPlayStop
         '
         Me.mnuToolsPlayStop.Name = "mnuToolsPlayStop"
         Me.mnuToolsPlayStop.ShortcutKeys = System.Windows.Forms.Keys.F8
-        Me.mnuToolsPlayStop.Size = New System.Drawing.Size(275, 30)
+        Me.mnuToolsPlayStop.Size = New System.Drawing.Size(190, 22)
         Me.mnuToolsPlayStop.Text = "mnuToolsPlayStop"
         '
         'mnuLineTools
         '
         Me.mnuLineTools.Name = "mnuLineTools"
-        Me.mnuLineTools.Size = New System.Drawing.Size(272, 6)
+        Me.mnuLineTools.Size = New System.Drawing.Size(187, 6)
         '
         'mnuToolsSetting
         '
         Me.mnuToolsSetting.Name = "mnuToolsSetting"
-        Me.mnuToolsSetting.Size = New System.Drawing.Size(275, 30)
+        Me.mnuToolsSetting.Size = New System.Drawing.Size(190, 22)
         Me.mnuToolsSetting.Text = "mnuToolsSetting"
         '
         'mnuHelp
         '
         Me.mnuHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuHelpOpen, Me.mnuLineHelp, Me.mnuHelpWeb, Me.mnuHelpAbout})
         Me.mnuHelp.Name = "mnuHelp"
-        Me.mnuHelp.Size = New System.Drawing.Size(97, 29)
+        Me.mnuHelp.Size = New System.Drawing.Size(68, 20)
         Me.mnuHelp.Text = "mnuHelp"
         '
         'mnuHelpOpen
         '
         Me.mnuHelpOpen.Name = "mnuHelpOpen"
         Me.mnuHelpOpen.ShortcutKeys = System.Windows.Forms.Keys.F1
-        Me.mnuHelpOpen.Size = New System.Drawing.Size(245, 30)
+        Me.mnuHelpOpen.Size = New System.Drawing.Size(171, 22)
         Me.mnuHelpOpen.Text = "mnuHelpOpen"
         '
         'mnuLineHelp
         '
         Me.mnuLineHelp.Name = "mnuLineHelp"
-        Me.mnuLineHelp.Size = New System.Drawing.Size(242, 6)
+        Me.mnuLineHelp.Size = New System.Drawing.Size(168, 6)
         '
         'mnuHelpWeb
         '
         Me.mnuHelpWeb.Name = "mnuHelpWeb"
-        Me.mnuHelpWeb.Size = New System.Drawing.Size(245, 30)
+        Me.mnuHelpWeb.Size = New System.Drawing.Size(171, 22)
         Me.mnuHelpWeb.Text = "mnuHelpWeb"
         '
         'mnuHelpAbout
         '
         Me.mnuHelpAbout.Name = "mnuHelpAbout"
-        Me.mnuHelpAbout.Size = New System.Drawing.Size(245, 30)
+        Me.mnuHelpAbout.Size = New System.Drawing.Size(171, 22)
         Me.mnuHelpAbout.Text = "mnuHelpAbout"
         '
         'mnuContext
@@ -1085,65 +963,65 @@
         Me.mnuContext.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.mnuContext.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextPlayAll, Me.mnuContextPlay, Me.mnuContextBar1, Me.mnuContextInsertMeasure, Me.mnuContextDeleteMeasure, Me.mnuContextBar2, Me.mnuContextEditCut, Me.mnuContextEditCopy, Me.mnuContextEditPaste, Me.mnuContextEditDelete})
         Me.mnuContext.Name = "mnuContext"
-        Me.mnuContext.Size = New System.Drawing.Size(312, 256)
+        Me.mnuContext.Size = New System.Drawing.Size(218, 192)
         Me.mnuContext.Text = "mnuContext"
         '
         'mnuContextPlayAll
         '
         Me.mnuContextPlayAll.Name = "mnuContextPlayAll"
-        Me.mnuContextPlayAll.Size = New System.Drawing.Size(311, 30)
+        Me.mnuContextPlayAll.Size = New System.Drawing.Size(217, 22)
         Me.mnuContextPlayAll.Text = "mnuContextPlayAll"
         '
         'mnuContextPlay
         '
         Me.mnuContextPlay.Name = "mnuContextPlay"
-        Me.mnuContextPlay.Size = New System.Drawing.Size(311, 30)
+        Me.mnuContextPlay.Size = New System.Drawing.Size(217, 22)
         Me.mnuContextPlay.Text = "mnuContextPlay"
         '
         'mnuContextBar1
         '
         Me.mnuContextBar1.Name = "mnuContextBar1"
-        Me.mnuContextBar1.Size = New System.Drawing.Size(308, 6)
+        Me.mnuContextBar1.Size = New System.Drawing.Size(214, 6)
         '
         'mnuContextInsertMeasure
         '
         Me.mnuContextInsertMeasure.Name = "mnuContextInsertMeasure"
-        Me.mnuContextInsertMeasure.Size = New System.Drawing.Size(311, 30)
+        Me.mnuContextInsertMeasure.Size = New System.Drawing.Size(217, 22)
         Me.mnuContextInsertMeasure.Text = "mnuContextInsertMeasure"
         '
         'mnuContextDeleteMeasure
         '
         Me.mnuContextDeleteMeasure.Name = "mnuContextDeleteMeasure"
-        Me.mnuContextDeleteMeasure.Size = New System.Drawing.Size(311, 30)
+        Me.mnuContextDeleteMeasure.Size = New System.Drawing.Size(217, 22)
         Me.mnuContextDeleteMeasure.Text = "mnuContextDeleteMeasure"
         '
         'mnuContextBar2
         '
         Me.mnuContextBar2.Name = "mnuContextBar2"
-        Me.mnuContextBar2.Size = New System.Drawing.Size(308, 6)
+        Me.mnuContextBar2.Size = New System.Drawing.Size(214, 6)
         '
         'mnuContextEditCut
         '
         Me.mnuContextEditCut.Name = "mnuContextEditCut"
-        Me.mnuContextEditCut.Size = New System.Drawing.Size(311, 30)
+        Me.mnuContextEditCut.Size = New System.Drawing.Size(217, 22)
         Me.mnuContextEditCut.Text = "mnuContextEditCut"
         '
         'mnuContextEditCopy
         '
         Me.mnuContextEditCopy.Name = "mnuContextEditCopy"
-        Me.mnuContextEditCopy.Size = New System.Drawing.Size(311, 30)
+        Me.mnuContextEditCopy.Size = New System.Drawing.Size(217, 22)
         Me.mnuContextEditCopy.Text = "mnuContextEditCopy"
         '
         'mnuContextEditPaste
         '
         Me.mnuContextEditPaste.Name = "mnuContextEditPaste"
-        Me.mnuContextEditPaste.Size = New System.Drawing.Size(311, 30)
+        Me.mnuContextEditPaste.Size = New System.Drawing.Size(217, 22)
         Me.mnuContextEditPaste.Text = "mnuContextEditPaste"
         '
         'mnuContextEditDelete
         '
         Me.mnuContextEditDelete.Name = "mnuContextEditDelete"
-        Me.mnuContextEditDelete.Size = New System.Drawing.Size(311, 30)
+        Me.mnuContextEditDelete.Size = New System.Drawing.Size(217, 22)
         Me.mnuContextEditDelete.Text = "mnuContextEditDelete"
         '
         'mnuContextList
@@ -1151,25 +1029,25 @@
         Me.mnuContextList.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.mnuContextList.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextListLoad, Me.mnuContextListDelete, Me.mnuContextListRename})
         Me.mnuContextList.Name = "mnuContextList"
-        Me.mnuContextList.Size = New System.Drawing.Size(285, 94)
+        Me.mnuContextList.Size = New System.Drawing.Size(200, 70)
         Me.mnuContextList.Text = "mnuContextList"
         '
         'mnuContextListLoad
         '
         Me.mnuContextListLoad.Name = "mnuContextListLoad"
-        Me.mnuContextListLoad.Size = New System.Drawing.Size(284, 30)
+        Me.mnuContextListLoad.Size = New System.Drawing.Size(199, 22)
         Me.mnuContextListLoad.Text = "mnuContextListLoad"
         '
         'mnuContextListDelete
         '
         Me.mnuContextListDelete.Name = "mnuContextListDelete"
-        Me.mnuContextListDelete.Size = New System.Drawing.Size(284, 30)
+        Me.mnuContextListDelete.Size = New System.Drawing.Size(199, 22)
         Me.mnuContextListDelete.Text = "mnuContextListDelete"
         '
         'mnuContextListRename
         '
         Me.mnuContextListRename.Name = "mnuContextListRename"
-        Me.mnuContextListRename.Size = New System.Drawing.Size(284, 30)
+        Me.mnuContextListRename.Size = New System.Drawing.Size(199, 22)
         Me.mnuContextListRename.Text = "mnuContextListRename"
         '
         'staMain
@@ -1296,7 +1174,7 @@
         Me.cboVScroll.Location = New System.Drawing.Point(48, 0)
         Me.cboVScroll.Name = "cboVScroll"
         Me.cboVScroll.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cboVScroll.Size = New System.Drawing.Size(57, 26)
+        Me.cboVScroll.Size = New System.Drawing.Size(57, 20)
         Me.cboVScroll.TabIndex = 18
         '
         'lblVScroll
@@ -1308,7 +1186,7 @@
         Me.lblVScroll.Location = New System.Drawing.Point(0, 4)
         Me.lblVScroll.Name = "lblVScroll"
         Me.lblVScroll.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblVScroll.Size = New System.Drawing.Size(71, 18)
+        Me.lblVScroll.Size = New System.Drawing.Size(47, 12)
         Me.lblVScroll.TabIndex = 17
         Me.lblVScroll.Text = "VScroll"
         '
@@ -1335,7 +1213,7 @@
         Me.cboDispHeight.Location = New System.Drawing.Point(32, 0)
         Me.cboDispHeight.Name = "cboDispHeight"
         Me.cboDispHeight.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cboDispHeight.Size = New System.Drawing.Size(57, 26)
+        Me.cboDispHeight.Size = New System.Drawing.Size(57, 20)
         Me.cboDispHeight.TabIndex = 13
         '
         'cboDispWidth
@@ -1347,7 +1225,7 @@
         Me.cboDispWidth.Location = New System.Drawing.Point(116, 0)
         Me.cboDispWidth.Name = "cboDispWidth"
         Me.cboDispWidth.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cboDispWidth.Size = New System.Drawing.Size(57, 26)
+        Me.cboDispWidth.Size = New System.Drawing.Size(57, 20)
         Me.cboDispWidth.TabIndex = 15
         '
         'lblDispWidth
@@ -1359,7 +1237,7 @@
         Me.lblDispWidth.Location = New System.Drawing.Point(96, 4)
         Me.lblDispWidth.Name = "lblDispWidth"
         Me.lblDispWidth.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblDispWidth.Size = New System.Drawing.Size(26, 18)
+        Me.lblDispWidth.Size = New System.Drawing.Size(17, 12)
         Me.lblDispWidth.TabIndex = 14
         Me.lblDispWidth.Text = "幅"
         '
@@ -1372,7 +1250,7 @@
         Me.lblDispHeight.Location = New System.Drawing.Point(0, 4)
         Me.lblDispHeight.Name = "lblDispHeight"
         Me.lblDispHeight.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblDispHeight.Size = New System.Drawing.Size(44, 18)
+        Me.lblDispHeight.Size = New System.Drawing.Size(29, 12)
         Me.lblDispHeight.TabIndex = 12
         Me.lblDispHeight.Text = "高さ"
         '
@@ -1396,7 +1274,7 @@
         Me.cboViewer.Location = New System.Drawing.Point(0, 0)
         Me.cboViewer.Name = "cboViewer"
         Me.cboViewer.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cboViewer.Size = New System.Drawing.Size(89, 26)
+        Me.cboViewer.Size = New System.Drawing.Size(89, 20)
         Me.cboViewer.TabIndex = 5
         '
         'tmrMain
@@ -1426,7 +1304,7 @@
         Me.cboDirectInput.Location = New System.Drawing.Point(40, 480)
         Me.cboDirectInput.Name = "cboDirectInput"
         Me.cboDirectInput.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cboDirectInput.Size = New System.Drawing.Size(29, 26)
+        Me.cboDirectInput.Size = New System.Drawing.Size(29, 20)
         Me.cboDirectInput.TabIndex = 96
         '
         'cmdDirectInput
@@ -1465,7 +1343,7 @@
         Me.cboDispGridMain.Location = New System.Drawing.Point(128, 0)
         Me.cboDispGridMain.Name = "cboDispGridMain"
         Me.cboDispGridMain.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cboDispGridMain.Size = New System.Drawing.Size(57, 26)
+        Me.cboDispGridMain.Size = New System.Drawing.Size(57, 20)
         Me.cboDispGridMain.TabIndex = 10
         '
         'cboDispGridSub
@@ -1477,7 +1355,7 @@
         Me.cboDispGridSub.Location = New System.Drawing.Point(32, 0)
         Me.cboDispGridSub.Name = "cboDispGridSub"
         Me.cboDispGridSub.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cboDispGridSub.Size = New System.Drawing.Size(57, 26)
+        Me.cboDispGridSub.Size = New System.Drawing.Size(57, 20)
         Me.cboDispGridSub.TabIndex = 8
         '
         'lblGridSub
@@ -1489,7 +1367,7 @@
         Me.lblGridSub.Location = New System.Drawing.Point(96, 4)
         Me.lblGridSub.Name = "lblGridSub"
         Me.lblGridSub.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblGridSub.Size = New System.Drawing.Size(44, 18)
+        Me.lblGridSub.Size = New System.Drawing.Size(29, 12)
         Me.lblGridSub.TabIndex = 9
         Me.lblGridSub.Text = "補助"
         '
@@ -1502,7 +1380,7 @@
         Me.lblGridMain.Location = New System.Drawing.Point(0, 4)
         Me.lblGridMain.Name = "lblGridMain"
         Me.lblGridMain.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblGridMain.Size = New System.Drawing.Size(44, 18)
+        Me.lblGridMain.Size = New System.Drawing.Size(29, 12)
         Me.lblGridMain.TabIndex = 7
         Me.lblGridMain.Text = "Grid"
         '
@@ -1603,7 +1481,7 @@
         Me.cboPlayer.Location = New System.Drawing.Point(80, 8)
         Me.cboPlayer.Name = "cboPlayer"
         Me.cboPlayer.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cboPlayer.Size = New System.Drawing.Size(133, 26)
+        Me.cboPlayer.Size = New System.Drawing.Size(133, 20)
         Me.cboPlayer.TabIndex = 25
         '
         'txtGenre
@@ -1616,7 +1494,7 @@
         Me.txtGenre.MaxLength = 0
         Me.txtGenre.Name = "txtGenre"
         Me.txtGenre.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtGenre.Size = New System.Drawing.Size(133, 25)
+        Me.txtGenre.Size = New System.Drawing.Size(133, 19)
         Me.txtGenre.TabIndex = 27
         '
         'txtTitle
@@ -1629,7 +1507,7 @@
         Me.txtTitle.MaxLength = 0
         Me.txtTitle.Name = "txtTitle"
         Me.txtTitle.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtTitle.Size = New System.Drawing.Size(133, 25)
+        Me.txtTitle.Size = New System.Drawing.Size(133, 19)
         Me.txtTitle.TabIndex = 29
         '
         'txtArtist
@@ -1642,7 +1520,7 @@
         Me.txtArtist.MaxLength = 0
         Me.txtArtist.Name = "txtArtist"
         Me.txtArtist.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtArtist.Size = New System.Drawing.Size(133, 25)
+        Me.txtArtist.Size = New System.Drawing.Size(133, 19)
         Me.txtArtist.TabIndex = 31
         '
         'cboPlayLevel
@@ -1655,7 +1533,7 @@
         Me.cboPlayLevel.Location = New System.Drawing.Point(80, 104)
         Me.cboPlayLevel.Name = "cboPlayLevel"
         Me.cboPlayLevel.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cboPlayLevel.Size = New System.Drawing.Size(49, 26)
+        Me.cboPlayLevel.Size = New System.Drawing.Size(49, 20)
         Me.cboPlayLevel.TabIndex = 33
         '
         'txtBPM
@@ -1669,7 +1547,7 @@
         Me.txtBPM.MaxLength = 0
         Me.txtBPM.Name = "txtBPM"
         Me.txtBPM.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtBPM.Size = New System.Drawing.Size(41, 25)
+        Me.txtBPM.Size = New System.Drawing.Size(41, 19)
         Me.txtBPM.TabIndex = 35
         Me.txtBPM.Text = "130"
         '
@@ -1682,7 +1560,7 @@
         Me.lblPlayMode.Location = New System.Drawing.Point(4, 12)
         Me.lblPlayMode.Name = "lblPlayMode"
         Me.lblPlayMode.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblPlayMode.Size = New System.Drawing.Size(116, 18)
+        Me.lblPlayMode.Size = New System.Drawing.Size(77, 12)
         Me.lblPlayMode.TabIndex = 24
         Me.lblPlayMode.Text = "プレイモード"
         Me.lblPlayMode.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -1696,7 +1574,7 @@
         Me.lblGenre.Location = New System.Drawing.Point(28, 36)
         Me.lblGenre.Name = "lblGenre"
         Me.lblGenre.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblGenre.Size = New System.Drawing.Size(80, 18)
+        Me.lblGenre.Size = New System.Drawing.Size(53, 12)
         Me.lblGenre.TabIndex = 26
         Me.lblGenre.Text = "ジャンル"
         Me.lblGenre.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -1710,7 +1588,7 @@
         Me.lblTitle.Location = New System.Drawing.Point(28, 60)
         Me.lblTitle.Name = "lblTitle"
         Me.lblTitle.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblTitle.Size = New System.Drawing.Size(80, 18)
+        Me.lblTitle.Size = New System.Drawing.Size(53, 12)
         Me.lblTitle.TabIndex = 28
         Me.lblTitle.Text = "タイトル"
         Me.lblTitle.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -1724,7 +1602,7 @@
         Me.lblArtist.Location = New System.Drawing.Point(4, 84)
         Me.lblArtist.Name = "lblArtist"
         Me.lblArtist.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblArtist.Size = New System.Drawing.Size(116, 18)
+        Me.lblArtist.Size = New System.Drawing.Size(77, 12)
         Me.lblArtist.TabIndex = 30
         Me.lblArtist.Text = "アーティスト"
         Me.lblArtist.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -1738,7 +1616,7 @@
         Me.lblPlayLevel.Location = New System.Drawing.Point(16, 108)
         Me.lblPlayLevel.Name = "lblPlayLevel"
         Me.lblPlayLevel.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblPlayLevel.Size = New System.Drawing.Size(98, 18)
+        Me.lblPlayLevel.Size = New System.Drawing.Size(65, 12)
         Me.lblPlayLevel.TabIndex = 32
         Me.lblPlayLevel.Text = "難易度表示"
         Me.lblPlayLevel.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -1752,7 +1630,7 @@
         Me.lblBPM.Location = New System.Drawing.Point(148, 108)
         Me.lblBPM.Name = "lblBPM"
         Me.lblBPM.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblBPM.Size = New System.Drawing.Size(35, 18)
+        Me.lblBPM.Size = New System.Drawing.Size(23, 12)
         Me.lblBPM.TabIndex = 34
         Me.lblBPM.Text = "BPM"
         Me.lblBPM.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -1791,7 +1669,7 @@
         Me.cboPlayRank.Location = New System.Drawing.Point(80, 8)
         Me.cboPlayRank.Name = "cboPlayRank"
         Me.cboPlayRank.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cboPlayRank.Size = New System.Drawing.Size(133, 26)
+        Me.cboPlayRank.Size = New System.Drawing.Size(133, 20)
         Me.cboPlayRank.TabIndex = 38
         '
         'txtTotal
@@ -1805,7 +1683,7 @@
         Me.txtTotal.MaxLength = 0
         Me.txtTotal.Name = "txtTotal"
         Me.txtTotal.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtTotal.Size = New System.Drawing.Size(133, 25)
+        Me.txtTotal.Size = New System.Drawing.Size(133, 19)
         Me.txtTotal.TabIndex = 40
         '
         'txtVolume
@@ -1819,7 +1697,7 @@
         Me.txtVolume.MaxLength = 0
         Me.txtVolume.Name = "txtVolume"
         Me.txtVolume.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtVolume.Size = New System.Drawing.Size(133, 25)
+        Me.txtVolume.Size = New System.Drawing.Size(133, 19)
         Me.txtVolume.TabIndex = 42
         '
         'txtStageFile
@@ -1832,7 +1710,7 @@
         Me.txtStageFile.MaxLength = 0
         Me.txtStageFile.Name = "txtStageFile"
         Me.txtStageFile.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtStageFile.Size = New System.Drawing.Size(93, 25)
+        Me.txtStageFile.Size = New System.Drawing.Size(93, 19)
         Me.txtStageFile.TabIndex = 44
         '
         'cmdLoadStageFile
@@ -1871,7 +1749,7 @@
         Me.txtMissBMP.MaxLength = 0
         Me.txtMissBMP.Name = "txtMissBMP"
         Me.txtMissBMP.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtMissBMP.Size = New System.Drawing.Size(93, 25)
+        Me.txtMissBMP.Size = New System.Drawing.Size(93, 19)
         Me.txtMissBMP.TabIndex = 47
         '
         'lblPlayRank
@@ -1883,7 +1761,7 @@
         Me.lblPlayRank.Location = New System.Drawing.Point(45, 12)
         Me.lblPlayRank.Name = "lblPlayRank"
         Me.lblPlayRank.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblPlayRank.Size = New System.Drawing.Size(53, 18)
+        Me.lblPlayRank.Size = New System.Drawing.Size(35, 12)
         Me.lblPlayRank.TabIndex = 37
         Me.lblPlayRank.Text = "#RANK"
         Me.lblPlayRank.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -1897,7 +1775,7 @@
         Me.lblTotal.Location = New System.Drawing.Point(40, 36)
         Me.lblTotal.Name = "lblTotal"
         Me.lblTotal.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblTotal.Size = New System.Drawing.Size(62, 18)
+        Me.lblTotal.Size = New System.Drawing.Size(41, 12)
         Me.lblTotal.TabIndex = 39
         Me.lblTotal.Text = "#TOTAL"
         Me.lblTotal.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -1911,7 +1789,7 @@
         Me.lblVolume.Location = New System.Drawing.Point(34, 60)
         Me.lblVolume.Name = "lblVolume"
         Me.lblVolume.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblVolume.Size = New System.Drawing.Size(71, 18)
+        Me.lblVolume.Size = New System.Drawing.Size(47, 12)
         Me.lblVolume.TabIndex = 41
         Me.lblVolume.Text = "#VOLWAV"
         Me.lblVolume.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -1925,7 +1803,7 @@
         Me.lblStageFile.Location = New System.Drawing.Point(15, 84)
         Me.lblStageFile.Name = "lblStageFile"
         Me.lblStageFile.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblStageFile.Size = New System.Drawing.Size(98, 18)
+        Me.lblStageFile.Size = New System.Drawing.Size(65, 12)
         Me.lblStageFile.TabIndex = 43
         Me.lblStageFile.Text = "#STAGEFILE"
         Me.lblStageFile.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -1939,7 +1817,7 @@
         Me.lblMissBMP.Location = New System.Drawing.Point(39, 108)
         Me.lblMissBMP.Name = "lblMissBMP"
         Me.lblMissBMP.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblMissBMP.Size = New System.Drawing.Size(62, 18)
+        Me.lblMissBMP.Size = New System.Drawing.Size(41, 12)
         Me.lblMissBMP.TabIndex = 46
         Me.lblMissBMP.Text = "#BMP00"
         Me.lblMissBMP.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -1974,7 +1852,7 @@
         Me.cboDispFrame.Location = New System.Drawing.Point(80, 8)
         Me.cboDispFrame.Name = "cboDispFrame"
         Me.cboDispFrame.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cboDispFrame.Size = New System.Drawing.Size(133, 26)
+        Me.cboDispFrame.Size = New System.Drawing.Size(133, 20)
         Me.cboDispFrame.TabIndex = 51
         '
         'cboDispSC2P
@@ -1988,7 +1866,7 @@
         Me.cboDispSC2P.Location = New System.Drawing.Point(164, 56)
         Me.cboDispSC2P.Name = "cboDispSC2P"
         Me.cboDispSC2P.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cboDispSC2P.Size = New System.Drawing.Size(49, 26)
+        Me.cboDispSC2P.Size = New System.Drawing.Size(49, 20)
         Me.cboDispSC2P.TabIndex = 57
         '
         'cboDispSC1P
@@ -2002,7 +1880,7 @@
         Me.cboDispSC1P.Location = New System.Drawing.Point(80, 56)
         Me.cboDispSC1P.Name = "cboDispSC1P"
         Me.cboDispSC1P.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cboDispSC1P.Size = New System.Drawing.Size(49, 26)
+        Me.cboDispSC1P.Size = New System.Drawing.Size(49, 20)
         Me.cboDispSC1P.TabIndex = 55
         '
         'cboDispKey
@@ -2016,7 +1894,7 @@
         Me.cboDispKey.Location = New System.Drawing.Point(80, 32)
         Me.cboDispKey.Name = "cboDispKey"
         Me.cboDispKey.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cboDispKey.Size = New System.Drawing.Size(133, 26)
+        Me.cboDispKey.Size = New System.Drawing.Size(133, 20)
         Me.cboDispKey.TabIndex = 53
         '
         'lblDispFrame
@@ -2028,7 +1906,7 @@
         Me.lblDispFrame.Location = New System.Drawing.Point(28, 12)
         Me.lblDispFrame.Name = "lblDispFrame"
         Me.lblDispFrame.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblDispFrame.Size = New System.Drawing.Size(80, 18)
+        Me.lblDispFrame.Size = New System.Drawing.Size(53, 12)
         Me.lblDispFrame.TabIndex = 50
         Me.lblDispFrame.Text = "キー表示"
         Me.lblDispFrame.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -2042,7 +1920,7 @@
         Me.lblDispSC2P.Location = New System.Drawing.Point(148, 60)
         Me.lblDispSC2P.Name = "lblDispSC2P"
         Me.lblDispSC2P.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblDispSC2P.Size = New System.Drawing.Size(26, 18)
+        Me.lblDispSC2P.Size = New System.Drawing.Size(17, 12)
         Me.lblDispSC2P.TabIndex = 56
         Me.lblDispSC2P.Text = "2P"
         Me.lblDispSC2P.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -2056,7 +1934,7 @@
         Me.lblDispSC1P.Location = New System.Drawing.Point(4, 60)
         Me.lblDispSC1P.Name = "lblDispSC1P"
         Me.lblDispSC1P.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblDispSC1P.Size = New System.Drawing.Size(116, 18)
+        Me.lblDispSC1P.Size = New System.Drawing.Size(77, 12)
         Me.lblDispSC1P.TabIndex = 54
         Me.lblDispSC1P.Text = "スクラッチ1P"
         Me.lblDispSC1P.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -2070,7 +1948,7 @@
         Me.lblDispKey.Location = New System.Drawing.Point(28, 36)
         Me.lblDispKey.Name = "lblDispKey"
         Me.lblDispKey.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblDispKey.Size = New System.Drawing.Size(80, 18)
+        Me.lblDispKey.Size = New System.Drawing.Size(53, 12)
         Me.lblDispKey.TabIndex = 52
         Me.lblDispKey.Text = "キー配置"
         Me.lblDispKey.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -2291,7 +2169,7 @@
         Me.lstWAV.BackColor = System.Drawing.SystemColors.Window
         Me.lstWAV.Cursor = System.Windows.Forms.Cursors.Default
         Me.lstWAV.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.lstWAV.ItemHeight = 18
+        Me.lstWAV.ItemHeight = 12
         Me.lstWAV.Location = New System.Drawing.Point(0, 8)
         Me.lstWAV.Name = "lstWAV"
         Me.lstWAV.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -2347,7 +2225,7 @@
         Me.lstBMP.BackColor = System.Drawing.SystemColors.Window
         Me.lstBMP.Cursor = System.Windows.Forms.Cursors.Default
         Me.lstBMP.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.lstBMP.ItemHeight = 18
+        Me.lstBMP.ItemHeight = 12
         Me.lstBMP.Location = New System.Drawing.Point(0, 8)
         Me.lstBMP.Name = "lstBMP"
         Me.lstBMP.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -2447,7 +2325,7 @@
         Me.txtBGAInput.MaxLength = 0
         Me.txtBGAInput.Name = "txtBGAInput"
         Me.txtBGAInput.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtBGAInput.Size = New System.Drawing.Size(213, 25)
+        Me.txtBGAInput.Size = New System.Drawing.Size(213, 19)
         Me.txtBGAInput.TabIndex = 80
         '
         'cmdBGAPreview
@@ -2494,7 +2372,7 @@
         Me.lstBGA.BackColor = System.Drawing.SystemColors.Window
         Me.lstBGA.Cursor = System.Windows.Forms.Cursors.Default
         Me.lstBGA.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.lstBGA.ItemHeight = 18
+        Me.lstBGA.ItemHeight = 12
         Me.lstBGA.Location = New System.Drawing.Point(0, 8)
         Me.lstBGA.Name = "lstBGA"
         Me.lstBGA.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -2527,7 +2405,7 @@
         Me.cboNumerator.Location = New System.Drawing.Point(75, 204)
         Me.cboNumerator.Name = "cboNumerator"
         Me.cboNumerator.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cboNumerator.Size = New System.Drawing.Size(41, 26)
+        Me.cboNumerator.Size = New System.Drawing.Size(41, 20)
         Me.cboNumerator.TabIndex = 89
         '
         'cboDenominator
@@ -2540,7 +2418,7 @@
         Me.cboDenominator.Location = New System.Drawing.Point(127, 204)
         Me.cboDenominator.Name = "cboDenominator"
         Me.cboDenominator.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cboDenominator.Size = New System.Drawing.Size(41, 26)
+        Me.cboDenominator.Size = New System.Drawing.Size(41, 20)
         Me.cboDenominator.TabIndex = 91
         '
         'cmdMeasureSelectAll
@@ -2574,7 +2452,7 @@
         Me.lstMeasureLen.BackColor = System.Drawing.SystemColors.Window
         Me.lstMeasureLen.Cursor = System.Windows.Forms.Cursors.Default
         Me.lstMeasureLen.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.lstMeasureLen.ItemHeight = 18
+        Me.lstMeasureLen.ItemHeight = 12
         Me.lstMeasureLen.Location = New System.Drawing.Point(0, 8)
         Me.lstMeasureLen.Name = "lstMeasureLen"
         Me.lstMeasureLen.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -2644,7 +2522,7 @@
         Me.tlbMenu.ImageList = Me.ilsMenu
         Me.tlbMenu.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.tlbMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me._New, Me.Open, Me.Reload, Me.Save, Me.SaveAs, Me.SepMode, Me.Edit, Me.Write, Me.Delete, Me.SepViewer, Me.Viewer, Me.PlayAll, Me.Play, Me._Stop, Me.SepGrid, Me.ChangeGrid, Me.SepSize, Me.DispSize, Me.SepResolution, Me.Resolution})
-        Me.tlbMenu.Location = New System.Drawing.Point(0, 33)
+        Me.tlbMenu.Location = New System.Drawing.Point(0, 24)
         Me.tlbMenu.Name = "tlbMenu"
         Me.tlbMenu.Size = New System.Drawing.Size(1192, 25)
         Me.tlbMenu.TabIndex = 3
@@ -2674,7 +2552,7 @@
         '
         Me.ToolStripMenuItem0.Enabled = False
         Me.ToolStripMenuItem0.Name = "ToolStripMenuItem0"
-        Me.ToolStripMenuItem0.Size = New System.Drawing.Size(121, 30)
+        Me.ToolStripMenuItem0.Size = New System.Drawing.Size(89, 22)
         Me.ToolStripMenuItem0.Text = "&1:"
         Me.ToolStripMenuItem0.Visible = False
         '
@@ -2682,7 +2560,7 @@
         '
         Me.ToolStripMenuItem1.Enabled = False
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(121, 30)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(89, 22)
         Me.ToolStripMenuItem1.Text = "&2:"
         Me.ToolStripMenuItem1.Visible = False
         '
@@ -2690,7 +2568,7 @@
         '
         Me.ToolStripMenuItem2.Enabled = False
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(121, 30)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(89, 22)
         Me.ToolStripMenuItem2.Text = "&3:"
         Me.ToolStripMenuItem2.Visible = False
         '
@@ -2698,7 +2576,7 @@
         '
         Me.ToolStripMenuItem3.Enabled = False
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(121, 30)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(89, 22)
         Me.ToolStripMenuItem3.Text = "&4:"
         Me.ToolStripMenuItem3.Visible = False
         '
@@ -2706,7 +2584,7 @@
         '
         Me.ToolStripMenuItem4.Enabled = False
         Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
-        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(121, 30)
+        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(89, 22)
         Me.ToolStripMenuItem4.Text = "&5:"
         Me.ToolStripMenuItem4.Visible = False
         '
@@ -2714,7 +2592,7 @@
         '
         Me.ToolStripMenuItem5.Enabled = False
         Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
-        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(121, 30)
+        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(89, 22)
         Me.ToolStripMenuItem5.Text = "&6:"
         Me.ToolStripMenuItem5.Visible = False
         '
@@ -2722,7 +2600,7 @@
         '
         Me.ToolStripMenuItem6.Enabled = False
         Me.ToolStripMenuItem6.Name = "ToolStripMenuItem6"
-        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(121, 30)
+        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(89, 22)
         Me.ToolStripMenuItem6.Text = "&7:"
         Me.ToolStripMenuItem6.Visible = False
         '
@@ -2730,7 +2608,7 @@
         '
         Me.ToolStripMenuItem7.Enabled = False
         Me.ToolStripMenuItem7.Name = "ToolStripMenuItem7"
-        Me.ToolStripMenuItem7.Size = New System.Drawing.Size(121, 30)
+        Me.ToolStripMenuItem7.Size = New System.Drawing.Size(89, 22)
         Me.ToolStripMenuItem7.Text = "&8:"
         Me.ToolStripMenuItem7.Visible = False
         '
@@ -2738,7 +2616,7 @@
         '
         Me.ToolStripMenuItem8.Enabled = False
         Me.ToolStripMenuItem8.Name = "ToolStripMenuItem8"
-        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(121, 30)
+        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(89, 22)
         Me.ToolStripMenuItem8.Text = "&9:"
         Me.ToolStripMenuItem8.Visible = False
         '
@@ -2746,7 +2624,7 @@
         '
         Me.ToolStripMenuItem9.Enabled = False
         Me.ToolStripMenuItem9.Name = "ToolStripMenuItem9"
-        Me.ToolStripMenuItem9.Size = New System.Drawing.Size(121, 30)
+        Me.ToolStripMenuItem9.Size = New System.Drawing.Size(89, 22)
         Me.ToolStripMenuItem9.Text = "&10:"
         Me.ToolStripMenuItem9.Visible = False
         '
@@ -2905,7 +2783,7 @@
         Me.lblDirectInput.Location = New System.Drawing.Point(4, 482)
         Me.lblDirectInput.Name = "lblDirectInput"
         Me.lblDirectInput.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblDirectInput.Size = New System.Drawing.Size(62, 18)
+        Me.lblDirectInput.Size = New System.Drawing.Size(41, 12)
         Me.lblDirectInput.TabIndex = 95
         Me.lblDirectInput.Text = "Direct"
         '
@@ -2931,7 +2809,6 @@
         Me.Controls.Add(Me.tlbMenu)
         Me.Controls.Add(Me.lblDirectInput)
         Me.Controls.Add(Me.MainMenu1)
-        Me.Controls.Add(Me.ShapeContainer1)
         Me.Cursor = System.Windows.Forms.Cursors.Default
         Me.Font = New System.Drawing.Font("ＭＳ ゴシック", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
