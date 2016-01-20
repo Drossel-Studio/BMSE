@@ -3153,6 +3153,10 @@ Err_Renamed:
 
         For i = 0 To UBound(strArray)
 
+            If strArray(i) = "" Then
+                Continue For
+            End If
+
             Select Case modInput.strToNum(VB.Left(strArray(i), 2))
 
                 Case modMain.CMD_LOG.OBJ_ADD
@@ -3521,6 +3525,10 @@ Err_Renamed:
         Call g_InputLog.Back()
 
         For i = 0 To UBound(strArray)
+
+            If strArray(i) = "" Then
+                Continue For
+            End If
 
             Select Case modInput.strToNum(VB.Left(strArray(i), 2))
 
