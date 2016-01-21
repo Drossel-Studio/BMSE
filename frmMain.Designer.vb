@@ -1553,84 +1553,78 @@
         '
         'lblPlayMode
         '
-        Me.lblPlayMode.AutoSize = True
         Me.lblPlayMode.BackColor = System.Drawing.SystemColors.Control
         Me.lblPlayMode.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblPlayMode.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblPlayMode.Location = New System.Drawing.Point(4, 12)
         Me.lblPlayMode.Name = "lblPlayMode"
         Me.lblPlayMode.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblPlayMode.Size = New System.Drawing.Size(77, 12)
+        Me.lblPlayMode.Size = New System.Drawing.Size(72, 12)
         Me.lblPlayMode.TabIndex = 24
         Me.lblPlayMode.Text = "プレイモード"
         Me.lblPlayMode.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'lblGenre
         '
-        Me.lblGenre.AutoSize = True
         Me.lblGenre.BackColor = System.Drawing.SystemColors.Control
         Me.lblGenre.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblGenre.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblGenre.Location = New System.Drawing.Point(28, 36)
+        Me.lblGenre.Location = New System.Drawing.Point(4, 36)
         Me.lblGenre.Name = "lblGenre"
         Me.lblGenre.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblGenre.Size = New System.Drawing.Size(53, 12)
+        Me.lblGenre.Size = New System.Drawing.Size(72, 12)
         Me.lblGenre.TabIndex = 26
         Me.lblGenre.Text = "ジャンル"
         Me.lblGenre.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'lblTitle
         '
-        Me.lblTitle.AutoSize = True
         Me.lblTitle.BackColor = System.Drawing.SystemColors.Control
         Me.lblTitle.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblTitle.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblTitle.Location = New System.Drawing.Point(28, 60)
+        Me.lblTitle.Location = New System.Drawing.Point(4, 60)
         Me.lblTitle.Name = "lblTitle"
         Me.lblTitle.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblTitle.Size = New System.Drawing.Size(53, 12)
+        Me.lblTitle.Size = New System.Drawing.Size(72, 12)
         Me.lblTitle.TabIndex = 28
         Me.lblTitle.Text = "タイトル"
         Me.lblTitle.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'lblArtist
         '
-        Me.lblArtist.AutoSize = True
         Me.lblArtist.BackColor = System.Drawing.SystemColors.Control
         Me.lblArtist.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblArtist.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblArtist.Location = New System.Drawing.Point(4, 84)
         Me.lblArtist.Name = "lblArtist"
         Me.lblArtist.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblArtist.Size = New System.Drawing.Size(77, 12)
+        Me.lblArtist.Size = New System.Drawing.Size(72, 12)
         Me.lblArtist.TabIndex = 30
         Me.lblArtist.Text = "アーティスト"
         Me.lblArtist.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'lblPlayLevel
         '
-        Me.lblPlayLevel.AutoSize = True
         Me.lblPlayLevel.BackColor = System.Drawing.SystemColors.Control
         Me.lblPlayLevel.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblPlayLevel.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblPlayLevel.Location = New System.Drawing.Point(16, 108)
+        Me.lblPlayLevel.Location = New System.Drawing.Point(4, 108)
         Me.lblPlayLevel.Name = "lblPlayLevel"
         Me.lblPlayLevel.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblPlayLevel.Size = New System.Drawing.Size(65, 12)
+        Me.lblPlayLevel.Size = New System.Drawing.Size(72, 12)
         Me.lblPlayLevel.TabIndex = 32
         Me.lblPlayLevel.Text = "難易度表示"
         Me.lblPlayLevel.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'lblBPM
         '
-        Me.lblBPM.AutoSize = True
         Me.lblBPM.BackColor = System.Drawing.SystemColors.Control
         Me.lblBPM.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblBPM.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblBPM.Location = New System.Drawing.Point(148, 108)
+        Me.lblBPM.Location = New System.Drawing.Point(133, 108)
         Me.lblBPM.Name = "lblBPM"
         Me.lblBPM.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblBPM.Size = New System.Drawing.Size(23, 12)
+        Me.lblBPM.Size = New System.Drawing.Size(35, 12)
         Me.lblBPM.TabIndex = 34
         Me.lblBPM.Text = "BPM"
         Me.lblBPM.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -1754,70 +1748,65 @@
         '
         'lblPlayRank
         '
-        Me.lblPlayRank.AutoSize = True
         Me.lblPlayRank.BackColor = System.Drawing.SystemColors.Control
         Me.lblPlayRank.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblPlayRank.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblPlayRank.Location = New System.Drawing.Point(45, 12)
+        Me.lblPlayRank.Location = New System.Drawing.Point(4, 12)
         Me.lblPlayRank.Name = "lblPlayRank"
         Me.lblPlayRank.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblPlayRank.Size = New System.Drawing.Size(35, 12)
+        Me.lblPlayRank.Size = New System.Drawing.Size(72, 12)
         Me.lblPlayRank.TabIndex = 37
         Me.lblPlayRank.Text = "#RANK"
         Me.lblPlayRank.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'lblTotal
         '
-        Me.lblTotal.AutoSize = True
         Me.lblTotal.BackColor = System.Drawing.SystemColors.Control
         Me.lblTotal.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblTotal.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblTotal.Location = New System.Drawing.Point(40, 36)
+        Me.lblTotal.Location = New System.Drawing.Point(4, 36)
         Me.lblTotal.Name = "lblTotal"
         Me.lblTotal.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblTotal.Size = New System.Drawing.Size(41, 12)
+        Me.lblTotal.Size = New System.Drawing.Size(72, 12)
         Me.lblTotal.TabIndex = 39
         Me.lblTotal.Text = "#TOTAL"
         Me.lblTotal.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'lblVolume
         '
-        Me.lblVolume.AutoSize = True
         Me.lblVolume.BackColor = System.Drawing.SystemColors.Control
         Me.lblVolume.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblVolume.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblVolume.Location = New System.Drawing.Point(34, 60)
+        Me.lblVolume.Location = New System.Drawing.Point(4, 60)
         Me.lblVolume.Name = "lblVolume"
         Me.lblVolume.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblVolume.Size = New System.Drawing.Size(47, 12)
+        Me.lblVolume.Size = New System.Drawing.Size(72, 12)
         Me.lblVolume.TabIndex = 41
         Me.lblVolume.Text = "#VOLWAV"
         Me.lblVolume.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'lblStageFile
         '
-        Me.lblStageFile.AutoSize = True
         Me.lblStageFile.BackColor = System.Drawing.SystemColors.Control
         Me.lblStageFile.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblStageFile.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblStageFile.Location = New System.Drawing.Point(15, 84)
+        Me.lblStageFile.Location = New System.Drawing.Point(4, 84)
         Me.lblStageFile.Name = "lblStageFile"
         Me.lblStageFile.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblStageFile.Size = New System.Drawing.Size(65, 12)
+        Me.lblStageFile.Size = New System.Drawing.Size(72, 12)
         Me.lblStageFile.TabIndex = 43
         Me.lblStageFile.Text = "#STAGEFILE"
         Me.lblStageFile.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'lblMissBMP
         '
-        Me.lblMissBMP.AutoSize = True
         Me.lblMissBMP.BackColor = System.Drawing.SystemColors.Control
         Me.lblMissBMP.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblMissBMP.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblMissBMP.Location = New System.Drawing.Point(39, 108)
+        Me.lblMissBMP.Location = New System.Drawing.Point(4, 108)
         Me.lblMissBMP.Name = "lblMissBMP"
         Me.lblMissBMP.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblMissBMP.Size = New System.Drawing.Size(41, 12)
+        Me.lblMissBMP.Size = New System.Drawing.Size(72, 12)
         Me.lblMissBMP.TabIndex = 46
         Me.lblMissBMP.Text = "#BMP00"
         Me.lblMissBMP.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -1899,56 +1888,52 @@
         '
         'lblDispFrame
         '
-        Me.lblDispFrame.AutoSize = True
         Me.lblDispFrame.BackColor = System.Drawing.SystemColors.Control
         Me.lblDispFrame.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblDispFrame.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblDispFrame.Location = New System.Drawing.Point(28, 12)
+        Me.lblDispFrame.Location = New System.Drawing.Point(4, 12)
         Me.lblDispFrame.Name = "lblDispFrame"
         Me.lblDispFrame.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblDispFrame.Size = New System.Drawing.Size(53, 12)
+        Me.lblDispFrame.Size = New System.Drawing.Size(72, 12)
         Me.lblDispFrame.TabIndex = 50
         Me.lblDispFrame.Text = "キー表示"
         Me.lblDispFrame.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'lblDispSC2P
         '
-        Me.lblDispSC2P.AutoSize = True
         Me.lblDispSC2P.BackColor = System.Drawing.SystemColors.Control
         Me.lblDispSC2P.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblDispSC2P.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblDispSC2P.Location = New System.Drawing.Point(148, 60)
+        Me.lblDispSC2P.Location = New System.Drawing.Point(133, 60)
         Me.lblDispSC2P.Name = "lblDispSC2P"
         Me.lblDispSC2P.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblDispSC2P.Size = New System.Drawing.Size(17, 12)
+        Me.lblDispSC2P.Size = New System.Drawing.Size(27, 12)
         Me.lblDispSC2P.TabIndex = 56
         Me.lblDispSC2P.Text = "2P"
         Me.lblDispSC2P.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'lblDispSC1P
         '
-        Me.lblDispSC1P.AutoSize = True
         Me.lblDispSC1P.BackColor = System.Drawing.SystemColors.Control
         Me.lblDispSC1P.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblDispSC1P.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblDispSC1P.Location = New System.Drawing.Point(4, 60)
         Me.lblDispSC1P.Name = "lblDispSC1P"
         Me.lblDispSC1P.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblDispSC1P.Size = New System.Drawing.Size(77, 12)
+        Me.lblDispSC1P.Size = New System.Drawing.Size(72, 12)
         Me.lblDispSC1P.TabIndex = 54
         Me.lblDispSC1P.Text = "スクラッチ1P"
         Me.lblDispSC1P.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'lblDispKey
         '
-        Me.lblDispKey.AutoSize = True
         Me.lblDispKey.BackColor = System.Drawing.SystemColors.Control
         Me.lblDispKey.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblDispKey.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblDispKey.Location = New System.Drawing.Point(28, 36)
+        Me.lblDispKey.Location = New System.Drawing.Point(4, 36)
         Me.lblDispKey.Name = "lblDispKey"
         Me.lblDispKey.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblDispKey.Size = New System.Drawing.Size(53, 12)
+        Me.lblDispKey.Size = New System.Drawing.Size(72, 12)
         Me.lblDispKey.TabIndex = 52
         Me.lblDispKey.Text = "キー配置"
         Me.lblDispKey.TextAlign = System.Drawing.ContentAlignment.TopRight
