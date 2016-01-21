@@ -2067,7 +2067,7 @@ Err_Renamed:
         _linDirectInput_1.pt2.Y = 457 + MainMenu1.Height
         _linDirectInput_1.Visible = True
 
-        stringFont = Font
+        stringFont = New Font(Font.FontFamily, Font.Size, Font.Style, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
 
         Dim NewLargeChange As Short
 

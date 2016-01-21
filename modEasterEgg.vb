@@ -769,7 +769,12 @@ Module modEasterEgg
 
         With frmMain.picMain
             Call SetTextColor(hDC, RGB(255, 255, 255))
+
+            Dim oldFont As Font = frmMain.stringFont
+
             frmMain.stringFont = New Font(frmMain.stringFont.FontFamily, 12, frmMain.stringFont.Style, frmMain.stringFont.Unit, frmMain.stringFont.GdiCharSet, frmMain.stringFont.GdiVerticalFont)
+
+            oldFont.Dispose()
 
             Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
             Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
@@ -953,7 +958,11 @@ Module modEasterEgg
             rectTemp.Top = 8
             rectTemp.Bottom = .ClientRectangle.Height
 
+            Dim oldFont As Font = frmMain.stringFont
+
             frmMain.stringFont = New Font(frmMain.stringFont.FontFamily, 9, frmMain.stringFont.Style, frmMain.stringFont.Unit, frmMain.stringFont.GdiCharSet, frmMain.stringFont.GdiVerticalFont)
+
+            oldFont.Dispose()
 
             Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
             Dim hOldFont As IntPtr = SelectObject(hDC, hFont)

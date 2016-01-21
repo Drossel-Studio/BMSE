@@ -76,7 +76,7 @@ Friend Class frmWindowAbout
 
     Private Sub frmWindowAbout_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
 
-        stringFont = Font
+        stringFont = New Font(Font.FontFamily, Font.Size, Font.Style, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
 
         With Me
 
@@ -165,11 +165,15 @@ Friend Class frmWindowAbout
 
             lngTemp = 0
 
+            Dim oldFont As Font = stringFont
+
             Dim newstyle As FontStyle
             If newstyle And FontStyle.Underline Then
                 newstyle = newstyle Xor FontStyle.Underline
             End If
             .stringFont = New Font(.stringFont.FontFamily, 9, newstyle Or FontStyle.Bold, .stringFont.Unit, .stringFont.GdiCharSet, .stringFont.GdiVerticalFont)
+
+            oldFont.Dispose()
 
             lngTemp = g_InputLog.GetBufferSize
 

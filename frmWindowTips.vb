@@ -119,8 +119,6 @@ Friend Class frmWindowTips
     'UPGRADE_WARNING: Form イベント frmWindowTips.Activate には新しい動作が含まれます。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' をクリックしてください。
     Private Sub frmWindowTips_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
 
-        stringFont = Font
-
         With Me
 
             .Left = frmMain.Left + (frmMain.Width - .Width) \ 2
@@ -260,6 +258,8 @@ Friend Class frmWindowTips
 
         Dim stringBrush As SolidBrush
 
+        Dim oldFont As Font
+
         Dim strTemp As String
 
         e.Graphics.FillRectangle(Brushes.Gray, New Rectangle(8, 8, 48, 214))
@@ -268,10 +268,16 @@ Friend Class frmWindowTips
 
         e.Graphics.DrawLine(Pens.Black, New Point(56, 40), New Point(407, 40))
 
+        oldFont = stringFont
+
         stringFont = New Font(stringFont.FontFamily, 16, stringFont.Style Or FontStyle.Bold, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
+
+        oldFont.Dispose()
 
         stringBrush = New SolidBrush(ForeColor)
         e.Graphics.DrawString("ご存知ですか...", stringFont, stringBrush, New PointF(64, 14))
+
+        oldFont = stringFont
 
         Dim newstyle As FontStyle = stringFont.Style
         If newstyle And FontStyle.Bold Then
@@ -279,10 +285,16 @@ Friend Class frmWindowTips
         End If
         stringFont = New Font(stringFont.FontFamily, 9, newstyle, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
 
+        oldFont.Dispose()
+
         e.Graphics.DrawString(VB.Right(" " & m_intTipsPos, 2), stringFont, stringBrush, New PointF(360, 23))
         e.Graphics.DrawString("   / " & UBound(m_strTips), stringFont, stringBrush, New PointF(360, 23))
 
+        oldFont = stringFont
+
         stringFont = New Font(stringFont.FontFamily, 12, stringFont.Style, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
+
+        oldFont.Dispose()
 
         hDC = e.Graphics.GetHdc()
 
@@ -337,5 +349,9 @@ Friend Class frmWindowTips
         DeleteObject(hFont)
 
         e.Graphics.ReleaseHdc()
+    End Sub
+
+    Private Sub frmWindowTips_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        stringFont = New Font(Font.FontFamily, Font.Size, Font.Style, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
     End Sub
 End Class

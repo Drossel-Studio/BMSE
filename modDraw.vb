@@ -718,11 +718,15 @@ Err_Renamed:
 
         Call InitPen()
 
+        Dim oldFont As Font = frmMain.stringFont
+
         Dim newstyle As FontStyle = frmMain.stringFont.Style
         If newstyle And FontStyle.Italic Then
             newstyle = newstyle Xor FontStyle.Italic
         End If
         frmMain.stringFont = New Font(frmMain.stringFont.FontFamily, 8, newstyle, frmMain.stringFont.Unit, frmMain.stringFont.GdiCharSet, frmMain.stringFont.GdiVerticalFont)
+
+        oldFont.Dispose()
 
         ReDim m_tempObj(0)
 
@@ -854,7 +858,11 @@ Err_Renamed:
 
         With frmMain.picMain
 
+            Dim oldFont As Font = frmMain.stringFont
+
             frmMain.stringFont = New Font(frmMain.stringFont.FontFamily, 72, frmMain.stringFont.Style Or FontStyle.Italic, frmMain.stringFont.Unit, frmMain.stringFont.GdiCharSet, frmMain.stringFont.GdiVerticalFont)
+
+            oldFont.Dispose()
 
             Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
             Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
@@ -1071,7 +1079,11 @@ Err_Renamed:
         Dim strTemp As String
         Dim sizeTemp As Size
 
+        Dim oldFont As Font = frmMain.stringFont
+
         frmMain.stringFont = New Font(frmMain.stringFont.FontFamily, 9, frmMain.stringFont.Style, frmMain.stringFont.Unit, frmMain.stringFont.GdiCharSet, frmMain.stringFont.GdiVerticalFont)
+
+        oldFont.Dispose()
 
         Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
         Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
