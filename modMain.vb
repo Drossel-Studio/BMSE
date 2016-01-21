@@ -1,214 +1,237 @@
 Option Strict Off
 Option Explicit On
 Imports VB = Microsoft.VisualBasic
+Imports System.Text
+Imports System.Runtime.InteropServices
+
 Module modMain
-	
+
 #Const MODE_DEBUG = True
-	
-	Private Const INI_VERSION As Short = 3
-	
-	Public Const RELEASEDATE As String = "2007-08-08T09:51"
-	
-	
-	
+
+    Private Const INI_VERSION As Short = 3
+
+    Public Const RELEASEDATE As String = "2007-08-08T09:51"
+
 #If MODE_DEBUG = True Then
-	
-	Public Declare Function timeBeginPeriod Lib "winmm.dll" (ByVal uPeriod As Integer) As Integer
-	Public Declare Function timeEndPeriod Lib "winmm.dll" (ByVal uPeriod As Integer) As Integer
-	
+
+    Public Declare Function timeBeginPeriod Lib "winmm.dll" (ByVal uPeriod As Integer) As Integer
+    Public Declare Function timeEndPeriod Lib "winmm.dll" (ByVal uPeriod As Integer) As Integer
+
 #End If
-	
-	Public Declare Function mciSendString Lib "winmm.dll"  Alias "mciSendStringA"(ByVal lpstrCommand As String, ByVal lpstrTempurnString As String, ByVal uReturnLength As Integer, ByVal hwndCallback As Integer) As Integer
-	Public Declare Function mciGetErrorString Lib "winmm.dll"  Alias "mciGetErrorStringA"(ByVal dwError As Integer, ByVal lpstrBuffer As String, ByVal uLength As Integer) As Integer
-	
-	'UPGRADE_ISSUE: ƒpƒ‰ƒ[ƒ^ 'As Any' ‚ÌéŒ¾‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Declare Function GetPrivateProfileString Lib "kernel32"  Alias "GetPrivateProfileStringA"(ByVal lpApplicationName As String, ByVal lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Integer, ByVal lpFileName As String) As Integer 'iniƒtƒ@ƒCƒ‹‚É“Ç‚İ‚±‚Ş‚½‚ß‚ÌAPI
-	'UPGRADE_ISSUE: ƒpƒ‰ƒ[ƒ^ 'As Any' ‚ÌéŒ¾‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	'UPGRADE_ISSUE: ƒpƒ‰ƒ[ƒ^ 'As Any' ‚ÌéŒ¾‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Declare Function WritePrivateProfileString Lib "kernel32"  Alias "WritePrivateProfileStringA"(ByVal lpApplicationName As String, ByVal lpKeyName As Any, ByVal lpString As Any, ByVal lpFileName As String) As Integer 'iniƒtƒ@ƒCƒ‹‚ğ‘‚«‚±‚Ş‚½‚ß‚ÌAPI
-	
-	'UPGRADE_WARNING: \‘¢‘Ì WINDOWPLACEMENT ‚ÉA‚±‚Ì Declare ƒXƒe[ƒgƒƒ“ƒg‚Ìˆø”‚Æ‚µ‚Äƒ}[ƒVƒƒƒŠƒ“ƒO‘®«‚ğ“n‚·•K—v‚ª‚ ‚è‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Public Declare Function GetWindowPlacement Lib "user32" (ByVal hwnd As Integer, ByRef lpwndpl As WINDOWPLACEMENT) As Integer
-	'UPGRADE_WARNING: \‘¢‘Ì WINDOWPLACEMENT ‚ÉA‚±‚Ì Declare ƒXƒe[ƒgƒƒ“ƒg‚Ìˆø”‚Æ‚µ‚Äƒ}[ƒVƒƒƒŠƒ“ƒO‘®«‚ğ“n‚·•K—v‚ª‚ ‚è‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Public Declare Function SetWindowPlacement Lib "user32" (ByVal hwnd As Integer, ByRef lpwndpl As WINDOWPLACEMENT) As Integer
-	
-	Public Declare Function ShellExecute Lib "shell32.dll"  Alias "ShellExecuteA"(ByVal hwnd As Integer, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Integer) As Integer
-	
-	Public Declare Function GetWindowLong Lib "user32"  Alias "GetWindowLongA"(ByVal hwnd As Integer, ByVal nIndex As Integer) As Integer
-	'UPGRADE_WARNING: \‘¢‘Ì RECT ‚ÉA‚±‚Ì Declare ƒXƒe[ƒgƒƒ“ƒg‚Ìˆø”‚Æ‚µ‚Äƒ}[ƒVƒƒƒŠƒ“ƒO‘®«‚ğ“n‚·•K—v‚ª‚ ‚è‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Public Declare Function AdjustWindowRectEx Lib "user32" (ByRef lpRect As RECT, ByVal dsStyle As Integer, ByVal bMenu As Integer, ByVal dwEsStyle As Integer) As Integer
-	
-	Private Declare Function GetStockObject Lib "gdi32" (ByVal nIndex As Integer) As Integer
-	'UPGRADE_NOTE: GetObject ‚Í GetObject_Renamed ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	'UPGRADE_ISSUE: ƒpƒ‰ƒ[ƒ^ 'As Any' ‚ÌéŒ¾‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Declare Function GetObject_Renamed Lib "gdi32"  Alias "GetObjectA"(ByVal hObject As Integer, ByVal nCount As Integer, ByRef lpObject As Any) As Integer
-	'Private Declare Function SystemParametersInfo Lib "user32" Alias "SystemParametersInfoA" (ByVal uAction As Long, ByVal uParam As Long, ByRef lpvParam As Any, ByVal fuWinIni As Long) As Long
-	
-	'Get/SetWindowPlacementEShellExecute ŠÖ˜A‚Ì’è”
-	Public Const SW_HIDE As Short = 0
-	Public Const SW_MAXIMIZE As Short = 3
-	Public Const SW_MINIMIZE As Short = 6
-	Public Const SW_RESTORE As Short = 9
-	Public Const SW_SHOW As Short = 5
-	Public Const SW_SHOWDEFAULT As Short = 10
-	Public Const SW_SHOWMAXIMIZED As Short = 3
-	Public Const SW_SHOWMINIMIZED As Short = 2
-	Public Const SW_SHOWMINNOACTIVE As Short = 7
-	Public Const SW_SHOWNA As Short = 8
-	Public Const SW_SHOWNOACTIVATE As Short = 4
-	Public Const SW_SHOWNORMAL As Short = 1
-	
-	'GetWindowLong ŠÖ˜A‚Ì’è”
-	Public Const GWL_STYLE As Short = -16
-	Public Const GWL_EXSTYLE As Short = -20
-	
-	'GetStockObject ŠÖ˜A‚Ì’è”
-	Private Const OEM_FIXED_FONT As Short = 10
-	Private Const ANSI_FIXED_FONT As Short = 11
-	Private Const ANSI_VAR_FONT As Short = 12
-	Private Const SYSTEM_FONT As Short = 13
-	Private Const SYSTEM_FIXED_FONT As Short = 16
-	Private Const DEFAULT_GUI_FONT As Short = 17
-	
-	'LOGFONT ŠÖ˜A‚Ì’è”
-	Private Const DEFAULT_CHARSET As Short = 1
-	Private Const LF_FACESIZE As Short = 32
-	
-	'SystemParametersInfo ŠÖ˜A‚Ì’è”
-	Private Const SPI_GETICONTITLELOGFONT As Short = 31
-	Private Const SPI_GETNONCLIENTMETRICS As Short = 41
-	
-	Private Structure LOGFONT
-		Dim lfHeight As Integer
-		Dim lfWidth As Integer
-		Dim lfEscapement As Integer
-		Dim lfOrientation As Integer
-		Dim lfWeight As Integer
-		Dim lfItalic As Byte
-		Dim lfUnderline As Byte
-		Dim lfStrikeOut As Byte
-		Dim lfCharSet As Byte
-		Dim lfOutPrecision As Byte
-		Dim lfClipPrecision As Byte
-		Dim lfQuality As Byte
-		Dim lfPitchAndFamily As Byte
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg LF_FACESIZE ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		<VBFixedArray(LF_FACESIZE)> Dim lfFaceName() As Byte
-		
-		'UPGRADE_TODO: ‚±‚Ì\‘¢‘Ì‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‰Šú‰»‚·‚é‚É‚ÍA"Initialize" ‚ğŒÄ‚Ño‚³‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B4BFF9E0-8631-45CF-910E-62AB3970F27B"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Public Sub Initialize()
-			Dim LF_FACESIZE As Object
-			'UPGRADE_WARNING: ”z—ñ lfFaceName ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="0F1C9BE1-AF9D-476E-83B1-17D43BECFF20"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg LF_FACESIZE ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			ReDim lfFaceName(LF_FACESIZE)
-		End Sub
-	End Structure
-	
-	Private Structure NONCLIENTMETRICS
-		Dim cbSize As Integer
-		Dim iBorderWidth As Integer
-		Dim iScrollWidth As Integer
-		Dim iScrollHeight As Integer
-		Dim iCaptionWidth As Integer
-		Dim iCaptionHeight As Integer
-		'UPGRADE_ISSUE: LOGFONT ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Dim lfCaptionFont As LOGFONT
-		Dim iSMCaptionWidth As Integer
-		Dim iSMCaptionHeight As Integer
-		'UPGRADE_ISSUE: LOGFONT ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Dim lfSMCaptionFont As LOGFONT
-		Dim iMenuWidth As Integer
-		Dim iMenuHeight As Integer
-		'UPGRADE_ISSUE: LOGFONT ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Dim lfMenuFont As LOGFONT
-		'UPGRADE_ISSUE: LOGFONT ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Dim lfStatusFont As LOGFONT
-		'UPGRADE_ISSUE: LOGFONT ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Dim lfMessageFont As LOGFONT
-	End Structure
-	
-	Public Structure POINTAPI
-		Dim X As Integer
-		Dim Y As Integer
-	End Structure
-	
-	Public Structure RECT
-		'UPGRADE_NOTE: left ‚Í left_Renamed ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Dim left_Renamed As Integer
-		Dim Top As Integer
-		'UPGRADE_NOTE: right ‚Í right_Renamed ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Dim right_Renamed As Integer
-		Dim Bottom As Integer
-	End Structure
-	
-	Public Structure WINDOWPLACEMENT
-		Dim Length As Integer
-		Dim flags As Integer
-		Dim showCmd As Integer
-		Dim ptMinPosition As POINTAPI
-		Dim ptMaxPosition As POINTAPI
-		Dim rcNormalPosition As RECT
-	End Structure
-	
-	
-	
-	Public Const PI As Single = 3.14159265358979
-	Public Const RAD As Single = PI / 180
-	
-	Public Enum OBJ_SELECT
-		NON_SELECT '–¢‘I‘ğ
-		Selected '‘I‘ğ
-		EDIT_RECT '”’˜g (•ÒWƒ‚[ƒh)
-		DELETE_RECT 'Ô˜g (Á‹ƒ‚[ƒh)
-		SELECTAREA_IN '‘I‘ğ”ÍˆÍ“à‚É‚ ‚éƒIƒuƒWƒFA‘I‘ğ’†
-		SELECTAREA_OUT '‘I‘ğ”ÍˆÍ‚ğ“WŠJ‚µ‚½‚ÉŠù‚É‘I‘ğó‘Ô‚É‚ ‚Á‚½ƒIƒuƒWƒFA‘I‘ğ’†
-		SELECTAREA_SELECTED 'ª‚©‚Â‘I‘ğ”ÍˆÍ“àA‚Â‚Ü‚è‘I‘ğó‘Ô‚Å‚È‚­‚È‚Á‚½ƒIƒuƒWƒF
-	End Enum
-	
-	Public Enum OBJ_ATT
-		OBJ_NORMAL
-		OBJ_INVISIBLE
-		OBJ_LONGNOTE
-	End Enum
-	
-	Public Enum BGA_PARA
-		BGA_NUM
-		BGA_X1
-		BGA_Y1
-		BGA_X2
-		BGA_Y2
-		BGA_dX
-		BGA_dY
-	End Enum
-	
-	Public Enum CMD_LOG
-		NONE
-		OBJ_ADD
-		OBJ_DEL
-		OBJ_MOVE
-		OBJ_CHANGE
-		MSR_ADD
-		MSR_DEL
-		MSR_CHANGE
-		WAV_CHANGE
-		BMP_CHANGE
-		LIST_ALIGN
-		LIST_DEL
-	End Enum
-	
-	Public g_strAppTitle As String
-	
+
+    Public Declare Function mciSendString Lib "winmm.dll" Alias "mciSendStringW" (<MarshalAs(UnmanagedType.LPWStr)> ByVal lpstrCommand As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpstrTempurnString As String, ByVal uReturnLength As Integer, ByVal hwndCallback As Integer) As Integer
+    Public Declare Function mciGetErrorString Lib "winmm.dll" Alias "mciGetErrorStringW" (ByVal dwError As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpstrBuffer As String, ByVal uLength As Integer) As Integer
+
+    Public Declare Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringW" (<MarshalAs(UnmanagedType.LPWStr)> ByVal lpApplicationName As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpKeyName As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpDefault As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpReturnedString As StringBuilder, ByVal nSize As UInt32, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpFileName As String) As UInt32
+    Private Declare Function WritePrivateProfileString Lib "kernel32" Alias "WritePrivateProfileStringW" (<MarshalAs(UnmanagedType.LPWStr)> ByVal lpApplicationName As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpKeyName As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpString As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpFileName As String) As Integer
+
+    Public Declare Function GetWindowPlacement Lib "user32" (ByVal hwnd As Integer, <Out()> ByRef lpwndpl As WINDOWPLACEMENT) As Integer
+    Public Declare Function SetWindowPlacement Lib "user32" (ByVal hwnd As Integer, <[In]()> ByRef lpwndpl As WINDOWPLACEMENT) As Integer
+
+    Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteW" (ByVal hwnd As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpOperation As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpFile As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpParameters As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpDirectory As String, ByVal nShowCmd As Integer) As Integer
+
+    Public Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongW" (ByVal hwnd As Integer, ByVal nIndex As Integer) As Integer
+    Public Declare Function AdjustWindowRectEx Lib "user32" (<[In]()> ByRef lpRect As RECT, ByVal dsStyle As Integer, ByVal bMenu As Integer, ByVal dwEsStyle As Integer) As Integer
+
+    Private Declare Function GetStockObject Lib "gdi32" (ByVal nIndex As Integer) As Integer
+    Private Declare Function GetObject_Renamed Lib "gdi32" Alias "GetObjectW" (ByVal hObject As Integer, ByVal nCount As Integer, <Out()> ByRef lpObject As LOGFONT) As Integer
+
+    'Get/SetWindowPlacementãƒ»ShellExecute é–¢é€£ã®å®šæ•°
+    Public Const SW_HIDE As Short = 0
+    Public Const SW_MAXIMIZE As Short = 3
+    Public Const SW_MINIMIZE As Short = 6
+    Public Const SW_RESTORE As Short = 9
+    Public Const SW_SHOW As Short = 5
+    Public Const SW_SHOWDEFAULT As Short = 10
+    Public Const SW_SHOWMAXIMIZED As Short = 3
+    Public Const SW_SHOWMINIMIZED As Short = 2
+    Public Const SW_SHOWMINNOACTIVE As Short = 7
+    Public Const SW_SHOWNA As Short = 8
+    Public Const SW_SHOWNOACTIVATE As Short = 4
+    Public Const SW_SHOWNORMAL As Short = 1
+
+    'GetWindowLong é–¢é€£ã®å®šæ•°
+    Public Const GWL_STYLE As Short = -16
+    Public Const GWL_EXSTYLE As Short = -20
+
+    'GetStockObject é–¢é€£ã®å®šæ•°
+    Private Const OEM_FIXED_FONT As Short = 10
+    Private Const ANSI_FIXED_FONT As Short = 11
+    Private Const ANSI_VAR_FONT As Short = 12
+    Private Const SYSTEM_FONT As Short = 13
+    Private Const SYSTEM_FIXED_FONT As Short = 16
+    Private Const DEFAULT_GUI_FONT As Short = 17
+
+    'LOGFONT é–¢é€£ã®å®šæ•°
+    Private Const DEFAULT_CHARSET As Short = 1
+    Private Const LF_FACESIZE As Short = 32
+
+    'SystemParametersInfo é–¢é€£ã®å®šæ•°
+    Private Const SPI_GETICONTITLELOGFONT As Short = 31
+    Private Const SPI_GETNONCLIENTMETRICS As Short = 41
+
+    Public Structure ItemWithData
+        Public ItemString As String
+        Public ItemData As Integer
+
+        'ComboBoxã«ã¯ã€ToString()ãƒ¡ã‚½ãƒƒãƒ‰ã®å†…å®¹ãŒè¡¨ç¤ºã•ã‚Œã‚‹
+        Public Overrides Function ToString() As String
+            Return ItemString
+        End Function
+
+        'ç™»éŒ²ã‚’ç°¡å˜ã«ã™ã‚‹ãŸã‚ã€å¼•æ•°ä»˜ãã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚’å®šç¾©
+        Public Sub New(ByVal S As String, ByVal I As Integer)
+            ItemString = S
+            ItemData = I
+        End Sub
+
+        Public Sub SetItemString(ByVal S As String)
+            ItemString = S
+        End Sub
+
+        Public Sub SetItemData(ByVal I As Integer)
+            ItemData = I
+        End Sub
+    End Structure
+
+    Public Sub SetItemString(obj As Control, index As Integer, itemstring As String)
+        If TypeOf obj Is System.Windows.Forms.ComboBox Then
+            DirectCast(obj, System.Windows.Forms.ComboBox).Items.Insert(index, itemstring)
+            If DirectCast(obj, System.Windows.Forms.ComboBox).Items.Count > index + 1 Then
+                DirectCast(obj, System.Windows.Forms.ComboBox).Items.RemoveAt(index + 1)
+            End If
+        ElseIf TypeOf obj Is System.Windows.Forms.ListBox
+            DirectCast(obj, System.Windows.Forms.ListBox).Items.Insert(index, itemstring)
+            If DirectCast(obj, System.Windows.Forms.ListBox).Items.Count > index + 1 Then
+                DirectCast(obj, System.Windows.Forms.ListBox).Items.RemoveAt(index + 1)
+            End If
+        Else
+            Throw New Exception("Invalid Argument Type")
+        End If
+    End Sub
+
+    Public Function GetItemString(obj As Control, index As Integer) As String
+        If TypeOf obj Is System.Windows.Forms.ComboBox Then
+            GetItemString = DirectCast(obj, System.Windows.Forms.ComboBox).Items.Item(index).ToString()
+        ElseIf TypeOf obj Is System.Windows.Forms.ListBox
+            GetItemString = DirectCast(obj, System.Windows.Forms.ListBox).Items.Item(index).ToString()
+        Else
+            Throw New Exception("Invalid Argument Type")
+        End If
+    End Function
+
+    <StructLayout(LayoutKind.Sequential, CharSet:=CharSet.Auto, Pack:=1)> Public Structure LOGFONT
+        Public lfHeight As Int32
+        Public lfWidth As Int32
+        Public lfEscapement As Int32
+        Public lfOrientation As Int32
+        Public lfWeight As Int32
+        Public lfItalic As Byte
+        Public lfUnderline As Byte
+        Public lfStrikeOut As Byte
+        Public lfCharSet As Byte
+        Public lfOutPrecision As Byte
+        Public lfClipPrecision As Byte
+        Public lfQuality As Byte
+        Public lfPitchAndFamily As Byte
+        <MarshalAs(UnmanagedType.ByValTStr, SizeConst:=LF_FACESIZE)> Public lfFaceName As String
+    End Structure
+
+    Private Structure NONCLIENTMETRICS
+        Dim cbSize As Integer
+        Dim iBorderWidth As Integer
+        Dim iScrollWidth As Integer
+        Dim iScrollHeight As Integer
+        Dim iCaptionWidth As Integer
+        Dim iCaptionHeight As Integer
+        Dim lfCaptionFont As LOGFONT
+        Dim iSMCaptionWidth As Integer
+        Dim iSMCaptionHeight As Integer
+        Dim lfSMCaptionFont As LOGFONT
+        Dim iMenuWidth As Integer
+        Dim iMenuHeight As Integer
+        Dim lfMenuFont As LOGFONT
+        Dim lfStatusFont As LOGFONT
+        Dim lfMessageFont As LOGFONT
+    End Structure
+
+    Public Structure POINTAPI
+        Dim X As Integer
+        Dim Y As Integer
+    End Structure
+
+    <StructLayout(LayoutKind.Sequential)> Public Structure RECT
+        Dim left_Renamed As Integer
+        Dim Top As Integer
+        Dim right_Renamed As Integer
+        Dim Bottom As Integer
+    End Structure
+
+    <StructLayout(LayoutKind.Sequential)> Public Structure WINDOWPLACEMENT
+        Dim Length As Integer
+        Dim flags As Integer
+        Dim showCmd As Integer
+        Dim ptMinPosition As POINTAPI
+        Dim ptMaxPosition As POINTAPI
+        Dim rcNormalPosition As RECT
+    End Structure
+
+    Public Const PI As Single = 3.14159265358979
+    Public Const RAD As Single = PI / 180
+
+    Public Enum OBJ_SELECT
+        NON_SELECT 'æœªé¸æŠ
+        Selected 'é¸æŠ
+        EDIT_RECT 'ç™½æ  (ç·¨é›†ãƒ¢ãƒ¼ãƒ‰)
+        DELETE_RECT 'èµ¤æ  (æ¶ˆå»ãƒ¢ãƒ¼ãƒ‰)
+        SELECTAREA_IN 'é¸æŠç¯„å›²å†…ã«ã‚ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã€é¸æŠä¸­
+        SELECTAREA_OUT 'é¸æŠç¯„å›²ã‚’å±•é–‹ã—ãŸæ™‚ã«æ—¢ã«é¸æŠçŠ¶æ…‹ã«ã‚ã£ãŸã‚ªãƒ–ã‚¸ã‚§ã€é¸æŠä¸­
+        SELECTAREA_SELECTED 'â†‘ã‹ã¤é¸æŠç¯„å›²å†…ã€ã¤ã¾ã‚Šé¸æŠçŠ¶æ…‹ã§ãªããªã£ãŸã‚ªãƒ–ã‚¸ã‚§
+    End Enum
+
+    Public Enum OBJ_ATT
+        OBJ_NORMAL
+        OBJ_INVISIBLE
+        OBJ_LONGNOTE
+    End Enum
+
+    Public Enum BGA_PARA
+        BGA_NUM
+        BGA_X1
+        BGA_Y1
+        BGA_X2
+        BGA_Y2
+        BGA_dX
+        BGA_dY
+    End Enum
+
+    Public Enum CMD_LOG
+        NONE
+        OBJ_ADD
+        OBJ_DEL
+        OBJ_MOVE
+        OBJ_CHANGE
+        MSR_ADD
+        MSR_DEL
+        MSR_CHANGE
+        WAV_CHANGE
+        BMP_CHANGE
+        LIST_ALIGN
+        LIST_DEL
+    End Enum
+
+    Public g_strAppTitle As String
+
     Public Structure m_udtMouse
-        Dim X As Single
-        Dim Y As Single
-        Dim Shift As Short
-        Dim Button As Short
+        Dim X As Integer
+        Dim Y As Integer
+        Dim Shift As Keys
+        Dim Button As MouseButtons
         Dim measure As Short
     End Structure
-	
-	'UPGRADE_ISSUE: m_udtMouse ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Public g_Mouse As m_udtMouse
-	
+
+    Public g_Mouse As m_udtMouse
+
     Public Structure m_udtDisplay
         Dim X As Integer
         Dim Y As Integer
@@ -220,17 +243,16 @@ Module modMain
         Dim intEndMeasure As Short
         Dim lngStartPos As Integer
         Dim lngEndPos As Integer
-        Dim intMaxMeasure As Short 'Å‘å•\¦¬ß
-        Dim intResolution As Short '•ª‰ğ”\
-        Dim intEffect As Short '‰æ–ÊŒø‰Ê
+        Dim intMaxMeasure As Short 'æœ€å¤§è¡¨ç¤ºå°ç¯€
+        Dim intResolution As Short 'åˆ†è§£èƒ½
+        Dim intEffect As Short 'ç”»é¢åŠ¹æœ
     End Structure
-	
-	'UPGRADE_ISSUE: m_udtDisplay ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Public g_disp As m_udtDisplay
-	
+
+    Public g_disp As m_udtDisplay
+
     Public Structure m_udtBMS
-        Dim strDir As String 'ƒfƒBƒŒƒNƒgƒŠ
-        Dim strFileName As String 'BMSƒtƒ@ƒCƒ‹–¼
+        Dim strDir As String 'ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
+        Dim strFileName As String 'BMSãƒ•ã‚¡ã‚¤ãƒ«å
         Dim intPlayerType As Short '#PLAYER
         Dim strGenre As String '#GENRE
         Dim strTitle As String '#TITLE
@@ -243,2621 +265,2155 @@ Module modMain
         Dim strStageFile As String '#STAGEFILE
         Dim blnSaveFlag As Boolean
     End Structure
-	
-	'UPGRADE_ISSUE: m_udtBMS ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Public g_BMS As m_udtBMS
-	
-	Private Structure m_udtVerticalLine
-		Dim blnVisible As Boolean
-		Dim intCh As Short
-		Dim strText As String
-		Dim intWidth As Short
-		Dim lngLeft As Integer
-		Dim lngObjLeft As Integer
-		Dim lngBackColor As Integer
-		Dim intLightNum As Short
-		Dim intShadowNum As Short
-		Dim intBrushNum As Short
-		Dim blnDraw As Boolean
-	End Structure
-	
-	'UPGRADE_ISSUE: m_udtVerticalLine ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Public g_VGrid(61) As m_udtVerticalLine
-	
-	Public g_intVGridNum(132 + 40) As Short
-	
-	Public Structure g_udtObj
-		Dim lngID As Integer
-		Dim intCh As Short
-		Dim intAtt As OBJ_ATT
-		Dim intMeasure As Short
-		Dim lngHeight As Integer
-		Dim lngPosition As Integer
-		Dim sngValue As Single
-		Dim intSelect As OBJ_SELECT
-		'0EEE–¢‘I‘ğ
-		'1EEE‘I‘ğ
-		'2EEE”’˜g (•ÒWƒ‚[ƒh)
-		'3EEEÔ˜g (Á‹ƒ‚[ƒh)
-		'4EEE‘I‘ğ”ÍˆÍ“à‚É‚ ‚éƒIƒuƒWƒFA‘I‘ğ’†
-		'5EEE‘I‘ğ”ÍˆÍ‚ğ“WŠJ‚µ‚½‚ÉŠù‚É‘I‘ğó‘Ô‚É‚ ‚Á‚½ƒIƒuƒWƒFA‘I‘ğ’†
-		'6EEE5”Ô‚©‚Â‘I‘ğ”ÍˆÍ“àA‚Â‚Ü‚è‘I‘ğó‘Ô‚Å‚È‚­‚È‚Á‚½ƒIƒuƒWƒF
-	End Structure
-	
-	Public g_Obj() As g_udtObj
-	
-	Public g_lngObjID() As Integer
-	Public g_lngIDNum As Integer
-	
-	Private Structure m_udtSelectArea
-		Dim blnFlag As Boolean
-		Dim X1 As Single
-		Dim Y1 As Single
-		Dim X2 As Single
-		Dim Y2 As Single
-	End Structure
-	
-	'UPGRADE_ISSUE: m_udtSelectArea ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Public g_SelectArea As m_udtSelectArea
-	
-	Public g_strLangFileName() As String
-	Public g_strThemeFileName() As String
-	Public g_strStatusBar(23) As String
-	
-	Public g_blnIgnoreInput As Boolean
-	Public g_strAppDir As String
-	Public g_strHelpFilename As String
-	Public g_strFiler As String
-	Public g_strRecentFiles(4) As String
-	
-	Public g_InputLog As New clsLog
-	
-	Public Structure g_udtViewer
-		Dim strAppName As String
-		Dim strAppPath As String
-		Dim strArgAll As String
-		Dim strArgPlay As String
-		Dim strArgStop As String
-	End Structure
-	
-	Public g_Viewer() As g_udtViewer
-	
-	Public Enum Message
-		ERR_01
-		ERR_02
-		ERR_FILE_NOT_FOUND
-		ERR_LOAD_CANCEL
-		ERR_SAVE_ERROR
-		ERR_SAVE_CANCEL
-		ERR_OVERFLOW_LARGE
-		ERR_OVERFLOW_SMALL
-		ERR_OVERFLOW_BPM
-		ERR_OVERFLOW_STOP
-		ERR_APP_NOT_FOUND
-		ERR_FILE_ALREADY_EXIST
-		MSG_CONFIRM
-		MSG_FILE_CHANGED
-		MSG_INI_CHANGED
-		MSG_ALIGN_LIST
-		MSG_DELETE_FILE
-		INPUT_BPM
-		INPUT_STOP
-		INPUT_RENAME
-		INPUT_SIZE
-		Max
-	End Enum
-	
-	'UPGRADE_WARNING:  ‚É•ÏŠ·‚³‚ê‚Ä‚¢‚È‚¢ƒXƒe[ƒgƒƒ“ƒg‚ª‚ ‚è‚Ü‚·Bƒ\[ƒX ƒR[ƒh‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢B
-	
-	Public Sub StartUp()
-		Dim strGet_ini As Object
-		
-		Dim i As Integer
-		Dim strTemp As String
-		Dim intTemp As Short
-		Dim lngFFile As Integer
-		
-		If Right(My.Application.Info.DirectoryPath, 1) = "\" Then
-			
-			g_strAppDir = My.Application.Info.DirectoryPath
-			
-		Else
-			
-			g_strAppDir = My.Application.Info.DirectoryPath & "\"
-			
-		End If
-		
-		g_strAppTitle = "BMx Sequence Editor " & My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Revision
-		g_strAppTitle = g_strAppTitle & " beta 14"
-		
+
+    Public g_BMS As m_udtBMS
+
+    Public Structure m_udtVerticalLine
+        Dim blnVisible As Boolean
+        Dim intCh As Short
+        Dim strText As String
+        Dim intWidth As Short
+        Dim lngLeft As Integer
+        Dim lngObjLeft As Integer
+        Dim lngBackColor As Integer
+        Dim intLightNum As Short
+        Dim intShadowNum As Short
+        Dim intBrushNum As Short
+        Dim blnDraw As Boolean
+    End Structure
+
+    Public g_VGrid(61) As m_udtVerticalLine
+
+    Public g_intVGridNum(132 + 40) As Short
+
+    Public Structure g_udtObj
+        Dim lngID As Integer
+        Dim intCh As Short
+        Dim intAtt As OBJ_ATT
+        Dim intMeasure As Short
+        Dim lngHeight As Integer
+        Dim lngPosition As Integer
+        Dim sngValue As Single
+        Dim intSelect As OBJ_SELECT
+        '0ãƒ»ãƒ»ãƒ»æœªé¸æŠ
+        '1ãƒ»ãƒ»ãƒ»é¸æŠ
+        '2ãƒ»ãƒ»ãƒ»ç™½æ  (ç·¨é›†ãƒ¢ãƒ¼ãƒ‰)
+        '3ãƒ»ãƒ»ãƒ»èµ¤æ  (æ¶ˆå»ãƒ¢ãƒ¼ãƒ‰)
+        '4ãƒ»ãƒ»ãƒ»é¸æŠç¯„å›²å†…ã«ã‚ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã€é¸æŠä¸­
+        '5ãƒ»ãƒ»ãƒ»é¸æŠç¯„å›²ã‚’å±•é–‹ã—ãŸæ™‚ã«æ—¢ã«é¸æŠçŠ¶æ…‹ã«ã‚ã£ãŸã‚ªãƒ–ã‚¸ã‚§ã€é¸æŠä¸­
+        '6ãƒ»ãƒ»ãƒ»5ç•ªã‹ã¤é¸æŠç¯„å›²å†…ã€ã¤ã¾ã‚Šé¸æŠçŠ¶æ…‹ã§ãªããªã£ãŸã‚ªãƒ–ã‚¸ã‚§
+    End Structure
+
+    Public g_Obj() As g_udtObj
+
+    Public g_lngObjID() As Integer
+    Public g_lngIDNum As Integer
+
+    Public Structure m_udtSelectArea
+        Dim blnFlag As Boolean
+        Dim X1 As Single
+        Dim Y1 As Single
+        Dim X2 As Single
+        Dim Y2 As Single
+    End Structure
+
+    Public g_SelectArea As m_udtSelectArea
+
+    Public g_strLangFileName() As String
+    Public g_strThemeFileName() As String
+    Public g_strStatusBar(23) As String
+
+    Public g_blnIgnoreInput As Boolean
+    Public g_strAppDir As String
+    Public g_strHelpFilename As String
+    Public g_strFiler As String
+    Public g_strRecentFiles(4) As String
+
+    Public g_InputLog As New clsLog
+
+    Public Structure g_udtViewer
+        Dim strAppName As String
+        Dim strAppPath As String
+        Dim strArgAll As String
+        Dim strArgPlay As String
+        Dim strArgStop As String
+    End Structure
+
+    Public g_Viewer() As g_udtViewer
+
+    Public Enum Message
+        ERR_01
+        ERR_02
+        ERR_FILE_NOT_FOUND
+        ERR_LOAD_CANCEL
+        ERR_SAVE_ERROR
+        ERR_SAVE_CANCEL
+        ERR_OVERFLOW_LARGE
+        ERR_OVERFLOW_SMALL
+        ERR_OVERFLOW_BPM
+        ERR_OVERFLOW_STOP
+        ERR_APP_NOT_FOUND
+        ERR_FILE_ALREADY_EXIST
+        MSG_CONFIRM
+        MSG_FILE_CHANGED
+        MSG_INI_CHANGED
+        MSG_ALIGN_LIST
+        MSG_DELETE_FILE
+        INPUT_BPM
+        INPUT_STOP
+        INPUT_RENAME
+        INPUT_SIZE
+        Max
+    End Enum
+
+    Public g_Message(Message.Max - 1) As String
+
+    Public Function LenB(ByVal stTarget As String) As Integer
+        If stTarget <> Nothing Then
+            Return System.Text.Encoding.Unicode.GetByteCount(stTarget)
+        Else
+            Return 0
+        End If
+    End Function
+
+    Public Sub StartUp()
+        Dim i As Integer
+        Dim strTemp As String
+        Dim intTemp As Short
+        Dim lngFFile As Integer
+
+        If Right(My.Application.Info.DirectoryPath, 1) = "\" Then
+
+            g_strAppDir = My.Application.Info.DirectoryPath
+
+        Else
+
+            g_strAppDir = My.Application.Info.DirectoryPath & "\"
+
+        End If
+
+        g_strAppTitle = "BMx Sequence Editor " & My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Revision
+        g_strAppTitle = g_strAppTitle & " beta 14"
+
 #If MODE_DEBUG = False Then
-		'UPGRADE_NOTE: ® MODE_DEBUG = False ‚ª True ‚É•]‰¿‚³‚ê‚È‚©‚Á‚½‚©A‚Ü‚½‚Í‚Ü‚Á‚½‚­•]‰¿‚³‚ê‚È‚©‚Á‚½‚½‚ßA#If #EndIf ƒuƒƒbƒN‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="27EE2C3C-05AF-4C04-B2AF-657B4FB6B5FC"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
 		
 		Call modMessage.SubClass(frmMain.hwnd)
-		
-#Else
-		
-		Call timeBeginPeriod(1)
-		frmMain.staMain.Items.Item("Time").Visible = True
-		
+
 #End If
-		
-		ReDim g_strLangFileName(0)
-		
-		Call g_InputLog.clear()
-		
-		ReDim g_Viewer(1)
-		
-		'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If Dir(g_strAppDir & "bmse_viewer.ini", FileAttribute.Normal) = vbNullString Then
-			
-			lngFFile = FreeFile
-			
-			FileOpen(lngFFile, g_strAppDir & "bmse_viewer.ini", OpenMode.Output)
-			
-			PrintLine(lngFFile, "uBMplay")
-			PrintLine(lngFFile, "uBMplay.exe")
-			PrintLine(lngFFile, "-P -N0 <filename>")
-			PrintLine(lngFFile, "-P -N<measure> <filename>")
-			PrintLine(lngFFile, "-S")
-			PrintLine(lngFFile)
-			PrintLine(lngFFile, "WAview")
-			PrintLine(lngFFile, "C:\Program Files\Winamp\Plugins\WAview.exe")
-			PrintLine(lngFFile, "-Lbml <filename>")
-			PrintLine(lngFFile, "-N<measure>")
-			PrintLine(lngFFile, "-S")
-			PrintLine(lngFFile)
-			PrintLine(lngFFile, "nBMplay")
-			PrintLine(lngFFile, "nbmplay.exe")
-			PrintLine(lngFFile, "-P -N0 <filename>")
-			PrintLine(lngFFile, "-P -N<measure> <filename>")
-			PrintLine(lngFFile, "-S")
-			PrintLine(lngFFile)
-			PrintLine(lngFFile, "BMEV")
-			PrintLine(lngFFile, "BMEV.exe")
-			PrintLine(lngFFile, "-P -N0 <filename>")
-			PrintLine(lngFFile, "-P -N<measure> <filename>")
-			PrintLine(lngFFile, "-S")
-			PrintLine(lngFFile)
-			PrintLine(lngFFile, "BMS Viewer")
-			PrintLine(lngFFile, "bmview.exe")
-			PrintLine(lngFFile, "-S -P -N0 <filename>")
-			PrintLine(lngFFile, "-S -P -N<measure> <filename>")
-			PrintLine(lngFFile, "-S")
-			
-			FileClose(lngFFile)
-			
-		End If
-		
-		i = 0
-		lngFFile = FreeFile
-		
-		FileOpen(lngFFile, g_strAppDir & "bmse_viewer.ini", OpenMode.Input)
-		
-		Do While Not EOF(lngFFile)
-			
-			strTemp = LineInput(lngFFile)
-			
-			Select Case i Mod 6
-				
-				Case 0
-					
-					If Len(strTemp) = 0 Then Exit Do
-					g_Viewer(UBound(g_Viewer)).strAppName = strTemp
-					
-				Case 1
-					
-					If Len(strTemp) = 0 Then Exit Do
-					g_Viewer(UBound(g_Viewer)).strAppPath = strTemp
-					
-				Case 2
-					
-					g_Viewer(UBound(g_Viewer)).strArgAll = strTemp
-					
-				Case 3
-					
-					g_Viewer(UBound(g_Viewer)).strArgPlay = strTemp
-					
-				Case 4
-					
-					g_Viewer(UBound(g_Viewer)).strArgStop = strTemp
-					
-					Call frmMain.cboViewer.Items.Add(g_Viewer(UBound(g_Viewer)).strAppName)
-					ReDim Preserve g_Viewer(UBound(g_Viewer) + 1)
-					
-			End Select
-			
-			i = i + 1
-			
-		Loop 
-		
-		FileClose(lngFFile)
-		
-		ReDim Preserve g_Viewer(frmMain.cboViewer.Items.Count)
-		
-		'ƒ‰ƒ“ƒQ[ƒWƒtƒ@ƒCƒ‹“Ç‚İ‚İ
-		'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		strTemp = Dir(g_strAppDir & "lang\*.ini")
-		intTemp = 0
-		
-		Do While strTemp <> ""
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Main, Key, , lang\ & strTemp) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If strGet_ini("Main", "Key", "", "lang\" & strTemp) = "BMSE" Then
-				
-				intTemp = intTemp + 1
-				
-				ReDim Preserve g_strLangFileName(intTemp)
-				
-				g_strLangFileName(intTemp) = strTemp
-				
-				Call frmMain.mnuLanguage.Load(intTemp)
-				
-				With frmMain.mnuLanguage(intTemp)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Main, Language, strTemp, lang\ & strTemp) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.Text = "&" & strGet_ini("Main", "Language", strTemp, "lang\" & strTemp)
-					
-					If .Text = "&" Then .Text = "&" & strTemp
-					
-					.Visible = True
-					
-				End With
-				
-			End If
-			
-			'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			strTemp = Dir()
-			
-		Loop 
-		
-		If intTemp Then
-			
-			frmMain.mnuLanguage(0).Visible = False
-			
-		Else
-			
-			frmMain.mnuLanguageParent.Enabled = False
-			
-		End If
-		
-		'ƒe[ƒ}ƒtƒ@ƒCƒ‹“Ç‚İ‚İ
-		'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		strTemp = Dir(g_strAppDir & "theme\*.ini")
-		intTemp = 0
-		
-		Do While strTemp <> ""
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Main, Key, , theme\ & strTemp) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If strGet_ini("Main", "Key", "", "theme\" & strTemp) = "BMSE" Then
-				
-				intTemp = intTemp + 1
-				
-				ReDim Preserve g_strThemeFileName(intTemp)
-				
-				g_strThemeFileName(intTemp) = strTemp
-				
-				frmMain.mnuTheme.Load(intTemp)
-				
-				With frmMain.mnuTheme(intTemp)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Main, Name, strTemp, theme\ & strTemp) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.Text = "&" & strGet_ini("Main", "Name", strTemp, "theme\" & strTemp)
-					
-					If .Text = "&" Then .Text = "&" & strTemp
-					
-					.Visible = True
-					
-				End With
-				
-			End If
-			
-			'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			strTemp = Dir()
-			
-		Loop 
-		
-		If intTemp Then
-			
-			frmMain.mnuTheme(0).Visible = False
-			
-		Else
-			
-			frmMain.mnuThemeParent.Enabled = False
-			
-		End If
-		
-		For i = 1 To frmMain.MENU_OPTIONS.Max - 1
-			
-			Call frmMain.mnuOptionsItem.Load(i)
-			
-		Next i
-		
-		For i = 1 To frmMain.MENU_VIEW.Max - 1
-			
-			Call frmMain.mnuViewItem.Load(i)
-			
-		Next i
-		
-		'‰Šú‰»
-		With g_BMS
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.intPlayerType ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.intPlayerType = modInput.PLAYER_TYPE.PLAYER_1P
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strGenre ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.strGenre = ""
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strTitle ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.strTitle = ""
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strArtist ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.strArtist = ""
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.sngBPM ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.sngBPM = Val(frmMain.txtBPM.Text)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.lngPlayLevel ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lngPlayLevel = 1
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.intPlayRank ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.intPlayRank = modInput.PLAY_RANK.RANK_EASY
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.sngTotal ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.sngTotal = 0
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.intVolume ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.intVolume = 0
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.blnSaveFlag = True
-			
-		End With
-		
-		ReDim g_Obj(0)
-		ReDim g_lngObjID(0)
-		g_lngIDNum = 0
-		
-		For i = 0 To 256 + 64
-			
-			g_sngSin(i) = System.Math.Sin(i * PI / 128)
-			
-		Next i
-		
-		For i = 0 To UBound(g_VGrid)
-			
-			With g_VGrid(i)
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg Choose() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.intCh = Choose(i + 1, 0, 8, 9, 0, 21, 16, 11, 12, 13, 14, 15, 18, 19, 16, 0, 26, 21, 22, 23, 24, 25, 28, 29, 26, 0, 4, 7, 6, 0, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 0)
-				'If .intCh Then g_intVGridNum(.intCh) = i
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.blnVisible = True
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				Select Case .intCh
-					
-					Case modInput.OBJ_CH.CH_BPM, modInput.OBJ_CH.CH_EXBPM, modInput.OBJ_CH.CH_STOP 'BPM/STOP
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.BPM_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.BPM_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.BPM
-						
-					Case modInput.OBJ_CH.CH_BGA, modInput.OBJ_CH.CH_LAYER, modInput.OBJ_CH.CH_POOR 'BGA/Layer/Poor
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.BGA_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.BGA_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.BGA
-						
-					Case 11
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.KEY01_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.KEY01_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.KEY01
-						
-					Case 12
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.KEY02_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.KEY02_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.KEY02
-						
-					Case 13
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.KEY03_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.KEY03_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.KEY03
-						
-					Case 14
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.KEY04_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.KEY04_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.KEY04
-						
-					Case 15
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.KEY05_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.KEY05_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.KEY05
-						
-					Case 18
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.KEY06_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.KEY06_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.KEY06
-						
-					Case 19
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.KEY07_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.KEY07_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.KEY07
-						
-					Case 16
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.KEY08_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.KEY08_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.KEY08
-						
-					Case 21
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.KEY11_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.KEY11_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.KEY11
-						
-					Case 22
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.KEY12_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.KEY12_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.KEY12
-						
-					Case 23
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.KEY13_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.KEY13_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.KEY13
-						
-					Case 24
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.KEY14_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.KEY14_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.KEY14
-						
-					Case 25
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.KEY15_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.KEY15_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.KEY15
-						
-					Case 28
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.KEY16_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.KEY16_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.KEY16
-						
-					Case 29
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.KEY17_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.KEY17_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.KEY17
-						
-					Case 26
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.KEY18_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.KEY18_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.KEY18
-						
-					Case Is > 100 'BGM
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intLightNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intLightNum = modDraw.PEN_NUM.BGM_LIGHT
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intShadowNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intShadowNum = modDraw.PEN_NUM.BGM_SHADOW
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intBrushNum ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intBrushNum = modDraw.BRUSH_NUM.BGM
-						
-				End Select
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If .intCh Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.intWidth = GRID_WIDTH
-					
-				Else
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.intWidth = SPACE_WIDTH
-					
-				End If
-				
-			End With
-			
-		Next i
-		
-		'g_Disp.intMaxMeasure = 31
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intMaxMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_disp.intMaxMeasure = 0
-		Call modDraw.lngChangeMaxMeasure(15)
-		Call modDraw.ChangeResolution()
-		
-	End Sub
-	
-	Public Sub CleanUp(Optional ByVal lngErrNum As Integer = 0, Optional ByRef strErrDescription As String = "", Optional ByRef strErrProcedure As String = "")
-		Dim DebugOutput As Object
-		Dim lngDeleteFile As Object
-		Dim SaveConfig As Object
-		On Error Resume Next
-		
-		Dim i As Integer
-		
+
+#If MODE_SPEEDTEST Then
+
+        Call timeBeginPeriod(1)
+
+#End If
+
+        ReDim g_strLangFileName(0)
+
+        Call g_InputLog.Clear()
+
+        ReDim g_Viewer(1)
+
+        'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+        If Dir(g_strAppDir & "bmse_viewer.ini", FileAttribute.Normal) = vbNullString Then
+
+            lngFFile = FreeFile()
+
+            FileOpen(lngFFile, g_strAppDir & "bmse_viewer.ini", OpenMode.Output)
+
+            PrintLine(lngFFile, "uBMplay")
+            PrintLine(lngFFile, "uBMplay.exe")
+            PrintLine(lngFFile, "-P -N0 <filename>")
+            PrintLine(lngFFile, "-P -N<measure> <filename>")
+            PrintLine(lngFFile, "-S")
+            PrintLine(lngFFile)
+            PrintLine(lngFFile, "WAview")
+            PrintLine(lngFFile, "C:\Program Files\Winamp\Plugins\WAview.exe")
+            PrintLine(lngFFile, "-Lbml <filename>")
+            PrintLine(lngFFile, "-N<measure>")
+            PrintLine(lngFFile, "-S")
+            PrintLine(lngFFile)
+            PrintLine(lngFFile, "nBMplay")
+            PrintLine(lngFFile, "nbmplay.exe")
+            PrintLine(lngFFile, "-P -N0 <filename>")
+            PrintLine(lngFFile, "-P -N<measure> <filename>")
+            PrintLine(lngFFile, "-S")
+            PrintLine(lngFFile)
+            PrintLine(lngFFile, "BMEV")
+            PrintLine(lngFFile, "BMEV.exe")
+            PrintLine(lngFFile, "-P -N0 <filename>")
+            PrintLine(lngFFile, "-P -N<measure> <filename>")
+            PrintLine(lngFFile, "-S")
+            PrintLine(lngFFile)
+            PrintLine(lngFFile, "BMS Viewer")
+            PrintLine(lngFFile, "bmview.exe")
+            PrintLine(lngFFile, "-S -P -N0 <filename>")
+            PrintLine(lngFFile, "-S -P -N<measure> <filename>")
+            PrintLine(lngFFile, "-S")
+
+            FileClose(lngFFile)
+
+        End If
+
+        i = 0
+        lngFFile = FreeFile()
+
+        FileOpen(lngFFile, g_strAppDir & "bmse_viewer.ini", OpenMode.Input)
+
+        Do While Not EOF(lngFFile)
+
+            strTemp = LineInput(lngFFile)
+
+            Select Case i Mod 6
+
+                Case 0
+
+                    If Len(strTemp) = 0 Then Exit Do
+                    g_Viewer(UBound(g_Viewer)).strAppName = strTemp
+
+                Case 1
+
+                    If Len(strTemp) = 0 Then Exit Do
+                    g_Viewer(UBound(g_Viewer)).strAppPath = strTemp
+
+                Case 2
+
+                    g_Viewer(UBound(g_Viewer)).strArgAll = strTemp
+
+                Case 3
+
+                    g_Viewer(UBound(g_Viewer)).strArgPlay = strTemp
+
+                Case 4
+
+                    g_Viewer(UBound(g_Viewer)).strArgStop = strTemp
+
+                    Call frmMain.cboViewer.Items.Add(g_Viewer(UBound(g_Viewer)).strAppName)
+                    ReDim Preserve g_Viewer(UBound(g_Viewer) + 1)
+
+            End Select
+
+            i = i + 1
+
+        Loop
+
+        FileClose(lngFFile)
+
+        ReDim Preserve g_Viewer(frmMain.cboViewer.Items.Count)
+
+        'ãƒ©ãƒ³ã‚²ãƒ¼ã‚¸ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
+        'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+        ReDim Preserve g_strLangFileName(2)
+
+        strTemp = Dir(g_strAppDir & "lang\*.ini")
+        intTemp = 0
+
+        Do While strTemp <> ""
+            If strGet_ini("Main", "Key", "", "lang\" & strTemp) = "BMSE" Then
+                g_strLangFileName(intTemp) = strTemp
+
+                Select Case intTemp
+                    Case 0
+                        With frmMain._mnuLanguage_0
+                            .Text = "&" & strGet_ini("Main", "Language", strTemp, "lang\" & strTemp)
+                            If .Text = "&" Then .Text = "&" & strTemp
+                            .Visible = True
+                        End With
+                        intTemp = intTemp + 1
+
+                    Case 1
+                        With frmMain._mnuLanguage_1
+                            .Text = "&" & strGet_ini("Main", "Language", strTemp, "lang\" & strTemp)
+                            If .Text = "&" Then .Text = "&" & strTemp
+                            .Visible = True
+                        End With
+                        intTemp = intTemp + 1
+
+                    Case 2
+                        With frmMain._mnuLanguage_2
+                            .Text = "&" & strGet_ini("Main", "Language", strTemp, "lang\" & strTemp)
+                            If .Text = "&" Then .Text = "&" & strTemp
+                            .Visible = True
+                        End With
+                        intTemp = intTemp + 1
+                End Select
+            End If
+
+            strTemp = Dir()
+        Loop
+
+        If intTemp Then
+        Else
+            frmMain.mnuLanguageParent.Enabled = False
+        End If
+
+        'ãƒ†ãƒ¼ãƒãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
+        'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+        ReDim Preserve g_strThemeFileName(2)
+
+        strTemp = Dir(g_strAppDir & "theme\*.ini")
+        intTemp = 0
+
+        Do While strTemp <> ""
+            If strGet_ini("Main", "Key", "", "theme\" & strTemp) = "BMSE" Then
+
+
+                g_strThemeFileName(intTemp) = strTemp
+
+                Select Case intTemp
+                    Case 0
+                        With frmMain._mnuTheme_0
+                            .Text = "&" & strGet_ini("Main", "Name", strTemp, "theme\" & strTemp)
+                            If .Text = "&" Then .Text = "&" & strTemp
+                            .Visible = True
+                        End With
+                        intTemp = intTemp + 1
+
+                    Case 1
+                        With frmMain._mnuTheme_1
+                            .Text = "&" & strGet_ini("Main", "Name", strTemp, "theme\" & strTemp)
+                            If .Text = "&" Then .Text = "&" & strTemp
+                            .Visible = True
+                        End With
+                        intTemp = intTemp + 1
+
+                    Case 2
+                        With frmMain._mnuTheme_2
+                            .Text = "&" & strGet_ini("Main", "Name", strTemp, "theme\" & strTemp)
+                            If .Text = "&" Then .Text = "&" & strTemp
+                            .Visible = True
+                        End With
+                        intTemp = intTemp + 1
+                End Select
+            End If
+
+            strTemp = Dir()
+        Loop
+
+        If intTemp Then
+        Else
+            frmMain.mnuThemeParent.Enabled = False
+        End If
+
+        'åˆæœŸåŒ–
+        With g_BMS
+
+            .intPlayerType = modInput.PLAYER_TYPE.PLAYER_1P
+            .strGenre = ""
+            .strTitle = ""
+            .strArtist = ""
+            .sngBPM = Val(frmMain.txtBPM.Text)
+            .lngPlayLevel = 1
+            .intPlayRank = modInput.PLAY_RANK.RANK_EASY
+            .sngTotal = 0
+            .intVolume = 0
+            .blnSaveFlag = True
+
+        End With
+
+        ReDim g_Obj(0)
+        ReDim g_lngObjID(0)
+        g_lngIDNum = 0
+
+        For i = 0 To 256 + 64
+
+            g_sngSin(i) = System.Math.Sin(i * PI / 128)
+
+        Next i
+
+        For i = 0 To UBound(g_VGrid)
+
+            With g_VGrid(i)
+
+                .intCh = Choose(i + 1, 0, 8, 9, 0, 21, 16, 11, 12, 13, 14, 15, 18, 19, 16, 0, 26, 21, 22, 23, 24, 25, 28, 29, 26, 0, 4, 7, 6, 0, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 0)
+                'If .intCh Then g_intVGridNum(.intCh) = i
+                .blnVisible = True
+
+                Select Case .intCh
+
+                    Case modInput.OBJ_CH.CH_BPM, modInput.OBJ_CH.CH_EXBPM, modInput.OBJ_CH.CH_STOP 'BPM/STOP
+
+                        .intLightNum = modDraw.PEN_NUM.BPM_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.BPM_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.BPM
+
+                    Case modInput.OBJ_CH.CH_BGA, modInput.OBJ_CH.CH_LAYER, modInput.OBJ_CH.CH_POOR 'BGA/Layer/Poor
+
+                        .intLightNum = modDraw.PEN_NUM.BGA_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.BGA_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.BGA
+
+                    Case 11
+
+                        .intLightNum = modDraw.PEN_NUM.KEY01_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.KEY01_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.KEY01
+
+                    Case 12
+
+                        .intLightNum = modDraw.PEN_NUM.KEY02_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.KEY02_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.KEY02
+
+                    Case 13
+
+                        .intLightNum = modDraw.PEN_NUM.KEY03_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.KEY03_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.KEY03
+
+                    Case 14
+
+                        .intLightNum = modDraw.PEN_NUM.KEY04_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.KEY04_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.KEY04
+
+                    Case 15
+
+                        .intLightNum = modDraw.PEN_NUM.KEY05_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.KEY05_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.KEY05
+
+                    Case 18
+
+                        .intLightNum = modDraw.PEN_NUM.KEY06_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.KEY06_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.KEY06
+
+                    Case 19
+
+                        .intLightNum = modDraw.PEN_NUM.KEY07_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.KEY07_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.KEY07
+
+                    Case 16
+
+                        .intLightNum = modDraw.PEN_NUM.KEY08_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.KEY08_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.KEY08
+
+                    Case 21
+
+                        .intLightNum = modDraw.PEN_NUM.KEY11_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.KEY11_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.KEY11
+
+                    Case 22
+
+                        .intLightNum = modDraw.PEN_NUM.KEY12_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.KEY12_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.KEY12
+
+                    Case 23
+
+                        .intLightNum = modDraw.PEN_NUM.KEY13_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.KEY13_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.KEY13
+
+                    Case 24
+
+                        .intLightNum = modDraw.PEN_NUM.KEY14_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.KEY14_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.KEY14
+
+                    Case 25
+
+                        .intLightNum = modDraw.PEN_NUM.KEY15_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.KEY15_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.KEY15
+
+                    Case 28
+
+                        .intLightNum = modDraw.PEN_NUM.KEY16_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.KEY16_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.KEY16
+
+                    Case 29
+
+                        .intLightNum = modDraw.PEN_NUM.KEY17_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.KEY17_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.KEY17
+
+                    Case 26
+
+                        .intLightNum = modDraw.PEN_NUM.KEY18_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.KEY18_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.KEY18
+
+                    Case Is > 100 'BGM
+
+                        .intLightNum = modDraw.PEN_NUM.BGM_LIGHT
+                        .intShadowNum = modDraw.PEN_NUM.BGM_SHADOW
+                        .intBrushNum = modDraw.BRUSH_NUM.BGM
+
+                End Select
+
+                If .intCh Then
+
+                    .intWidth = GRID_WIDTH
+
+                Else
+
+                    .intWidth = SPACE_WIDTH
+
+                End If
+
+            End With
+
+        Next i
+
+        'g_Disp.intMaxMeasure = 31
+        g_disp.intMaxMeasure = 0
+        Call modDraw.lngChangeMaxMeasure(15)
+        Call modDraw.ChangeResolution()
+
+    End Sub
+
+    Public Sub CleanUp(Optional ByVal lngErrNum As Integer = 0, Optional ByRef strErrDescription As String = "", Optional ByRef strErrProcedure As String = "")
+        On Error Resume Next
+
+        Dim i As Integer
+
 #If MODE_DEBUG = False Then
-		'UPGRADE_NOTE: ® MODE_DEBUG = False ‚ª True ‚É•]‰¿‚³‚ê‚È‚©‚Á‚½‚©A‚Ü‚½‚Í‚Ü‚Á‚½‚­•]‰¿‚³‚ê‚È‚©‚Á‚½‚½‚ßA#If #EndIf ƒuƒƒbƒN‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="27EE2C3C-05AF-4C04-B2AF-657B4FB6B5FC"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
 		
 		Call modMessage.UnSubClass(frmMain.hwnd)
 		
-#Else
-		
-		Call timeEndPeriod(1)
-		
 #End If
-		
-		'UPGRADE_NOTE: ƒIƒuƒWƒFƒNƒg g_InputLog ‚ğƒKƒx[ƒW ƒRƒŒƒNƒg‚·‚é‚Ü‚Å‚±‚ÌƒIƒuƒWƒFƒNƒg‚ğ”jŠü‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_InputLog = Nothing
-		
-		Call modEasterEgg.EndEffect()
-		
-		Call SaveConfig()
-		
-		Call mciSendString("close PREVIEW", vbNullString, 0, 0)
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
-		Call lngDeleteFile(g_strAppDir & "___bmse_temp.bms")
-		
-		If lngErrNum <> 0 And strErrDescription <> "" And strErrProcedure <> "" Then
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If Len(g_BMS.strDir) = 0 Then g_BMS.strDir = g_strAppDir
-			
-			For i = 0 To 9999
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				g_BMS.strFileName = "temp" & VB6.Format(i, "0000") & ".bms"
-				
-				If i = 9999 Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Call CreateBMS(g_BMS.strDir & g_BMS.strFileName)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				ElseIf Dir(g_BMS.strDir & g_BMS.strFileName) = vbNullString Then 
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Call CreateBMS(g_BMS.strDir & g_BMS.strFileName)
-					Exit For
-					
-				End If
-				
-			Next i
-			
-			Call DebugOutput(lngErrNum, strErrDescription, strErrProcedure, True)
-			
-		End If
-		
-		End
-		
-	End Sub
-	
-	Public Sub DebugOutput(ByVal lngErrNum As Integer, ByRef strErrDescription As String, ByRef strErrProcedure As String, Optional ByVal blnCleanUp As Boolean = False)
-		Dim g_Message As Object
-		
-		Dim lngFFile As Integer
-		Dim strError As String
-		
-		lngFFile = FreeFile
-		
-		FileOpen(lngFFile, g_strAppDir & "error.txt", OpenMode.Append)
-		
-		PrintLine(lngFFile, Today & TimeOfDay & "ErrorNo." & lngErrNum & " " & strErrDescription & "@" & strErrProcedure & "/BMSE_" & My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Revision)
-		
-		FileClose(lngFFile)
-		
-		strError = strError & "ErrorNo." & lngErrNum & " " & strErrDescription & "@" & strErrProcedure
-		
-		If blnCleanUp Then
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			strError = g_Message(modMain.Message.ERR_01) & vbCrLf & strError & vbCrLf
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			strError = strError & g_Message(modMain.Message.ERR_02) & vbCrLf
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			strError = strError & g_BMS.strDir & g_BMS.strFileName
-			
-		End If
-		
-		Call frmMain.Show()
-		Call MsgBox(strError, MsgBoxStyle.Critical + MsgBoxStyle.OKOnly, g_strAppTitle)
-		
-	End Sub
-	
-	Public Function lngDeleteFile(ByRef FileName As String) As Integer
-		On Error GoTo Err_Renamed
-		
-		Kill(FileName)
-		
-		Exit Function
-		
-Err_Renamed: 
-		lngDeleteFile = 1
-	End Function
-	
-	Public Function intSaveCheck() As Short
-		Dim RecentFilesRotation As Object
-		Dim g_Message As Object
-		On Error GoTo Err_Renamed
-		
-		Dim lngTemp As Integer
-		Dim strArray() As String
-		
-		With frmMain
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.intPlayerType ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If .cboPlayer.SelectedIndex + 1 <> g_BMS.intPlayerType Then g_BMS.blnSaveFlag = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strGenre ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If .txtGenre.Text <> g_BMS.strGenre Then g_BMS.blnSaveFlag = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strTitle ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If .txtTitle.Text <> g_BMS.strTitle Then g_BMS.blnSaveFlag = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strArtist ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If .txtArtist.Text <> g_BMS.strArtist Then g_BMS.blnSaveFlag = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.lngPlayLevel ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If Val(.cboPlayLevel.Text) <> g_BMS.lngPlayLevel Then g_BMS.blnSaveFlag = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.sngBPM ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If Val(.txtBPM.Text) <> g_BMS.sngBPM Then g_BMS.blnSaveFlag = False
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.intPlayRank ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If .cboPlayRank.SelectedIndex <> g_BMS.intPlayRank Then g_BMS.blnSaveFlag = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.sngTotal ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If Val(.txtTotal.Text) <> g_BMS.sngTotal Then g_BMS.blnSaveFlag = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.intVolume ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If Val(.txtVolume.Text) <> g_BMS.intVolume Then g_BMS.blnSaveFlag = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strStageFile ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If .txtStageFile.Text <> g_BMS.strStageFile Then g_BMS.blnSaveFlag = False
-			'If .txtMissBMP.Text <> g_strBMP(0) Then g_BMS.blnSaveFlag = False
-			
-		End With
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If g_BMS.blnSaveFlag Then
-			
-			intSaveCheck = 0
-			
-			Exit Function
-			
-		End If
-		
-		Call frmMain.Show()
-		
-		lngTemp = MsgBox(g_Message(modMain.Message.MSG_FILE_CHANGED), MsgBoxStyle.Exclamation Or MsgBoxStyle.YesNoCancel, g_strAppTitle)
-		
-		Select Case lngTemp
-			
-			Case MsgBoxResult.Yes
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If g_BMS.strDir <> "" And g_BMS.strFileName <> "" Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Call CreateBMS(g_BMS.strDir & g_BMS.strFileName)
-					
-				Else
-					
-					'UPGRADE_WARNING: CommonDialog •Ï”‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½ Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="671167DC-EA81-475D-B690-7A40C7BF4A23"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					With frmMain.dlgMain
-						
-						'UPGRADE_WARNING: Filter ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.Filter = "BMS files (*.bms,*.bme,*.bml,*.pms)|*.bms;*.bme;*.bml;*.pms|All files (*.*)|*.*"
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.FileName = g_BMS.strFileName
-						
-						Call .ShowDialog()
-						
-						strArray = Split(.FileName, "\")
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_BMS.strDir = Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_BMS.strFileName = strArray(UBound(strArray))
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						Call CreateBMS(g_BMS.strDir & g_BMS.strFileName)
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						Call RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.InitialDirectory = g_BMS.strDir
-						
-					End With
-					
-				End If
-				
-			Case MsgBoxResult.No
-				
-				intSaveCheck = 0
-				
-			Case MsgBoxResult.Cancel
-				
-				intSaveCheck = 1
-				
-		End Select
-		
-		Exit Function
-		
-Err_Renamed: 
-		
-		intSaveCheck = 1
-		
-	End Function
-	
-	Public Sub RecentFilesRotation(ByRef strFilePath As String)
-		Dim SubRotate As Object
-		
-		Dim i As Integer
-		Dim intTemp As Short
-		
-		For i = 0 To UBound(g_strRecentFiles)
-			
-			If g_strRecentFiles(i) = strFilePath Then
-				
-				Call SubRotate(0, i, strFilePath)
-				
-				intTemp = 1
-				
-				Exit For
-				
-			End If
-			
-		Next i
-		
-		If intTemp = 0 Then Call SubRotate(0, UBound(g_strRecentFiles), strFilePath)
-		
-		frmMain.mnuLineRecent.Visible = True
-		
-	End Sub
-	
-	Private Sub SubRotate(ByVal intIndex As Short, ByVal intEnd As Short, ByRef strFilePath As String)
-		Dim SubRotate As Object
-		
-		If intIndex <> intEnd And g_strRecentFiles(intIndex) <> "" And intIndex <= UBound(g_strRecentFiles) Then
-			
-			Call SubRotate(intIndex + 1, intEnd, g_strRecentFiles(intIndex))
-			
-		End If
-		
-		g_strRecentFiles(intIndex) = strFilePath
-		
-		With frmMain.mnuRecentFiles(intIndex)
-			
-			.Text = "&" & intIndex + 1 & ":" & strFilePath
-			.Enabled = True
-			.Visible = True
-			
-		End With
-		
-		'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ frmMain.tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		With frmMain.tlbMenu.Items.Item("Open").ButtonMenus.Item(intIndex + 1)
-			
-			'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ frmMain.tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Text = "&" & intIndex + 1 & ":" & strFilePath
-			'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ frmMain.tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Enabled = True
-			'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ frmMain.tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Visible = True
-			
-		End With
-		
-	End Sub
-	
-	Public Sub GetCmdLine()
-		Dim modMain As Object
-		Dim RecentFilesRotation As Object
-		On Error GoTo Err_Renamed
-		
-		Dim i As Integer
-		Dim strTemp As String
-		Dim strCmdArray() As String
-		Dim strArray() As String
-		Dim ReadLock As Boolean
-		Dim blnReadFlag As Boolean
-		
-		strTemp = Trim(VB.Command())
-		
-		If strTemp = "" Then Exit Sub
-		
-		ReDim strCmdArray(0)
-		
-		For i = 1 To Len(strTemp)
-			
-			Select Case Asc(Mid(strTemp, i, 1))
-				
-				Case 32 'ƒXƒy[ƒX
-					
-					If ReadLock = False Then
-						
-						ReDim Preserve strCmdArray(UBound(strCmdArray) + 1)
-						
-					Else
-						
-						strCmdArray(UBound(strCmdArray)) = strCmdArray(UBound(strCmdArray)) & " "
-						
-					End If
-					
-				Case 34 'ƒ_ƒuƒ‹ƒNƒI[ƒe[ƒVƒ‡ƒ“
-					
-					ReadLock = Not ReadLock
-					
-				Case Else
-					
-					strCmdArray(UBound(strCmdArray)) = strCmdArray(UBound(strCmdArray)) & Mid(strTemp, i, 1)
-					
-			End Select
-			
-		Next i
-		
-		For i = 0 To UBound(strCmdArray)
-			
-			If strCmdArray(i) <> "" Then
-				
-				If InStr(1, strCmdArray(i), ":\") <> 0 And (UCase(Right(strCmdArray(i), 4)) = ".BMS" Or UCase(Right(strCmdArray(i), 4)) = ".BME" Or UCase(Right(strCmdArray(i), 4)) = ".BML" Or UCase(Right(strCmdArray(i), 4)) = ".PMS") Then
-					
-					If blnReadFlag Then
-						
-						'UPGRADE_WARNING: App ƒvƒƒpƒeƒB App.EXEName ‚É‚ÍV‚µ‚¢“®ì‚ªŠÜ‚Ü‚ê‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						Call ShellExecute(0, "open", Chr(34) & g_strAppDir & My.Application.Info.AssemblyName & Chr(34), Chr(34) & strCmdArray(i) & Chr(34), "", SW_SHOWNORMAL)
-						
-					Else
-						
-						strArray = Split(strCmdArray(i), "\")
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_BMS.strFileName = Right(strCmdArray(i), Len(strArray(UBound(strArray))))
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_BMS.strDir = Left(strCmdArray(i), Len(strCmdArray(i)) - Len(strArray(UBound(strArray))))
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						frmMain.dlgMainSave.InitialDirectory = g_BMS.strDir
-						blnReadFlag = True
-						
-						Call modInput.LoadBMS()
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						Call RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
-						
-					End If
-					
-				End If
-				
-			End If
-			
-		Next i
-		
-		Exit Sub
-		
-Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call modMain.CleanUp(Err.Number, Err.Description, "GetCmdLine")
-	End Sub
-	
-	Public Sub LoadThemeFile(ByRef strFileName As String)
-		Dim HalfColor As Object
-		Dim strGet_ini As Object
-		Dim GetColor As Object
-		
-		Dim strArray() As String
-		Dim i As Integer
-		Dim j As Integer
-		Dim Color As Integer
-		Dim lngTemp As Integer
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		frmMain.picMain.BackColor = System.Drawing.ColorTranslator.FromOle(GetColor("Main", "Background", "0,0,0", strFileName))
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_lngSystemColor(modDraw.COLOR_NUM.MEASURE_NUM) = GetColor("Main", "MeasureNum", "64,64,64", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_lngSystemColor(modDraw.COLOR_NUM.MEASURE_LINE) = GetColor("Main", "MeasureLine", "255,255,255", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_lngSystemColor(modDraw.COLOR_NUM.GRID_MAIN) = GetColor("Main", "GridMain", "96,96,96", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_lngSystemColor(modDraw.COLOR_NUM.GRID_SUB) = GetColor("Main", "GridSub", "192,192,192", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_lngSystemColor(modDraw.COLOR_NUM.VERTICAL_MAIN) = GetColor("Main", "VerticalMain", "255,255,255", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_lngSystemColor(modDraw.COLOR_NUM.VERTICAL_SUB) = GetColor("Main", "VerticalSub", "128,128,128", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_lngSystemColor(modDraw.COLOR_NUM.INFO) = GetColor("Main", "Info", "0,255,0", strFileName)
-		
-		
-		For i = 0 To modDraw.BRUSH_NUM.Max - 1
-			
-			Select Case i
-				
-				Case modDraw.BRUSH_NUM.BGM
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("BGM", "Background", "48,0,0", strFileName)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					strArray = Split(strGet_ini("BGM", "Text", "B01,B02,B03,B04,B05,B06,B07,B08,B09,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32", strFileName), ",")
-					
-					For j = 0 To 31
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_VGrid(modDraw.GRID.NUM_BGM + j).strText = strArray(j)
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_VGrid(modDraw.GRID.NUM_BGM + j).lngBackColor = Color
-						
-					Next j
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.BGM_LIGHT) = GetColor("BGM", "ObjectLight", "255,0,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.BGM_SHADOW) = GetColor("BGM", "ObjectShadow", "96,0,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngBrushColor(modDraw.BRUSH_NUM.BGM) = GetColor("BGM", "ObjectColor", "128,0,0", strFileName)
-					
-				Case modDraw.BRUSH_NUM.BPM
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					strArray = Split(strGet_ini("BPM", "Text", "BPM,STOP", strFileName), ",")
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_BPM).strText = strArray(0)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_STOP).strText = strArray(1)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("BPM", "Background", "48,48,48", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_BPM).lngBackColor = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_STOP).lngBackColor = Color
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.BPM_LIGHT) = GetColor("BPM", "ObjectLight", "192,192,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.BPM_SHADOW) = GetColor("BPM", "ObjectShadow", "128,128,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngBrushColor(modDraw.BRUSH_NUM.BPM) = GetColor("BPM", "ObjectColor", "160,160,0", strFileName)
-					
-				Case modDraw.BRUSH_NUM.BGA
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					strArray = Split(strGet_ini("BGA", "Text", "BGA,LAYER,POOR", strFileName), ",")
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_BGA).strText = strArray(0)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_LAYER).strText = strArray(1)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_POOR).strText = strArray(2)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("BGA", "Background", "0,24,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_BGA).lngBackColor = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_LAYER).lngBackColor = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_POOR).lngBackColor = Color
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.BGA_LIGHT) = GetColor("BGA", "ObjectLight", "0,255,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.BGA_SHADOW) = GetColor("BGA", "ObjectShadow", "0,96,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngBrushColor(modDraw.BRUSH_NUM.BGA) = GetColor("BGA", "ObjectColor", "0,128,0", strFileName)
-					
-				Case modDraw.BRUSH_NUM.KEY01, modDraw.BRUSH_NUM.KEY03, modDraw.BRUSH_NUM.KEY05, modDraw.BRUSH_NUM.KEY07
-					
-					lngTemp = (i - modDraw.BRUSH_NUM.KEY01) + 1
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_1P_1KEY + lngTemp - 1).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_1P_1KEY + lngTemp - 1).strText = strGet_ini("KEY_1P_0" & lngTemp, "Text", lngTemp, strFileName)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_1P_1KEY + lngTemp - 1).lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_1P_1KEY + lngTemp - 1).lngBackColor = GetColor("KEY_1P_0" & lngTemp, "Background", "32,32,32", strFileName)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_1P_0" & lngTemp, "ObjectLight", "192,192,192", strFileName)
-					g_lngPenColor(modDraw.PEN_NUM.KEY01_LIGHT + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.INV_KEY01_LIGHT + lngTemp - 1) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_1P_0" & lngTemp, "ObjectShadow", "96,96,96", strFileName)
-					g_lngPenColor(modDraw.PEN_NUM.KEY01_SHADOW + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.INV_KEY01_SHADOW + lngTemp - 1) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_1P_0" & lngTemp, "ObjectColor", "128,128,128", strFileName)
-					g_lngBrushColor(modDraw.BRUSH_NUM.KEY01 + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY01 + lngTemp - 1) = HalfColor(Color)
-					
-				Case modDraw.BRUSH_NUM.KEY02, modDraw.BRUSH_NUM.KEY04, modDraw.BRUSH_NUM.KEY06
-					
-					lngTemp = (i - modDraw.BRUSH_NUM.KEY01) + 1
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_1P_1KEY + lngTemp - 1).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_1P_1KEY + lngTemp - 1).strText = strGet_ini("KEY_1P_0" & lngTemp, "Text", lngTemp, strFileName)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_1P_1KEY + lngTemp - 1).lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_1P_1KEY + lngTemp - 1).lngBackColor = GetColor("KEY_1P_0" & lngTemp, "Background", "0,0,40", strFileName)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_1P_0" & lngTemp, "ObjectLight", "96,96,255", strFileName)
-					g_lngPenColor(modDraw.PEN_NUM.KEY01_LIGHT + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.INV_KEY01_LIGHT + lngTemp - 1) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_1P_0" & lngTemp, "ObjectShadow", "0,0,128", strFileName)
-					g_lngPenColor(modDraw.PEN_NUM.KEY01_SHADOW + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.INV_KEY01_SHADOW + lngTemp - 1) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_1P_0" & lngTemp, "ObjectColor", "0,0,255", strFileName)
-					g_lngBrushColor(modDraw.BRUSH_NUM.KEY01 + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY01 + lngTemp - 1) = HalfColor(Color)
-					
-				Case modDraw.BRUSH_NUM.KEY08
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_1P_SC_L).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_1P_SC_L).strText = strGet_ini("KEY_1P_SC", "Text", "SC", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_1P_SC_R).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_1P_SC_R).strText = strGet_ini("KEY_1P_SC", "Text", "SC", strFileName)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_1P_SC", "Background", "48,0,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_1P_SC_L).lngBackColor = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_1P_SC_R).lngBackColor = Color
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_1P_SC", "ObjectLight", "255,96,96", strFileName)
-					g_lngPenColor(modDraw.PEN_NUM.KEY08_LIGHT) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.INV_KEY08_LIGHT) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_1P_SC", "ObjectShadow", "128,0,0", strFileName)
-					g_lngPenColor(modDraw.PEN_NUM.KEY08_SHADOW) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.INV_KEY08_SHADOW) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_1P_SC", "ObjectColor", "255,0,0", strFileName)
-					g_lngBrushColor(modDraw.BRUSH_NUM.KEY08) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY08) = HalfColor(Color)
-					
-				Case modDraw.BRUSH_NUM.KEY11, modDraw.BRUSH_NUM.KEY13, modDraw.BRUSH_NUM.KEY15, modDraw.BRUSH_NUM.KEY17
-					
-					lngTemp = (i - modDraw.BRUSH_NUM.KEY11) + 1
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_2P_1KEY + lngTemp - 1).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_2P_1KEY + lngTemp - 1).strText = strGet_ini("KEY_2P_0" & lngTemp, "Text", lngTemp, strFileName)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_2P_1KEY + lngTemp - 1).lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_2P_1KEY + lngTemp - 1).lngBackColor = GetColor("KEY_2P_0" & lngTemp, "Background", "32,32,32", strFileName)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_2P_0" & lngTemp, "ObjectLight", "192,192,192", strFileName)
-					g_lngPenColor(modDraw.PEN_NUM.KEY11_LIGHT + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.INV_KEY11_LIGHT + lngTemp - 1) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_2P_0" & lngTemp, "ObjectShadow", "96,96,96", strFileName)
-					g_lngPenColor(modDraw.PEN_NUM.KEY11_SHADOW + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.INV_KEY11_SHADOW + lngTemp - 1) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_2P_0" & lngTemp, "ObjectColor", "128,128,128", strFileName)
-					g_lngBrushColor(modDraw.BRUSH_NUM.KEY11 + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY11 + lngTemp - 1) = HalfColor(Color)
-					
-					If i = modDraw.BRUSH_NUM.KEY11 Then
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_FOOTPEDAL).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_VGrid(modDraw.GRID.NUM_FOOTPEDAL).strText = strGet_ini("KEY_2P_01", "Text", lngTemp, strFileName)
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_FOOTPEDAL).lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_VGrid(modDraw.GRID.NUM_FOOTPEDAL).lngBackColor = GetColor("KEY_2P_01", "Background", "32,32,32", strFileName)
-						'color = GetColor("KEY_2P_0" & lngTemp, "ObjectLight", "192,192,192", strFileName)
-						
-					End If
-					
-				Case modDraw.BRUSH_NUM.KEY12, modDraw.BRUSH_NUM.KEY14, modDraw.BRUSH_NUM.KEY16
-					
-					lngTemp = (i - modDraw.BRUSH_NUM.KEY11) + 1
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_2P_1KEY + lngTemp - 1).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_2P_1KEY + lngTemp - 1).strText = strGet_ini("KEY_2P_0" & lngTemp, "Text", lngTemp, strFileName)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_2P_1KEY + lngTemp - 1).lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_2P_1KEY + lngTemp - 1).lngBackColor = GetColor("KEY_2P_0" & lngTemp, "Background", "0,0,40", strFileName)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_2P_0" & lngTemp, "ObjectLight", "96,96,255", strFileName)
-					g_lngPenColor(modDraw.PEN_NUM.KEY11_LIGHT + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.INV_KEY11_LIGHT + lngTemp - 1) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_2P_0" & lngTemp, "ObjectShadow", "0,0,128", strFileName)
-					g_lngPenColor(modDraw.PEN_NUM.KEY11_SHADOW + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.INV_KEY11_SHADOW + lngTemp - 1) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_2P_0" & lngTemp, "ObjectColor", "0,0,255", strFileName)
-					g_lngBrushColor(modDraw.BRUSH_NUM.KEY11 + lngTemp - 1) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY11 + lngTemp - 1) = HalfColor(Color)
-					
-				Case modDraw.BRUSH_NUM.KEY18
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_2P_SC_L).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_2P_SC_L).strText = strGet_ini("KEY_2P_SC", "Text", "SC", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(GRID.NUM_2P_SC_R).strText ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_2P_SC_R).strText = strGet_ini("KEY_2P_SC", "Text", "SC", strFileName)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_2P_SC", "Background", "48,0,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_2P_SC_L).lngBackColor = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().lngBackColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_VGrid(modDraw.GRID.NUM_2P_SC_R).lngBackColor = Color
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_2P_SC", "ObjectLight", "255,96,96", strFileName)
-					g_lngPenColor(modDraw.PEN_NUM.KEY18_LIGHT) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.INV_KEY18_LIGHT) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_2P_SC", "ObjectShadow", "128,0,0", strFileName)
-					g_lngPenColor(modDraw.PEN_NUM.KEY18_SHADOW) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.INV_KEY18_SHADOW) = HalfColor(Color)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Color = GetColor("KEY_2P_SC", "ObjectColor", "255,0,0", strFileName)
-					g_lngBrushColor(modDraw.BRUSH_NUM.KEY18) = Color
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY18) = HalfColor(Color)
-					
-				Case modDraw.BRUSH_NUM.LONGNOTE
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.LONGNOTE_LIGHT) = GetColor("KEY_LONGNOTE", "ObjectLight", "0,128,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.LONGNOTE_SHADOW) = GetColor("KEY_LONGNOTE", "ObjectShadow", "0,32,0", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngBrushColor(modDraw.BRUSH_NUM.LONGNOTE) = GetColor("KEY_LONGNOTE", "ObjectColor", "0,64,0", strFileName)
-					
-				Case modDraw.BRUSH_NUM.SELECT_OBJ
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.SELECT_OBJ_LIGHT) = GetColor("SELECT", "ObjectLight", "255,255,255", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.SELECT_OBJ_SHADOW) = GetColor("SELECT", "ObjectShadow", "128,128,128", strFileName)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngBrushColor(modDraw.BRUSH_NUM.SELECT_OBJ) = GetColor("SELECT", "ObjectColor", "0,255,255", strFileName)
-					
-				Case modDraw.BRUSH_NUM.EDIT_FRAME
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.EDIT_FRAME) = GetColor("SELECT", "EditFrame", "255,255,255", strFileName)
-					
-				Case modDraw.BRUSH_NUM.DELETE_FRAME
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_lngPenColor(modDraw.PEN_NUM.DELETE_FRAME) = GetColor("SELECT", "DeleteFrame", "255,255,255", strFileName)
-					
-			End Select
-			
-		Next i
-		
-	End Sub
-	
-	Public Sub LoadLanguageFile(ByRef strFileName As String)
-		Dim DEFAULT_CHARSET As Object
-		Dim LoadFont As Object
-		Dim DEFAULT_GUI_FONT As Object
-		Dim GetStockObject As Object
-		Dim g_Message As Object
-		Dim strGet_ini As Object
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_strStatusBar(1) = strGet_ini("StatusBar", "CH_01", "BGM", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_strStatusBar(4) = strGet_ini("StatusBar", "CH_04", "BGA", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_strStatusBar(6) = strGet_ini("StatusBar", "CH_06", "BGA Poor", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_strStatusBar(7) = strGet_ini("StatusBar", "CH_07", "BGA Layer", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_strStatusBar(8) = strGet_ini("StatusBar", "CH_08", "BPM Change", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_strStatusBar(9) = strGet_ini("StatusBar", "CH_09", "Stop Sequence", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_strStatusBar(11) = strGet_ini("StatusBar", "CH_KEY_1P", "1P Key", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_strStatusBar(12) = strGet_ini("StatusBar", "CH_KEY_2P", "2P Key", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_strStatusBar(13) = strGet_ini("StatusBar", "CH_SCRATCH_1P", "1P Scratch", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_strStatusBar(14) = strGet_ini("StatusBar", "CH_SCRATCH_2P", "2P Scratch", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_strStatusBar(15) = strGet_ini("StatusBar", "CH_INVISIBLE", "(Invisible)", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_strStatusBar(16) = strGet_ini("StatusBar", "CH_LONGNOTE", "(LongNote)", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_strStatusBar(20) = strGet_ini("StatusBar", "MODE_EDIT", "Edit Mode", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_strStatusBar(21) = strGet_ini("StatusBar", "MODE_WRITE", "Write Mode", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_strStatusBar(22) = strGet_ini("StatusBar", "MODE_DELETE", "Delete Mode", strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_strStatusBar(23) = strGet_ini("StatusBar", "MEASURE", "Measure", strFileName)
-		
-		With frmMain
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuFile.Text = strGet_ini("Menu", "FILE", "&File", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuFileNew.Text = strGet_ini("Menu", "FILE_NEW", "&New", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuFileOpen.Text = strGet_ini("Menu", "FILE_OPEN", "&Open", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuFileSave.Text = strGet_ini("Menu", "FILE_SAVE", "&Save", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuFileSaveAs.Text = strGet_ini("Menu", "FILE_SAVE_AS", "Save &As", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuFileOpenDirectory.Text = strGet_ini("Menu", "FILE_OPEN_DIRECTORY", "Open &Directory", strFileName)
-			'.mnuFileDeleteUnusedFile.Caption = strGet_ini("Menu", "FILE_DELETE_UNUSED_FILE", "&Delete Unused File(s)", strFileName)
-			'.mnuFileNameConvert.Caption = strGet_ini("Menu", "FILE_CONVERT_FILENAME", "&Convert Filenames to [01-ZZ]", strFileName)
-			'.mnuFileListAlign.Caption = strGet_ini("Menu", "FILE_ALIGN_LIST", "Rewrite &List into old format [01-FF]", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuFileConvertWizard.Text = strGet_ini("Menu", "FILE_CONVERT_WIZARD", "Show &Conversion Wizard", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuFileExit.Text = strGet_ini("Menu", "FILE_EXIT", "&Exit", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuEdit.Text = strGet_ini("Menu", "EDIT", "&Edit", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuEditUndo.Text = strGet_ini("Menu", "EDIT_UNDO", "&Undo", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuEditRedo.Text = strGet_ini("Menu", "EDIT_REDO", "&Redo", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuEditCut.Text = strGet_ini("Menu", "EDIT_CUT", "Cu&t", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuEditCopy.Text = strGet_ini("Menu", "EDIT_COPY", "&Copy", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuEditPaste.Text = strGet_ini("Menu", "EDIT_PASTE", "&Paste", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuEditDelete.Text = strGet_ini("Menu", "EDIT_DELETE", "&Delete", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuEditSelectAll.Text = strGet_ini("Menu", "EDIT_SELECT_ALL", "&Find/Replace/Delete", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuEditFind.Text = strGet_ini("Menu", "EDIT_FIND", "&Select All", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, EDIT_MODE_EDIT, Edit &Mode, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuEditMode(0).Text = strGet_ini("Menu", "EDIT_MODE_EDIT", "Edit &Mode", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, EDIT_MODE_WRITE, Write &Mode, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuEditMode(1).Text = strGet_ini("Menu", "EDIT_MODE_WRITE", "Write &Mode", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, EDIT_MODE_DELETE, Delete &Mode, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuEditMode(2).Text = strGet_ini("Menu", "EDIT_MODE_DELETE", "Delete &Mode", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuView.Text = strGet_ini("Menu", "VIEW", "&View", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, VIEW_TOOL_BAR, &Tool Bar, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuViewItem(frmMain.MENU_VIEW.TOOL_BAR).Text = strGet_ini("Menu", "VIEW_TOOL_BAR", "&Tool Bar", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, VIEW_DIRECT_INPUT, &Direct Input, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuViewItem(frmMain.MENU_VIEW.DIRECT_INPUT).Text = strGet_ini("Menu", "VIEW_DIRECT_INPUT", "&Direct Input", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, VIEW_STATUS_BAR, &Status Bar, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuViewItem(frmMain.MENU_VIEW.STATUS_BAR).Text = strGet_ini("Menu", "VIEW_STATUS_BAR", "&Status Bar", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuOptions.Text = strGet_ini("Menu", "OPTIONS", "&Options", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, OPTIONS_IGNORE_ACTIVE, &Control Unavailable When Active, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuOptionsItem(frmMain.MENU_OPTIONS.IGNORE_INPUT).Text = strGet_ini("Menu", "OPTIONS_IGNORE_ACTIVE", "&Control Unavailable When Active", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, OPTIONS_FILE_NAME_ONLY, Display &File Name Only, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuOptionsItem(frmMain.MENU_OPTIONS.TITLE_FILENAME).Text = strGet_ini("Menu", "OPTIONS_FILE_NAME_ONLY", "Display &File Name Only", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, OPTIONS_VERTICAL, &Vertical Grid Info, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuOptionsItem(frmMain.MENU_OPTIONS.VERTICAL_INFO).Text = strGet_ini("Menu", "OPTIONS_VERTICAL", "&Vertical Grid Info", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, OPTIONS_LANE_BG, &Background Color, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuOptionsItem(frmMain.MENU_OPTIONS.LANE_BGCOLOR).Text = strGet_ini("Menu", "OPTIONS_LANE_BG", "&Background Color", strFileName)
-			'.mnuOptionsItem(SELECT_PREVIEW).Caption = strGet_ini("Menu", "OPTIONS_SINGLE_SELECT_SOUND", "&Sound Upon Object Selection", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, OPTIONS_SINGLE_SELECT_PREVIEW, &Preview Upon Object Selection, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuOptionsItem(frmMain.MENU_OPTIONS.SELECT_PREVIEW).Text = strGet_ini("Menu", "OPTIONS_SINGLE_SELECT_PREVIEW", "&Preview Upon Object Selection", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, OPTIONS_OBJECT_FILE_NAME, Show &Objects' File Names, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuOptionsItem(frmMain.MENU_OPTIONS.OBJ_FILENAME).Text = strGet_ini("Menu", "OPTIONS_OBJECT_FILE_NAME", "Show &Objects' File Names", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, OPTIONS_MOVE_ON_GRID, Restrict Objects' &Movement Onto Grid, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuOptionsItem(frmMain.MENU_OPTIONS.MOVE_ON_GRID).Text = strGet_ini("Menu", "OPTIONS_MOVE_ON_GRID", "Restrict Objects' &Movement Onto Grid", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Menu, OPTIONS_USE_OLD_FORMAT, &Use Old Format (01-FF), strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuOptionsItem(frmMain.MENU_OPTIONS.USE_OLD_FORMAT).Text = strGet_ini("Menu", "OPTIONS_USE_OLD_FORMAT", "&Use Old Format (01-FF)", strFileName)
-			'.mnuOptionsItem(RCLICK_DELETE).Caption = strGet_ini("Menu", "OPTIONS_RIGHT_CLICK_DELETE", "&Right Click To Delete Objects", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuTools.Text = strGet_ini("Menu", "TOOLS", "&Tools", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuToolsPlayAll.Text = strGet_ini("Menu", "TOOLS_PLAY_FIRST", "Play &All", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuToolsPlay.Text = strGet_ini("Menu", "TOOLS_PLAY", "&Play From Current Position", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuToolsPlayStop.Text = strGet_ini("Menu", "TOOLS_STOP", "&Stop", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuToolsSetting.Text = strGet_ini("Menu", "TOOLS_SETTING", "&Viewer Setting", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuHelp.Text = strGet_ini("Menu", "HELP", "&Help", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuHelpOpen.Text = strGet_ini("Menu", "HELP_OPEN", "&Help", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuHelpWeb.Text = strGet_ini("Menu", "HELP_WEB", "Open &Website", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuHelpAbout.Text = strGet_ini("Menu", "HELP_ABOUT", "&About BMSE", strFileName)
-			
-			.mnuContext.Visible = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuContextPlayAll.Text = strGet_ini("Menu", "TOOLS_PLAY_FIRST", "Play &All", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuContextPlay.Text = strGet_ini("Menu", "TOOLS_PLAY", "&Play From Current Position", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuContextInsertMeasure.Text = strGet_ini("Menu", "CONTEXT_MEASURE_INSERT", "&Insert Measure", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuContextDeleteMeasure.Text = strGet_ini("Menu", "CONTEXT_MEASURE_DELETE", "Delete &Measure", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuContextEditCut.Text = strGet_ini("Menu", "EDIT_CUT", "Cu&t", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuContextEditCopy.Text = strGet_ini("Menu", "EDIT_COPY", "&Copy", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuContextEditPaste.Text = strGet_ini("Menu", "EDIT_PASTE", "&Paste", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuContextEditDelete.Text = strGet_ini("Menu", "EDIT_DELETE", "&Delete", strFileName)
-			
-			.mnuContextList.Visible = False
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuContextListLoad.Text = strGet_ini("Menu", "CONTEXT_LIST_LOAD", "&Load", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuContextListDelete.Text = strGet_ini("Menu", "CONTEXT_LIST_DELETE", "&Delete", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuContextListRename.Text = strGet_ini("Menu", "CONTEXT_LIST_RENAME", "&Rename", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Header, TAB_BASIC, Basic, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.optChangeTop(0).Text = strGet_ini("Header", "TAB_BASIC", "Basic", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Header, TAB_EXPAND, Expand, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.optChangeTop(1).Text = strGet_ini("Header", "TAB_EXPAND", "Expand", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Header, TAB_CONFIG, Config, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.optChangeTop(2).Text = strGet_ini("Header", "TAB_CONFIG", "Config", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblPlayMode.Text = strGet_ini("Header", "BASIC_PLAYER", "#PLAYER", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboPlayer, 0, strGet_ini("Header", "BASIC_PLAYER_1P", "1 Player", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboPlayer, 1, strGet_ini("Header", "BASIC_PLAYER_2P", "2 Player", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboPlayer, 2, strGet_ini("Header", "BASIC_PLAYER_DP", "Double Play", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboPlayer, 3, strGet_ini("Header", "BASIC_PLAYER_PMS", "9 Keys (PMS)", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboPlayer, 4, strGet_ini("Header", "BASIC_PLAYER_OCT", "13 Keys (Oct)", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblGenre.Text = strGet_ini("Header", "BASIC_GENRE", "#GENRE", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblTitle.Text = strGet_ini("Header", "BASIC_TITLE", "#TITLE", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblArtist.Text = strGet_ini("Header", "BASIC_ARTIST", "#ARTIST", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblPlayLevel.Text = strGet_ini("Header", "BASIC_PLAYLEVEL", "#PLAYLEVEL", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblBPM.Text = strGet_ini("Header", "BASIC_BPM", "#BPM", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblPlayRank.Text = strGet_ini("Header", "EXPAND_RANK", "#RANK", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboPlayRank, 0, strGet_ini("Header", "EXPAND_RANK_VERY_HARD", "Very Hard", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboPlayRank, 1, strGet_ini("Header", "EXPAND_RANK_HARD", "Hard", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboPlayRank, 2, strGet_ini("Header", "EXPAND_RANK_NORMAL", "Normal", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboPlayRank, 3, strGet_ini("Header", "EXPAND_RANK_EASY", "Easy", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblTotal.Text = strGet_ini("Header", "EXPAND_TOTAL", "#TOTAL", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblVolume.Text = strGet_ini("Header", "EXPAND_VOLWAV", "#VOLWAV", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblStageFile.Text = strGet_ini("Header", "EXPAND_STAGEFILE", "#STAGEFILE", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblMissBMP.Text = strGet_ini("Header", "EXPAND_BPM_MISS", "#BMP00", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdLoadMissBMP.Text = strGet_ini("Header", "EXPAND_SET_FILE", "...", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdLoadStageFile.Text = strGet_ini("Header", "EXPAND_SET_FILE", "...", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblDispFrame.Text = strGet_ini("Header", "CONFIG_KEY_FRAME", "Key Frame", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboDispFrame, 0, strGet_ini("Header", "CONFIG_KEY_HALF", "Half", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboDispFrame, 1, strGet_ini("Header", "CONFIG_KEY_SEPARATE", "Separate", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblDispKey.Text = strGet_ini("Header", "CONFIG_KEY_POSITION", "Key Position", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboDispKey, 0, strGet_ini("Header", "CONFIG_KEY_5KEYS", "5Keys/10Keys", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboDispKey, 1, strGet_ini("Header", "CONFIG_KEY_7KEYS", "7Keys/14Keys", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblDispSC1P.Text = strGet_ini("Header", "CONFIG_SCRATCH_1P", "Scratch 1P", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboDispSC1P, 0, strGet_ini("Header", "CONFIG_SCRATCH_LEFT", "L", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboDispSC1P, 1, strGet_ini("Header", "CONFIG_SCRATCH_RIGHT", "R", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblDispSC2P.Text = strGet_ini("Header", "CONFIG_SCRATCH_2P", "2P", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboDispSC2P, 0, strGet_ini("Header", "CONFIG_SCRATCH_LEFT", "L", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboDispSC2P, 1, strGet_ini("Header", "CONFIG_SCRATCH_RIGHT", "R", strFileName))
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Material, TAB_WAV, #WAV, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.optChangeBottom(0).Text = strGet_ini("Material", "TAB_WAV", "#WAV", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Material, TAB_BMP, #BMP, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.optChangeBottom(1).Text = strGet_ini("Material", "TAB_BMP", "#BMP", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Material, TAB_BGA, #BGA, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.optChangeBottom(2).Text = strGet_ini("Material", "TAB_BGA", "#BGA", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Material, TAB_BEAT, Beat, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.optChangeBottom(3).Text = strGet_ini("Material", "TAB_BEAT", "Beat", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Material, TAB_EXPAND, Expand, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.optChangeBottom(4).Text = strGet_ini("Material", "TAB_EXPAND", "Expand", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdSoundStop.Text = strGet_ini("Material", "MATERIAL_STOP", "Stop", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdSoundExcUp.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_UP", "<", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdSoundExcDown.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_DOWN", ">", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdSoundDelete.Text = strGet_ini("Material", "MATERIAL_DELETE", "Del", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdSoundLoad.Text = strGet_ini("Material", "MATERIAL_SET_FILE", "...", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdBMPPreview.Text = strGet_ini("Material", "MATERIAL_PREVIEW", "Preview", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdBMPExcUp.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_UP", "<", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdBMPExcDown.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_DOWN", ">", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdBMPDelete.Text = strGet_ini("Material", "MATERIAL_DELETE", "Del", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdBMPLoad.Text = strGet_ini("Material", "MATERIAL_SET_FILE", "...", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdBGAPreview.Text = strGet_ini("Material", "MATERIAL_PREVIEW", "Preview", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdBGAExcUp.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_UP", "<", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdBGAExcDown.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_DOWN", ">", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdBGADelete.Text = strGet_ini("Material", "MATERIAL_DELETE", "Del", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdBGASet.Text = strGet_ini("Material", "MATERIAL_INPUT", "Input", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdMeasureSelectAll.Text = strGet_ini("Material", "MATERIAL_SELECT_ALL", "All", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdInputMeasureLen.Text = strGet_ini("Material", "MATERIAL_INPUT", "Input", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblGridMain.Text = strGet_ini("ToolBar", "GRID_MAIN", "Grid", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblGridSub.Text = strGet_ini("ToolBar", "GRID_SUB", "Sub", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblDispHeight.Text = strGet_ini("ToolBar", "DISP_HEIGHT", "Height", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblDispWidth.Text = strGet_ini("ToolBar", "DISP_WIDTH", "Width", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboDispHeight, .cboDispHeight.Items.Count - 1, strGet_ini("ToolBar", "DISP_VALUE_OTHER", "Other", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.SetItemString(.cboDispWidth, .cboDispHeight.Items.Count - 1, strGet_ini("ToolBar", "DISP_VALUE_OTHER", "Other", strFileName))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblVScroll.Text = strGet_ini("ToolBar", "VSCROLL", "VScroll", strFileName)
-			
-			If .tlbMenu.Items.Item("Edit").Checked = True Then
-				
-				.staMain.Items.Item("Mode").Text = g_strStatusBar(20)
-				
-			ElseIf .tlbMenu.Items.Item("Write").Checked = True Then 
-				
-				.staMain.Items.Item("Mode").Text = g_strStatusBar(21)
-				
-			Else
-				
-				.staMain.Items.Item("Mode").Text = g_strStatusBar(22)
-				
-			End If
-			
-		End With
-		
-		With frmMain.tlbMenu
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_NEW, New, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("New").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_NEW", "New", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("New").Description = strGet_ini("ToolBar", "TOOLTIP_NEW", "New", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_OPEN, Open, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("Open").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_OPEN", "Open", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("Open").Description = strGet_ini("ToolBar", "TOOLTIP_OPEN", "Open", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_RELOAD, Reload, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("Reload").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_RELOAD", "Reload", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("Reload").Description = strGet_ini("ToolBar", "TOOLTIP_RELOAD", "Reload", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_SAVE, Save, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("Save").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_SAVE", "Save", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("Save").Description = strGet_ini("ToolBar", "TOOLTIP_SAVE", "Save", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_SAVE_AS, Save As, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("SaveAs").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_SAVE_AS", "Save As", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("SaveAs").Description = strGet_ini("ToolBar", "TOOLTIP_SAVE_AS", "Save As", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_MODE_EDIT, Edit Mode, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("Edit").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_MODE_EDIT", "Edit Mode", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("Edit").Description = strGet_ini("ToolBar", "TOOLTIP_MODE_EDIT", "Edit Mode", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_MODE_WRITE, Write Mode, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("Write").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_MODE_WRITE", "Write Mode", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("Write").Description = strGet_ini("ToolBar", "TOOLTIP_MODE_WRITE", "Write Mode", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_MODE_DELETE, Delete Mode, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("Delete").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_MODE_DELETE", "Delete Mode", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("Delete").Description = strGet_ini("ToolBar", "TOOLTIP_MODE_DELETE", "Delete Mode", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_PLAY_FIRST, Play All, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("PlayAll").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_PLAY_FIRST", "Play All", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("PlayAll").Description = strGet_ini("ToolBar", "TOOLTIP_PLAY_FIRST", "Play All", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_PLAY, Play From Current Position, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("Play").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_PLAY", "Play From Current Position", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("Play").Description = strGet_ini("ToolBar", "TOOLTIP_PLAY", "Play From Current Position", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, TOOLTIP_STOP, Stop, strFileName) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("Stop").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_STOP", "Stop", strFileName)
-			'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Description ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Items.Item("Stop").Description = strGet_ini("ToolBar", "TOOLTIP_STOP", "Stop", strFileName)
-			
-		End With
-		
-		With frmWindowFind
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Text = strGet_ini("Find", "TITLE", "Find/Delete/Replace", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.fraSearchObject.Text = strGet_ini("Find", "FRAME_SEARCH", "Range", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.fraSearchMeasure.Text = strGet_ini("Find", "FRAME_MEASURE", "Range of measure", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.fraSearchNum.Text = strGet_ini("Find", "FRAME_OBJ_NUM", "Range of object number", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.fraSearchGrid.Text = strGet_ini("Find", "FRAME_GRID", "Lane", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.fraProcess.Text = strGet_ini("Find", "FRAME_PROCESS", "Method", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.optSearchAll.Text = strGet_ini("Find", "OPT_OBJ_ALL", "All object", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.optSearchSelect.Text = strGet_ini("Find", "OPT_OBJ_SELECT", "Selected object", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.optProcessSelect.Text = strGet_ini("Find", "OPT_PROCESS_SELECT", "Select", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.optProcessDelete.Text = strGet_ini("Find", "OPT_PROCESS_DELETE", "Delete", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.optProcessReplace.Text = strGet_ini("Find", "OPT_PROCESS_REPLACE", "Replace to", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdInvert.Text = strGet_ini("Find", "CMD_INVERT", "Invert", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdReset.Text = strGet_ini("Find", "CMD_RESET", "Reset", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdSelect.Text = strGet_ini("Find", "CMD_SELECT", "Select All", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdClose.Text = strGet_ini("Find", "CMD_CLOSE", "Close", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdDecide.Text = strGet_ini("Find", "CMD_DECIDE", "Run", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblNotice.Text = strGet_ini("Find", "LBL_NOTICE", "This item doesn't influence BPM/STOP object", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblMeasure.Text = strGet_ini("Find", "LBL_DASH", "to", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblNum.Text = strGet_ini("Find", "LBL_DASH", "to", strFileName)
-			
-		End With
-		
-		With frmWindowInput
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Text = strGet_ini("Input", "TITLE", "Input Form", strFileName)
-			
-		End With
-		
-		With frmWindowViewer
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Text = strGet_ini("Viewer", "TITLE", "Viewer Setting", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdViewerPath.Text = strGet_ini("Viewer", "CMD_SET", "...", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdAdd.Text = strGet_ini("Viewer", "CMD_ADD", "Add", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdDelete.Text = strGet_ini("Viewer", "CMD_DELETE", "Delete", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdOK.Text = strGet_ini("Viewer", "CMD_OK", "OK", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdCancel.Text = strGet_ini("Viewer", "CMD_CANCEL", "Cancel", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblViewerName.Text = strGet_ini("Viewer", "LBL_APP_NAME", "Player name", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblViewerPath.Text = strGet_ini("Viewer", "LBL_APP_PATH", "Path", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblPlayAll.Text = strGet_ini("Viewer", "LBL_ARG_PLAY_ALL", "Argument of ""Play All""", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblPlay.Text = strGet_ini("Viewer", "LBL_ARG_PLAY", "Argument of ""Play""", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblStop.Text = strGet_ini("Viewer", "LBL_ARG_STOP", "Argument of ""Stop""", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblNotice.Text = Replace(strGet_ini("Viewer", "LBL_ARG_INFO", "Syntax reference:\n<filename> File name\n<measure> Current measure", strFileName), "\n", vbCrLf)
-			
-		End With
-		
-		With frmWindowConvert
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Text = strGet_ini("Convert", "TITLE", "Conversion Wizard", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.chkDeleteUnusedFile.Text = strGet_ini("Convert", "CHK_DELETE_LIST", "Clear unused definition from a list", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.chkDeleteFile.Text = strGet_ini("Convert", "CHK_DELETE_FILE", "Delete unused files in this BMS folder (*)", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblExtension.Text = strGet_ini("Convert", "LBL_EXTENSION", "Search extensions:", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.chkFileRecycle.Text = strGet_ini("Convert", "CHK_RECYCLE", "Delete soon with no through recycled", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.chkListAlign.Text = strGet_ini("Convert", "CHK_ALIGN_LIST", "Sort definition list", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.chkUseOldFormat.Text = strGet_ini("Convert", "CHK_USE_OLD_FORMAT", "Use old Format [01 - FF] if possible", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.chkSortByName.Text = strGet_ini("Convert", "CHK_SORT_BY_NAME", "Sorting by filename", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.chkFileNameConvert.Text = strGet_ini("Convert", "CHK_CONVERT_FILENAME", "Change filename to list number [01 - ZZ] (*)", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lblNotice.Text = strGet_ini("Convert", "LBL_NOTICE", "(*) Cannot undo this command", strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdDecide.Text = strGet_ini("Convert", "CMD_DECIDE", "Run", strFileName)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cmdCancel.Text = strGet_ini("Convert", "CMD_CANCEL", "Cancel", strFileName)
-			
-		End With
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.ERR_01) = Replace(strGet_ini("Message", "ERROR_MESSAGE_01", "The unexpected error occurred. Program will shut down.\nRefer to the ""error.txt"" for the details of an error.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.ERR_02) = Replace(strGet_ini("Message", "ERROR_MESSAGE_02", "Temporary file is saved to...", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.ERR_FILE_NOT_FOUND) = Replace(strGet_ini("Message", "ERROR_FILE_NOT_FOUND", "File not found.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.ERR_LOAD_CANCEL) = Replace(strGet_ini("Message", "ERROR_LOAD_CANCEL", "Loading will be aborted.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.ERR_SAVE_ERROR) = Replace(strGet_ini("Message", "ERROR_SAVE_ERROR", "Error occured while saving.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.ERR_SAVE_CANCEL) = Replace(strGet_ini("Message", "ERROR_SAVE_CANCEL", "Saving will be aborted.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.ERR_OVERFLOW_LARGE) = Replace(strGet_ini("Message", "ERROR_OVERFLOW_LARGE", "Error:\nValue is too large.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.ERR_OVERFLOW_SMALL) = Replace(strGet_ini("Message", "ERROR_OVERFLOW_SMALL", "Error:\nValue is too small.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.ERR_OVERFLOW_BPM) = Replace(strGet_ini("Message", "ERROR_OVERFLOW_BPM", "You have used more than 1295 BPM change command.\nNumber of commands should be less than 1295.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.ERR_OVERFLOW_STOP) = Replace(strGet_ini("Message", "ERROR_OVERFLOW_STOP", "You have used more than 1295 STOP command.\nNumber of commands should be less than 1295.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.ERR_APP_NOT_FOUND) = Replace(strGet_ini("Message", "ERROR_APP_NOT_FOUND", " is not found.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.ERR_FILE_ALREADY_EXIST) = Replace(strGet_ini("Message", "ERROR_FILE_ALREADY_EXIST", "File already exist.", strFileName), "\n", vbCrLf)
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.MSG_CONFIRM) = Replace(strGet_ini("Message", "INFO_CONFIRM", "This command cannot be undone, OK?", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.MSG_FILE_CHANGED) = Replace(strGet_ini("Message", "INFO_FILE_CHANGED", "Do you want to save changes?", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.MSG_INI_CHANGED) = Replace(strGet_ini("Message", "INFO_INI_CHANGED", "ini format has changed.\n(All setting will reset)", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.MSG_ALIGN_LIST) = Replace(strGet_ini("Message", "INFO_ALIGN_LIST", "Do you want the filelist to be rewrited into the old format [01 - FF]?\n(Attention: Some programs are compatible only with old format files.)", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.MSG_DELETE_FILE) = Replace(strGet_ini("Message", "INFO_DELETE_FILE", "They have been deleted:", strFileName), "\n", vbCrLf)
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.INPUT_BPM) = Replace(strGet_ini("Input", "INPUT_BPM", "Enter the BPM you wish to change to.\n(Decimal number can be used. Enter 0 to cancel)", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.INPUT_STOP) = Replace(strGet_ini("Input", "INPUT_STOP", "Enter the length of stoppage 1 corresponds to 1/192 of the measure.\n(Enter under 0 to cancel)", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.INPUT_RENAME) = Replace(strGet_ini("Input", "INPUT_RENAME", "Please enter new filename.", strFileName), "\n", vbCrLf)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Message(modMain.Message.INPUT_SIZE) = Replace(strGet_ini("Input", "INPUT_SIZE", "Type your display magnification.\n(Maximum 16.00. Enter under 0 to cancel)", strFileName), "\n", vbCrLf)
-		
-		Dim DefaultFont As String
-		Dim SystemFont As String
-		Dim FixedFont As String
-		
-		'Dim ncm As NONCLIENTMETRICS
-		'ncm.cbSize = LenB(ncm)
-		'Call SystemParametersInfo(SPI_GETNONCLIENTMETRICS, LenB(ncm), ncm, 0)
-		'DefaultFont = StrConv(ncm.lfSMCaptionFont.lfFaceName, vbUnicode)
-		
-		'UPGRADE_ISSUE: LOGFONT ƒIƒuƒWƒFƒNƒg ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Dim lf As LOGFONT
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg lf ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_ISSUE: LenB ŠÖ”‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetStockObject() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call GetObject(GetStockObject(DEFAULT_GUI_FONT), CStr(LenB(lf)), CStr(lf))
-		'UPGRADE_ISSUE: ’è” vbUnicode ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg lf.lfFaceName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		DefaultFont = Trim(StrConv(lf.lfFaceName, vbUnicode))
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		SystemFont = strGet_ini("Main", "Font", DefaultFont, strFileName)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		FixedFont = strGet_ini("Main", "FixedFont", DefaultFont, strFileName)
-		
-		'ƒtƒHƒ“ƒg‹­§•ÏX
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		SystemFont = strGet_ini("Main", "Font", SystemFont, "bmse.ini")
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		FixedFont = strGet_ini("Main", "FixedFont", FixedFont, "bmse.ini")
-		
-		Call LoadFont(SystemFont, FixedFont, strGet_ini("Main", "Charset", DEFAULT_CHARSET, strFileName))
-		
-		Call frmMain.frmMain_Resize(Nothing, New System.EventArgs())
-		
-	End Sub
-	
-	Private Sub LoadFont(ByRef MainFont As String, ByRef FixedFont As String, ByVal Charset As Integer)
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim i As Integer
-		Dim objCtl As Object
-		
-		For i = 0 To My.Application.OpenForms.Count - 1
-			
-			My.Application.OpenForms.Item(i).Font = VB6.FontChangeName(My.Application.OpenForms.Item(i).Font, MainFont)
-			My.Application.OpenForms.Item(i).Font = VB6.FontChangeGdiCharSet(My.Application.OpenForms.Item(i).Font, Charset)
-			
-			For	Each objCtl In My.Application.OpenForms.Item(i).Controls
-				
-				If TypeOf objCtl Is System.Windows.Forms.Label Or TypeOf objCtl Is System.Windows.Forms.TextBox Or TypeOf objCtl Is System.Windows.Forms.ComboBox Or TypeOf objCtl Is System.Windows.Forms.Button Or TypeOf objCtl Is System.Windows.Forms.RadioButton Or TypeOf objCtl Is System.Windows.Forms.CheckBox Or TypeOf objCtl Is System.Windows.Forms.GroupBox Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg objCtl.Font ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					objCtl.Font.Name = MainFont
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg objCtl.Font ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					objCtl.Font.Charset = Charset
-					
-				ElseIf TypeOf objCtl Is System.Windows.Forms.PictureBox Or TypeOf objCtl Is System.Windows.Forms.ListBox Then 
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg objCtl.Font ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					objCtl.Font.Name = FixedFont
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg objCtl.Font ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					objCtl.Font.Charset = Charset
-					
-				End If
-				
-			Next objCtl
-			
-		Next i
-		
-		Exit Sub
-		
-Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call modMain.CleanUp(Err.Number, Err.Description, "LoadFont")
-	End Sub
-	
-	Public Sub LoadConfig()
-		Dim CreateConfig As Object
-		Dim modMain As Object
-		Dim LoadThemeFile As Object
-		Dim INI_VERSION As Object
-		Dim g_Message As Object
-		Dim LoadLanguageFile As Object
-		Dim strGet_ini As Object
-		On Error GoTo InitConfig
-		
-		Dim i As Integer
-		Dim wp As WINDOWPLACEMENT
-		Dim strTemp As String
-		Dim lngTemp As Integer
-		Static lngCount As Integer
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Main, Key, , bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If strGet_ini("Main", "Key", "", "bmse.ini") <> "BMSE" Then GoTo InitConfig
-		
-		With frmMain
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			strTemp = strGet_ini("Main", "Language", "english.ini", "bmse.ini")
-			
-			For i = 1 To .mnuLanguage.UBound
-				
-				If strTemp = g_strLangFileName(i) Then
-					
-					.mnuLanguage(i).Checked = True
-					
-					Exit For
-					
-				End If
-				
-			Next i
-			
-			'UPGRADE_ISSUE: Load ƒXƒe[ƒgƒƒ“ƒg ‚ÍƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Load(frmWindowAbout)
-			'UPGRADE_ISSUE: Load ƒXƒe[ƒgƒƒ“ƒg ‚ÍƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Load(frmWindowFind)
-			'UPGRADE_ISSUE: Load ƒXƒe[ƒgƒƒ“ƒg ‚ÍƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Load(frmWindowInput)
-			'UPGRADE_ISSUE: Load ƒXƒe[ƒgƒƒ“ƒg ‚ÍƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Load(frmWindowPreview)
-			'UPGRADE_ISSUE: Load ƒXƒe[ƒgƒƒ“ƒg ‚ÍƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Load(frmWindowTips)
-			'UPGRADE_ISSUE: Load ƒXƒe[ƒgƒƒ“ƒg ‚ÍƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Load(frmWindowViewer)
-			'UPGRADE_ISSUE: Load ƒXƒe[ƒgƒƒ“ƒg ‚ÍƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B530EFF2-3132-48F8-B8BC-D88AF543D321"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Load(frmWindowConvert)
-			
-			Call LoadLanguageFile("lang\" & strTemp)
-			
-			Call frmWindowPreview.SetWindowSize()
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg INI_VERSION ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If strGet_ini("Main", "ini", "", "bmse.ini") <> INI_VERSION Then
-				
-				'UPGRADE_WARNING: LoadConfig ‚É•ÏŠ·‚³‚ê‚Ä‚¢‚È‚¢ƒXƒe[ƒgƒƒ“ƒg‚ª‚ ‚è‚Ü‚·Bƒ\[ƒX ƒR[ƒh‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢B
-				
-				GoTo InitConfig
-				
-			End If
-			
-			wp.Length = 44
-			Call GetWindowPlacement(.Handle.ToInt32, wp)
-			
-			With wp
-				
-				.showCmd = SW_HIDE
-				
-				With .rcNormalPosition
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.right_Renamed = strGet_ini("Main", "Width", 800, "bmse.ini")
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.Bottom = strGet_ini("Main", "Height", 600, "bmse.ini")
-					'.Left = strGet_ini("Main", "X", (Screen.Width \ Screen.TwipsPerPixelX - .Right) \ 2, "bmse.ini")
-					'.Top = strGet_ini("Main", "Y", (Screen.Height \ Screen.TwipsPerPixelY - .Bottom) \ 2, "bmse.ini")
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.left_Renamed = strGet_ini("Main", "X", 0, "bmse.ini")
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.Top = strGet_ini("Main", "Y", 0, "bmse.ini")
-					.right_Renamed = .left_Renamed + .right_Renamed
-					.Bottom = .Top + .Bottom
-					
-					If .right_Renamed > VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX Then
-						
-						.left_Renamed = VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX - (.right_Renamed - .left_Renamed)
-						.right_Renamed = VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX
-						
-					End If
-					
-					If .left_Renamed < 0 Then .left_Renamed = 0
-					
-					If .Bottom > VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) \ VB6.TwipsPerPixelY Then
-						
-						.Top = VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) \ VB6.TwipsPerPixelY - (.Bottom - .Top)
-						.Bottom = VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) \ VB6.TwipsPerPixelY
-						
-					End If
-					
-					If .Top < 0 Then .Top = 0
-					
-				End With
-				
-			End With
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			strTemp = strGet_ini("Main", "Theme", "default.ini", "bmse.ini")
-			
-			For i = 1 To .mnuTheme.UBound
-				
-				If strTemp = g_strThemeFileName(i) Then
-					
-					.mnuTheme(i).Checked = True
-					
-					Exit For
-					
-				End If
-				
-			Next i
-			
-			Call LoadThemeFile("theme\" & strTemp)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			g_strHelpFilename = strGet_ini("Main", "Help", "", "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			g_strFiler = strGet_ini("Main", "Filer", "", "bmse.ini")
-			
-			If g_strHelpFilename <> "" Then
-				
-				.mnuHelpOpen.Enabled = True
-				
-			End If
-			
-			'.hsbDispWidth.Value = strGet_ini("View", "Width", 100, "bmse.ini")
-			'.hsbDispHeight.Value = strGet_ini("View", "Height", 100, "bmse.ini")
-			
-			With .cboDispWidth
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				lngTemp = strGet_ini("View", "Width", 100, "bmse.ini")
-				
-				For i = 0 To .Items.Count - 1
-					
-					If VB6.GetItemData(frmMain.cboDispWidth, i) = lngTemp Then
-						
-						.SelectedIndex = i
-						
-						Exit For
-						
-					ElseIf VB6.GetItemData(frmMain.cboDispWidth, i) > lngTemp Then 
-						
-						Call .Items.Insert(i, "x" & VB6.Format(lngTemp / 100, "#0.00"))
-						VB6.SetItemData(frmMain.cboDispWidth, i, lngTemp)
-						.SelectedIndex = i
-						
-						Exit For
-						
-					End If
-					
-				Next i
-				
-			End With
-			
-			With .cboDispHeight
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				lngTemp = strGet_ini("View", "Height", 100, "bmse.ini")
-				
-				For i = 0 To .Items.Count - 1
-					
-					If VB6.GetItemData(frmMain.cboDispHeight, i) = lngTemp Then
-						
-						.SelectedIndex = i
-						
-						Exit For
-						
-					ElseIf VB6.GetItemData(frmMain.cboDispHeight, i) > lngTemp Then 
-						
-						Call .Items.Insert(i, "x" & VB6.Format(lngTemp / 100, "#0.00"))
-						VB6.SetItemData(frmMain.cboDispHeight, i, lngTemp)
-						.SelectedIndex = i
-						
-						Exit For
-						
-					End If
-					
-				Next i
-				
-			End With
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cboDispGridMain.SelectedIndex = strGet_ini("View", "VGridMain", 1, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cboDispGridSub.SelectedIndex = strGet_ini("View", "VGridSub", 1, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cboDispFrame.SelectedIndex = strGet_ini("View", "Frame", 1, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cboDispKey.SelectedIndex = strGet_ini("View", "Key", 1, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cboDispSC1P.SelectedIndex = strGet_ini("View", "SC_1P", 1, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.cboDispSC2P.SelectedIndex = strGet_ini("View", "SC_2P", 1, "bmse.ini")
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(View, ToolBar, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuViewItem(frmMain.MENU_VIEW.TOOL_BAR).Checked = strGet_ini("View", "ToolBar", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(View, DirectInput, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuViewItem(frmMain.MENU_VIEW.DIRECT_INPUT).Checked = strGet_ini("View", "DirectInput", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(View, StatusBar, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuViewItem(frmMain.MENU_VIEW.STATUS_BAR).Checked = strGet_ini("View", "StatusBar", True, "bmse.ini")
-			
-			If .cboViewer.Items.Count Then
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(View, ViewerNum, 0, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If .cboViewer.Items.Count > strGet_ini("View", "ViewerNum", 0, "bmse.ini") Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.cboViewer.SelectedIndex = strGet_ini("View", "ViewerNum", 0, "bmse.ini")
-					
-				Else
-					
-					.cboViewer.SelectedIndex = 0
-					
-				End If
-				
-			End If
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Options, Active, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuOptionsItem(frmMain.MENU_OPTIONS.IGNORE_INPUT).Checked = strGet_ini("Options", "Active", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Options, FileNameOnly, False, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuOptionsItem(frmMain.MENU_OPTIONS.TITLE_FILENAME).Checked = strGet_ini("Options", "FileNameOnly", False, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Options, VerticalWriting, False, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuOptionsItem(frmMain.MENU_OPTIONS.VERTICAL_INFO).Checked = strGet_ini("Options", "VerticalWriting", False, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Options, LaneBG, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuOptionsItem(frmMain.MENU_OPTIONS.LANE_BGCOLOR).Checked = strGet_ini("Options", "LaneBG", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Options, SelectSound, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuOptionsItem(frmMain.MENU_OPTIONS.SELECT_PREVIEW).Checked = strGet_ini("Options", "SelectSound", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Options, MoveOnGrid, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuOptionsItem(frmMain.MENU_OPTIONS.MOVE_ON_GRID).Checked = strGet_ini("Options", "MoveOnGrid", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Options, ObjectFileName, False, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuOptionsItem(frmMain.MENU_OPTIONS.OBJ_FILENAME).Checked = strGet_ini("Options", "ObjectFileName", False, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(Options, UseOldFormat, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.mnuOptionsItem(frmMain.MENU_OPTIONS.USE_OLD_FORMAT).Checked = strGet_ini("Options", "UseOldFormat", True, "bmse.ini")
-			'.mnuOptionsItem(RCLICK_DELETE).Checked = strGet_ini("Options", "RightClickDelete", False, "bmse.ini")
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, New, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("New").Visible = strGet_ini("ToolBar", "New", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Open, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("Open").Visible = strGet_ini("ToolBar", "Open", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Reload, False, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("Reload").Visible = strGet_ini("ToolBar", "Reload", False, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Save, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("Save").Visible = strGet_ini("ToolBar", "Save", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, SaveAs, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("SaveAs").Visible = strGet_ini("ToolBar", "SaveAs", True, "bmse.ini")
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Mode, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("SepMode").Visible = strGet_ini("ToolBar", "Mode", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Mode, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("Edit").Visible = strGet_ini("ToolBar", "Mode", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Mode, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("Write").Visible = strGet_ini("ToolBar", "Mode", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Mode, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("Delete").Visible = strGet_ini("ToolBar", "Mode", True, "bmse.ini")
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Preview, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("SepViewer").Visible = strGet_ini("ToolBar", "Preview", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Preview, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("PlayAll").Visible = strGet_ini("ToolBar", "Preview", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Preview, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("Play").Visible = strGet_ini("ToolBar", "Preview", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Preview, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("Stop").Visible = strGet_ini("ToolBar", "Preview", True, "bmse.ini")
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Grid, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("SepGrid").Visible = strGet_ini("ToolBar", "Grid", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Grid, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("ChangeGrid").Visible = strGet_ini("ToolBar", "Grid", True, "bmse.ini")
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Size, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("SepSize").Visible = strGet_ini("ToolBar", "Size", True, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Size, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("DispSize").Visible = strGet_ini("ToolBar", "Size", True, "bmse.ini")
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Resolution, False, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("SepResolution").Visible = strGet_ini("ToolBar", "Resolution", False, "bmse.ini")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(ToolBar, Resolution, False, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.tlbMenu.Items.Item("Resolution").Visible = strGet_ini("ToolBar", "Resolution", False, "bmse.ini")
-			
-			For i = 0 To UBound(g_strRecentFiles)
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				g_strRecentFiles(i) = strGet_ini("RecentFiles", i, "", "bmse.ini")
-				
-				If Len(g_strRecentFiles(i)) Then
-					
-					With .mnuRecentFiles(i)
-						
-						.Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
-						.Enabled = True
-						.Visible = True
-						
-					End With
-					
-					'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ frmMain.tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					With .tlbMenu.Items.Item("Open").ButtonMenus.Item(i + 1)
-						
-						'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ frmMain.tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
-						'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ frmMain.tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.Enabled = True
-						'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ frmMain.tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.Visible = True
-						
-					End With
-					
-					.mnuLineRecent.Visible = True
-					
-				End If
-				
-			Next i
-			
-			Call SetWindowPlacement(.Handle.ToInt32, wp)
-			
-		End With
-		
-		Call modEasterEgg.InitEffect()
-		
-		With frmWindowPreview
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Left = VB6.TwipsToPixelsX(strGet_ini("Preview", "X", (VB6.PixelsToTwipsX(frmMain.Left) + VB6.PixelsToTwipsX(frmMain.Width) \ 2) - VB6.PixelsToTwipsX(.Width) \ 2, "bmse.ini"))
-			If VB6.PixelsToTwipsX(.Left) < 0 Then .Left = 0
-			If VB6.PixelsToTwipsX(.Left) > VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) Then .Left = 0
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Top = VB6.TwipsToPixelsY(strGet_ini("Preview", "Y", (VB6.PixelsToTwipsY(frmMain.Top) + VB6.PixelsToTwipsY(frmMain.Height) \ 2) - VB6.PixelsToTwipsY(.Height) \ 2, "bmse.ini"))
-			If VB6.PixelsToTwipsY(.Top) < 0 Then .Top = 0
-			If VB6.PixelsToTwipsY(.Top) > VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) Then .Top = 0
-			
-		End With
-		
-		Exit Sub
-		
-InitConfig: 
-		
-		lngCount = lngCount + 1
-		
-		If lngCount > 5 Then
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call modMain.CleanUp(Err.Number, Err.Description, "LoadConfig")
-			
-		Else
-			
-			Call CreateConfig()
-			
-		End If
-		
-	End Sub
-	
-	Private Sub CreateConfig()
-		Dim LoadConfig As Object
-		Dim INI_VERSION As Object
-		Dim lngSet_ini As Object
-		
-		Call lngSet_ini("Main", "Key", Chr(34) & "BMSE" & Chr(34))
-		Call lngSet_ini("Main", "ini", INI_VERSION)
-		'Call lngSet_ini("Main", "X", (Screen.Width \ Screen.TwipsPerPixelX - 800) \ 2)
-		'Call lngSet_ini("Main", "Y", (Screen.Height \ Screen.TwipsPerPixelY - 600) \ 2)
-		Call lngSet_ini("Main", "X", 0)
-		Call lngSet_ini("Main", "Y", 0)
-		Call lngSet_ini("Main", "Width", "800")
-		Call lngSet_ini("Main", "Height", "600")
-		Call lngSet_ini("Main", "State", SW_SHOWNORMAL)
-		Call lngSet_ini("Main", "Language", Chr(34) & "english.ini" & Chr(34))
-		Call lngSet_ini("Main", "Theme", Chr(34) & "default.ini" & Chr(34))
-		Call lngSet_ini("Main", "Help", Chr(34) & Chr(34))
-		
-		Call lngSet_ini("View", "Width", 100)
-		Call lngSet_ini("View", "Height", 100)
-		Call lngSet_ini("View", "VGridMain", 1)
-		Call lngSet_ini("View", "VGridSub", 1)
-		Call lngSet_ini("View", "Frame", 1)
-		Call lngSet_ini("View", "Key", 1)
-		Call lngSet_ini("View", "SC_1P", 0)
-		Call lngSet_ini("View", "SC_2P", 1)
-		
-		Call lngSet_ini("View", "ToolBar", True)
-		Call lngSet_ini("View", "DirectInput", True)
-		Call lngSet_ini("View", "StatusBar", True)
-		
-		Call lngSet_ini("View", "ViewerNum", 0)
-		
-		Call lngSet_ini("ToolBar", "New", True)
-		Call lngSet_ini("ToolBar", "Open", True)
-		Call lngSet_ini("ToolBar", "Reload", False)
-		Call lngSet_ini("ToolBar", "Save", True)
-		Call lngSet_ini("ToolBar", "SaveAs", True)
-		Call lngSet_ini("ToolBar", "Mode", True)
-		Call lngSet_ini("ToolBar", "Preview", True)
-		Call lngSet_ini("ToolBar", "Gird", True)
-		Call lngSet_ini("ToolBar", "Size", True)
-		Call lngSet_ini("ToolBar", "Resolution", False)
-		
-		Call lngSet_ini("Options", "Active", True)
-		Call lngSet_ini("Options", "FileNameOnly", False)
-		Call lngSet_ini("Options", "VerticalWriting", False)
-		Call lngSet_ini("Options", "LaneBG", True)
-		Call lngSet_ini("Options", "SelectSound", True)
-		Call lngSet_ini("Options", "MoveOnGrid", True)
-		Call lngSet_ini("Options", "ObjectFileName", False)
-		Call lngSet_ini("Options", "UseOldFormat", True)
-		Call lngSet_ini("Options", "RightClickDelete", False)
-		
-		Call lngSet_ini("Preview", "X", 0)
-		Call lngSet_ini("Preview", "Y", 0)
-		
-		Call LoadConfig()
-		
-	End Sub
-	
-	Public Sub SaveConfig()
-		Dim lngSet_ini As Object
-		
-		Dim i As Integer
-		Dim wp As WINDOWPLACEMENT
-		
-		Call lngSet_ini("Main", "Key", Chr(34) & "BMSE" & Chr(34))
-		
-		wp.Length = 44
-		Call GetWindowPlacement(frmMain.Handle.ToInt32, wp)
-		
-		With wp
-			
-			If wp.showCmd <> SW_SHOWMINIMIZED Then
-				
-				Call lngSet_ini("Main", "State", wp.showCmd)
-				
-			Else
-				
-				Call lngSet_ini("Main", "State", SW_SHOWNORMAL)
-				
-			End If
-			
-			With .rcNormalPosition
-				
-				Call lngSet_ini("Main", "X", .left_Renamed)
-				Call lngSet_ini("Main", "Y", .Top)
-				Call lngSet_ini("Main", "Width", .right_Renamed - .left_Renamed)
-				Call lngSet_ini("Main", "Height", .Bottom - .Top)
-				
-			End With
-			
-		End With
-		
-		With frmMain
-			
-			For i = 1 To .mnuLanguage.UBound
-				
-				If .mnuLanguage(i).Checked = True Then
-					
-					Call lngSet_ini("Main", "Language", Chr(34) & g_strLangFileName(i) & Chr(34))
-					
-					Exit For
-					
-				End If
-				
-			Next i
-			
-			For i = 1 To .mnuTheme.UBound
-				
-				If .mnuTheme(i).Checked = True Then
-					
-					Call lngSet_ini("Main", "Theme", Chr(34) & g_strThemeFileName(i) & Chr(34))
-					
-					Exit For
-					
-				End If
-				
-			Next i
-			
-			Call lngSet_ini("View", "Width", VB6.GetItemData(.cboDispWidth, .cboDispWidth.SelectedIndex))
-			Call lngSet_ini("View", "Height", VB6.GetItemData(.cboDispHeight, .cboDispHeight.SelectedIndex))
-			Call lngSet_ini("View", "VGridMain", .cboDispGridMain.SelectedIndex)
-			Call lngSet_ini("View", "VGridSub", .cboDispGridSub.SelectedIndex)
-			Call lngSet_ini("View", "Frame", .cboDispFrame.SelectedIndex)
-			Call lngSet_ini("View", "Key", .cboDispKey.SelectedIndex)
-			Call lngSet_ini("View", "SC_1P", .cboDispSC1P.SelectedIndex)
-			Call lngSet_ini("View", "SC_2P", .cboDispSC2P.SelectedIndex)
-			
-			Call lngSet_ini("View", "ToolBar", .mnuViewItem(frmMain.MENU_VIEW.TOOL_BAR).Checked)
-			Call lngSet_ini("View", "DirectInput", .mnuViewItem(frmMain.MENU_VIEW.DIRECT_INPUT).Checked)
-			Call lngSet_ini("View", "StatusBar", .mnuViewItem(frmMain.MENU_VIEW.STATUS_BAR).Checked)
-			
-			If .cboViewer.Items.Count Then
-				
-				Call lngSet_ini("View", "ViewerNum", .cboViewer.SelectedIndex)
-				
-			End If
-			
-			Call lngSet_ini("Options", "Active", .mnuOptionsItem(frmMain.MENU_OPTIONS.IGNORE_INPUT).Checked)
-			Call lngSet_ini("Options", "FileNameOnly", .mnuOptionsItem(frmMain.MENU_OPTIONS.TITLE_FILENAME).Checked)
-			Call lngSet_ini("Options", "VerticalWriting", .mnuOptionsItem(frmMain.MENU_OPTIONS.VERTICAL_INFO).Checked)
-			Call lngSet_ini("Options", "LaneBG", .mnuOptionsItem(frmMain.MENU_OPTIONS.LANE_BGCOLOR).Checked)
-			Call lngSet_ini("Options", "SelectSound", .mnuOptionsItem(frmMain.MENU_OPTIONS.SELECT_PREVIEW).Checked)
-			Call lngSet_ini("Options", "MoveOnGrid", .mnuOptionsItem(frmMain.MENU_OPTIONS.MOVE_ON_GRID).Checked)
-			Call lngSet_ini("Options", "ObjectFileName", .mnuOptionsItem(frmMain.MENU_OPTIONS.OBJ_FILENAME).Checked)
-			Call lngSet_ini("Options", "UseOldFormat", .mnuOptionsItem(frmMain.MENU_OPTIONS.USE_OLD_FORMAT).Checked)
-			'Call lngSet_ini("Options", "RightClickDelete", .mnuOptionsItem(RCLICK_DELETE).Checked)
-			
-			Call lngSet_ini("ToolBar", "New", .tlbMenu.Items.Item("New").Visible)
-			Call lngSet_ini("ToolBar", "Open", .tlbMenu.Items.Item("Open").Visible)
-			Call lngSet_ini("ToolBar", "Reload", .tlbMenu.Items.Item("Reload").Visible)
-			Call lngSet_ini("ToolBar", "Save", .tlbMenu.Items.Item("Save").Visible)
-			Call lngSet_ini("ToolBar", "SaveAs", .tlbMenu.Items.Item("SaveAs").Visible)
-			Call lngSet_ini("ToolBar", "Mode", .tlbMenu.Items.Item("Write").Visible)
-			Call lngSet_ini("ToolBar", "Preview", .tlbMenu.Items.Item("PlayAll").Visible)
-			Call lngSet_ini("ToolBar", "Size", .tlbMenu.Items.Item("DispSize").Visible)
-			Call lngSet_ini("ToolBar", "Resolution", .tlbMenu.Items.Item("Resolution").Visible)
-			
-			For i = 0 To UBound(g_strRecentFiles)
-				
-				Call lngSet_ini("RecentFiles", i, Chr(34) & g_strRecentFiles(i) & Chr(34))
-				
-			Next i
-			
-		End With
-		
-		With frmWindowPreview
-			
-			Call lngSet_ini("Preview", "X", VB6.PixelsToTwipsX(.Left))
-			Call lngSet_ini("Preview", "Y", VB6.PixelsToTwipsY(.Top))
-			
-		End With
-		
-	End Sub
-	
-	Public Function lngSet_ini(ByRef strSection As String, ByVal strKey As String, ByVal strSet As String) As Integer
-		Dim WritePrivateProfileString As Object
-		
-		Dim lngTemp As Integer
-		
-		'APIŒÄ‚Ño‚µ••Ï”‚ğ•Ô‚·
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg WritePrivateProfileString() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		lngTemp = WritePrivateProfileString(strSection & Chr(0), strKey, strSet, g_strAppDir & "bmse.ini" & Chr(0))
-		
-		lngSet_ini = lngTemp
-		
-	End Function
-	
-	Public Function strGet_ini(ByRef strSection As String, ByVal strKey As String, ByVal strDefault As String, ByRef strFileName As String) As String
-		Dim GetPrivateProfileString As Object
-		
-		Dim strGetBuf As New VB6.FixedLengthString(256) 'û—e‚·‚éstring‚Ìƒoƒbƒtƒ@
-		Dim intGetLen As Short 'û—e‚·‚éstring‚Ì•¶š”‚Ìƒoƒbƒtƒ@
-		
-		'ƒoƒbƒtƒ@‚Ì‰Šú‰»i256‚à‚ ‚ê‚Î—Ç‚¢‚æ‚ËBj
-		strGetBuf.Value = Space(256)
-		
-		'APIŒÄ‚Ño‚µ
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetPrivateProfileString() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		intGetLen = GetPrivateProfileString(strSection & Chr(0), strKey, strDefault & Chr(0), strGetBuf.Value, 128, g_strAppDir & strFileName & Chr(0))
-		
-		'•¶š—ñ‚ğ•Ô‚·
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		strGet_ini = Trim(Left(strGetBuf.Value, InStr(strGetBuf.Value, Chr(0)) - 1))
-		
-		If Val(strGet_ini) < 0 Then strGet_ini = CStr(0)
-		
-	End Function
-	
-	Private Function GetColor(ByRef strSection As String, ByRef strKey As String, ByRef strDefault As String, ByRef strFileName As String) As Integer
-		Dim strGet_ini As Object
-		
-		Dim strArray() As String
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		strArray = Split(strGet_ini(strSection, strKey, strDefault, strFileName), ",")
-		
-		If UBound(strArray) < 2 Then Exit Function
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg GetColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		GetColor = RGB(CInt(strArray(0)), CInt(strArray(1)), CInt(strArray(2)))
-		
-	End Function
-	
-	Private Function HalfColor(ByVal Color As Integer) As Integer
-		
-		Dim r As Byte
-		Dim g As Byte
-		Dim b As Byte
-		
-		r = Color And &HFF
-		g = (Color \ &HFF) And &HFF
-		b = (Color \ &HFFFF) And &HFF
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg HalfColor ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		HalfColor = RGB(r \ 2, g \ 2, b \ 2)
-		
-	End Function
+
+#If MODE_SPEEDTEST Then
+
+        Call timeEndPeriod(1)
+
+#End If
+
+        g_InputLog = Nothing
+
+        Call modEasterEgg.EndEffect()
+
+        Call SaveConfig()
+
+        Call mciSendString("close PREVIEW", vbNullString, 0, 0)
+
+        Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+        Call lngDeleteFile(g_strAppDir & "___bmse_temp.bms")
+
+        If lngErrNum <> 0 And strErrDescription <> "" And strErrProcedure <> "" Then
+
+            If Len(g_BMS.strDir) = 0 Then g_BMS.strDir = g_strAppDir
+
+            For i = 0 To 9999
+
+                g_BMS.strFileName = "temp" & Format(i, "0000") & ".bms"
+
+                If i = 9999 Then
+
+                    Call CreateBMS(g_BMS.strDir & g_BMS.strFileName)
+
+                    'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                ElseIf Dir(g_BMS.strDir & g_BMS.strFileName) = vbNullString Then
+
+                    Call CreateBMS(g_BMS.strDir & g_BMS.strFileName)
+                    Exit For
+
+                End If
+
+            Next i
+
+            Call DebugOutput(lngErrNum, strErrDescription, strErrProcedure, True)
+
+        End If
+
+        End
+
+    End Sub
+
+    Public Sub DebugOutput(ByVal lngErrNum As Integer, ByRef strErrDescription As String, ByRef strErrProcedure As String, Optional ByVal blnCleanUp As Boolean = False)
+        Dim lngFFile As Integer
+        Dim strError As String = ""
+
+        lngFFile = FreeFile()
+
+        FileOpen(lngFFile, g_strAppDir & "error.txt", OpenMode.Append)
+
+        PrintLine(lngFFile, Today & TimeOfDay & "ErrorNo." & lngErrNum & " " & strErrDescription & "@" & strErrProcedure & "/BMSE_" & My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Revision)
+
+        FileClose(lngFFile)
+
+        strError = strError & "ErrorNo." & lngErrNum & " " & strErrDescription & "@" & strErrProcedure
+
+        If blnCleanUp Then
+
+            strError = g_Message(modMain.Message.ERR_01) & vbCrLf & strError & vbCrLf
+            strError = strError & g_Message(modMain.Message.ERR_02) & vbCrLf
+            strError = strError & g_BMS.strDir & g_BMS.strFileName
+
+        End If
+
+        Call frmMain.Show()
+        Call MsgBox(strError, MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, g_strAppTitle)
+
+    End Sub
+
+    Public Function lngDeleteFile(ByRef FileName As String) As Integer
+        On Error GoTo Err_Renamed
+
+        Kill(FileName)
+
+        Exit Function
+
+Err_Renamed:
+        lngDeleteFile = 1
+    End Function
+
+    Public Function intSaveCheck() As Short
+        On Error GoTo Err_Renamed
+
+        Dim lngTemp As Integer
+        Dim strArray() As String
+
+        With frmMain
+
+            If .cboPlayer.SelectedIndex + 1 <> g_BMS.intPlayerType Then g_BMS.blnSaveFlag = False
+            If .txtGenre.Text <> g_BMS.strGenre Then g_BMS.blnSaveFlag = False
+            If .txtTitle.Text <> g_BMS.strTitle Then g_BMS.blnSaveFlag = False
+            If .txtArtist.Text <> g_BMS.strArtist Then g_BMS.blnSaveFlag = False
+            If Val(.cboPlayLevel.Text) <> g_BMS.lngPlayLevel Then g_BMS.blnSaveFlag = False
+            If Val(.txtBPM.Text) <> g_BMS.sngBPM Then g_BMS.blnSaveFlag = False
+
+            If .cboPlayRank.SelectedIndex <> g_BMS.intPlayRank Then g_BMS.blnSaveFlag = False
+            If Val(.txtTotal.Text) <> g_BMS.sngTotal Then g_BMS.blnSaveFlag = False
+            If Val(.txtVolume.Text) <> g_BMS.intVolume Then g_BMS.blnSaveFlag = False
+            If .txtStageFile.Text <> g_BMS.strStageFile Then g_BMS.blnSaveFlag = False
+            'If .txtMissBMP.Text <> g_strBMP(0) Then g_BMS.blnSaveFlag = False
+
+        End With
+
+        If g_BMS.blnSaveFlag Then
+
+            intSaveCheck = 0
+
+            Exit Function
+
+        End If
+
+        Call frmMain.Show()
+
+        lngTemp = MsgBox(g_Message(modMain.Message.MSG_FILE_CHANGED), MsgBoxStyle.Exclamation Or MsgBoxStyle.YesNoCancel, g_strAppTitle)
+
+        Select Case lngTemp
+
+            Case MsgBoxResult.Yes
+
+                If g_BMS.strDir <> "" And g_BMS.strFileName <> "" Then
+
+                    Call CreateBMS(g_BMS.strDir & g_BMS.strFileName)
+
+                Else
+
+                    With frmMain.dlgMainSave
+
+                        'UPGRADE_WARNING: Filter ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                        .Filter = "BMS files (*.bms,*.bme,*.bml,*.pms)|*.bms;*.bme;*.bml;*.pms|All files (*.*)|*.*"
+
+                        .FileName = g_BMS.strFileName
+
+                        If .ShowDialog() <> DialogResult.OK Then
+                            intSaveCheck = 1
+                            Exit Function
+                        End If
+
+                        strArray = Split(.FileName, "\")
+                        g_BMS.strDir = Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
+                        g_BMS.strFileName = strArray(UBound(strArray))
+
+                        Call CreateBMS(g_BMS.strDir & g_BMS.strFileName)
+
+                        Call RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
+
+                        frmMain.dlgMainOpen.InitialDirectory = g_BMS.strDir
+                        frmMain.dlgMainSave.InitialDirectory = g_BMS.strDir
+
+                    End With
+
+                End If
+
+            Case MsgBoxResult.No
+
+                intSaveCheck = 0
+
+            Case MsgBoxResult.Cancel
+
+                intSaveCheck = 1
+
+        End Select
+
+        Exit Function
+
+Err_Renamed:
+
+        intSaveCheck = 1
+
+    End Function
+
+    Public Sub RecentFilesRotation(ByRef strFilePath As String)
+        Dim i As Integer
+        Dim intTemp As Short
+
+        For i = 0 To UBound(g_strRecentFiles)
+
+            If g_strRecentFiles(i) = strFilePath Then
+
+                Call SubRotate(0, i, strFilePath)
+
+                intTemp = 1
+
+                Exit For
+
+            End If
+
+        Next i
+
+        If intTemp = 0 Then Call SubRotate(0, UBound(g_strRecentFiles), strFilePath)
+
+        frmMain.mnuLineRecent.Visible = True
+
+    End Sub
+
+    Private Sub SubRotate(ByVal intIndex As Short, ByVal intEnd As Short, ByRef strFilePath As String)
+        If intIndex <> intEnd And g_strRecentFiles(intIndex) <> "" And intIndex <= UBound(g_strRecentFiles) Then
+
+            Call SubRotate(intIndex + 1, intEnd, g_strRecentFiles(intIndex))
+
+        End If
+
+        g_strRecentFiles(intIndex) = strFilePath
+
+        Select Case intIndex
+            Case 0
+                With frmMain._mnuRecentFiles_0
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+                With frmMain.ToolStripMenuItem0
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+            Case 1
+                With frmMain._mnuRecentFiles_1
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+                With frmMain.ToolStripMenuItem1
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+            Case 2
+                With frmMain._mnuRecentFiles_2
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+                With frmMain.ToolStripMenuItem2
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+            Case 3
+                With frmMain._mnuRecentFiles_3
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+                With frmMain.ToolStripMenuItem3
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+            Case 4
+                With frmMain._mnuRecentFiles_4
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+                With frmMain.ToolStripMenuItem4
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+            Case 5
+                With frmMain._mnuRecentFiles_5
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+                With frmMain.ToolStripMenuItem5
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+            Case 6
+                With frmMain._mnuRecentFiles_6
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+                With frmMain.ToolStripMenuItem6
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+            Case 7
+                With frmMain._mnuRecentFiles_7
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+                With frmMain.ToolStripMenuItem7
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+            Case 8
+                With frmMain._mnuRecentFiles_8
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+                With frmMain.ToolStripMenuItem8
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+            Case 9
+                With frmMain._mnuRecentFiles_9
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+
+                With frmMain.ToolStripMenuItem9
+                    .Text = "&" & intIndex + 1 & ":" & strFilePath
+                    .Enabled = True
+                    .Visible = True
+                End With
+        End Select
+    End Sub
+
+    Public Sub GetCmdLine()
+        On Error GoTo Err_Renamed
+
+        Dim i As Integer
+        Dim strTemp As String
+        Dim strCmdArray() As String
+        Dim strArray() As String
+        Dim ReadLock As Boolean
+        Dim blnReadFlag As Boolean
+
+        strTemp = Trim(VB.Command())
+
+        If strTemp = "" Then Exit Sub
+
+        ReDim strCmdArray(0)
+
+        For i = 1 To Len(strTemp)
+
+            Select Case Asc(Mid(strTemp, i, 1))
+
+                Case 32 'ã‚¹ãƒšãƒ¼ã‚¹
+
+                    If ReadLock = False Then
+
+                        ReDim Preserve strCmdArray(UBound(strCmdArray) + 1)
+
+                    Else
+
+                        strCmdArray(UBound(strCmdArray)) = strCmdArray(UBound(strCmdArray)) & " "
+
+                    End If
+
+                Case 34 'ãƒ€ãƒ–ãƒ«ã‚¯ã‚ªãƒ¼ãƒ†ãƒ¼ã‚·ãƒ§ãƒ³
+
+                    ReadLock = Not ReadLock
+
+                Case Else
+
+                    strCmdArray(UBound(strCmdArray)) = strCmdArray(UBound(strCmdArray)) & Mid(strTemp, i, 1)
+
+            End Select
+
+        Next i
+
+        For i = 0 To UBound(strCmdArray)
+
+            If strCmdArray(i) <> "" Then
+
+                If InStr(1, strCmdArray(i), ":\") <> 0 And (UCase(Right(strCmdArray(i), 4)) = ".BMS" Or UCase(Right(strCmdArray(i), 4)) = ".BME" Or UCase(Right(strCmdArray(i), 4)) = ".BML" Or UCase(Right(strCmdArray(i), 4)) = ".PMS") Then
+
+                    If blnReadFlag Then
+
+                        'UPGRADE_WARNING: App ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ App.EXEName ã«ã¯æ–°ã—ã„å‹•ä½œãŒå«ã¾ã‚Œã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                        Call ShellExecute(0, "open", Chr(34) & g_strAppDir & My.Application.Info.AssemblyName & Chr(34), Chr(34) & strCmdArray(i) & Chr(34), "", SW_SHOWNORMAL)
+
+                    Else
+
+                        strArray = Split(strCmdArray(i), "\")
+                        g_BMS.strFileName = Right(strCmdArray(i), Len(strArray(UBound(strArray))))
+                        g_BMS.strDir = Left(strCmdArray(i), Len(strCmdArray(i)) - Len(strArray(UBound(strArray))))
+                        frmMain.dlgMainOpen.InitialDirectory = g_BMS.strDir
+                        frmMain.dlgMainSave.InitialDirectory = g_BMS.strDir
+                        blnReadFlag = True
+
+                        Call modInput.LoadBMS()
+                        Call RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
+
+                    End If
+
+                End If
+
+            End If
+
+        Next i
+
+        Exit Sub
+
+Err_Renamed:
+        Call modMain.CleanUp(Err.Number, Err.Description, "GetCmdLine")
+    End Sub
+
+    Public Sub LoadThemeFile(ByRef strFileName As String)
+        Dim strArray() As String
+        Dim i As Integer
+        Dim j As Integer
+        Dim Color As Integer
+        Dim lngTemp As Integer
+
+        frmMain.picMain.BackColor = System.Drawing.ColorTranslator.FromOle(GetColor("Main", "Background", "0,0,0", strFileName))
+
+        g_lngSystemColor(modDraw.COLOR_NUM.MEASURE_NUM) = GetColor("Main", "MeasureNum", "64,64,64", strFileName)
+        g_lngSystemColor(modDraw.COLOR_NUM.MEASURE_LINE) = GetColor("Main", "MeasureLine", "255,255,255", strFileName)
+        g_lngSystemColor(modDraw.COLOR_NUM.GRID_MAIN) = GetColor("Main", "GridMain", "96,96,96", strFileName)
+        g_lngSystemColor(modDraw.COLOR_NUM.GRID_SUB) = GetColor("Main", "GridSub", "192,192,192", strFileName)
+        g_lngSystemColor(modDraw.COLOR_NUM.VERTICAL_MAIN) = GetColor("Main", "VerticalMain", "255,255,255", strFileName)
+        g_lngSystemColor(modDraw.COLOR_NUM.VERTICAL_SUB) = GetColor("Main", "VerticalSub", "128,128,128", strFileName)
+        g_lngSystemColor(modDraw.COLOR_NUM.INFO) = GetColor("Main", "Info", "0,255,0", strFileName)
+
+
+        For i = 0 To modDraw.BRUSH_NUM.Max - 1
+
+            Select Case i
+
+                Case modDraw.BRUSH_NUM.BGM
+
+                    Color = GetColor("BGM", "Background", "48,0,0", strFileName)
+
+                    strArray = Split(strGet_ini("BGM", "Text", "B01,B02,B03,B04,B05,B06,B07,B08,B09,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32", strFileName), ",")
+
+                    For j = 0 To 31
+
+                        g_VGrid(modDraw.GRID.NUM_BGM + j).strText = strArray(j)
+                        g_VGrid(modDraw.GRID.NUM_BGM + j).lngBackColor = Color
+
+                    Next j
+
+                    g_lngPenColor(modDraw.PEN_NUM.BGM_LIGHT) = GetColor("BGM", "ObjectLight", "255,0,0", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.BGM_SHADOW) = GetColor("BGM", "ObjectShadow", "96,0,0", strFileName)
+                    g_lngBrushColor(modDraw.BRUSH_NUM.BGM) = GetColor("BGM", "ObjectColor", "128,0,0", strFileName)
+
+                Case modDraw.BRUSH_NUM.BPM
+
+                    strArray = Split(strGet_ini("BPM", "Text", "BPM,STOP", strFileName), ",")
+                    g_VGrid(modDraw.GRID.NUM_BPM).strText = strArray(0)
+                    g_VGrid(modDraw.GRID.NUM_STOP).strText = strArray(1)
+
+                    Color = GetColor("BPM", "Background", "48,48,48", strFileName)
+                    g_VGrid(modDraw.GRID.NUM_BPM).lngBackColor = Color
+                    g_VGrid(modDraw.GRID.NUM_STOP).lngBackColor = Color
+
+                    g_lngPenColor(modDraw.PEN_NUM.BPM_LIGHT) = GetColor("BPM", "ObjectLight", "192,192,0", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.BPM_SHADOW) = GetColor("BPM", "ObjectShadow", "128,128,0", strFileName)
+                    g_lngBrushColor(modDraw.BRUSH_NUM.BPM) = GetColor("BPM", "ObjectColor", "160,160,0", strFileName)
+
+                Case modDraw.BRUSH_NUM.BGA
+
+                    strArray = Split(strGet_ini("BGA", "Text", "BGA,LAYER,POOR", strFileName), ",")
+                    g_VGrid(modDraw.GRID.NUM_BGA).strText = strArray(0)
+                    g_VGrid(modDraw.GRID.NUM_LAYER).strText = strArray(1)
+                    g_VGrid(modDraw.GRID.NUM_POOR).strText = strArray(2)
+
+                    Color = GetColor("BGA", "Background", "0,24,0", strFileName)
+                    g_VGrid(modDraw.GRID.NUM_BGA).lngBackColor = Color
+                    g_VGrid(modDraw.GRID.NUM_LAYER).lngBackColor = Color
+                    g_VGrid(modDraw.GRID.NUM_POOR).lngBackColor = Color
+
+                    g_lngPenColor(modDraw.PEN_NUM.BGA_LIGHT) = GetColor("BGA", "ObjectLight", "0,255,0", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.BGA_SHADOW) = GetColor("BGA", "ObjectShadow", "0,96,0", strFileName)
+                    g_lngBrushColor(modDraw.BRUSH_NUM.BGA) = GetColor("BGA", "ObjectColor", "0,128,0", strFileName)
+
+                Case modDraw.BRUSH_NUM.KEY01, modDraw.BRUSH_NUM.KEY03, modDraw.BRUSH_NUM.KEY05, modDraw.BRUSH_NUM.KEY07
+
+                    lngTemp = (i - modDraw.BRUSH_NUM.KEY01) + 1
+
+                    g_VGrid(modDraw.GRID.NUM_1P_1KEY + lngTemp - 1).strText = strGet_ini("KEY_1P_0" & lngTemp, "Text", lngTemp, strFileName)
+
+                    g_VGrid(modDraw.GRID.NUM_1P_1KEY + lngTemp - 1).lngBackColor = GetColor("KEY_1P_0" & lngTemp, "Background", "32,32,32", strFileName)
+
+                    Color = GetColor("KEY_1P_0" & lngTemp, "ObjectLight", "192,192,192", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.KEY01_LIGHT + lngTemp - 1) = Color
+                    g_lngPenColor(modDraw.PEN_NUM.INV_KEY01_LIGHT + lngTemp - 1) = HalfColor(Color)
+                    Color = GetColor("KEY_1P_0" & lngTemp, "ObjectShadow", "96,96,96", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.KEY01_SHADOW + lngTemp - 1) = Color
+                    g_lngPenColor(modDraw.PEN_NUM.INV_KEY01_SHADOW + lngTemp - 1) = HalfColor(Color)
+                    Color = GetColor("KEY_1P_0" & lngTemp, "ObjectColor", "128,128,128", strFileName)
+                    g_lngBrushColor(modDraw.BRUSH_NUM.KEY01 + lngTemp - 1) = Color
+                    g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY01 + lngTemp - 1) = HalfColor(Color)
+
+                Case modDraw.BRUSH_NUM.KEY02, modDraw.BRUSH_NUM.KEY04, modDraw.BRUSH_NUM.KEY06
+
+                    lngTemp = (i - modDraw.BRUSH_NUM.KEY01) + 1
+                    g_VGrid(modDraw.GRID.NUM_1P_1KEY + lngTemp - 1).strText = strGet_ini("KEY_1P_0" & lngTemp, "Text", lngTemp, strFileName)
+
+                    g_VGrid(modDraw.GRID.NUM_1P_1KEY + lngTemp - 1).lngBackColor = GetColor("KEY_1P_0" & lngTemp, "Background", "0,0,40", strFileName)
+
+                    Color = GetColor("KEY_1P_0" & lngTemp, "ObjectLight", "96,96,255", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.KEY01_LIGHT + lngTemp - 1) = Color
+                    g_lngPenColor(modDraw.PEN_NUM.INV_KEY01_LIGHT + lngTemp - 1) = HalfColor(Color)
+                    Color = GetColor("KEY_1P_0" & lngTemp, "ObjectShadow", "0,0,128", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.KEY01_SHADOW + lngTemp - 1) = Color
+                    g_lngPenColor(modDraw.PEN_NUM.INV_KEY01_SHADOW + lngTemp - 1) = HalfColor(Color)
+                    Color = GetColor("KEY_1P_0" & lngTemp, "ObjectColor", "0,0,255", strFileName)
+                    g_lngBrushColor(modDraw.BRUSH_NUM.KEY01 + lngTemp - 1) = Color
+                    g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY01 + lngTemp - 1) = HalfColor(Color)
+
+                Case modDraw.BRUSH_NUM.KEY08
+
+                    g_VGrid(modDraw.GRID.NUM_1P_SC_L).strText = strGet_ini("KEY_1P_SC", "Text", "SC", strFileName)
+                    g_VGrid(modDraw.GRID.NUM_1P_SC_R).strText = strGet_ini("KEY_1P_SC", "Text", "SC", strFileName)
+
+                    Color = GetColor("KEY_1P_SC", "Background", "48,0,0", strFileName)
+                    g_VGrid(modDraw.GRID.NUM_1P_SC_L).lngBackColor = Color
+                    g_VGrid(modDraw.GRID.NUM_1P_SC_R).lngBackColor = Color
+
+                    Color = GetColor("KEY_1P_SC", "ObjectLight", "255,96,96", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.KEY08_LIGHT) = Color
+                    g_lngPenColor(modDraw.PEN_NUM.INV_KEY08_LIGHT) = HalfColor(Color)
+                    Color = GetColor("KEY_1P_SC", "ObjectShadow", "128,0,0", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.KEY08_SHADOW) = Color
+                    g_lngPenColor(modDraw.PEN_NUM.INV_KEY08_SHADOW) = HalfColor(Color)
+                    Color = GetColor("KEY_1P_SC", "ObjectColor", "255,0,0", strFileName)
+                    g_lngBrushColor(modDraw.BRUSH_NUM.KEY08) = Color
+                    g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY08) = HalfColor(Color)
+
+                Case modDraw.BRUSH_NUM.KEY11, modDraw.BRUSH_NUM.KEY13, modDraw.BRUSH_NUM.KEY15, modDraw.BRUSH_NUM.KEY17
+
+                    lngTemp = (i - modDraw.BRUSH_NUM.KEY11) + 1
+                    g_VGrid(modDraw.GRID.NUM_2P_1KEY + lngTemp - 1).strText = strGet_ini("KEY_2P_0" & lngTemp, "Text", lngTemp, strFileName)
+
+                    g_VGrid(modDraw.GRID.NUM_2P_1KEY + lngTemp - 1).lngBackColor = GetColor("KEY_2P_0" & lngTemp, "Background", "32,32,32", strFileName)
+
+                    Color = GetColor("KEY_2P_0" & lngTemp, "ObjectLight", "192,192,192", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.KEY11_LIGHT + lngTemp - 1) = Color
+                    g_lngPenColor(modDraw.PEN_NUM.INV_KEY11_LIGHT + lngTemp - 1) = HalfColor(Color)
+                    Color = GetColor("KEY_2P_0" & lngTemp, "ObjectShadow", "96,96,96", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.KEY11_SHADOW + lngTemp - 1) = Color
+                    g_lngPenColor(modDraw.PEN_NUM.INV_KEY11_SHADOW + lngTemp - 1) = HalfColor(Color)
+                    Color = GetColor("KEY_2P_0" & lngTemp, "ObjectColor", "128,128,128", strFileName)
+                    g_lngBrushColor(modDraw.BRUSH_NUM.KEY11 + lngTemp - 1) = Color
+                    g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY11 + lngTemp - 1) = HalfColor(Color)
+
+                    If i = modDraw.BRUSH_NUM.KEY11 Then
+
+                        g_VGrid(modDraw.GRID.NUM_FOOTPEDAL).strText = strGet_ini("KEY_2P_01", "Text", lngTemp, strFileName)
+                        g_VGrid(modDraw.GRID.NUM_FOOTPEDAL).lngBackColor = GetColor("KEY_2P_01", "Background", "32,32,32", strFileName)
+                        'color = GetColor("KEY_2P_0" & lngTemp, "ObjectLight", "192,192,192", strFileName)
+
+                    End If
+
+                Case modDraw.BRUSH_NUM.KEY12, modDraw.BRUSH_NUM.KEY14, modDraw.BRUSH_NUM.KEY16
+
+                    lngTemp = (i - modDraw.BRUSH_NUM.KEY11) + 1
+                    g_VGrid(modDraw.GRID.NUM_2P_1KEY + lngTemp - 1).strText = strGet_ini("KEY_2P_0" & lngTemp, "Text", lngTemp, strFileName)
+
+                    g_VGrid(modDraw.GRID.NUM_2P_1KEY + lngTemp - 1).lngBackColor = GetColor("KEY_2P_0" & lngTemp, "Background", "0,0,40", strFileName)
+
+                    Color = GetColor("KEY_2P_0" & lngTemp, "ObjectLight", "96,96,255", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.KEY11_LIGHT + lngTemp - 1) = Color
+                    g_lngPenColor(modDraw.PEN_NUM.INV_KEY11_LIGHT + lngTemp - 1) = HalfColor(Color)
+                    Color = GetColor("KEY_2P_0" & lngTemp, "ObjectShadow", "0,0,128", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.KEY11_SHADOW + lngTemp - 1) = Color
+                    g_lngPenColor(modDraw.PEN_NUM.INV_KEY11_SHADOW + lngTemp - 1) = HalfColor(Color)
+                    Color = GetColor("KEY_2P_0" & lngTemp, "ObjectColor", "0,0,255", strFileName)
+                    g_lngBrushColor(modDraw.BRUSH_NUM.KEY11 + lngTemp - 1) = Color
+                    g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY11 + lngTemp - 1) = HalfColor(Color)
+
+                Case modDraw.BRUSH_NUM.KEY18
+
+                    g_VGrid(modDraw.GRID.NUM_2P_SC_L).strText = strGet_ini("KEY_2P_SC", "Text", "SC", strFileName)
+                    g_VGrid(modDraw.GRID.NUM_2P_SC_R).strText = strGet_ini("KEY_2P_SC", "Text", "SC", strFileName)
+
+                    Color = GetColor("KEY_2P_SC", "Background", "48,0,0", strFileName)
+                    g_VGrid(modDraw.GRID.NUM_2P_SC_L).lngBackColor = Color
+                    g_VGrid(modDraw.GRID.NUM_2P_SC_R).lngBackColor = Color
+
+                    Color = GetColor("KEY_2P_SC", "ObjectLight", "255,96,96", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.KEY18_LIGHT) = Color
+                    g_lngPenColor(modDraw.PEN_NUM.INV_KEY18_LIGHT) = HalfColor(Color)
+                    Color = GetColor("KEY_2P_SC", "ObjectShadow", "128,0,0", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.KEY18_SHADOW) = Color
+                    g_lngPenColor(modDraw.PEN_NUM.INV_KEY18_SHADOW) = HalfColor(Color)
+                    Color = GetColor("KEY_2P_SC", "ObjectColor", "255,0,0", strFileName)
+                    g_lngBrushColor(modDraw.BRUSH_NUM.KEY18) = Color
+                    g_lngBrushColor(modDraw.BRUSH_NUM.INV_KEY18) = HalfColor(Color)
+
+                Case modDraw.BRUSH_NUM.LONGNOTE
+
+                    g_lngPenColor(modDraw.PEN_NUM.LONGNOTE_LIGHT) = GetColor("KEY_LONGNOTE", "ObjectLight", "0,128,0", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.LONGNOTE_SHADOW) = GetColor("KEY_LONGNOTE", "ObjectShadow", "0,32,0", strFileName)
+                    g_lngBrushColor(modDraw.BRUSH_NUM.LONGNOTE) = GetColor("KEY_LONGNOTE", "ObjectColor", "0,64,0", strFileName)
+
+                Case modDraw.BRUSH_NUM.SELECT_OBJ
+
+                    g_lngPenColor(modDraw.PEN_NUM.SELECT_OBJ_LIGHT) = GetColor("SELECT", "ObjectLight", "255,255,255", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.SELECT_OBJ_SHADOW) = GetColor("SELECT", "ObjectShadow", "128,128,128", strFileName)
+                    g_lngBrushColor(modDraw.BRUSH_NUM.SELECT_OBJ) = GetColor("SELECT", "ObjectColor", "0,255,255", strFileName)
+
+                Case modDraw.BRUSH_NUM.EDIT_FRAME
+
+                    g_lngPenColor(modDraw.PEN_NUM.EDIT_FRAME) = GetColor("SELECT", "EditFrame", "255,255,255", strFileName)
+
+                Case modDraw.BRUSH_NUM.DELETE_FRAME
+
+                    g_lngPenColor(modDraw.PEN_NUM.DELETE_FRAME) = GetColor("SELECT", "DeleteFrame", "255,255,255", strFileName)
+
+            End Select
+
+        Next i
+
+    End Sub
+
+    Public Sub LoadLanguageFile(ByRef strFileName As String)
+        g_strStatusBar(1) = strGet_ini("StatusBar", "CH_01", "BGM", strFileName)
+        g_strStatusBar(4) = strGet_ini("StatusBar", "CH_04", "BGA", strFileName)
+        g_strStatusBar(6) = strGet_ini("StatusBar", "CH_06", "BGA Poor", strFileName)
+        g_strStatusBar(7) = strGet_ini("StatusBar", "CH_07", "BGA Layer", strFileName)
+        g_strStatusBar(8) = strGet_ini("StatusBar", "CH_08", "BPM Change", strFileName)
+        g_strStatusBar(9) = strGet_ini("StatusBar", "CH_09", "Stop Sequence", strFileName)
+        g_strStatusBar(11) = strGet_ini("StatusBar", "CH_KEY_1P", "1P Key", strFileName)
+        g_strStatusBar(12) = strGet_ini("StatusBar", "CH_KEY_2P", "2P Key", strFileName)
+        g_strStatusBar(13) = strGet_ini("StatusBar", "CH_SCRATCH_1P", "1P Scratch", strFileName)
+        g_strStatusBar(14) = strGet_ini("StatusBar", "CH_SCRATCH_2P", "2P Scratch", strFileName)
+        g_strStatusBar(15) = strGet_ini("StatusBar", "CH_INVISIBLE", "(Invisible)", strFileName)
+        g_strStatusBar(16) = strGet_ini("StatusBar", "CH_LONGNOTE", "(LongNote)", strFileName)
+        g_strStatusBar(20) = strGet_ini("StatusBar", "MODE_EDIT", "Edit Mode", strFileName)
+        g_strStatusBar(21) = strGet_ini("StatusBar", "MODE_WRITE", "Write Mode", strFileName)
+        g_strStatusBar(22) = strGet_ini("StatusBar", "MODE_DELETE", "Delete Mode", strFileName)
+        g_strStatusBar(23) = strGet_ini("StatusBar", "MEASURE", "Measure", strFileName)
+
+        With frmMain
+
+            .mnuFile.Text = strGet_ini("Menu", "FILE", "&File", strFileName)
+            .mnuFileNew.Text = strGet_ini("Menu", "FILE_NEW", "&New", strFileName)
+            .mnuFileOpen.Text = strGet_ini("Menu", "FILE_OPEN", "&Open", strFileName)
+            .mnuFileSave.Text = strGet_ini("Menu", "FILE_SAVE", "&Save", strFileName)
+            .mnuFileSaveAs.Text = strGet_ini("Menu", "FILE_SAVE_AS", "Save &As", strFileName)
+            .mnuFileOpenDirectory.Text = strGet_ini("Menu", "FILE_OPEN_DIRECTORY", "Open &Directory", strFileName)
+            '.mnuFileDeleteUnusedFile.Caption = strGet_ini("Menu", "FILE_DELETE_UNUSED_FILE", "&Delete Unused File(s)", strFileName)
+            '.mnuFileNameConvert.Caption = strGet_ini("Menu", "FILE_CONVERT_FILENAME", "&Convert Filenames to [01-ZZ]", strFileName)
+            '.mnuFileListAlign.Caption = strGet_ini("Menu", "FILE_ALIGN_LIST", "Rewrite &List into old format [01-FF]", strFileName)
+            .mnuFileConvertWizard.Text = strGet_ini("Menu", "FILE_CONVERT_WIZARD", "Show &Conversion Wizard", strFileName)
+            .mnuFileExit.Text = strGet_ini("Menu", "FILE_EXIT", "&Exit", strFileName)
+
+            .mnuEdit.Text = strGet_ini("Menu", "EDIT", "&Edit", strFileName)
+            .mnuEditUndo.Text = strGet_ini("Menu", "EDIT_UNDO", "&Undo", strFileName)
+            .mnuEditRedo.Text = strGet_ini("Menu", "EDIT_REDO", "&Redo", strFileName)
+            .mnuEditCut.Text = strGet_ini("Menu", "EDIT_CUT", "Cu&t", strFileName)
+            .mnuEditCopy.Text = strGet_ini("Menu", "EDIT_COPY", "&Copy", strFileName)
+            .mnuEditPaste.Text = strGet_ini("Menu", "EDIT_PASTE", "&Paste", strFileName)
+            .mnuEditDelete.Text = strGet_ini("Menu", "EDIT_DELETE", "&Delete", strFileName)
+            .mnuEditSelectAll.Text = strGet_ini("Menu", "EDIT_SELECT_ALL", "&Find/Replace/Delete", strFileName)
+            .mnuEditFind.Text = strGet_ini("Menu", "EDIT_FIND", "&Select All", strFileName)
+            ._mnuEditMode_0.Text = strGet_ini("Menu", "EDIT_MODE_EDIT", "Edit &Mode", strFileName)
+            ._mnuEditMode_1.Text = strGet_ini("Menu", "EDIT_MODE_WRITE", "Write &Mode", strFileName)
+            ._mnuEditMode_2.Text = strGet_ini("Menu", "EDIT_MODE_DELETE", "Delete &Mode", strFileName)
+
+            .mnuView.Text = strGet_ini("Menu", "VIEW", "&View", strFileName)
+            ._mnuViewItem_0.Text = strGet_ini("Menu", "VIEW_TOOL_BAR", "&Tool Bar", strFileName)
+            ._mnuViewItem_1.Text = strGet_ini("Menu", "VIEW_DIRECT_INPUT", "&Direct Input", strFileName)
+            ._mnuViewItem_2.Text = strGet_ini("Menu", "VIEW_STATUS_BAR", "&Status Bar", strFileName)
+
+            .mnuOptions.Text = strGet_ini("Menu", "OPTIONS", "&Options", strFileName)
+            ._mnuOptionsItem_0.Text = strGet_ini("Menu", "OPTIONS_IGNORE_ACTIVE", "&Control Unavailable When Active", strFileName)
+            ._mnuOptionsItem_1.Text = strGet_ini("Menu", "OPTIONS_FILE_NAME_ONLY", "Display &File Name Only", strFileName)
+            ._mnuOptionsItem_2.Text = strGet_ini("Menu", "OPTIONS_VERTICAL", "&Vertical Grid Info", strFileName)
+            ._mnuOptionsItem_3.Text = strGet_ini("Menu", "OPTIONS_LANE_BG", "&Background Color", strFileName)
+            '.mnuOptionsItem(SELECT_PREVIEW).Caption = strGet_ini("Menu", "OPTIONS_SINGLE_SELECT_SOUND", "&Sound Upon Object Selection", strFileName)
+            ._mnuOptionsItem_4.Text = strGet_ini("Menu", "OPTIONS_SINGLE_SELECT_PREVIEW", "&Preview Upon Object Selection", strFileName)
+            ._mnuOptionsItem_6.Text = strGet_ini("Menu", "OPTIONS_OBJECT_FILE_NAME", "Show &Objects' File Names", strFileName)
+            ._mnuOptionsItem_5.Text = strGet_ini("Menu", "OPTIONS_MOVE_ON_GRID", "Restrict Objects' &Movement Onto Grid", strFileName)
+            ._mnuOptionsItem_7.Text = strGet_ini("Menu", "OPTIONS_USE_OLD_FORMAT", "&Use Old Format (01-FF)", strFileName)
+            '.mnuOptionsItem(RCLICK_DELETE).Caption = strGet_ini("Menu", "OPTIONS_RIGHT_CLICK_DELETE", "&Right Click To Delete Objects", strFileName)
+
+            .mnuTools.Text = strGet_ini("Menu", "TOOLS", "&Tools", strFileName)
+            .mnuToolsPlayAll.Text = strGet_ini("Menu", "TOOLS_PLAY_FIRST", "Play &All", strFileName)
+            .mnuToolsPlay.Text = strGet_ini("Menu", "TOOLS_PLAY", "&Play From Current Position", strFileName)
+            .mnuToolsPlayStop.Text = strGet_ini("Menu", "TOOLS_STOP", "&Stop", strFileName)
+            .mnuToolsSetting.Text = strGet_ini("Menu", "TOOLS_SETTING", "&Viewer Setting", strFileName)
+
+            .mnuHelp.Text = strGet_ini("Menu", "HELP", "&Help", strFileName)
+            .mnuHelpOpen.Text = strGet_ini("Menu", "HELP_OPEN", "&Help", strFileName)
+            .mnuHelpWeb.Text = strGet_ini("Menu", "HELP_WEB", "Open &Website", strFileName)
+            .mnuHelpAbout.Text = strGet_ini("Menu", "HELP_ABOUT", "&About BMSE", strFileName)
+
+            .mnuContext.Visible = False
+            .mnuContextPlayAll.Text = strGet_ini("Menu", "TOOLS_PLAY_FIRST", "Play &All", strFileName)
+            .mnuContextPlay.Text = strGet_ini("Menu", "TOOLS_PLAY", "&Play From Current Position", strFileName)
+            .mnuContextInsertMeasure.Text = strGet_ini("Menu", "CONTEXT_MEASURE_INSERT", "&Insert Measure", strFileName)
+            .mnuContextDeleteMeasure.Text = strGet_ini("Menu", "CONTEXT_MEASURE_DELETE", "Delete &Measure", strFileName)
+            .mnuContextEditCut.Text = strGet_ini("Menu", "EDIT_CUT", "Cu&t", strFileName)
+            .mnuContextEditCopy.Text = strGet_ini("Menu", "EDIT_COPY", "&Copy", strFileName)
+            .mnuContextEditPaste.Text = strGet_ini("Menu", "EDIT_PASTE", "&Paste", strFileName)
+            .mnuContextEditDelete.Text = strGet_ini("Menu", "EDIT_DELETE", "&Delete", strFileName)
+
+            .mnuContextList.Visible = False
+            .mnuContextListLoad.Text = strGet_ini("Menu", "CONTEXT_LIST_LOAD", "&Load", strFileName)
+            .mnuContextListDelete.Text = strGet_ini("Menu", "CONTEXT_LIST_DELETE", "&Delete", strFileName)
+            .mnuContextListRename.Text = strGet_ini("Menu", "CONTEXT_LIST_RENAME", "&Rename", strFileName)
+
+            ._optChangeTop_0.Text = strGet_ini("Header", "TAB_BASIC", "Basic", strFileName)
+            ._optChangeTop_1.Text = strGet_ini("Header", "TAB_EXPAND", "Expand", strFileName)
+            ._optChangeTop_2.Text = strGet_ini("Header", "TAB_CONFIG", "Config", strFileName)
+
+            .lblPlayMode.Text = strGet_ini("Header", "BASIC_PLAYER", "#PLAYER", strFileName)
+            modMain.SetItemString(.cboPlayer, 0, strGet_ini("Header", "BASIC_PLAYER_1P", "1 Player", strFileName))
+            modMain.SetItemString(.cboPlayer, 1, strGet_ini("Header", "BASIC_PLAYER_2P", "2 Player", strFileName))
+            modMain.SetItemString(.cboPlayer, 2, strGet_ini("Header", "BASIC_PLAYER_DP", "Double Play", strFileName))
+            modMain.SetItemString(.cboPlayer, 3, strGet_ini("Header", "BASIC_PLAYER_PMS", "9 Keys (PMS)", strFileName))
+            modMain.SetItemString(.cboPlayer, 4, strGet_ini("Header", "BASIC_PLAYER_OCT", "13 Keys (Oct)", strFileName))
+            .lblGenre.Text = strGet_ini("Header", "BASIC_GENRE", "#GENRE", strFileName)
+            .lblTitle.Text = strGet_ini("Header", "BASIC_TITLE", "#TITLE", strFileName)
+            .lblArtist.Text = strGet_ini("Header", "BASIC_ARTIST", "#ARTIST", strFileName)
+            .lblPlayLevel.Text = strGet_ini("Header", "BASIC_PLAYLEVEL", "#PLAYLEVEL", strFileName)
+            .lblBPM.Text = strGet_ini("Header", "BASIC_BPM", "#BPM", strFileName)
+
+            .lblPlayRank.Text = strGet_ini("Header", "EXPAND_RANK", "#RANK", strFileName)
+            modMain.SetItemString(.cboPlayRank, 0, strGet_ini("Header", "EXPAND_RANK_VERY_HARD", "Very Hard", strFileName))
+            modMain.SetItemString(.cboPlayRank, 1, strGet_ini("Header", "EXPAND_RANK_HARD", "Hard", strFileName))
+            modMain.SetItemString(.cboPlayRank, 2, strGet_ini("Header", "EXPAND_RANK_NORMAL", "Normal", strFileName))
+            modMain.SetItemString(.cboPlayRank, 3, strGet_ini("Header", "EXPAND_RANK_EASY", "Easy", strFileName))
+            .lblTotal.Text = strGet_ini("Header", "EXPAND_TOTAL", "#TOTAL", strFileName)
+            .lblVolume.Text = strGet_ini("Header", "EXPAND_VOLWAV", "#VOLWAV", strFileName)
+            .lblStageFile.Text = strGet_ini("Header", "EXPAND_STAGEFILE", "#STAGEFILE", strFileName)
+            .lblMissBMP.Text = strGet_ini("Header", "EXPAND_BPM_MISS", "#BMP00", strFileName)
+            .cmdLoadMissBMP.Text = strGet_ini("Header", "EXPAND_SET_FILE", "...", strFileName)
+            .cmdLoadStageFile.Text = strGet_ini("Header", "EXPAND_SET_FILE", "...", strFileName)
+
+            .lblDispFrame.Text = strGet_ini("Header", "CONFIG_KEY_FRAME", "Key Frame", strFileName)
+            modMain.SetItemString(.cboDispFrame, 0, strGet_ini("Header", "CONFIG_KEY_HALF", "Half", strFileName))
+            modMain.SetItemString(.cboDispFrame, 1, strGet_ini("Header", "CONFIG_KEY_SEPARATE", "Separate", strFileName))
+            .lblDispKey.Text = strGet_ini("Header", "CONFIG_KEY_POSITION", "Key Position", strFileName)
+            modMain.SetItemString(.cboDispKey, 0, strGet_ini("Header", "CONFIG_KEY_5KEYS", "5Keys/10Keys", strFileName))
+            modMain.SetItemString(.cboDispKey, 1, strGet_ini("Header", "CONFIG_KEY_7KEYS", "7Keys/14Keys", strFileName))
+            .lblDispSC1P.Text = strGet_ini("Header", "CONFIG_SCRATCH_1P", "Scratch 1P", strFileName)
+            modMain.SetItemString(.cboDispSC1P, 0, strGet_ini("Header", "CONFIG_SCRATCH_LEFT", "L", strFileName))
+            modMain.SetItemString(.cboDispSC1P, 1, strGet_ini("Header", "CONFIG_SCRATCH_RIGHT", "R", strFileName))
+            .lblDispSC2P.Text = strGet_ini("Header", "CONFIG_SCRATCH_2P", "2P", strFileName)
+            modMain.SetItemString(.cboDispSC2P, 0, strGet_ini("Header", "CONFIG_SCRATCH_LEFT", "L", strFileName))
+            modMain.SetItemString(.cboDispSC2P, 1, strGet_ini("Header", "CONFIG_SCRATCH_RIGHT", "R", strFileName))
+
+            ._optChangeBottom_0.Text = strGet_ini("Material", "TAB_WAV", "#WAV", strFileName)
+            ._optChangeBottom_1.Text = strGet_ini("Material", "TAB_BMP", "#BMP", strFileName)
+            ._optChangeBottom_2.Text = strGet_ini("Material", "TAB_BGA", "#BGA", strFileName)
+            ._optChangeBottom_3.Text = strGet_ini("Material", "TAB_BEAT", "Beat", strFileName)
+            ._optChangeBottom_4.Text = strGet_ini("Material", "TAB_EXPAND", "Expand", strFileName)
+
+            .cmdSoundStop.Text = strGet_ini("Material", "MATERIAL_STOP", "Stop", strFileName)
+            .cmdSoundExcUp.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_UP", "<", strFileName)
+            .cmdSoundExcDown.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_DOWN", ">", strFileName)
+            .cmdSoundDelete.Text = strGet_ini("Material", "MATERIAL_DELETE", "Del", strFileName)
+            .cmdSoundLoad.Text = strGet_ini("Material", "MATERIAL_SET_FILE", "...", strFileName)
+
+            .cmdBMPPreview.Text = strGet_ini("Material", "MATERIAL_PREVIEW", "Preview", strFileName)
+            .cmdBMPExcUp.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_UP", "<", strFileName)
+            .cmdBMPExcDown.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_DOWN", ">", strFileName)
+            .cmdBMPDelete.Text = strGet_ini("Material", "MATERIAL_DELETE", "Del", strFileName)
+            .cmdBMPLoad.Text = strGet_ini("Material", "MATERIAL_SET_FILE", "...", strFileName)
+
+            .cmdBGAPreview.Text = strGet_ini("Material", "MATERIAL_PREVIEW", "Preview", strFileName)
+            .cmdBGAExcUp.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_UP", "<", strFileName)
+            .cmdBGAExcDown.Text = strGet_ini("Material", "MATERIAL_EXCHANGE_DOWN", ">", strFileName)
+            .cmdBGADelete.Text = strGet_ini("Material", "MATERIAL_DELETE", "Del", strFileName)
+            .cmdBGASet.Text = strGet_ini("Material", "MATERIAL_INPUT", "Input", strFileName)
+
+            .cmdMeasureSelectAll.Text = strGet_ini("Material", "MATERIAL_SELECT_ALL", "All", strFileName)
+
+            .cmdInputMeasureLen.Text = strGet_ini("Material", "MATERIAL_INPUT", "Input", strFileName)
+
+            .lblGridMain.Text = strGet_ini("ToolBar", "GRID_MAIN", "Grid", strFileName)
+            .lblGridSub.Text = strGet_ini("ToolBar", "GRID_SUB", "Sub", strFileName)
+            .lblDispHeight.Text = strGet_ini("ToolBar", "DISP_HEIGHT", "Height", strFileName)
+            .lblDispWidth.Text = strGet_ini("ToolBar", "DISP_WIDTH", "Width", strFileName)
+            DirectCast(.cboDispHeight.Items.Item(.cboDispHeight.Items.Count - 1), modMain.ItemWithData).SetItemString(strGet_ini("ToolBar", "DISP_VALUE_OTHER", "Other", strFileName))
+            DirectCast(.cboDispWidth.Items.Item(.cboDispWidth.Items.Count - 1), modMain.ItemWithData).SetItemString(strGet_ini("ToolBar", "DISP_VALUE_OTHER", "Other", strFileName))
+            .lblVScroll.Text = strGet_ini("ToolBar", "VSCROLL", "VScroll", strFileName)
+
+            If DirectCast(.tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = True Then
+
+                .staMain.Items.Item("Mode").Text = g_strStatusBar(20)
+
+            ElseIf DirectCast(.tlbMenu.Items.Item("Write"), ToolStripButton).Checked = True Then
+
+                .staMain.Items.Item("Mode").Text = g_strStatusBar(21)
+
+            Else
+
+                .staMain.Items.Item("Mode").Text = g_strStatusBar(22)
+
+            End If
+
+        End With
+
+        With frmMain.tlbMenu
+
+            .Items.Item("_New").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_NEW", "New", strFileName)
+            .Items.Item("_New").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_NEW", "New", strFileName)
+            .Items.Item("Open").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_OPEN", "Open", strFileName)
+            .Items.Item("Open").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_OPEN", "Open", strFileName)
+            .Items.Item("Reload").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_RELOAD", "Reload", strFileName)
+            .Items.Item("Reload").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_RELOAD", "Reload", strFileName)
+            .Items.Item("Save").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_SAVE", "Save", strFileName)
+            .Items.Item("Save").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_SAVE", "Save", strFileName)
+            .Items.Item("SaveAs").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_SAVE_AS", "Save As", strFileName)
+            .Items.Item("SaveAs").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_SAVE_AS", "Save As", strFileName)
+
+            .Items.Item("Edit").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_MODE_EDIT", "Edit Mode", strFileName)
+            .Items.Item("Edit").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_MODE_EDIT", "Edit Mode", strFileName)
+            .Items.Item("Write").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_MODE_WRITE", "Write Mode", strFileName)
+            .Items.Item("Write").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_MODE_WRITE", "Write Mode", strFileName)
+            .Items.Item("Delete").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_MODE_DELETE", "Delete Mode", strFileName)
+            .Items.Item("Delete").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_MODE_DELETE", "Delete Mode", strFileName)
+
+            .Items.Item("PlayAll").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_PLAY_FIRST", "Play All", strFileName)
+            .Items.Item("PlayAll").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_PLAY_FIRST", "Play All", strFileName)
+            .Items.Item("Play").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_PLAY", "Play From Current Position", strFileName)
+            .Items.Item("Play").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_PLAY", "Play From Current Position", strFileName)
+            .Items.Item("_Stop").ToolTipText = strGet_ini("ToolBar", "TOOLTIP_STOP", "Stop", strFileName)
+            .Items.Item("_Stop").AccessibleDescription = strGet_ini("ToolBar", "TOOLTIP_STOP", "Stop", strFileName)
+
+        End With
+
+        With frmWindowFind
+
+            .Text = strGet_ini("Find", "TITLE", "Find/Delete/Replace", strFileName)
+
+            .fraSearchObject.Text = strGet_ini("Find", "FRAME_SEARCH", "Range", strFileName)
+            .fraSearchMeasure.Text = strGet_ini("Find", "FRAME_MEASURE", "Range of measure", strFileName)
+            .fraSearchNum.Text = strGet_ini("Find", "FRAME_OBJ_NUM", "Range of object number", strFileName)
+            .fraSearchGrid.Text = strGet_ini("Find", "FRAME_GRID", "Lane", strFileName)
+            .fraProcess.Text = strGet_ini("Find", "FRAME_PROCESS", "Method", strFileName)
+
+            .optSearchAll.Text = strGet_ini("Find", "OPT_OBJ_ALL", "All object", strFileName)
+            .optSearchSelect.Text = strGet_ini("Find", "OPT_OBJ_SELECT", "Selected object", strFileName)
+            .optProcessSelect.Text = strGet_ini("Find", "OPT_PROCESS_SELECT", "Select", strFileName)
+            .optProcessDelete.Text = strGet_ini("Find", "OPT_PROCESS_DELETE", "Delete", strFileName)
+            .optProcessReplace.Text = strGet_ini("Find", "OPT_PROCESS_REPLACE", "Replace to", strFileName)
+
+            .cmdInvert.Text = strGet_ini("Find", "CMD_INVERT", "Invert", strFileName)
+            .cmdReset.Text = strGet_ini("Find", "CMD_RESET", "Reset", strFileName)
+            .cmdSelect.Text = strGet_ini("Find", "CMD_SELECT", "Select All", strFileName)
+            .cmdClose.Text = strGet_ini("Find", "CMD_CLOSE", "Close", strFileName)
+            .cmdDecide.Text = strGet_ini("Find", "CMD_DECIDE", "Run", strFileName)
+
+            .lblNotice.Text = strGet_ini("Find", "LBL_NOTICE", "This item doesn't influence BPM/STOP object", strFileName)
+            .lblMeasure.Text = strGet_ini("Find", "LBL_DASH", "to", strFileName)
+            .lblNum.Text = strGet_ini("Find", "LBL_DASH", "to", strFileName)
+
+        End With
+
+        With frmWindowInput
+
+            .Text = strGet_ini("Input", "TITLE", "Input Form", strFileName)
+
+        End With
+
+        With frmWindowViewer
+
+            .Text = strGet_ini("Viewer", "TITLE", "Viewer Setting", strFileName)
+
+            .cmdViewerPath.Text = strGet_ini("Viewer", "CMD_SET", "...", strFileName)
+            .cmdAdd.Text = strGet_ini("Viewer", "CMD_ADD", "Add", strFileName)
+            .cmdDelete.Text = strGet_ini("Viewer", "CMD_DELETE", "Delete", strFileName)
+            .cmdOK.Text = strGet_ini("Viewer", "CMD_OK", "OK", strFileName)
+            .cmdCancel.Text = strGet_ini("Viewer", "CMD_CANCEL", "Cancel", strFileName)
+
+            .lblViewerName.Text = strGet_ini("Viewer", "LBL_APP_NAME", "Player name", strFileName)
+            .lblViewerPath.Text = strGet_ini("Viewer", "LBL_APP_PATH", "Path", strFileName)
+            .lblPlayAll.Text = strGet_ini("Viewer", "LBL_ARG_PLAY_ALL", "Argument of ""Play All""", strFileName)
+            .lblPlay.Text = strGet_ini("Viewer", "LBL_ARG_PLAY", "Argument of ""Play""", strFileName)
+            .lblStop.Text = strGet_ini("Viewer", "LBL_ARG_STOP", "Argument of ""Stop""", strFileName)
+            .lblNotice.Text = Replace(strGet_ini("Viewer", "LBL_ARG_INFO", "Syntax reference:\n<filename> File name\n<measure> Current measure", strFileName), "\n", vbCrLf)
+
+        End With
+
+        With frmWindowConvert
+
+            .Text = strGet_ini("Convert", "TITLE", "Conversion Wizard", strFileName)
+
+            .chkDeleteUnusedFile.Text = strGet_ini("Convert", "CHK_DELETE_LIST", "Clear unused definition from a list", strFileName)
+
+            .chkDeleteFile.Text = strGet_ini("Convert", "CHK_DELETE_FILE", "Delete unused files in this BMS folder (*)", strFileName)
+            .lblExtension.Text = strGet_ini("Convert", "LBL_EXTENSION", "Search extensions:", strFileName)
+            .chkFileRecycle.Text = strGet_ini("Convert", "CHK_RECYCLE", "Delete soon with no through recycled", strFileName)
+
+            .chkListAlign.Text = strGet_ini("Convert", "CHK_ALIGN_LIST", "Sort definition list", strFileName)
+            .chkUseOldFormat.Text = strGet_ini("Convert", "CHK_USE_OLD_FORMAT", "Use old Format [01 - FF] if possible", strFileName)
+            .chkSortByName.Text = strGet_ini("Convert", "CHK_SORT_BY_NAME", "Sorting by filename", strFileName)
+
+            .chkFileNameConvert.Text = strGet_ini("Convert", "CHK_CONVERT_FILENAME", "Change filename to list number [01 - ZZ] (*)", strFileName)
+
+            .lblNotice.Text = strGet_ini("Convert", "LBL_NOTICE", "(*) Cannot undo this command", strFileName)
+
+            .cmdDecide.Text = strGet_ini("Convert", "CMD_DECIDE", "Run", strFileName)
+            .cmdCancel.Text = strGet_ini("Convert", "CMD_CANCEL", "Cancel", strFileName)
+
+        End With
+
+        g_Message(modMain.Message.ERR_01) = Replace(strGet_ini("Message", "ERROR_MESSAGE_01", "The unexpected error occurred. Program will shut down.\nRefer to the ""error.txt"" for the details of an error.", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.ERR_02) = Replace(strGet_ini("Message", "ERROR_MESSAGE_02", "Temporary file is saved to...", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.ERR_FILE_NOT_FOUND) = Replace(strGet_ini("Message", "ERROR_FILE_NOT_FOUND", "File not found.", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.ERR_LOAD_CANCEL) = Replace(strGet_ini("Message", "ERROR_LOAD_CANCEL", "Loading will be aborted.", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.ERR_SAVE_ERROR) = Replace(strGet_ini("Message", "ERROR_SAVE_ERROR", "Error occured while saving.", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.ERR_SAVE_CANCEL) = Replace(strGet_ini("Message", "ERROR_SAVE_CANCEL", "Saving will be aborted.", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.ERR_OVERFLOW_LARGE) = Replace(strGet_ini("Message", "ERROR_OVERFLOW_LARGE", "Error:\nValue is too large.", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.ERR_OVERFLOW_SMALL) = Replace(strGet_ini("Message", "ERROR_OVERFLOW_SMALL", "Error:\nValue is too small.", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.ERR_OVERFLOW_BPM) = Replace(strGet_ini("Message", "ERROR_OVERFLOW_BPM", "You have used more than 1295 BPM change command.\nNumber of commands should be less than 1295.", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.ERR_OVERFLOW_STOP) = Replace(strGet_ini("Message", "ERROR_OVERFLOW_STOP", "You have used more than 1295 STOP command.\nNumber of commands should be less than 1295.", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.ERR_APP_NOT_FOUND) = Replace(strGet_ini("Message", "ERROR_APP_NOT_FOUND", " is not found.", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.ERR_FILE_ALREADY_EXIST) = Replace(strGet_ini("Message", "ERROR_FILE_ALREADY_EXIST", "File already exist.", strFileName), "\n", vbCrLf)
+
+        g_Message(modMain.Message.MSG_CONFIRM) = Replace(strGet_ini("Message", "INFO_CONFIRM", "This command cannot be undone, OK?", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.MSG_FILE_CHANGED) = Replace(strGet_ini("Message", "INFO_FILE_CHANGED", "Do you want to save changes?", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.MSG_INI_CHANGED) = Replace(strGet_ini("Message", "INFO_INI_CHANGED", "ini format has changed.\n(All setting will reset)", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.MSG_ALIGN_LIST) = Replace(strGet_ini("Message", "INFO_ALIGN_LIST", "Do you want the filelist to be rewrited into the old format [01 - FF]?\n(Attention: Some programs are compatible only with old format files.)", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.MSG_DELETE_FILE) = Replace(strGet_ini("Message", "INFO_DELETE_FILE", "They have been deleted:", strFileName), "\n", vbCrLf)
+
+        g_Message(modMain.Message.INPUT_BPM) = Replace(strGet_ini("Input", "INPUT_BPM", "Enter the BPM you wish to change to.\n(Decimal number can be used. Enter 0 to cancel)", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.INPUT_STOP) = Replace(strGet_ini("Input", "INPUT_STOP", "Enter the length of stoppage 1 corresponds to 1/192 of the measure.\n(Enter under 0 to cancel)", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.INPUT_RENAME) = Replace(strGet_ini("Input", "INPUT_RENAME", "Please enter new filename.", strFileName), "\n", vbCrLf)
+        g_Message(modMain.Message.INPUT_SIZE) = Replace(strGet_ini("Input", "INPUT_SIZE", "Type your display magnification.\n(Maximum 16.00. Enter under 0 to cancel)", strFileName), "\n", vbCrLf)
+
+        Dim DefaultFont As String
+        Dim SystemFont As String
+        Dim FixedFont As String
+
+        'Dim ncm As NONCLIENTMETRICS
+        'ncm.cbSize = LenB(ncm)
+        'Call SystemParametersInfo(SPI_GETNONCLIENTMETRICS, LenB(ncm), ncm, 0)
+        'DefaultFont = StrConv(ncm.lfSMCaptionFont.lfFaceName, vbUnicode)
+
+        Dim lf As LOGFONT = New LOGFONT
+        Call GetObject_Renamed(GetStockObject(DEFAULT_GUI_FONT), Runtime.InteropServices.Marshal.SizeOf(lf), lf)
+        DefaultFont = Trim(lf.lfFaceName)
+
+        SystemFont = strGet_ini("Main", "Font", DefaultFont, strFileName)
+        FixedFont = strGet_ini("Main", "FixedFont", DefaultFont, strFileName)
+
+        'ãƒ•ã‚©ãƒ³ãƒˆå¼·åˆ¶å¤‰æ›´
+        SystemFont = strGet_ini("Main", "Font", SystemFont, "bmse.ini")
+        FixedFont = strGet_ini("Main", "FixedFont", FixedFont, "bmse.ini")
+
+        Call LoadFont(SystemFont, FixedFont, strGet_ini("Main", "Charset", DEFAULT_CHARSET, strFileName))
+
+        Call frmMain.frmMain_Resize(Nothing, New System.EventArgs())
+
+    End Sub
+
+    Private Sub LoadFont(ByRef MainFont As String, ByRef FixedFont As String, ByVal Charset As Integer)
+        On Error GoTo Err_Renamed
+
+        Dim i As Integer
+        Dim objCtl As Object
+
+        For i = 0 To My.Application.OpenForms.Count - 1
+
+            My.Application.OpenForms.Item(i).Font = New Font(MainFont, My.Application.OpenForms.Item(i).Font.Size, My.Application.OpenForms.Item(i).Font.Style, My.Application.OpenForms.Item(i).Font.Unit, Charset, My.Application.OpenForms.Item(i).Font.GdiVerticalFont)
+
+            For Each objCtl In My.Application.OpenForms.Item(i).Controls
+
+                If TypeOf objCtl Is System.Windows.Forms.Label Or TypeOf objCtl Is System.Windows.Forms.TextBox Or TypeOf objCtl Is System.Windows.Forms.ComboBox Or TypeOf objCtl Is System.Windows.Forms.Button Or TypeOf objCtl Is System.Windows.Forms.RadioButton Or TypeOf objCtl Is System.Windows.Forms.CheckBox Or TypeOf objCtl Is System.Windows.Forms.GroupBox Or TypeOf objCtl Is System.Windows.Forms.Panel Then
+                    objCtl.Font = New Font(MainFont, objCtl.Font.Size, objCtl.Font.Style, objCtl.Font.Unit, Charset)
+                ElseIf TypeOf objCtl Is System.Windows.Forms.PictureBox Or TypeOf objCtl Is System.Windows.Forms.ListBox Then
+                    objCtl.Font = New Font(FixedFont, objCtl.Font.Size, objCtl.Font.Style, objCtl.Font.Unit, Charset)
+                End If
+
+            Next objCtl
+
+        Next i
+
+        Exit Sub
+
+Err_Renamed:
+        Call modMain.CleanUp(Err.Number, Err.Description, "LoadFont")
+    End Sub
+
+    Public Sub LoadConfig()
+        On Error GoTo InitConfig
+
+        Dim i As Integer
+        Dim wp As WINDOWPLACEMENT
+        Dim strTemp As String
+        Dim lngTemp As Integer
+        Static lngCount As Integer
+
+        If strGet_ini("Main", "Key", "", "bmse.ini") <> "BMSE" Then GoTo InitConfig
+
+        With frmMain
+
+            strTemp = strGet_ini("Main", "Language", "english.ini", "bmse.ini")
+
+            If strTemp = g_strLangFileName(0) Then
+                ._mnuLanguage_0.Checked = True
+            End If
+            If strTemp = g_strLangFileName(1) Then
+                ._mnuLanguage_1.Checked = True
+            End If
+            If strTemp = g_strLangFileName(2) Then
+                ._mnuLanguage_2.Checked = True
+            End If
+
+            'frmWindowAbout.Show()
+            'frmWindowFind.Show()
+            'frmWindowInput.Show()
+            'frmWindowPreview.Show()
+            'frmWindowTips.Show()
+            'frmWindowViewer.Show()
+            'frmWindowConvert.Show()
+
+            Call LoadLanguageFile("lang\" & strTemp)
+
+            Call frmWindowPreview.SetWindowSize()
+
+            If strGet_ini("Main", "ini", "", "bmse.ini") <> INI_VERSION Then
+
+                Call MsgBox(g_Message(Message.MSG_INI_CHANGED), vbInformation, g_strAppTitle)
+
+                GoTo InitConfig
+
+            End If
+
+            wp.Length = 44
+            Call GetWindowPlacement(.Handle.ToInt32, wp)
+
+            With wp
+
+                .showCmd = SW_HIDE
+
+                With .rcNormalPosition
+
+                    .right_Renamed = strGet_ini("Main", "Width", 800, "bmse.ini")
+                    .Bottom = strGet_ini("Main", "Height", 600, "bmse.ini")
+                    '.Left = strGet_ini("Main", "X", (Screen.Width \ Screen.TwipsPerPixelX - .Right) \ 2, "bmse.ini")
+                    '.Top = strGet_ini("Main", "Y", (Screen.Height \ Screen.TwipsPerPixelY - .Bottom) \ 2, "bmse.ini")
+                    .left_Renamed = strGet_ini("Main", "X", 0, "bmse.ini")
+                    .Top = strGet_ini("Main", "Y", 0, "bmse.ini")
+                    .right_Renamed = .left_Renamed + .right_Renamed
+                    .Bottom = .Top + .Bottom
+
+                    If .right_Renamed > System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width Then
+
+                        .left_Renamed = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width - .right_Renamed - .left_Renamed
+                        .right_Renamed = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width
+
+                    End If
+
+                    If .left_Renamed < 0 Then .left_Renamed = 0
+
+                    If .Bottom > System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height Then
+
+                        .Top = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height - (.Bottom - .Top)
+                        .Bottom = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height
+
+                    End If
+
+                    If .Top < 0 Then .Top = 0
+
+                End With
+
+            End With
+
+            strTemp = strGet_ini("Main", "Theme", "default.ini", "bmse.ini")
+
+            If strTemp = g_strThemeFileName(0) Then
+                ._mnuTheme_0.Checked = True
+            End If
+            If strTemp = g_strThemeFileName(1) Then
+                ._mnuTheme_1.Checked = True
+            End If
+            If strTemp = g_strThemeFileName(2) Then
+                ._mnuTheme_2.Checked = True
+            End If
+
+            Call LoadThemeFile("theme\" & strTemp)
+
+            g_strHelpFilename = strGet_ini("Main", "Help", "", "bmse.ini")
+            g_strFiler = strGet_ini("Main", "Filer", "", "bmse.ini")
+
+            If g_strHelpFilename <> "" Then
+
+                .mnuHelpOpen.Enabled = True
+
+            End If
+
+            '.hsbDispWidth.Value = strGet_ini("View", "Width", 100, "bmse.ini")
+            '.hsbDispHeight.Value = strGet_ini("View", "Height", 100, "bmse.ini")
+
+            With .cboDispWidth
+
+                lngTemp = strGet_ini("View", "Width", 100, "bmse.ini")
+
+                For i = 0 To .Items.Count - 1
+
+                    If DirectCast(frmMain.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData = lngTemp Then
+
+                        .SelectedIndex = i
+
+                        Exit For
+
+                    ElseIf DirectCast(frmMain.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData > lngTemp Then
+
+                        Call .Items.Insert(i, New modMain.ItemWithData("x" & Format(lngTemp / 100, "#0.00"), lngTemp))
+                        .SelectedIndex = i
+
+                        Exit For
+
+                    End If
+
+                Next i
+
+            End With
+
+            With .cboDispHeight
+
+                lngTemp = strGet_ini("View", "Height", 100, "bmse.ini")
+
+                For i = 0 To .Items.Count - 1
+
+                    If DirectCast(frmMain.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData = lngTemp Then
+
+                        .SelectedIndex = i
+
+                        Exit For
+
+                    ElseIf DirectCast(frmMain.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData > lngTemp Then
+
+                        Call .Items.Insert(i, New modMain.ItemWithData("x" & Format(lngTemp / 100, "#0.00"), lngTemp))
+                        .SelectedIndex = i
+
+                        Exit For
+
+                    End If
+
+                Next i
+
+            End With
+
+            .cboDispGridMain.SelectedIndex = strGet_ini("View", "VGridMain", 1, "bmse.ini")
+            .cboDispGridSub.SelectedIndex = strGet_ini("View", "VGridSub", 1, "bmse.ini")
+            .cboDispFrame.SelectedIndex = strGet_ini("View", "Frame", 1, "bmse.ini")
+            .cboDispKey.SelectedIndex = strGet_ini("View", "Key", 1, "bmse.ini")
+            .cboDispSC1P.SelectedIndex = strGet_ini("View", "SC_1P", 1, "bmse.ini")
+            .cboDispSC2P.SelectedIndex = strGet_ini("View", "SC_2P", 1, "bmse.ini")
+
+            ._mnuViewItem_0.Checked = strGet_ini("View", "ToolBar", True, "bmse.ini")
+            ._mnuViewItem_1.Checked = strGet_ini("View", "DirectInput", True, "bmse.ini")
+            ._mnuViewItem_2.Checked = strGet_ini("View", "StatusBar", True, "bmse.ini")
+
+            If .cboViewer.Items.Count Then
+
+                If .cboViewer.Items.Count > strGet_ini("View", "ViewerNum", 0, "bmse.ini") Then
+
+                    .cboViewer.SelectedIndex = strGet_ini("View", "ViewerNum", 0, "bmse.ini")
+
+                Else
+
+                    .cboViewer.SelectedIndex = 0
+
+                End If
+
+            End If
+
+            ._mnuOptionsItem_0.Checked = strGet_ini("Options", "Active", True, "bmse.ini")
+            ._mnuOptionsItem_1.Checked = strGet_ini("Options", "FileNameOnly", False, "bmse.ini")
+            ._mnuOptionsItem_2.Checked = strGet_ini("Options", "VerticalWriting", False, "bmse.ini")
+            ._mnuOptionsItem_3.Checked = strGet_ini("Options", "LaneBG", True, "bmse.ini")
+            ._mnuOptionsItem_4.Checked = strGet_ini("Options", "SelectSound", True, "bmse.ini")
+            ._mnuOptionsItem_5.Checked = strGet_ini("Options", "MoveOnGrid", True, "bmse.ini")
+            ._mnuOptionsItem_6.Checked = strGet_ini("Options", "ObjectFileName", False, "bmse.ini")
+            ._mnuOptionsItem_7.Checked = strGet_ini("Options", "UseOldFormat", True, "bmse.ini")
+            '.mnuOptionsItem(RCLICK_DELETE).Checked = strGet_ini("Options", "RightClickDelete", False, "bmse.ini")
+
+            .tlbMenu.Items.Item("_New").Visible = strGet_ini("ToolBar", "New", True, "bmse.ini")
+            .tlbMenu.Items.Item("Open").Visible = strGet_ini("ToolBar", "Open", True, "bmse.ini")
+            .tlbMenu.Items.Item("Reload").Visible = strGet_ini("ToolBar", "Reload", False, "bmse.ini")
+            .tlbMenu.Items.Item("Save").Visible = strGet_ini("ToolBar", "Save", True, "bmse.ini")
+            .tlbMenu.Items.Item("SaveAs").Visible = strGet_ini("ToolBar", "SaveAs", True, "bmse.ini")
+
+            .tlbMenu.Items.Item("SepMode").Visible = strGet_ini("ToolBar", "Mode", True, "bmse.ini")
+            .tlbMenu.Items.Item("Edit").Visible = strGet_ini("ToolBar", "Mode", True, "bmse.ini")
+            .tlbMenu.Items.Item("Write").Visible = strGet_ini("ToolBar", "Mode", True, "bmse.ini")
+            .tlbMenu.Items.Item("Delete").Visible = strGet_ini("ToolBar", "Mode", True, "bmse.ini")
+
+            .tlbMenu.Items.Item("SepViewer").Visible = strGet_ini("ToolBar", "Preview", True, "bmse.ini")
+            .tlbMenu.Items.Item("PlayAll").Visible = strGet_ini("ToolBar", "Preview", True, "bmse.ini")
+            .tlbMenu.Items.Item("Play").Visible = strGet_ini("ToolBar", "Preview", True, "bmse.ini")
+            .tlbMenu.Items.Item("_Stop").Visible = strGet_ini("ToolBar", "Preview", True, "bmse.ini")
+
+            .tlbMenu.Items.Item("SepGrid").Visible = strGet_ini("ToolBar", "Grid", True, "bmse.ini")
+            .tlbMenu.Items.Item("ChangeGrid").Visible = strGet_ini("ToolBar", "Grid", True, "bmse.ini")
+
+            .tlbMenu.Items.Item("SepSize").Visible = strGet_ini("ToolBar", "Size", True, "bmse.ini")
+            .tlbMenu.Items.Item("DispSize").Visible = strGet_ini("ToolBar", "Size", True, "bmse.ini")
+
+            .tlbMenu.Items.Item("SepResolution").Visible = strGet_ini("ToolBar", "Resolution", False, "bmse.ini")
+            .tlbMenu.Items.Item("Resolution").Visible = strGet_ini("ToolBar", "Resolution", False, "bmse.ini")
+
+            For i = 0 To UBound(g_strRecentFiles)
+
+                g_strRecentFiles(i) = strGet_ini("RecentFiles", i, "", "bmse.ini")
+
+                If Len(g_strRecentFiles(i)) Then
+                    Select Case i
+                        Case 0
+                            With ._mnuRecentFiles_0
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem0
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+                            End With
+
+                        Case 1
+                            With ._mnuRecentFiles_1
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem1
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+                            End With
+
+                        Case 2
+                            With ._mnuRecentFiles_2
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem2
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+                            End With
+
+                        Case 3
+                            With ._mnuRecentFiles_3
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem3
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+                            End With
+
+                        Case 4
+                            With ._mnuRecentFiles_4
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem4
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+                            End With
+
+                        Case 5
+                            With ._mnuRecentFiles_5
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem5
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+                            End With
+
+                        Case 6
+                            With ._mnuRecentFiles_6
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem6
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+                            End With
+
+                        Case 7
+                            With ._mnuRecentFiles_7
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem7
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+                            End With
+
+                        Case 8
+                            With ._mnuRecentFiles_8
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem8
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+                            End With
+
+                        Case 9
+                            With ._mnuRecentFiles_9
+
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+
+                            End With
+
+                            With .ToolStripMenuItem9
+                                .Text = "&" & Right(CStr(i + 1), 1) & ":" & g_strRecentFiles(i)
+                                .Enabled = True
+                                .Visible = True
+                            End With
+                    End Select
+
+                    .mnuLineRecent.Visible = True
+
+                End If
+
+            Next i
+
+            Call SetWindowPlacement(.Handle.ToInt32, wp)
+
+        End With
+
+        Call modEasterEgg.InitEffect()
+
+        With frmWindowPreview
+
+            .Left = strGet_ini("Preview", "X", (frmMain.Left + frmMain.Width \ 2) - .Width \ 2, "bmse.ini")
+            If .Left < 0 Then .Left = 0
+            If .Left > System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width Then .Left = 0
+
+            .Top = strGet_ini("Preview", "Y", (frmMain.Top + frmMain.Height \ 2) - .Height \ 2, "bmse.ini")
+            If .Top < 0 Then .Top = 0
+            If .Top > System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height Then .Top = 0
+
+        End With
+
+        Exit Sub
+
+InitConfig:
+
+        lngCount = lngCount + 1
+
+        If lngCount > 5 Then
+
+            Call modMain.CleanUp(Err.Number, Err.Description, "LoadConfig")
+
+        Else
+
+            Call CreateConfig()
+
+        End If
+
+    End Sub
+
+    Private Sub CreateConfig()
+        Call lngSet_ini("Main", "Key", Chr(34) & "BMSE" & Chr(34))
+        Call lngSet_ini("Main", "ini", INI_VERSION)
+        'Call lngSet_ini("Main", "X", (Screen.Width \ Screen.TwipsPerPixelX - 800) \ 2)
+        'Call lngSet_ini("Main", "Y", (Screen.Height \ Screen.TwipsPerPixelY - 600) \ 2)
+        Call lngSet_ini("Main", "X", 0)
+        Call lngSet_ini("Main", "Y", 0)
+        Call lngSet_ini("Main", "Width", "800")
+        Call lngSet_ini("Main", "Height", "600")
+        Call lngSet_ini("Main", "State", SW_SHOWNORMAL)
+        Call lngSet_ini("Main", "Language", Chr(34) & "english.ini" & Chr(34))
+        Call lngSet_ini("Main", "Theme", Chr(34) & "default.ini" & Chr(34))
+        Call lngSet_ini("Main", "Help", Chr(34) & Chr(34))
+
+        Call lngSet_ini("View", "Width", 100)
+        Call lngSet_ini("View", "Height", 100)
+        Call lngSet_ini("View", "VGridMain", 1)
+        Call lngSet_ini("View", "VGridSub", 1)
+        Call lngSet_ini("View", "Frame", 1)
+        Call lngSet_ini("View", "Key", 1)
+        Call lngSet_ini("View", "SC_1P", 0)
+        Call lngSet_ini("View", "SC_2P", 1)
+
+        Call lngSet_ini("View", "ToolBar", True)
+        Call lngSet_ini("View", "DirectInput", True)
+        Call lngSet_ini("View", "StatusBar", True)
+
+        Call lngSet_ini("View", "ViewerNum", 0)
+
+        Call lngSet_ini("ToolBar", "New", True)
+        Call lngSet_ini("ToolBar", "Open", True)
+        Call lngSet_ini("ToolBar", "Reload", False)
+        Call lngSet_ini("ToolBar", "Save", True)
+        Call lngSet_ini("ToolBar", "SaveAs", True)
+        Call lngSet_ini("ToolBar", "Mode", True)
+        Call lngSet_ini("ToolBar", "Preview", True)
+        Call lngSet_ini("ToolBar", "Gird", True)
+        Call lngSet_ini("ToolBar", "Size", True)
+        Call lngSet_ini("ToolBar", "Resolution", False)
+
+        Call lngSet_ini("Options", "Active", True)
+        Call lngSet_ini("Options", "FileNameOnly", False)
+        Call lngSet_ini("Options", "VerticalWriting", False)
+        Call lngSet_ini("Options", "LaneBG", True)
+        Call lngSet_ini("Options", "SelectSound", True)
+        Call lngSet_ini("Options", "MoveOnGrid", True)
+        Call lngSet_ini("Options", "ObjectFileName", False)
+        Call lngSet_ini("Options", "UseOldFormat", True)
+        Call lngSet_ini("Options", "RightClickDelete", False)
+
+        Call lngSet_ini("Preview", "X", 0)
+        Call lngSet_ini("Preview", "Y", 0)
+
+        Call LoadConfig()
+
+    End Sub
+
+    Public Sub SaveConfig()
+        Dim i As Integer
+        Dim wp As WINDOWPLACEMENT
+
+        Call lngSet_ini("Main", "Key", Chr(34) & "BMSE" & Chr(34))
+
+        wp.Length = 44
+        Call GetWindowPlacement(frmMain.Handle.ToInt32, wp)
+
+        With wp
+
+            If wp.showCmd <> SW_SHOWMINIMIZED Then
+
+                Call lngSet_ini("Main", "State", wp.showCmd)
+
+            Else
+
+                Call lngSet_ini("Main", "State", SW_SHOWNORMAL)
+
+            End If
+
+            With .rcNormalPosition
+
+                Call lngSet_ini("Main", "X", .left_Renamed)
+                Call lngSet_ini("Main", "Y", .Top)
+                Call lngSet_ini("Main", "Width", .right_Renamed - .left_Renamed)
+                Call lngSet_ini("Main", "Height", .Bottom - .Top)
+
+            End With
+
+        End With
+
+        With frmMain
+
+            If ._mnuLanguage_0.Checked = True Then
+                Call lngSet_ini("Main", "Language", Chr(34) & g_strLangFileName(0) & Chr(34))
+            End If
+            If ._mnuLanguage_1.Checked = True Then
+                Call lngSet_ini("Main", "Language", Chr(34) & g_strLangFileName(1) & Chr(34))
+            End If
+            If ._mnuLanguage_2.Checked = True Then
+                Call lngSet_ini("Main", "Language", Chr(34) & g_strLangFileName(2) & Chr(34))
+            End If
+
+            If ._mnuTheme_0.Checked = True Then
+                Call lngSet_ini("Main", "Theme", Chr(34) & g_strThemeFileName(0) & Chr(34))
+            End If
+            If ._mnuTheme_1.Checked = True Then
+                Call lngSet_ini("Main", "Theme", Chr(34) & g_strThemeFileName(1) & Chr(34))
+            End If
+            If ._mnuTheme_2.Checked = True Then
+                Call lngSet_ini("Main", "Theme", Chr(34) & g_strThemeFileName(2) & Chr(34))
+            End If
+
+            Call lngSet_ini("View", "Width", DirectCast(.cboDispWidth.SelectedItem, modMain.ItemWithData).ItemData)
+            Call lngSet_ini("View", "Height", DirectCast(.cboDispHeight.SelectedItem, modMain.ItemWithData).ItemData)
+            Call lngSet_ini("View", "VGridMain", .cboDispGridMain.SelectedIndex)
+            Call lngSet_ini("View", "VGridSub", .cboDispGridSub.SelectedIndex)
+            Call lngSet_ini("View", "Frame", .cboDispFrame.SelectedIndex)
+            Call lngSet_ini("View", "Key", .cboDispKey.SelectedIndex)
+            Call lngSet_ini("View", "SC_1P", .cboDispSC1P.SelectedIndex)
+            Call lngSet_ini("View", "SC_2P", .cboDispSC2P.SelectedIndex)
+
+            Call lngSet_ini("View", "ToolBar", ._mnuViewItem_0.Checked)
+            Call lngSet_ini("View", "DirectInput", ._mnuViewItem_1.Checked)
+            Call lngSet_ini("View", "StatusBar", ._mnuViewItem_2.Checked)
+
+            If .cboViewer.Items.Count Then
+
+                Call lngSet_ini("View", "ViewerNum", .cboViewer.SelectedIndex)
+
+            End If
+
+            Call lngSet_ini("Options", "Active", ._mnuOptionsItem_0.Checked)
+            Call lngSet_ini("Options", "FileNameOnly", ._mnuOptionsItem_1.Checked)
+            Call lngSet_ini("Options", "VerticalWriting", ._mnuOptionsItem_2.Checked)
+            Call lngSet_ini("Options", "LaneBG", ._mnuOptionsItem_3.Checked)
+            Call lngSet_ini("Options", "SelectSound", ._mnuOptionsItem_4.Checked)
+            Call lngSet_ini("Options", "MoveOnGrid", ._mnuOptionsItem_5.Checked)
+            Call lngSet_ini("Options", "ObjectFileName", ._mnuOptionsItem_6.Checked)
+            Call lngSet_ini("Options", "UseOldFormat", ._mnuOptionsItem_7.Checked)
+            'Call lngSet_ini("Options", "RightClickDelete", .mnuOptionsItem(RCLICK_DELETE).Checked)
+
+            Call lngSet_ini("ToolBar", "New", .tlbMenu.Items.Item("_New").Visible)
+            Call lngSet_ini("ToolBar", "Open", .tlbMenu.Items.Item("Open").Visible)
+            Call lngSet_ini("ToolBar", "Reload", .tlbMenu.Items.Item("Reload").Visible)
+            Call lngSet_ini("ToolBar", "Save", .tlbMenu.Items.Item("Save").Visible)
+            Call lngSet_ini("ToolBar", "SaveAs", .tlbMenu.Items.Item("SaveAs").Visible)
+            Call lngSet_ini("ToolBar", "Mode", .tlbMenu.Items.Item("Write").Visible)
+            Call lngSet_ini("ToolBar", "Preview", .tlbMenu.Items.Item("PlayAll").Visible)
+            Call lngSet_ini("ToolBar", "Size", .tlbMenu.Items.Item("DispSize").Visible)
+            Call lngSet_ini("ToolBar", "Resolution", .tlbMenu.Items.Item("Resolution").Visible)
+
+            For i = 0 To UBound(g_strRecentFiles)
+
+                Call lngSet_ini("RecentFiles", i, Chr(34) & g_strRecentFiles(i) & Chr(34))
+
+            Next i
+
+        End With
+
+        With frmWindowPreview
+
+            Call lngSet_ini("Preview", "X", .Left)
+            Call lngSet_ini("Preview", "Y", .Top)
+
+        End With
+
+    End Sub
+
+    Public Function lngSet_ini(ByRef strSection As String, ByVal strKey As String, ByVal strSet As String) As Integer
+        Dim lngTemp As Integer
+
+        'APIå‘¼ã³å‡ºã—ï¼†å¤‰æ•°ã‚’è¿”ã™
+        lngTemp = WritePrivateProfileString(strSection & Chr(0), strKey, strSet, g_strAppDir & "bmse.ini" & Chr(0))
+
+        lngSet_ini = lngTemp
+
+    End Function
+
+    Public Function strGet_ini(ByRef strSection As String, ByVal strKey As String, ByVal strDefault As String, ByRef strFileName As String) As String
+        'ãƒãƒƒãƒ•ã‚¡ã®åˆæœŸåŒ–ï¼ˆ256ã‚‚ã‚ã‚Œã°è‰¯ã„ã‚ˆã­ã€‚ï¼‰
+        Dim strGetBuf As StringBuilder = New StringBuilder(256) 'åå®¹ã™ã‚‹stringã®ãƒãƒƒãƒ•ã‚¡
+        Dim intGetLen As Short 'åå®¹ã™ã‚‹stringã®æ–‡å­—æ•°ã®ãƒãƒƒãƒ•ã‚¡
+        Dim LeftLength As Integer
+
+        'APIå‘¼ã³å‡ºã—
+        intGetLen = GetPrivateProfileString(strSection & Chr(0), strKey, strDefault & Chr(0), strGetBuf, 128, g_strAppDir & strFileName & Chr(0))
+
+        'æ–‡å­—åˆ—ã‚’è¿”ã™
+        LeftLength = InStr(strGetBuf.ToString(), Chr(0)) - 1
+        If LeftLength > 0 Then
+            strGet_ini = Trim(Left(strGetBuf.ToString(), LeftLength))
+        Else
+            strGet_ini = Trim(strGetBuf.ToString())
+        End If
+
+        If Val(strGet_ini) < 0 Then strGet_ini = CStr(0)
+
+    End Function
+
+    Private Function GetColor(ByRef strSection As String, ByRef strKey As String, ByRef strDefault As String, ByRef strFileName As String) As Integer
+        Dim strArray() As String
+
+        strArray = Split(strGet_ini(strSection, strKey, strDefault, strFileName), ",")
+
+        If UBound(strArray) < 2 Then Exit Function
+
+        GetColor = RGB(CInt(strArray(0)), CInt(strArray(1)), CInt(strArray(2)))
+
+    End Function
+
+    Private Function HalfColor(ByVal Color As Integer) As Integer
+
+        Dim r As Byte
+        Dim g As Byte
+        Dim b As Byte
+
+        r = Color And &HFF
+        g = (Color \ &HFF) And &HFF
+        b = (Color \ &HFFFF) And &HFF
+
+        HalfColor = RGB(r \ 2, g \ 2, b \ 2)
+
+    End Function
 End Module

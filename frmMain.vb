@@ -1,112 +1,127 @@
 Option Strict Off
 Option Explicit On
 Imports VB = Microsoft.VisualBasic
-Imports Microsoft.VisualBasic.PowerPacks
-Imports Microsoft.VisualBasic.Compatibility.VB6
 
 Friend Class frmMain
-	Inherits System.Windows.Forms.Form
-	
-	Public Enum MENU_VIEW
-		TOOL_BAR
-		DIRECT_INPUT
-		STATUS_BAR
-		Max
-	End Enum
-	
-	Public Enum MENU_OPTIONS
-		IGNORE_INPUT
-		TITLE_FILENAME
-		VERTICAL_INFO
-		LANE_BGCOLOR
-		SELECT_PREVIEW
-		MOVE_ON_GRID
-		OBJ_FILENAME
-		USE_OLD_FORMAT
-		'RCLICK_DELETE
-		Max
-	End Enum
-	
-	Private m_intScrollDir As Short
-	
-	Private m_tempObj() As g_udtObj
-	
-	Private m_blnMouseDown As Boolean
-	
-	Private m_blnPreview As Boolean
-	
-	Private m_blnIgnoreMenu As Boolean
-	
-	'UPGRADE_NOTE: str ‚Í str_Renamed ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Public Function lngFromString(ByRef str_Renamed As String) As Integer
-		
-		'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-		
-		'lngFromString = Val("&H" & str)
-		
-		'Else
-		
-		lngFromString = modInput.strToNum(str_Renamed)
-		
-		'End If
-		
-	End Function
-	
-	Public Function lngFromLong(ByVal value As Integer) As Integer
-		
-		'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-		
-		'lngFromLong = modInput.strToNum(strFromLong(value))
-		
-		'Else
-		
-		lngFromLong = value
-		
-		'End If
-		
-	End Function
-	
-	Public Function strFromLong(ByVal value As Integer) As String
-		
-		'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-		
-		'strFromLong = right$("0" & Hex$(value), 2)
-		
-		'Else
-		
-		strFromLong = modInput.strFromNum(value)
-		
-		'End If
-		
-	End Function
-	
-	Private Sub MoveObj(ByVal X As Single, ByVal Y As Single, ByVal Shift As Short)
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim i As Integer
-		Dim j As Integer
-		Dim k As Integer
-		Dim lngTemp As Integer
-		Dim oldObj As g_udtObj
-		Dim newObj As g_udtObj
-		
-		With newObj
-			
-			Call modDraw.SetObjData(newObj, X, Y) ', g_disp.X, g_disp.Y)
-			
-			.intCh = g_intVGridNum(.intCh)
-			
-			'If Not Shift And vbAltMask Then
-			
-			'ƒOƒŠƒbƒh‚É‚ ‚í‚¹‚é
-            If VB6.GetItemData(Me.cboDispGridSub, Me.cboDispGridSub.SelectedIndex) Then
-                lngTemp = 192 \ (VB6.GetItemData(Me.cboDispGridSub, Me.cboDispGridSub.SelectedIndex))
+    Inherits System.Windows.Forms.Form
+
+    Public Enum MENU_VIEW
+        TOOL_BAR
+        DIRECT_INPUT
+        STATUS_BAR
+        Max
+    End Enum
+
+    Public Enum MENU_OPTIONS
+        IGNORE_INPUT
+        TITLE_FILENAME
+        VERTICAL_INFO
+        LANE_BGCOLOR
+        SELECT_PREVIEW
+        MOVE_ON_GRID
+        OBJ_FILENAME
+        USE_OLD_FORMAT
+        'RCLICK_DELETE
+        Max
+    End Enum
+
+    Public Structure LineData
+        Public pt1 As Point
+        Public pt2 As Point
+        Public Visible As Boolean
+    End Structure
+
+    Private _linStatusBar_0 As LineData
+    Private _linStatusBar_1 As LineData
+    Private _linToolbarBottom_0 As LineData
+    Private _linToolbarBottom_1 As LineData
+    Private _linHeader_0 As LineData
+    Private _linHeader_1 As LineData
+    Private _linVertical_0 As LineData
+    Private _linVertical_1 As LineData
+    Private _linDirectInput_0 As LineData
+    Private _linDirectInput_1 As LineData
+
+    Public stringFont As Font
+
+    Private m_intScrollDir As Short
+
+    Private m_tempObj() As g_udtObj
+
+    Private m_blnMouseDown As Boolean
+
+    Private m_blnPreview As Boolean
+
+    Private m_blnIgnoreMenu As Boolean
+
+    Public Function lngFromString(ByRef str_Renamed As String) As Integer
+
+        'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+
+        'lngFromString = Val("&H" & str)
+
+        'Else
+
+        lngFromString = modInput.strToNum(str_Renamed)
+
+        'End If
+
+    End Function
+
+    Public Function lngFromLong(ByVal value As Integer) As Integer
+
+        'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+
+        'lngFromLong = modInput.strToNum(strFromLong(value))
+
+        'Else
+
+        lngFromLong = value
+
+        'End If
+
+    End Function
+
+    Public Function strFromLong(ByVal value As Integer) As String
+
+        'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+
+        'strFromLong = right$("0" & Hex$(value), 2)
+
+        'Else
+
+        strFromLong = modInput.strFromNum(value)
+
+        'End If
+
+    End Function
+
+    Private Sub MoveObj(ByVal X As Single, ByVal Y As Single, ByVal Shift As Short)
+        On Error GoTo Err_Renamed
+
+        Dim i As Integer
+        Dim j As Integer
+        Dim k As Integer
+        Dim lngTemp As Integer
+        Dim oldObj As g_udtObj
+        Dim newObj As g_udtObj
+
+        With newObj
+
+            Call modDraw.SetObjData(newObj, X, Y) ', g_disp.X, g_disp.Y)
+
+            .intCh = g_intVGridNum(.intCh)
+
+            'If Not Shift And vbAltMask Then
+
+            'ã‚°ãƒªãƒƒãƒ‰ã«ã‚ã‚ã›ã‚‹
+            If DirectCast(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
+                lngTemp = 192 \ (DirectCast(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData)
                 .lngPosition = (.lngPosition \ lngTemp) * lngTemp
 
                 'If Not Shift And vbShiftMask Then
 
-                If Me.mnuOptionsItem(MENU_OPTIONS.MOVE_ON_GRID).Checked Then
+                If Me._mnuOptionsItem_5.Checked Then
 
                     With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
 
@@ -121,6468 +136,6253 @@ Friend Class frmMain
                 'End If
 
             End If
-			
-			'End If
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().lngY ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lngPosition = .lngPosition + g_Measure(.intMeasure).lngY
-			
-		End With
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg oldObj ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		oldObj = g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
-		
-		With oldObj
-			
-			.intCh = g_intVGridNum(.intCh)
-			
-			'If Not Shift And vbAltMask Then
-			
-			If VB6.GetItemData(Me.cboDispGridSub, Me.cboDispGridSub.SelectedIndex) Then
-				
-				lngTemp = 192 \ VB6.GetItemData(Me.cboDispGridSub, Me.cboDispGridSub.SelectedIndex)
-				.lngPosition = (.lngPosition \ lngTemp) * lngTemp
-				
-			End If
-			
-			'End If
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().lngY ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lngPosition = .lngPosition + g_Measure(.intMeasure).lngY
-			
-		End With
-		
-		'Y Ž²ŒÅ’èˆÚ“®
-		If Shift And VB6.ShiftConstants.ShiftMask Then
-			
-			newObj.lngPosition = oldObj.lngPosition
-			
-		End If
-		
-		'ˆÚ“®‚µ‚Ä‚¢‚éH
-		If newObj.intCh <> oldObj.intCh Or newObj.lngPosition <> oldObj.lngPosition Then
-			
-			'‰E‚ÉˆÚ“®
-			If newObj.intCh > oldObj.intCh Then
-				
-				For j = oldObj.intCh To newObj.intCh - 1
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(j).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(j).blnDraw ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If g_VGrid(j).blnDraw = True And g_VGrid(j).intCh <> 0 Then
-						
-						newObj.intAtt = newObj.intAtt + 1
-						
-					End If
-					
-				Next j
-				
-			ElseIf newObj.intCh < oldObj.intCh Then  '¶‚ÉˆÚ“®
-				
-				For j = oldObj.intCh To newObj.intCh + 1 Step -1
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(j).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(j).blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If g_VGrid(j).blnVisible = True And g_VGrid(j).intCh <> 0 Then
-						
-						newObj.intAtt = newObj.intAtt + 1
-						
-					End If
-					
-				Next j
-				
-			End If
-			
-			lngTemp = newObj.intCh <> oldObj.intCh And newObj.intCh <> 0 And oldObj.intCh <> 0 And newObj.intCh <> UBound(g_VGrid) And oldObj.intCh <> UBound(g_VGrid)
-			
-			For i = 0 To UBound(g_Obj) - 1
-				
-				With g_Obj(i)
-					
-					'‘I‘ð’†
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If .intSelect = modMain.OBJ_SELECT.Selected Then
-						
-						'Y Ž²ˆÚ“®
-						.lngPosition = .lngPosition + newObj.lngPosition - oldObj.lngPosition
-						
-						'¬ß‚Í‚Ü‚½‚¢‚Å‚¢‚È‚¢‚©H
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(g_Obj(i).intMeasure).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						Do While .lngPosition >= g_Measure(.intMeasure).intLen
-							
-							If .intMeasure < 999 Then
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(g_Obj(i).intMeasure).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								.lngPosition = .lngPosition - g_Measure(.intMeasure).intLen
-								.intMeasure = .intMeasure + 1
-								
-							Else
-								
-								.intMeasure = 999
-								
-								Exit Do
-								
-							End If
-							
-						Loop 
-						
-						'‹t‚É¬ß‚ðØ‚Á‚Ä‚¢‚È‚¢‚©H
-						Do While .lngPosition < 0
-							
-							If .intMeasure > 0 Then
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								.lngPosition = g_Measure(.intMeasure - 1).intLen + .lngPosition
-								.intMeasure = .intMeasure - 1
-								
-							Else
-								
-								.intMeasure = 0
-								
-								Exit Do
-								
-							End If
-							
-						Loop 
-						
-						'ˆÚ“®‚µ‚Ä‚¢‚é‚ªAˆÊ’u‚Í‰E’[‚Å‚à¶’[‚Å‚à‚È‚¢
-						If lngTemp Then
-							
-							If .intCh < 0 Then
-								
-								j = .intCh
-								
-							ElseIf .intCh > 1000 Then 
-								
-								j = .intCh - 1000
-								
-							Else
-								
-								j = g_intVGridNum(.intCh)
-								
-							End If
-							
-							If newObj.intCh > oldObj.intCh Then '‰E‚ÉˆÚ“®
-								
-								'ˆÚ“®—Ê•ªƒ‹[ƒv
-								For k = 1 To newObj.intAtt
-									
-									'•\Ž¦‚³‚ê‚Ä‚¢‚éƒŒ[ƒ“‚ðƒ`ƒFƒbƒN
-									Do 
-										
-										j = j + 1
-										
-										If j < 0 Or j > UBound(g_VGrid) Then Exit Do
-										
-										'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(j).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-										'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(j).blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-										If g_VGrid(j).blnVisible = True And g_VGrid(j).intCh <> 0 Then
-											
-											Exit Do
-											
-										End If
-										
-									Loop 
-									
-								Next k
-								
-							Else '¶‚ÉˆÚ“®
-								
-								For k = 1 To newObj.intAtt
-									
-									Do 
-										
-										j = j - 1
-										
-										If j < 0 Or j > UBound(g_VGrid) Then Exit Do
-										
-										'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(j).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-										'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(j).blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-										If g_VGrid(j).blnVisible = True And g_VGrid(j).intCh <> 0 Then
-											
-											Exit Do
-											
-										End If
-										
-									Loop 
-									
-								Next k
-								
-							End If
-							
-							'0–¢–ž‚ÌŽž‚Í‰¼ˆÊ’u‚Æ‚µ‚Äƒ}ƒCƒiƒX‚ð‚ ‚Ä‚é
-							If j < 0 Then
-								
-								.intCh = j
-								
-							ElseIf j > UBound(g_VGrid) Then  'Å‘å’lˆÈã‚È‚ç‰¼ˆÊ’u‚Æ‚µ‚Ä1000ˆÈã‚ð‚ ‚Ä‚é
-								
-								.intCh = 1000 + j
-								
-							Else '‚»‚êˆÈŠO‚È‚ç•’Ê‚ÉÝ’è
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid().intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								.intCh = g_VGrid(j).intCh
-								
-							End If
-							
-							'ƒ`ƒƒƒ“ƒlƒ‹‚É‚æ‚Á‚Ä“ÁŽê‚È‘€ì‚ª•K—vH
-							Select Case .intCh
-								
-								Case 8
-									
-									'‰½‚à‚µ‚È‚¢
-									
-								Case 9
-									
-									.sngValue = CInt(.sngValue)
-									
-									If .sngValue < 0 Then
-										
-										.sngValue = 1
-										
-									End If
-									
-								Case Else
-									
-									.sngValue = CInt(.sngValue)
-									
-									If .sngValue < 0 Then
-										
-										.sngValue = 1
-										
-									ElseIf .sngValue > 1295 Then 
-										
-										.sngValue = 1295
-										
-									End If
-									
-							End Select
-							
-						End If
-						
-					End If
-					
-				End With
-				
-			Next i
-			
-			'Call modDraw.DrawStatusBar(g_Obj(UBound(g_Obj)).lngHeight, Shift)
-			Call modDraw.DrawStatusBar(g_Obj(g_Obj(UBound(g_Obj)).lngHeight), Shift)
-			
-			'Call SaveChanges
-			
-			Call modDraw.Redraw()
-			
-		End If
-		
-		Exit Sub
-		
-Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call modMain.CleanUp(Err.Number, Err.Description, "MoveObj")
-	End Sub
-	
-	Public Sub PreviewBMP(ByRef strFileName As String)
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		If m_blnPreview = False Then Exit Sub
-		
-		With frmWindowPreview
-			
-			If .chkLock.CheckState Then Exit Sub
-			
-			'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-			
-			'.txtBGAPara(BGA_NUM).Text = Right$("0" & Hex$(lstBMP.ListIndex + 1), 2)
-			'.Caption = Right$("0" & Hex$(lstBMP.ListIndex + 1), 2) & ":" & strFileName
-			
-			'Else
-			
-			'.txtBGAPara(BGA_NUM).Text = modInput.strFromNum(lstBMP.ListIndex + 1)
-			'.Caption = modInput.strFromNum(lstBMP.ListIndex + 1) & ":" & strFileName
-			
-			'End If
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.txtBGAPara(modMain.BGA_PARA.BGA_NUM).Text = strFromLong(lstBMP.SelectedIndex + 1)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Text = .txtBGAPara(modMain.BGA_PARA.BGA_NUM).Text & ":" & strFileName
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If Mid(strFileName, 2, 2) <> ":\" Then strFileName = g_BMS.strDir & strFileName
-			
-			'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If Len(strFileName) <> 0 And strFileName <> g_BMS.strDir And Dir(strFileName, FileAttribute.Normal) <> vbNullString Then
-				
-				.picBackBuffer.Image = System.Drawing.Image.FromFile(strFileName)
-				
-			Else
-				
-				.picBackBuffer.Image = Nothing
-				
-			End If
-			
-			If .picBackBuffer.ClientRectangle.Width <= 256 Then
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.txtBGAPara(modMain.BGA_PARA.BGA_X1).Text = CStr(0)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.txtBGAPara(modMain.BGA_PARA.BGA_X2).Text = CStr(.picBackBuffer.ClientRectangle.Width)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.txtBGAPara(modMain.BGA_PARA.BGA_dX).Text = CStr((256 - .picBackBuffer.ClientRectangle.Width) \ 2)
-				
-			Else
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.txtBGAPara(modMain.BGA_PARA.BGA_X1).Text = CStr((.picBackBuffer.ClientRectangle.Width - 256) \ 2)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.txtBGAPara(modMain.BGA_PARA.BGA_X2).Text = CStr(CDbl(.txtBGAPara(modMain.BGA_PARA.BGA_X1).Text) + 256)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.txtBGAPara(modMain.BGA_PARA.BGA_dX).Text = CStr(0)
-				
-			End If
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.txtBGAPara(modMain.BGA_PARA.BGA_Y1).Text = CStr(0)
-			
-			If .picBackBuffer.ClientRectangle.Height >= 256 Then
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.txtBGAPara(modMain.BGA_PARA.BGA_Y2).Text = CStr(256)
-				
-			Else
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.txtBGAPara(modMain.BGA_PARA.BGA_Y2).Text = CStr(.picBackBuffer.ClientRectangle.Height)
-				
-			End If
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.txtBGAPara(modMain.BGA_PARA.BGA_dY).Text = CStr(0)
-			
-			Call .picPreview_Paint()
-			
-		End With
-		
-Err_Renamed: 
-	End Sub
-	
-	Private Sub PreviewBGA(ByVal lngFileNum As Integer)
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim strTemp As String
-		Dim strArray() As String
-		
-		If m_blnPreview = False Then Exit Sub
-		
-		With frmWindowPreview
-			
-			If .chkLock.CheckState Then Exit Sub
-			
-			'strTemp = Trim$(Mid$(lstBGA.List(lstBGA.ListIndex), 8))
-			strTemp = g_strBGA(lngFileNum)
-			strArray = Split(strTemp, " ")
-			
-			If Len(strTemp) Then
-				
-				strTemp = g_strBMP(modInput.strToNum(strArray(0)))
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If Mid(strTemp, 2, 2) <> ":\" Then strTemp = g_BMS.strDir & strTemp
-				
-				'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If Dir(strTemp, FileAttribute.Normal) <> vbNullString Then
-					
-					.picBackBuffer.Image = System.Drawing.Image.FromFile(strTemp)
-					
-				Else
-					
-					.picBackBuffer.Image = Nothing
-					
-				End If
-				
-			Else
-				
-				.picBackBuffer.Image = Nothing
-				
-			End If
-			
-			If UBound(strArray) > 5 Then
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.txtBGAPara(modMain.BGA_PARA.BGA_NUM).Text = strArray(0)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.txtBGAPara(modMain.BGA_PARA.BGA_X1).Text = strArray(1)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If CDbl(.txtBGAPara(modMain.BGA_PARA.BGA_X1).Text) < 0 Then .txtBGAPara(modMain.BGA_PARA.BGA_X1).Text = CStr(0)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.txtBGAPara(modMain.BGA_PARA.BGA_Y1).Text = strArray(2)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If CDbl(.txtBGAPara(modMain.BGA_PARA.BGA_Y1).Text) < 0 Then .txtBGAPara(modMain.BGA_PARA.BGA_Y1).Text = CStr(0)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.txtBGAPara(modMain.BGA_PARA.BGA_X2).Text = strArray(3)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If CDbl(.txtBGAPara(modMain.BGA_PARA.BGA_X2).Text) < 0 Then .txtBGAPara(modMain.BGA_PARA.BGA_X2).Text = CStr(0)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.txtBGAPara(modMain.BGA_PARA.BGA_Y2).Text = strArray(4)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If CDbl(.txtBGAPara(modMain.BGA_PARA.BGA_Y2).Text) < 0 Then .txtBGAPara(modMain.BGA_PARA.BGA_Y2).Text = CStr(0)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.txtBGAPara(modMain.BGA_PARA.BGA_dX).Text = strArray(5)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If CDbl(.txtBGAPara(modMain.BGA_PARA.BGA_dX).Text) < 0 Then .txtBGAPara(modMain.BGA_PARA.BGA_dX).Text = CStr(0)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.txtBGAPara(modMain.BGA_PARA.BGA_dY).Text = strArray(6)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.BGA_PARA ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If CDbl(.txtBGAPara(modMain.BGA_PARA.BGA_dY).Text) < 0 Then .txtBGAPara(modMain.BGA_PARA.BGA_dY).Text = CStr(0)
-				
-				'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-				
-				'.Caption = Right$("0" & Hex$(lstBGA.ListIndex + 1), 2) & ":" & strTemp
-				
-				'Else
-				
-				'.Caption = modInput.strFromNum(lstBGA.ListIndex + 1) & ":" & strTemp
-				
-				'End If
-				
-				.Text = strFromLong(lstBGA.SelectedIndex + 1) & ":" & strTemp
-				
-			End If
-			
-			Call .picPreview_Paint()
-			
-		End With
-		
-Err_Renamed: 
-	End Sub
-	
-	Private Sub PreviewWAV(ByRef strFileName As String)
-		On Error GoTo Err_Renamed
-		
-		Dim lngError As Integer
-		Dim strError As New VB6.FixedLengthString(256)
-		Dim strTemp As String
-		
-		If m_blnPreview = False Then Exit Sub
-		
-		If Mid(strFileName, 2, 2) <> ":\" Then
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			strFileName = g_BMS.strDir & strFileName
-			
-		End If
-		
-		Call mciSendString("close PREVIEW", vbNullString, 0, 0)
-		
-		Dim strArray() As String
-		strArray = Split(strFileName, ".")
-		
-		Select Case UCase(strArray(UBound(strArray)))
-			Case "WAV" : strTemp = " type WaveAudio"
-			Case "MP3", "OGG" : strTemp = " type MPEGVideo"
-		End Select
-		
-		lngError = mciSendString("open " & Chr(34) & strFileName & Chr(34) & strTemp & " alias PREVIEW", vbNullString, 0, 0)
-		
-		If lngError Then
-			
-			If mciGetErrorString(lngError, strError.Value, 256) Then
-				
-				strTemp = VB.Left(strError.Value, InStr(strError.Value, Chr(0)) - 1)
-				
-			Else
-				
-				strTemp = "•s–¾‚ÈƒGƒ‰[‚Å‚·B"
-				
-			End If
-			
-			'Call modMain.DebugOutput(lngError, strTemp & Chr$(34) & strFileName & Chr$(34), "PreviewWAV", False)
-			
-		End If
-		
-		Call mciSendString("play PREVIEW notify", vbNullString, 0, Me.Handle.ToInt32)
-		
-Err_Renamed: 
-	End Sub
-	
-	'UPGRADE_ISSUE: VBRUN.DataObject Œ^ ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub FormDragDrop(ByVal Data As Object)
-		Dim modMain As Object
-		Dim lngDeleteFile As Object
-		
-		Dim i As Integer
-		Dim strArray() As String
-		Dim strTemp As String
-		Dim blnReadFlag As Boolean
-		
-		'UPGRADE_ISSUE: DataObject ƒvƒƒpƒeƒB Data.Files ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_ISSUE: DataObjectFiles ƒvƒƒpƒeƒB Files.Count ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		For i = 1 To Data.Files.Count
-			
-			'UPGRADE_ISSUE: DataObject ƒvƒƒpƒeƒB Data.Files ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_ISSUE: DataObjectFiles ƒvƒƒpƒeƒB Files.Item ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If Dir(Data.Files.Item(i), FileAttribute.Normal) <> vbNullString Then
-				
-				'UPGRADE_ISSUE: DataObject ƒvƒƒpƒeƒB Data.Files ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_ISSUE: DataObjectFiles ƒvƒƒpƒeƒB Files.Item ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				strTemp = Data.Files.Item(i)
-				
-				If VB.Right(UCase(strTemp), 4) = ".BMS" Or VB.Right(UCase(strTemp), 4) = ".BME" Or VB.Right(UCase(strTemp), 4) = ".BML" Or VB.Right(UCase(strTemp), 4) = ".PMS" Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.intSaveCheck ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If modMain.intSaveCheck() Or blnReadFlag Then
-						
-						'UPGRADE_WARNING: App ƒvƒƒpƒeƒB App.EXEName ‚É‚ÍV‚µ‚¢“®ì‚ªŠÜ‚Ü‚ê‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						Call ShellExecute(0, "open", Chr(34) & g_strAppDir & My.Application.Info.AssemblyName & Chr(34), Chr(34) & strTemp & Chr(34), "", SW_SHOWNORMAL)
-						
-					Else
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
-						
-						strArray = Split(strTemp, "\")
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_BMS.strFileName = VB.Right(strTemp, Len(strArray(UBound(strArray))))
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_BMS.strDir = VB.Left(strTemp, Len(strTemp) - Len(strArray(UBound(strArray))))
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						dlgMainOpen.InitialDirectory = g_BMS.strDir
-						dlgMainSave.InitialDirectory = g_BMS.strDir
-						blnReadFlag = True
-						
-						Call modInput.LoadBMS()
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.RecentFilesRotation ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						Call modMain.RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
-						
-					End If
-					
-				End If
-				
-			End If
-			
-		Next i
-		
-	End Sub
-	
-	Private Sub CopyToClipboard()
-		Dim modMain As Object
-		
-		Dim i As Integer
-		Dim intTemp As Short
-		Dim lngTemp As Integer
-		Dim strArray() As String
-		
-		Call My.Computer.Clipboard.Clear()
-		
-		intTemp = 999
-		
-		For i = 0 To UBound(g_Obj) - 1
-			
-			With g_Obj(i)
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If .intSelect = modMain.OBJ_SELECT.Selected Then
-					
-					If .intMeasure < intTemp Then intTemp = .intMeasure
-					
-					lngTemp = lngTemp + 1
-					
-				End If
-				
-			End With
-			
-		Next i
-		
-		ReDim strArray(lngTemp - 1)
-		lngTemp = 0
-		
-		For i = 0 To UBound(g_Obj) - 1
-			
-			With g_Obj(i)
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If .intSelect = modMain.OBJ_SELECT.Selected Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(intTemp).lngY ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().lngY ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					strArray(lngTemp) = VB6.Format(.intCh, "000") & .intAtt & VB6.Format(g_Measure(.intMeasure).lngY + .lngPosition - g_Measure(intTemp).lngY, "0000000") & .sngValue
-					lngTemp = lngTemp + 1
-					
-				End If
-				
-			End With
-			
-		Next i
-		
-		Call My.Computer.Clipboard.SetText("BMSE ClipBoard Object Data Format" & vbCrLf & Join(strArray, vbCrLf) & vbCrLf)
-		
-	End Sub
-	
-	Public Sub SaveChanges()
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_BMS.blnSaveFlag = False
-		
-		Me.Text = g_strAppTitle
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If Len(g_BMS.strDir) Then
-			
-			If mnuOptionsItem(MENU_OPTIONS.TITLE_FILENAME).Checked Then
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				Me.Text = Me.Text & " - " & g_BMS.strFileName
-				
-			Else
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				Me.Text = Me.Text & " - " & g_BMS.strDir & g_BMS.strFileName
-				
-			End If
-			
-		End If
-		
-		Me.Text = Me.Text & " *"
-		
-	End Sub
-	
-	Private Function strCmdDecode(ByRef strCmd As String, ByRef strFileName As String) As String
-		
-		Dim ret As String
-		
-		ret = strCmd
-		
-		ret = Replace(ret, "<filename>", Chr(34) & strFileName & Chr(34))
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intStartMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		ret = Replace(ret, "<measure>", g_disp.intStartMeasure)
-		ret = Replace(ret, "<appdir>", g_strAppDir)
-		
-		strCmdDecode = ret
-		
-	End Function
-	
-	Public Sub RefreshList()
-		
-		Dim i As Integer
-		Dim strTemp As New VB6.FixedLengthString(2)
-		Dim lngTemp As Integer
-		Dim lngIndex(2) As Integer
-		
-		lngIndex(0) = lstWAV.SelectedIndex
-		lngIndex(1) = lstBMP.SelectedIndex
-		lngIndex(2) = lstBGA.SelectedIndex
-		
-		lstWAV.Visible = False
-		lstBMP.Visible = False
-		lstBGA.Visible = False
-		
-		lstWAV.Items.Clear()
-		lstBMP.Items.Clear()
-		lstBGA.Items.Clear()
-		
-		For i = 1 To 1295
-			
-			'strTemp = Right$("0" & Hex$(i), 2)
-			'lngTemp = modInput.strToNum(strTemp)
-			
-			strTemp.Value = modInput.strFromNum(i)
-			lngTemp = modInput.strToNum(modInput.strFromNumZZ(i))
-			
-			VB6.SetItemString(lstWAV, i - 1, "#WAV" & strTemp.Value & ":" & g_strWAV(i))
-			VB6.SetItemString(lstBMP, i - 1, "#BMP" & strTemp.Value & ":" & g_strBMP(i))
-			VB6.SetItemString(lstBGA, i - 1, "#BGA" & strTemp.Value & ":" & g_strBGA(i))
-			
-		Next i
-		
-		'    If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-		'
-		'        For i = 1 To 255
-		'
-		'            'strTemp = Right$("0" & Hex$(i), 2)
-		'            'lngTemp = modInput.strToNum(strTemp)
-		'
-		'            strTemp = strFromLong(i)
-		'            lngTemp = lngFromLong(i)
-		'
-		'            lstWAV.List(i - 1) = "#WAV" & strTemp & ":" & g_strWAV(lngTemp)
-		'            lstBMP.List(i - 1) = "#BMP" & strTemp & ":" & g_strBMP(lngTemp)
-		'            lstBGA.List(i - 1) = "#BGA" & strTemp & ":" & g_strBGA(lngTemp)
-		'
-		'        Next i
-		'
-		'        frmWindowPreview.cmdPreviewEnd.Caption = "FF"
-		'
-		'    Else
-		'
-		'        For i = 1 To 1295
-		'
-		'            strTemp = modInput.strFromNum(i)
-		'
-		'            lstWAV.List(i - 1) = "#WAV" & strTemp & ":" & g_strWAV(i)
-		'            lstBMP.List(i - 1) = "#BMP" & strTemp & ":" & g_strBMP(i)
-		'            lstBGA.List(i - 1) = "#BGA" & strTemp & ":" & g_strBGA(i)
-		'
-		'        Next i
-		'
-		'        frmWindowPreview.cmdPreviewEnd.Caption = "ZZ"
-		'
-		'    End If
-		
-		m_blnPreview = False
-		lstWAV.SelectedIndex = lngIndex(0)
-		lstBMP.SelectedIndex = lngIndex(1)
-		lstBGA.SelectedIndex = lngIndex(2)
-		m_blnPreview = True
-		
-		lstWAV.Visible = True
-		lstBMP.Visible = True
-		lstBGA.Visible = True
-		
-	End Sub
-	
-	Private Sub cboDirectInput_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDirectInput.Enter
-		
-		VB6.SetDefault(cmdDirectInput, True)
-		
-	End Sub
-	
-	Private Sub cboDirectInput_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDirectInput.Leave
-		
-		VB6.SetDefault(cmdDirectInput, False)
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg cboDispFrame.SelectedIndexChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub cboDispFrame_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispFrame.SelectedIndexChanged
-		
-		Call modDraw.InitVerticalLine()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg cboDispGridMain.SelectedIndexChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub cboDispGridMain_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispGridMain.SelectedIndexChanged
-		
-		Call modDraw.Redraw()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg cboDispGridSub.SelectedIndexChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub cboDispGridSub_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispGridSub.SelectedIndexChanged
-		
-		Call modDraw.Redraw()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg cboDispHeight.SelectedIndexChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub cboDispHeight_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispHeight.SelectedIndexChanged
-		Dim modMain As Object
-		Dim g_Message As Object
-		
-		Dim i As Integer
-		Dim sngTemp As Single
-		
-		If Me.Visible = False Then Exit Sub
-		
-		If cboDispHeight.SelectedIndex = cboDispHeight.Items.Count - 1 Then
-			
-			With frmWindowInput
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.lblMainDisp.Text = g_Message(modMain.Message.INPUT_SIZE)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.txtMain.Text = VB6.Format(g_disp.Height, "#0.00")
-				If .txtMain.Text = "100.00" Then .txtMain.Text = "1.00"
-				
-				Call VB6.ShowForm(frmWindowInput, VB6.FormShowConstants.Modal, Me)
-				
-				sngTemp = System.Math.Round(Val(.txtMain.Text), 2)
-				
-				If sngTemp <= 0 Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					sngTemp = g_disp.Height
-					
-				ElseIf sngTemp > 16 Then 
-					
-					sngTemp = 16
-					
-				End If
-				
-				For i = 0 To cboDispHeight.Items.Count - 1
-					
-					If VB6.GetItemData(cboDispHeight, i) = sngTemp * 100 Then
-						
-						cboDispHeight.SelectedIndex = i
-						
-						Exit For
-						
-					ElseIf VB6.GetItemData(cboDispHeight, i) > sngTemp * 100 Then 
-						
-						Call cboDispHeight.Items.Insert(i, "x" & VB6.Format(sngTemp, "#0.00"))
-						VB6.SetItemData(cboDispHeight, i, sngTemp * 100)
-						cboDispHeight.SelectedIndex = i
-						
-						Exit For
-						
-					End If
-					
-				Next i
-				
-			End With
-			
-		End If
-		
-		Call modDraw.Redraw()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg cboDispKey.SelectedIndexChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub cboDispKey_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispKey.SelectedIndexChanged
-		
-		Call modDraw.InitVerticalLine()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg cboDispSC1P.SelectedIndexChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub cboDispSC1P_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispSC1P.SelectedIndexChanged
-		
-		Call modDraw.InitVerticalLine()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg cboDispSC2P.SelectedIndexChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub cboDispSC2P_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispSC2P.SelectedIndexChanged
-		
-		Call modDraw.InitVerticalLine()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg cboDispWidth.SelectedIndexChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub cboDispWidth_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispWidth.SelectedIndexChanged
-		Dim modMain As Object
-		Dim g_Message As Object
-		
-		Dim i As Integer
-		Dim sngTemp As Single
-		
-		If Me.Visible = False Then Exit Sub
-		
-		If cboDispWidth.SelectedIndex = cboDispWidth.Items.Count - 1 Then
-			
-			With frmWindowInput
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.lblMainDisp.Text = g_Message(modMain.Message.INPUT_SIZE)
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.txtMain.Text = VB6.Format(g_disp.Width, "#0.00")
-				If .txtMain.Text = "100.00" Then .txtMain.Text = "1.00"
-				
-				Call VB6.ShowForm(frmWindowInput, VB6.FormShowConstants.Modal, Me)
-				
-				sngTemp = System.Math.Round(Val(.txtMain.Text), 2)
-				
-				If sngTemp <= 0 Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					sngTemp = g_disp.Width
-					
-				ElseIf sngTemp > 16 Then 
-					
-					sngTemp = 16
-					
-				End If
-				
-				For i = 0 To cboDispWidth.Items.Count - 1
-					
-					If VB6.GetItemData(cboDispWidth, i) = sngTemp * 100 Then
-						
-						cboDispWidth.SelectedIndex = i
-						
-						Exit For
-						
-					ElseIf VB6.GetItemData(cboDispWidth, i) > sngTemp * 100 Then 
-						
-						Call cboDispWidth.Items.Insert(i, "x" & VB6.Format(sngTemp, "#0.00"))
-						VB6.SetItemData(cboDispWidth, i, sngTemp * 100)
-						cboDispWidth.SelectedIndex = i
-						
-						Exit For
-						
-					End If
-					
-				Next i
-				
-			End With
-			
-		End If
-		
-		Call modDraw.Redraw()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg cboPlayer.SelectedIndexChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub cboPlayer_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboPlayer.SelectedIndexChanged
-		
-		Call modDraw.InitVerticalLine()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg cboVScroll.SelectedIndexChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub cboVScroll_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboVScroll.SelectedIndexChanged
-		Dim NewLargeChange As Short
-		
-		vsbMain.SmallChange = VB6.GetItemData(cboVScroll, cboVScroll.SelectedIndex)
-		NewLargeChange = Me.vsbMain.SmallChange * 8
-		vsbMain.Maximum = vsbMain.Maximum + NewLargeChange - vsbMain.LargeChange
-		vsbMain.LargeChange = NewLargeChange
-		
-	End Sub
-	
-	Private Sub cmdBGAExcDown_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBGAExcDown.Click
-		
-		Call cmdBMPExcDown_Click(cmdBMPExcDown, New System.EventArgs())
-		
-	End Sub
-	
-	Private Sub cmdBGAExcUp_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBGAExcUp.Click
-		
-		Call cmdBMPExcUp_Click(cmdBMPExcUp, New System.EventArgs())
-		
-	End Sub
-	
-	Private Sub cmdBGAPreview_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBGAPreview.Click
-		
-		Call PreviewBGA(lstBGA.SelectedIndex + 1)
-		
-		With frmWindowPreview
-			
-			If Not .Visible Then
-				
-				'Call .SetWindowSize
-				'.Left = frmMain.Left + (frmMain.Width - .Width) \ 2
-				'.Top = frmMain.Top + (frmMain.Height - .Height) \ 2
-				
-				Call VB6.ShowForm(frmWindowPreview, 0, Me)
-				
-			Else
-				
-				Call frmWindowPreview.Close()
-				
-			End If
-			
-			Call picMain.Focus()
-			
-		End With
-		
-	End Sub
-	
-	Private Sub cmdBMPExcDown_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBMPExcDown.Click
-		Dim modMain As Object
-		
-		Dim i As Integer
-		Dim lngChangeA As Integer
-		Dim lngChangeB As Integer
-		Dim strTemp As String
-		Dim lngIndex As Integer
-		Dim strArray() As String
-		
-		With lstBMP
-			
-			If .SelectedIndex = .Items.Count - 1 Then Exit Sub
-			
-			'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-			
-			'lngChangeB = modInput.strToNum(Hex$(.ListIndex + 2))
-			'lngChangeA = modInput.strToNum(Hex$(.ListIndex + 1))
-			
-			'Else
-			
-			'lngChangeB = .ListIndex + 2
-			'lngChangeA = .ListIndex + 1
-			
-			'End If
-			
-			lngChangeB = lngFromLong(.SelectedIndex + 2)
-			lngChangeA = lngFromLong(.SelectedIndex + 1)
-			
-			strTemp = g_strBMP(lngChangeB)
-			g_strBMP(lngChangeB) = g_strBMP(lngChangeA)
-			g_strBMP(lngChangeA) = strTemp
-			
-			lngIndex = .SelectedIndex + 1
-			
-		End With
-		
-		With lstBGA
-			
-			strTemp = g_strBGA(lngChangeB)
-			g_strBGA(lngChangeB) = g_strBGA(lngChangeA)
-			g_strBGA(lngChangeA) = strTemp
-			
-		End With
-		
-		For i = 0 To UBound(g_strBGA)
-			
-			If Len(g_strBGA(i)) Then
-				
-				strArray = Split(g_strBGA(i), " ")
-				
-				If UBound(strArray) Then
-					
-					If modInput.strToNum(strArray(0)) = lngChangeB Then
-						
-						strArray(0) = modInput.strFromNum(lngChangeA, 2)
-						
-					ElseIf modInput.strToNum(strArray(0)) = lngChangeA Then 
-						
-						strArray(0) = modInput.strFromNum(lngChangeB, 2)
-						
-					End If
-					
-					g_strBGA(i) = Join(strArray, " ")
-					
-				End If
-				
-			End If
-			
-		Next i
-		
-		For i = 0 To UBound(g_Obj) - 1
-			
-			With g_Obj(i)
-				
-				If .intCh = 4 Or .intCh = 6 Or .intCh = 7 Then
-					
-					If .sngValue = lngChangeA Then
-						
-						.sngValue = lngChangeB
-						
-					ElseIf .sngValue = lngChangeB Then 
-						
-						.sngValue = lngChangeA
-						
-					End If
-					
-				End If
-				
-			End With
-			
-		Next i
-		
-		Call g_InputLog.AddData(modInput.strFromNum(modMain.CMD_LOG.BMP_CHANGE) & modInput.strFromNum(lngChangeB) & modInput.strFromNum(lngChangeA) & modLog.getSeparator)
-		
-		Call RefreshList()
-		
-		Call Redraw()
-		
-		lstBMP.SelectedIndex = lngIndex
-		lstBGA.SelectedIndex = lngIndex
-		
-	End Sub
-	
-	Private Sub cmdBMPExcUp_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBMPExcUp.Click
-		Dim modMain As Object
-		
-		Dim i As Integer
-		Dim lngChangeA As Integer
-		Dim lngChangeB As Integer
-		Dim strTemp As String
-		Dim lngIndex As Integer
-		Dim strArray() As String
-		
-		With lstBMP
-			
-			If .SelectedIndex = 0 Then Exit Sub
-			
-			'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-			
-			'lngChangeB = modInput.strToNum(Hex$(.ListIndex))
-			'lngChangeA = modInput.strToNum(Hex$(.ListIndex + 1))
-			
-			'Else
-			
-			'lngChangeB = .ListIndex
-			'lngChangeA = .ListIndex + 1
-			
-			'End If
-			
-			lngChangeB = lngFromLong(.SelectedIndex)
-			lngChangeA = lngFromLong(.SelectedIndex + 1)
-			
-			strTemp = g_strBMP(lngChangeB)
-			g_strBMP(lngChangeB) = g_strBMP(lngChangeA)
-			g_strBMP(lngChangeA) = strTemp
-			
-			lngIndex = .SelectedIndex - 1
-			
-		End With
-		
-		With lstBGA
-			
-			strTemp = g_strBGA(lngChangeB)
-			g_strBGA(lngChangeB) = g_strBGA(lngChangeA)
-			g_strBGA(lngChangeA) = strTemp
-			
-		End With
-		
-		For i = 0 To UBound(g_Obj) - 1
-			
-			With g_Obj(i)
-				
-				If .intCh = 4 Or .intCh = 6 Or .intCh = 7 Then
-					
-					If .sngValue = lngChangeA Then
-						
-						.sngValue = lngChangeB
-						
-					ElseIf .sngValue = lngChangeB Then 
-						
-						.sngValue = lngChangeA
-						
-					End If
-					
-				End If
-				
-			End With
-			
-		Next i
-		
-		For i = 0 To UBound(g_strBGA)
-			
-			If Len(g_strBGA(i)) Then
-				
-				strArray = Split(g_strBGA(i), " ")
-				
-				If UBound(strArray) Then
-					
-					If modInput.strToNum(strArray(0)) = lngChangeB Then
-						
-						strArray(0) = modInput.strFromNum(lngChangeA, 2)
-						
-					ElseIf modInput.strToNum(strArray(0)) = lngChangeA Then 
-						
-						strArray(0) = modInput.strFromNum(lngChangeB, 2)
-						
-					End If
-					
-					g_strBGA(i) = Join(strArray, " ")
-					
-				End If
-				
-			End If
-			
-		Next i
-		
-		Call g_InputLog.AddData(modInput.strFromNum(modMain.CMD_LOG.BMP_CHANGE) & modInput.strFromNum(lngChangeB) & modInput.strFromNum(lngChangeA) & modLog.getSeparator)
-		
-		Call RefreshList()
-		
-		Call Redraw()
-		
-		lstBMP.SelectedIndex = lngIndex
-		lstBGA.SelectedIndex = lngIndex
-		
-	End Sub
-	
-	Private Sub cmdDirectInput_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdDirectInput.Click
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim intTemp As Short
-		Dim i As Integer
-		
-		With cboDirectInput
-			
-			If Len(.Text) Then
-				
-				intTemp = UBound(g_Obj)
-				
-				Call modInput.LoadBMSLine(.Text, True)
-				
-				For i = intTemp To UBound(g_Obj) - 1
-					
-					With g_Obj(i)
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.lngPosition = (g_Measure(.intMeasure).intLen / .lngHeight) * .lngPosition
-						
-						Select Case .intCh
-							
-							Case modInput.OBJ_CH.CH_BPM
-								
-								.intCh = 8
-								
-							Case modInput.OBJ_CH.CH_KEY_INV_MIN To modInput.OBJ_CH.CH_KEY_INV_MAX '•s‰ÂŽ‹
-								
-								.intCh = .intCh - modInput.OBJ_CH.CH_INV
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_ATT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								.intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE
-								
-							Case modInput.OBJ_CH.CH_KEY_LN_MIN To modInput.OBJ_CH.CH_KEY_LN_MAX 'LN
-								
-								.intCh = .intCh - modInput.OBJ_CH.CH_LN
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_ATT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								.intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE
-								
-						End Select
-						
-					End With
-					
-				Next i
-				
-				Call .Items.Insert(0, .Text)
-				
-				For i = 1 To .Items.Count
-					
-					If .Text = VB6.GetItemString(cboDirectInput, i) Then
-						
-						Call .Items.RemoveAt(i)
-						
-						Exit For
-						
-					End If
-					
-				Next i
-				
-				If .Items.Count > 10 Then Call .Items.RemoveAt(.Items.Count - 1)
-				
-				.Text = ""
-				
-				Call .Focus()
-				
-				Call SaveChanges()
-				
-				Call modDraw.InitVerticalLine()
-				
-			End If
-			
-		End With
-		
-		Exit Sub
-		
-Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call modMain.CleanUp(Err.Number, Err.Description, "cmdDirectImput_Click")
-	End Sub
-	
-	Private Sub cmdMeasureSelectAll_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdMeasureSelectAll.Click
-		
-		Dim i As Integer
-		Dim intTemp As Short
-		
-		With lstMeasureLen
-			
-			intTemp = .SelectedIndex
-			.Visible = False
-			
-			For i = 0 To 999
-				
-				.SetSelected(i, True)
-				
-			Next i
-			
-			.SelectedIndex = intTemp
-			.Visible = True
-			
-		End With
-		
-	End Sub
-	
-	Private Sub cmdBGADelete_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBGADelete.Click
-		
-		Dim strTemp As New VB6.FixedLengthString(7)
-		
-		With lstBGA
-			
-			If Len(VB6.GetItemString(lstBGA, .SelectedIndex)) > 7 Then
-				
-				strTemp.Value = "#BGA00:"
-				
-				'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-				
-				'Mid$(strTemp, 5, 2) = Right$("0" & Hex$(.ListIndex + 1), 2)
-				'g_strBGA(strToNum(Mid$(strTemp, 5, 2))) = ""
-				
-				'Else
-				
-				'Mid$(strTemp, 5, 2) = modInput.strFromNum(.ListIndex + 1)
-				'g_strBGA(.ListIndex + 1) = ""
-				
-				'End If
-				
-				Mid(strTemp.Value, 5, 2) = strFromLong(.SelectedIndex + 1)
-				g_strBGA(lngFromLong(.SelectedIndex + 1)) = ""
-				
-				VB6.SetItemString(lstBGA, .SelectedIndex, strTemp.Value)
-				
-				Call SaveChanges()
-				
-			End If
-			
-		End With
-		
-	End Sub
-	
-	Private Sub cmdBGASet_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBGASet.Click
-		
-		'Dim strTemp As String
-		
-		With lstBGA
-			
-			If Len(txtBGAInput.Text) = 0 Then Exit Sub
-			
-			'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-			
-			'strTemp = Right$("0" & Hex$(.ListIndex + 1), 2)
-			'.List(.ListIndex) = "#BGA" & strTemp & ":" & txtBGAInput.Text
-			'g_strBGA(modInput.strToNum(strTemp)) = txtBGAInput.Text
-			
-			'Else
-			
-			'.List(.ListIndex) = "#BGA" & modInput.strFromNum(.ListIndex + 1) & ":" & txtBGAInput.Text
-			'g_strBGA(.ListIndex + 1) = txtBGAInput.Text
-			
-			'End If
-			
-			VB6.SetItemString(lstBGA, .SelectedIndex, "#BGA" & strFromLong(.SelectedIndex + 1) & ":" & txtBGAInput.Text)
-			g_strBGA(lngFromLong(.SelectedIndex + 1)) = txtBGAInput.Text
-			
-			txtBGAInput.Text = ""
-			
-			Call SaveChanges()
-			
-		End With
-		
-		With frmWindowPreview
-			
-			If .Visible Then
-				
-				Call PreviewBGA(lstBGA.SelectedIndex + 1)
-				Call VB6.ShowForm(frmWindowPreview, 0, Me)
-				
-			End If
-			
-		End With
-		
-	End Sub
-	
-	Private Sub cmdBmpDelete_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBmpDelete.Click
-		
-		Dim strTemp As New VB6.FixedLengthString(7)
-		
-		With lstBMP
-			
-			If Len(VB6.GetItemString(lstBMP, .SelectedIndex)) > 7 Then
-				
-				strTemp.Value = "#BMP00:"
-				
-				Mid(strTemp.Value, 5, 2) = strFromLong(.SelectedIndex + 1)
-				g_strBMP(lngFromLong(.SelectedIndex + 1)) = ""
-				
-				VB6.SetItemString(lstBMP, .SelectedIndex, strTemp.Value)
-				
-				Call SaveChanges()
-				
-			End If
-			
-		End With
-		
-	End Sub
-	
-	Private Sub cmdBmpLoad_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBmpLoad.Click
-		On Error GoTo Err_Renamed
-		
-		Dim strArray() As String
-		'Dim strTemp     As String * 2
-		
-		'UPGRADE_WARNING: CommonDialog •Ï”‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½ Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="671167DC-EA81-475D-B690-7A40C7BF4A23"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		With dlgMain
-			
-			'UPGRADE_WARNING: Filter ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Filter = "Image files (*.bmp,*.jpg,*.gif)|*.bmp;*.jpg;*.gif|All files (*.*)|*.*"
-			.FileName = Mid(VB6.GetItemString(lstBMP, lstBMP.SelectedIndex), 8)
-			
-			Call .ShowDialog()
-			
-			strArray = Split(.FileName, "\")
-			
-			VB6.SetItemString(lstBMP, lstBMP.SelectedIndex, "#BMP" & strFromLong(lstBMP.SelectedIndex + 1) & ":" & strArray(UBound(strArray)))
-			g_strBMP(lngFromLong(lstBMP.SelectedIndex + 1)) = strArray(UBound(strArray))
-			
-			.InitialDirectory = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
-			
-			Call SaveChanges()
-			
-		End With
-		
-		With frmWindowPreview
-			
-			If .Visible Then
-				
-				Call PreviewBMP(Mid(VB6.GetItemString(lstBMP, lstBMP.SelectedIndex), 8))
-				Call VB6.ShowForm(frmWindowPreview, 0, Me)
-				
-			End If
-			
-		End With
-		
-		Exit Sub
-		
-Err_Renamed: 
-	End Sub
-	
-	Private Sub cmdInputMeasureLen_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdInputMeasureLen.Click
-		Dim modMain As Object
-		
-		Dim i As Integer
-		Dim lngTemp As Integer
-		Dim strArray() As String
-		Dim tempObj As g_udtObj
-		
-		With lstMeasureLen
-			
-			For i = 0 To 999
-				
-				If .GetSelected(i) Then
-					
-					lngTemp = 1
-					
-					Exit For
-					
-				End If
-				
-			Next i
-			
-			If lngTemp = 0 Then Exit Sub
-			
-			ReDim strArray(0)
-			
-			.Visible = False
-			lngTemp = 0
-			
-			For i = 0 To 999
-				
-				If .GetSelected(i) Then
-					
-					VB6.SetItemString(lstMeasureLen, i, "#" & VB6.Format(i, "000") & ":" & cboNumerator.Text & "/" & cboDenominator.Text)
-					lngTemp = (192 / CDbl(cboDenominator.Text)) * CDbl(cboNumerator.Text)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.MSR_CHANGE) & modInput.strFromNum(i) & VB.Right("00" & Hex(g_Measure(i).intLen), 3) & VB.Right("00" & Hex(lngTemp), 3)
-					ReDim Preserve strArray(UBound(strArray) + 1)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_Measure(i).intLen = lngTemp
-					
-				End If
-				
-			Next i
-			
-			.Visible = True
-			
-		End With
-		
-		For i = 0 To UBound(g_Obj) - 1
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg tempObj ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			tempObj = g_Obj(i)
-			
-			With tempObj
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(tempObj.intMeasure).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				Do While .lngPosition >= g_Measure(.intMeasure).intLen
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.lngPosition = .lngPosition - g_Measure(.intMeasure).intLen
-					.intMeasure = .intMeasure + 1
-					
-				Loop 
-				
-			End With
-			
-			With g_Obj(i)
-				
-				If tempObj.intMeasure > 999 Then
-					
-					strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue
-					ReDim Preserve strArray(UBound(strArray) + 1)
-					
-					Call modDraw.RemoveObj(i)
-					
-				Else
-					
-					strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.OBJ_MOVE) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & VB.Right("0" & Hex(tempObj.intCh), 2) & modInput.strFromNum(tempObj.intMeasure) & modInput.strFromNum(tempObj.lngPosition, 3)
-					ReDim Preserve strArray(UBound(strArray) + 1)
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Obj(i) ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_Obj(i) = tempObj
-					
-				End If
-				
-			End With
-			
-		Next i
-		
-		Call g_InputLog.AddData(Join(strArray, modLog.getSeparator))
-		
-		Call modDraw.ArrangeObj()
-		
-		Call modDraw.ChangeResolution()
-		
-		Call modDraw.InitVerticalLine()
-		
-	End Sub
-	
-	Private Sub cmdBMPPreview_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBMPPreview.Click
-		
-		Call PreviewBMP(Mid(VB6.GetItemString(lstBMP, lstBMP.SelectedIndex), 8))
-		
-		With frmWindowPreview
-			
-			If Not .Visible Then
-				
-				'Call .SetWindowSize
-				'.Left = frmMain.Left + (frmMain.Width - .Width) \ 2
-				'.Top = frmMain.Top + (frmMain.Height - .Height) \ 2
-				
-				Call VB6.ShowForm(frmWindowPreview, 0, Me)
-				
-			Else
-				
-				Call frmWindowPreview.Close()
-				
-			End If
-			
-			Call picMain.Focus()
-			
-		End With
-		
-	End Sub
-	
-	Private Sub cmdLoadMissBMP_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdLoadMissBMP.Click
-		On Error GoTo Err_Renamed
-		
-		Dim strArray() As String
-		
-		'UPGRADE_WARNING: CommonDialog •Ï”‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½ Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="671167DC-EA81-475D-B690-7A40C7BF4A23"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		With dlgMain
-			
-			'UPGRADE_WARNING: Filter ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Filter = "Image files (*.bmp,*.jpg,*.gif)|*.bmp;*.jpg;*.gif|All files (*.*)|*.*"
-			.FileName = txtStageFile.Text
-			
-			Call .ShowDialog()
-			
-			strArray = Split(.FileName, "\")
-			txtMissBMP.Text = strArray(UBound(strArray))
-			dlgMainOpen.InitialDirectory = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
-			dlgMainSave.InitialDirectory = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
-			
-		End With
-		
-		Exit Sub
-		
-Err_Renamed: 
-	End Sub
-	
-	Private Sub cmdLoadStageFile_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdLoadStageFile.Click
-		On Error GoTo Err_Renamed
-		
-		Dim strArray() As String
-		
-		'UPGRADE_WARNING: CommonDialog •Ï”‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½ Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="671167DC-EA81-475D-B690-7A40C7BF4A23"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		With dlgMain
-			
-			'UPGRADE_WARNING: Filter ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Filter = "Image files (*.bmp,*.jpg,*.gif)|*.bmp;*.jpg;*.gif|All files (*.*)|*.*"
-			.FileName = txtStageFile.Text
-			
-			Call .ShowDialog()
-			
-			strArray = Split(.FileName, "\")
-			txtStageFile.Text = strArray(UBound(strArray))
-			dlgMainOpen.InitialDirectory = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
-			dlgMainSave.InitialDirectory = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
-			
-		End With
-		
-		Exit Sub
-		
-Err_Renamed: 
-	End Sub
-	
-	Private Sub cmdSoundDelete_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSoundDelete.Click
-		
-		Dim strTemp As New VB6.FixedLengthString(7)
-		
-		Call mciSendString("close PREVIEW", vbNullString, 0, 0)
-		
-		With lstWAV
-			
-			If Len(VB6.GetItemString(lstWAV, .SelectedIndex)) > 7 Then
-				
-				strTemp.Value = "#WAV00:"
-				
-				'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-				
-				'Mid$(strTemp, 5, 2) = Right$("0" & Hex$(.ListIndex + 1), 2)
-				'g_strWAV(strToNum(Mid$(strTemp, 5, 2))) = ""
-				
-				'Else
-				
-				'Mid$(strTemp, 5, 2) = modInput.strFromNum(.ListIndex + 1)
-				'g_strWAV(.ListIndex + 1) = ""
-				
-				'End If
-				
-				Mid(strTemp.Value, 5, 2) = strFromLong(.SelectedIndex + 1)
-				g_strWAV(lngFromLong(.SelectedIndex + 1)) = ""
-				
-				VB6.SetItemString(lstWAV, .SelectedIndex, strTemp.Value)
-				
-				Call SaveChanges()
-				
-			End If
-			
-		End With
-		
-	End Sub
-	
-	Private Sub cmdSoundExcDown_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSoundExcDown.Click
-		Dim modMain As Object
-		
-		Dim i As Integer
-		Dim lngTemp As Integer
-		Dim intTemp As Short
-		Dim strTemp As String
-		
-		With lstWAV
-			
-			If .SelectedIndex = .Items.Count - 1 Then Exit Sub
-			
-			'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-			
-			'intTemp = strToNum(Hex$(.ListIndex + 2))
-			'lngTemp = strToNum(Hex$(.ListIndex + 1))
-			
-			'Else
-			
-			'intTemp = .ListIndex + 2
-			'lngTemp = .ListIndex + 1
-			
-			'End If
-			
-			intTemp = lngFromLong(.SelectedIndex + 2)
-			lngTemp = lngFromLong(.SelectedIndex + 1)
-			
-			strTemp = g_strWAV(intTemp)
-			g_strWAV(intTemp) = g_strWAV(lngTemp)
-			g_strWAV(lngTemp) = strTemp
-			
-			VB6.SetItemString(lstWAV, .SelectedIndex + 1, "")
-			.SelectedIndex = .SelectedIndex + 1
-			
-			VB6.SetItemString(lstWAV, .SelectedIndex, "#WAV" & strFromNum(intTemp) & ":" & g_strWAV(intTemp))
-			VB6.SetItemString(lstWAV, .SelectedIndex - 1, "#WAV" & strFromNum(lngTemp) & ":" & g_strWAV(lngTemp))
-			
-		End With
-		
-		For i = 0 To UBound(g_Obj) - 1
-			
-			With g_Obj(i)
-				
-				If .intCh >= 11 Then
-					
-					If .sngValue = lngTemp Then
-						
-						.sngValue = intTemp
-						
-					ElseIf .sngValue = intTemp Then 
-						
-						.sngValue = lngTemp
-						
-					End If
-					
-				End If
-				
-			End With
-			
-		Next i
-		
-		Call g_InputLog.AddData(modInput.strFromNum(modMain.CMD_LOG.WAV_CHANGE) & modInput.strFromNum(intTemp) & modInput.strFromNum(lngTemp) & modLog.getSeparator)
-		
-		Call Redraw()
-		
-	End Sub
-	
-	Private Sub cmdSoundExcUp_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSoundExcUp.Click
-		Dim modMain As Object
-		
-		Dim i As Integer
-		Dim lngTemp As Integer
-		Dim intTemp As Short
-		Dim strTemp As String
-		
-		With lstWAV
-			
-			If .SelectedIndex = 0 Then Exit Sub
-			
-			intTemp = lngFromLong(.SelectedIndex)
-			lngTemp = lngFromLong(.SelectedIndex + 1)
-			
-			strTemp = g_strWAV(intTemp)
-			g_strWAV(intTemp) = g_strWAV(lngTemp)
-			g_strWAV(lngTemp) = strTemp
-			
-			VB6.SetItemString(lstWAV, .SelectedIndex - 1, "")
-			.SelectedIndex = .SelectedIndex - 1
-			
-			VB6.SetItemString(lstWAV, .SelectedIndex, "#WAV" & strFromNum(intTemp) & ":" & g_strWAV(intTemp))
-			VB6.SetItemString(lstWAV, .SelectedIndex + 1, "#WAV" & strFromNum(lngTemp) & ":" & g_strWAV(lngTemp))
-			
-		End With
-		
-		For i = 0 To UBound(g_Obj) - 1
-			
-			With g_Obj(i)
-				
-				If .intCh >= 11 Then
-					
-					If .sngValue = lngTemp Then
-						
-						.sngValue = intTemp
-						
-					ElseIf .sngValue = intTemp Then 
-						
-						.sngValue = lngTemp
-						
-					End If
-					
-				End If
-				
-			End With
-			
-		Next i
-		
-		Call g_InputLog.AddData(modInput.strFromNum(modMain.CMD_LOG.WAV_CHANGE) & modInput.strFromNum(intTemp) & modInput.strFromNum(lngTemp) & modLog.getSeparator)
-		
-		Call Redraw()
-		
-	End Sub
-	
-	Private Sub cmdSoundLoad_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSoundLoad.Click
-		On Error GoTo Err_Renamed
-		
-		Dim strArray() As String
-		
-		Call mciSendString("close PREVIEW", vbNullString, 0, 0)
-		
-		'UPGRADE_WARNING: CommonDialog •Ï”‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½ Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="671167DC-EA81-475D-B690-7A40C7BF4A23"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		With dlgMain
-			
-			'UPGRADE_WARNING: Filter ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Filter = "Sound files (*.wav,*.mp3)|*.wav;*.mp3|All files (*.*)|*.*"
-			.FileName = Mid(VB6.GetItemString(lstWAV, lstWAV.SelectedIndex), 8)
-			
-			Call dlgMainOpen.ShowDialog()
-			dlgMainSave.FileName = dlgMainOpen.FileName
-			
-			strArray = Split(.FileName, "\")
-			
-			VB6.SetItemString(lstWAV, lstWAV.SelectedIndex, "#WAV" & strFromLong(lstWAV.SelectedIndex + 1) & ":" & strArray(UBound(strArray)))
-			g_strWAV(lngFromLong(lstWAV.SelectedIndex + 1)) = strArray(UBound(strArray))
-			
-			.InitialDirectory = VB.Left(dlgMainOpen.FileName, Len(dlgMainOpen.FileName) - Len(strArray(UBound(strArray))))
-			
-			Call SaveChanges()
-			
-		End With
-		
-Err_Renamed: 
-	End Sub
-	
-	Private Sub cmdSoundStop_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSoundStop.Click
-		
-		Call mciSendString("close PREVIEW", vbNullString, 0, 0)
-		
-	End Sub
-	
-	Private Sub frmMain_KeyDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
-		Dim KeyCode As Short = eventArgs.KeyCode
-		Dim Shift As Short = eventArgs.KeyData \ &H10000
-		
-		Dim i As Integer
-		Dim j As Integer
-		
-		If TypeOf VB6.GetActiveControl() Is System.Windows.Forms.TextBox Then
-			
-			Exit Sub
-			
-		ElseIf TypeOf VB6.GetActiveControl() Is System.Windows.Forms.ComboBox Then 
-			
-			'UPGRADE_ISSUE: Control Style ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If VB6.GetActiveControl().Style = 0 Then
-				
-				Exit Sub
-				
-			End If
-			
-		End If
-		
-		'Shift ‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç3‰ñŒJ‚è•Ô‚·‚æ
-		If Shift And VB6.ShiftConstants.ShiftMask Then j = 2
-		
-		For i = 0 To j
-			
-			Select Case KeyCode
-				
-				Case System.Windows.Forms.Keys.Add '+
-					
-					If optChangeBottom(0).Checked = True Then
-						
-						If lstWAV.SelectedIndex <> lstWAV.Items.Count - 1 Then
-							
-							If Shift And VB6.ShiftConstants.CtrlMask Then
-								
-								Call cmdSoundExcDown_Click(cmdSoundExcDown, New System.EventArgs())
-								
-							Else
-								
-								lstWAV.SelectedIndex = lstWAV.SelectedIndex + 1
-								
-							End If
-							
-						End If
-						
-					ElseIf optChangeBottom(1).Checked = True Or optChangeBottom(2).Checked = True Then 
-						
-						If lstBMP.SelectedIndex <> lstBMP.Items.Count - 1 Then
-							
-							If Shift And VB6.ShiftConstants.CtrlMask Then
-								
-								Call cmdBMPExcDown_Click(cmdBMPExcDown, New System.EventArgs())
-								
-							Else
-								
-								lstBMP.SelectedIndex = lstBMP.SelectedIndex + 1
-								lstBGA.SelectedIndex = lstBMP.SelectedIndex
-								
-							End If
-							
-						End If
-						
-					End If
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, Shift)
-					
-				Case System.Windows.Forms.Keys.Subtract '-
-					
-					If optChangeBottom(0).Checked = True Then
-						
-						If lstWAV.SelectedIndex <> 0 Then
-							
-							If Shift And VB6.ShiftConstants.CtrlMask Then
-								
-								Call cmdSoundExcUp_Click(cmdSoundExcUp, New System.EventArgs())
-								
-							Else
-								
-								lstWAV.SelectedIndex = lstWAV.SelectedIndex - 1
-								
-							End If
-							
-						End If
-						
-					ElseIf optChangeBottom(1).Checked = True Or optChangeBottom(2).Checked = True Then 
-						
-						If lstBMP.SelectedIndex <> 0 Then
-							
-							If Shift And VB6.ShiftConstants.CtrlMask Then
-								
-								Call cmdBMPExcUp_Click(cmdBMPExcUp, New System.EventArgs())
-								
-							Else
-								
-								lstBMP.SelectedIndex = lstBMP.SelectedIndex - 1
-								lstBGA.SelectedIndex = lstBGA.SelectedIndex - 1
-								
-							End If
-							
-						End If
-						
-					End If
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, Shift)
-					
-			End Select
-			
-		Next i
-		
-		Select Case KeyCode
-			
-			Case System.Windows.Forms.Keys.F5 'F5 ƒŠƒXƒg•ÏX
-				
-				If optChangeBottom(0).Checked = True Then
-					
-					optChangeBottom(1).Checked = True
-					
-				ElseIf optChangeBottom(1).Checked = True Then 
-					
-					optChangeBottom(2).Checked = True
-					
-				ElseIf optChangeBottom(2).Checked = True Then 
-					
-					optChangeBottom(0).Checked = True
-					
-				End If
-				
-			Case System.Windows.Forms.Keys.Multiply '* ƒvƒŒƒrƒ…[
-				
-				If optChangeBottom(0).Checked = True Then
-					
-					Call lstWAV_SelectedIndexChanged(lstWAV, New System.EventArgs())
-					
-				ElseIf optChangeBottom(1).Checked = True Then 
-					
-					If Not frmWindowPreview.Visible Then Call cmdBMPPreview_Click(cmdBMPPreview, New System.EventArgs())
-					
-				ElseIf optChangeBottom(2).Checked = True Then 
-					
-					If Not frmWindowPreview.Visible Then Call cmdBGAPreview_Click(cmdBGAPreview, New System.EventArgs())
-					
-				End If
-				
-			Case System.Windows.Forms.Keys.Divide '/ ƒvƒŒƒrƒ…[’âŽ~
-				
-				If optChangeBottom(0).Checked = True Then
-					
-					Call cmdSoundStop_Click(cmdSoundStop, New System.EventArgs())
-					
-				ElseIf optChangeBottom(1).Checked = True Or optChangeBottom(2).Checked = True Then 
-					
-					If frmWindowPreview.Visible = True Then
-						
-						Call frmWindowPreview.Close()
-						
-					End If
-					
-				End If
-				
-		End Select
-		
-		Call modEasterEgg.KeyCheck(KeyCode, Shift)
-		
-	End Sub
-	
-	Private Sub frmMain_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-		Dim GetCmdLine As Object
-		Dim strGet_ini As Object
-		Dim NewLargeChange As Short
-		Dim LoadConfig As Object
-		Dim modMain As Object
-		
-		Dim i As Integer
-		Dim wp As WINDOWPLACEMENT
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.StartUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call modMain.StartUp()
-		
-		If cboViewer.Items.Count = 0 Then
-			
-			tlbMenu.Items.Item("PlayAll").Enabled = False
-			tlbMenu.Items.Item("Play").Enabled = False
-			tlbMenu.Items.Item("Stop").Enabled = False
-			mnuToolsPlayAll.Enabled = False
-			mnuToolsPlay.Enabled = False
-			mnuToolsPlayStop.Enabled = False
-			cboViewer.Enabled = False
-			
-		End If
-		
-		For i = 1 To 5
-			
-			'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: MSComctlLib.ButtonMenus ƒƒ\ƒbƒh tlbMenu.Buttons.ButtonMenus.Add ‚É‚ÍV‚µ‚¢“®ì‚ªŠÜ‚Ü‚ê‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call tlbMenu.Items.Item("Open").ButtonMenus.Add(New System.Windows.Forms.ToolStripMenuItem(i,  , "&" & i & ":"))
-			'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			tlbMenu.Items.Item("Open").ButtonMenus.Item(i).Enabled = False
-			'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB tlbMenu.Buttons.ButtonMenus ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ tlbMenu.Buttons().ButtonMenus ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			tlbMenu.Items.Item("Open").ButtonMenus.Item(i).Visible = False
-			
-		Next i
-		
-		For i = 0 To mnuRecentFiles.UBound
-			
-			'mnuRecentFiles(i).Enabled = False
-			mnuRecentFiles(i).Visible = False
-			
-		Next i
-		
-		mnuLineRecent.Visible = False
-		mnuHelpOpen.Enabled = False
-		
-		Me.Text = g_strAppTitle
-		
-		Call LoadConfig()
-		
-		dlgMainOpen.InitialDirectory = g_strAppDir
-		dlgMainSave.InitialDirectory = g_strAppDir
-		'UPGRADE_WARNING: FileOpenConstants ’è” FileOpenConstants.cdlOFNHideReadOnly ‚ÍAV‚µ‚¢“®ì‚ð‚à‚Â OpenFileDialog.ShowReadOnly ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: MSComDlg.CommonDialog ƒvƒƒpƒeƒB dlgMain.Flags ‚ÍAV‚µ‚¢“®ì‚ð‚à‚Â dlgMainOpen.CheckFileExists ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		dlgMainOpen.CheckFileExists = True
-		dlgMainOpen.CheckPathExists = True
-		dlgMainSave.CheckPathExists = True
-		'UPGRADE_WARNING: MSComDlg.CommonDialog ƒvƒƒpƒeƒB dlgMain.Flags ‚ÍAV‚µ‚¢“®ì‚ð‚à‚Â dlgMainOpen.ShowReadOnly ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: FileOpenConstants ’è” FileOpenConstants.cdlOFNHideReadOnly ‚ÍAV‚µ‚¢“®ì‚ð‚à‚Â OpenFileDialog.ShowReadOnly ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		dlgMainOpen.ShowReadOnly = False
-		'UPGRADE_WARNING: MSComDlg.CommonDialog ƒvƒƒpƒeƒB dlgMain.Flags ‚ÍAV‚µ‚¢“®ì‚ð‚à‚Â dlgMainSave.OverwritePrompt ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		dlgMainSave.OverwritePrompt = True
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngMaxY ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_disp.lngMaxY = (vsbMain.Maximum - vsbMain.LargeChange + 1)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.lngMaxX ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_disp.lngMaxX = hsbMain.Minimum
-		
-		hsbMain.SmallChange = OBJ_WIDTH
-		NewLargeChange = OBJ_WIDTH * 4
-		hsbMain.Maximum = hsbMain.Maximum + NewLargeChange - hsbMain.LargeChange
-		hsbMain.LargeChange = NewLargeChange
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.intPlayerType ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		cboPlayer.SelectedIndex = g_BMS.intPlayerType - 1
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.lngPlayLevel ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		cboPlayLevel.Text = g_BMS.lngPlayLevel
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.intPlayRank ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		cboPlayRank.SelectedIndex = g_BMS.intPlayRank
-		
-		'        If strGet_ini("Options", "UseOldFormat", False, "bmse.ini") Then
-		'
-		'            For i = 1 To 255
-		'
-		'                strTemp = right$("0" & Hex$(i), 2)
-		'                Call .lstWAV.AddItem("#WAV" & strTemp & ":", i - 1)
-		'                Call .lstBMP.AddItem("#BMP" & strTemp & ":", i - 1)
-		'                Call .lstBGA.AddItem("#BGA" & strTemp & ":", i - 1)
-		'
-		'            Next i
-		'
-		'            frmWindowPreview.cmdPreviewEnd.Caption = "FF"
-		'
-		'        Else
-		
-		'        For i = 1 To 1295
-		'
-		'            strTemp = modInput.strFromNum(i)
-		'            Call lstWAV.AddItem("#WAV" & strTemp & ":", i - 1)
-		'            Call lstBMP.AddItem("#BMP" & strTemp & ":", i - 1)
-		'            Call lstBGA.AddItem("#BGA" & strTemp & ":", i - 1)
-		'
-		'        Next i
-		Call RefreshList()
-		
-		'        End If
-		
-		For i = 0 To 999
-			
-			Call lstMeasureLen.Items.Insert(i, "#" & VB6.Format(i, "000") & ":4/4")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			g_Measure(i).intLen = 192
-			
-		Next i
-		
-		lstWAV.SelectedIndex = 0
-		lstBMP.SelectedIndex = 0
-		lstBGA.SelectedIndex = 0
-		lstMeasureLen.SelectedIndex = 0
-		
-		'UPGRADE_ISSUE: Frame ƒvƒƒpƒeƒB fraViewer.BorderStyle ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		fraViewer.BorderStyle = 0
-		'UPGRADE_ISSUE: Frame ƒvƒƒpƒeƒB fraGrid.BorderStyle ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		fraGrid.BorderStyle = 0
-		'UPGRADE_ISSUE: Frame ƒvƒƒpƒeƒB fraDispSize.BorderStyle ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		fraDispSize.BorderStyle = 0
-		'UPGRADE_ISSUE: Frame ƒvƒƒpƒeƒB fraResolution.BorderStyle ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		fraResolution.BorderStyle = 0
-		
-		'UPGRADE_ISSUE: Frame ƒvƒƒpƒeƒB fraHeader.BorderStyle ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		fraHeader.BorderStyle = 0
-		'UPGRADE_ISSUE: Frame ƒvƒƒpƒeƒB fraMaterial.BorderStyle ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		fraMaterial.BorderStyle = 0
-		
-		For i = 0 To 2
-			
-			fraTop(i).Top = 0
-			fraTop(i).Left = 0
-			'UPGRADE_ISSUE: Frame ƒvƒƒpƒeƒB fraTop.BorderStyle ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			fraTop(i).BorderStyle = 0
-			
-		Next i
-		
-		fraTop(0).Visible = True
-		optChangeTop(0).Checked = True
-		
-		For i = 0 To 4
-			
-			fraBottom(i).Top = 0
-			fraBottom(i).Left = 0
-			'UPGRADE_ISSUE: Frame ƒvƒƒpƒeƒB fraBottom.BorderStyle ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			fraBottom(i).BorderStyle = 0
-			
-		Next i
-		
-		fraBottom(0).Visible = True
-		optChangeBottom(0).Checked = True
-		
-		For i = 1 To 64
-			
-			Call cboNumerator.Items.Insert(i - 1, CStr(i))
-			
-		Next i
-		
-		cboNumerator.SelectedIndex = 3
-		cboDenominator.SelectedIndex = 0
-		
-		m_blnPreview = True
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(EasterEgg, Tips, 0, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If strGet_ini("EasterEgg", "Tips", 0, "bmse.ini") Then
-			
-			With frmWindowTips
-				
-				.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.Left) + (VB6.PixelsToTwipsX(Me.Width) - VB6.PixelsToTwipsX(.Width)) \ 2)
-				.Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(Me.Top) + (VB6.PixelsToTwipsY(Me.Height) - VB6.PixelsToTwipsY(.Height)) \ 2)
-				
-				Call VB6.ShowForm(frmWindowTips, VB6.FormShowConstants.Modal, Me)
-				
-			End With
-			
-		End If
-		
-		wp.Length = 44
-		Call GetWindowPlacement(Me.Handle.ToInt32, wp)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini() ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		wp.showCmd = strGet_ini("Main", "State", SW_SHOW, "bmse.ini")
-		Call SetWindowPlacement(Me.Handle.ToInt32, wp)
-		
-		Call GetCmdLine()
-		
-	End Sub
-	
-	'UPGRADE_ISSUE: VBRUN.DataObject Œ^ ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	'UPGRADE_ISSUE: Form ƒCƒxƒ“ƒg Form.OLEDragDrop ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub Form_OLEDragDrop(ByRef Data As Object, ByRef Effect As Integer, ByRef Button As Short, ByRef Shift As Short, ByRef X As Single, ByRef Y As Single)
-		
-		Call FormDragDrop(Data)
-		
-	End Sub
-	
-	Private Sub frmMain_FormClosing(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-		Dim Cancel As Boolean = eventArgs.Cancel
-		Dim UnloadMode As System.Windows.Forms.CloseReason = eventArgs.CloseReason
-		Dim modMain As Object
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.intSaveCheck ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If modMain.intSaveCheck() Then
-			
-			Cancel = True
-			
-		Else
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call modMain.CleanUp()
-			
-		End If
-		
-		eventArgs.Cancel = Cancel
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg frmMain.Resize ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Public Sub frmMain_Resize(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Resize
-		On Error Resume Next
-		
-		Dim i As Integer
-		Dim lngTemp As Integer
-		
-		Dim lngLineWidth As Integer
-		Dim lngLineHeight As Integer
-		Dim lngToolBarHeight As Integer
-		Dim lngDirectInputHeight As Integer
-		Dim lngStatusBarHeight As Integer
-		
-		'UPGRADE_NOTE: PADDING ‚Í PADDING_Renamed ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Const PADDING_Renamed As Short = 60 'ŠeƒpƒfƒBƒ“ƒO‚Ì‘å‚«‚³
-		Const SCROLLBAR_SIZE As Short = 255 'ƒXƒNƒ[ƒ‹ƒo[‚Ì‘å‚«‚³
-		Const COLUMN_HEIGHT As Short = 315 'ŠeƒJƒ‰ƒ€‚Ì‚‚³
-		Const FRAME_WIDTH As Short = 3255 'ƒtƒŒ[ƒ€‚Ì•
-		Const FRAME_TOP_HEIGHT As Short = 2190 'ƒwƒbƒ_ƒtƒŒ[ƒ€‚Ì‚‚³
-		Const FRAME_BOTTOM_TOP As Short = 630 'ƒ{ƒgƒ€ƒtƒŒ[ƒ€‚ÌYˆÊ’uBƒ^ƒuƒ{ƒ^ƒ“‚Ì‘å‚«‚³
-		Const FRAME_BOTTOM_BUTTONS_HEIGHT As Short = COLUMN_HEIGHT 'Á‹Ž‚Æ‚©“ü—Í‚Æ‚©‚Ìƒ{ƒ^ƒ“
-		
-		With Me
-			
-			If .WindowState = System.Windows.Forms.FormWindowState.Minimized Then Exit Sub
-			
-			lngLineWidth = 2 * VB6.TwipsPerPixelX
-			lngLineHeight = 2 * VB6.TwipsPerPixelY
-			If mnuViewItem(MENU_VIEW.TOOL_BAR).Checked Then lngToolBarHeight = VB6.PixelsToTwipsY(tlbMenu.Height)
-			If mnuViewItem(MENU_VIEW.DIRECT_INPUT).Checked Then lngDirectInputHeight = COLUMN_HEIGHT + PADDING_Renamed * 2
-			If mnuViewItem(MENU_VIEW.STATUS_BAR).Checked Then lngStatusBarHeight = VB6.PixelsToTwipsY(staMain.Height) + VB6.TwipsPerPixelY * 2
-			
-			staMain.Visible = mnuViewItem(MENU_VIEW.STATUS_BAR).Checked
-			
-			linToolbarBottom(0).X1 = 0
-			linToolbarBottom(0).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width))
-			linToolbarBottom(0).Y1 = VB6.TwipsToPixelsY(lngToolBarHeight)
-			linToolbarBottom(0).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linToolbarBottom(0).Y1))
-			linToolbarBottom(1).X1 = 0
-			linToolbarBottom(1).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width))
-			linToolbarBottom(1).Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linToolbarBottom(0).Y1) + VB6.TwipsPerPixelY)
-			linToolbarBottom(1).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linToolbarBottom(0).Y2) + VB6.TwipsPerPixelY)
-			
-			linVertical(0).X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width) - FRAME_WIDTH - PADDING_Renamed - lngLineWidth)
-			linVertical(0).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linVertical(0).X1))
-			linVertical(1).X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linVertical(0).X1) + VB6.TwipsPerPixelX)
-			linVertical(1).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linVertical(1).X1))
-			
-			linVertical(0).Y1 = VB6.TwipsToPixelsY(lngToolBarHeight)
-			linVertical(0).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight)
-			linVertical(1).Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linVertical(0).Y1))
-			linVertical(1).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linVertical(0).Y2))
-			
-			linHeader(0).X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linVertical(0).X1))
-			linHeader(0).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width))
-			linHeader(0).Y1 = VB6.TwipsToPixelsY(lngToolBarHeight + PADDING_Renamed + FRAME_TOP_HEIGHT + PADDING_Renamed)
-			linHeader(0).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linHeader(0).Y1))
-			linHeader(1).X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linHeader(0).X1))
-			linHeader(1).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linHeader(0).X2))
-			linHeader(1).Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linHeader(0).Y1) + VB6.TwipsPerPixelY)
-			linHeader(1).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linHeader(0).Y2) + VB6.TwipsPerPixelY)
-			
-			linDirectInput(0).X1 = 0
-			linDirectInput(0).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linVertical(0).X1))
-			linDirectInput(0).Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight - PADDING_Renamed - COLUMN_HEIGHT - PADDING_Renamed)
-			linDirectInput(0).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linDirectInput(0).Y1))
-			linDirectInput(1).X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linDirectInput(0).X1))
-			linDirectInput(1).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linDirectInput(0).X2))
-			linDirectInput(1).Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linDirectInput(0).Y1) + VB6.TwipsPerPixelY)
-			linDirectInput(1).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linDirectInput(0).Y2) + VB6.TwipsPerPixelY)
-			
-			linStatusBar(0).X1 = 0
-			linStatusBar(0).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width))
-			linStatusBar(0).Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight)
-			linStatusBar(0).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight)
-			linStatusBar(1).X1 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linStatusBar(0).X1))
-			linStatusBar(1).X2 = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(linStatusBar(0).X2))
-			linStatusBar(1).Y1 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linStatusBar(0).Y1) + VB6.TwipsPerPixelY)
-			linStatusBar(1).Y2 = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(linStatusBar(0).Y2) + VB6.TwipsPerPixelY)
-			
-			linStatusBar(0).Visible = mnuViewItem(MENU_VIEW.STATUS_BAR).Checked
-			linStatusBar(1).Visible = mnuViewItem(MENU_VIEW.STATUS_BAR).Checked
-			
-			tlbMenu.Visible = mnuViewItem(MENU_VIEW.TOOL_BAR).Checked
-			fraViewer.Visible = mnuViewItem(MENU_VIEW.TOOL_BAR).Checked
-			fraGrid.Visible = mnuViewItem(MENU_VIEW.TOOL_BAR).Checked
-			fraDispSize.Visible = mnuViewItem(MENU_VIEW.TOOL_BAR).Checked
-			
-			lngTemp = VB6.PixelsToTwipsX(.ClientRectangle.Width) - FRAME_WIDTH - PADDING_Renamed - lngLineWidth - PADDING_Renamed - SCROLLBAR_SIZE
-			
-			Call vsbMain.SetBounds(VB6.TwipsToPixelsX(lngTemp), VB6.TwipsToPixelsY(lngToolBarHeight + PADDING_Renamed), VB6.TwipsToPixelsX(SCROLLBAR_SIZE), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngToolBarHeight - PADDING_Renamed - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed))
-			
-			Call hsbMain.SetBounds(0, VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed), VB6.TwipsToPixelsX(lngTemp), VB6.TwipsToPixelsY(SCROLLBAR_SIZE))
-			
-			Call picMain.SetBounds(0, VB6.TwipsToPixelsY(lngToolBarHeight + PADDING_Renamed), VB6.TwipsToPixelsX(lngTemp), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngToolBarHeight - PADDING_Renamed - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed))
-			
-			linDirectInput(0).Visible = mnuViewItem(MENU_VIEW.DIRECT_INPUT).Checked
-			linDirectInput(1).Visible = mnuViewItem(MENU_VIEW.DIRECT_INPUT).Checked
-			lblDirectInput.Visible = mnuViewItem(MENU_VIEW.DIRECT_INPUT).Checked
-			cboDirectInput.Visible = mnuViewItem(MENU_VIEW.DIRECT_INPUT).Checked
-			cmdDirectInput.Visible = mnuViewItem(MENU_VIEW.DIRECT_INPUT).Checked
-			
-			Call lblDirectInput.SetBounds(VB6.TwipsToPixelsX(PADDING_Renamed), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight - PADDING_Renamed - (COLUMN_HEIGHT + VB6.PixelsToTwipsY(lblDirectInput.Height)) \ 2), 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
-			
-			Call cmdDirectInput.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(.ClientRectangle.Width) - FRAME_WIDTH - VB6.PixelsToTwipsX(cmdDirectInput.Width) - PADDING_Renamed * 2 - lngLineWidth), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight - PADDING_Renamed - VB6.PixelsToTwipsY(cmdDirectInput.Height)), 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
-			
-			Call cboDirectInput.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(lblDirectInput.Left) + VB6.PixelsToTwipsX(lblDirectInput.Width) + PADDING_Renamed), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.ClientRectangle.Height) - lngStatusBarHeight - PADDING_Renamed - (COLUMN_HEIGHT + VB6.PixelsToTwipsY(cboDirectInput.Height)) \ 2), VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(cmdDirectInput.Left) - VB6.PixelsToTwipsX(lblDirectInput.Width) - PADDING_Renamed * 3), 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
-			
-			With tlbMenu.Items.Item("Viewer")
-				'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Width ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.Width = VB6.PixelsToTwipsX(fraViewer.Width)
-				'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Top ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.left ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				Call fraViewer.SetBounds(VB6.TwipsToPixelsX(.Left + PADDING_Renamed), VB6.TwipsToPixelsY(.Top + PADDING_Renamed), VB6.TwipsToPixelsX(.Width), 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
-				Call fraViewer.BringToFront()
-			End With
-			
-			With tlbMenu.Items.Item("ChangeGrid")
-				lblGridMain.Left = VB6.TwipsToPixelsX(PADDING_Renamed)
-				cboDispGridSub.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(lblGridMain.Left) + VB6.PixelsToTwipsX(lblGridMain.Width) + PADDING_Renamed)
-				lblGridSub.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(cboDispGridSub.Left) + VB6.PixelsToTwipsX(cboDispGridSub.Width) + PADDING_Renamed * 3)
-				cboDispGridMain.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(lblGridSub.Left) + VB6.PixelsToTwipsX(lblGridSub.Width) + PADDING_Renamed)
-				fraGrid.Width = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(cboDispGridMain.Left) + VB6.PixelsToTwipsX(cboDispGridMain.Width) + PADDING_Renamed)
-				'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Width ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.Width = VB6.PixelsToTwipsX(fraGrid.Width)
-				'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Top ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.left ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				Call fraGrid.SetBounds(VB6.TwipsToPixelsX(.Left), VB6.TwipsToPixelsY(.Top + PADDING_Renamed), VB6.TwipsToPixelsX(.Width), 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
-				Call fraGrid.BringToFront()
-			End With
-			
-			With tlbMenu.Items.Item("DispSize")
-				lblDispHeight.Left = VB6.TwipsToPixelsX(PADDING_Renamed)
-				cboDispHeight.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(lblDispHeight.Left) + VB6.PixelsToTwipsX(lblDispHeight.Width) + PADDING_Renamed)
-				lblDispWidth.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(cboDispHeight.Left) + VB6.PixelsToTwipsX(cboDispHeight.Width) + PADDING_Renamed * 3)
-				cboDispWidth.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(lblDispWidth.Left) + VB6.PixelsToTwipsX(lblDispWidth.Width) + PADDING_Renamed)
-				fraDispSize.Width = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(cboDispWidth.Left) + VB6.PixelsToTwipsX(cboDispWidth.Width) + PADDING_Renamed)
-				'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Width ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.Width = VB6.PixelsToTwipsX(fraDispSize.Width)
-				'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Top ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.left ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				Call fraDispSize.SetBounds(VB6.TwipsToPixelsX(.Left), VB6.TwipsToPixelsY(.Top + PADDING_Renamed), VB6.TwipsToPixelsX(.Width), 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
-				Call fraDispSize.BringToFront()
-			End With
-			
-			With tlbMenu.Items.Item("Resolution")
-				lblVScroll.Left = VB6.TwipsToPixelsX(PADDING_Renamed)
-				cboVScroll.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(lblVScroll.Left) + VB6.PixelsToTwipsX(lblVScroll.Width) + PADDING_Renamed)
-				fraResolution.Width = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(cboVScroll.Left) + VB6.PixelsToTwipsX(cboVScroll.Width) + PADDING_Renamed)
-				'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.Top ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_ISSUE: MSComctlLib.Button ƒvƒƒpƒeƒB tlbMenu.Buttons.left ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				Call fraResolution.SetBounds(VB6.TwipsToPixelsX(.Left), VB6.TwipsToPixelsY(.Top + PADDING_Renamed), VB6.TwipsToPixelsX(.Width), 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
-				Call fraResolution.BringToFront()
-			End With
-			
-			Call .picMain.Focus()
-			
-		End With
-		
-		With fraHeader
-			
-			Call fraHeader.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.ClientRectangle.Width) - FRAME_WIDTH), VB6.TwipsToPixelsY(lngToolBarHeight + PADDING_Renamed), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(FRAME_TOP_HEIGHT))
-			
-			For i = 0 To 2
-				
-				fraTop(i).Top = VB6.TwipsToPixelsY(COLUMN_HEIGHT)
-				
-			Next i
-			
-		End With
-		
-		With fraMaterial
-			
-			Call fraMaterial.SetBounds(VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.ClientRectangle.Width) - FRAME_WIDTH), VB6.TwipsToPixelsY(FRAME_TOP_HEIGHT + PADDING_Renamed + lngLineHeight + PADDING_Renamed + lngToolBarHeight + PADDING_Renamed), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(Me.ClientRectangle.Height) - lngToolBarHeight - PADDING_Renamed - VB6.PixelsToTwipsY(fraHeader.Height) - lngLineHeight - PADDING_Renamed - lngStatusBarHeight - PADDING_Renamed))
-			
-			lngTemp = VB6.PixelsToTwipsY(.Height) - FRAME_BOTTOM_TOP
-			
-			For i = 0 To 4
-				
-				Call fraBottom(i).SetBounds(0, VB6.TwipsToPixelsY(FRAME_BOTTOM_TOP), VB6.TwipsToPixelsX(FRAME_WIDTH), VB6.TwipsToPixelsY(lngTemp))
-				
-			Next i
-			
-			lngTemp = VB6.PixelsToTwipsY(.Height) - FRAME_BOTTOM_BUTTONS_HEIGHT - FRAME_BOTTOM_TOP - PADDING_Renamed * 4
-			lstWAV.Height = VB6.TwipsToPixelsY(lngTemp)
-			lstBMP.Height = VB6.TwipsToPixelsY(lngTemp)
-			lstMeasureLen.Height = VB6.TwipsToPixelsY(lngTemp)
-			txtBGAInput.Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.Height) - VB6.PixelsToTwipsY(txtBGAInput.Height) - FRAME_BOTTOM_BUTTONS_HEIGHT - FRAME_BOTTOM_TOP - PADDING_Renamed * 2)
-			lstBGA.Height = VB6.TwipsToPixelsY(lngTemp - VB6.PixelsToTwipsY(txtBGAInput.Height) - PADDING_Renamed)
-			txtExInfo.Height = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(.Height) - FRAME_BOTTOM_TOP - PADDING_Renamed * 3)
-			
-			lngTemp = VB6.PixelsToTwipsY(fraBottom(0).Height) - COLUMN_HEIGHT - PADDING_Renamed
-			cmdSoundStop.Top = VB6.TwipsToPixelsY(lngTemp)
-			cmdSoundExcUp.Top = VB6.TwipsToPixelsY(lngTemp)
-			cmdSoundExcDown.Top = VB6.TwipsToPixelsY(lngTemp)
-			cmdSoundDelete.Top = VB6.TwipsToPixelsY(lngTemp)
-			cmdSoundLoad.Top = VB6.TwipsToPixelsY(lngTemp)
-			cmdBMPPreview.Top = VB6.TwipsToPixelsY(lngTemp)
-			cmdBMPExcUp.Top = VB6.TwipsToPixelsY(lngTemp)
-			cmdBMPExcDown.Top = VB6.TwipsToPixelsY(lngTemp)
-			cmdBMPDelete.Top = VB6.TwipsToPixelsY(lngTemp)
-			cmdBMPLoad.Top = VB6.TwipsToPixelsY(lngTemp)
-			cmdBGAPreview.Top = VB6.TwipsToPixelsY(lngTemp)
-			cmdBGAExcUp.Top = VB6.TwipsToPixelsY(lngTemp)
-			cmdBGAExcDown.Top = VB6.TwipsToPixelsY(lngTemp)
-			cmdBGADelete.Top = VB6.TwipsToPixelsY(lngTemp)
-			cmdBGASet.Top = VB6.TwipsToPixelsY(lngTemp)
-			cmdMeasureSelectAll.Top = VB6.TwipsToPixelsY(lngTemp)
-			cboNumerator.Top = VB6.TwipsToPixelsY(lngTemp)
-			cboDenominator.Top = VB6.TwipsToPixelsY(lngTemp)
-			lblFraction.Top = VB6.TwipsToPixelsY(lngTemp + PADDING_Renamed)
-			cmdInputMeasureLen.Top = VB6.TwipsToPixelsY(lngTemp)
-			
-		End With
-		
-		Call modDraw.InitVerticalLine()
-		
-	End Sub
-	
-	'UPGRADE_NOTE: hsbMain.Change ‚ÍƒCƒxƒ“ƒg‚©‚çƒvƒƒV[ƒWƒƒ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="4E2DC008-5EDA-4547-8317-C9316952674F"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	'UPGRADE_WARNING: HScrollBar ƒCƒxƒ“ƒg hsbMain.Change ‚É‚ÍV‚µ‚¢“®ì‚ªŠÜ‚Ü‚ê‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub hsbMain_Change(ByVal newScrollValue As Integer)
-		
-		With g_disp
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.X = newScrollValue
-			
-		End With
-		
-		Call modDraw.Redraw()
-		
-		'Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, g_Mouse.Shift)
-		'ƒXƒNƒ[ƒ‹•ƒIƒuƒWƒFˆÚ“®ŽÀŒ»‚Ì‚½‚ß
-		
-	End Sub
-	
-	'UPGRADE_NOTE: hsbMain.Scroll ‚ÍƒCƒxƒ“ƒg‚©‚çƒvƒƒV[ƒWƒƒ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="4E2DC008-5EDA-4547-8317-C9316952674F"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub hsbMain_Scroll_Renamed(ByVal newScrollValue As Integer)
-		
-		Call hsbMain_Change(0)
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg lstBGA.SelectedIndexChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub lstBGA_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstBGA.SelectedIndexChanged
-		
-		'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-		
-		'staMain.Panels("BMP").Text = "#BMP " & Right$("0" & Hex$(lstBGA.ListIndex + 1), 2)
-		
-		'Else
-		
-		'staMain.Panels("BMP").Text = "#BMP " & modInput.strFromNum(lstBGA.ListIndex + 1)
-		
-		'End If
-		
-		If optChangeBottom(2).Checked Then lstBMP.SelectedIndex = lstBGA.SelectedIndex
-		
-		staMain.Items.Item("BMP").Text = "#BMP " & strFromLong(lstBGA.SelectedIndex + 1)
-		
-		txtBGAInput.Text = Mid(VB6.GetItemString(lstBGA, lstBGA.SelectedIndex), 8)
-		
-		If frmWindowPreview.Visible Then
-			
-			Call PreviewBGA(lstBGA.SelectedIndex + 1)
-			
-		End If
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg lstBMP.SelectedIndexChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub lstBMP_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstBMP.SelectedIndexChanged
-		
-		'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-		
-		'staMain.Panels("BMP").Text = "#BMP " & Right$("0" & Hex$(lstBMP.ListIndex + 1), 2)
-		
-		'Else
-		
-		'staMain.Panels("BMP").Text = "#BMP " & modInput.strFromNum(lstBMP.ListIndex + 1)
-		
-		'End If
-		
-		If optChangeBottom(1).Checked Then lstBGA.SelectedIndex = lstBMP.SelectedIndex
-		
-		staMain.Items.Item("BMP").Text = "#BMP " & strFromLong(lstBMP.SelectedIndex + 1)
-		
-		If frmWindowPreview.Visible Then
-			
-			Call PreviewBMP(Mid(VB6.GetItemString(lstBMP, lstBMP.SelectedIndex), 8))
-			
-		End If
-		
-	End Sub
-	
-	Private Sub lstBMP_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstBMP.DoubleClick
-		
-		Call cmdBmpLoad_Click(cmdBmpLoad, New System.EventArgs())
-		
-	End Sub
-	
-	Private Sub lstBMP_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles lstBMP.MouseDown
-		Dim Button As Short = eventArgs.Button \ &H100000
-		Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys \ &H10000
-		Dim X As Single = VB6.PixelsToTwipsX(eventArgs.X)
-		Dim Y As Single = VB6.PixelsToTwipsY(eventArgs.Y)
-		
-		If Button = VB6.MouseButtonConstants.RightButton Then
-			
-			'UPGRADE_ISSUE: Form ƒƒ\ƒbƒh frmMain.PopupMenu ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call PopupMenu(mnuContextList)
-			
-		End If
-		
-	End Sub
-	
-	'UPGRADE_ISSUE: VBRUN.DataObject Œ^ ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	'UPGRADE_ISSUE: ListBox ƒCƒxƒ“ƒg lstBMP.OLEDragDrop ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub lstBMP_OLEDragDrop(ByRef Data As Object, ByRef Effect As Integer, ByRef Button As Short, ByRef Shift As Short, ByRef X As Single, ByRef Y As Single)
-		
-		Dim i As Integer
-		Dim j As Integer
-		Dim strTemp As String
-		Dim strArray() As String
-		
-		With lstBMP
-			
-			j = .SelectedIndex
-			.Visible = False
-			
-			'UPGRADE_ISSUE: DataObject ƒvƒƒpƒeƒB Data.Files ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_ISSUE: DataObjectFiles ƒvƒƒpƒeƒB Files.Count ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			For i = 1 To Data.Files.Count
-				
-				'UPGRADE_ISSUE: DataObject ƒvƒƒpƒeƒB Data.Files ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_ISSUE: DataObjectFiles ƒvƒƒpƒeƒB Files.Item ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If Dir(Data.Files.Item(i), FileAttribute.Normal) <> vbNullString Then
-					
-					'UPGRADE_ISSUE: DataObject ƒvƒƒpƒeƒB Data.Files ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_ISSUE: DataObjectFiles ƒvƒƒpƒeƒB Files.Item ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					strTemp = Data.Files.Item(i)
-					
-					'If Right$(UCase$(strTemp), 4) = ".BMP" Or Right$(UCase$(strTemp), 4) = ".JPG" Or Right$(UCase$(strTemp), 4) = ".GIF" Then
-					
-					Do Until Len(VB6.GetItemString(lstBMP, j)) < 8
-						
-						j = j + 1
-						If j >= lstBMP.Items.Count Then Exit For
-						
-					Loop 
-					
-					strArray = Split(strTemp, "\")
-					
-					'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-					
-					'strTemp = Right$("0" & Hex$(j + 1), 2)
-					'.List(j) = "#BMP" & strTemp & ":" & strArray(UBound(strArray))
-					'g_strBMP(strToNum(strTemp)) = strArray(UBound(strArray))
-					
-					'Else
-					
-					'.List(j) = "#BMP" & modInput.strFromNum(j + 1) & ":" & strArray(UBound(strArray))
-					'g_strBMP(j + 1) = strArray(UBound(strArray))
-					
-					'End If
-					
-					VB6.SetItemString(lstBMP, j, "#BMP" & strFromLong(j + 1) & ":" & strArray(UBound(strArray)))
-					g_strBMP(lngFromLong(j + 1)) = strArray(UBound(strArray))
-					
-					j = j + 1
-					
-					If j >= lstBMP.Items.Count Then Exit For
-					
-					'End If
-					
-				End If
-				
-			Next i
-			
-			.Visible = True
-			
-		End With
-		
-		Call Me.Show()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg lstMeasureLen.SelectedIndexChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub lstMeasureLen_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstMeasureLen.SelectedIndexChanged
-		On Error Resume Next
-		
-		Dim strArray() As String
-		
-		strArray = Split(Mid(VB6.GetItemString(lstMeasureLen, lstMeasureLen.SelectedIndex), 6), "/")
-		
-		cboNumerator.SelectedIndex = CDbl(strArray(0)) - 1
-		
-		cboDenominator.SelectedIndex = System.Math.Log(CDbl(strArray(1))) / System.Math.Log(2) - 2
-		
-	End Sub
-	
-	Private Sub lstMeasureLen_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstMeasureLen.DoubleClick
-		
-		Dim i As Integer
-		
-		With lstMeasureLen
-			
-			.Visible = False
-			
-			For i = 0 To 999
-				
-				.SetSelected(i, True)
-				
-			Next i
-			
-			.SelectedIndex = 0
-			.Visible = True
-			
-		End With
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg lstWAV.SelectedIndexChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub lstWAV_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstWAV.SelectedIndexChanged
-		
-		Dim strTemp As String
-		
-		'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-		
-		'strTemp = Right$("0" & Hex$(lstWAV.ListIndex + 1), 2)
-		
-		'Else
-		
-		'strTemp = modInput.strFromNum(lstWAV.ListIndex + 1)
-		
-		'End If
-		
-		strTemp = strFromLong(lstWAV.SelectedIndex + 1)
-		
-		staMain.Items.Item("WAV").Text = "#WAV " & strTemp
-		
-		strTemp = Mid(VB6.GetItemString(lstWAV, lstWAV.SelectedIndex), 8)
-		
-		If strTemp = "" Then Exit Sub
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If Dir(g_BMS.strDir & strTemp) = vbNullString Then Exit Sub
-		
-		Call PreviewWAV(strTemp)
-		
-	End Sub
-	
-	Private Sub lstWAV_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstWAV.DoubleClick
-		
-		Call cmdSoundLoad_Click(cmdSoundLoad, New System.EventArgs())
-		
-	End Sub
-	
-	Private Sub lstWAV_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles lstWAV.MouseDown
-		Dim Button As Short = eventArgs.Button \ &H100000
-		Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys \ &H10000
-		Dim X As Single = VB6.PixelsToTwipsX(eventArgs.X)
-		Dim Y As Single = VB6.PixelsToTwipsY(eventArgs.Y)
-		
-		If Button = VB6.MouseButtonConstants.RightButton Then
-			
-			'UPGRADE_ISSUE: Form ƒƒ\ƒbƒh frmMain.PopupMenu ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call PopupMenu(mnuContextList)
-			
-		End If
-		
-	End Sub
-	
-	'UPGRADE_ISSUE: VBRUN.DataObject Œ^ ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	'UPGRADE_ISSUE: ListBox ƒCƒxƒ“ƒg lstWAV.OLEDragDrop ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub lstWAV_OLEDragDrop(ByRef Data As Object, ByRef Effect As Integer, ByRef Button As Short, ByRef Shift As Short, ByRef X As Single, ByRef Y As Single)
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim i As Integer
-		Dim j As Integer
-		Dim strTemp As String
-		Dim strArray() As String
-		
-		With lstWAV
-			
-			j = .SelectedIndex
-			.Visible = False
-			
-			'UPGRADE_ISSUE: DataObject ƒvƒƒpƒeƒB Data.Files ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_ISSUE: DataObjectFiles ƒvƒƒpƒeƒB Files.Count ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			For i = 1 To Data.Files.Count
-				
-				'UPGRADE_ISSUE: DataObject ƒvƒƒpƒeƒB Data.Files ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_ISSUE: DataObjectFiles ƒvƒƒpƒeƒB Files.Item ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If Dir(Data.Files.Item(i), FileAttribute.Normal) <> vbNullString Then
-					
-					'UPGRADE_ISSUE: DataObject ƒvƒƒpƒeƒB Data.Files ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_ISSUE: DataObjectFiles ƒvƒƒpƒeƒB Files.Item ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					strTemp = Data.Files.Item(i)
-					
-					'If Right$(UCase$(strTemp), 4) = ".WAV" Or Right$(UCase$(strTemp), 4) = ".MP3" Then
-					
-					Do Until Len(VB6.GetItemString(lstWAV, j)) < 8
-						
-						j = j + 1
-						If j >= lstWAV.Items.Count Then Exit For
-						
-					Loop 
-					
-					strArray = Split(strTemp, "\")
-					
-					'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
-					
-					'strTemp = Right$("0" & Hex$(j + 1), 2)
-					'.List(j) = "#WAV" & strTemp & ":" & strArray(UBound(strArray))
-					'g_strWAV(strToNum(strTemp)) = strArray(UBound(strArray))
-					
-					'Else
-					
-					'.List(j) = "#WAV" & modInput.strFromNum(j + 1) & ":" & strArray(UBound(strArray))
-					'g_strWAV(j + 1) = strArray(UBound(strArray))
-					
-					'End If
-					
-					VB6.SetItemString(lstWAV, j, "#WAV" & strFromLong(j + 1) & ":" & strArray(UBound(strArray)))
-					g_strWAV(lngFromLong(j + 1)) = strArray(UBound(strArray))
-					
-					Call SaveChanges()
-					
-					j = j + 1
-					
-					If j >= lstWAV.Items.Count Then Exit For
-					
-					'End If
-					
-				End If
-				
-			Next i
-			
-			.Visible = True
-			
-		End With
-		
-		Call Me.Show()
-		
-		Exit Sub
-		
-Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call modMain.CleanUp(Err.Number, Err.Description, "lstWAV_OLEDragDrop")
-	End Sub
-	
-	Public Sub mnuContextDeleteMeasure_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextDeleteMeasure.Click
-		Dim modMain As Object
-		
-		Dim i As Integer
-		Dim intTemp As Short
-		Dim strArray() As String
-		
-		For i = 0 To 999
-			
-			'If g_Measure(i).lngY >= g_disp.Y + picMain.ScaleHeight - g_Mouse.Y - 6 Then
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(i).lngY ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If g_Measure(i).lngY >= g_disp.Y + (picMain.ClientRectangle.Height - g_Mouse.Y) / g_disp.Height - 1 Then
-				
-				intTemp = i - 1
-				
-				Exit For
-				
-			End If
-			
-		Next i
-		
-		ReDim strArray(0)
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		strArray(0) = modInput.strFromNum(modMain.CMD_LOG.MSR_DEL) & modInput.strFromNum(intTemp) & VB.Right("00" & Hex(g_Measure(intTemp).intLen), 3)
-		
-		For i = 0 To UBound(g_Obj) - 1
-			
-			With g_Obj(i)
-				
-				If .intMeasure = intTemp Then
-					
-					ReDim Preserve strArray(UBound(strArray) + 1)
-					strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue
-					
-					Call modDraw.RemoveObj(i)
-					
-				ElseIf .intMeasure > intTemp Then 
-					
-					.intMeasure = .intMeasure - 1
-					
-				End If
-				
-			End With
-			
-		Next i
-		
-		lstMeasureLen.Visible = False
-		
-		For i = intTemp To 998
-			
-			With g_Measure(i)
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(i).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.intLen = g_Measure(i + 1).intLen
-				VB6.SetItemString(lstMeasureLen, i, VB.Left(VB6.GetItemString(lstMeasureLen, i), 5) & Mid(VB6.GetItemString(lstMeasureLen, i + 1), 6))
-				
-			End With
-			
-		Next i
-		
-		VB6.SetItemString(lstMeasureLen, 999, "#999:4/4")
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Measure(999).intLen = 192
-		
-		Call g_InputLog.AddData(Join(strArray, modLog.getSeparator))
-		
-		lstMeasureLen.Visible = True
-		
-		Call modDraw.ArrangeObj()
-		
-		Call modDraw.InitVerticalLine()
-		
-	End Sub
-	
-	Public Sub mnuContextEditCopy_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextEditCopy.Click
-		
-		Call mnuEditCopy_Click(mnuEditCopy, New System.EventArgs())
-		
-	End Sub
-	
-	Public Sub mnuContextEditCut_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextEditCut.Click
-		
-		Call mnuEditCut_Click(mnuEditCut, New System.EventArgs())
-		
-	End Sub
-	
-	Public Sub mnuContextEditDelete_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextEditDelete.Click
-		
-		Call mnuEditDelete_Click(mnuEditDelete, New System.EventArgs())
-		
-	End Sub
-	
-	Public Sub mnuContextEditPaste_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextEditPaste.Click
-		
-		Call mnuEditPaste_Click(mnuEditPaste, New System.EventArgs())
-		
-	End Sub
-	
-	Public Sub mnuContextInsertMeasure_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextInsertMeasure.Click
-		Dim modMain As Object
-		
-		Dim i As Integer
-		Dim intTemp As Short
-		Dim strArray() As String
-		
-		lstMeasureLen.Visible = False
-		
-		For i = 998 To 0 Step -1
-			
-			With g_Measure(i)
-				
-				'If .lngY < g_disp.Y + picMain.ScaleHeight - g_Mouse.Y - 6 Then
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(i).lngY ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If .lngY < g_disp.Y + (picMain.ClientRectangle.Height - g_Mouse.Y) / g_disp.Height - 1 Then
-					
-					VB6.SetItemString(lstMeasureLen, i, "#" & VB6.Format(i, "000") & ":4/4")
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.intLen = 192
-					intTemp = i
-					
-					Exit For
-					
-				End If
-				
-				VB6.SetItemString(lstMeasureLen, i, VB.Left(VB6.GetItemString(lstMeasureLen, i), 5) & Mid(VB6.GetItemString(lstMeasureLen, i - 1), 6))
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(i).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.intLen = g_Measure(i - 1).intLen
-				
-			End With
-			
-		Next i
-		
-		ReDim strArray(0)
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		strArray(0) = modInput.strFromNum(modMain.CMD_LOG.MSR_ADD) & modInput.strFromNum(intTemp) & VB.Right("00" & Hex(g_Measure(999).intLen), 3)
-		
-		lstMeasureLen.Visible = True
-		
-		For i = 0 To UBound(g_Obj) - 1
-			
-			With g_Obj(i)
-				
-				If .intMeasure = 999 Then
-					
-					ReDim Preserve strArray(UBound(strArray) + 1)
-					strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue
-					
-					Call modDraw.RemoveObj(i)
-					
-				ElseIf .intMeasure >= intTemp Then 
-					
-					.intMeasure = .intMeasure + 1
-					
-				End If
-				
-			End With
-			
-		Next i
-		
-		Call g_InputLog.AddData(Join(strArray, modLog.getSeparator))
-		
-		Call modDraw.ArrangeObj()
-		
-		Call modDraw.InitVerticalLine()
-		
-	End Sub
-	
-	Public Sub mnuContextListDelete_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextListDelete.Click
-		
-		If optChangeBottom(0).Checked Then
-			
-			Call cmdSoundDelete_Click(cmdSoundDelete, New System.EventArgs())
-			
-		ElseIf optChangeBottom(1).Checked Then 
-			
-			Call cmdBmpDelete_Click(cmdBmpDelete, New System.EventArgs())
-			
-		End If
-		
-	End Sub
-	
-	Public Sub mnuContextListLoad_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextListLoad.Click
-		
-		If optChangeBottom(0).Checked Then
-			
-			Call cmdSoundLoad_Click(cmdSoundLoad, New System.EventArgs())
-			
-		ElseIf optChangeBottom(1).Checked Then 
-			
-			Call cmdBmpLoad_Click(cmdBmpLoad, New System.EventArgs())
-			
-		End If
-		
-	End Sub
-	
-	Public Sub mnuContextListRename_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextListRename.Click
-		Dim modMain As Object
-		Dim g_Message As Object
-		
-		Dim strTemp As String
-		
-		If optChangeBottom(0).Checked Then
-			
-			With lstWAV
-				
-				Call mciSendString("close PREVIEW", vbNullString, 0, 0)
-				strTemp = Mid(VB6.GetItemString(lstWAV, .SelectedIndex), 8)
-				
-				If Len(VB6.GetItemString(lstWAV, .SelectedIndex)) > 8 Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If Dir(g_BMS.strDir & strTemp, FileAttribute.Normal) <> vbNullString Then
-						
-						With frmWindowInput
-							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							.lblMainDisp.Text = g_Message(modMain.Message.INPUT_RENAME)
-							.txtMain.Text = strTemp
-							
-							Call VB6.ShowForm(frmWindowInput, VB6.FormShowConstants.Modal, Me)
-							
-						End With
-						
-						If strTemp <> frmWindowInput.txtMain.Text And Len(frmWindowInput.txtMain.Text) <> 0 Then
-							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							If Dir(g_BMS.strDir & frmWindowInput.txtMain.Text, FileAttribute.Normal) = vbNullString Then
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								Rename(g_BMS.strDir & strTemp, g_BMS.strDir & frmWindowInput.txtMain.Text)
-								
-								VB6.SetItemString(lstWAV, .SelectedIndex, VB.Left(VB6.GetItemString(lstWAV, .SelectedIndex), 7) & frmWindowInput.txtMain.Text)
-								g_strWAV(lngFromLong(.SelectedIndex + 1)) = frmWindowInput.txtMain.Text
-								
-							Else
-								
-								Call MsgBox(g_Message(modMain.Message.ERR_FILE_ALREADY_EXIST), MsgBoxStyle.Critical, g_strAppTitle)
-								
-							End If
-							
-						End If
-						
-					Else
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & g_BMS.strDir & strTemp, MsgBoxStyle.Critical, g_strAppTitle)
-						
-					End If
-					
-				End If
-				
-			End With
-			
-		ElseIf optChangeBottom(1).Checked Then 
-			
-			With lstBMP
-				
-				strTemp = Mid(VB6.GetItemString(lstBMP, .SelectedIndex), 8)
-				
-				If Len(VB6.GetItemString(lstBMP, .SelectedIndex)) > 8 Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If Dir(g_BMS.strDir & strTemp, FileAttribute.Normal) <> vbNullString Then
-						
-						With frmWindowInput
-							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							.lblMainDisp.Text = g_Message(modMain.Message.INPUT_RENAME)
-							.txtMain.Text = strTemp
-							
-							Call VB6.ShowForm(frmWindowInput, VB6.FormShowConstants.Modal, Me)
-							
-						End With
-						
-						If strTemp <> frmWindowInput.txtMain.Text And Len(frmWindowInput.txtMain.Text) <> 0 Then
-							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							If Dir(g_BMS.strDir & frmWindowInput.txtMain.Text, FileAttribute.Normal) = vbNullString Then
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								Rename(g_BMS.strDir & strTemp, g_BMS.strDir & frmWindowInput.txtMain.Text)
-								
-								VB6.SetItemString(lstBMP, .SelectedIndex, VB.Left(VB6.GetItemString(lstBMP, .SelectedIndex), 7) & frmWindowInput.txtMain.Text)
-								g_strBMP(lngFromLong(.SelectedIndex + 1)) = frmWindowInput.txtMain.Text
-								
-							Else
-								
-								Call MsgBox(g_Message(modMain.Message.ERR_FILE_ALREADY_EXIST), MsgBoxStyle.Critical, g_strAppTitle)
-								
-							End If
-							
-						End If
-						
-					Else
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & g_BMS.strDir & strTemp, MsgBoxStyle.Critical, g_strAppTitle)
-						
-					End If
-					
-				End If
-				
-			End With
-			
-		End If
-		
-	End Sub
-	
-	Public Sub mnuContextPlay_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextPlay.Click
-		
-		Dim lngTemp As Short
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intStartMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		lngTemp = g_disp.intStartMeasure
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intStartMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.measure ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_disp.intStartMeasure = g_Mouse.measure
-		
-		Call mnuToolsPlay_Click(mnuToolsPlay, New System.EventArgs())
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intStartMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_disp.intStartMeasure = lngTemp
-		
-	End Sub
-	
-	Public Sub mnuContextPlayAll_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextPlayAll.Click
-		
-		Call mnuToolsPlayAll_Click(mnuToolsPlayAll, New System.EventArgs())
-		
-	End Sub
-	
-	Public Sub mnuEditFind_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditFind.Click
-		
-		With frmWindowFind
-			
-			If Not .Visible Then
-				
-				.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.Left) + (VB6.PixelsToTwipsX(Me.Width) - VB6.PixelsToTwipsX(.Width)) \ 2)
-				.Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(Me.Top) + (VB6.PixelsToTwipsY(Me.Height) - VB6.PixelsToTwipsY(.Height)) \ 2)
-				
-			End If
-			
-			Call VB6.ShowForm(frmWindowFind, 0, Me)
-			
-		End With
-		
-	End Sub
-	
-	Public Sub mnuEditRedo_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditRedo.Click
-		Dim modMain As Object
-		
-		Dim i As Integer
-		Dim j As Integer
-		Dim intTemp As Short
-		Dim lngTemp As Integer
-		Dim strTemp As String
-		Dim strArray() As String
-		Dim lngArrayWAV(1295) As Integer
-		Dim lngArrayBMP(1295) As Integer
-		Dim strArrayWAV(1295) As String
-		Dim strArrayBMP(1295) As String
-		Dim strArrayBGA(1295) As String
-		Dim strArrayParamBGA() As String
-		Dim blnRefreshList As Boolean
-		
-		'ƒeƒLƒXƒgƒ{ƒbƒNƒX‚âƒRƒ“ƒ{ƒ{ƒbƒNƒX‚ªƒAƒNƒeƒBƒu‚Ìê‡‚Í
-		'‚»‚Á‚¿‚É Redo ‚ÌƒƒbƒZ[ƒW‚ð‘—M‚µ‚Ä’Eo‚·‚é
-		If TypeOf VB6.GetActiveControl() Is System.Windows.Forms.TextBox Then
-			
-			'UPGRADE_ISSUE: Control hwnd ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call SendMessage(VB6.GetActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
-			
-			Exit Sub
-			
-		ElseIf TypeOf VB6.GetActiveControl() Is System.Windows.Forms.ComboBox Then 
-			
-			'UPGRADE_ISSUE: Control Style ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If VB6.GetActiveControl().Style = 0 Then
-				
-				'UPGRADE_ISSUE: Control hwnd ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				Call SendMessage(VB6.GetActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
-				
-				Exit Sub
-				
-			End If
-			
-		End If
-		
-		If g_InputLog.GetPos = g_InputLog.Max Then Exit Sub
-		
-		Call modDraw.ObjSelectCancel()
-		
-		Call g_InputLog.Forward()
-		
-		strArray = Split(g_InputLog.GetData(), modLog.getSeparator)
-		
-		For i = 0 To UBound(strArray)
-			
-			Select Case modInput.strToNum(VB.Left(strArray(i), 2))
-				
-				Case modMain.CMD_LOG.OBJ_ADD
-					
-					ReDim Preserve g_Obj(UBound(g_Obj) + 1)
-					
-					Call modInput.SwapObj(UBound(g_Obj), UBound(g_Obj) - 1)
-					
-					'                With g_Obj(UBound(g_Obj) - 1)
-					'
-					'                    .lngID = modInput.strToNum(Mid$(strArray(i), 3, 4)) '
-					'                    g_lngObjID(.lngID) = UBound(g_Obj) - 1
-					'                    .intCh = Val("&H" & Mid$(strArray(i), 7, 2)) '
-					'                    .intAtt = Mid$(strArray(i), 9, 1) '
-					'                    .intMeasure = modInput.strToNum(Mid$(strArray(i), 10, 2)) '
-					'                    .lngPosition = modInput.strToNum(Mid$(strArray(i), 12, 3)) '
-					'                    .sngValue = Mid$(strArray(i), 15) '
-					'                    .intSelect = Selected
-					'
-					'                End With
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Obj(UBound() - 1) ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_Obj(UBound(g_Obj) - 1) = modLog.decAdd(strArray(i), UBound(g_Obj) - 1)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_Obj(UBound(g_Obj) - 1).intSelect = modMain.OBJ_SELECT.Selected
-					
-				Case modMain.CMD_LOG.OBJ_DEL
-					
-					'Call modDraw.RemoveObj(g_lngObjID(modInput.strToNum(Mid$(strArray(i), 3, 4)))) '
-					Call modLog.decDel(strArray(i))
-					
-				Case modMain.CMD_LOG.OBJ_MOVE
-					
-					'                With g_Obj(g_lngObjID(modInput.strToNum(Mid$(strArray(i), 3, 4)))) '
-					'
-					'                    .intCh = Val("&H" & Mid$(strArray(i), 14, 2)) '
-					'                    .intMeasure = modInput.strToNum(Mid$(strArray(i), 16, 2)) '
-					'                    .lngPosition = modInput.strToNum(Mid$(strArray(i), 18, 3)) '
-					'                    .intSelect = Selected
-					'
-					'                End With
-					Call modLog.decMove(strArray(i), g_Obj(g_lngObjID(modInput.strToNum(Mid(strArray(i), 3, 4)))))
-					
-				Case modMain.CMD_LOG.OBJ_CHANGE
-					
-					With g_Obj(g_lngObjID(modInput.strToNum(Mid(strArray(i), 3, 4)))) '
-						
-						.sngValue = modInput.strToNum(Mid(strArray(i), 9, 2)) '
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intSelect = modMain.OBJ_SELECT.Selected
-						
-					End With
-					
-				Case modMain.CMD_LOG.MSR_ADD
-					
-					lngTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
-					
-					For j = 999 To lngTemp + 1 Step -1
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(j).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_Measure(j).intLen = g_Measure(j - 1).intLen
-						VB6.SetItemString(lstMeasureLen, j, VB.Left(VB6.GetItemString(lstMeasureLen, j), 5) & Mid(VB6.GetItemString(lstMeasureLen, j - 1), 6))
-						
-					Next j
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_Measure(lngTemp).intLen = 192
-					VB6.SetItemString(lstMeasureLen, lngTemp, VB.Left(VB6.GetItemString(lstMeasureLen, lngTemp), 5) & "4/4")
-					
-					For j = 0 To UBound(g_Obj) - 1
-						
-						With g_Obj(j)
-							
-							If .intMeasure >= lngTemp Then
-								
-								.intMeasure = .intMeasure + 1
-								
-							End If
-							
-						End With
-						
-					Next j
-					
-				Case modMain.CMD_LOG.MSR_DEL
-					
-					lngTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
-					
-					For j = lngTemp + 1 To 998
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(j).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_Measure(j).intLen = g_Measure(j + 1).intLen
-						VB6.SetItemString(lstMeasureLen, j, VB.Left(VB6.GetItemString(lstMeasureLen, j), 5) & Mid(VB6.GetItemString(lstMeasureLen, j + 1), 6))
-						
-					Next j
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_Measure(999).intLen = 192
-					VB6.SetItemString(lstMeasureLen, 999, "#999:4/4")
-					
-					For j = 0 To UBound(g_Obj) - 1
-						
-						With g_Obj(j)
-							
-							If .intMeasure >= lngTemp Then
-								
-								.intMeasure = .intMeasure - 1
-								
-							End If
-							
-						End With
-						
-					Next j
-					
-				Case modMain.CMD_LOG.MSR_CHANGE
-					
-					lngTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(lngTemp).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_Measure(lngTemp).intLen = Val("&H" & Mid(strArray(i), 8, 3)) '
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					intTemp = intGCD(g_Measure(lngTemp).intLen, 192)
-					If intTemp <= 2 Then intTemp = 3
-					If intTemp >= 48 Then intTemp = 48
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(lngTemp).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					VB6.SetItemString(lstMeasureLen, lngTemp, VB.Left(VB6.GetItemString(lstMeasureLen, lngTemp), 5) & (g_Measure(lngTemp).intLen / intTemp) & "/" & (192 \ intTemp))
-					
-				Case modMain.CMD_LOG.WAV_CHANGE
-					
-					intTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
-					lngTemp = modInput.strToNum(Mid(strArray(i), 5, 2)) '
-					
-					strTemp = g_strWAV(intTemp)
-					g_strWAV(intTemp) = g_strWAV(lngTemp)
-					g_strWAV(lngTemp) = strTemp
-					
-					blnRefreshList = True
-					
-					For j = 0 To UBound(g_Obj) - 1
-						
-						With g_Obj(j)
-							
-							If .intCh >= 11 Then
-								
-								If .sngValue = lngTemp Then
-									
-									.sngValue = intTemp
-									
-								ElseIf .sngValue = intTemp Then 
-									
-									.sngValue = lngTemp
-									
-								End If
-								
-							End If
-							
-						End With
-						
-					Next j
-					
-				Case modMain.CMD_LOG.BMP_CHANGE
-					
-					intTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
-					lngTemp = modInput.strToNum(Mid(strArray(i), 5, 2)) '
-					
-					strTemp = g_strBMP(intTemp)
-					g_strBMP(intTemp) = g_strBMP(lngTemp)
-					g_strBMP(lngTemp) = strTemp
-					
-					strTemp = g_strBGA(intTemp)
-					g_strBGA(intTemp) = g_strBGA(lngTemp)
-					g_strBGA(lngTemp) = strTemp
-					
-					For j = 0 To UBound(g_strBGA)
-						
-						If Len(g_strBGA(j)) Then
-							
-							strArrayParamBGA = Split(g_strBGA(j), " ")
-							
-							If UBound(strArrayParamBGA) Then
-								
-								If modInput.strToNum(strArrayParamBGA(0)) = lngTemp Then
-									
-									strArrayParamBGA(0) = modInput.strFromNum(intTemp, 2)
-									
-								ElseIf modInput.strToNum(strArrayParamBGA(0)) = intTemp Then 
-									
-									strArrayParamBGA(0) = modInput.strFromNum(lngTemp, 2)
-									
-								End If
-								
-								g_strBGA(j) = Join(strArrayParamBGA, " ")
-								
-							End If
-							
-						End If
-						
-					Next j
-					
-					blnRefreshList = True
-					
-					For j = 0 To UBound(g_Obj) - 1
-						
-						With g_Obj(j)
-							
-							If .intCh = 4 Or .intCh = 6 Or .intCh = 7 Then
-								
-								If .sngValue = lngTemp Then
-									
-									.sngValue = intTemp
-									
-								ElseIf .sngValue = intTemp Then 
-									
-									.sngValue = lngTemp
-									
-								End If
-								
-							End If
-							
-						End With
-						
-					Next j
-					
-				Case modMain.CMD_LOG.LIST_ALIGN
-					
-					For j = 0 To UBound(lngArrayWAV)
-						
-						lngArrayWAV(j) = j
-						lngArrayBMP(j) = j
-						
-						strArrayWAV(j) = g_strWAV(j)
-						strArrayBMP(j) = g_strBMP(j)
-						strArrayBGA(j) = g_strBGA(j)
-						
-						g_strWAV(j) = ""
-						g_strBMP(j) = ""
-						g_strBGA(j) = ""
-						
-					Next j
-					
-					For j = 3 To Len(strArray(i)) Step 5
-						
-						lngTemp = modInput.strToNum(Mid(strArray(i), j + 1, 2)) '
-						intTemp = modInput.strToNum(Mid(strArray(i), j + 3, 2)) '
-						
-						Select Case Mid(strArray(i), j, 1)
-							
-							Case CStr(1) 'WAV
-								
-								g_strWAV(intTemp) = strArrayWAV(lngTemp)
-								lngArrayWAV(lngTemp) = intTemp
-								
-							Case CStr(2) 'BMP
-								
-								g_strBMP(intTemp) = strArrayBMP(lngTemp)
-								g_strBGA(intTemp) = strArrayBGA(lngTemp)
-								lngArrayBMP(lngTemp) = intTemp
-								
-						End Select
-						
-					Next j
-					
-					For j = 0 To UBound(g_strBGA)
-						
-						If Len(g_strBGA(j)) Then
-							
-							strArrayParamBGA = Split(g_strBGA(j), " ")
-							
-							If UBound(strArrayParamBGA) Then
-								
-								strArrayParamBGA(0) = modInput.strFromNum(lngArrayBMP(modInput.strToNum(strArrayParamBGA(0))), 2)
-								g_strBGA(j) = Join(strArrayParamBGA, " ")
-								
-							End If
-							
-						End If
-						
-					Next j
-					
-					blnRefreshList = True
-					
-					For j = 0 To UBound(g_Obj) - 1
-						
-						With g_Obj(j)
-							
-							Select Case .intCh
-								
-								Case Is >= 11
-									
-									.sngValue = lngArrayWAV(.sngValue)
-									
-								Case 4, 6, 7
-									
-									.sngValue = lngArrayBMP(.sngValue)
-									
-							End Select
-							
-						End With
-						
-					Next j
-					
-				Case modMain.CMD_LOG.LIST_DEL
-					
-					Select Case Mid(strArray(i), 3, 1)
-						
-						Case CStr(1) '#WAV
-							
-							g_strWAV(modInput.strToNum(Mid(strArray(i), 4, 2))) = ""
-							
-						Case CStr(2) '#BMP
-							
-							g_strBMP(modInput.strToNum(Mid(strArray(i), 4, 2))) = ""
-							
-						Case CStr(3) '#BGA
-							
-							g_strBGA(modInput.strToNum(Mid(strArray(i), 4, 2))) = ""
-							
-					End Select
-					
-					blnRefreshList = True
-					
-			End Select
-			
-		Next i
-		
-		If blnRefreshList Then Call RefreshList()
-		
-		Call modDraw.ArrangeObj()
-		
-		Call SaveChanges()
-		
-		Call modDraw.InitVerticalLine()
-		
-	End Sub
-	
-	Public Sub mnuEditUndo_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditUndo.Click
-		Dim modMain As Object
-		
-		Dim i As Integer
-		Dim j As Integer
-		Dim intTemp As Short
-		Dim lngTemp As Integer
-		Dim strTemp As String
-		Dim strArray() As String
-		Dim lngArrayWAV(1295) As Integer
-		Dim lngArrayBMP(1295) As Integer
-		Dim strArrayWAV(1295) As String
-		Dim strArrayBMP(1295) As String
-		Dim strArrayBGA(1295) As String
-		Dim strArrayParamBGA() As String
-		Dim blnRefreshList As Boolean
-		
-		'ƒeƒLƒXƒgƒ{ƒbƒNƒX‚âƒRƒ“ƒ{ƒ{ƒbƒNƒX‚ªƒAƒNƒeƒBƒu‚Ìê‡‚Í
-		'‚»‚Á‚¿‚É Undo ‚ÌƒƒbƒZ[ƒW‚ð‘—M‚µ‚Ä’Eo‚·‚é
-		If TypeOf VB6.GetActiveControl() Is System.Windows.Forms.TextBox Then
-			
-			'UPGRADE_ISSUE: Control hwnd ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call SendMessage(VB6.GetActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
-			
-			Exit Sub
-			
-		ElseIf TypeOf VB6.GetActiveControl() Is System.Windows.Forms.ComboBox Then 
-			
-			'UPGRADE_ISSUE: Control Style ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If VB6.GetActiveControl().Style = 0 Then
-				
-				'UPGRADE_ISSUE: Control hwnd ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				Call SendMessage(VB6.GetActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
-				
-				Exit Sub
-				
-			End If
-			
-		End If
-		
-		If g_InputLog.GetPos = 0 Then Exit Sub
-		
-		Call modDraw.ObjSelectCancel()
-		
-		strArray = Split(g_InputLog.GetData(), modLog.getSeparator)
-		
-		Call g_InputLog.Back()
-		
-		For i = 0 To UBound(strArray)
-			
-			Select Case modInput.strToNum(VB.Left(strArray(i), 2))
-				
-				Case modMain.CMD_LOG.OBJ_ADD
-					
-					Call modDraw.RemoveObj(g_lngObjID(modInput.strToNum(Mid(strArray(i), 3, 4)))) '
-					
-				Case modMain.CMD_LOG.OBJ_DEL
-					
-					ReDim Preserve g_Obj(UBound(g_Obj) + 1)
-					
-					Call modInput.SwapObj(UBound(g_Obj), UBound(g_Obj) - 1)
-					
-					With g_Obj(UBound(g_Obj) - 1)
-						
-						.lngID = modInput.strToNum(Mid(strArray(i), 3, 4)) '
-						g_lngObjID(.lngID) = UBound(g_Obj) - 1
-						.intCh = Val("&H" & Mid(strArray(i), 7, 2)) '
-						.intAtt = CShort(Mid(strArray(i), 9, 1)) '
-						.intMeasure = modInput.strToNum(Mid(strArray(i), 10, 2)) '
-						.lngPosition = modInput.strToNum(Mid(strArray(i), 12, 3)) '
-						.sngValue = CSng(Mid(strArray(i), 15)) '
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intSelect = modMain.OBJ_SELECT.Selected
-						
-					End With
-					
-				Case modMain.CMD_LOG.OBJ_MOVE
-					
-					With g_Obj(g_lngObjID(modInput.strToNum(Mid(strArray(i), 3, 4)))) '
-						
-						.intCh = Val("&H" & Mid(strArray(i), 7, 2)) '
-						.intMeasure = modInput.strToNum(Mid(strArray(i), 9, 2)) '
-						.lngPosition = modInput.strToNum(Mid(strArray(i), 11, 3)) '
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intSelect = modMain.OBJ_SELECT.Selected
-						
-					End With
-					
-				Case modMain.CMD_LOG.OBJ_CHANGE
-					
-					With g_Obj(g_lngObjID(modInput.strToNum(Mid(strArray(i), 3, 4)))) '
-						
-						.sngValue = modInput.strToNum(Mid(strArray(i), 7, 2)) '
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.intSelect = modMain.OBJ_SELECT.Selected
-						
-					End With
-					
-				Case modMain.CMD_LOG.MSR_ADD
-					
-					lngTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
-					
-					For j = lngTemp To 998
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(j).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_Measure(j).intLen = g_Measure(j + 1).intLen
-						VB6.SetItemString(lstMeasureLen, j, VB.Left(VB6.GetItemString(lstMeasureLen, j), 5) & Mid(VB6.GetItemString(lstMeasureLen, j + 1), 6))
-						
-					Next j
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(999).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_Measure(999).intLen = Val("&H" & Mid(strArray(i), 5, 3)) '
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					intTemp = intGCD(g_Measure(999).intLen, 192)
-					If intTemp <= 2 Then intTemp = 3
-					If intTemp >= 48 Then intTemp = 48
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					VB6.SetItemString(lstMeasureLen, 999, "#999:" & (g_Measure(999).intLen / intTemp) & "/" & (192 \ intTemp))
-					
-					For j = 0 To UBound(g_Obj) - 1
-						
-						With g_Obj(j)
-							
-							If .intMeasure > lngTemp Then
-								
-								.intMeasure = .intMeasure - 1
-								
-							End If
-							
-						End With
-						
-					Next j
-					
-				Case modMain.CMD_LOG.MSR_DEL
-					
-					lngTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
-					
-					For j = 999 To lngTemp + 1 Step -1
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(j).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_Measure(j).intLen = g_Measure(j - 1).intLen
-						VB6.SetItemString(lstMeasureLen, j, VB.Left(VB6.GetItemString(lstMeasureLen, j), 5) & Mid(VB6.GetItemString(lstMeasureLen, j - 1), 6))
-						
-					Next j
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(lngTemp).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_Measure(lngTemp).intLen = Val("&H" & Mid(strArray(i), 5, 3)) '
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					intTemp = intGCD(g_Measure(lngTemp).intLen, 192)
-					If intTemp <= 2 Then intTemp = 3
-					If intTemp >= 48 Then intTemp = 48
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(lngTemp).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					VB6.SetItemString(lstMeasureLen, lngTemp, VB.Left(VB6.GetItemString(lstMeasureLen, lngTemp), 5) & (g_Measure(lngTemp).intLen / intTemp) & "/" & (192 \ intTemp))
-					
-					For j = 0 To UBound(g_Obj) - 1
-						
-						With g_Obj(j)
-							
-							If .intMeasure >= lngTemp Then
-								
-								.intMeasure = .intMeasure + 1
-								
-							End If
-							
-						End With
-						
-					Next j
-					
-				Case modMain.CMD_LOG.MSR_CHANGE
-					
-					lngTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(lngTemp).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_Measure(lngTemp).intLen = Val("&H" & Mid(strArray(i), 5, 3)) '
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					intTemp = intGCD(g_Measure(lngTemp).intLen, 192)
-					If intTemp <= 2 Then intTemp = 3
-					If intTemp >= 48 Then intTemp = 48
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(lngTemp).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					VB6.SetItemString(lstMeasureLen, lngTemp, VB.Left(VB6.GetItemString(lstMeasureLen, lngTemp), 5) & (g_Measure(lngTemp).intLen / intTemp) & "/" & (192 \ intTemp))
-					
-				Case modMain.CMD_LOG.WAV_CHANGE
-					
-					intTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
-					lngTemp = modInput.strToNum(Mid(strArray(i), 5, 2)) '
-					
-					strTemp = g_strWAV(intTemp)
-					g_strWAV(intTemp) = g_strWAV(lngTemp)
-					g_strWAV(lngTemp) = strTemp
-					
-					blnRefreshList = True
-					
-					For j = 0 To UBound(g_Obj) - 1
-						
-						With g_Obj(j)
-							
-							If .intCh >= 11 Then
-								
-								If .sngValue = lngTemp Then
-									
-									.sngValue = intTemp
-									
-								ElseIf .sngValue = intTemp Then 
-									
-									.sngValue = lngTemp
-									
-								End If
-								
-							End If
-							
-						End With
-						
-					Next j
-					
-				Case modMain.CMD_LOG.BMP_CHANGE
-					
-					intTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
-					lngTemp = modInput.strToNum(Mid(strArray(i), 5, 2)) '
-					
-					strTemp = g_strBMP(intTemp)
-					g_strBMP(intTemp) = g_strBMP(lngTemp)
-					g_strBMP(lngTemp) = strTemp
-					
-					strTemp = g_strBGA(intTemp)
-					g_strBGA(intTemp) = g_strBGA(lngTemp)
-					g_strBGA(lngTemp) = strTemp
-					
-					
-					For j = 0 To UBound(g_strBGA)
-						
-						If Len(g_strBGA(j)) Then
-							
-							strArrayParamBGA = Split(g_strBGA(j), " ")
-							
-							If UBound(strArrayParamBGA) Then
-								
-								If modInput.strToNum(strArrayParamBGA(0)) = lngTemp Then
-									
-									strArrayParamBGA(0) = modInput.strFromNum(intTemp, 2)
-									
-								ElseIf modInput.strToNum(strArrayParamBGA(0)) = intTemp Then 
-									
-									strArrayParamBGA(0) = modInput.strFromNum(lngTemp, 2)
-									
-								End If
-								
-								g_strBGA(j) = Join(strArrayParamBGA, " ")
-								
-							End If
-							
-						End If
-						
-					Next j
-					
-					blnRefreshList = True
-					
-					For j = 0 To UBound(g_Obj) - 1
-						
-						With g_Obj(j)
-							
-							If .intCh = 4 Or .intCh = 6 Or .intCh = 7 Then
-								
-								If .sngValue = lngTemp Then
-									
-									.sngValue = intTemp
-									
-								ElseIf .sngValue = intTemp Then 
-									
-									.sngValue = lngTemp
-									
-								End If
-								
-							End If
-							
-						End With
-						
-					Next j
-					
-				Case modMain.CMD_LOG.LIST_ALIGN
-					
-					For j = 0 To UBound(lngArrayWAV)
-						
-						lngArrayWAV(j) = j
-						lngArrayBMP(j) = j
-						
-						strArrayWAV(j) = g_strWAV(j)
-						strArrayBMP(j) = g_strBMP(j)
-						strArrayBGA(j) = g_strBGA(j)
-						
-						g_strWAV(j) = ""
-						g_strBMP(j) = ""
-						g_strBGA(j) = ""
-						
-					Next j
-					
-					For j = 3 To Len(strArray(i)) Step 5
-						
-						intTemp = modInput.strToNum(Mid(strArray(i), j + 1, 2)) 'ŒÃ‚¢’l
-						lngTemp = modInput.strToNum(Mid(strArray(i), j + 3, 2)) 'V‚µ‚¢’l
-						
-						Select Case Mid(strArray(i), j, 1)
-							
-							Case CStr(1) 'WAV
-								
-								g_strWAV(intTemp) = strArrayWAV(lngTemp)
-								lngArrayWAV(lngTemp) = intTemp
-								
-							Case CStr(2) 'BMP
-								
-								g_strBMP(intTemp) = strArrayBMP(lngTemp)
-								g_strBGA(intTemp) = strArrayBGA(lngTemp)
-								lngArrayBMP(lngTemp) = intTemp
-								
-						End Select
-						
-					Next j
-					
-					For j = 0 To UBound(g_strBGA)
-						
-						If Len(g_strBGA(j)) Then
-							
-							strArrayParamBGA = Split(g_strBGA(j), " ")
-							
-							If UBound(strArrayParamBGA) Then
-								
-								strArrayParamBGA(0) = modInput.strFromNum(lngArrayBMP(modInput.strToNum(strArrayParamBGA(0))), 2)
-								g_strBGA(j) = Join(strArrayParamBGA, " ")
-								
-							End If
-							
-						End If
-						
-					Next j
-					
-					blnRefreshList = True
-					
-					For j = 0 To UBound(g_Obj) - 1
-						
-						With g_Obj(j)
-							
-							Select Case .intCh
-								
-								Case Is >= 11
-									
-									.sngValue = lngArrayWAV(.sngValue)
-									
-								Case 4, 6, 7
-									
-									.sngValue = lngArrayBMP(.sngValue)
-									
-							End Select
-							
-						End With
-						
-					Next j
-					
-				Case modMain.CMD_LOG.LIST_DEL
-					
-					Select Case Mid(strArray(i), 3, 1)
-						
-						Case CStr(1) '#WAV
-							
-							g_strWAV(modInput.strToNum(Mid(strArray(i), 4, 2))) = Mid(strArray(i), 6)
-							
-						Case CStr(2) '#BMP
-							
-							g_strBMP(modInput.strToNum(Mid(strArray(i), 4, 2))) = Mid(strArray(i), 6)
-							
-						Case CStr(3) '#BGA
-							
-							g_strBGA(modInput.strToNum(Mid(strArray(i), 4, 2))) = Mid(strArray(i), 6)
-							
-					End Select
-					
-					blnRefreshList = True
-					
-			End Select
-			
-		Next i
-		
-		If blnRefreshList Then Call RefreshList()
-		
-		Call modDraw.ArrangeObj()
-		
-		Call SaveChanges()
-		
-		Call modDraw.InitVerticalLine()
-		
-	End Sub
-	
-	Public Sub mnuFileConvertWizard_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileConvertWizard.Click
-		
-		With frmWindowConvert
-			
-			.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.Left) + (VB6.PixelsToTwipsX(Me.Width) - VB6.PixelsToTwipsX(.Width)) \ 2)
-			.Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(Me.Top) + (VB6.PixelsToTwipsY(Me.Height) - VB6.PixelsToTwipsY(.Height)) \ 2)
-			
-		End With
-		
-		Call VB6.ShowForm(frmWindowConvert, VB6.FormShowConstants.Modal, Me)
-		
-	End Sub
-	
-	Public Sub mnuFileOpenDirectory_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileOpenDirectory.Click
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If Len(g_BMS.strDir) Then
-			
-			'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If Len(g_strFiler) <> 0 And Dir(g_strFiler) <> vbNullString Then 'Žw’è‚µ‚½ƒtƒ@ƒCƒ‰‚ðŽg—p
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				Call ShellExecute(Me.Handle.ToInt32, "open", Chr(34) & g_strFiler & Chr(34), Chr(34) & g_BMS.strDir & Chr(34), "", SW_SHOWNORMAL)
-				
-			Else 'Explorer ‚ÅŠJ‚­
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				Call ShellExecute(Me.Handle.ToInt32, "Explore", Chr(34) & g_BMS.strDir & Chr(34), "", "", SW_SHOWNORMAL)
-				
-			End If
-			
-		End If
-		
-	End Sub
-	
-	Public Sub mnuHelpAbout_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuHelpAbout.Click
-		
-		With frmWindowAbout
-			
-			.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(Me.Left) + VB6.PixelsToTwipsX(Me.Width) \ 2) - VB6.PixelsToTwipsX(.Width) \ 2)
-			.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(Me.Top) + VB6.PixelsToTwipsY(Me.Height) \ 2) - VB6.PixelsToTwipsY(.Height) \ 2)
-			
-			Call .Show()
-			
-		End With
-		
-	End Sub
-	
-	Public Sub mnuHelpOpen_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuHelpOpen.Click
-		
-		Call ShellExecute(0, vbNullString, g_strAppDir & g_strHelpFilename, vbNullString, vbNullString, SW_SHOWNORMAL)
-		
-	End Sub
-	
-	Public Sub mnuOptionsItem_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuOptionsItem.Click
-		Dim Index As Short = mnuOptionsItem.GetIndex(eventSender)
-		
-		mnuOptionsItem(Index).Checked = Not mnuOptionsItem(Index).Checked
-		
-		Select Case Index
-			
-			Case MENU_OPTIONS.USE_OLD_FORMAT
-				
-				m_blnPreview = False
-				lstWAV.SelectedIndex = 0
-				lstBMP.SelectedIndex = 0
-				lstBGA.SelectedIndex = 0
-				m_blnPreview = True
-				
-				Call RefreshList()
-				Call modDraw.Redraw()
-				
-			Case MENU_OPTIONS.OBJ_FILENAME, MENU_OPTIONS.VERTICAL_INFO, MENU_OPTIONS.LANE_BGCOLOR
-				
-				Call modDraw.Redraw()
-				
-			Case MENU_OPTIONS.TITLE_FILENAME
-				
-				Me.Text = g_strAppTitle
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If Len(g_BMS.strDir) Then
-					
-					If mnuOptionsItem(MENU_OPTIONS.TITLE_FILENAME).Checked Then
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						Me.Text = Me.Text & " - " & g_BMS.strFileName
-						
-					Else
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						Me.Text = Me.Text & " - " & g_BMS.strDir & g_BMS.strFileName
-						
-					End If
-					
-				End If
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If Not g_BMS.blnSaveFlag Then Me.Text = Me.Text & " *"
-				
-		End Select
-		
-	End Sub
-	
-	Public Sub mnuTheme_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuTheme.Click
-		Dim Index As Short = mnuTheme.GetIndex(eventSender)
-		Dim modMain As Object
-		
-		Dim i As Integer
-		
-		For i = 1 To mnuTheme.UBound
-			
-			mnuTheme(i).Checked = False
-			
-		Next i
-		
-		With mnuTheme(Index)
-			
-			.Checked = True
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.LoadThemeFile ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call modMain.LoadThemeFile("theme\" & g_strThemeFileName(Index))
-			
-		End With
-		
-		Call Redraw()
-		
-	End Sub
-	
-	Public Sub mnuToolsSetting_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuToolsSetting.Click
-		
-		With frmWindowViewer
-			
-			.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(Me.Left) + (VB6.PixelsToTwipsX(Me.Width) - VB6.PixelsToTwipsX(.Width)) \ 2)
-			.Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(Me.Top) + (VB6.PixelsToTwipsY(Me.Height) - VB6.PixelsToTwipsY(.Height)) \ 2)
-			
-			Call VB6.ShowForm(frmWindowViewer, VB6.FormShowConstants.Modal, Me)
-			
-		End With
-		
-	End Sub
-	
-	Public Sub mnuViewItem_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuViewItem.Click
-		Dim Index As Short = mnuViewItem.GetIndex(eventSender)
-		
-		mnuViewItem(Index).Checked = Not mnuViewItem(Index).Checked
-		Call frmMain_Resize(Me, New System.EventArgs())
-		
-	End Sub
-	
-	Public Sub mnuEditCopy_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditCopy.Click
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim i As Integer
-		Dim intTemp As Short
-		
-		If TypeOf VB6.GetActiveControl() Is System.Windows.Forms.TextBox Then
-			
-			Call My.Computer.Clipboard.Clear()
-			'UPGRADE_ISSUE: Control SelText ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call My.Computer.Clipboard.SetText(VB6.GetActiveControl().SelText)
-			
-			Exit Sub
-			
-		ElseIf TypeOf VB6.GetActiveControl() Is System.Windows.Forms.ComboBox Then 
-			
-			'UPGRADE_ISSUE: Control Style ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If VB6.GetActiveControl().Style = 0 Then
-				
-				Call My.Computer.Clipboard.Clear()
-				'UPGRADE_ISSUE: Control SelText ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				Call My.Computer.Clipboard.SetText(VB6.GetActiveControl().SelText)
-				
-				Exit Sub
-				
-			End If
-			
-		End If
-		
-		For i = 0 To UBound(g_Obj) - 1
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If g_Obj(i).intSelect = modMain.OBJ_SELECT.Selected Then
-				
-				intTemp = 1
-				
-				Exit For
-				
-			End If
-			
-		Next i
-		
-		If intTemp = 0 Then Exit Sub
-		
-		Call CopyToClipboard()
-		
-		For i = 0 To UBound(g_Obj) - 1
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If g_Obj(i).intSelect <> modMain.OBJ_SELECT.NON_SELECT Then g_Obj(i).intSelect = modMain.OBJ_SELECT.NON_SELECT
-			
-		Next i
-		
-		Call modDraw.Redraw()
-		
-		Exit Sub
-		
-Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call modMain.CleanUp(Err.Number, Err.Description, "mnuEditCopy_Click")
-	End Sub
-	
-	Public Sub mnuEditCut_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditCut.Click
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim i As Integer
-		Dim intTemp As Short
-		
-		If TypeOf VB6.GetActiveControl() Is System.Windows.Forms.TextBox Then
-			
-			Call My.Computer.Clipboard.Clear()
-			'UPGRADE_ISSUE: Control SelText ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call My.Computer.Clipboard.SetText(VB6.GetActiveControl().SelText)
-			'UPGRADE_ISSUE: Control SelText ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.GetActiveControl().SelText = ""
-			
-			Exit Sub
-			
-		ElseIf TypeOf VB6.GetActiveControl() Is System.Windows.Forms.ComboBox Then 
-			
-			'UPGRADE_ISSUE: Control Style ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If VB6.GetActiveControl().Style = 0 Then
-				
-				Call My.Computer.Clipboard.Clear()
-				'UPGRADE_ISSUE: Control SelText ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				Call My.Computer.Clipboard.SetText(VB6.GetActiveControl().SelText)
-				'UPGRADE_ISSUE: Control SelText ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				VB6.GetActiveControl().SelText = ""
-				
-				Exit Sub
-				
-			End If
-			
-		End If
-		
-		For i = 0 To UBound(g_Obj) - 1
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If g_Obj(i).intSelect = modMain.OBJ_SELECT.Selected Then
-				
-				intTemp = 1
-				
-				Exit For
-				
-			End If
-			
-		Next i
-		
-		If intTemp = 0 Then Exit Sub
-		
-		Call CopyToClipboard()
-		
-		Call mnuEditDelete_Click(mnuEditDelete, New System.EventArgs())
-		
-		Exit Sub
-		
-Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call modMain.CleanUp(Err.Number, Err.Description, "mnuEditCut_Click")
-	End Sub
-	
-	Public Sub mnuEditDelete_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditDelete.Click
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim i As Integer
-		Dim lngTemp As Integer
-		Dim strArray() As String
-		
-		If TypeOf VB6.GetActiveControl() Is System.Windows.Forms.TextBox Then
-			
-			'UPGRADE_ISSUE: Control SelText ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If Len(VB6.GetActiveControl().SelText) = 0 Then
-				
-				'UPGRADE_ISSUE: Control SelLength ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				VB6.GetActiveControl().SelLength = 1
-				
-			End If
-			
-			'UPGRADE_ISSUE: Control SelText ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.GetActiveControl().SelText = ""
-			
-			Exit Sub
-			
-		ElseIf TypeOf VB6.GetActiveControl() Is System.Windows.Forms.ComboBox Then 
-			
-			'UPGRADE_ISSUE: Control Style ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If VB6.GetActiveControl().Style = 0 Then
-				
-				'UPGRADE_ISSUE: Control SelText ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If Len(VB6.GetActiveControl().SelText) = 0 Then
-					
-					'UPGRADE_ISSUE: Control SelLength ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					VB6.GetActiveControl().SelLength = 1
-					
-				End If
-				
-				'UPGRADE_ISSUE: Control SelText ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				VB6.GetActiveControl().SelText = ""
-				
-				Exit Sub
-				
-			End If
-			
-		End If
-		
-		For i = 0 To UBound(g_Obj) - 1
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If g_Obj(i).intSelect <> modMain.OBJ_SELECT.NON_SELECT Then
-				
-				lngTemp = lngTemp + 1
-				
-			End If
-			
-		Next i
-		
-		If lngTemp = 0 Then Exit Sub
-		
-		'g_strInputLog(g_lngInputLogPos) = ""
-		ReDim strArray(lngTemp - 1)
-		lngTemp = 0
-		
-		For i = 0 To UBound(g_Obj) - 1
-			
-			With g_Obj(i)
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If .intSelect <> modMain.OBJ_SELECT.NON_SELECT Then
-					
-					strArray(lngTemp) = modInput.strFromNum(modMain.CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue
-					lngTemp = lngTemp + 1
-					
-					Call modDraw.RemoveObj(i)
-					
-				End If
-				
-			End With
-			
-		Next i
-		
-		Call g_InputLog.AddData(Join(strArray, modLog.getSeparator))
-		
-		Call modDraw.ArrangeObj()
-		
-		Call modDraw.Redraw()
-		
-		Exit Sub
-		
-Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call modMain.CleanUp(Err.Number, Err.Description, "mnuEditDelete_Click")
-	End Sub
-	
-	Public Sub mnuEditMode_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditMode.Click
-		Dim Index As Short = mnuEditMode.GetIndex(eventSender)
-		
-		CType(tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = False
-		CType(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = False
-		CType(tlbMenu.Items.Item("Delete"), ToolStripButton).Checked = False
-		'UPGRADE_WARNING: ƒRƒŒƒNƒVƒ‡ƒ“ tlbMenu.Buttons ‚Ì‰ºŒÀ‚ª 1 ‚©‚ç 0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A3B628A0-A810-4AE2-BFA2-9E7A29EB9AD0"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		CType(tlbMenu.Items.Item(Index + 7), ToolStripButton).Checked = True
-		
-		Select Case Index
-			
-			Case 0 : staMain.Items.Item("Mode").Text = g_strStatusBar(20)
-				
-			Case 1 : staMain.Items.Item("Mode").Text = g_strStatusBar(21)
-				
-			Case 2 : staMain.Items.Item("Mode").Text = g_strStatusBar(22)
-				
-		End Select
-		
-	End Sub
-	
-	Public Sub mnuEditPaste_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditPaste.Click
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim i As Integer
-		Dim j As Integer
-		Dim lngArg As Integer
-		Dim strArray() As String
-		
-		If TypeOf VB6.GetActiveControl() Is System.Windows.Forms.TextBox Then
-			
-			'UPGRADE_ISSUE: Control SelText ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_ISSUE: Clipboard ƒƒ\ƒbƒh Clipboard.GetText ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.GetActiveControl().SelText = My.Computer.Clipboard.GetText()
-			
-			Exit Sub
-			
-		ElseIf TypeOf VB6.GetActiveControl() Is System.Windows.Forms.ComboBox Then 
-			
-			'UPGRADE_ISSUE: Control Style ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If VB6.GetActiveControl().Style = 0 Then
-				
-				'UPGRADE_ISSUE: Control SelText ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_ISSUE: Clipboard ƒƒ\ƒbƒh Clipboard.GetText ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				VB6.GetActiveControl().SelText = My.Computer.Clipboard.GetText()
-				
-				Exit Sub
-				
-			End If
-			
-		End If
-		
-		Call modDraw.ObjSelectCancel()
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intStartMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		For i = g_disp.intStartMeasure To 999
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(i).lngY ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If g_disp.Y <= g_Measure(i).lngY Then
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intStartMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				g_disp.intStartMeasure = i
-				
-				Exit For
-				
-			End If
-			
-		Next i
-		
-		strArray = Split(My.Computer.Clipboard.GetText, vbCrLf)
-		
-		If UBound(strArray) < 2 Then Exit Sub
-		
-		If strArray(0) <> "BMSE ClipBoard Object Data Format" Then Exit Sub
-		
-		For i = 1 To UBound(strArray) - 1
-			
-			With g_Obj(UBound(g_Obj))
-				
-				.lngID = g_lngIDNum
-				g_lngObjID(g_lngIDNum) = UBound(g_Obj)
-				g_lngIDNum = g_lngIDNum + 1
-				ReDim Preserve g_lngObjID(g_lngIDNum)
-				.intCh = CShort(VB.Left(strArray(i), 3))
-				.intAtt = CShort(Mid(strArray(i), 4, 1))
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intStartMeasure ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(g_disp.intStartMeasure).lngY ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.lngPosition = Val(Mid(strArray(i), 5, 7)) + g_Measure(g_disp.intStartMeasure).lngY
-				.sngValue = Val(Mid(strArray(i), 12))
-				.lngHeight = 0
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.intSelect = modMain.OBJ_SELECT.Selected
-				
-				For j = 0 To 999
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(j).lngY ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If .lngPosition < g_Measure(j).lngY Then
-						
-						Exit For
-						
-					Else
-						
-						.intMeasure = j
-						
-					End If
-					
-				Next j
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(g_Obj(UBound(g_Obj)).intMeasure).lngY ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.lngPosition = .lngPosition - g_Measure(.intMeasure).lngY
-				
-				strArray(i - 1) = modInput.strFromNum(modMain.CMD_LOG.OBJ_ADD) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue
-				
-				If modDraw.lngChangeMaxMeasure(.intMeasure) Then lngArg = 1
-				
-			End With
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(g_Obj(UBound(g_Obj)).intMeasure).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If g_Obj(UBound(g_Obj)).lngPosition < g_Measure(g_Obj(UBound(g_Obj)).intMeasure).intLen Then ReDim Preserve g_Obj(UBound(g_Obj) + 1)
-			
-		Next i
-		
-		If lngArg Then Call modDraw.ChangeResolution()
-		
-		Call g_InputLog.AddData(Join(strArray, modLog.getSeparator))
-		
-		Call modDraw.Redraw()
-		
-		Exit Sub
-		
-Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call modMain.CleanUp(Err.Number, Err.Description, "mnuEditPaste_Click")
-	End Sub
-	
-	Public Sub mnuFileExit_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileExit.Click
-		Dim modMain As Object
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.intSaveCheck ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If modMain.intSaveCheck() Then Exit Sub
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call modMain.CleanUp()
-		
-	End Sub
-	
-	Public Sub mnuHelpWeb_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuHelpWeb.Click
-		
-		Call ShellExecute(0, vbNullString, "http://ucn.tokonats.net/", vbNullString, vbNullString, SW_SHOWNORMAL)
-		
-	End Sub
-	
-	Public Sub mnuLanguage_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuLanguage.Click
-		Dim Index As Short = mnuLanguage.GetIndex(eventSender)
-		Dim modMain As Object
-		
-		Dim i As Integer
-		
-		For i = 1 To mnuLanguage.UBound
-			
-			mnuLanguage(i).Checked = False
-			
-		Next i
-		
-		With mnuLanguage(Index)
-			
-			.Checked = True
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.LoadLanguageFile ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call modMain.LoadLanguageFile("lang\" & g_strLangFileName(Index))
-			
-		End With
-		
-		Call modDraw.Redraw()
-		
-	End Sub
-	
-	Public Sub mnuFileNew_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileNew.Click
-		Dim lngDeleteFile As Object
-		Dim modMain As Object
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.intSaveCheck ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If modMain.intSaveCheck() Then Exit Sub
-		
-		Me.Text = g_strAppTitle & " - Now Initializing"
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
-		
-		With g_BMS
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.strDir = ""
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.strFileName = ""
-			
-		End With
-		
-		Call modInput.LoadBMSStart()
-		
-		Call modInput.LoadBMSEnd()
-		
-	End Sub
-	
-	Public Sub mnuFileOpen_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileOpen.Click
-		Dim lngDeleteFile As Object
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim strArray() As String
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.intSaveCheck ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If modMain.intSaveCheck() Then Exit Sub
-		
-		'UPGRADE_WARNING: CommonDialog •Ï”‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½ Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="671167DC-EA81-475D-B690-7A40C7BF4A23"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		With dlgMain
-			
-			'UPGRADE_WARNING: Filter ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Filter = "BMS files (*.bms,*.bme,*.bml,*.pms)|*.bms;*.bme;*.bml;*.pms|All files (*.*)|*.*"
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.FileName = g_BMS.strFileName
-			
-			Call .ShowDialog()
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
-			
-			strArray = Split(.FileName, "\")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			g_BMS.strDir = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			g_BMS.strFileName = strArray(UBound(strArray))
-			
-			Call modInput.LoadBMS()
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.RecentFilesRotation ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call modMain.RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.InitialDirectory = g_BMS.strDir
-			
-		End With
-		
-Err_Renamed: 
-	End Sub
-	
-	Public Sub mnuToolsPlay_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuToolsPlay.Click
-		Dim g_Message As Object
-		
-		Dim strFileName As String
-		Dim strPath As String
-		
-		If Mid(g_Viewer(cboViewer.SelectedIndex + 1).strAppPath, 2, 2) <> ":\" Then
-			
-			strPath = g_strAppDir & g_Viewer(cboViewer.SelectedIndex + 1).strAppPath
-			
-		Else
-			
-			strPath = g_Viewer(cboViewer.SelectedIndex + 1).strAppPath
-			
-		End If
-		
-		'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If Dir(strPath, FileAttribute.Normal) = vbNullString Then
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call MsgBox(strPath & " " & g_Message(modMain.Message.ERR_APP_NOT_FOUND), MsgBoxStyle.Critical, g_strAppTitle)
-			Exit Sub
-			
-		End If
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If Len(g_BMS.strDir) Then
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			strFileName = g_BMS.strDir & "___bmse_temp.bms" & vbNullString
-			
-		Else
-			
-			strFileName = g_strAppDir & "___bmse_temp.bms" & vbNullString
-			
-		End If
-		
-		Call modOutput.CreateBMS(strFileName, 1)
-		Call mciSendString("close PREVIEW", vbNullString, 0, 0)
-		
-		With g_Viewer(cboViewer.SelectedIndex + 1)
-			
-			Call ShellExecute(0, "open", Chr(34) & strPath & Chr(34), strCmdDecode(.strArgPlay, strFileName), "", SW_SHOWNORMAL)
-			
-		End With
-		
-	End Sub
-	
-	Public Sub mnuToolsPlayAll_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuToolsPlayAll.Click
-		Dim g_Message As Object
-		
-		Dim strFileName As String
-		Dim strPath As String
-		
-		If Mid(g_Viewer(cboViewer.SelectedIndex + 1).strAppPath, 2, 2) <> ":\" Then
-			
-			strPath = g_strAppDir & g_Viewer(cboViewer.SelectedIndex + 1).strAppPath
-			
-		Else
-			
-			strPath = g_Viewer(cboViewer.SelectedIndex + 1).strAppPath
-			
-		End If
-		
-		'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If Dir(strPath, FileAttribute.Normal) = vbNullString Then
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call MsgBox(strPath & " " & g_Message(modMain.Message.ERR_APP_NOT_FOUND), MsgBoxStyle.Critical, g_strAppTitle)
-			Exit Sub
-			
-		End If
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If Len(g_BMS.strDir) Then
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			strFileName = g_BMS.strDir & "___bmse_temp.bms" & vbNullString
-			
-		Else
-			
-			strFileName = g_strAppDir & "___bmse_temp.bms" & vbNullString
-			
-		End If
-		
-		Call modOutput.CreateBMS(strFileName, 1)
-		Call mciSendString("close PREVIEW", vbNullString, 0, 0)
-		
-		With g_Viewer(cboViewer.SelectedIndex + 1)
-			
-			Call ShellExecute(0, "open", Chr(34) & strPath & Chr(34), strCmdDecode(.strArgAll, strFileName), "", SW_SHOWNORMAL)
-			
-		End With
-		
-	End Sub
-	
-	Public Sub mnuToolsPlayStop_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuToolsPlayStop.Click
-		Dim g_Message As Object
-		
-		Dim strFileName As String
-		Dim strPath As String
-		
-		If Mid(g_Viewer(cboViewer.SelectedIndex + 1).strAppPath, 2, 2) <> ":\" Then
-			
-			strPath = g_strAppDir & g_Viewer(cboViewer.SelectedIndex + 1).strAppPath
-			
-		Else
-			
-			strPath = g_Viewer(cboViewer.SelectedIndex + 1).strAppPath
-			
-		End If
-		
-		'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If Dir(strPath, FileAttribute.Normal) = vbNullString Then
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call MsgBox(strPath & " " & g_Message(modMain.Message.ERR_APP_NOT_FOUND), MsgBoxStyle.Critical, g_strAppTitle)
-			Exit Sub
-			
-		End If
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If Len(g_BMS.strDir) Then
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			strFileName = g_BMS.strDir & "___bmse_temp.bms" & vbNullString
-			
-		Else
-			
-			strFileName = g_strAppDir & "___bmse_temp.bms" & vbNullString
-			
-		End If
-		
-		Call mciSendString("close PREVIEW", vbNullString, 0, 0)
-		
-		With g_Viewer(cboViewer.SelectedIndex + 1)
-			
-			Call ShellExecute(0, "open", Chr(34) & strPath & Chr(34), strCmdDecode(.strArgStop, strFileName), "", SW_SHOWNORMAL)
-			
-		End With
-		
-	End Sub
-	
-	Public Sub mnuRecentFiles_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuRecentFiles.Click
-		Dim Index As Short = mnuRecentFiles.GetIndex(eventSender)
-		Dim lngDeleteFile As Object
-		Dim g_Message As Object
-		Dim modMain As Object
-		
-		Dim strArray() As String
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.intSaveCheck ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If modMain.intSaveCheck() Then Exit Sub
-		
-		'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If Dir(Mid(mnuRecentFiles(Index).Text, 4)) = vbNullString Then
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message(ERR_LOAD_CANCEL) ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(mnuRecentFiles(Index).Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
-			Exit Sub
-			
-		End If
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
-		
-		strArray = Split(mnuRecentFiles(Index).Text, "\")
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_BMS.strDir = Mid(mnuRecentFiles(Index).Text, 4, Len(mnuRecentFiles(Index).Text) - Len(strArray(UBound(strArray))) - 3)
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_BMS.strFileName = strArray(UBound(strArray))
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		dlgMainOpen.InitialDirectory = g_BMS.strDir
-		dlgMainSave.InitialDirectory = g_BMS.strDir
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.RecentFilesRotation ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call modMain.RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
-		
-		Call modInput.LoadBMS()
-		
-	End Sub
-	
-	Public Sub mnuFileSave_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileSave.Click
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If g_BMS.strDir <> "" And g_BMS.strFileName <> "" Then
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call modOutput.CreateBMS(g_BMS.strDir & g_BMS.strFileName)
-			
-		Else
-			
-			Call mnuFileSaveAs_Click(mnuFileSaveAs, New System.EventArgs())
-			
-		End If
-		
-	End Sub
-	
-	Public Sub mnuFileSaveAs_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileSaveAs.Click
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim strArray() As String
-		
-		'UPGRADE_WARNING: CommonDialog •Ï”‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½ Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="671167DC-EA81-475D-B690-7A40C7BF4A23"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		With dlgMain
-			
-			'UPGRADE_WARNING: Filter ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Filter = "BMS files (*.bms,*.bme,*.bml,*.pms)|*.bms;*.bme;*.bml;*.pms|All files (*.*)|*.*"
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.FileName = g_BMS.strFileName
-			
-			Call .ShowDialog()
-			
-			strArray = Split(.FileName, "\")
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			g_BMS.strDir = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			g_BMS.strFileName = strArray(UBound(strArray))
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call modOutput.CreateBMS(g_BMS.strDir & g_BMS.strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.RecentFilesRotation ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call modMain.RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.InitialDirectory = g_BMS.strDir
-			
-		End With
-		
-Err_Renamed: 
-	End Sub
-	
-	Public Sub mnuEditSelectAll_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditSelectAll.Click
-		Dim modMain As Object
-		
-		Dim i As Integer
-		
-		If TypeOf VB6.GetActiveControl() Is System.Windows.Forms.TextBox Then
-			
-			'UPGRADE_ISSUE: Control SelStart ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.GetActiveControl().SelStart = 0
-			'UPGRADE_ISSUE: Control SelLength ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_ISSUE: Control Text ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			VB6.GetActiveControl().SelLength = Len(VB6.GetActiveControl().Text)
-			
-			Exit Sub
-			
-		ElseIf TypeOf VB6.GetActiveControl() Is System.Windows.Forms.ComboBox Then 
-			
-			'UPGRADE_ISSUE: Control Style ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If VB6.GetActiveControl().Style = 0 Then
-				
-				'UPGRADE_ISSUE: Control SelStart ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				VB6.GetActiveControl().SelStart = 0
-				'UPGRADE_ISSUE: Control SelLength ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_ISSUE: Control Text ‚ÍA”Ä—p–¼‘O‹óŠÔ ActiveControl “à‚É‚ ‚é‚½‚ßA‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				VB6.GetActiveControl().SelLength = Len(VB6.GetActiveControl().Text)
-				
-				Exit Sub
-				
-			End If
-			
-		End If
-		
-		For i = 0 To UBound(g_Obj) - 1
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			g_Obj(i).intSelect = modMain.OBJ_SELECT.Selected
-			
-		Next i
-		
-		Call modDraw.Redraw()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg optChangeBottom.CheckedChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub optChangeBottom_CheckedChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles optChangeBottom.CheckedChanged
-		If eventSender.Checked Then
-			Dim Index As Short = optChangeBottom.GetIndex(eventSender)
-			
-			Dim i As Integer
-			
-			For i = fraBottom.LBound To fraBottom.UBound
-				
-				fraBottom(i).Visible = False
-				
-			Next i
-			
-			fraBottom(Index).Visible = True
-			
-		End If
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg optChangeTop.CheckedChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub optChangeTop_CheckedChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles optChangeTop.CheckedChanged
-		If eventSender.Checked Then
-			Dim Index As Short = optChangeTop.GetIndex(eventSender)
-			
-			Dim i As Integer
-			
-			For i = fraTop.LBound To fraTop.UBound
-				
-				fraTop(i).Visible = False
-				
-			Next i
-			
-			fraTop(Index).Visible = True
-			
-		End If
-	End Sub
-	
-	'UPGRADE_ISSUE: PictureBox ƒCƒxƒ“ƒg picMain.KeyDown ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub picMain_KeyDown(ByRef KeyCode As Short, ByRef Shift As Short)
-		
-		Dim lngTemp As Integer
-		Dim intTemp As Short
-		Dim blnTemp As Boolean
-		
-		blnTemp = True
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Shift ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Mouse.Shift = Shift
-		
-		lngTemp = vsbMain.Value
-		intTemp = hsbMain.Value
-		
-		Select Case KeyCode
-			
-			Case System.Windows.Forms.Keys.ControlKey, System.Windows.Forms.Keys.ShiftKey ', vbKeyMenu
-				
-				If tlbMenu.Items.Item("Write").Checked = False Then blnTemp = False
-				
-			Case System.Windows.Forms.Keys.NumPad0
-				
-				cboDispGridSub.SelectedIndex = cboDispGridSub.Items.Count - 1
-				
-			Case System.Windows.Forms.Keys.NumPad1
-				
-				cboDispGridSub.SelectedIndex = 1
-				
-			Case System.Windows.Forms.Keys.NumPad2
-				
-				cboDispGridSub.SelectedIndex = 2
-				
-			Case System.Windows.Forms.Keys.NumPad3
-				
-				cboDispGridSub.SelectedIndex = 3
-				
-			Case System.Windows.Forms.Keys.NumPad4
-				
-				cboDispGridSub.SelectedIndex = 6
-				
-			Case System.Windows.Forms.Keys.NumPad5
-				
-				cboDispGridSub.SelectedIndex = 7
-				
-			Case System.Windows.Forms.Keys.NumPad6
-				
-				cboDispGridSub.SelectedIndex = 8
-				
-			Case System.Windows.Forms.Keys.Home
-				
-				lngTemp = (vsbMain.Maximum - vsbMain.LargeChange + 1)
-				
-			Case System.Windows.Forms.Keys.End
-				
-				lngTemp = vsbMain.Minimum
-				
-			Case System.Windows.Forms.Keys.PageUp
-				
-				lngTemp = lngTemp + vsbMain.LargeChange
-				
-			Case System.Windows.Forms.Keys.PageDown
-				
-				lngTemp = lngTemp - vsbMain.LargeChange
-				
-			Case System.Windows.Forms.Keys.Up
-				
-				lngTemp = lngTemp + vsbMain.SmallChange
-				
-			Case System.Windows.Forms.Keys.Down
-				
-				lngTemp = lngTemp - vsbMain.SmallChange
-				
-			Case System.Windows.Forms.Keys.Left
-				
-				intTemp = intTemp - hsbMain.SmallChange
-				
-			Case System.Windows.Forms.Keys.Right
-				
-				intTemp = intTemp + hsbMain.SmallChange
-				
-			Case Else
-				
-				blnTemp = False
-				
-		End Select
-		
-		With vsbMain
-			
-			If lngTemp > .Minimum Then
-				
-				.Value = .Minimum
-				
-			ElseIf lngTemp < 0 Then 
-				
-				.Value = 0
-				
-			Else
-				
-				.Value = lngTemp
-				
-			End If
-			
-		End With
-		
-		With hsbMain
-			
-			If intTemp < 0 Then
-				
-				.Value = 0
-				
-			ElseIf intTemp > (.Maximum - .LargeChange + 1) Then 
-				
-				.Value = (.Maximum - .LargeChange + 1)
-				
-			Else
-				
-				.Value = intTemp
-				
-			End If
-			
-		End With
-		
-		If blnTemp Then
-			
-			If Me.tlbMenu.Items.Item("Write").Checked = False Then
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Button ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.blnFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If g_SelectArea.blnFlag = True Or (g_Obj(UBound(g_Obj)).intCh <> 0 And g_Mouse.Button <> 0) Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Call picMain_MouseMove(picMain, New System.Windows.Forms.MouseEventArgs(VB6.MouseButtonConstants.LeftButton * &H100000, 0, g_Mouse.X, g_Mouse.Y, 0))
-					
-				End If
-				
-			Else
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, Shift)
-				
-			End If
-			
-		End If
-		
-	End Sub
-	
-	'UPGRADE_ISSUE: PictureBox ƒCƒxƒ“ƒg picMain.KeyUp ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub picMain_KeyUp(ByRef KeyCode As Short, ByRef Shift As Short)
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Shift ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		g_Mouse.Shift = Shift
-		
-		Select Case KeyCode
-			
-			Case System.Windows.Forms.Keys.ControlKey, System.Windows.Forms.Keys.ShiftKey
-				
-				If tlbMenu.Items.Item("Write").Checked = True Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, Shift)
-					
-				End If
-				
-		End Select
-		
-	End Sub
-	
-	Private Sub picMain_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles picMain.MouseDown
-		Dim Button As Short = eventArgs.Button \ &H100000
-		Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys \ &H10000
-		Dim X As Single = eventArgs.X
-		Dim Y As Single = eventArgs.Y
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim strTemp As String
-		'Dim intNum      As Long
-		Dim lngTemp As Integer
-		Dim i As Integer
-		Dim tempObj As g_udtObj
-		Dim strArray() As String
-		
-		If g_blnIgnoreInput Then Exit Sub
-		
-		m_blnMouseDown = True
-		
-		If Button = VB6.MouseButtonConstants.LeftButton Then '¶ƒNƒŠƒbƒN
-			
-			If tlbMenu.Items.Item("Delete").Checked = True Then
-				
-				If g_Obj(UBound(g_Obj)).intCh Then
-					
-					'/// Undo
-					With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
-						
-						Call g_InputLog.AddData(modInput.strFromNum(modMain.CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue & modLog.getSeparator)
-						
-					End With
-					
-					Call modDraw.RemoveObj(g_Obj(UBound(g_Obj)).lngHeight)
-					
-					Call modDraw.ArrangeObj()
-					
-					Call RemoveObj(UBound(g_Obj))
-					
-				End If
-				
-				Call modDraw.ObjSelectCancel()
-				Call modDraw.Redraw()
-				
-			ElseIf tlbMenu.Items.Item("Edit").Checked = True Then 
-				
-				If g_Obj(UBound(g_Obj)).intCh <> 0 Then 'ƒIƒuƒWƒF‚Ì‚ ‚é‚Æ‚±‚ë‚Å‰Ÿ‚µ‚½‚Á‚Û‚¢‚æ
-					
-					With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
-						
-						If VB6.GetItemData(cboDispGridSub, cboDispGridSub.SelectedIndex) Then
-							
-							lngTemp = 192 \ (VB6.GetItemData(cboDispGridSub, cboDispGridSub.SelectedIndex))
-							lngTemp = .lngPosition - (.lngPosition \ lngTemp) * lngTemp
-							
-						End If
-						
-					End With
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If g_Obj(g_Obj(UBound(g_Obj)).lngHeight).intSelect <> modMain.OBJ_SELECT.NON_SELECT Then '•¡”‘I‘ð‚Á‚Û‚¢‚æ
-						
-						If Shift And VB6.ShiftConstants.CtrlMask Then
-							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg tempObj ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							tempObj = g_Obj(UBound(g_Obj))
-							
-							'ReDim strArray(intNum - 1)
-							ReDim strArray(0)
-							'intNum = 0
-							
-							For i = 0 To UBound(g_Obj) - 1
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								If g_Obj(i).intSelect <> modMain.OBJ_SELECT.NON_SELECT Then
-									
-									With g_Obj(i)
-										
-										'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Obj(UBound()) ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-										g_Obj(UBound(g_Obj)) = g_Obj(i)
-										g_Obj(UBound(g_Obj)).lngID = g_lngIDNum
-										
-										strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.OBJ_ADD) & modInput.strFromNum(g_lngIDNum, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue
-										'intNum = intNum + 1
-										ReDim Preserve strArray(UBound(strArray) + 1)
-										
-										g_lngObjID(g_lngIDNum) = UBound(g_Obj)
-										g_lngIDNum = g_lngIDNum + 1
-										ReDim Preserve g_lngObjID(g_lngIDNum)
-										
-										'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-										.intSelect = modMain.OBJ_SELECT.NON_SELECT
-										
-									End With
-									
-									If i = tempObj.lngHeight Then tempObj.lngHeight = UBound(g_Obj)
-									
-									ReDim Preserve g_Obj(UBound(g_Obj) + 1)
-									
-								End If
-								
-							Next i
-							
-							If UBound(strArray) Then
-								
-								ReDim Preserve strArray(UBound(strArray) - 1)
-								
-								Call g_InputLog.AddData(Join(strArray, modLog.getSeparator))
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Obj(UBound()) ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								g_Obj(UBound(g_Obj)) = tempObj
-								
-							End If
-							
-						End If
-						
-						ReDim m_tempObj(0)
-						
-						For i = 0 To UBound(g_Obj) - 1
-							
-							With g_Obj(i)
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								If .intSelect <> modMain.OBJ_SELECT.NON_SELECT Then
-									
-									'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg m_tempObj(UBound()) ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-									m_tempObj(UBound(m_tempObj)) = g_Obj(i)
-									
-									.lngHeight = UBound(m_tempObj)
-									
-									ReDim Preserve m_tempObj(UBound(m_tempObj) + 1)
-									
-								End If
-								
-							End With
-							
-						Next i
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg m_tempObj(UBound()) ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						m_tempObj(UBound(m_tempObj)) = g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
-						
-						With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
-							
-							'ƒvƒŒƒrƒ…[
-							If mnuOptionsItem(MENU_OPTIONS.SELECT_PREVIEW).Checked = True And ((.intCh >= 11 And .intCh <= 29) Or .intCh > 100) Then
-								
-								strTemp = g_strWAV(.sngValue)
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								If strTemp <> "" And Dir(g_BMS.strDir & strTemp) <> vbNullString Then
-									
-									Call PreviewWAV(strTemp)
-									
-								End If
-								
-							End If
-							
-							'ƒIƒuƒWƒF‚ðƒOƒŠƒbƒh‚É‚ ‚í‚¹‚é
-							'If Not Shift And vbShiftMask Then
-							
-							'If lngTemp <> 0 And mnuOptionsItem(MOVE_ON_GRID).Checked = True Then
-							
-							'For i = 0 To UBound(g_Obj) - 1
-							
-							'With g_Obj(i)
-							
-							'If .intSelect <> NON_SELECT Then
-							
-							'.lngPosition = .lngPosition - lngTemp
-							
-							'Do While .lngPosition < 0 And .intMeasure <> 0
-							
-							'.intMeasure = .intMeasure - 1
-							'.lngPosition = .lngPosition + g_Measure(.intMeasure).intLen
-							
-							'Loop
-							
-							'Call SaveChanges
-							
-							'End If
-							
-							'End With
-							
-							'Next i
-							
-							'End If
-							
-							'End If
-							
-						End With
-						
-					Else '’P”‘I‘ð‚Á‚Û‚¢‚æ
-						
-						If Not Shift And VB6.ShiftConstants.CtrlMask Then
-							
-							Call modDraw.ObjSelectCancel()
-							
-						End If
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_Obj(g_Obj(UBound(g_Obj)).lngHeight).intSelect = modMain.OBJ_SELECT.Selected
-						
-						Call modDraw.MoveSelectedObj()
-						
-						With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
-							
-							ReDim m_tempObj(0)
-							
-							For i = 0 To UBound(g_Obj) - 1
-								
-								With g_Obj(i)
-									
-									'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg m_tempObj(UBound()) ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-									m_tempObj(UBound(m_tempObj)) = g_Obj(i)
-									.lngHeight = UBound(m_tempObj)
-									ReDim Preserve m_tempObj(UBound(m_tempObj) + 1)
-									
-								End With
-								
-							Next i
-							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg m_tempObj(UBound()) ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							m_tempObj(UBound(m_tempObj)) = g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
-							
-							'ƒIƒuƒWƒF‚ðƒOƒŠƒbƒh‚É‚ ‚í‚¹‚é
-							'If Not Shift And vbShiftMask Then
-							
-							'If lngTemp <> 0 And mnuOptionsItem(MOVE_ON_GRID).Checked = True Then
-							
-							'.lngPosition = .lngPosition - lngTemp
-							
-							'Do While .lngPosition < 0 And .intMeasure <> 0
-							
-							'.intMeasure = .intMeasure - 1
-							'.lngPosition = .lngPosition + g_Measure(.intMeasure).intLen
-							
-							'Loop
-							
-							'Call SaveChanges
-							
-							'End If
-							
-							'End If
-							
-							'ƒvƒŒƒrƒ…[
-							If mnuOptionsItem(MENU_OPTIONS.SELECT_PREVIEW).Checked Then
-								
-								Select Case .intCh
-									
-									Case 11 To 29, Is > 100
-										
-										strTemp = g_strWAV(.sngValue)
-										
-										'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-										'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-										If strTemp <> "" And Dir(g_BMS.strDir & strTemp) <> vbNullString Then
-											
-											Call PreviewWAV(strTemp)
-											
-										End If
-										
-									Case 4, 6, 7
-										
-										If Len(g_strBGA(.sngValue)) Then
-											
-											Call PreviewBGA(.sngValue)
-											
-										Else
-											
-											strTemp = g_strBMP(.sngValue)
-											
-											'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-											'UPGRADE_WARNING: Dir ‚ÉV‚µ‚¢“®ì‚ªŽw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-											If strTemp <> "" And Dir(g_BMS.strDir & strTemp) <> vbNullString Then
-												
-												Call PreviewBMP(strTemp)
-												
-											End If
-											
-										End If
-										
-								End Select
-								
-							End If
-							
-						End With
-						
-					End If
-					
-					Call modDraw.Redraw()
-					
-				Else 'ƒIƒuƒWƒF‚Ì‚È‚¢‚Æ‚±‚ë‚Å‰Ÿ‚µ‚½‚Á‚Û‚¢‚æ
-					
-					If Not Shift And VB6.ShiftConstants.CtrlMask Then
-						
-						Call modDraw.ObjSelectCancel()
-						
-						Call modDraw.Redraw()
-						
-					Else
-						
-						For i = 0 To UBound(g_Obj) - 1
-							
-							With g_Obj(i)
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								If .intSelect <> modMain.OBJ_SELECT.NON_SELECT Then
-									
-									'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-									.intSelect = modMain.OBJ_SELECT.SELECTAREA_OUT
-									
-								End If
-								
-							End With
-							
-						Next i
-						
-						Call modDraw.Redraw()
-						
-					End If
-					
-					With g_SelectArea
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.blnFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.blnFlag = True
-						'.X1 = (X + g_disp.X) / g_disp.Width
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.X1 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.X1 = X / g_disp.Width + g_disp.X
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.Y1 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.Y1 = (picMain.ClientRectangle.Height - Y) / g_disp.Height + g_disp.Y
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.X2 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.X1 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.X2 = .X1
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.Y2 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.Y1 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						.Y2 = .Y1
-						
-					End With
-					
-					Call modDraw.DrawSelectArea()
-					
-				End If
-				
-				'Call modDraw.Redraw
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If g_disp.intEffect Then Call modEasterEgg.DrawEffect()
-				
-			Else 'If tlbMenu.Buttons("Write").Value = tbrPressed Then
-				
-				Call modDraw.ObjSelectCancel()
-				Call modDraw.Redraw()
-				
-				picMain.Font = VB6.FontChangeSize(picMain.Font, 8)
-				
-				Call modDraw.InitPen()
-				Call modDraw.DrawObj(g_Obj(UBound(g_Obj)))
-				Call modDraw.DeletePen()
-				
-			End If
-			
-		ElseIf Button = VB6.MouseButtonConstants.RightButton Then  '‰EƒNƒŠƒbƒN
-			
-			With g_Mouse
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Button ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.Button = Button
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Shift ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.Shift = Shift
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.X = X
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.Y = Y
-				
-			End With
-			
-			Call DrawObjMax(X, Y, Shift)
-			
-		ElseIf Button = VB6.MouseButtonConstants.MiddleButton Then  '’†ƒNƒŠƒbƒN
-			
-			'ƒIƒuƒWƒFíœ
-			If g_Obj(UBound(g_Obj)).lngHeight < UBound(g_Obj) Then 'ƒIƒuƒWƒF‘I‘ð’†
-				
-				'“ü—Í—š—ð‚É’Ç‰Á
-				With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
-					
-					Call g_InputLog.AddData(modInput.strFromNum(modMain.CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue & modLog.getSeparator)
-					
-				End With
-				
-				'ƒIƒuƒWƒFíœ
-				Call modDraw.RemoveObj(g_Obj(UBound(g_Obj)).lngHeight)
-				
-				g_Obj(UBound(g_Obj)).intCh = 0
-				g_Obj(UBound(g_Obj)).lngHeight = UBound(g_Obj)
-				
-				'®—ñ
-				Call modDraw.ArrangeObj()
-				
-				'Ä•`‰æ
-				Call modDraw.Redraw()
-				
-			End If
-			
-		End If
-		
-		g_blnIgnoreInput = False
-		
-		Exit Sub
-		
-Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call modMain.CleanUp(Err.Number, Err.Description, "picMain_MouseDown")
-	End Sub
-	
-	Private Sub picMain_MouseUp(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles picMain.MouseUp
-		Dim Button As Short = eventArgs.Button \ &H100000
-		Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys \ &H10000
-		Dim X As Single = eventArgs.X
-		Dim Y As Single = eventArgs.Y
-		Dim modMain As Object
-		Dim g_Message As Object
-		On Error GoTo Err_Renamed
-		
-		Dim i As Integer
-		Dim lngTemp As Integer
-		Dim strTemp As String
-		Dim lngArg As Integer
-		Dim strArray() As String
-		
-		m_intScrollDir = 0
-		
-		If g_blnIgnoreInput Then
-			
-			g_blnIgnoreInput = False
-			
-			Exit Sub
-			
-		End If
-		
-		If Not m_blnMouseDown Then Exit Sub
-		
-		m_blnMouseDown = False
-		
-		If Button = VB6.MouseButtonConstants.LeftButton Then
-			
-			If tlbMenu.Items.Item("Write").Checked = True Then
-				
-				With g_Obj(UBound(g_Obj))
-					
-					Select Case .intCh
-						
-						Case 8 'BPM
-							
-							With frmWindowInput
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								.lblMainDisp.Text = g_Message(modMain.Message.INPUT_BPM)
-								.txtMain.Text = "" 'strTemp
-								
-								Call VB6.ShowForm(frmWindowInput, VB6.FormShowConstants.Modal, Me)
-								
-							End With
-							
-							Select Case Val(frmWindowInput.txtMain.Text)
-								
-								Case 0
-									
-									Exit Sub
-									
-								Case Is > 65535
-									
-									Call MsgBox(g_Message(modMain.Message.ERR_OVERFLOW_LARGE), MsgBoxStyle.Critical, g_strAppTitle)
-									
-									Exit Sub
-									
-								Case Is < -65535
-									
-									Call MsgBox(g_Message(modMain.Message.ERR_OVERFLOW_SMALL), MsgBoxStyle.Critical, g_strAppTitle)
-									
-									Exit Sub
-									
-								Case Else
-									
-									.sngValue = Val(frmWindowInput.txtMain.Text)
-									Call picMain.Focus()
-									
-							End Select
-							
-						Case 9 'STOP
-							
-							With frmWindowInput
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								.lblMainDisp.Text = g_Message(modMain.Message.INPUT_STOP)
-								.txtMain.Text = "" 'strTemp
-								
-								Call VB6.ShowForm(frmWindowInput, VB6.FormShowConstants.Modal, Me)
-								
-							End With
-							
-							Select Case CInt(Val(frmWindowInput.txtMain.Text))
-								
-								Case Is <= 0
-									
-									Exit Sub
-									
-								Case Is > 65535
-									
-									Call MsgBox(g_Message(modMain.Message.ERR_OVERFLOW_LARGE), MsgBoxStyle.Critical, g_strAppTitle)
-									
-									Exit Sub
-									
-								Case Else
-									
-									.sngValue = CInt(Val(frmWindowInput.txtMain.Text))
-									Call picMain.Focus()
-									
-							End Select
-							
-						Case 51 To 69
-							
-							.intCh = .intCh - 40
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_ATT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							.intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE
-							
-					End Select
-					
-					If .sngValue = 0 Then Exit Sub
-					
-					Call SaveChanges()
-					
-					If modDraw.lngChangeMaxMeasure(.intMeasure) Then Call modDraw.ChangeResolution()
-					
-				End With
-				
-				'g_strInputLog(g_lngInputLogPos) = ""
-				strTemp = ""
-				
-				For i = UBound(g_Obj) - 1 To 0 Step -1
-					
-					If g_Obj(i).intMeasure = g_Obj(UBound(g_Obj)).intMeasure And g_Obj(i).lngPosition = g_Obj(UBound(g_Obj)).lngPosition And g_Obj(i).intCh = g_Obj(UBound(g_Obj)).intCh Then
-						
-						'If g_Obj(i).intAtt \ 2 = g_Obj(UBound(g_Obj)).intAtt \ 2 Then
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_ATT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						If g_Obj(i).intAtt = g_Obj(UBound(g_Obj)).intAtt Or ((g_Obj(i).intAtt = modMain.OBJ_ATT.OBJ_NORMAL And g_Obj(UBound(g_Obj)).intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE) Or (g_Obj(i).intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE And g_Obj(UBound(g_Obj)).intAtt = modMain.OBJ_ATT.OBJ_NORMAL)) Then
-							
-							'Undo
-							With g_Obj(i)
-								
-								'g_strInputLog(g_lngInputLogPos) = g_strInputLog(g_lngInputLogPos) & modInput.strFromNum(CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & Right$("0" & Hex$(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue & modLog.getSeparator
-								strTemp = strTemp & modInput.strFromNum(modMain.CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue & modLog.getSeparator
-								
-							End With
-							
-							Call modDraw.RemoveObj(i)
-							
-						End If
-						
-					End If
-					
-				Next i
-				
-				'Undo
-				With g_Obj(UBound(g_Obj))
-					
-					.lngID = g_lngIDNum
-					strTemp = strTemp & modInput.strFromNum(modMain.CMD_LOG.OBJ_ADD) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue & modLog.getSeparator
-					Call g_InputLog.AddData(strTemp)
-					
-					g_lngObjID(g_lngIDNum) = UBound(g_Obj)
-					g_lngIDNum = g_lngIDNum + 1
-					ReDim Preserve g_lngObjID(g_lngIDNum)
-					
-				End With
-				
-				ReDim Preserve g_Obj(UBound(g_Obj) + 1)
-				
-				Call modDraw.ArrangeObj()
-				
-				Call modDraw.Redraw()
-				
-			ElseIf tlbMenu.Items.Item("Edit").Checked = True Then 
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.blnFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If g_SelectArea.blnFlag Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.blnFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_SelectArea.blnFlag = False
-					
-					For i = 0 To UBound(g_Obj) - 1
-						
-						With g_Obj(i)
-							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							If .intSelect = modMain.OBJ_SELECT.Selected Or .intSelect = modMain.OBJ_SELECT.SELECTAREA_IN Or .intSelect = modMain.OBJ_SELECT.SELECTAREA_OUT Then
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								.intSelect = modMain.OBJ_SELECT.Selected
-								
-							Else
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								.intSelect = modMain.OBJ_SELECT.NON_SELECT
-								
-							End If
-							
-						End With
-						
-					Next i
-					
-					Call modDraw.MoveSelectedObj()
-					
-				Else '•¡”‘I‘ð‚Á‚Û‚¢‚æ
-					
-					For i = 0 To UBound(g_Obj) - 1
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						If g_Obj(i).intSelect <> modMain.OBJ_SELECT.NON_SELECT Then
-							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(m_tempObj(UBound(m_tempObj)).intMeasure).lngY ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(g_Obj(g_Obj(UBound(g_Obj)).lngHeight).intMeasure).lngY ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							If g_Obj(g_Obj(UBound(g_Obj)).lngHeight).lngPosition + g_Measure(g_Obj(g_Obj(UBound(g_Obj)).lngHeight).intMeasure).lngY <> m_tempObj(UBound(m_tempObj)).lngPosition + g_Measure(m_tempObj(UBound(m_tempObj)).intMeasure).lngY Or g_Obj(g_Obj(UBound(g_Obj)).lngHeight).intCh <> m_tempObj(UBound(m_tempObj)).intCh Then
-								
-								lngTemp = 1
-								
-							End If
-							
-							Exit For
-							
-						End If
-						
-					Next i
-					
-					If lngTemp Then
-						
-						ReDim strArray(0)
-						
-						For i = 0 To UBound(g_Obj) - 1
-							
-							With g_Obj(i)
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure(999).intLen ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								If .intCh <= 0 Or .intCh > 1000 Or (.intMeasure = 0 And .lngPosition < 0) Or (.intMeasure = 999 And .lngPosition > g_Measure(999).intLen) Then
-									
-									With m_tempObj(g_Obj(i).lngHeight)
-										
-										strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue
-										ReDim Preserve strArray(UBound(strArray) + 1)
-										
-									End With
-									
-									Call modDraw.RemoveObj(i)
-									
-									'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								ElseIf .intSelect <> modMain.OBJ_SELECT.NON_SELECT Then 
-									
-									strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.OBJ_MOVE) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(m_tempObj(.lngHeight).intCh), 2) & modInput.strFromNum(m_tempObj(.lngHeight).intMeasure) & modInput.strFromNum(m_tempObj(.lngHeight).lngPosition, 3) & VB.Right("0" & Hex(.intCh), 2) & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3)
-									ReDim Preserve strArray(UBound(strArray) + 1)
-									
-								End If
-								
-								If modDraw.lngChangeMaxMeasure(.intMeasure) Then lngArg = 1
-								
-							End With
-							
-						Next i
-						
-						If lngArg Then Call modDraw.ChangeResolution()
-						
-						Call g_InputLog.AddData(Join(strArray, modLog.getSeparator))
-						
-					End If
-					
-					Call modDraw.ArrangeObj()
-					
-				End If
-				
-				Call modDraw.Redraw()
-				
-			End If
-			
-		ElseIf Button = VB6.MouseButtonConstants.RightButton Then 
-			
-			'UPGRADE_ISSUE: Form ƒƒ\ƒbƒh frmMain.PopupMenu ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If Not m_blnIgnoreMenu Then Call PopupMenu(mnuContext)
-			
-			m_blnIgnoreMenu = False
-			
-		End If
-		
-		Exit Sub
-		
-Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call modMain.CleanUp(Err.Number, Err.Description, "picMain_MouseUp")
-	End Sub
-	
-	Public Sub picMain_MouseMove(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles picMain.MouseMove
-		Dim Button As Short = eventArgs.Button \ &H100000
-		Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys \ &H10000
-		Dim X As Single = eventArgs.X
-		Dim Y As Single = eventArgs.Y
-		Dim modMain As Object
-		On Error GoTo Err_Renamed
-		
-		Dim i As Integer
-		Dim lngTemp As Integer
-		Dim strTemp As String
-		Dim rectTemp As RECT
-		Dim blnSelect() As Boolean
-		Dim blnYAxisFixed As Boolean
-		
-		'VB6 ƒoƒO‘Îô
-		If Button And VB6.MouseButtonConstants.LeftButton Then
-			
-			If Not m_blnMouseDown Then
-				
-				Exit Sub
-				
-			End If
-			
-		End If
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.blnFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Dim value As Integer
-		'UPGRADE_NOTE: str ‚Í str_Renamed ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Dim str_Renamed As String
-		If Not g_SelectArea.blnFlag Then '‘I‘ð”ÍˆÍ‚È‚µ
-			
-			If Button = VB6.MouseButtonConstants.LeftButton And tlbMenu.Items.Item("Edit").Checked = True And g_Obj(UBound(g_Obj)).intCh <> 0 Then 'ƒIƒuƒWƒFˆÚ“®’†
-				
-				Call MoveObj(X, Y, Shift)
-				
-				'Y Ž²ŒÅ’èˆÚ“®
-				If Shift And VB6.ShiftConstants.ShiftMask Then blnYAxisFixed = True
-				
-			Else '‚»‚êˆÈŠO
-				
-				Call modDraw.DrawObjMax(X, Y, Shift)
-				
-				'ƒXƒ|ƒCƒg‹@”\
-				If Button = VB6.MouseButtonConstants.RightButton And g_Obj(UBound(g_Obj)).lngHeight < UBound(g_Obj) Then
-					
-					With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
-						
-						Select Case .intCh
-							
-							Case modInput.OBJ_CH.CH_BGA, modInput.OBJ_CH.CH_POOR, modInput.OBJ_CH.CH_LAYER, Is > modInput.OBJ_CH.CH_KEY_MIN
-								
-								
-								If mnuOptionsItem(MENU_OPTIONS.USE_OLD_FORMAT).Checked Then
-									
-									str_Renamed = modInput.strFromNum(.sngValue)
-									
-									'‚à‚µ 01-FF ‚¶‚á‚È‚©‚Á‚½‚ç 01-ZZ •\Ž¦‚ÉˆÚs‚·‚é
-									'ASCII •¶ŽšƒZƒbƒg‚Å‚Í 0-9 < A-Z < a-z
-									If Asc(VB.Left(str_Renamed, 1)) > Asc("F") Or Asc(VB.Right(str_Renamed, 1)) > Asc("F") Then
-										
-										Call mnuOptionsItem_Click(mnuOptionsItem.Item(MENU_OPTIONS.USE_OLD_FORMAT), New System.EventArgs())
-										value = .sngValue
-										
-									Else
-										
-										value = Val("&H" & str_Renamed)
-										
-									End If
-									
-								Else
-									
-									value = .sngValue
-									
-								End If
-								
-								m_blnPreview = False
-								
-								If .intCh > modInput.OBJ_CH.CH_KEY_MIN Then
-									
-									lstWAV.SelectedIndex = value - 1
-									
-								Else
-									
-									If optChangeBottom(2).Checked Then
-										
-										lstBGA.SelectedIndex = value - 1
-										
-									Else
-										
-										lstBMP.SelectedIndex = value - 1
-										
-									End If
-									
-								End If
-								
-								m_blnPreview = True
-								
-						End Select
-						
-						'ƒ|ƒbƒvƒAƒbƒv‚ð•\Ž¦‚µ‚È‚¢
-						m_blnIgnoreMenu = True
-						
-					End With
-					
-				End If
-				
-			End If
-			
-		Else '‘I‘ð”ÍˆÍ‚ ‚è
-			
-			With g_Mouse
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Button ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.Button = Button
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Shift ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.Shift = Shift
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.X = X
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.Y = Y
-				
-			End With
-			
-			With g_SelectArea
-				
-				'.X2 = (X + g_disp.X) / g_disp.Width
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.X2 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.X2 = X / g_disp.Width + g_disp.X
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.Y2 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				.Y2 = (picMain.ClientRectangle.Height - Y) / g_disp.Height + g_disp.Y
-				
-			End With
-			
-			With rectTemp
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.X2 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.X1 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If g_SelectArea.X1 > g_SelectArea.X2 Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.X2 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.left_Renamed = g_SelectArea.X2
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.X1 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.right_Renamed = g_SelectArea.X1
-					
-				Else
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.X1 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.left_Renamed = g_SelectArea.X1
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.X2 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.right_Renamed = g_SelectArea.X2
-					
-				End If
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.Y2 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.Y1 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If g_SelectArea.Y1 > g_SelectArea.Y2 Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.Y2 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.Top = g_SelectArea.Y2
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.Y1 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.Bottom = g_SelectArea.Y1
-					
-				Else
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.Y1 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.Top = g_SelectArea.Y1
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.Y2 ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					.Bottom = g_SelectArea.Y2
-					
-				End If
-				
-			End With
-			
-			ReDim blnSelect(UBound(g_VGrid))
-			
-			For i = 0 To UBound(g_VGrid)
-				
-				With g_VGrid(i)
-					
-					blnSelect(i) = False
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).blnVisible ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If .blnVisible Then
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intCh ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						If .intCh Then
-							
-							'If (.lngLeft + .intWidth >= g_SelectArea.X1 And .lngLeft <= g_SelectArea.X2) Or (.lngLeft <= g_SelectArea.X1 And .lngLeft + .intWidth >= g_SelectArea.X2) Then
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).lngLeft ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_VGrid(i).intWidth ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							If .lngLeft + .intWidth > rectTemp.left_Renamed And .lngLeft < rectTemp.right_Renamed Then
-								
-								blnSelect(i) = True
-								
-							End If
-							
-						End If
-						
-					End If
-					
-				End With
-				
-			Next i
-			
-			For i = 0 To UBound(g_Obj) - 1
-				
-				With g_Obj(i)
-					
-					'If g_VGrid(g_intVGridNum(.intCh)).blnSelect Then
-					If blnSelect(g_intVGridNum(.intCh)) Then
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Measure().lngY ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						lngTemp = g_Measure(.intMeasure).lngY + .lngPosition
-						
-						'If (lngTemp >= g_SelectArea.Y1 And lngTemp <= g_SelectArea.Y2 + OBJ_HEIGHT / g_disp.Height) Or (lngTemp <= g_SelectArea.Y1 And lngTemp >= g_SelectArea.Y2 - OBJ_HEIGHT / g_disp.Height) Then
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						If lngTemp + OBJ_HEIGHT / g_disp.Height >= rectTemp.Top And lngTemp <= rectTemp.Bottom Then
-							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							If .intSelect < modMain.OBJ_SELECT.SELECTAREA_OUT Then
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								.intSelect = modMain.OBJ_SELECT.SELECTAREA_IN
-								
-							Else
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								.intSelect = modMain.OBJ_SELECT.SELECTAREA_SELECTED
-								
-							End If
-							
-						Else
-							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							If .intSelect < modMain.OBJ_SELECT.SELECTAREA_OUT Then
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								.intSelect = modMain.OBJ_SELECT.NON_SELECT
-								
-							Else
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								.intSelect = modMain.OBJ_SELECT.SELECTAREA_OUT
-								
-							End If
-							
-						End If
-						
-					Else
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						If .intSelect < modMain.OBJ_SELECT.SELECTAREA_OUT Then
-							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							.intSelect = modMain.OBJ_SELECT.NON_SELECT
-							
-						Else
-							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_SELECT ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							.intSelect = modMain.OBJ_SELECT.SELECTAREA_OUT
-							
-						End If
-						
-					End If
-					
-				End With
-				
-			Next i
-			
-			Call modDraw.DrawSelectArea()
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If g_disp.intEffect Then Call modEasterEgg.DrawEffect()
-			
-		End If
-		
-		'ƒc[ƒ‹ƒ`ƒbƒv•\Ž¦
-		If g_Obj(UBound(g_Obj)).lngHeight <> UBound(g_Obj) Then
-			
-			With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
-				
-				Select Case .intCh
-					
-					Case Is > 100, 11 To 29 'BGMEƒL[‰¹
-						
-						strTemp = "#WAV" & strFromNum(.sngValue) & ":"
-						
-						If Len(g_strWAV(.sngValue)) Then
-							strTemp = strTemp & g_strWAV(.sngValue)
-						Else
-							strTemp = strTemp & "<empty>"
-						End If
-						
-					Case 4, 6, 7 'BGA LAYER POOR
-						
-						If Len(g_strBGA(.sngValue)) Then 'BGA ‚ ‚é‚æ
-							
-							strTemp = g_strBMP(strToNum(VB.Left(g_strBGA(.sngValue), 2)))
-							
-							If Len(strTemp) Then
-								strTemp = VB.Left(g_strBGA(.sngValue), 2) & "(" & strTemp & ")" & Mid(g_strBGA(.sngValue), 3)
-							Else
-								strTemp = g_strBGA(.sngValue)
-							End If
-							
-							strTemp = "#BGA" & strFromNum(.sngValue) & ":" & strTemp
-							
-						Else
-							
-							strTemp = "#BMP" & strFromNum(.sngValue) & ":"
-							
-							If Len(g_strBMP(.sngValue)) Then
-								strTemp = strTemp & g_strBMP(.sngValue)
-							Else
-								strTemp = strTemp & "<empty>"
-							End If
-							
-						End If
-						
-					Case 3, 8 'BPM
-						
-						strTemp = "BPM:" & .sngValue
-						
-					Case 9 'STOP
-						
-						strTemp = "STOP:" & .sngValue
-						
-					Case Else
-						
-						strTemp = CStr(.sngValue)
-						
-				End Select
-				
-			End With
-			
-			'‹ó‚©‚Ç‚¤‚©
-			ToolTip1.SetToolTip(picMain, strTemp)
-			
-		Else
-			
-			ToolTip1.SetToolTip(picMain, "")
-			
-		End If
-		
-		With g_Mouse
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Button ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Button = Button
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Shift ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Shift = Shift
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.X = X
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If Not blnYAxisFixed Then .Y = Y
-			
-		End With
-		
-		m_intScrollDir = 0
-		
-		If X < 0 Then
-			
-			m_intScrollDir = 20
-			
-		ElseIf X > picMain.ClientRectangle.Width Then 
-			
-			m_intScrollDir = 10
-			
-		End If
-		
-		If Not blnYAxisFixed Then
-			
-			If Y < 0 Then
-				
-				m_intScrollDir = m_intScrollDir + 1
-				
-			ElseIf Y > picMain.ClientRectangle.Height Then 
-				
-				m_intScrollDir = m_intScrollDir + 2
-				
-			End If
-			
-		End If
-		
-		If m_intScrollDir Then
-			
-			tmrMain.Enabled = True
-			
-		Else
-			
-			tmrMain.Enabled = False
-			
-		End If
-		
-		Exit Sub
-		
-Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.CleanUp ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call modMain.CleanUp(Err.Number, Err.Description, "picMain_MouseMove")
-	End Sub
-	
-	'UPGRADE_ISSUE: VBRUN.DataObject Œ^ ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	'UPGRADE_ISSUE: PictureBox ƒCƒxƒ“ƒg picMain.OLEDragDrop ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub picMain_OLEDragDrop(ByRef Data As Object, ByRef Effect As Integer, ByRef Button As Short, ByRef Shift As Short, ByRef X As Single, ByRef Y As Single)
-		
-		Call FormDragDrop(Data)
-		
-	End Sub
-	
-	Private Sub staMain_PanelDblClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _staMain_Panel1.DoubleClick, _staMain_Panel2.DoubleClick, _staMain_Panel3.DoubleClick, _staMain_Panel4.DoubleClick, _staMain_Panel5.DoubleClick, _staMain_Panel6.DoubleClick
-		Dim Panel As System.Windows.Forms.ToolStripStatusLabel = CType(eventSender, System.Windows.Forms.ToolStripStatusLabel)
-		
-		'UPGRADE_ISSUE: MSComctlLib.Panel ƒvƒƒpƒeƒB Panel.Key ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If Panel.Key = "Mode" Then
-			
-			If tlbMenu.Items.Item("Edit").Checked = True Then
-				
-				Call mnuEditMode_Click(mnuEditMode.Item(1), New System.EventArgs())
-				
-			ElseIf tlbMenu.Items.Item("Write").Checked = True Then 
-				
-				Call mnuEditMode_Click(mnuEditMode.Item(2), New System.EventArgs())
-				
-			ElseIf tlbMenu.Items.Item("Delete").Checked = True Then 
-				
-				Call mnuEditMode_Click(mnuEditMode.Item(0), New System.EventArgs())
-				
-			End If
-			
-		End If
-		
-	End Sub
-	
-	Private Sub tlbMenu_ButtonClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _tlbMenu_Button1.Click, _tlbMenu_Button2.Click, _tlbMenu_Button3.Click, _tlbMenu_Button4.Click, _tlbMenu_Button5.Click, _tlbMenu_Button6.Click, _tlbMenu_Button7.Click, _tlbMenu_Button8.Click, _tlbMenu_Button9.Click, _tlbMenu_Button10.Click, _tlbMenu_Button11.Click, _tlbMenu_Button12.Click, _tlbMenu_Button13.Click, _tlbMenu_Button14.Click, _tlbMenu_Button15.Click, _tlbMenu_Button16.Click, _tlbMenu_Button17.Click, _tlbMenu_Button18.Click, _tlbMenu_Button19.Click, _tlbMenu_Button20.Click
-		Dim Button As System.Windows.Forms.ToolStripItem = CType(eventSender, System.Windows.Forms.ToolStripItem)
-		On Error GoTo Err_Renamed
-		
-		Select Case Button.Name
-			
-			Case "New" 'V‹Kì¬
-				
-				Call mnuFileNew_Click(mnuFileNew, New System.EventArgs())
-				
-			Case "Open" 'ŠJ‚­
-				
-				Call mnuFileOpen_Click(mnuFileOpen, New System.EventArgs())
-				
-			Case "Reload" 'Ä“Ç‚Ýž‚Ý
-				
-				Call mnuRecentFiles_Click(mnuRecentFiles.Item(0), New System.EventArgs())
-				
-			Case "Save" 'ã‘‚«•Û‘¶
-				
-				Call mnuFileSave_Click(mnuFileSave, New System.EventArgs())
-				
-			Case "SaveAs" '–¼‘O‚ð•t‚¯‚Ä•Û‘¶
-				
-				Call mnuFileSaveAs_Click(mnuFileSaveAs, New System.EventArgs())
-				
-			Case "Edit"
-				
-				Call mnuEditMode_Click(mnuEditMode.Item(0), New System.EventArgs())
-				
-			Case "Write"
-				
-				Call mnuEditMode_Click(mnuEditMode.Item(1), New System.EventArgs())
-				
-			Case "Delete"
-				
-				Call mnuEditMode_Click(mnuEditMode.Item(2), New System.EventArgs())
-				
-			Case "PlayAll"
-				
-				Call mnuToolsPlayAll_Click(mnuToolsPlayAll, New System.EventArgs())
-				
-			Case "Play"
-				
-				Call mnuToolsPlay_Click(mnuToolsPlay, New System.EventArgs())
-				
-			Case "Stop"
-				
-				Call mnuToolsPlayStop_Click(mnuToolsPlayStop, New System.EventArgs())
-				
-		End Select
-		
-Err_Renamed: 
-	End Sub
-	
-	Private Sub tlbMenu_ButtonMenuClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles tlbMenu.ButtonMenuClick
-		Dim ButtonMenu As System.Windows.Forms.ToolStripItem = CType(eventSender, System.Windows.Forms.ToolStripMenuItem)
-		
-		'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB ButtonMenu.Parent ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If ButtonMenu.Parent.Text = tlbMenu.Items.Item("Open").Text Then
-			
-			'UPGRADE_ISSUE: MSComctlLib.ButtonMenu ƒvƒƒpƒeƒB ButtonMenu.Index ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call mnuRecentFiles_Click(mnuRecentFiles.Item(ButtonMenu.Index - 1), New System.EventArgs())
-			
-		End If
-		
-	End Sub
-	
-	'UPGRADE_ISSUE: MSComctlLib.Toolbar ƒCƒxƒ“ƒg tlbMenu.Change ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub tlbMenu_Change()
-		
-		Call frmMain_Resize(Me, New System.EventArgs())
-		
-	End Sub
-	
-	Private Sub tmrMain_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles tmrMain.Tick
-		
-		With hsbMain
-			
-			Select Case m_intScrollDir \ 10
-				
-				Case 1
-					
-					If .Value + .SmallChange < (.Maximum - .LargeChange + 1) Then
-						
-						.Value = .Value + .SmallChange
-						
-					Else
-						
-						.Value = (.Maximum - .LargeChange + 1)
-						
-						m_intScrollDir = m_intScrollDir - 10
-						
-					End If
-					
-				Case 2
-					
-					If .Value - .SmallChange > .Minimum Then
-						
-						.Value = .Value - .SmallChange
-						
-					Else
-						
-						.Value = .Minimum
-						
-						m_intScrollDir = m_intScrollDir - 20
-						
-					End If
-					
-			End Select
-			
-		End With
-		
-		With vsbMain
-			
-			Select Case m_intScrollDir Mod 10
-				
-				Case 1
-					
-					If .Value + .SmallChange < .Minimum Then
-						
-						.Value = .Value + .SmallChange
-						
-					Else
-						
-						.Value = .Minimum
-						
-						m_intScrollDir = m_intScrollDir - 1
-						
-					End If
-					
-				Case 2
-					
-					If .Value - .SmallChange > (.Maximum - .LargeChange + 1) Then
-						
-						.Value = .Value - .SmallChange
-						
-					Else
-						
-						.Value = (.Maximum - .LargeChange + 1)
-						
-						m_intScrollDir = m_intScrollDir - 2
-						
-					End If
-					
-			End Select
-			
-		End With
-		
-		If m_intScrollDir Then
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.X ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Mouse.Shift ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call picMain_MouseMove(picMain, New System.Windows.Forms.MouseEventArgs(VB6.MouseButtonConstants.LeftButton * &H100000, 0, g_Mouse.X, g_Mouse.Y, 0))
-			'Call MoveObj(g_Mouse.X, g_Mouse.Y, g_Mouse.Shift)
-			
-		End If
-		
-	End Sub
-	
-	Public Sub tmrEffect_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles tmrEffect.Tick
-		
-		'UPGRADE_ISSUE: PictureBox ƒƒ\ƒbƒh picMain.Cls ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call picMain.Cls()
-		
-		If g_Obj(UBound(g_Obj)).intCh Then
-			
-			Call modDraw.InitPen()
-			Call modDraw.DrawObj(g_Obj(UBound(g_Obj)))
-			Call modDraw.DeletePen()
-			
-		End If
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Select Case g_disp.intEffect
-			
-			Case modEasterEgg.EASTEREGG.RASTER, modEasterEgg.EASTEREGG.NOISE, modEasterEgg.EASTEREGG.STORM
-				
-				'Call modEasterEgg.RasterScroll
-				'Call modEasterEgg.DrawRaster
-				
-			Case modEasterEgg.EASTEREGG.SNOW, modEasterEgg.EASTEREGG.SIROMARU
-				
-				Call modEasterEgg.FallingSnow()
-				
-			Case modEasterEgg.EASTEREGG.SIROMARU2
-				
-				Call modEasterEgg.ZoomSiromaru2()
-				
-			Case modEasterEgg.EASTEREGG.STAFFROLL, modEasterEgg.EASTEREGG.STAFFROLL2
-				
-				Call modEasterEgg.StaffRollScroll()
-				'Call modEasterEgg.DrawStaffRoll
-				
-		End Select
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_SelectArea.blnFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If g_SelectArea.blnFlag Then Call modDraw.DrawSelectArea()
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If g_disp.intEffect Then Call modEasterEgg.DrawEffect()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg txtArtist.TextChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub txtArtist_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtArtist.TextChanged
-		
-		Call SaveChanges()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg txtBPM.TextChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub txtBPM_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtBPM.TextChanged
-		
-		Call SaveChanges()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg txtExInfo.TextChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub txtExInfo_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtExInfo.TextChanged
-		
-		Call SaveChanges()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg txtGenre.TextChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub txtGenre_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtGenre.TextChanged
-		
-		Call SaveChanges()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg txtMissBMP.TextChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub txtMissBMP_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtMissBMP.TextChanged
-		
-		Call SaveChanges()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg txtStageFile.TextChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub txtStageFile_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtStageFile.TextChanged
-		
-		Call SaveChanges()
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg txtTitle.TextChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub txtTitle_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtTitle.TextChanged
-		
-		Call SaveChanges()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg txtTotal.TextChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub txtTotal_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtTotal.TextChanged
-		
-		Call SaveChanges()
-		
-	End Sub
-	
-	Private Sub txtTotal_KeyDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.KeyEventArgs) Handles txtTotal.KeyDown
-		Dim KeyCode As Short = eventArgs.KeyCode
-		Dim Shift As Short = eventArgs.KeyData \ &H10000
-		Dim lngSet_ini As Object
-		
-		If KeyCode = System.Windows.Forms.Keys.Return Then
-			
-			If txtTotal.Text = "10572" Then Call lngSet_ini("EasterEgg", "Tips", 1)
-			
-		End If
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg txtVolume.TextChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub txtVolume_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtVolume.TextChanged
-		
-		Call SaveChanges()
-		
-	End Sub
-	
-	'UPGRADE_NOTE: vsbMain.Change ‚ÍƒCƒxƒ“ƒg‚©‚çƒvƒƒV[ƒWƒƒ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="4E2DC008-5EDA-4547-8317-C9316952674F"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	'UPGRADE_WARNING: VScrollBar ƒCƒxƒ“ƒg vsbMain.Change ‚É‚ÍV‚µ‚¢“®ì‚ªŠÜ‚Ü‚ê‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub vsbMain_Change(ByVal newScrollValue As Integer)
-		On Error Resume Next
-		
-		With g_disp
-			
-			'.Y = CLng(vsbMain.Value) * 96
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Y ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intResolution ‚ÌŠù’èƒvƒƒpƒeƒB‚ð‰ðŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Y = CInt(newScrollValue) * .intResolution
-			
-		End With
-		
-		Call modDraw.Redraw()
-		
-		'Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, g_Mouse.Shift)
-		'ƒXƒNƒ[ƒ‹•ƒIƒuƒWƒFˆÚ“®ŽÀŒ»‚Ì‚½‚ß
-		
-	End Sub
-	
-	'UPGRADE_NOTE: vsbMain.Scroll ‚ÍƒCƒxƒ“ƒg‚©‚çƒvƒƒV[ƒWƒƒ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="4E2DC008-5EDA-4547-8317-C9316952674F"' ‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub vsbMain_Scroll_Renamed(ByVal newScrollValue As Integer)
-		
-		Call vsbMain_Change(0)
-		
-	End Sub
-	Private Sub hsbMain_Scroll(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.ScrollEventArgs) Handles hsbMain.Scroll
-		Select Case eventArgs.type
-			Case System.Windows.Forms.ScrollEventType.ThumbTrack
-				hsbMain_Scroll_Renamed(eventArgs.newValue)
-			Case System.Windows.Forms.ScrollEventType.EndScroll
-				hsbMain_Change(eventArgs.newValue)
-		End Select
-	End Sub
-	Private Sub vsbMain_Scroll(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.ScrollEventArgs) Handles vsbMain.Scroll
-		Select Case eventArgs.type
-			Case System.Windows.Forms.ScrollEventType.ThumbTrack
-				vsbMain_Scroll_Renamed(eventArgs.newValue)
-			Case System.Windows.Forms.ScrollEventType.EndScroll
-				vsbMain_Change(eventArgs.newValue)
-		End Select
-	End Sub
+
+            'End If
+
+            .lngPosition = .lngPosition + g_Measure(.intMeasure).lngY
+
+        End With
+
+        oldObj = g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
+
+        With oldObj
+
+            .intCh = g_intVGridNum(.intCh)
+
+            'If Not Shift And vbAltMask Then
+
+            If DirectCast(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
+
+                lngTemp = 192 \ DirectCast(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData
+                .lngPosition = (.lngPosition \ lngTemp) * lngTemp
+
+            End If
+
+            'End If
+
+            .lngPosition = .lngPosition + g_Measure(.intMeasure).lngY
+
+        End With
+
+        'Y è»¸å›ºå®šç§»å‹•
+        If Shift And Keys.Shift Then
+
+            newObj.lngPosition = oldObj.lngPosition
+
+        End If
+
+        'ç§»å‹•ã—ã¦ã„ã‚‹ï¼Ÿ
+        If newObj.intCh <> oldObj.intCh Or newObj.lngPosition <> oldObj.lngPosition Then
+
+            'å³ã«ç§»å‹•
+            If newObj.intCh > oldObj.intCh Then
+
+                For j = oldObj.intCh To newObj.intCh - 1
+
+                    If g_VGrid(j).blnDraw = True And g_VGrid(j).intCh <> 0 Then
+
+                        newObj.intAtt = newObj.intAtt + 1
+
+                    End If
+
+                Next j
+
+            ElseIf newObj.intCh < oldObj.intCh Then  'å·¦ã«ç§»å‹•
+
+                For j = oldObj.intCh To newObj.intCh + 1 Step -1
+
+                    If g_VGrid(j).blnVisible = True And g_VGrid(j).intCh <> 0 Then
+
+                        newObj.intAtt = newObj.intAtt + 1
+
+                    End If
+
+                Next j
+
+            End If
+
+            lngTemp = newObj.intCh <> oldObj.intCh And newObj.intCh <> 0 And oldObj.intCh <> 0 And newObj.intCh <> UBound(g_VGrid) And oldObj.intCh <> UBound(g_VGrid)
+
+            For i = 0 To UBound(g_Obj) - 1
+
+                With g_Obj(i)
+
+                    'é¸æŠžä¸­
+                    If .intSelect = modMain.OBJ_SELECT.Selected Then
+
+                        'Y è»¸ç§»å‹•
+                        .lngPosition = .lngPosition + newObj.lngPosition - oldObj.lngPosition
+
+                        'å°ç¯€ã¯ã¾ãŸã„ã§ã„ãªã„ã‹ï¼Ÿ
+                        Do While .lngPosition >= g_Measure(.intMeasure).intLen
+
+                            If .intMeasure < 999 Then
+
+                                .lngPosition = .lngPosition - g_Measure(.intMeasure).intLen
+                                .intMeasure = .intMeasure + 1
+
+                            Else
+
+                                .intMeasure = 999
+
+                                Exit Do
+
+                            End If
+
+                        Loop
+
+                        'é€†ã«å°ç¯€ã‚’åˆ‡ã£ã¦ã„ãªã„ã‹ï¼Ÿ
+                        Do While .lngPosition < 0
+
+                            If .intMeasure > 0 Then
+
+                                .lngPosition = g_Measure(.intMeasure - 1).intLen + .lngPosition
+                                .intMeasure = .intMeasure - 1
+
+                            Else
+
+                                .intMeasure = 0
+
+                                Exit Do
+
+                            End If
+
+                        Loop
+
+                        'ç§»å‹•ã—ã¦ã„ã‚‹ãŒã€ä½ç½®ã¯å³ç«¯ã§ã‚‚å·¦ç«¯ã§ã‚‚ãªã„
+                        If lngTemp Then
+
+                            If .intCh < 0 Then
+
+                                j = .intCh
+
+                            ElseIf .intCh > 1000 Then
+
+                                j = .intCh - 1000
+
+                            Else
+
+                                j = g_intVGridNum(.intCh)
+
+                            End If
+
+                            If newObj.intCh > oldObj.intCh Then 'å³ã«ç§»å‹•
+
+                                'ç§»å‹•é‡åˆ†ãƒ«ãƒ¼ãƒ—
+                                For k = 1 To newObj.intAtt
+
+                                    'è¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹ãƒ¬ãƒ¼ãƒ³ã‚’ãƒã‚§ãƒƒã‚¯
+                                    Do
+
+                                        j = j + 1
+
+                                        If j < 0 Or j > UBound(g_VGrid) Then Exit Do
+
+                                        If g_VGrid(j).blnVisible = True And g_VGrid(j).intCh <> 0 Then
+
+                                            Exit Do
+
+                                        End If
+
+                                    Loop
+
+                                Next k
+
+                            Else 'å·¦ã«ç§»å‹•
+
+                                For k = 1 To newObj.intAtt
+
+                                    Do
+
+                                        j = j - 1
+
+                                        If j < 0 Or j > UBound(g_VGrid) Then Exit Do
+
+                                        If g_VGrid(j).blnVisible = True And g_VGrid(j).intCh <> 0 Then
+
+                                            Exit Do
+
+                                        End If
+
+                                    Loop
+
+                                Next k
+
+                            End If
+
+                            '0æœªæº€ã®æ™‚ã¯ä»®ä½ç½®ã¨ã—ã¦ãƒžã‚¤ãƒŠã‚¹ã‚’ã‚ã¦ã‚‹
+                            If j < 0 Then
+
+                                .intCh = j
+
+                            ElseIf j > UBound(g_VGrid) Then  'æœ€å¤§å€¤ä»¥ä¸Šãªã‚‰ä»®ä½ç½®ã¨ã—ã¦1000ä»¥ä¸Šã‚’ã‚ã¦ã‚‹
+
+                                .intCh = 1000 + j
+
+                            Else 'ãã‚Œä»¥å¤–ãªã‚‰æ™®é€šã«è¨­å®š
+
+                                .intCh = g_VGrid(j).intCh
+
+                            End If
+
+                            'ãƒãƒ£ãƒ³ãƒãƒ«ã«ã‚ˆã£ã¦ç‰¹æ®Šãªæ“ä½œãŒå¿…è¦ï¼Ÿ
+                            Select Case .intCh
+
+                                Case 8
+
+                                    'ä½•ã‚‚ã—ãªã„
+
+                                Case 9
+
+                                    .sngValue = CInt(.sngValue)
+
+                                    If .sngValue < 0 Then
+
+                                        .sngValue = 1
+
+                                    End If
+
+                                Case Else
+
+                                    .sngValue = CInt(.sngValue)
+
+                                    If .sngValue < 0 Then
+
+                                        .sngValue = 1
+
+                                    ElseIf .sngValue > 1295 Then
+
+                                        .sngValue = 1295
+
+                                    End If
+
+                            End Select
+
+                        End If
+
+                    End If
+
+                End With
+
+            Next i
+
+            'Call modDraw.DrawStatusBar(g_Obj(UBound(g_Obj)).lngHeight, Shift)
+            Call modDraw.DrawStatusBar(g_Obj(g_Obj(UBound(g_Obj)).lngHeight), Shift)
+
+            'Call SaveChanges
+
+            picMain.Refresh()
+
+        End If
+
+        Exit Sub
+
+Err_Renamed:
+        Call modMain.CleanUp(Err.Number, Err.Description, "MoveObj")
+    End Sub
+
+    Public Sub PreviewBMP(ByRef strFileName As String)
+        On Error GoTo Err_Renamed
+
+        If m_blnPreview = False Then Exit Sub
+
+        With frmWindowPreview
+
+            If .chkLock.CheckState Then Exit Sub
+
+            ._txtBGAPara_0.Text = strFromLong(lstBMP.SelectedIndex + 1)
+            .Text = ._txtBGAPara_0.Text & ":" & strFileName
+
+            If Mid(strFileName, 2, 2) <> ":\" Then strFileName = g_BMS.strDir & strFileName
+
+            'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+            If Len(strFileName) <> 0 And strFileName <> g_BMS.strDir And Dir(strFileName, FileAttribute.Normal) <> vbNullString Then
+
+                .picBackBuffer.Image = System.Drawing.Image.FromFile(strFileName)
+
+            Else
+
+                .picBackBuffer.Image = Nothing
+
+            End If
+
+            If .picBackBuffer.ClientRectangle.Width <= 256 Then
+                ._txtBGAPara_1.Text = CStr(0)
+                ._txtBGAPara_3.Text = CStr(.picBackBuffer.ClientRectangle.Width)
+                ._txtBGAPara_5.Text = CStr((256 - .picBackBuffer.ClientRectangle.Width) \ 2)
+            Else
+                ._txtBGAPara_1.Text = CStr((.picBackBuffer.ClientRectangle.Width - 256) \ 2)
+                ._txtBGAPara_3.Text = CStr(CDbl(._txtBGAPara_1.Text) + 256)
+                ._txtBGAPara_5.Text = CStr(0)
+            End If
+
+            ._txtBGAPara_2.Text = CStr(0)
+
+            If .picBackBuffer.ClientRectangle.Height >= 256 Then
+                ._txtBGAPara_4.Text = CStr(256)
+            Else
+                ._txtBGAPara_4.Text = CStr(.picBackBuffer.ClientRectangle.Height)
+            End If
+
+            ._txtBGAPara_6.Text = CStr(0)
+
+            Call .picPreview.Refresh()
+
+        End With
+
+Err_Renamed:
+    End Sub
+
+    Private Sub PreviewBGA(ByVal lngFileNum As Integer)
+        On Error GoTo Err_Renamed
+
+        Dim strTemp As String
+        Dim strArray() As String
+
+        If m_blnPreview = False Then Exit Sub
+
+        With frmWindowPreview
+
+            If .chkLock.CheckState Then Exit Sub
+
+            'strTemp = Trim$(Mid$(lstBGA.List(lstBGA.ListIndex), 8))
+            strTemp = g_strBGA(lngFileNum)
+            strArray = Split(strTemp, " ")
+
+            If Len(strTemp) Then
+
+                strTemp = g_strBMP(modInput.strToNum(strArray(0)))
+
+                If Mid(strTemp, 2, 2) <> ":\" Then strTemp = g_BMS.strDir & strTemp
+
+                'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                If Dir(strTemp, FileAttribute.Normal) <> vbNullString Then
+
+                    .picBackBuffer.Image = System.Drawing.Image.FromFile(strTemp)
+
+                Else
+
+                    .picBackBuffer.Image = Nothing
+
+                End If
+
+            Else
+
+                .picBackBuffer.Image = Nothing
+
+            End If
+
+            If UBound(strArray) > 5 Then
+                ._txtBGAPara_0.Text = strArray(0)
+                ._txtBGAPara_1.Text = strArray(1)
+                If CDbl(._txtBGAPara_1.Text) < 0 Then ._txtBGAPara_1.Text = CStr(0)
+                ._txtBGAPara_2.Text = strArray(2)
+                If CDbl(._txtBGAPara_2.Text) < 0 Then ._txtBGAPara_2.Text = CStr(0)
+                ._txtBGAPara_3.Text = strArray(3)
+                If CDbl(._txtBGAPara_3.Text) < 0 Then ._txtBGAPara_3.Text = CStr(0)
+                ._txtBGAPara_4.Text = strArray(4)
+                If CDbl(._txtBGAPara_4.Text) < 0 Then ._txtBGAPara_4.Text = CStr(0)
+                ._txtBGAPara_5.Text = strArray(5)
+                If CDbl(._txtBGAPara_5.Text) < 0 Then ._txtBGAPara_5.Text = CStr(0)
+                ._txtBGAPara_6.Text = strArray(6)
+                If CDbl(._txtBGAPara_6.Text) < 0 Then ._txtBGAPara_6.Text = CStr(0)
+
+                .Text = strFromLong(lstBGA.SelectedIndex + 1) & ":" & strTemp
+
+            End If
+
+            Call .picPreview.Refresh()
+
+        End With
+
+Err_Renamed:
+    End Sub
+
+    Private Sub PreviewWAV(ByRef strFileName As String)
+        On Error GoTo Err_Renamed
+
+        Dim lngError As Integer
+        Dim strError As String = Space(256)
+        Dim strTemp As String = ""
+
+        If m_blnPreview = False Then Exit Sub
+
+        If Mid(strFileName, 2, 2) <> ":\" Then
+
+            strFileName = g_BMS.strDir & strFileName
+
+        End If
+
+        Call mciSendString("close PREVIEW", vbNullString, 0, 0)
+
+        Dim strArray() As String
+        strArray = Split(strFileName, ".")
+
+        Select Case UCase(strArray(UBound(strArray)))
+            Case "WAV" : strTemp = " type WaveAudio"
+            Case "MP3", "OGG" : strTemp = " type MPEGVideo"
+        End Select
+
+        lngError = mciSendString("open " & Chr(34) & strFileName & Chr(34) & strTemp & " alias PREVIEW", vbNullString, 0, 0)
+
+        If lngError Then
+
+            If mciGetErrorString(lngError, strError, 256) Then
+
+                strTemp = VB.Left(strError, InStr(strError, Chr(0)) - 1)
+
+            Else
+
+                strTemp = "ä¸æ˜Žãªã‚¨ãƒ©ãƒ¼ã§ã™ã€‚"
+
+            End If
+
+            'Call modMain.DebugOutput(lngError, strTemp & Chr$(34) & strFileName & Chr$(34), "PreviewWAV", False)
+
+        End If
+
+        Call mciSendString("play PREVIEW notify", vbNullString, 0, Me.Handle.ToInt32)
+
+Err_Renamed:
+    End Sub
+
+    Private Sub FormDragDrop(ByVal Data As String())
+        Dim i As Integer
+        Dim strArray() As String
+        Dim strTemp As String
+        Dim blnReadFlag As Boolean
+
+        For i = 0 To Data.Length - 1
+
+            'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+            If Dir(Data(i), FileAttribute.Normal) <> vbNullString Then
+
+                strTemp = Data(i)
+
+                If VB.Right(UCase(strTemp), 4) = ".BMS" Or VB.Right(UCase(strTemp), 4) = ".BME" Or VB.Right(UCase(strTemp), 4) = ".BML" Or VB.Right(UCase(strTemp), 4) = ".PMS" Then
+
+                    If modMain.intSaveCheck() Or blnReadFlag Then
+
+                        'UPGRADE_WARNING: App ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ App.EXEName ã«ã¯æ–°ã—ã„å‹•ä½œãŒå«ã¾ã‚Œã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                        Call ShellExecute(0, "open", Chr(34) & g_strAppDir & My.Application.Info.AssemblyName & Chr(34), Chr(34) & strTemp & Chr(34), "", SW_SHOWNORMAL)
+
+                    Else
+
+                        Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                        strArray = Split(strTemp, "\")
+                        g_BMS.strFileName = VB.Right(strTemp, Len(strArray(UBound(strArray))))
+                        g_BMS.strDir = VB.Left(strTemp, Len(strTemp) - Len(strArray(UBound(strArray))))
+                        dlgMainOpen.InitialDirectory = g_BMS.strDir
+                        dlgMainSave.InitialDirectory = g_BMS.strDir
+                        blnReadFlag = True
+
+                        Call modInput.LoadBMS()
+                        Call modMain.RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
+
+                    End If
+
+                End If
+
+            End If
+
+        Next i
+
+    End Sub
+
+    Private Sub CopyToClipboard()
+
+        Dim i As Integer
+        Dim intTemp As Short
+        Dim lngTemp As Integer
+        Dim strArray() As String
+
+        Call My.Computer.Clipboard.Clear()
+
+        intTemp = 999
+
+        For i = 0 To UBound(g_Obj) - 1
+
+            With g_Obj(i)
+
+                If .intSelect = modMain.OBJ_SELECT.Selected Then
+
+                    If .intMeasure < intTemp Then intTemp = .intMeasure
+
+                    lngTemp = lngTemp + 1
+
+                End If
+
+            End With
+
+        Next i
+
+        ReDim strArray(lngTemp - 1)
+        lngTemp = 0
+
+        For i = 0 To UBound(g_Obj) - 1
+
+            With g_Obj(i)
+
+                If .intSelect = modMain.OBJ_SELECT.Selected Then
+
+                    strArray(lngTemp) = Format(.intCh, "000") & .intAtt & Format(g_Measure(.intMeasure).lngY + .lngPosition - g_Measure(intTemp).lngY, "0000000") & .sngValue
+                    lngTemp = lngTemp + 1
+
+                End If
+
+            End With
+
+        Next i
+
+        Call My.Computer.Clipboard.SetText("BMSE ClipBoard Object Data Format" & vbCrLf & Join(strArray, vbCrLf) & vbCrLf)
+
+    End Sub
+
+    Public Sub SaveChanges()
+
+        g_BMS.blnSaveFlag = False
+
+        Me.Text = g_strAppTitle
+
+        If Len(g_BMS.strDir) Then
+
+            If _mnuOptionsItem_1.Checked Then
+
+                Me.Text = Me.Text & " - " & g_BMS.strFileName
+
+            Else
+
+                Me.Text = Me.Text & " - " & g_BMS.strDir & g_BMS.strFileName
+
+            End If
+
+        End If
+
+        Me.Text = Me.Text & " *"
+
+    End Sub
+
+    Private Function strCmdDecode(ByRef strCmd As String, ByRef strFileName As String) As String
+
+        Dim ret As String
+
+        ret = strCmd
+
+        ret = Replace(ret, "<filename>", Chr(34) & strFileName & Chr(34))
+        ret = Replace(ret, "<measure>", g_disp.intStartMeasure)
+        ret = Replace(ret, "<appdir>", g_strAppDir)
+
+        strCmdDecode = ret
+
+    End Function
+
+    Public Sub RefreshList()
+
+        Dim i As Integer
+        Dim strTemp As String = Space(2)
+        Dim lngTemp As Integer
+        Dim lngIndex(2) As Integer
+
+        lngIndex(0) = lstWAV.SelectedIndex
+        lngIndex(1) = lstBMP.SelectedIndex
+        lngIndex(2) = lstBGA.SelectedIndex
+
+        lstWAV.Visible = False
+        lstBMP.Visible = False
+        lstBGA.Visible = False
+
+        lstWAV.Items.Clear()
+        lstBMP.Items.Clear()
+        lstBGA.Items.Clear()
+
+        For i = 1 To 1295
+
+            'strTemp = Right$("0" & Hex$(i), 2)
+            'lngTemp = modInput.strToNum(strTemp)
+
+            strTemp = modInput.strFromNum(i)
+            lngTemp = modInput.strToNum(modInput.strFromNumZZ(i))
+
+            modMain.SetItemString(lstWAV, i - 1, "#WAV" & strTemp & ":" & g_strWAV(i))
+            modMain.SetItemString(lstBMP, i - 1, "#BMP" & strTemp & ":" & g_strBMP(i))
+            modMain.SetItemString(lstBGA, i - 1, "#BGA" & strTemp & ":" & g_strBGA(i))
+
+        Next i
+
+        '    If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+        '
+        '        For i = 1 To 255
+        '
+        '            'strTemp = Right$("0" & Hex$(i), 2)
+        '            'lngTemp = modInput.strToNum(strTemp)
+        '
+        '            strTemp = strFromLong(i)
+        '            lngTemp = lngFromLong(i)
+        '
+        '            lstWAV.List(i - 1) = "#WAV" & strTemp & ":" & g_strWAV(lngTemp)
+        '            lstBMP.List(i - 1) = "#BMP" & strTemp & ":" & g_strBMP(lngTemp)
+        '            lstBGA.List(i - 1) = "#BGA" & strTemp & ":" & g_strBGA(lngTemp)
+        '
+        '        Next i
+        '
+        '        frmWindowPreview.cmdPreviewEnd.Caption = "FF"
+        '
+        '    Else
+        '
+        '        For i = 1 To 1295
+        '
+        '            strTemp = modInput.strFromNum(i)
+        '
+        '            lstWAV.List(i - 1) = "#WAV" & strTemp & ":" & g_strWAV(i)
+        '            lstBMP.List(i - 1) = "#BMP" & strTemp & ":" & g_strBMP(i)
+        '            lstBGA.List(i - 1) = "#BGA" & strTemp & ":" & g_strBGA(i)
+        '
+        '        Next i
+        '
+        '        frmWindowPreview.cmdPreviewEnd.Caption = "ZZ"
+        '
+        '    End If
+
+        m_blnPreview = False
+        lstWAV.SelectedIndex = lngIndex(0)
+        lstBMP.SelectedIndex = lngIndex(1)
+        lstBGA.SelectedIndex = lngIndex(2)
+        m_blnPreview = True
+
+        lstWAV.Visible = True
+        lstBMP.Visible = True
+        lstBGA.Visible = True
+
+    End Sub
+
+    Private Sub cboDirectInput_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDirectInput.Enter
+
+        Me.AcceptButton = cmdDirectInput
+
+    End Sub
+
+    Private Sub cboDirectInput_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDirectInput.Leave
+
+        Me.AcceptButton = Nothing
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ cboDispFrame.SelectedIndexChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub cboDispFrame_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispFrame.SelectedIndexChanged
+
+        Call modDraw.InitVerticalLine()
+
+    End Sub
+
+    Private Sub cboDispGridMain_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispGridMain.SelectedIndexChanged
+
+        picMain.Refresh()
+
+    End Sub
+
+    Private Sub cboDispGridSub_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispGridSub.SelectedIndexChanged
+
+        picMain.Refresh()
+
+    End Sub
+
+    Private Sub cboDispHeight_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispHeight.SelectedIndexChanged
+        Dim i As Integer
+        Dim sngTemp As Single
+
+        If Me.Visible = False Then Exit Sub
+
+        If cboDispHeight.SelectedIndex = cboDispHeight.Items.Count - 1 Then
+
+            With frmWindowInput
+
+                .lblMainDisp.Text = g_Message(modMain.Message.INPUT_SIZE)
+                .txtMain.Text = Format(g_disp.Height, "#0.00")
+                If .txtMain.Text = "100.00" Then .txtMain.Text = "1.00"
+
+                Call frmWindowInput.ShowDialog(Me)
+
+                sngTemp = System.Math.Round(Val(.txtMain.Text), 2)
+
+                If sngTemp <= 0 Then
+
+                    sngTemp = g_disp.Height
+
+                ElseIf sngTemp > 16 Then
+
+                    sngTemp = 16
+
+                End If
+
+                For i = 0 To cboDispHeight.Items.Count - 1
+
+                    If DirectCast(Me.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData = sngTemp * 100 Then
+
+                        cboDispHeight.SelectedIndex = i
+
+                        Exit For
+
+                    ElseIf DirectCast(Me.cboDispHeight.Items.Item(i), modMain.ItemWithData).ItemData > sngTemp * 100 Then
+
+                        Call cboDispHeight.Items.Insert(i, New modMain.ItemWithData("x" & Format(sngTemp, "#0.00"), sngTemp * 100))
+                        cboDispHeight.SelectedIndex = i
+
+                        Exit For
+
+                    End If
+
+                Next i
+
+            End With
+
+        End If
+
+        picMain.Refresh()
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ cboDispKey.SelectedIndexChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub cboDispKey_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispKey.SelectedIndexChanged
+
+        Call modDraw.InitVerticalLine()
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ cboDispSC1P.SelectedIndexChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub cboDispSC1P_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispSC1P.SelectedIndexChanged
+
+        Call modDraw.InitVerticalLine()
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ cboDispSC2P.SelectedIndexChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub cboDispSC2P_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispSC2P.SelectedIndexChanged
+
+        Call modDraw.InitVerticalLine()
+
+    End Sub
+
+    Private Sub cboDispWidth_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDispWidth.SelectedIndexChanged
+        Dim i As Integer
+        Dim sngTemp As Single
+
+        If Me.Visible = False Then Exit Sub
+
+        If cboDispWidth.SelectedIndex = cboDispWidth.Items.Count - 1 Then
+
+            With frmWindowInput
+
+                .lblMainDisp.Text = g_Message(modMain.Message.INPUT_SIZE)
+                .txtMain.Text = Format(g_disp.Width, "#0.00")
+                If .txtMain.Text = "100.00" Then .txtMain.Text = "1.00"
+
+                Call frmWindowInput.ShowDialog(Me)
+
+                sngTemp = System.Math.Round(Val(.txtMain.Text), 2)
+
+                If sngTemp <= 0 Then
+
+                    sngTemp = g_disp.Width
+
+                ElseIf sngTemp > 16 Then
+
+                    sngTemp = 16
+
+                End If
+
+                For i = 0 To cboDispWidth.Items.Count - 1
+
+                    If DirectCast(Me.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData = sngTemp * 100 Then
+
+                        cboDispWidth.SelectedIndex = i
+
+                        Exit For
+
+                    ElseIf DirectCast(Me.cboDispWidth.Items.Item(i), modMain.ItemWithData).ItemData > sngTemp * 100 Then
+
+                        Call cboDispWidth.Items.Insert(i, New modMain.ItemWithData("x" & Format(sngTemp, "#0.00"), sngTemp * 100))
+                        cboDispWidth.SelectedIndex = i
+
+                        Exit For
+
+                    End If
+
+                Next i
+
+            End With
+
+        End If
+
+        picMain.Refresh()
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ cboPlayer.SelectedIndexChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub cboPlayer_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboPlayer.SelectedIndexChanged
+
+        Call modDraw.InitVerticalLine()
+
+    End Sub
+
+    Private Sub cboVScroll_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboVScroll.SelectedIndexChanged
+        Dim NewLargeChange As Short
+
+        vsbMain.SmallChange = DirectCast(Me.cboVScroll.SelectedItem, modMain.ItemWithData).ItemData
+        NewLargeChange = Me.vsbMain.SmallChange * 8
+        vsbMain.Maximum = vsbMain.Maximum + NewLargeChange - vsbMain.LargeChange
+        vsbMain.LargeChange = NewLargeChange
+
+    End Sub
+
+    Private Sub cmdBGAExcDown_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBGAExcDown.Click
+
+        Call cmdBMPExcDown_Click(cmdBMPExcDown, New System.EventArgs())
+
+    End Sub
+
+    Private Sub cmdBGAExcUp_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBGAExcUp.Click
+
+        Call cmdBMPExcUp_Click(cmdBMPExcUp, New System.EventArgs())
+
+    End Sub
+
+    Private Sub cmdBGAPreview_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBGAPreview.Click
+
+        Call PreviewBGA(lstBGA.SelectedIndex + 1)
+
+        With frmWindowPreview
+
+            If Not .Visible Then
+
+                'Call .SetWindowSize
+                '.Left = frmMain.Left + (frmMain.Width - .Width) \ 2
+                '.Top = frmMain.Top + (frmMain.Height - .Height) \ 2
+
+                Call frmWindowPreview.Show(Me)
+
+            Else
+
+                Call frmWindowPreview.Close()
+
+            End If
+
+            Call picMain.Focus()
+
+        End With
+
+    End Sub
+
+    Private Sub cmdBMPExcDown_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBMPExcDown.Click
+        Dim i As Integer
+        Dim lngChangeA As Integer
+        Dim lngChangeB As Integer
+        Dim strTemp As String
+        Dim lngIndex As Integer
+        Dim strArray() As String
+
+        With lstBMP
+
+            If .SelectedIndex = .Items.Count - 1 Then Exit Sub
+
+            'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+
+            'lngChangeB = modInput.strToNum(Hex$(.ListIndex + 2))
+            'lngChangeA = modInput.strToNum(Hex$(.ListIndex + 1))
+
+            'Else
+
+            'lngChangeB = .ListIndex + 2
+            'lngChangeA = .ListIndex + 1
+
+            'End If
+
+            lngChangeB = lngFromLong(.SelectedIndex + 2)
+            lngChangeA = lngFromLong(.SelectedIndex + 1)
+
+            strTemp = g_strBMP(lngChangeB)
+            g_strBMP(lngChangeB) = g_strBMP(lngChangeA)
+            g_strBMP(lngChangeA) = strTemp
+
+            lngIndex = .SelectedIndex + 1
+
+        End With
+
+        With lstBGA
+
+            strTemp = g_strBGA(lngChangeB)
+            g_strBGA(lngChangeB) = g_strBGA(lngChangeA)
+            g_strBGA(lngChangeA) = strTemp
+
+        End With
+
+        For i = 0 To UBound(g_strBGA)
+
+            If Len(g_strBGA(i)) Then
+
+                strArray = Split(g_strBGA(i), " ")
+
+                If UBound(strArray) Then
+
+                    If modInput.strToNum(strArray(0)) = lngChangeB Then
+
+                        strArray(0) = modInput.strFromNum(lngChangeA, 2)
+
+                    ElseIf modInput.strToNum(strArray(0)) = lngChangeA Then
+
+                        strArray(0) = modInput.strFromNum(lngChangeB, 2)
+
+                    End If
+
+                    g_strBGA(i) = Join(strArray, " ")
+
+                End If
+
+            End If
+
+        Next i
+
+        For i = 0 To UBound(g_Obj) - 1
+
+            With g_Obj(i)
+
+                If .intCh = 4 Or .intCh = 6 Or .intCh = 7 Then
+
+                    If .sngValue = lngChangeA Then
+
+                        .sngValue = lngChangeB
+
+                    ElseIf .sngValue = lngChangeB Then
+
+                        .sngValue = lngChangeA
+
+                    End If
+
+                End If
+
+            End With
+
+        Next i
+
+        Call g_InputLog.AddData(modInput.strFromNum(modMain.CMD_LOG.BMP_CHANGE) & modInput.strFromNum(lngChangeB) & modInput.strFromNum(lngChangeA) & modLog.getSeparator)
+
+        Call RefreshList()
+
+        picMain.Refresh()
+
+        lstBMP.SelectedIndex = lngIndex
+        lstBGA.SelectedIndex = lngIndex
+
+    End Sub
+
+    Private Sub cmdBMPExcUp_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBMPExcUp.Click
+        Dim i As Integer
+        Dim lngChangeA As Integer
+        Dim lngChangeB As Integer
+        Dim strTemp As String
+        Dim lngIndex As Integer
+        Dim strArray() As String
+
+        With lstBMP
+
+            If .SelectedIndex = 0 Then Exit Sub
+
+            'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+
+            'lngChangeB = modInput.strToNum(Hex$(.ListIndex))
+            'lngChangeA = modInput.strToNum(Hex$(.ListIndex + 1))
+
+            'Else
+
+            'lngChangeB = .ListIndex
+            'lngChangeA = .ListIndex + 1
+
+            'End If
+
+            lngChangeB = lngFromLong(.SelectedIndex)
+            lngChangeA = lngFromLong(.SelectedIndex + 1)
+
+            strTemp = g_strBMP(lngChangeB)
+            g_strBMP(lngChangeB) = g_strBMP(lngChangeA)
+            g_strBMP(lngChangeA) = strTemp
+
+            lngIndex = .SelectedIndex - 1
+
+        End With
+
+        With lstBGA
+
+            strTemp = g_strBGA(lngChangeB)
+            g_strBGA(lngChangeB) = g_strBGA(lngChangeA)
+            g_strBGA(lngChangeA) = strTemp
+
+        End With
+
+        For i = 0 To UBound(g_Obj) - 1
+
+            With g_Obj(i)
+
+                If .intCh = 4 Or .intCh = 6 Or .intCh = 7 Then
+
+                    If .sngValue = lngChangeA Then
+
+                        .sngValue = lngChangeB
+
+                    ElseIf .sngValue = lngChangeB Then
+
+                        .sngValue = lngChangeA
+
+                    End If
+
+                End If
+
+            End With
+
+        Next i
+
+        For i = 0 To UBound(g_strBGA)
+
+            If Len(g_strBGA(i)) Then
+
+                strArray = Split(g_strBGA(i), " ")
+
+                If UBound(strArray) Then
+
+                    If modInput.strToNum(strArray(0)) = lngChangeB Then
+
+                        strArray(0) = modInput.strFromNum(lngChangeA, 2)
+
+                    ElseIf modInput.strToNum(strArray(0)) = lngChangeA Then
+
+                        strArray(0) = modInput.strFromNum(lngChangeB, 2)
+
+                    End If
+
+                    g_strBGA(i) = Join(strArray, " ")
+
+                End If
+
+            End If
+
+        Next i
+
+        Call g_InputLog.AddData(modInput.strFromNum(modMain.CMD_LOG.BMP_CHANGE) & modInput.strFromNum(lngChangeB) & modInput.strFromNum(lngChangeA) & modLog.getSeparator)
+
+        Call RefreshList()
+
+        picMain.Refresh()
+
+        lstBMP.SelectedIndex = lngIndex
+        lstBGA.SelectedIndex = lngIndex
+
+    End Sub
+
+    Private Sub cmdDirectInput_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdDirectInput.Click
+        On Error GoTo Err_Renamed
+
+        Dim intTemp As Short
+        Dim i As Integer
+
+        With cboDirectInput
+
+            If Len(.Text) Then
+
+                intTemp = UBound(g_Obj)
+
+                Call modInput.LoadBMSLine(.Text, True)
+
+                For i = intTemp To UBound(g_Obj) - 1
+
+                    With g_Obj(i)
+
+                        .lngPosition = (g_Measure(.intMeasure).intLen / .lngHeight) * .lngPosition
+
+                        Select Case .intCh
+
+                            Case modInput.OBJ_CH.CH_BPM
+
+                                .intCh = 8
+
+                            Case modInput.OBJ_CH.CH_KEY_INV_MIN To modInput.OBJ_CH.CH_KEY_INV_MAX 'ä¸å¯è¦–
+
+                                .intCh = .intCh - modInput.OBJ_CH.CH_INV
+                                .intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE
+
+                            Case modInput.OBJ_CH.CH_KEY_LN_MIN To modInput.OBJ_CH.CH_KEY_LN_MAX 'LN
+
+                                .intCh = .intCh - modInput.OBJ_CH.CH_LN
+                                .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE
+
+                        End Select
+
+                    End With
+
+                Next i
+
+                Call .Items.Insert(0, .Text)
+
+                For i = 1 To .Items.Count
+
+                    If .Text = modMain.GetItemString(cboDirectInput, i) Then
+
+                        Call .Items.RemoveAt(i)
+
+                        Exit For
+
+                    End If
+
+                Next i
+
+                If .Items.Count > 10 Then Call .Items.RemoveAt(.Items.Count - 1)
+
+                .Text = ""
+
+                Call .Focus()
+
+                Call SaveChanges()
+
+                Call modDraw.InitVerticalLine()
+
+            End If
+
+        End With
+
+        Exit Sub
+
+Err_Renamed:
+        Call modMain.CleanUp(Err.Number, Err.Description, "cmdDirectImput_Click")
+    End Sub
+
+    Private Sub cmdMeasureSelectAll_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdMeasureSelectAll.Click
+
+        Dim i As Integer
+        Dim intTemp As Short
+
+        With lstMeasureLen
+
+            intTemp = .SelectedIndex
+            .Visible = False
+
+            For i = 0 To 999
+
+                .SetSelected(i, True)
+
+            Next i
+
+            .SelectedIndex = intTemp
+            .Visible = True
+
+        End With
+
+    End Sub
+
+    Private Sub cmdBGADelete_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBGADelete.Click
+
+        Dim strTemp As String = Space(7)
+
+        With lstBGA
+
+            If Len(modMain.GetItemString(lstBGA, .SelectedIndex)) > 7 Then
+
+                strTemp = "#BGA00:"
+
+                'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+
+                'Mid$(strTemp, 5, 2) = Right$("0" & Hex$(.ListIndex + 1), 2)
+                'g_strBGA(strToNum(Mid$(strTemp, 5, 2))) = ""
+
+                'Else
+
+                'Mid$(strTemp, 5, 2) = modInput.strFromNum(.ListIndex + 1)
+                'g_strBGA(.ListIndex + 1) = ""
+
+                'End If
+
+                Mid(strTemp, 5, 2) = strFromLong(.SelectedIndex + 1)
+                g_strBGA(lngFromLong(.SelectedIndex + 1)) = ""
+
+                modMain.SetItemString(lstBGA, .SelectedIndex, strTemp)
+
+                Call SaveChanges()
+
+            End If
+
+        End With
+
+    End Sub
+
+    Private Sub cmdBGASet_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBGASet.Click
+
+        'Dim strTemp As String
+
+        With lstBGA
+
+            If Len(txtBGAInput.Text) = 0 Then Exit Sub
+
+            'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+
+            'strTemp = Right$("0" & Hex$(.ListIndex + 1), 2)
+            '.List(.ListIndex) = "#BGA" & strTemp & ":" & txtBGAInput.Text
+            'g_strBGA(modInput.strToNum(strTemp)) = txtBGAInput.Text
+
+            'Else
+
+            '.List(.ListIndex) = "#BGA" & modInput.strFromNum(.ListIndex + 1) & ":" & txtBGAInput.Text
+            'g_strBGA(.ListIndex + 1) = txtBGAInput.Text
+
+            'End If
+
+            modMain.SetItemString(lstBGA, .SelectedIndex, "#BGA" & strFromLong(.SelectedIndex + 1) & ":" & txtBGAInput.Text)
+            g_strBGA(lngFromLong(.SelectedIndex + 1)) = txtBGAInput.Text
+
+            txtBGAInput.Text = ""
+
+            Call SaveChanges()
+
+        End With
+
+        With frmWindowPreview
+
+            If .Visible Then
+
+                Call PreviewBGA(lstBGA.SelectedIndex + 1)
+                Call frmWindowPreview.Show(Me)
+
+            End If
+
+        End With
+
+    End Sub
+
+    Private Sub cmdBmpDelete_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBMPDelete.Click
+
+        Dim strTemp As String = Space(7)
+
+        With lstBMP
+
+            If Len(modMain.GetItemString(lstBMP, .SelectedIndex)) > 7 Then
+
+                strTemp = "#BMP00:"
+
+                Mid(strTemp, 5, 2) = strFromLong(.SelectedIndex + 1)
+                g_strBMP(lngFromLong(.SelectedIndex + 1)) = ""
+
+                modMain.SetItemString(lstBMP, .SelectedIndex, strTemp)
+
+                Call SaveChanges()
+
+            End If
+
+        End With
+
+    End Sub
+
+    Private Sub cmdBmpLoad_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBMPLoad.Click
+        On Error GoTo Err_Renamed
+
+        Dim strArray() As String
+        'Dim strTemp     As String * 2
+
+        With dlgMainOpen
+
+            'UPGRADE_WARNING: Filter ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+            .Filter = "Image files (*.bmp,*.jpg,*.gif)|*.bmp;*.jpg;*.gif|All files (*.*)|*.*"
+            .FileName = Mid(modMain.GetItemString(lstBMP, lstBMP.SelectedIndex), 8)
+
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+
+            strArray = Split(.FileName, "\")
+
+            modMain.SetItemString(lstBMP, lstBMP.SelectedIndex, "#BMP" & strFromLong(lstBMP.SelectedIndex + 1) & ":" & strArray(UBound(strArray)))
+            g_strBMP(lngFromLong(lstBMP.SelectedIndex + 1)) = strArray(UBound(strArray))
+
+            .InitialDirectory = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
+
+            Call SaveChanges()
+
+        End With
+
+        With frmWindowPreview
+
+            If .Visible Then
+
+                Call PreviewBMP(Mid(modMain.GetItemString(lstBMP, lstBMP.SelectedIndex), 8))
+                Call frmWindowPreview.Show(Me)
+
+            End If
+
+        End With
+
+        Exit Sub
+
+Err_Renamed:
+    End Sub
+
+    Private Sub cmdInputMeasureLen_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdInputMeasureLen.Click
+        Dim i As Integer
+        Dim lngTemp As Integer
+        Dim strArray() As String
+        Dim tempObj As g_udtObj
+
+        With lstMeasureLen
+
+            For i = 0 To 999
+
+                If .GetSelected(i) Then
+
+                    lngTemp = 1
+
+                    Exit For
+
+                End If
+
+            Next i
+
+            If lngTemp = 0 Then Exit Sub
+
+            ReDim strArray(0)
+
+            .Visible = False
+            lngTemp = 0
+
+            For i = 0 To 999
+
+                If .GetSelected(i) Then
+
+                    modMain.SetItemString(lstMeasureLen, i, "#" & Format(i, "000") & ":" & cboNumerator.Text & "/" & cboDenominator.Text)
+                    lngTemp = (192 / CDbl(cboDenominator.Text)) * CDbl(cboNumerator.Text)
+
+                    strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.MSR_CHANGE) & modInput.strFromNum(i) & VB.Right("00" & Hex(g_Measure(i).intLen), 3) & VB.Right("00" & Hex(lngTemp), 3)
+                    ReDim Preserve strArray(UBound(strArray) + 1)
+
+                    g_Measure(i).intLen = lngTemp
+
+                End If
+
+            Next i
+
+            .Visible = True
+
+        End With
+
+        For i = 0 To UBound(g_Obj) - 1
+
+            tempObj = g_Obj(i)
+
+            With tempObj
+
+                Do While .lngPosition >= g_Measure(.intMeasure).intLen
+
+                    .lngPosition = .lngPosition - g_Measure(.intMeasure).intLen
+                    .intMeasure = .intMeasure + 1
+
+                Loop
+
+            End With
+
+            With g_Obj(i)
+
+                If tempObj.intMeasure > 999 Then
+
+                    strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue
+                    ReDim Preserve strArray(UBound(strArray) + 1)
+
+                    Call modDraw.RemoveObj(i)
+
+                Else
+
+                    strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.OBJ_MOVE) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & VB.Right("0" & Hex(tempObj.intCh), 2) & modInput.strFromNum(tempObj.intMeasure) & modInput.strFromNum(tempObj.lngPosition, 3)
+                    ReDim Preserve strArray(UBound(strArray) + 1)
+
+                    g_Obj(i) = tempObj
+
+                End If
+
+            End With
+
+        Next i
+
+        Call g_InputLog.AddData(Join(strArray, modLog.getSeparator))
+
+        Call modDraw.ArrangeObj()
+
+        Call modDraw.ChangeResolution()
+
+        Call modDraw.InitVerticalLine()
+
+    End Sub
+
+    Private Sub cmdBMPPreview_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdBMPPreview.Click
+
+        Call PreviewBMP(Mid(modMain.GetItemString(lstBMP, lstBMP.SelectedIndex), 8))
+
+        With frmWindowPreview
+
+            If Not .Visible Then
+
+                'Call .SetWindowSize
+                '.Left = frmMain.Left + (frmMain.Width - .Width) \ 2
+                '.Top = frmMain.Top + (frmMain.Height - .Height) \ 2
+
+                Call frmWindowPreview.Show(Me)
+
+            Else
+
+                Call frmWindowPreview.Close()
+
+            End If
+
+            Call picMain.Focus()
+
+        End With
+
+    End Sub
+
+    Private Sub cmdLoadMissBMP_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdLoadMissBMP.Click
+        On Error GoTo Err_Renamed
+
+        Dim strArray() As String
+
+        With dlgMainOpen
+
+            'UPGRADE_WARNING: Filter ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+            .Filter = "Image files (*.bmp,*.jpg,*.gif)|*.bmp;*.jpg;*.gif|All files (*.*)|*.*"
+            .FileName = txtStageFile.Text
+
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+
+            strArray = Split(.FileName, "\")
+            txtMissBMP.Text = strArray(UBound(strArray))
+            dlgMainOpen.InitialDirectory = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
+            dlgMainSave.InitialDirectory = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
+
+        End With
+
+        Exit Sub
+
+Err_Renamed:
+    End Sub
+
+    Private Sub cmdLoadStageFile_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdLoadStageFile.Click
+        On Error GoTo Err_Renamed
+
+        Dim strArray() As String
+
+        With dlgMainOpen
+
+            'UPGRADE_WARNING: Filter ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+            .Filter = "Image files (*.bmp,*.jpg,*.gif)|*.bmp;*.jpg;*.gif|All files (*.*)|*.*"
+            .FileName = txtStageFile.Text
+
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+
+            strArray = Split(.FileName, "\")
+            txtStageFile.Text = strArray(UBound(strArray))
+            dlgMainOpen.InitialDirectory = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
+            dlgMainSave.InitialDirectory = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
+
+        End With
+
+        Exit Sub
+
+Err_Renamed:
+    End Sub
+
+    Private Sub cmdSoundDelete_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSoundDelete.Click
+
+        Dim strTemp As String = Space(7)
+
+        Call mciSendString("close PREVIEW", vbNullString, 0, 0)
+
+        With lstWAV
+
+            If Len(modMain.GetItemString(lstWAV, .SelectedIndex)) > 7 Then
+
+                strTemp = "#WAV00:"
+
+                'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+
+                'Mid$(strTemp, 5, 2) = Right$("0" & Hex$(.ListIndex + 1), 2)
+                'g_strWAV(strToNum(Mid$(strTemp, 5, 2))) = ""
+
+                'Else
+
+                'Mid$(strTemp, 5, 2) = modInput.strFromNum(.ListIndex + 1)
+                'g_strWAV(.ListIndex + 1) = ""
+
+                'End If
+
+                Mid(strTemp, 5, 2) = strFromLong(.SelectedIndex + 1)
+                g_strWAV(lngFromLong(.SelectedIndex + 1)) = ""
+
+                modMain.SetItemString(lstWAV, .SelectedIndex, strTemp)
+
+                Call SaveChanges()
+
+            End If
+
+        End With
+
+    End Sub
+
+    Private Sub cmdSoundExcDown_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSoundExcDown.Click
+        Dim i As Integer
+        Dim lngTemp As Integer
+        Dim intTemp As Short
+        Dim strTemp As String
+
+        With lstWAV
+
+            If .SelectedIndex = .Items.Count - 1 Then Exit Sub
+
+            'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+
+            'intTemp = strToNum(Hex$(.ListIndex + 2))
+            'lngTemp = strToNum(Hex$(.ListIndex + 1))
+
+            'Else
+
+            'intTemp = .ListIndex + 2
+            'lngTemp = .ListIndex + 1
+
+            'End If
+
+            intTemp = lngFromLong(.SelectedIndex + 2)
+            lngTemp = lngFromLong(.SelectedIndex + 1)
+
+            strTemp = g_strWAV(intTemp)
+            g_strWAV(intTemp) = g_strWAV(lngTemp)
+            g_strWAV(lngTemp) = strTemp
+
+            modMain.SetItemString(lstWAV, .SelectedIndex + 1, "")
+            .SelectedIndex = .SelectedIndex + 1
+
+            modMain.SetItemString(lstWAV, .SelectedIndex, "#WAV" & strFromNum(intTemp) & ":" & g_strWAV(intTemp))
+            modMain.SetItemString(lstWAV, .SelectedIndex - 1, "#WAV" & strFromNum(lngTemp) & ":" & g_strWAV(lngTemp))
+
+        End With
+
+        For i = 0 To UBound(g_Obj) - 1
+
+            With g_Obj(i)
+
+                If .intCh >= 11 Then
+
+                    If .sngValue = lngTemp Then
+
+                        .sngValue = intTemp
+
+                    ElseIf .sngValue = intTemp Then
+
+                        .sngValue = lngTemp
+
+                    End If
+
+                End If
+
+            End With
+
+        Next i
+
+        Call g_InputLog.AddData(modInput.strFromNum(modMain.CMD_LOG.WAV_CHANGE) & modInput.strFromNum(intTemp) & modInput.strFromNum(lngTemp) & modLog.getSeparator)
+
+        picMain.Refresh()
+
+    End Sub
+
+    Private Sub cmdSoundExcUp_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSoundExcUp.Click
+        Dim i As Integer
+        Dim lngTemp As Integer
+        Dim intTemp As Short
+        Dim strTemp As String
+
+        With lstWAV
+
+            If .SelectedIndex = 0 Then Exit Sub
+
+            intTemp = lngFromLong(.SelectedIndex)
+            lngTemp = lngFromLong(.SelectedIndex + 1)
+
+            strTemp = g_strWAV(intTemp)
+            g_strWAV(intTemp) = g_strWAV(lngTemp)
+            g_strWAV(lngTemp) = strTemp
+
+            modMain.SetItemString(lstWAV, .SelectedIndex - 1, "")
+            .SelectedIndex = .SelectedIndex - 1
+
+            modMain.SetItemString(lstWAV, .SelectedIndex, "#WAV" & strFromNum(intTemp) & ":" & g_strWAV(intTemp))
+            modMain.SetItemString(lstWAV, .SelectedIndex + 1, "#WAV" & strFromNum(lngTemp) & ":" & g_strWAV(lngTemp))
+
+        End With
+
+        For i = 0 To UBound(g_Obj) - 1
+
+            With g_Obj(i)
+
+                If .intCh >= 11 Then
+
+                    If .sngValue = lngTemp Then
+
+                        .sngValue = intTemp
+
+                    ElseIf .sngValue = intTemp Then
+
+                        .sngValue = lngTemp
+
+                    End If
+
+                End If
+
+            End With
+
+        Next i
+
+        Call g_InputLog.AddData(modInput.strFromNum(modMain.CMD_LOG.WAV_CHANGE) & modInput.strFromNum(intTemp) & modInput.strFromNum(lngTemp) & modLog.getSeparator)
+
+        picMain.Refresh()
+
+    End Sub
+
+    Private Sub cmdSoundLoad_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSoundLoad.Click
+        On Error GoTo Err_Renamed
+
+        Dim strArray() As String
+
+        Call mciSendString("close PREVIEW", vbNullString, 0, 0)
+
+        With dlgMainOpen
+
+            'UPGRADE_WARNING: Filter ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+            .Filter = "Sound files (*.wav,*.mp3)|*.wav;*.mp3|All files (*.*)|*.*"
+            .FileName = Mid(modMain.GetItemString(lstWAV, lstWAV.SelectedIndex), 8)
+
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+
+            dlgMainSave.FileName = dlgMainOpen.FileName
+
+            strArray = Split(.FileName, "\")
+
+            modMain.SetItemString(lstWAV, lstWAV.SelectedIndex, "#WAV" & strFromLong(lstWAV.SelectedIndex + 1) & ":" & strArray(UBound(strArray)))
+            g_strWAV(lngFromLong(lstWAV.SelectedIndex + 1)) = strArray(UBound(strArray))
+
+            dlgMainOpen.InitialDirectory = VB.Left(dlgMainOpen.FileName, Len(dlgMainOpen.FileName) - Len(strArray(UBound(strArray))))
+            dlgMainSave.InitialDirectory = VB.Left(dlgMainOpen.FileName, Len(dlgMainOpen.FileName) - Len(strArray(UBound(strArray))))
+
+            Call SaveChanges()
+
+        End With
+
+Err_Renamed:
+    End Sub
+
+    Private Sub cmdSoundStop_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSoundStop.Click
+
+        Call mciSendString("close PREVIEW", vbNullString, 0, 0)
+
+    End Sub
+
+    Private Sub frmMain_KeyDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
+        Dim KeyCode As Short = eventArgs.KeyCode
+        Dim Shift As Short = eventArgs.KeyData \ &H10000
+
+        Dim i As Integer
+        Dim j As Integer
+
+        If TypeOf ActiveControl Is System.Windows.Forms.TextBox Then
+
+            Exit Sub
+
+        ElseIf TypeOf ActiveControl Is System.Windows.Forms.ComboBox Then
+
+            If DirectCast(ActiveControl(), System.Windows.Forms.ComboBox).DropDownStyle = 0 Then
+                Exit Sub
+            End If
+
+        End If
+
+        'Shift ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰3å›žç¹°ã‚Šè¿”ã™ã‚ˆ
+        If Shift And Keys.Shift Then j = 2
+
+        For i = 0 To j
+
+            Select Case KeyCode
+
+                Case System.Windows.Forms.Keys.Add '+
+
+                    If _optChangeBottom_0.Checked = True Then
+
+                        If lstWAV.SelectedIndex <> lstWAV.Items.Count - 1 Then
+
+                            If Shift And Keys.Control Then
+
+                                Call cmdSoundExcDown_Click(cmdSoundExcDown, New System.EventArgs())
+
+                            Else
+
+                                lstWAV.SelectedIndex = lstWAV.SelectedIndex + 1
+
+                            End If
+
+                        End If
+
+                    ElseIf _optChangeBottom_1.Checked = True Or _optChangeBottom_2.Checked = True Then
+
+                        If lstBMP.SelectedIndex <> lstBMP.Items.Count - 1 Then
+
+                            If Shift And Keys.Control Then
+
+                                Call cmdBMPExcDown_Click(cmdBMPExcDown, New System.EventArgs())
+
+                            Else
+
+                                lstBMP.SelectedIndex = lstBMP.SelectedIndex + 1
+                                lstBGA.SelectedIndex = lstBMP.SelectedIndex
+
+                            End If
+
+                        End If
+
+                    End If
+
+                    Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, Shift)
+                    picMain.Refresh()
+
+                Case System.Windows.Forms.Keys.Subtract '-
+
+                    If _optChangeBottom_0.Checked = True Then
+
+                        If lstWAV.SelectedIndex <> 0 Then
+
+                            If Shift And Keys.Control Then
+
+                                Call cmdSoundExcUp_Click(cmdSoundExcUp, New System.EventArgs())
+
+                            Else
+
+                                lstWAV.SelectedIndex = lstWAV.SelectedIndex - 1
+
+                            End If
+
+                        End If
+
+                    ElseIf _optChangeBottom_1.Checked = True Or _optChangeBottom_2.Checked = True Then
+
+                        If lstBMP.SelectedIndex <> 0 Then
+
+                            If Shift And Keys.Control Then
+
+                                Call cmdBMPExcUp_Click(cmdBMPExcUp, New System.EventArgs())
+
+                            Else
+
+                                lstBMP.SelectedIndex = lstBMP.SelectedIndex - 1
+                                lstBGA.SelectedIndex = lstBGA.SelectedIndex - 1
+
+                            End If
+
+                        End If
+
+                    End If
+
+                    Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, Shift)
+                    picMain.Refresh()
+
+            End Select
+
+        Next i
+
+        Select Case KeyCode
+
+            Case System.Windows.Forms.Keys.F5 'F5 ãƒªã‚¹ãƒˆå¤‰æ›´
+
+                If _optChangeBottom_0.Checked = True Then
+
+                    _optChangeBottom_1.Checked = True
+
+                ElseIf _optChangeBottom_1.Checked = True Then
+
+                    _optChangeBottom_2.Checked = True
+
+                ElseIf _optChangeBottom_2.Checked = True Then
+
+                    _optChangeBottom_0.Checked = True
+
+                End If
+
+            Case System.Windows.Forms.Keys.Multiply '* ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼
+
+                If _optChangeBottom_0.Checked = True Then
+
+                    Call lstWAV_SelectedIndexChanged(lstWAV, New System.EventArgs())
+
+                ElseIf _optChangeBottom_1.Checked = True Then
+
+                    If Not frmWindowPreview.Visible Then Call cmdBMPPreview_Click(cmdBMPPreview, New System.EventArgs())
+
+                ElseIf _optChangeBottom_2.Checked = True Then
+
+                    If Not frmWindowPreview.Visible Then Call cmdBGAPreview_Click(cmdBGAPreview, New System.EventArgs())
+
+                End If
+
+            Case System.Windows.Forms.Keys.Divide '/ ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼åœæ­¢
+
+                If _optChangeBottom_0.Checked = True Then
+
+                    Call cmdSoundStop_Click(cmdSoundStop, New System.EventArgs())
+
+                ElseIf _optChangeBottom_1.Checked = True Or _optChangeBottom_2.Checked = True Then
+
+                    If frmWindowPreview.Visible = True Then
+
+                        Call frmWindowPreview.Close()
+
+                    End If
+
+                End If
+
+        End Select
+
+        Call modEasterEgg.KeyCheck(KeyCode, Shift)
+
+    End Sub
+
+    Private Sub frmMain_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x0.5", 50))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x1.0", 100))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x1.5", 150))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x2.0", 200))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x2.5", 250))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x3.0", 300))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x3.5", 350))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("x4.0", 400))
+        Me.cboDispHeight.Items.Add(New modMain.ItemWithData("...", 10000))
+        Me.cboDispHeight.SelectedIndex = 0
+
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x0.5", 50))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x1.0", 100))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x1.5", 150))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x2.0", 200))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x2.5", 250))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x3.0", 300))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x3.5", 350))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("x4.0", 400))
+        Me.cboDispWidth.Items.Add(New modMain.ItemWithData("...", 10000))
+        Me.cboDispWidth.SelectedIndex = 0
+
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("2", 2))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("4", 4))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("8", 8))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("16", 16))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("32", 32))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("64", 64))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("3", 3))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("6", 6))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("12", 12))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("24", 24))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("48", 48))
+        Me.cboDispGridMain.Items.Add(New modMain.ItemWithData("NONE", 0))
+        Me.cboDispGridMain.SelectedIndex = 0
+
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("4", 4))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("8", 8))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("16", 16))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("32", 32))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("64", 64))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("3", 3))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("6", 6))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("12", 12))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("24", 24))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("48", 48))
+        Me.cboDispGridSub.Items.Add(New modMain.ItemWithData("FREE", 0))
+        Me.cboDispGridSub.SelectedIndex = 0
+
+        Me.cboVScroll.Items.Add(New modMain.ItemWithData("1", 1))
+
+        _linStatusBar_0.pt1.X = 0
+        _linStatusBar_0.pt1.Y = 480 + MainMenu1.Height
+        _linStatusBar_0.pt2.X = 1244
+        _linStatusBar_0.pt2.Y = 480 + MainMenu1.Height
+        _linStatusBar_0.Visible = True
+
+        _linStatusBar_1.pt1.X = 0
+        _linStatusBar_1.pt1.Y = 481 + MainMenu1.Height
+        _linStatusBar_1.pt2.X = 1244
+        _linStatusBar_1.pt2.Y = 481 + MainMenu1.Height
+        _linStatusBar_1.Visible = True
+
+        _linToolbarBottom_0.pt1.X = 0
+        _linToolbarBottom_0.pt1.Y = 30 + MainMenu1.Height
+        _linToolbarBottom_0.pt2.X = 1244
+        _linToolbarBottom_0.pt2.Y = 30 + MainMenu1.Height
+        _linToolbarBottom_0.Visible = True
+
+        _linToolbarBottom_1.pt1.X = 0
+        _linToolbarBottom_1.pt1.Y = 31 + MainMenu1.Height
+        _linToolbarBottom_1.pt2.X = 1244
+        _linToolbarBottom_1.pt2.Y = 31 + MainMenu1.Height
+        _linToolbarBottom_1.Visible = True
+
+        _linHeader_0.pt1.X = 136
+        _linHeader_0.pt1.Y = 200 + MainMenu1.Height
+        _linHeader_0.pt2.X = 1248
+        _linHeader_0.pt2.Y = 200 + MainMenu1.Height
+        _linHeader_0.Visible = True
+
+        _linHeader_1.pt1.X = 136
+        _linHeader_1.pt1.Y = 201 + MainMenu1.Height
+        _linHeader_1.pt2.X = 1248
+        _linHeader_1.pt2.Y = 201 + MainMenu1.Height
+        _linHeader_1.Visible = True
+
+        _linVertical_0.pt1.X = 136
+        _linVertical_0.pt1.Y = 28 + MainMenu1.Height
+        _linVertical_0.pt2.X = 136
+        _linVertical_0.pt2.Y = 489 + MainMenu1.Height
+        _linVertical_0.Visible = True
+
+        _linVertical_1.pt1.X = 137
+        _linVertical_1.pt1.Y = 28 + MainMenu1.Height
+        _linVertical_1.pt2.X = 137
+        _linVertical_1.pt2.Y = 489 + MainMenu1.Height
+        _linVertical_1.Visible = True
+
+        _linDirectInput_0.pt1.X = 136
+        _linDirectInput_0.pt1.Y = 456 + MainMenu1.Height
+        _linDirectInput_0.pt2.X = 0
+        _linDirectInput_0.pt2.Y = 456 + MainMenu1.Height
+        _linDirectInput_0.Visible = True
+
+        _linDirectInput_1.pt1.X = 136
+        _linDirectInput_1.pt1.Y = 457 + MainMenu1.Height
+        _linDirectInput_1.pt2.X = 0
+        _linDirectInput_1.pt2.Y = 457 + MainMenu1.Height
+        _linDirectInput_1.Visible = True
+
+        stringFont = New Font(Font.FontFamily, Font.Size, Font.Style, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
+
+        Dim NewLargeChange As Short
+
+        Dim i As Integer
+        Dim wp As WINDOWPLACEMENT
+
+        Call modMain.StartUp()
+
+        AddHandler picMain.Paint, AddressOf picMain_Paint
+        AddHandler Me.Resize, AddressOf frmMain_Resize
+
+        If cboViewer.Items.Count = 0 Then
+
+            tlbMenu.Items.Item("PlayAll").Enabled = False
+            tlbMenu.Items.Item("Play").Enabled = False
+            tlbMenu.Items.Item("_Stop").Enabled = False
+            mnuToolsPlayAll.Enabled = False
+            mnuToolsPlay.Enabled = False
+            mnuToolsPlayStop.Enabled = False
+            cboViewer.Enabled = False
+
+        End If
+
+        _mnuRecentFiles_0.Visible = False
+        _mnuRecentFiles_1.Visible = False
+        _mnuRecentFiles_2.Visible = False
+        _mnuRecentFiles_3.Visible = False
+        _mnuRecentFiles_4.Visible = False
+        _mnuRecentFiles_5.Visible = False
+        _mnuRecentFiles_6.Visible = False
+        _mnuRecentFiles_7.Visible = False
+        _mnuRecentFiles_8.Visible = False
+        _mnuRecentFiles_9.Visible = False
+
+        mnuLineRecent.Visible = False
+        mnuHelpOpen.Enabled = False
+
+        Me.Text = g_strAppTitle
+
+        Call LoadConfig()
+
+        dlgMainOpen.InitialDirectory = g_strAppDir
+        dlgMainSave.InitialDirectory = g_strAppDir
+        'UPGRADE_WARNING: FileOpenConstants å®šæ•° FileOpenConstants.cdlOFNHideReadOnly ã¯ã€æ–°ã—ã„å‹•ä½œã‚’ã‚‚ã¤ OpenFileDialog.ShowReadOnly ã«ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+        'UPGRADE_WARNING: MSComDlg.CommonDialog ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ dlgMain.Flags ã¯ã€æ–°ã—ã„å‹•ä½œã‚’ã‚‚ã¤ dlgMainOpen.CheckFileExists ã«ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+        dlgMainOpen.CheckFileExists = True
+        dlgMainOpen.CheckPathExists = True
+        dlgMainSave.CheckPathExists = True
+        'UPGRADE_WARNING: MSComDlg.CommonDialog ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ dlgMain.Flags ã¯ã€æ–°ã—ã„å‹•ä½œã‚’ã‚‚ã¤ dlgMainOpen.ShowReadOnly ã«ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+        'UPGRADE_WARNING: FileOpenConstants å®šæ•° FileOpenConstants.cdlOFNHideReadOnly ã¯ã€æ–°ã—ã„å‹•ä½œã‚’ã‚‚ã¤ OpenFileDialog.ShowReadOnly ã«ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+        dlgMainOpen.ShowReadOnly = False
+        'UPGRADE_WARNING: MSComDlg.CommonDialog ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ dlgMain.Flags ã¯ã€æ–°ã—ã„å‹•ä½œã‚’ã‚‚ã¤ dlgMainSave.OverwritePrompt ã«ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+        dlgMainSave.OverwritePrompt = True
+
+        g_disp.lngMaxY = vsbMain.Minimum
+        g_disp.lngMaxX = hsbMain.Minimum
+
+        hsbMain.SmallChange = OBJ_WIDTH
+        NewLargeChange = OBJ_WIDTH * 4
+        hsbMain.Maximum = hsbMain.Maximum + NewLargeChange - hsbMain.LargeChange
+        hsbMain.LargeChange = NewLargeChange
+
+        cboPlayer.SelectedIndex = g_BMS.intPlayerType - 1
+        cboPlayLevel.Text = g_BMS.lngPlayLevel
+        cboPlayRank.SelectedIndex = g_BMS.intPlayRank
+
+        '        If strGet_ini("Options", "UseOldFormat", False, "bmse.ini") Then
+        '
+        '            For i = 1 To 255
+        '
+        '                strTemp = right$("0" & Hex$(i), 2)
+        '                Call .lstWAV.AddItem("#WAV" & strTemp & ":", i - 1)
+        '                Call .lstBMP.AddItem("#BMP" & strTemp & ":", i - 1)
+        '                Call .lstBGA.AddItem("#BGA" & strTemp & ":", i - 1)
+        '
+        '            Next i
+        '
+        '            frmWindowPreview.cmdPreviewEnd.Caption = "FF"
+        '
+        '        Else
+
+        '        For i = 1 To 1295
+        '
+        '            strTemp = modInput.strFromNum(i)
+        '            Call lstWAV.AddItem("#WAV" & strTemp & ":", i - 1)
+        '            Call lstBMP.AddItem("#BMP" & strTemp & ":", i - 1)
+        '            Call lstBGA.AddItem("#BGA" & strTemp & ":", i - 1)
+        '
+        '        Next i
+        Call RefreshList()
+
+        '        End If
+
+        For i = 0 To 999
+
+            Call lstMeasureLen.Items.Insert(i, "#" & Format(i, "000") & ":4/4")
+            g_Measure(i).intLen = 192
+
+        Next i
+
+        lstWAV.SelectedIndex = 0
+        lstBMP.SelectedIndex = 0
+        lstBGA.SelectedIndex = 0
+
+        _fraTop_0.Top = 0
+        _fraTop_0.Left = 0
+        _fraTop_1.Top = 0
+        _fraTop_1.Left = 0
+        _fraTop_2.Top = 0
+        _fraTop_2.Left = 0
+
+
+        _fraTop_0.Visible = True
+        _optChangeTop_0.Checked = True
+
+        _fraBottom_0.Top = 0
+        _fraBottom_0.Left = 0
+        _fraBottom_1.Top = 0
+        _fraBottom_1.Left = 0
+        _fraBottom_2.Top = 0
+        _fraBottom_2.Left = 0
+        _fraBottom_3.Top = 0
+        _fraBottom_3.Left = 0
+
+        _fraBottom_0.Visible = True
+        _optChangeBottom_0.Checked = True
+
+        For i = 1 To 64
+
+            Call cboNumerator.Items.Insert(i - 1, CStr(i))
+
+        Next i
+
+        cboNumerator.SelectedIndex = 3
+        cboDenominator.SelectedIndex = 0
+
+        lstMeasureLen.SelectedIndex = 0
+
+        m_blnPreview = True
+
+        If strGet_ini("EasterEgg", "Tips", 0, "bmse.ini") Then
+
+            With frmWindowTips
+
+                .Left = Me.Left + (Me.Width - .Width) \ 2
+                .Top = Me.Top + (Me.Height - .Height) \ 2
+
+                Call frmWindowTips.ShowDialog(Me)
+
+            End With
+
+        End If
+
+        wp.Length = 44
+        Call GetWindowPlacement(Me.Handle.ToInt32, wp)
+        wp.showCmd = strGet_ini("Main", "State", SW_SHOW, "bmse.ini")
+        Call SetWindowPlacement(Me.Handle.ToInt32, wp)
+
+        Call GetCmdLine()
+
+        Call frmMain_Resize(Me, New EventArgs)
+
+    End Sub
+
+    Private Sub frmMain_DragEnter(sender As Object, e As DragEventArgs) Handles MyBase.DragEnter
+        If (e.Data.GetDataPresent(DataFormats.FileDrop)) Then
+            e.Effect = DragDropEffects.Copy
+        Else
+            e.Effect = DragDropEffects.None
+        End If
+    End Sub
+
+    Private Sub frmMain_DragDrop(sender As Object, e As DragEventArgs) Handles MyBase.DragDrop
+        Call FormDragDrop(CType(e.Data.GetData(DataFormats.FileDrop), String()))
+    End Sub
+
+    Private Sub frmMain_FormClosing(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
+        Dim Cancel As Boolean = eventArgs.Cancel
+        Dim UnloadMode As System.Windows.Forms.CloseReason = eventArgs.CloseReason
+
+        If modMain.intSaveCheck() Then
+
+            Cancel = True
+
+        Else
+
+            RemoveHandler picMain.Paint, AddressOf picMain_Paint
+            Call modMain.CleanUp()
+
+        End If
+
+        eventArgs.Cancel = Cancel
+    End Sub
+
+    Public Sub frmMain_Resize(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
+        On Error Resume Next
+
+        Dim i As Integer
+        Dim lngTemp As Integer
+
+        Dim lngLineWidth As Integer
+        Dim lngLineHeight As Integer
+        Dim lngToolBarHeight As Integer
+        Dim lngDirectInputHeight As Integer
+        Dim lngStatusBarHeight As Integer
+
+        Const PADDING_Renamed As Short = 4 'å„ãƒ‘ãƒ‡ã‚£ãƒ³ã‚°ã®å¤§ãã•
+        Const SCROLLBAR_SIZE As Short = 17 'ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã®å¤§ãã•
+        Const COLUMN_HEIGHT As Short = 21 'å„ã‚«ãƒ©ãƒ ã®é«˜ã•
+        Const FRAME_WIDTH As Short = 217 'ãƒ•ãƒ¬ãƒ¼ãƒ ã®å¹…
+        Const FRAME_TOP_HEIGHT As Short = 146 'ãƒ˜ãƒƒãƒ€ãƒ•ãƒ¬ãƒ¼ãƒ ã®é«˜ã•
+        Const FRAME_BOTTOM_TOP As Short = 42 'ãƒœãƒˆãƒ ãƒ•ãƒ¬ãƒ¼ãƒ ã®Yä½ç½®ã€‚ã‚¿ãƒ–ãƒœã‚¿ãƒ³ã®å¤§ãã•
+        Const FRAME_BOTTOM_BUTTONS_HEIGHT As Short = COLUMN_HEIGHT 'æ¶ˆåŽ»ã¨ã‹å…¥åŠ›ã¨ã‹ã®ãƒœã‚¿ãƒ³
+
+        With Me
+
+            If .WindowState = System.Windows.Forms.FormWindowState.Minimized Then Exit Sub
+
+            lngLineWidth = 2
+            lngLineHeight = 2
+            If _mnuViewItem_0.Checked Then lngToolBarHeight = tlbMenu.Height
+            If _mnuViewItem_1.Checked Then lngDirectInputHeight = COLUMN_HEIGHT + PADDING_Renamed * 2
+            If _mnuViewItem_2.Checked Then lngStatusBarHeight = staMain.Height + 2
+
+            staMain.Visible = _mnuViewItem_2.Checked
+
+            _linToolbarBottom_0.pt1.X = 0
+            _linToolbarBottom_0.pt2.X = .ClientRectangle.Width
+            _linToolbarBottom_0.pt1.Y = lngToolBarHeight
+            _linToolbarBottom_0.pt2.Y = _linToolbarBottom_0.pt1.Y
+            _linToolbarBottom_1.pt1.X = 0
+            _linToolbarBottom_1.pt2.X = .ClientRectangle.Width
+            _linToolbarBottom_1.pt1.Y = _linToolbarBottom_0.pt1.Y + 1
+            _linToolbarBottom_1.pt2.Y = _linToolbarBottom_0.pt2.Y + 1
+
+            _linVertical_0.pt1.X = .ClientRectangle.Width - FRAME_WIDTH - PADDING_Renamed - lngLineWidth
+            _linVertical_0.pt2.X = _linVertical_0.pt1.X
+            _linVertical_1.pt1.X = _linVertical_0.pt1.X + 1
+            _linVertical_1.pt2.X = _linVertical_1.pt1.X
+
+            _linVertical_0.pt1.Y = lngToolBarHeight
+            _linVertical_0.pt2.Y = .ClientRectangle.Height - lngStatusBarHeight
+            _linVertical_1.pt1.Y = _linVertical_0.pt1.Y
+            _linVertical_1.pt2.Y = _linVertical_0.pt2.Y
+
+            _linHeader_0.pt1.X = _linHeader_0.pt1.X
+            _linHeader_0.pt2.X = .ClientRectangle.Width
+            _linHeader_0.pt1.Y = lngToolBarHeight + PADDING_Renamed + FRAME_TOP_HEIGHT + PADDING_Renamed
+            _linHeader_0.pt2.Y = _linHeader_0.pt1.Y
+            _linHeader_1.pt1.X = _linHeader_0.pt1.X
+            _linHeader_1.pt2.X = _linHeader_0.pt2.X
+            _linHeader_1.pt1.Y = _linHeader_0.pt1.Y + 1
+            _linHeader_1.pt2.Y = _linHeader_0.pt2.Y + 1
+
+            _linDirectInput_0.pt1.X = 0
+            _linDirectInput_0.pt2.X = _linVertical_0.pt1.X
+            _linDirectInput_0.pt1.Y = .ClientRectangle.Height - lngStatusBarHeight - PADDING_Renamed - COLUMN_HEIGHT - PADDING_Renamed
+            _linDirectInput_0.pt2.Y = _linDirectInput_0.pt1.Y
+            _linDirectInput_1.pt1.X = _linDirectInput_0.pt1.X
+            _linDirectInput_1.pt2.X = _linDirectInput_0.pt2.X
+            _linDirectInput_1.pt1.Y = _linDirectInput_0.pt1.Y + 1
+            _linDirectInput_1.pt2.Y = _linDirectInput_0.pt2.Y + 1
+
+            _linStatusBar_0.pt1.X = 0
+            _linStatusBar_0.pt2.X = .ClientRectangle.Width
+            _linStatusBar_0.pt1.Y = .ClientRectangle.Height - lngStatusBarHeight
+            _linStatusBar_0.pt2.Y = .ClientRectangle.Height - lngStatusBarHeight
+            _linStatusBar_1.pt1.X = _linStatusBar_0.pt1.X
+            _linStatusBar_1.pt2.X = _linStatusBar_0.pt2.X
+            _linStatusBar_1.pt1.Y = _linStatusBar_0.pt1.Y + 1
+            _linStatusBar_1.pt2.Y = _linStatusBar_0.pt2.Y + 1
+
+            _linStatusBar_0.Visible = _mnuViewItem_2.Checked
+            _linStatusBar_1.Visible = _mnuViewItem_2.Checked
+
+            tlbMenu.Visible = _mnuViewItem_0.Checked
+            fraViewer.Visible = _mnuViewItem_0.Checked
+            fraGrid.Visible = _mnuViewItem_0.Checked
+            fraDispSize.Visible = _mnuViewItem_0.Checked
+
+            lngTemp = .ClientRectangle.Width - FRAME_WIDTH - PADDING_Renamed - lngLineWidth - PADDING_Renamed - SCROLLBAR_SIZE
+
+            Call vsbMain.SetBounds(lngTemp, MainMenu1.Height + lngToolBarHeight + PADDING_Renamed, SCROLLBAR_SIZE, .ClientRectangle.Height - MainMenu1.Height - lngToolBarHeight - PADDING_Renamed - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed)
+
+            Call hsbMain.SetBounds(0, .ClientRectangle.Height - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed, lngTemp, SCROLLBAR_SIZE)
+
+            Call picMain.SetBounds(0, MainMenu1.Height + lngToolBarHeight + PADDING_Renamed, lngTemp, .ClientRectangle.Height - MainMenu1.Height - lngToolBarHeight - PADDING_Renamed - lngStatusBarHeight - lngDirectInputHeight - SCROLLBAR_SIZE - PADDING_Renamed)
+
+            _linDirectInput_0.Visible = _mnuViewItem_1.Checked
+            _linDirectInput_1.Visible = _mnuViewItem_1.Checked
+            lblDirectInput.Visible = _mnuViewItem_1.Checked
+            cboDirectInput.Visible = _mnuViewItem_1.Checked
+            cmdDirectInput.Visible = _mnuViewItem_1.Checked
+
+            Call lblDirectInput.SetBounds(PADDING_Renamed, .ClientRectangle.Height - lngStatusBarHeight - PADDING_Renamed - (COLUMN_HEIGHT + lblDirectInput.Height) \ 2, 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
+
+            Call cmdDirectInput.SetBounds(.ClientRectangle.Width - FRAME_WIDTH - cmdDirectInput.Width - PADDING_Renamed * 2 - lngLineWidth, .ClientRectangle.Height - lngStatusBarHeight - PADDING_Renamed - cmdDirectInput.Height, 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
+
+            Call cboDirectInput.SetBounds(lblDirectInput.Left + lblDirectInput.Width + PADDING_Renamed, .ClientRectangle.Height - lngStatusBarHeight - PADDING_Renamed - (COLUMN_HEIGHT + cboDirectInput.Height) \ 2, cmdDirectInput.Left - lblDirectInput.Width - PADDING_Renamed * 3, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
+
+            With tlbMenu.Items.Item("Viewer")
+                .Width = fraViewer.Width
+                Call fraViewer.SetBounds(.Bounds.Left + PADDING_Renamed, .Bounds.Top + MainMenu1.Height + PADDING_Renamed, .Width, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
+                Call fraViewer.BringToFront()
+            End With
+
+            With tlbMenu.Items.Item("ChangeGrid")
+                lblGridMain.Left = PADDING_Renamed
+                cboDispGridSub.Left = lblGridMain.Left + lblGridMain.Width + PADDING_Renamed
+                lblGridSub.Left = cboDispGridSub.Left + cboDispGridSub.Width + PADDING_Renamed * 3
+                cboDispGridMain.Left = lblGridSub.Left + lblGridSub.Width + PADDING_Renamed
+                fraGrid.Width = cboDispGridMain.Left + cboDispGridMain.Width + PADDING_Renamed
+                .Width = fraGrid.Width
+                Call fraGrid.SetBounds(.Bounds.Left, .Bounds.Top + MainMenu1.Height + PADDING_Renamed, .Width, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
+                Call fraGrid.BringToFront()
+            End With
+
+            With tlbMenu.Items.Item("DispSize")
+                lblDispHeight.Left = PADDING_Renamed
+                cboDispHeight.Left = lblDispHeight.Left + lblDispHeight.Width + PADDING_Renamed
+                lblDispWidth.Left = cboDispHeight.Left + cboDispHeight.Width + PADDING_Renamed * 3
+                cboDispWidth.Left = lblDispWidth.Left + lblDispWidth.Width + PADDING_Renamed
+                fraDispSize.Width = cboDispWidth.Left + cboDispWidth.Width + PADDING_Renamed
+                .Width = fraDispSize.Width
+                Call fraDispSize.SetBounds(.Bounds.Left, .Bounds.Top + MainMenu1.Height + PADDING_Renamed, .Width, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
+                Call fraDispSize.BringToFront()
+            End With
+
+            With tlbMenu.Items.Item("Resolution")
+                lblVScroll.Left = PADDING_Renamed
+                cboVScroll.Left = lblVScroll.Left + lblVScroll.Width + PADDING_Renamed
+                fraResolution.Width = cboVScroll.Left + cboVScroll.Width + PADDING_Renamed
+                Call fraResolution.SetBounds(.Bounds.Left, .Bounds.Top + MainMenu1.Height + PADDING_Renamed, .Width, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y Or Windows.Forms.BoundsSpecified.Width)
+                Call fraResolution.BringToFront()
+            End With
+
+            Call .picMain.Focus()
+
+        End With
+
+        With fraHeader
+
+            Call fraHeader.SetBounds(Me.ClientRectangle.Width - FRAME_WIDTH, lngToolBarHeight + PADDING_Renamed, FRAME_WIDTH, FRAME_TOP_HEIGHT)
+
+            _fraTop_0.Top = COLUMN_HEIGHT
+            _fraTop_1.Top = COLUMN_HEIGHT
+            _fraTop_2.Top = COLUMN_HEIGHT
+
+        End With
+
+        With fraMaterial
+
+            Call fraMaterial.SetBounds(Me.ClientRectangle.Width - FRAME_WIDTH, FRAME_TOP_HEIGHT + PADDING_Renamed + lngLineHeight + PADDING_Renamed + lngToolBarHeight + PADDING_Renamed, FRAME_WIDTH, Me.ClientRectangle.Height - lngToolBarHeight - PADDING_Renamed - fraHeader.Height - lngLineHeight - PADDING_Renamed - lngStatusBarHeight - PADDING_Renamed)
+
+            lngTemp = .Height - FRAME_BOTTOM_TOP
+
+            Call _fraBottom_0.SetBounds(0, FRAME_BOTTOM_TOP, FRAME_WIDTH, lngTemp)
+            Call _fraBottom_1.SetBounds(0, FRAME_BOTTOM_TOP, FRAME_WIDTH, lngTemp)
+            Call _fraBottom_2.SetBounds(0, FRAME_BOTTOM_TOP, FRAME_WIDTH, lngTemp)
+            Call _fraBottom_3.SetBounds(0, FRAME_BOTTOM_TOP, FRAME_WIDTH, lngTemp)
+            Call _fraBottom_4.SetBounds(0, FRAME_BOTTOM_TOP, FRAME_WIDTH, lngTemp)
+
+            lngTemp = .Height - FRAME_BOTTOM_BUTTONS_HEIGHT - FRAME_BOTTOM_TOP - PADDING_Renamed * 4
+            lstWAV.Height = lngTemp
+            lstBMP.Height = lngTemp
+            lstMeasureLen.Height = lngTemp
+            txtBGAInput.Top = .Height - txtBGAInput.Height - FRAME_BOTTOM_BUTTONS_HEIGHT - FRAME_BOTTOM_TOP - PADDING_Renamed * 2
+            lstBGA.Height = lngTemp - txtBGAInput.Height - PADDING_Renamed
+            txtExInfo.Height = .Height - FRAME_BOTTOM_TOP - PADDING_Renamed * 3
+
+            lngTemp = _fraBottom_0.Height - COLUMN_HEIGHT - PADDING_Renamed
+            cmdSoundStop.Top = lngTemp
+            cmdSoundExcUp.Top = lngTemp
+            cmdSoundExcDown.Top = lngTemp
+            cmdSoundDelete.Top = lngTemp
+            cmdSoundLoad.Top = lngTemp
+            cmdBMPPreview.Top = lngTemp
+            cmdBMPExcUp.Top = lngTemp
+            cmdBMPExcDown.Top = lngTemp
+            cmdBMPDelete.Top = lngTemp
+            cmdBMPLoad.Top = lngTemp
+            cmdBGAPreview.Top = lngTemp
+            cmdBGAExcUp.Top = lngTemp
+            cmdBGAExcDown.Top = lngTemp
+            cmdBGADelete.Top = lngTemp
+            cmdBGASet.Top = lngTemp
+            cmdMeasureSelectAll.Top = lngTemp
+            cboNumerator.Top = lngTemp
+            cboDenominator.Top = lngTemp
+            lblFraction.Top = lngTemp
+            cmdInputMeasureLen.Top = lngTemp
+
+        End With
+
+        Call modDraw.InitVerticalLine()
+    End Sub
+
+    'UPGRADE_WARNING: HScrollBar ã‚¤ãƒ™ãƒ³ãƒˆ hsbMain.Change ã«ã¯æ–°ã—ã„å‹•ä½œãŒå«ã¾ã‚Œã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub hsbMain_Change(ByVal newScrollValue As Integer)
+
+        With g_disp
+
+            .X = newScrollValue
+
+        End With
+
+        picMain.Refresh()
+
+        'Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, g_Mouse.Shift)
+        'ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ï¼†ã‚ªãƒ–ã‚¸ã‚§ç§»å‹•å®Ÿç¾ã®ãŸã‚
+
+    End Sub
+
+    Private Sub hsbMain_Scroll_Renamed(ByVal newScrollValue As Integer)
+
+        Call hsbMain_Change(newScrollValue)
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ lstBGA.SelectedIndexChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub lstBGA_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstBGA.SelectedIndexChanged
+
+        'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+
+        'staMain.Panels("BMP").Text = "#BMP " & Right$("0" & Hex$(lstBGA.ListIndex + 1), 2)
+
+        'Else
+
+        'staMain.Panels("BMP").Text = "#BMP " & modInput.strFromNum(lstBGA.ListIndex + 1)
+
+        'End If
+
+        If _optChangeBottom_2.Checked Then lstBMP.SelectedIndex = lstBGA.SelectedIndex
+
+        staMain.Items.Item("BMP").Text = "#BMP " & strFromLong(lstBGA.SelectedIndex + 1)
+
+        txtBGAInput.Text = Mid(modMain.GetItemString(lstBGA, lstBGA.SelectedIndex), 8)
+
+        If frmWindowPreview.Visible Then
+
+            Call PreviewBGA(lstBGA.SelectedIndex + 1)
+
+        End If
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ lstBMP.SelectedIndexChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub lstBMP_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstBMP.SelectedIndexChanged
+
+        'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+
+        'staMain.Panels("BMP").Text = "#BMP " & Right$("0" & Hex$(lstBMP.ListIndex + 1), 2)
+
+        'Else
+
+        'staMain.Panels("BMP").Text = "#BMP " & modInput.strFromNum(lstBMP.ListIndex + 1)
+
+        'End If
+
+        If _optChangeBottom_1.Checked Then lstBGA.SelectedIndex = lstBMP.SelectedIndex
+
+        staMain.Items.Item("BMP").Text = "#BMP " & strFromLong(lstBMP.SelectedIndex + 1)
+
+        If frmWindowPreview.Visible Then
+
+            Call PreviewBMP(Mid(modMain.GetItemString(lstBMP, lstBMP.SelectedIndex), 8))
+
+        End If
+
+    End Sub
+
+    Private Sub lstBMP_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstBMP.DoubleClick
+
+        Call cmdBmpLoad_Click(cmdBMPLoad, New System.EventArgs())
+
+    End Sub
+
+    Private Sub lstBMP_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles lstBMP.MouseDown
+        If eventArgs.Button = Windows.Forms.MouseButtons.Right Then
+
+            mnuContextList.Show(lstBMP, eventArgs.X, eventArgs.Y)
+
+        End If
+
+    End Sub
+
+    Private Sub lstBMP_DragEnter(sender As Object, e As DragEventArgs) Handles lstBMP.DragEnter
+        If (e.Data.GetDataPresent(DataFormats.FileDrop)) Then
+            e.Effect = DragDropEffects.Copy
+        Else
+            e.Effect = DragDropEffects.None
+        End If
+    End Sub
+
+    Private Sub lstBMP_DragDrop(sender As Object, e As DragEventArgs) Handles lstBMP.DragDrop
+        Dim i As Integer
+        Dim j As Integer
+        Dim strTemp As String
+        Dim strArray() As String
+
+        With lstBMP
+
+            j = .SelectedIndex
+            .Visible = False
+
+            For i = 0 To CType(e.Data.GetData(DataFormats.FileDrop), String()).Length - 1
+
+                'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                If Dir(CType(e.Data.GetData(DataFormats.FileDrop), String())(i), FileAttribute.Normal) <> vbNullString Then
+
+                    strTemp = CType(e.Data.GetData(DataFormats.FileDrop), String())(i)
+
+                    'If Right$(UCase$(strTemp), 4) = ".BMP" Or Right$(UCase$(strTemp), 4) = ".JPG" Or Right$(UCase$(strTemp), 4) = ".GIF" Then
+
+                    Do Until Len(modMain.GetItemString(lstBMP, j)) < 8
+
+                        j = j + 1
+                        If j >= lstBMP.Items.Count Then Exit For
+
+                    Loop
+
+                    strArray = Split(strTemp, "\")
+
+                    'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+
+                    'strTemp = Right$("0" & Hex$(j + 1), 2)
+                    '.List(j) = "#BMP" & strTemp & ":" & strArray(UBound(strArray))
+                    'g_strBMP(strToNum(strTemp)) = strArray(UBound(strArray))
+
+                    'Else
+
+                    '.List(j) = "#BMP" & modInput.strFromNum(j + 1) & ":" & strArray(UBound(strArray))
+                    'g_strBMP(j + 1) = strArray(UBound(strArray))
+
+                    'End If
+
+                    modMain.SetItemString(lstBMP, j, "#BMP" & strFromLong(j + 1) & ":" & strArray(UBound(strArray)))
+                    g_strBMP(lngFromLong(j + 1)) = strArray(UBound(strArray))
+
+                    j = j + 1
+
+                    If j >= lstBMP.Items.Count Then Exit For
+
+                    'End If
+
+                End If
+
+            Next i
+
+            .Visible = True
+
+        End With
+
+        Call Me.Show()
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ lstMeasureLen.SelectedIndexChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub lstMeasureLen_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstMeasureLen.SelectedIndexChanged
+        On Error Resume Next
+
+        Dim strArray() As String
+
+        strArray = Split(Mid(modMain.GetItemString(lstMeasureLen, lstMeasureLen.SelectedIndex), 6), "/")
+
+        cboNumerator.SelectedIndex = CDbl(strArray(0)) - 1
+
+        cboDenominator.SelectedIndex = System.Math.Log(CDbl(strArray(1))) / System.Math.Log(2) - 2
+
+    End Sub
+
+    Private Sub lstMeasureLen_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstMeasureLen.DoubleClick
+
+        Dim i As Integer
+
+        With lstMeasureLen
+
+            .Visible = False
+
+            For i = 0 To 999
+
+                .SetSelected(i, True)
+
+            Next i
+
+            .SelectedIndex = 0
+            .Visible = True
+
+        End With
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ lstWAV.SelectedIndexChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub lstWAV_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstWAV.SelectedIndexChanged
+
+        Dim strTemp As String
+
+        'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+
+        'strTemp = Right$("0" & Hex$(lstWAV.ListIndex + 1), 2)
+
+        'Else
+
+        'strTemp = modInput.strFromNum(lstWAV.ListIndex + 1)
+
+        'End If
+
+        strTemp = strFromLong(lstWAV.SelectedIndex + 1)
+
+        staMain.Items.Item("WAV").Text = "#WAV " & strTemp
+
+        strTemp = Mid(modMain.GetItemString(lstWAV, lstWAV.SelectedIndex), 8)
+
+        If strTemp = "" Then Exit Sub
+        'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+        If Dir(g_BMS.strDir & strTemp) = vbNullString Then Exit Sub
+
+        Call PreviewWAV(strTemp)
+
+    End Sub
+
+    Private Sub lstWAV_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstWAV.DoubleClick
+
+        Call cmdSoundLoad_Click(cmdSoundLoad, New System.EventArgs())
+
+    End Sub
+
+    Private Sub lstWAV_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles lstWAV.MouseDown
+        If eventArgs.Button = Windows.Forms.MouseButtons.Right Then
+
+            mnuContextList.Show(lstWAV, eventArgs.X, eventArgs.Y)
+
+        End If
+
+    End Sub
+
+    Private Sub lstWAV_DragEnter(sender As Object, e As DragEventArgs) Handles lstWAV.DragEnter
+        If (e.Data.GetDataPresent(DataFormats.FileDrop)) Then
+            e.Effect = DragDropEffects.Copy
+        Else
+            e.Effect = DragDropEffects.None
+        End If
+    End Sub
+
+    Private Sub lstWAV_DragDrop(sender As Object, e As DragEventArgs) Handles lstWAV.DragDrop
+        On Error GoTo Err_Renamed
+
+        Dim i As Integer
+        Dim j As Integer
+        Dim strTemp As String
+        Dim strArray() As String
+
+        With lstWAV
+
+            j = .SelectedIndex
+            .Visible = False
+
+            For i = 0 To CType(e.Data.GetData(DataFormats.FileDrop), String()).Length - 1
+
+                'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                If Dir(CType(e.Data.GetData(DataFormats.FileDrop), String())(i), FileAttribute.Normal) <> vbNullString Then
+
+                    strTemp = CType(e.Data.GetData(DataFormats.FileDrop), String())(i)
+
+                    'If Right$(UCase$(strTemp), 4) = ".WAV" Or Right$(UCase$(strTemp), 4) = ".MP3" Then
+
+                    Do Until Len(modMain.GetItemString(lstWAV, j)) < 8
+
+                        j = j + 1
+                        If j >= lstWAV.Items.Count Then Exit For
+
+                    Loop
+
+                    strArray = Split(strTemp, "\")
+
+                    'If mnuOptionsItem(USE_OLD_FORMAT).Checked Then
+
+                    'strTemp = Right$("0" & Hex$(j + 1), 2)
+                    '.List(j) = "#WAV" & strTemp & ":" & strArray(UBound(strArray))
+                    'g_strWAV(strToNum(strTemp)) = strArray(UBound(strArray))
+
+                    'Else
+
+                    '.List(j) = "#WAV" & modInput.strFromNum(j + 1) & ":" & strArray(UBound(strArray))
+                    'g_strWAV(j + 1) = strArray(UBound(strArray))
+
+                    'End If
+
+                    modMain.SetItemString(lstWAV, j, "#WAV" & strFromLong(j + 1) & ":" & strArray(UBound(strArray)))
+                    g_strWAV(lngFromLong(j + 1)) = strArray(UBound(strArray))
+
+                    Call SaveChanges()
+
+                    j = j + 1
+
+                    If j >= lstWAV.Items.Count Then Exit For
+
+                    'End If
+
+                End If
+
+            Next i
+
+            .Visible = True
+
+        End With
+
+        Call Me.Show()
+
+        Exit Sub
+
+Err_Renamed:
+        Call modMain.CleanUp(Err.Number, Err.Description, "lstWAV_OLEDragDrop")
+    End Sub
+
+    Public Sub mnuContextDeleteMeasure_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextDeleteMeasure.Click
+        Dim i As Integer
+        Dim intTemp As Short
+        Dim strArray() As String
+
+        For i = 0 To 999
+
+            'If g_Measure(i).lngY >= g_disp.Y + picMain.ScaleHeight - g_Mouse.Y - 6 Then
+            If g_Measure(i).lngY >= g_disp.Y + (picMain.ClientRectangle.Height - g_Mouse.Y) / g_disp.Height - 1 Then
+
+                intTemp = i - 1
+
+                Exit For
+
+            End If
+
+        Next i
+
+        ReDim strArray(0)
+
+        strArray(0) = modInput.strFromNum(modMain.CMD_LOG.MSR_DEL) & modInput.strFromNum(intTemp) & VB.Right("00" & Hex(g_Measure(intTemp).intLen), 3)
+
+        For i = 0 To UBound(g_Obj) - 1
+
+            With g_Obj(i)
+
+                If .intMeasure = intTemp Then
+
+                    ReDim Preserve strArray(UBound(strArray) + 1)
+                    strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue
+
+                    Call modDraw.RemoveObj(i)
+
+                ElseIf .intMeasure > intTemp Then
+
+                    .intMeasure = .intMeasure - 1
+
+                End If
+
+            End With
+
+        Next i
+
+        lstMeasureLen.Visible = False
+
+        For i = intTemp To 998
+
+            With g_Measure(i)
+
+                .intLen = g_Measure(i + 1).intLen
+                modMain.SetItemString(lstMeasureLen, i, VB.Left(modMain.GetItemString(lstMeasureLen, i), 5) & Mid(modMain.GetItemString(lstMeasureLen, i + 1), 6))
+
+            End With
+
+        Next i
+
+        modMain.SetItemString(lstMeasureLen, 999, "#999:4/4")
+        g_Measure(999).intLen = 192
+
+        Call g_InputLog.AddData(Join(strArray, modLog.getSeparator))
+
+        lstMeasureLen.Visible = True
+
+        Call modDraw.ArrangeObj()
+
+        Call modDraw.InitVerticalLine()
+
+    End Sub
+
+    Public Sub mnuContextEditCopy_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextEditCopy.Click
+
+        Call mnuEditCopy_Click(mnuEditCopy, New System.EventArgs())
+
+    End Sub
+
+    Public Sub mnuContextEditCut_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextEditCut.Click
+
+        Call mnuEditCut_Click(mnuEditCut, New System.EventArgs())
+
+    End Sub
+
+    Public Sub mnuContextEditDelete_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextEditDelete.Click
+
+        Call mnuEditDelete_Click(mnuEditDelete, New System.EventArgs())
+
+    End Sub
+
+    Public Sub mnuContextEditPaste_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextEditPaste.Click
+
+        Call mnuEditPaste_Click(mnuEditPaste, New System.EventArgs())
+
+    End Sub
+
+    Public Sub mnuContextInsertMeasure_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextInsertMeasure.Click
+        Dim i As Integer
+        Dim intTemp As Short
+        Dim strArray() As String
+
+        lstMeasureLen.Visible = False
+
+        For i = 998 To 0 Step -1
+
+            With g_Measure(i)
+
+                'If .lngY < g_disp.Y + picMain.ScaleHeight - g_Mouse.Y - 6 Then
+                If .lngY < g_disp.Y + (picMain.ClientRectangle.Height - g_Mouse.Y) / g_disp.Height - 1 Then
+
+                    modMain.SetItemString(lstMeasureLen, i, "#" & Format(i, "000") & ":4/4")
+                    .intLen = 192
+                    intTemp = i
+
+                    Exit For
+
+                End If
+
+                modMain.SetItemString(lstMeasureLen, i, VB.Left(modMain.GetItemString(lstMeasureLen, i), 5) & Mid(modMain.GetItemString(lstMeasureLen, i - 1), 6))
+                .intLen = g_Measure(i - 1).intLen
+
+            End With
+
+        Next i
+
+        ReDim strArray(0)
+
+        strArray(0) = modInput.strFromNum(modMain.CMD_LOG.MSR_ADD) & modInput.strFromNum(intTemp) & VB.Right("00" & Hex(g_Measure(999).intLen), 3)
+
+        lstMeasureLen.Visible = True
+
+        For i = 0 To UBound(g_Obj) - 1
+
+            With g_Obj(i)
+
+                If .intMeasure = 999 Then
+
+                    ReDim Preserve strArray(UBound(strArray) + 1)
+                    strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue
+
+                    Call modDraw.RemoveObj(i)
+
+                ElseIf .intMeasure >= intTemp Then
+
+                    .intMeasure = .intMeasure + 1
+
+                End If
+
+            End With
+
+        Next i
+
+        Call g_InputLog.AddData(Join(strArray, modLog.getSeparator))
+
+        Call modDraw.ArrangeObj()
+
+        Call modDraw.InitVerticalLine()
+
+    End Sub
+
+    Public Sub mnuContextListDelete_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextListDelete.Click
+
+        If _optChangeBottom_0.Checked Then
+
+            Call cmdSoundDelete_Click(cmdSoundDelete, New System.EventArgs())
+
+        ElseIf _optChangeBottom_1.Checked Then
+
+            Call cmdBmpDelete_Click(cmdBMPDelete, New System.EventArgs())
+
+        End If
+
+    End Sub
+
+    Public Sub mnuContextListLoad_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextListLoad.Click
+
+        If _optChangeBottom_0.Checked Then
+
+            Call cmdSoundLoad_Click(cmdSoundLoad, New System.EventArgs())
+
+        ElseIf _optChangeBottom_1.Checked Then
+
+            Call cmdBmpLoad_Click(cmdBMPLoad, New System.EventArgs())
+
+        End If
+
+    End Sub
+
+    Public Sub mnuContextListRename_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextListRename.Click
+        Dim strTemp As String
+
+        If _optChangeBottom_0.Checked Then
+
+            With lstWAV
+
+                Call mciSendString("close PREVIEW", vbNullString, 0, 0)
+                strTemp = Mid(modMain.GetItemString(lstWAV, .SelectedIndex), 8)
+
+                If Len(modMain.GetItemString(lstWAV, .SelectedIndex)) > 8 Then
+
+                    'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                    If Dir(g_BMS.strDir & strTemp, FileAttribute.Normal) <> vbNullString Then
+
+                        With frmWindowInput
+
+                            .lblMainDisp.Text = g_Message(modMain.Message.INPUT_RENAME)
+                            .txtMain.Text = strTemp
+
+                            Call frmWindowInput.ShowDialog(Me)
+
+                        End With
+
+                        If strTemp <> frmWindowInput.txtMain.Text And Len(frmWindowInput.txtMain.Text) <> 0 Then
+
+                            'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                            If Dir(g_BMS.strDir & frmWindowInput.txtMain.Text, FileAttribute.Normal) = vbNullString Then
+
+                                Rename(g_BMS.strDir & strTemp, g_BMS.strDir & frmWindowInput.txtMain.Text)
+
+                                modMain.SetItemString(lstWAV, .SelectedIndex, VB.Left(modMain.GetItemString(lstWAV, .SelectedIndex), 7) & frmWindowInput.txtMain.Text)
+                                g_strWAV(lngFromLong(.SelectedIndex + 1)) = frmWindowInput.txtMain.Text
+
+                            Else
+
+                                Call MsgBox(g_Message(modMain.Message.ERR_FILE_ALREADY_EXIST), MsgBoxStyle.Critical, g_strAppTitle)
+
+                            End If
+
+                        End If
+
+                    Else
+
+                        Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & g_BMS.strDir & strTemp, MsgBoxStyle.Critical, g_strAppTitle)
+
+                    End If
+
+                End If
+
+            End With
+
+        ElseIf _optChangeBottom_1.Checked Then
+
+            With lstBMP
+
+                strTemp = Mid(modMain.GetItemString(lstBMP, .SelectedIndex), 8)
+
+                If Len(modMain.GetItemString(lstBMP, .SelectedIndex)) > 8 Then
+
+                    'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                    If Dir(g_BMS.strDir & strTemp, FileAttribute.Normal) <> vbNullString Then
+
+                        With frmWindowInput
+
+                            .lblMainDisp.Text = g_Message(modMain.Message.INPUT_RENAME)
+                            .txtMain.Text = strTemp
+
+                            Call frmWindowInput.ShowDialog(Me)
+
+                        End With
+
+                        If strTemp <> frmWindowInput.txtMain.Text And Len(frmWindowInput.txtMain.Text) <> 0 Then
+
+                            'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                            If Dir(g_BMS.strDir & frmWindowInput.txtMain.Text, FileAttribute.Normal) = vbNullString Then
+
+                                Rename(g_BMS.strDir & strTemp, g_BMS.strDir & frmWindowInput.txtMain.Text)
+
+                                modMain.SetItemString(lstBMP, .SelectedIndex, VB.Left(modMain.GetItemString(lstBMP, .SelectedIndex), 7) & frmWindowInput.txtMain.Text)
+                                g_strBMP(lngFromLong(.SelectedIndex + 1)) = frmWindowInput.txtMain.Text
+
+                            Else
+
+                                Call MsgBox(g_Message(modMain.Message.ERR_FILE_ALREADY_EXIST), MsgBoxStyle.Critical, g_strAppTitle)
+
+                            End If
+
+                        End If
+
+                    Else
+
+                        Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & g_BMS.strDir & strTemp, MsgBoxStyle.Critical, g_strAppTitle)
+
+                    End If
+
+                End If
+
+            End With
+
+        End If
+
+    End Sub
+
+    Public Sub mnuContextPlay_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextPlay.Click
+
+        Dim lngTemp As Short
+
+        lngTemp = g_disp.intStartMeasure
+        g_disp.intStartMeasure = g_Mouse.measure
+
+        Call mnuToolsPlay_Click(mnuToolsPlay, New System.EventArgs())
+
+        g_disp.intStartMeasure = lngTemp
+
+    End Sub
+
+    Public Sub mnuContextPlayAll_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextPlayAll.Click
+
+        Call mnuToolsPlayAll_Click(mnuToolsPlayAll, New System.EventArgs())
+
+    End Sub
+
+    Public Sub mnuEditFind_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditFind.Click
+
+        With frmWindowFind
+
+            If Not .Visible Then
+
+                .Left = Me.Left + (Me.Width - .Width) \ 2
+                .Top = Me.Top + (Me.Height - .Height) \ 2
+
+            End If
+
+            Call frmWindowFind.Show(Me)
+
+        End With
+
+    End Sub
+
+    Public Sub mnuEditRedo_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditRedo.Click
+        Dim i As Integer
+        Dim j As Integer
+        Dim intTemp As Short
+        Dim lngTemp As Integer
+        Dim strTemp As String
+        Dim strArray() As String
+        Dim lngArrayWAV(1295) As Integer
+        Dim lngArrayBMP(1295) As Integer
+        Dim strArrayWAV(1295) As String
+        Dim strArrayBMP(1295) As String
+        Dim strArrayBGA(1295) As String
+        Dim strArrayParamBGA() As String
+        Dim blnRefreshList As Boolean
+
+        'ãƒ†ã‚­ã‚¹ãƒˆãƒœãƒƒã‚¯ã‚¹ã‚„ã‚³ãƒ³ãƒœãƒœãƒƒã‚¯ã‚¹ãŒã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã®å ´åˆã¯
+        'ãã£ã¡ã« Redo ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’é€ä¿¡ã—ã¦è„±å‡ºã™ã‚‹
+        If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
+
+            Call SendMessage(ActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
+
+            Exit Sub
+
+        ElseIf TypeOf ActiveControl() Is System.Windows.Forms.ComboBox Then
+
+            If DirectCast(ActiveControl(), System.Windows.Forms.ComboBox).DropDownStyle = 0 Then
+
+                Call SendMessage(ActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
+
+                Exit Sub
+
+            End If
+
+        End If
+
+        If g_InputLog.GetPos = g_InputLog.Max Then Exit Sub
+
+        Call modDraw.ObjSelectCancel()
+
+        Call g_InputLog.Forward()
+
+        strArray = Split(g_InputLog.GetData(), modLog.getSeparator)
+
+        For i = 0 To UBound(strArray)
+
+            If strArray(i) = "" Then
+                Continue For
+            End If
+
+            Select Case modInput.strToNum(VB.Left(strArray(i), 2))
+
+                Case modMain.CMD_LOG.OBJ_ADD
+
+                    ReDim Preserve g_Obj(UBound(g_Obj) + 1)
+
+                    Call modInput.SwapObj(UBound(g_Obj), UBound(g_Obj) - 1)
+
+                    '                With g_Obj(UBound(g_Obj) - 1)
+                    '
+                    '                    .lngID = modInput.strToNum(Mid$(strArray(i), 3, 4)) '
+                    '                    g_lngObjID(.lngID) = UBound(g_Obj) - 1
+                    '                    .intCh = Val("&H" & Mid$(strArray(i), 7, 2)) '
+                    '                    .intAtt = Mid$(strArray(i), 9, 1) '
+                    '                    .intMeasure = modInput.strToNum(Mid$(strArray(i), 10, 2)) '
+                    '                    .lngPosition = modInput.strToNum(Mid$(strArray(i), 12, 3)) '
+                    '                    .sngValue = Mid$(strArray(i), 15) '
+                    '                    .intSelect = Selected
+                    '
+                    '                End With
+                    g_Obj(UBound(g_Obj) - 1) = modLog.decAdd(strArray(i), UBound(g_Obj) - 1)
+                    g_Obj(UBound(g_Obj) - 1).intSelect = modMain.OBJ_SELECT.Selected
+
+                Case modMain.CMD_LOG.OBJ_DEL
+
+                    'Call modDraw.RemoveObj(g_lngObjID(modInput.strToNum(Mid$(strArray(i), 3, 4)))) '
+                    Call modLog.decDel(strArray(i))
+
+                Case modMain.CMD_LOG.OBJ_MOVE
+
+                    '                With g_Obj(g_lngObjID(modInput.strToNum(Mid$(strArray(i), 3, 4)))) '
+                    '
+                    '                    .intCh = Val("&H" & Mid$(strArray(i), 14, 2)) '
+                    '                    .intMeasure = modInput.strToNum(Mid$(strArray(i), 16, 2)) '
+                    '                    .lngPosition = modInput.strToNum(Mid$(strArray(i), 18, 3)) '
+                    '                    .intSelect = Selected
+                    '
+                    '                End With
+                    Call modLog.decMove(strArray(i), g_Obj(g_lngObjID(modInput.strToNum(Mid(strArray(i), 3, 4)))))
+
+                Case modMain.CMD_LOG.OBJ_CHANGE
+
+                    With g_Obj(g_lngObjID(modInput.strToNum(Mid(strArray(i), 3, 4)))) '
+
+                        .sngValue = modInput.strToNum(Mid(strArray(i), 9, 2)) '
+                        .intSelect = modMain.OBJ_SELECT.Selected
+
+                    End With
+
+                Case modMain.CMD_LOG.MSR_ADD
+
+                    lngTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
+
+                    For j = 999 To lngTemp + 1 Step -1
+
+                        g_Measure(j).intLen = g_Measure(j - 1).intLen
+                        modMain.SetItemString(lstMeasureLen, j, VB.Left(modMain.GetItemString(lstMeasureLen, j), 5) & Mid(modMain.GetItemString(lstMeasureLen, j - 1), 6))
+
+                    Next j
+
+                    g_Measure(lngTemp).intLen = 192
+                    modMain.SetItemString(lstMeasureLen, lngTemp, VB.Left(modMain.GetItemString(lstMeasureLen, lngTemp), 5) & "4/4")
+
+                    For j = 0 To UBound(g_Obj) - 1
+
+                        With g_Obj(j)
+
+                            If .intMeasure >= lngTemp Then
+
+                                .intMeasure = .intMeasure + 1
+
+                            End If
+
+                        End With
+
+                    Next j
+
+                Case modMain.CMD_LOG.MSR_DEL
+
+                    lngTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
+
+                    For j = lngTemp + 1 To 998
+
+                        g_Measure(j).intLen = g_Measure(j + 1).intLen
+                        modMain.SetItemString(lstMeasureLen, j, VB.Left(modMain.GetItemString(lstMeasureLen, j), 5) & Mid(modMain.GetItemString(lstMeasureLen, j + 1), 6))
+
+                    Next j
+
+                    g_Measure(999).intLen = 192
+                    modMain.SetItemString(lstMeasureLen, 999, "#999:4/4")
+
+                    For j = 0 To UBound(g_Obj) - 1
+
+                        With g_Obj(j)
+
+                            If .intMeasure >= lngTemp Then
+
+                                .intMeasure = .intMeasure - 1
+
+                            End If
+
+                        End With
+
+                    Next j
+
+                Case modMain.CMD_LOG.MSR_CHANGE
+
+                    lngTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
+
+                    g_Measure(lngTemp).intLen = Val("&H" & Mid(strArray(i), 8, 3)) '
+
+                    intTemp = intGCD(g_Measure(lngTemp).intLen, 192)
+                    If intTemp <= 2 Then intTemp = 3
+                    If intTemp >= 48 Then intTemp = 48
+                    modMain.SetItemString(lstMeasureLen, lngTemp, VB.Left(modMain.GetItemString(lstMeasureLen, lngTemp), 5) & (g_Measure(lngTemp).intLen / intTemp) & "/" & (192 \ intTemp))
+
+                Case modMain.CMD_LOG.WAV_CHANGE
+
+                    intTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
+                    lngTemp = modInput.strToNum(Mid(strArray(i), 5, 2)) '
+
+                    strTemp = g_strWAV(intTemp)
+                    g_strWAV(intTemp) = g_strWAV(lngTemp)
+                    g_strWAV(lngTemp) = strTemp
+
+                    blnRefreshList = True
+
+                    For j = 0 To UBound(g_Obj) - 1
+
+                        With g_Obj(j)
+
+                            If .intCh >= 11 Then
+
+                                If .sngValue = lngTemp Then
+
+                                    .sngValue = intTemp
+
+                                ElseIf .sngValue = intTemp Then
+
+                                    .sngValue = lngTemp
+
+                                End If
+
+                            End If
+
+                        End With
+
+                    Next j
+
+                Case modMain.CMD_LOG.BMP_CHANGE
+
+                    intTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
+                    lngTemp = modInput.strToNum(Mid(strArray(i), 5, 2)) '
+
+                    strTemp = g_strBMP(intTemp)
+                    g_strBMP(intTemp) = g_strBMP(lngTemp)
+                    g_strBMP(lngTemp) = strTemp
+
+                    strTemp = g_strBGA(intTemp)
+                    g_strBGA(intTemp) = g_strBGA(lngTemp)
+                    g_strBGA(lngTemp) = strTemp
+
+                    For j = 0 To UBound(g_strBGA)
+
+                        If Len(g_strBGA(j)) Then
+
+                            strArrayParamBGA = Split(g_strBGA(j), " ")
+
+                            If UBound(strArrayParamBGA) Then
+
+                                If modInput.strToNum(strArrayParamBGA(0)) = lngTemp Then
+
+                                    strArrayParamBGA(0) = modInput.strFromNum(intTemp, 2)
+
+                                ElseIf modInput.strToNum(strArrayParamBGA(0)) = intTemp Then
+
+                                    strArrayParamBGA(0) = modInput.strFromNum(lngTemp, 2)
+
+                                End If
+
+                                g_strBGA(j) = Join(strArrayParamBGA, " ")
+
+                            End If
+
+                        End If
+
+                    Next j
+
+                    blnRefreshList = True
+
+                    For j = 0 To UBound(g_Obj) - 1
+
+                        With g_Obj(j)
+
+                            If .intCh = 4 Or .intCh = 6 Or .intCh = 7 Then
+
+                                If .sngValue = lngTemp Then
+
+                                    .sngValue = intTemp
+
+                                ElseIf .sngValue = intTemp Then
+
+                                    .sngValue = lngTemp
+
+                                End If
+
+                            End If
+
+                        End With
+
+                    Next j
+
+                Case modMain.CMD_LOG.LIST_ALIGN
+
+                    For j = 0 To UBound(lngArrayWAV)
+
+                        lngArrayWAV(j) = j
+                        lngArrayBMP(j) = j
+
+                        strArrayWAV(j) = g_strWAV(j)
+                        strArrayBMP(j) = g_strBMP(j)
+                        strArrayBGA(j) = g_strBGA(j)
+
+                        g_strWAV(j) = ""
+                        g_strBMP(j) = ""
+                        g_strBGA(j) = ""
+
+                    Next j
+
+                    For j = 3 To Len(strArray(i)) Step 5
+
+                        lngTemp = modInput.strToNum(Mid(strArray(i), j + 1, 2)) '
+                        intTemp = modInput.strToNum(Mid(strArray(i), j + 3, 2)) '
+
+                        Select Case Mid(strArray(i), j, 1)
+
+                            Case CStr(1) 'WAV
+
+                                g_strWAV(intTemp) = strArrayWAV(lngTemp)
+                                lngArrayWAV(lngTemp) = intTemp
+
+                            Case CStr(2) 'BMP
+
+                                g_strBMP(intTemp) = strArrayBMP(lngTemp)
+                                g_strBGA(intTemp) = strArrayBGA(lngTemp)
+                                lngArrayBMP(lngTemp) = intTemp
+
+                        End Select
+
+                    Next j
+
+                    For j = 0 To UBound(g_strBGA)
+
+                        If Len(g_strBGA(j)) Then
+
+                            strArrayParamBGA = Split(g_strBGA(j), " ")
+
+                            If UBound(strArrayParamBGA) Then
+
+                                strArrayParamBGA(0) = modInput.strFromNum(lngArrayBMP(modInput.strToNum(strArrayParamBGA(0))), 2)
+                                g_strBGA(j) = Join(strArrayParamBGA, " ")
+
+                            End If
+
+                        End If
+
+                    Next j
+
+                    blnRefreshList = True
+
+                    For j = 0 To UBound(g_Obj) - 1
+
+                        With g_Obj(j)
+
+                            Select Case .intCh
+
+                                Case Is >= 11
+
+                                    .sngValue = lngArrayWAV(.sngValue)
+
+                                Case 4, 6, 7
+
+                                    .sngValue = lngArrayBMP(.sngValue)
+
+                            End Select
+
+                        End With
+
+                    Next j
+
+                Case modMain.CMD_LOG.LIST_DEL
+
+                    Select Case Mid(strArray(i), 3, 1)
+
+                        Case CStr(1) '#WAV
+
+                            g_strWAV(modInput.strToNum(Mid(strArray(i), 4, 2))) = ""
+
+                        Case CStr(2) '#BMP
+
+                            g_strBMP(modInput.strToNum(Mid(strArray(i), 4, 2))) = ""
+
+                        Case CStr(3) '#BGA
+
+                            g_strBGA(modInput.strToNum(Mid(strArray(i), 4, 2))) = ""
+
+                    End Select
+
+                    blnRefreshList = True
+
+            End Select
+
+        Next i
+
+        If blnRefreshList Then Call RefreshList()
+
+        Call modDraw.ArrangeObj()
+
+        Call SaveChanges()
+
+        Call modDraw.InitVerticalLine()
+
+    End Sub
+
+    Public Sub mnuEditUndo_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditUndo.Click
+        Dim i As Integer
+        Dim j As Integer
+        Dim intTemp As Short
+        Dim lngTemp As Integer
+        Dim strTemp As String
+        Dim strArray() As String
+        Dim lngArrayWAV(1295) As Integer
+        Dim lngArrayBMP(1295) As Integer
+        Dim strArrayWAV(1295) As String
+        Dim strArrayBMP(1295) As String
+        Dim strArrayBGA(1295) As String
+        Dim strArrayParamBGA() As String
+        Dim blnRefreshList As Boolean
+
+        'ãƒ†ã‚­ã‚¹ãƒˆãƒœãƒƒã‚¯ã‚¹ã‚„ã‚³ãƒ³ãƒœãƒœãƒƒã‚¯ã‚¹ãŒã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã®å ´åˆã¯
+        'ãã£ã¡ã« Undo ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’é€ä¿¡ã—ã¦è„±å‡ºã™ã‚‹
+        If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
+
+            Call SendMessage(ActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
+
+            Exit Sub
+
+        ElseIf TypeOf ActiveControl() Is System.Windows.Forms.ComboBox Then
+
+            If DirectCast(ActiveControl(), ComboBox).DropDownStyle = 0 Then
+
+                Call SendMessage(ActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
+
+                Exit Sub
+
+            End If
+
+        End If
+
+        If g_InputLog.GetPos = 0 Then Exit Sub
+
+        Call modDraw.ObjSelectCancel()
+
+        strArray = Split(g_InputLog.GetData(), modLog.getSeparator)
+
+        Call g_InputLog.Back()
+
+        For i = 0 To UBound(strArray)
+
+            If strArray(i) = "" Then
+                Continue For
+            End If
+
+            Select Case modInput.strToNum(VB.Left(strArray(i), 2))
+
+                Case modMain.CMD_LOG.OBJ_ADD
+
+                    Call modDraw.RemoveObj(g_lngObjID(modInput.strToNum(Mid(strArray(i), 3, 4)))) '
+
+                Case modMain.CMD_LOG.OBJ_DEL
+
+                    ReDim Preserve g_Obj(UBound(g_Obj) + 1)
+
+                    Call modInput.SwapObj(UBound(g_Obj), UBound(g_Obj) - 1)
+
+                    With g_Obj(UBound(g_Obj) - 1)
+
+                        .lngID = modInput.strToNum(Mid(strArray(i), 3, 4)) '
+                        g_lngObjID(.lngID) = UBound(g_Obj) - 1
+                        .intCh = Val("&H" & Mid(strArray(i), 7, 2)) '
+                        .intAtt = CShort(Mid(strArray(i), 9, 1)) '
+                        .intMeasure = modInput.strToNum(Mid(strArray(i), 10, 2)) '
+                        .lngPosition = modInput.strToNum(Mid(strArray(i), 12, 3)) '
+                        .sngValue = CSng(Mid(strArray(i), 15)) '
+                        .intSelect = modMain.OBJ_SELECT.Selected
+
+                    End With
+
+                Case modMain.CMD_LOG.OBJ_MOVE
+
+                    With g_Obj(g_lngObjID(modInput.strToNum(Mid(strArray(i), 3, 4)))) '
+
+                        .intCh = Val("&H" & Mid(strArray(i), 7, 2)) '
+                        .intMeasure = modInput.strToNum(Mid(strArray(i), 9, 2)) '
+                        .lngPosition = modInput.strToNum(Mid(strArray(i), 11, 3)) '
+                        .intSelect = modMain.OBJ_SELECT.Selected
+
+                    End With
+
+                Case modMain.CMD_LOG.OBJ_CHANGE
+
+                    With g_Obj(g_lngObjID(modInput.strToNum(Mid(strArray(i), 3, 4)))) '
+
+                        .sngValue = modInput.strToNum(Mid(strArray(i), 7, 2)) '
+                        .intSelect = modMain.OBJ_SELECT.Selected
+
+                    End With
+
+                Case modMain.CMD_LOG.MSR_ADD
+
+                    lngTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
+
+                    For j = lngTemp To 998
+
+                        g_Measure(j).intLen = g_Measure(j + 1).intLen
+                        modMain.SetItemString(lstMeasureLen, j, VB.Left(modMain.GetItemString(lstMeasureLen, j), 5) & Mid(modMain.GetItemString(lstMeasureLen, j + 1), 6))
+
+                    Next j
+
+                    g_Measure(999).intLen = Val("&H" & Mid(strArray(i), 5, 3)) '
+
+                    intTemp = intGCD(g_Measure(999).intLen, 192)
+                    If intTemp <= 2 Then intTemp = 3
+                    If intTemp >= 48 Then intTemp = 48
+                    modMain.SetItemString(lstMeasureLen, 999, "#999:" & (g_Measure(999).intLen / intTemp) & "/" & (192 \ intTemp))
+
+                    For j = 0 To UBound(g_Obj) - 1
+
+                        With g_Obj(j)
+
+                            If .intMeasure > lngTemp Then
+
+                                .intMeasure = .intMeasure - 1
+
+                            End If
+
+                        End With
+
+                    Next j
+
+                Case modMain.CMD_LOG.MSR_DEL
+
+                    lngTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
+
+                    For j = 999 To lngTemp + 1 Step -1
+
+                        g_Measure(j).intLen = g_Measure(j - 1).intLen
+                        modMain.SetItemString(lstMeasureLen, j, VB.Left(modMain.GetItemString(lstMeasureLen, j), 5) & Mid(modMain.GetItemString(lstMeasureLen, j - 1), 6))
+
+                    Next j
+
+                    g_Measure(lngTemp).intLen = Val("&H" & Mid(strArray(i), 5, 3)) '
+
+                    intTemp = intGCD(g_Measure(lngTemp).intLen, 192)
+                    If intTemp <= 2 Then intTemp = 3
+                    If intTemp >= 48 Then intTemp = 48
+                    modMain.SetItemString(lstMeasureLen, lngTemp, VB.Left(modMain.GetItemString(lstMeasureLen, lngTemp), 5) & (g_Measure(lngTemp).intLen / intTemp) & "/" & (192 \ intTemp))
+
+                    For j = 0 To UBound(g_Obj) - 1
+
+                        With g_Obj(j)
+
+                            If .intMeasure >= lngTemp Then
+
+                                .intMeasure = .intMeasure + 1
+
+                            End If
+
+                        End With
+
+                    Next j
+
+                Case modMain.CMD_LOG.MSR_CHANGE
+
+                    lngTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
+
+                    g_Measure(lngTemp).intLen = Val("&H" & Mid(strArray(i), 5, 3)) '
+
+                    intTemp = intGCD(g_Measure(lngTemp).intLen, 192)
+                    If intTemp <= 2 Then intTemp = 3
+                    If intTemp >= 48 Then intTemp = 48
+                    modMain.SetItemString(lstMeasureLen, lngTemp, VB.Left(modMain.GetItemString(lstMeasureLen, lngTemp), 5) & (g_Measure(lngTemp).intLen / intTemp) & "/" & (192 \ intTemp))
+
+                Case modMain.CMD_LOG.WAV_CHANGE
+
+                    intTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
+                    lngTemp = modInput.strToNum(Mid(strArray(i), 5, 2)) '
+
+                    strTemp = g_strWAV(intTemp)
+                    g_strWAV(intTemp) = g_strWAV(lngTemp)
+                    g_strWAV(lngTemp) = strTemp
+
+                    blnRefreshList = True
+
+                    For j = 0 To UBound(g_Obj) - 1
+
+                        With g_Obj(j)
+
+                            If .intCh >= 11 Then
+
+                                If .sngValue = lngTemp Then
+
+                                    .sngValue = intTemp
+
+                                ElseIf .sngValue = intTemp Then
+
+                                    .sngValue = lngTemp
+
+                                End If
+
+                            End If
+
+                        End With
+
+                    Next j
+
+                Case modMain.CMD_LOG.BMP_CHANGE
+
+                    intTemp = modInput.strToNum(Mid(strArray(i), 3, 2)) '
+                    lngTemp = modInput.strToNum(Mid(strArray(i), 5, 2)) '
+
+                    strTemp = g_strBMP(intTemp)
+                    g_strBMP(intTemp) = g_strBMP(lngTemp)
+                    g_strBMP(lngTemp) = strTemp
+
+                    strTemp = g_strBGA(intTemp)
+                    g_strBGA(intTemp) = g_strBGA(lngTemp)
+                    g_strBGA(lngTemp) = strTemp
+
+
+                    For j = 0 To UBound(g_strBGA)
+
+                        If Len(g_strBGA(j)) Then
+
+                            strArrayParamBGA = Split(g_strBGA(j), " ")
+
+                            If UBound(strArrayParamBGA) Then
+
+                                If modInput.strToNum(strArrayParamBGA(0)) = lngTemp Then
+
+                                    strArrayParamBGA(0) = modInput.strFromNum(intTemp, 2)
+
+                                ElseIf modInput.strToNum(strArrayParamBGA(0)) = intTemp Then
+
+                                    strArrayParamBGA(0) = modInput.strFromNum(lngTemp, 2)
+
+                                End If
+
+                                g_strBGA(j) = Join(strArrayParamBGA, " ")
+
+                            End If
+
+                        End If
+
+                    Next j
+
+                    blnRefreshList = True
+
+                    For j = 0 To UBound(g_Obj) - 1
+
+                        With g_Obj(j)
+
+                            If .intCh = 4 Or .intCh = 6 Or .intCh = 7 Then
+
+                                If .sngValue = lngTemp Then
+
+                                    .sngValue = intTemp
+
+                                ElseIf .sngValue = intTemp Then
+
+                                    .sngValue = lngTemp
+
+                                End If
+
+                            End If
+
+                        End With
+
+                    Next j
+
+                Case modMain.CMD_LOG.LIST_ALIGN
+
+                    For j = 0 To UBound(lngArrayWAV)
+
+                        lngArrayWAV(j) = j
+                        lngArrayBMP(j) = j
+
+                        strArrayWAV(j) = g_strWAV(j)
+                        strArrayBMP(j) = g_strBMP(j)
+                        strArrayBGA(j) = g_strBGA(j)
+
+                        g_strWAV(j) = ""
+                        g_strBMP(j) = ""
+                        g_strBGA(j) = ""
+
+                    Next j
+
+                    For j = 3 To Len(strArray(i)) Step 5
+
+                        intTemp = modInput.strToNum(Mid(strArray(i), j + 1, 2)) 'å¤ã„å€¤
+                        lngTemp = modInput.strToNum(Mid(strArray(i), j + 3, 2)) 'æ–°ã—ã„å€¤
+
+                        Select Case Mid(strArray(i), j, 1)
+
+                            Case CStr(1) 'WAV
+
+                                g_strWAV(intTemp) = strArrayWAV(lngTemp)
+                                lngArrayWAV(lngTemp) = intTemp
+
+                            Case CStr(2) 'BMP
+
+                                g_strBMP(intTemp) = strArrayBMP(lngTemp)
+                                g_strBGA(intTemp) = strArrayBGA(lngTemp)
+                                lngArrayBMP(lngTemp) = intTemp
+
+                        End Select
+
+                    Next j
+
+                    For j = 0 To UBound(g_strBGA)
+
+                        If Len(g_strBGA(j)) Then
+
+                            strArrayParamBGA = Split(g_strBGA(j), " ")
+
+                            If UBound(strArrayParamBGA) Then
+
+                                strArrayParamBGA(0) = modInput.strFromNum(lngArrayBMP(modInput.strToNum(strArrayParamBGA(0))), 2)
+                                g_strBGA(j) = Join(strArrayParamBGA, " ")
+
+                            End If
+
+                        End If
+
+                    Next j
+
+                    blnRefreshList = True
+
+                    For j = 0 To UBound(g_Obj) - 1
+
+                        With g_Obj(j)
+
+                            Select Case .intCh
+
+                                Case Is >= 11
+
+                                    .sngValue = lngArrayWAV(.sngValue)
+
+                                Case 4, 6, 7
+
+                                    .sngValue = lngArrayBMP(.sngValue)
+
+                            End Select
+
+                        End With
+
+                    Next j
+
+                Case modMain.CMD_LOG.LIST_DEL
+
+                    Select Case Mid(strArray(i), 3, 1)
+
+                        Case CStr(1) '#WAV
+
+                            g_strWAV(modInput.strToNum(Mid(strArray(i), 4, 2))) = Mid(strArray(i), 6)
+
+                        Case CStr(2) '#BMP
+
+                            g_strBMP(modInput.strToNum(Mid(strArray(i), 4, 2))) = Mid(strArray(i), 6)
+
+                        Case CStr(3) '#BGA
+
+                            g_strBGA(modInput.strToNum(Mid(strArray(i), 4, 2))) = Mid(strArray(i), 6)
+
+                    End Select
+
+                    blnRefreshList = True
+
+            End Select
+
+        Next i
+
+        If blnRefreshList Then Call RefreshList()
+
+        Call modDraw.ArrangeObj()
+
+        Call SaveChanges()
+
+        Call modDraw.InitVerticalLine()
+
+    End Sub
+
+    Public Sub mnuFileConvertWizard_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileConvertWizard.Click
+
+        With frmWindowConvert
+
+            .Left = Me.Left + (Me.Width - .Width) \ 2
+            .Top = Me.Top + (Me.Height - .Height) \ 2
+
+        End With
+
+        Call frmWindowConvert.ShowDialog(Me)
+
+    End Sub
+
+    Public Sub mnuFileOpenDirectory_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileOpenDirectory.Click
+
+        If Len(g_BMS.strDir) Then
+
+            'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+            If Len(g_strFiler) <> 0 And Dir(g_strFiler) <> vbNullString Then 'æŒ‡å®šã—ãŸãƒ•ã‚¡ã‚¤ãƒ©ã‚’ä½¿ç”¨
+
+                Call ShellExecute(Me.Handle.ToInt32, "open", Chr(34) & g_strFiler & Chr(34), Chr(34) & g_BMS.strDir & Chr(34), "", SW_SHOWNORMAL)
+
+            Else 'Explorer ã§é–‹ã
+
+                Call ShellExecute(Me.Handle.ToInt32, "Explore", Chr(34) & g_BMS.strDir & Chr(34), "", "", SW_SHOWNORMAL)
+
+            End If
+
+        End If
+
+    End Sub
+
+    Public Sub mnuHelpAbout_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuHelpAbout.Click
+
+        With frmWindowAbout
+
+            .Left = (Me.Left + Me.Width \ 2) - .Width \ 2
+            .Top = (Me.Top + Me.Height \ 2) - .Height \ 2
+
+            Call .Show()
+
+        End With
+
+    End Sub
+
+    Public Sub mnuHelpOpen_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuHelpOpen.Click
+
+        Call ShellExecute(0, vbNullString, g_strAppDir & g_strHelpFilename, vbNullString, vbNullString, SW_SHOWNORMAL)
+
+    End Sub
+
+    Public Sub mnuOptionsItem_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _mnuOptionsItem_7.Click, _mnuOptionsItem_6.Click, _mnuOptionsItem_5.Click, _mnuOptionsItem_4.Click, _mnuOptionsItem_3.Click, _mnuOptionsItem_2.Click, _mnuOptionsItem_1.Click, _mnuOptionsItem_0.Click
+        Select Case DirectCast(eventSender, ToolStripMenuItem).Name
+            Case _mnuOptionsItem_0.Name
+                _mnuOptionsItem_0.Checked = Not _mnuOptionsItem_0.Checked
+
+            Case _mnuOptionsItem_1.Name
+                _mnuOptionsItem_1.Checked = Not _mnuOptionsItem_1.Checked
+                Me.Text = g_strAppTitle
+
+                If Len(g_BMS.strDir) Then
+
+                    If _mnuOptionsItem_1.Checked Then
+
+                        Me.Text = Me.Text & " - " & g_BMS.strFileName
+
+                    Else
+
+                        Me.Text = Me.Text & " - " & g_BMS.strDir & g_BMS.strFileName
+
+                    End If
+
+                End If
+
+                If Not g_BMS.blnSaveFlag Then Me.Text = Me.Text & " *"
+
+            Case _mnuOptionsItem_2.Name
+                _mnuOptionsItem_2.Checked = Not _mnuOptionsItem_2.Checked
+                picMain.Refresh()
+
+            Case _mnuOptionsItem_3.Name
+                _mnuOptionsItem_3.Checked = Not _mnuOptionsItem_3.Checked
+                picMain.Refresh()
+
+            Case _mnuOptionsItem_4.Name
+                _mnuOptionsItem_4.Checked = Not _mnuOptionsItem_4.Checked
+
+            Case _mnuOptionsItem_5.Name
+                _mnuOptionsItem_5.Checked = Not _mnuOptionsItem_5.Checked
+
+            Case _mnuOptionsItem_6.Name
+                _mnuOptionsItem_6.Checked = Not _mnuOptionsItem_6.Checked
+                picMain.Refresh()
+
+            Case _mnuOptionsItem_7.Name
+                _mnuOptionsItem_7.Checked = Not _mnuOptionsItem_7.Checked
+                m_blnPreview = False
+                lstWAV.SelectedIndex = 0
+                lstBMP.SelectedIndex = 0
+                lstBGA.SelectedIndex = 0
+                m_blnPreview = True
+
+                Call RefreshList()
+                picMain.Refresh()
+        End Select
+    End Sub
+
+    Public Sub mnuTheme_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _mnuTheme_2.Click, _mnuTheme_1.Click, _mnuTheme_0.Click
+        _mnuTheme_0.Checked = False
+        _mnuTheme_1.Checked = False
+        _mnuTheme_2.Checked = False
+
+        Select Case DirectCast(eventSender, ToolStripMenuItem).Name
+            Case _mnuTheme_0.Name
+                With _mnuTheme_0
+                    .Checked = True
+                    Call modMain.LoadThemeFile("theme\" & g_strThemeFileName(0))
+                End With
+
+            Case _mnuTheme_1.Name
+                With _mnuTheme_1
+                    .Checked = True
+                    Call modMain.LoadThemeFile("theme\" & g_strThemeFileName(1))
+                End With
+
+            Case _mnuTheme_2.Name
+                With _mnuTheme_2
+                    .Checked = True
+                    Call modMain.LoadThemeFile("theme\" & g_strThemeFileName(2))
+                End With
+        End Select
+
+        picMain.Refresh()
+
+    End Sub
+
+    Public Sub mnuToolsSetting_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuToolsSetting.Click
+
+        With frmWindowViewer
+
+            .Left = Me.Left + (Me.Width - .Width) \ 2
+            .Top = Me.Top + (Me.Height - .Height) \ 2
+
+            Call frmWindowViewer.ShowDialog(Me)
+
+        End With
+
+    End Sub
+
+    Public Sub mnuViewItem_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _mnuViewItem_2.Click, _mnuViewItem_1.Click, _mnuViewItem_0.Click
+        Select Case DirectCast(eventSender, ToolStripMenuItem).Name
+            Case _mnuViewItem_0.Name
+                _mnuViewItem_0.Checked = Not _mnuViewItem_0.Checked
+            Case _mnuViewItem_1.Name
+                _mnuViewItem_1.Checked = Not _mnuViewItem_1.Checked
+            Case _mnuViewItem_2.Name
+                _mnuViewItem_2.Checked = Not _mnuViewItem_2.Checked
+        End Select
+
+        Call frmMain_Resize(Me, New System.EventArgs())
+
+    End Sub
+
+    Public Sub mnuEditCopy_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditCopy.Click
+        On Error GoTo Err_Renamed
+
+        Dim i As Integer
+        Dim intTemp As Short
+
+        If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
+
+            Call My.Computer.Clipboard.Clear()
+            Call My.Computer.Clipboard.SetText(DirectCast(ActiveControl(), TextBox).SelectedText)
+
+            Exit Sub
+
+        ElseIf TypeOf ActiveControl() Is System.Windows.Forms.ComboBox Then
+
+            If DirectCast(ActiveControl(), ComboBox).DropDownStyle = 0 Then
+
+                Call My.Computer.Clipboard.Clear()
+                Call My.Computer.Clipboard.SetText(DirectCast(ActiveControl(), ComboBox).SelectedText)
+
+                Exit Sub
+
+            End If
+
+        End If
+
+        For i = 0 To UBound(g_Obj) - 1
+
+            If g_Obj(i).intSelect = modMain.OBJ_SELECT.Selected Then
+
+                intTemp = 1
+
+                Exit For
+
+            End If
+
+        Next i
+
+        If intTemp = 0 Then Exit Sub
+
+        Call CopyToClipboard()
+
+        For i = 0 To UBound(g_Obj) - 1
+
+            If g_Obj(i).intSelect <> modMain.OBJ_SELECT.NON_SELECT Then g_Obj(i).intSelect = modMain.OBJ_SELECT.NON_SELECT
+
+        Next i
+
+        picMain.Refresh()
+
+        Exit Sub
+
+Err_Renamed:
+        Call modMain.CleanUp(Err.Number, Err.Description, "mnuEditCopy_Click")
+    End Sub
+
+    Public Sub mnuEditCut_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditCut.Click
+        On Error GoTo Err_Renamed
+
+        Dim i As Integer
+        Dim intTemp As Short
+
+        If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
+
+            Call My.Computer.Clipboard.Clear()
+            Call My.Computer.Clipboard.SetText(DirectCast(ActiveControl(), TextBox).SelectedText)
+            DirectCast(ActiveControl(), TextBox).SelectedText = ""
+
+            Exit Sub
+
+        ElseIf TypeOf ActiveControl() Is System.Windows.Forms.ComboBox Then
+
+            If DirectCast(ActiveControl(), ComboBox).DropDownStyle = 0 Then
+
+                Call My.Computer.Clipboard.Clear()
+                Call My.Computer.Clipboard.SetText(DirectCast(ActiveControl(), ComboBox).SelectedText)
+                DirectCast(ActiveControl(), ComboBox).SelectedText = ""
+
+                Exit Sub
+
+            End If
+
+        End If
+
+        For i = 0 To UBound(g_Obj) - 1
+
+            If g_Obj(i).intSelect = modMain.OBJ_SELECT.Selected Then
+
+                intTemp = 1
+
+                Exit For
+
+            End If
+
+        Next i
+
+        If intTemp = 0 Then Exit Sub
+
+        Call CopyToClipboard()
+
+        Call mnuEditDelete_Click(mnuEditDelete, New System.EventArgs())
+
+        Exit Sub
+
+Err_Renamed:
+        Call modMain.CleanUp(Err.Number, Err.Description, "mnuEditCut_Click")
+    End Sub
+
+    Public Sub mnuEditDelete_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditDelete.Click
+        On Error GoTo Err_Renamed
+
+        Dim i As Integer
+        Dim lngTemp As Integer
+        Dim strArray() As String
+
+        If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
+
+            If Len(DirectCast(ActiveControl(), TextBox).SelectedText) = 0 Then
+
+                DirectCast(ActiveControl(), TextBox).SelectionLength = 1
+
+            End If
+
+            DirectCast(ActiveControl(), TextBox).SelectedText = ""
+
+            Exit Sub
+
+        ElseIf TypeOf ActiveControl() Is System.Windows.Forms.ComboBox Then
+
+            If DirectCast(ActiveControl(), ComboBox).DropDownStyle = 0 Then
+
+                If Len(DirectCast(ActiveControl(), ComboBox).SelectedText) = 0 Then
+
+                    DirectCast(ActiveControl(), ComboBox).SelectionLength = 1
+
+                End If
+
+                DirectCast(ActiveControl(), ComboBox).SelectedText = ""
+
+                Exit Sub
+
+            End If
+
+        End If
+
+        For i = 0 To UBound(g_Obj) - 1
+
+            If g_Obj(i).intSelect <> modMain.OBJ_SELECT.NON_SELECT Then
+
+                lngTemp = lngTemp + 1
+
+            End If
+
+        Next i
+
+        If lngTemp = 0 Then Exit Sub
+
+        'g_strInputLog(g_lngInputLogPos) = ""
+        ReDim strArray(lngTemp - 1)
+        lngTemp = 0
+
+        For i = 0 To UBound(g_Obj) - 1
+
+            With g_Obj(i)
+
+                If .intSelect <> modMain.OBJ_SELECT.NON_SELECT Then
+
+                    strArray(lngTemp) = modInput.strFromNum(modMain.CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue
+                    lngTemp = lngTemp + 1
+
+                    Call modDraw.RemoveObj(i)
+
+                End If
+
+            End With
+
+        Next i
+
+        Call g_InputLog.AddData(Join(strArray, modLog.getSeparator))
+
+        Call modDraw.ArrangeObj()
+
+        picMain.Refresh()
+
+        Exit Sub
+
+Err_Renamed:
+        Call modMain.CleanUp(Err.Number, Err.Description, "mnuEditDelete_Click")
+    End Sub
+
+    Public Sub mnuEditMode_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _mnuEditMode_2.Click, _mnuEditMode_1.Click, _mnuEditMode_0.Click
+        DirectCast(tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = False
+        DirectCast(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = False
+        DirectCast(tlbMenu.Items.Item("Delete"), ToolStripButton).Checked = False
+
+
+        Select Case DirectCast(eventSender, ToolStripMenuItem).Name
+            Case _mnuEditMode_0.Name
+                DirectCast(tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = True
+                staMain.Items.Item("Mode").Text = g_strStatusBar(20)
+            Case _mnuEditMode_1.Name
+                DirectCast(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = True
+                staMain.Items.Item("Mode").Text = g_strStatusBar(21)
+            Case _mnuEditMode_2.Name
+                DirectCast(tlbMenu.Items.Item("Delete"), ToolStripButton).Checked = True
+                staMain.Items.Item("Mode").Text = g_strStatusBar(22)
+        End Select
+
+    End Sub
+
+    Public Sub mnuEditPaste_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditPaste.Click
+        On Error GoTo Err_Renamed
+
+        Dim i As Integer
+        Dim j As Integer
+        Dim lngArg As Integer
+        Dim strArray() As String
+
+        If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
+
+            DirectCast(ActiveControl(), TextBox).SelectedText = My.Computer.Clipboard.GetText()
+
+            Exit Sub
+
+        ElseIf TypeOf ActiveControl() Is System.Windows.Forms.ComboBox Then
+
+            If DirectCast(ActiveControl(), ComboBox).DropDownStyle = 0 Then
+
+                DirectCast(ActiveControl(), ComboBox).SelectedText = My.Computer.Clipboard.GetText()
+
+                Exit Sub
+
+            End If
+
+        End If
+
+        Call modDraw.ObjSelectCancel()
+
+        For i = g_disp.intStartMeasure To 999
+
+            If g_disp.Y <= g_Measure(i).lngY Then
+
+                g_disp.intStartMeasure = i
+
+                Exit For
+
+            End If
+
+        Next i
+
+        strArray = Split(My.Computer.Clipboard.GetText, vbCrLf)
+
+        If UBound(strArray) < 2 Then Exit Sub
+
+        If strArray(0) <> "BMSE ClipBoard Object Data Format" Then Exit Sub
+
+        For i = 1 To UBound(strArray) - 1
+
+            With g_Obj(UBound(g_Obj))
+
+                .lngID = g_lngIDNum
+                g_lngObjID(g_lngIDNum) = UBound(g_Obj)
+                g_lngIDNum = g_lngIDNum + 1
+                ReDim Preserve g_lngObjID(g_lngIDNum)
+                .intCh = CShort(VB.Left(strArray(i), 3))
+                .intAtt = CShort(Mid(strArray(i), 4, 1))
+                .lngPosition = Val(Mid(strArray(i), 5, 7)) + g_Measure(g_disp.intStartMeasure).lngY
+                .sngValue = Val(Mid(strArray(i), 12))
+                .lngHeight = 0
+                .intSelect = modMain.OBJ_SELECT.Selected
+
+                For j = 0 To 999
+
+                    If .lngPosition < g_Measure(j).lngY Then
+
+                        Exit For
+
+                    Else
+
+                        .intMeasure = j
+
+                    End If
+
+                Next j
+
+                .lngPosition = .lngPosition - g_Measure(.intMeasure).lngY
+
+                strArray(i - 1) = modInput.strFromNum(modMain.CMD_LOG.OBJ_ADD) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue
+
+                If modDraw.lngChangeMaxMeasure(.intMeasure) Then lngArg = 1
+
+            End With
+
+            If g_Obj(UBound(g_Obj)).lngPosition < g_Measure(g_Obj(UBound(g_Obj)).intMeasure).intLen Then ReDim Preserve g_Obj(UBound(g_Obj) + 1)
+
+        Next i
+
+        If lngArg Then Call modDraw.ChangeResolution()
+
+        Call g_InputLog.AddData(Join(strArray, modLog.getSeparator))
+
+        picMain.Refresh()
+
+        Exit Sub
+
+Err_Renamed:
+        Call modMain.CleanUp(Err.Number, Err.Description, "mnuEditPaste_Click")
+    End Sub
+
+    Public Sub mnuFileExit_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileExit.Click
+        If modMain.intSaveCheck() Then Exit Sub
+
+        Call modMain.CleanUp()
+
+    End Sub
+
+    Public Sub mnuHelpWeb_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuHelpWeb.Click
+
+        Call ShellExecute(0, vbNullString, "http://ucn.tokonats.net/", vbNullString, vbNullString, SW_SHOWNORMAL)
+
+    End Sub
+
+    Public Sub mnuLanguage_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _mnuLanguage_2.Click, _mnuLanguage_1.Click, _mnuLanguage_0.Click
+
+        _mnuLanguage_0.Checked = False
+        _mnuLanguage_1.Checked = False
+        _mnuLanguage_2.Checked = False
+
+        Select Case DirectCast(eventSender, ToolStripMenuItem).Name
+            Case _mnuLanguage_0.Name
+                With _mnuLanguage_0
+                    .Checked = True
+                    Call modMain.LoadLanguageFile("lang\" & g_strLangFileName(0))
+                End With
+
+            Case _mnuLanguage_1.Name
+                With _mnuLanguage_1
+                    .Checked = True
+                    Call modMain.LoadLanguageFile("lang\" & g_strLangFileName(1))
+                End With
+
+            Case _mnuLanguage_2.Name
+                With _mnuLanguage_2
+                    .Checked = True
+                    Call modMain.LoadLanguageFile("lang\" & g_strLangFileName(2))
+                End With
+        End Select
+
+        picMain.Refresh()
+    End Sub
+
+    Public Sub mnuFileNew_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileNew.Click
+        If modMain.intSaveCheck() Then Exit Sub
+
+        Me.Text = g_strAppTitle & " - Now Initializing"
+
+        Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+        With g_BMS
+
+            .strDir = ""
+            .strFileName = ""
+
+        End With
+
+        Call modInput.LoadBMSStart()
+
+        Call modInput.LoadBMSEnd()
+
+    End Sub
+
+    Public Sub mnuFileOpen_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileOpen.Click
+        On Error GoTo Err_Renamed
+
+        Dim strArray() As String
+
+        If modMain.intSaveCheck() Then Exit Sub
+
+        With dlgMainOpen
+
+            'UPGRADE_WARNING: Filter ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+            .Filter = "BMS files (*.bms,*.bme,*.bml,*.pms)|*.bms;*.bme;*.bml;*.pms|All files (*.*)|*.*"
+
+            .FileName = g_BMS.strFileName
+
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+
+            Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+            strArray = Split(.FileName, "\")
+            g_BMS.strDir = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
+            g_BMS.strFileName = strArray(UBound(strArray))
+
+            Call modInput.LoadBMS()
+
+            Call modMain.RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
+
+            dlgMainOpen.InitialDirectory = g_BMS.strDir
+            dlgMainSave.InitialDirectory = g_BMS.strDir
+
+        End With
+
+Err_Renamed:
+    End Sub
+
+    Public Sub mnuToolsPlay_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuToolsPlay.Click
+        Dim strFileName As String
+        Dim strPath As String
+
+        If Mid(g_Viewer(cboViewer.SelectedIndex + 1).strAppPath, 2, 2) <> ":\" Then
+
+            strPath = g_strAppDir & g_Viewer(cboViewer.SelectedIndex + 1).strAppPath
+
+        Else
+
+            strPath = g_Viewer(cboViewer.SelectedIndex + 1).strAppPath
+
+        End If
+
+        'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+        If Dir(strPath, FileAttribute.Normal) = vbNullString Then
+
+            Call MsgBox(strPath & " " & g_Message(modMain.Message.ERR_APP_NOT_FOUND), MsgBoxStyle.Critical, g_strAppTitle)
+            Exit Sub
+
+        End If
+
+        If Len(g_BMS.strDir) Then
+
+            strFileName = g_BMS.strDir & "___bmse_temp.bms" & vbNullString
+
+        Else
+
+            strFileName = g_strAppDir & "___bmse_temp.bms" & vbNullString
+
+        End If
+
+        Call modOutput.CreateBMS(strFileName, 1)
+        Call mciSendString("close PREVIEW", vbNullString, 0, 0)
+
+        With g_Viewer(cboViewer.SelectedIndex + 1)
+
+            Call ShellExecute(0, "open", Chr(34) & strPath & Chr(34), strCmdDecode(.strArgPlay, strFileName), "", SW_SHOWNORMAL)
+
+        End With
+
+    End Sub
+
+    Public Sub mnuToolsPlayAll_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuToolsPlayAll.Click
+        Dim strFileName As String
+        Dim strPath As String
+
+        If Mid(g_Viewer(cboViewer.SelectedIndex + 1).strAppPath, 2, 2) <> ":\" Then
+
+            strPath = g_strAppDir & g_Viewer(cboViewer.SelectedIndex + 1).strAppPath
+
+        Else
+
+            strPath = g_Viewer(cboViewer.SelectedIndex + 1).strAppPath
+
+        End If
+
+        'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+        If Dir(strPath, FileAttribute.Normal) = vbNullString Then
+
+            Call MsgBox(strPath & " " & g_Message(modMain.Message.ERR_APP_NOT_FOUND), MsgBoxStyle.Critical, g_strAppTitle)
+            Exit Sub
+
+        End If
+
+        If Len(g_BMS.strDir) Then
+
+            strFileName = g_BMS.strDir & "___bmse_temp.bms" & vbNullString
+
+        Else
+
+            strFileName = g_strAppDir & "___bmse_temp.bms" & vbNullString
+
+        End If
+
+        Call modOutput.CreateBMS(strFileName, 1)
+        Call mciSendString("close PREVIEW", vbNullString, 0, 0)
+
+        With g_Viewer(cboViewer.SelectedIndex + 1)
+
+            Call ShellExecute(0, "open", Chr(34) & strPath & Chr(34), strCmdDecode(.strArgAll, strFileName), "", SW_SHOWNORMAL)
+
+        End With
+
+    End Sub
+
+    Public Sub mnuToolsPlayStop_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuToolsPlayStop.Click
+        Dim strFileName As String
+        Dim strPath As String
+
+        If Mid(g_Viewer(cboViewer.SelectedIndex + 1).strAppPath, 2, 2) <> ":\" Then
+
+            strPath = g_strAppDir & g_Viewer(cboViewer.SelectedIndex + 1).strAppPath
+
+        Else
+
+            strPath = g_Viewer(cboViewer.SelectedIndex + 1).strAppPath
+
+        End If
+
+        'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+        If Dir(strPath, FileAttribute.Normal) = vbNullString Then
+
+            Call MsgBox(strPath & " " & g_Message(modMain.Message.ERR_APP_NOT_FOUND), MsgBoxStyle.Critical, g_strAppTitle)
+            Exit Sub
+
+        End If
+
+        If Len(g_BMS.strDir) Then
+
+            strFileName = g_BMS.strDir & "___bmse_temp.bms" & vbNullString
+
+        Else
+
+            strFileName = g_strAppDir & "___bmse_temp.bms" & vbNullString
+
+        End If
+
+        Call mciSendString("close PREVIEW", vbNullString, 0, 0)
+
+        With g_Viewer(cboViewer.SelectedIndex + 1)
+
+            Call ShellExecute(0, "open", Chr(34) & strPath & Chr(34), strCmdDecode(.strArgStop, strFileName), "", SW_SHOWNORMAL)
+
+        End With
+
+    End Sub
+
+    Public Sub mnuRecentFiles_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _mnuRecentFiles_9.Click, _mnuRecentFiles_8.Click, _mnuRecentFiles_7.Click, _mnuRecentFiles_6.Click, _mnuRecentFiles_5.Click, _mnuRecentFiles_4.Click, _mnuRecentFiles_3.Click, _mnuRecentFiles_2.Click, _mnuRecentFiles_1.Click, _mnuRecentFiles_0.Click
+        Dim strArray() As String = Nothing
+
+        If modMain.intSaveCheck() Then Exit Sub
+        Select Case DirectCast(eventSender, ToolStripMenuItem).Name
+            Case _mnuRecentFiles_0.Name
+                'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                If Dir(Mid(_mnuRecentFiles_0.Text, 4)) = vbNullString Then
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_0.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_0.Text, "\")
+                g_BMS.strDir = Mid(_mnuRecentFiles_0.Text, 4, Len(_mnuRecentFiles_0.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_1.Name
+                'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                If Dir(Mid(_mnuRecentFiles_1.Text, 4)) = vbNullString Then
+
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_1.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_1.Text, "\")
+                g_BMS.strDir = Mid(_mnuRecentFiles_1.Text, 4, Len(_mnuRecentFiles_1.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_2.Name
+                'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                If Dir(Mid(_mnuRecentFiles_2.Text, 4)) = vbNullString Then
+
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_2.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_2.Text, "\")
+                g_BMS.strDir = Mid(_mnuRecentFiles_2.Text, 4, Len(_mnuRecentFiles_2.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_3.Name
+                'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                If Dir(Mid(_mnuRecentFiles_3.Text, 4)) = vbNullString Then
+
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_3.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_3.Text, "\")
+                g_BMS.strDir = Mid(_mnuRecentFiles_3.Text, 4, Len(_mnuRecentFiles_3.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_4.Name
+                'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                If Dir(Mid(_mnuRecentFiles_4.Text, 4)) = vbNullString Then
+
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_4.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_4.Text, "\")
+                g_BMS.strDir = Mid(_mnuRecentFiles_4.Text, 4, Len(_mnuRecentFiles_4.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_5.Name
+                'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                If Dir(Mid(_mnuRecentFiles_5.Text, 4)) = vbNullString Then
+
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_5.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_5.Text, "\")
+                g_BMS.strDir = Mid(_mnuRecentFiles_5.Text, 4, Len(_mnuRecentFiles_5.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_6.Name
+                'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                If Dir(Mid(_mnuRecentFiles_6.Text, 4)) = vbNullString Then
+
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_6.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_6.Text, "\")
+                g_BMS.strDir = Mid(_mnuRecentFiles_6.Text, 4, Len(_mnuRecentFiles_6.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_7.Name
+                'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                If Dir(Mid(_mnuRecentFiles_7.Text, 4)) = vbNullString Then
+
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_7.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_7.Text, "\")
+                g_BMS.strDir = Mid(_mnuRecentFiles_7.Text, 4, Len(_mnuRecentFiles_7.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_8.Name
+                'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                If Dir(Mid(_mnuRecentFiles_8.Text, 4)) = vbNullString Then
+
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_8.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_8.Text, "\")
+                g_BMS.strDir = Mid(_mnuRecentFiles_8.Text, 4, Len(_mnuRecentFiles_8.Text) - Len(strArray(UBound(strArray))) - 3)
+
+            Case _mnuRecentFiles_9.Name
+                'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                If Dir(Mid(_mnuRecentFiles_9.Text, 4)) = vbNullString Then
+
+                    Call MsgBox(g_Message(modMain.Message.ERR_FILE_NOT_FOUND) & vbCrLf & Mid(_mnuRecentFiles_9.Text, 4) & vbCrLf & g_Message(modMain.Message.ERR_LOAD_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+                    Exit Sub
+
+                End If
+
+                Call lngDeleteFile(g_BMS.strDir & "___bmse_temp.bms")
+
+                strArray = Split(_mnuRecentFiles_9.Text, "\")
+                g_BMS.strDir = Mid(_mnuRecentFiles_9.Text, 4, Len(_mnuRecentFiles_9.Text) - Len(strArray(UBound(strArray))) - 3)
+        End Select
+        g_BMS.strFileName = strArray(UBound(strArray))
+
+        dlgMainOpen.InitialDirectory = g_BMS.strDir
+        dlgMainSave.InitialDirectory = g_BMS.strDir
+
+        Call modMain.RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
+
+        Call modInput.LoadBMS()
+
+    End Sub
+
+    Public Sub mnuFileSave_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileSave.Click
+
+        If g_BMS.strDir <> "" And g_BMS.strFileName <> "" Then
+
+            Call modOutput.CreateBMS(g_BMS.strDir & g_BMS.strFileName)
+
+        Else
+
+            Call mnuFileSaveAs_Click(mnuFileSaveAs, New System.EventArgs())
+
+        End If
+
+    End Sub
+
+    Public Sub mnuFileSaveAs_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileSaveAs.Click
+        On Error GoTo Err_Renamed
+
+        Dim strArray() As String
+
+        With dlgMainSave
+
+            'UPGRADE_WARNING: Filter ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+            .Filter = "BMS files (*.bms,*.bme,*.bml,*.pms)|*.bms;*.bme;*.bml;*.pms|All files (*.*)|*.*"
+
+            .FileName = g_BMS.strFileName
+
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+
+            strArray = Split(.FileName, "\")
+            g_BMS.strDir = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
+            g_BMS.strFileName = strArray(UBound(strArray))
+
+            Call modOutput.CreateBMS(g_BMS.strDir & g_BMS.strFileName)
+
+            Call modMain.RecentFilesRotation(g_BMS.strDir & g_BMS.strFileName)
+
+            dlgMainOpen.InitialDirectory = g_BMS.strDir
+            dlgMainSave.InitialDirectory = g_BMS.strDir
+
+        End With
+
+Err_Renamed:
+    End Sub
+
+    Public Sub mnuEditSelectAll_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditSelectAll.Click
+        Dim i As Integer
+
+        If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
+
+            DirectCast(ActiveControl(), TextBox).SelectionStart = 0
+            DirectCast(ActiveControl(), TextBox).SelectionLength = Len(DirectCast(ActiveControl(), TextBox).Text)
+
+            Exit Sub
+
+        ElseIf TypeOf ActiveControl() Is System.Windows.Forms.ComboBox Then
+
+            If DirectCast(ActiveControl(), ComboBox).DropDownStyle = 0 Then
+
+                DirectCast(ActiveControl(), ComboBox).SelectionStart = 0
+                DirectCast(ActiveControl(), ComboBox).SelectionLength = Len(DirectCast(ActiveControl(), ComboBox).Text)
+
+                Exit Sub
+
+            End If
+
+        End If
+
+        For i = 0 To UBound(g_Obj) - 1
+
+            g_Obj(i).intSelect = modMain.OBJ_SELECT.Selected
+
+        Next i
+
+        picMain.Refresh()
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ optChangeBottom.CheckedChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub optChangeBottom_CheckedChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _optChangeBottom_4.CheckedChanged, _optChangeBottom_3.CheckedChanged, _optChangeBottom_2.CheckedChanged, _optChangeBottom_1.CheckedChanged, _optChangeBottom_0.CheckedChanged
+        If eventSender.Checked Then
+            _fraBottom_0.Visible = False
+            _fraBottom_1.Visible = False
+            _fraBottom_2.Visible = False
+            _fraBottom_3.Visible = False
+            _fraBottom_4.Visible = False
+
+            Select Case DirectCast(eventSender, RadioButton).Name
+                Case _optChangeBottom_0.Name
+                    _fraBottom_0.Visible = True
+                Case _optChangeBottom_1.Name
+                    _fraBottom_1.Visible = True
+                Case _optChangeBottom_2.Name
+                    _fraBottom_2.Visible = True
+                Case _optChangeBottom_3.Name
+                    _fraBottom_3.Visible = True
+                Case _optChangeBottom_4.Name
+                    _fraBottom_4.Visible = True
+            End Select
+
+        End If
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ optChangeTop.CheckedChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub optChangeTop_CheckedChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _optChangeTop_2.CheckedChanged, _optChangeTop_1.CheckedChanged, _optChangeTop_0.CheckedChanged
+        If eventSender.Checked Then
+            _fraTop_0.Visible = False
+            _fraTop_1.Visible = False
+            _fraTop_2.Visible = False
+
+            Select Case DirectCast(eventSender, RadioButton).Name
+                Case _optChangeTop_0.Name
+                    _fraTop_0.Visible = True
+                Case _optChangeTop_1.Name
+                    _fraTop_1.Visible = True
+                Case _optChangeTop_2.Name
+                    _fraTop_2.Visible = True
+            End Select
+
+        End If
+    End Sub
+
+    Private Sub picMain_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles picMain.KeyDown
+
+        Dim lngTemp As Integer
+        Dim intTemp As Short
+        Dim blnTemp As Boolean
+
+        blnTemp = True
+
+        g_Mouse.Shift = e.Modifiers
+
+        lngTemp = vsbMain.Value
+        intTemp = hsbMain.Value
+
+        Select Case e.KeyCode
+
+            Case System.Windows.Forms.Keys.ControlKey, System.Windows.Forms.Keys.ShiftKey ', vbKeyMenu
+
+                If DirectCast(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = False Then blnTemp = False
+
+            Case System.Windows.Forms.Keys.NumPad0
+
+                cboDispGridSub.SelectedIndex = cboDispGridSub.Items.Count - 1
+
+            Case System.Windows.Forms.Keys.NumPad1
+
+                cboDispGridSub.SelectedIndex = 1
+
+            Case System.Windows.Forms.Keys.NumPad2
+
+                cboDispGridSub.SelectedIndex = 2
+
+            Case System.Windows.Forms.Keys.NumPad3
+
+                cboDispGridSub.SelectedIndex = 3
+
+            Case System.Windows.Forms.Keys.NumPad4
+
+                cboDispGridSub.SelectedIndex = 6
+
+            Case System.Windows.Forms.Keys.NumPad5
+
+                cboDispGridSub.SelectedIndex = 7
+
+            Case System.Windows.Forms.Keys.NumPad6
+
+                cboDispGridSub.SelectedIndex = 8
+
+            Case System.Windows.Forms.Keys.End
+
+                lngTemp = vsbMain.Minimum
+
+            Case System.Windows.Forms.Keys.Home
+
+                lngTemp = vsbMain.Maximum - vsbMain.LargeChange + 1
+
+            Case System.Windows.Forms.Keys.PageDown
+
+                lngTemp = lngTemp + vsbMain.LargeChange
+
+            Case System.Windows.Forms.Keys.PageUp
+
+                lngTemp = lngTemp - vsbMain.LargeChange
+
+            Case System.Windows.Forms.Keys.Down
+
+                lngTemp = lngTemp + vsbMain.SmallChange
+
+            Case System.Windows.Forms.Keys.Up
+
+                lngTemp = lngTemp - vsbMain.SmallChange
+
+            Case System.Windows.Forms.Keys.Left
+
+                intTemp = intTemp - hsbMain.SmallChange
+
+            Case System.Windows.Forms.Keys.Right
+
+                intTemp = intTemp + hsbMain.SmallChange
+
+            Case Else
+
+                blnTemp = False
+
+        End Select
+
+        With vsbMain
+
+            If lngTemp > (.Maximum - .LargeChange + 1) Then
+
+                .Value = (.Maximum - .LargeChange + 1)
+
+            ElseIf lngTemp < 0 Then
+
+                .Value = 0
+
+            Else
+
+                .Value = lngTemp
+
+            End If
+
+        End With
+
+        With hsbMain
+
+            If intTemp < 0 Then
+
+                .Value = 0
+
+            ElseIf intTemp > (.Maximum - .LargeChange + 1) Then
+
+                .Value = (.Maximum - .LargeChange + 1)
+
+            Else
+
+                .Value = intTemp
+
+            End If
+
+        End With
+
+        If blnTemp Then
+
+            If DirectCast(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = False Then
+
+                If g_SelectArea.blnFlag = True Or (g_Obj(UBound(g_Obj)).intCh <> 0 And g_Mouse.Button <> 0) Then
+
+                    Call picMain_MouseMove(picMain, New System.Windows.Forms.MouseEventArgs(Windows.Forms.MouseButtons.Left, 0, g_Mouse.X, g_Mouse.Y, 0))
+
+                End If
+
+            Else
+
+                Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, e.Modifiers)
+                picMain.Refresh()
+
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub picMain_KeyUp(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles picMain.KeyUp
+        g_Mouse.Shift = e.Modifiers
+
+        Select Case e.KeyCode
+
+            Case System.Windows.Forms.Keys.ControlKey, System.Windows.Forms.Keys.ShiftKey
+
+                If DirectCast(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = True Then
+
+                    Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, e.Modifiers)
+                    picMain.Refresh()
+
+                End If
+
+        End Select
+
+    End Sub
+
+    Private Sub picMain_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles picMain.MouseDown
+        On Error GoTo Err_Renamed
+
+        Dim Shift As Keys = System.Windows.Forms.Control.ModifierKeys
+
+        Dim strTemp As String
+        'Dim intNum      As Long
+        Dim lngTemp As Integer
+        Dim i As Integer
+        Dim tempObj As g_udtObj
+        Dim strArray() As String
+
+        If g_blnIgnoreInput Then Exit Sub
+
+        m_blnMouseDown = True
+
+        If eventArgs.Button = Windows.Forms.MouseButtons.Left Then 'å·¦ã‚¯ãƒªãƒƒã‚¯
+
+            If DirectCast(tlbMenu.Items.Item("Delete"), ToolStripButton).Checked = True Then
+
+                If g_Obj(UBound(g_Obj)).intCh Then
+
+                    '/// Undo
+                    With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
+
+                        Call g_InputLog.AddData(modInput.strFromNum(modMain.CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue & modLog.getSeparator)
+
+                    End With
+
+                    Call modDraw.RemoveObj(g_Obj(UBound(g_Obj)).lngHeight)
+
+                    Call modDraw.ArrangeObj()
+
+                    Call RemoveObj(UBound(g_Obj))
+
+                End If
+
+                Call modDraw.ObjSelectCancel()
+                picMain.Refresh()
+
+            ElseIf DirectCast(tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = True Then
+
+                If g_Obj(UBound(g_Obj)).intCh <> 0 Then 'ã‚ªãƒ–ã‚¸ã‚§ã®ã‚ã‚‹ã¨ã“ã‚ã§æŠ¼ã—ãŸã£ã½ã„ã‚ˆ
+
+                    With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
+
+                        If DirectCast(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
+
+                            lngTemp = 192 \ (DirectCast(Me.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData)
+                            lngTemp = .lngPosition - (.lngPosition \ lngTemp) * lngTemp
+
+                        End If
+
+                    End With
+
+                    If g_Obj(g_Obj(UBound(g_Obj)).lngHeight).intSelect <> modMain.OBJ_SELECT.NON_SELECT Then 'è¤‡æ•°é¸æŠžã£ã½ã„ã‚ˆ
+
+                        If Shift And System.Windows.Forms.Keys.Control Then
+
+                            tempObj = g_Obj(UBound(g_Obj))
+
+                            'ReDim strArray(intNum - 1)
+                            ReDim strArray(0)
+                            'intNum = 0
+
+                            For i = 0 To UBound(g_Obj) - 1
+
+                                If g_Obj(i).intSelect <> modMain.OBJ_SELECT.NON_SELECT Then
+
+                                    With g_Obj(i)
+
+                                        g_Obj(UBound(g_Obj)) = g_Obj(i)
+                                        g_Obj(UBound(g_Obj)).lngID = g_lngIDNum
+
+                                        strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.OBJ_ADD) & modInput.strFromNum(g_lngIDNum, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue
+                                        'intNum = intNum + 1
+                                        ReDim Preserve strArray(UBound(strArray) + 1)
+
+                                        g_lngObjID(g_lngIDNum) = UBound(g_Obj)
+                                        g_lngIDNum = g_lngIDNum + 1
+                                        ReDim Preserve g_lngObjID(g_lngIDNum)
+
+                                        .intSelect = modMain.OBJ_SELECT.NON_SELECT
+
+                                    End With
+
+                                    If i = tempObj.lngHeight Then tempObj.lngHeight = UBound(g_Obj)
+
+                                    ReDim Preserve g_Obj(UBound(g_Obj) + 1)
+
+                                End If
+
+                            Next i
+
+                            If UBound(strArray) Then
+
+                                ReDim Preserve strArray(UBound(strArray) - 1)
+
+                                Call g_InputLog.AddData(Join(strArray, modLog.getSeparator))
+
+                                g_Obj(UBound(g_Obj)) = tempObj
+
+                            End If
+
+                        End If
+
+                        ReDim m_tempObj(0)
+
+                        For i = 0 To UBound(g_Obj) - 1
+
+                            With g_Obj(i)
+
+                                If .intSelect <> modMain.OBJ_SELECT.NON_SELECT Then
+
+                                    m_tempObj(UBound(m_tempObj)) = g_Obj(i)
+
+                                    .lngHeight = UBound(m_tempObj)
+
+                                    ReDim Preserve m_tempObj(UBound(m_tempObj) + 1)
+
+                                End If
+
+                            End With
+
+                        Next i
+
+                        m_tempObj(UBound(m_tempObj)) = g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
+
+                        With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
+
+                            'ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼
+                            If _mnuOptionsItem_4.Checked = True And ((.intCh >= 11 And .intCh <= 29) Or .intCh > 100) Then
+
+                                strTemp = g_strWAV(.sngValue)
+
+                                'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                                If strTemp <> "" And Dir(g_BMS.strDir & strTemp) <> vbNullString Then
+
+                                    Call PreviewWAV(strTemp)
+
+                                End If
+
+                            End If
+
+                            'ã‚ªãƒ–ã‚¸ã‚§ã‚’ã‚°ãƒªãƒƒãƒ‰ã«ã‚ã‚ã›ã‚‹
+                            'If Not Shift And vbShiftMask Then
+
+                            'If lngTemp <> 0 And mnuOptionsItem(MOVE_ON_GRID).Checked = True Then
+
+                            'For i = 0 To UBound(g_Obj) - 1
+
+                            'With g_Obj(i)
+
+                            'If .intSelect <> NON_SELECT Then
+
+                            '.lngPosition = .lngPosition - lngTemp
+
+                            'Do While .lngPosition < 0 And .intMeasure <> 0
+
+                            '.intMeasure = .intMeasure - 1
+                            '.lngPosition = .lngPosition + g_Measure(.intMeasure).intLen
+
+                            'Loop
+
+                            'Call SaveChanges
+
+                            'End If
+
+                            'End With
+
+                            'Next i
+
+                            'End If
+
+                            'End If
+
+                        End With
+
+                    Else 'å˜æ•°é¸æŠžã£ã½ã„ã‚ˆ
+
+                        If Not Shift And System.Windows.Forms.Keys.Control Then
+
+                            Call modDraw.ObjSelectCancel()
+
+                        End If
+
+                        g_Obj(g_Obj(UBound(g_Obj)).lngHeight).intSelect = modMain.OBJ_SELECT.Selected
+
+                        Call modDraw.MoveSelectedObj()
+
+                        With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
+
+                            ReDim m_tempObj(0)
+
+                            For i = 0 To UBound(g_Obj) - 1
+
+                                With g_Obj(i)
+
+                                    m_tempObj(UBound(m_tempObj)) = g_Obj(i)
+                                    .lngHeight = UBound(m_tempObj)
+                                    ReDim Preserve m_tempObj(UBound(m_tempObj) + 1)
+
+                                End With
+
+                            Next i
+
+                            m_tempObj(UBound(m_tempObj)) = g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
+
+                            'ã‚ªãƒ–ã‚¸ã‚§ã‚’ã‚°ãƒªãƒƒãƒ‰ã«ã‚ã‚ã›ã‚‹
+                            'If Not Shift And vbShiftMask Then
+
+                            'If lngTemp <> 0 And mnuOptionsItem(MOVE_ON_GRID).Checked = True Then
+
+                            '.lngPosition = .lngPosition - lngTemp
+
+                            'Do While .lngPosition < 0 And .intMeasure <> 0
+
+                            '.intMeasure = .intMeasure - 1
+                            '.lngPosition = .lngPosition + g_Measure(.intMeasure).intLen
+
+                            'Loop
+
+                            'Call SaveChanges
+
+                            'End If
+
+                            'End If
+
+                            'ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼
+                            If _mnuOptionsItem_4.Checked Then
+
+                                Select Case .intCh
+
+                                    Case 11 To 29, Is > 100
+
+                                        strTemp = g_strWAV(.sngValue)
+
+                                        'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                                        If strTemp <> "" And Dir(g_BMS.strDir & strTemp) <> vbNullString Then
+
+                                            Call PreviewWAV(strTemp)
+
+                                        End If
+
+                                    Case 4, 6, 7
+
+                                        If Len(g_strBGA(.sngValue)) Then
+
+                                            Call PreviewBGA(.sngValue)
+
+                                        Else
+
+                                            strTemp = g_strBMP(.sngValue)
+
+                                            'UPGRADE_WARNING: Dir ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                                            If strTemp <> "" And Dir(g_BMS.strDir & strTemp) <> vbNullString Then
+
+                                                Call PreviewBMP(strTemp)
+
+                                            End If
+
+                                        End If
+
+                                End Select
+
+                            End If
+
+                        End With
+
+                    End If
+
+                    picMain.Refresh()
+
+                Else 'ã‚ªãƒ–ã‚¸ã‚§ã®ãªã„ã¨ã“ã‚ã§æŠ¼ã—ãŸã£ã½ã„ã‚ˆ
+
+                    If Not Shift And System.Windows.Forms.Keys.Control Then
+
+                        Call modDraw.ObjSelectCancel()
+
+                        picMain.Refresh()
+
+                    Else
+
+                        For i = 0 To UBound(g_Obj) - 1
+
+                            With g_Obj(i)
+
+                                If .intSelect <> modMain.OBJ_SELECT.NON_SELECT Then
+
+                                    .intSelect = modMain.OBJ_SELECT.SELECTAREA_OUT
+
+                                End If
+
+                            End With
+
+                        Next i
+
+                        picMain.Refresh()
+
+                    End If
+
+                    With g_SelectArea
+
+                        .blnFlag = True
+                        '.X1 = (X + g_disp.X) / g_disp.Width
+                        .X1 = eventArgs.X / g_disp.Width + g_disp.X
+                        .Y1 = (picMain.ClientRectangle.Height - eventArgs.Y) / g_disp.Height + g_disp.Y
+                        .X2 = .X1
+                        .Y2 = .Y1
+
+                    End With
+
+                End If
+
+                'Call modDraw.Redraw
+                picMain.Refresh()
+
+            Else 'If tlbMenu.Buttons("Write").Value = tbrPressed Then
+
+                Call modDraw.ObjSelectCancel()
+                picMain.Refresh()
+
+            End If
+
+        ElseIf eventArgs.Button = Windows.Forms.MouseButtons.Right Then  'å³ã‚¯ãƒªãƒƒã‚¯
+
+            With g_Mouse
+
+                .Button = eventArgs.Button
+                .Shift = Shift
+                .X = eventArgs.X
+                .Y = eventArgs.Y
+
+            End With
+
+            Call DrawObjMax(eventArgs.X, eventArgs.Y, Shift)
+            picMain.Refresh()
+
+        ElseIf eventArgs.Button = Windows.Forms.MouseButtons.Middle Then  'ä¸­ã‚¯ãƒªãƒƒã‚¯
+
+            'ã‚ªãƒ–ã‚¸ã‚§å‰Šé™¤
+            If g_Obj(UBound(g_Obj)).lngHeight < UBound(g_Obj) Then 'ã‚ªãƒ–ã‚¸ã‚§é¸æŠžä¸­
+
+                'å…¥åŠ›å±¥æ­´ã«è¿½åŠ 
+                With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
+
+                    Call g_InputLog.AddData(modInput.strFromNum(modMain.CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue & modLog.getSeparator)
+
+                End With
+
+                'ã‚ªãƒ–ã‚¸ã‚§å‰Šé™¤
+                Call modDraw.RemoveObj(g_Obj(UBound(g_Obj)).lngHeight)
+
+                g_Obj(UBound(g_Obj)).intCh = 0
+                g_Obj(UBound(g_Obj)).lngHeight = UBound(g_Obj)
+
+                'æ•´åˆ—
+                Call modDraw.ArrangeObj()
+
+                'å†æç”»
+                picMain.Refresh()
+
+            End If
+
+        End If
+
+        g_blnIgnoreInput = False
+
+        Exit Sub
+
+Err_Renamed:
+        Call modMain.CleanUp(Err.Number, Err.Description, "picMain_MouseDown")
+    End Sub
+
+    Private Sub picMain_MouseUp(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles picMain.MouseUp
+        On Error GoTo Err_Renamed
+
+        Dim i As Integer
+        Dim lngTemp As Integer
+        Dim strTemp As String
+        Dim lngArg As Integer
+        Dim strArray() As String
+
+        m_intScrollDir = 0
+
+        If g_blnIgnoreInput Then
+
+            g_blnIgnoreInput = False
+
+            Exit Sub
+
+        End If
+
+        If Not m_blnMouseDown Then Exit Sub
+
+        m_blnMouseDown = False
+
+        If eventArgs.Button = Windows.Forms.MouseButtons.Left Then
+
+            If DirectCast(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = True Then
+
+                With g_Obj(UBound(g_Obj))
+
+                    Select Case .intCh
+
+                        Case 8 'BPM
+
+                            With frmWindowInput
+
+                                .lblMainDisp.Text = g_Message(modMain.Message.INPUT_BPM)
+                                .txtMain.Text = "" 'strTemp
+
+                                Call frmWindowInput.ShowDialog(Me)
+
+                            End With
+
+                            Select Case Val(frmWindowInput.txtMain.Text)
+
+                                Case 0
+
+                                    Exit Sub
+
+                                Case Is > 65535
+
+                                    Call MsgBox(g_Message(modMain.Message.ERR_OVERFLOW_LARGE), MsgBoxStyle.Critical, g_strAppTitle)
+
+                                    Exit Sub
+
+                                Case Is < -65535
+
+                                    Call MsgBox(g_Message(modMain.Message.ERR_OVERFLOW_SMALL), MsgBoxStyle.Critical, g_strAppTitle)
+
+                                    Exit Sub
+
+                                Case Else
+
+                                    .sngValue = Val(frmWindowInput.txtMain.Text)
+                                    Call picMain.Focus()
+
+                            End Select
+
+                        Case 9 'STOP
+
+                            With frmWindowInput
+
+                                .lblMainDisp.Text = g_Message(modMain.Message.INPUT_STOP)
+                                .txtMain.Text = "" 'strTemp
+
+                                Call frmWindowInput.ShowDialog(Me)
+
+                            End With
+
+                            Select Case CInt(Val(frmWindowInput.txtMain.Text))
+
+                                Case Is <= 0
+
+                                    Exit Sub
+
+                                Case Is > 65535
+
+                                    Call MsgBox(g_Message(modMain.Message.ERR_OVERFLOW_LARGE), MsgBoxStyle.Critical, g_strAppTitle)
+
+                                    Exit Sub
+
+                                Case Else
+
+                                    .sngValue = CInt(Val(frmWindowInput.txtMain.Text))
+                                    Call picMain.Focus()
+
+                            End Select
+
+                        Case 51 To 69
+
+                            .intCh = .intCh - 40
+                            .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE
+
+                    End Select
+
+                    If .sngValue = 0 Then Exit Sub
+
+                    Call SaveChanges()
+
+                    If modDraw.lngChangeMaxMeasure(.intMeasure) Then Call modDraw.ChangeResolution()
+
+                End With
+
+                'g_strInputLog(g_lngInputLogPos) = ""
+                strTemp = ""
+
+                For i = UBound(g_Obj) - 1 To 0 Step -1
+
+                    If g_Obj(i).intMeasure = g_Obj(UBound(g_Obj)).intMeasure And g_Obj(i).lngPosition = g_Obj(UBound(g_Obj)).lngPosition And g_Obj(i).intCh = g_Obj(UBound(g_Obj)).intCh Then
+
+                        'If g_Obj(i).intAtt \ 2 = g_Obj(UBound(g_Obj)).intAtt \ 2 Then
+                        If g_Obj(i).intAtt = g_Obj(UBound(g_Obj)).intAtt Or ((g_Obj(i).intAtt = modMain.OBJ_ATT.OBJ_NORMAL And g_Obj(UBound(g_Obj)).intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE) Or (g_Obj(i).intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE And g_Obj(UBound(g_Obj)).intAtt = modMain.OBJ_ATT.OBJ_NORMAL)) Then
+
+                            'Undo
+                            With g_Obj(i)
+
+                                'g_strInputLog(g_lngInputLogPos) = g_strInputLog(g_lngInputLogPos) & modInput.strFromNum(CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & Right$("0" & Hex$(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue & modLog.getSeparator
+                                strTemp = strTemp & modInput.strFromNum(modMain.CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue & modLog.getSeparator
+
+                            End With
+
+                            Call modDraw.RemoveObj(i)
+
+                        End If
+
+                    End If
+
+                Next i
+
+                'Undo
+                With g_Obj(UBound(g_Obj))
+
+                    .lngID = g_lngIDNum
+                    strTemp = strTemp & modInput.strFromNum(modMain.CMD_LOG.OBJ_ADD) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue & modLog.getSeparator
+                    Call g_InputLog.AddData(strTemp)
+
+                    g_lngObjID(g_lngIDNum) = UBound(g_Obj)
+                    g_lngIDNum = g_lngIDNum + 1
+                    ReDim Preserve g_lngObjID(g_lngIDNum)
+
+                End With
+
+                ReDim Preserve g_Obj(UBound(g_Obj) + 1)
+
+                Call modDraw.ArrangeObj()
+
+                picMain.Refresh()
+
+            ElseIf DirectCast(tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = True Then
+
+                If g_SelectArea.blnFlag Then
+
+                    g_SelectArea.blnFlag = False
+
+                    For i = 0 To UBound(g_Obj) - 1
+
+                        With g_Obj(i)
+
+                            If .intSelect = modMain.OBJ_SELECT.Selected Or .intSelect = modMain.OBJ_SELECT.SELECTAREA_IN Or .intSelect = modMain.OBJ_SELECT.SELECTAREA_OUT Then
+
+                                .intSelect = modMain.OBJ_SELECT.Selected
+
+                            Else
+
+                                .intSelect = modMain.OBJ_SELECT.NON_SELECT
+
+                            End If
+
+                        End With
+
+                    Next i
+
+                    Call modDraw.MoveSelectedObj()
+
+                Else 'è¤‡æ•°é¸æŠžã£ã½ã„ã‚ˆ
+
+                    For i = 0 To UBound(g_Obj) - 1
+
+                        If g_Obj(i).intSelect <> modMain.OBJ_SELECT.NON_SELECT Then
+
+                            If g_Obj(g_Obj(UBound(g_Obj)).lngHeight).lngPosition + g_Measure(g_Obj(g_Obj(UBound(g_Obj)).lngHeight).intMeasure).lngY <> m_tempObj(UBound(m_tempObj)).lngPosition + g_Measure(m_tempObj(UBound(m_tempObj)).intMeasure).lngY Or g_Obj(g_Obj(UBound(g_Obj)).lngHeight).intCh <> m_tempObj(UBound(m_tempObj)).intCh Then
+
+                                lngTemp = 1
+
+                            End If
+
+                            Exit For
+
+                        End If
+
+                    Next i
+
+                    If lngTemp Then
+
+                        ReDim strArray(0)
+
+                        For i = 0 To UBound(g_Obj) - 1
+
+                            With g_Obj(i)
+
+                                If .intCh <= 0 Or .intCh > 1000 Or (.intMeasure = 0 And .lngPosition < 0) Or (.intMeasure = 999 And .lngPosition > g_Measure(999).intLen) Then
+
+                                    With m_tempObj(g_Obj(i).lngHeight)
+
+                                        strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.OBJ_DEL) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(.intCh), 2) & .intAtt & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3) & .sngValue
+                                        ReDim Preserve strArray(UBound(strArray) + 1)
+
+                                    End With
+
+                                    Call modDraw.RemoveObj(i)
+
+                                ElseIf .intSelect <> modMain.OBJ_SELECT.NON_SELECT Then
+
+                                    strArray(UBound(strArray)) = modInput.strFromNum(modMain.CMD_LOG.OBJ_MOVE) & modInput.strFromNum(.lngID, 4) & VB.Right("0" & Hex(m_tempObj(.lngHeight).intCh), 2) & modInput.strFromNum(m_tempObj(.lngHeight).intMeasure) & modInput.strFromNum(m_tempObj(.lngHeight).lngPosition, 3) & VB.Right("0" & Hex(.intCh), 2) & modInput.strFromNum(.intMeasure) & modInput.strFromNum(.lngPosition, 3)
+                                    ReDim Preserve strArray(UBound(strArray) + 1)
+
+                                End If
+
+                                If modDraw.lngChangeMaxMeasure(.intMeasure) Then lngArg = 1
+
+                            End With
+
+                        Next i
+
+                        If lngArg Then Call modDraw.ChangeResolution()
+
+                        Call g_InputLog.AddData(Join(strArray, modLog.getSeparator))
+
+                    End If
+
+                    Call modDraw.ArrangeObj()
+
+                End If
+
+                picMain.Refresh()
+
+            End If
+
+        ElseIf eventArgs.Button = Windows.Forms.MouseButtons.Right Then
+
+            If Not m_blnIgnoreMenu Then mnuContext.Show(picMain, eventArgs.X, eventArgs.Y)
+
+            m_blnIgnoreMenu = False
+
+        End If
+
+        Exit Sub
+
+Err_Renamed:
+        Call modMain.CleanUp(Err.Number, Err.Description, "picMain_MouseUp")
+    End Sub
+
+    Public Sub picMain_MouseMove(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles picMain.MouseMove
+        Dim Shift As Keys = System.Windows.Forms.Control.ModifierKeys
+        On Error GoTo Err_Renamed
+
+        Dim i As Integer
+        Dim lngTemp As Integer
+        Dim strTemp As String
+        Dim rectTemp As RECT
+        Dim blnSelect() As Boolean
+        Dim blnYAxisFixed As Boolean
+
+        'VB6 ãƒã‚°å¯¾ç­–
+        If eventArgs.Button And Windows.Forms.MouseButtons.Left Then
+
+            If Not m_blnMouseDown Then
+
+                Exit Sub
+
+            End If
+
+        End If
+
+        Dim value As Integer
+        Dim str_Renamed As String
+
+        If Not g_SelectArea.blnFlag Then 'é¸æŠžç¯„å›²ãªã—
+
+            If eventArgs.Button = Windows.Forms.MouseButtons.Left And DirectCast(tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = True And g_Obj(UBound(g_Obj)).intCh <> 0 Then 'ã‚ªãƒ–ã‚¸ã‚§ç§»å‹•ä¸­
+
+                Call MoveObj(eventArgs.X, eventArgs.Y, Shift)
+
+                'Y è»¸å›ºå®šç§»å‹•
+                If Shift And Keys.Shift Then blnYAxisFixed = True
+
+            Else 'ãã‚Œä»¥å¤–
+
+                Call modDraw.DrawObjMax(eventArgs.X, eventArgs.Y, Shift)
+                picMain.Refresh()
+
+                'ã‚¹ãƒã‚¤ãƒˆæ©Ÿèƒ½
+                If eventArgs.Button = Windows.Forms.MouseButtons.Right And g_Obj(UBound(g_Obj)).lngHeight < UBound(g_Obj) Then
+
+                    With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
+
+                        Select Case .intCh
+
+                            Case modInput.OBJ_CH.CH_BGA, modInput.OBJ_CH.CH_POOR, modInput.OBJ_CH.CH_LAYER, Is > modInput.OBJ_CH.CH_KEY_MIN
+
+
+                                If _mnuOptionsItem_7.Checked Then
+
+                                    str_Renamed = modInput.strFromNum(.sngValue)
+
+                                    'ã‚‚ã— 01-FF ã˜ã‚ƒãªã‹ã£ãŸã‚‰ 01-ZZ è¡¨ç¤ºã«ç§»è¡Œã™ã‚‹
+                                    'ASCII æ–‡å­—ã‚»ãƒƒãƒˆã§ã¯ 0-9 < A-Z < a-z
+                                    If Asc(VB.Left(str_Renamed, 1)) > Asc("F") Or Asc(VB.Right(str_Renamed, 1)) > Asc("F") Then
+
+                                        Call mnuOptionsItem_Click(_mnuOptionsItem_7, New System.EventArgs())
+                                        value = .sngValue
+
+                                    Else
+
+                                        value = Val("&H" & str_Renamed)
+
+                                    End If
+
+                                Else
+
+                                    value = .sngValue
+
+                                End If
+
+                                m_blnPreview = False
+
+                                If .intCh > modInput.OBJ_CH.CH_KEY_MIN Then
+
+                                    lstWAV.SelectedIndex = value - 1
+
+                                Else
+
+                                    If _optChangeBottom_2.Checked Then
+
+                                        lstBGA.SelectedIndex = value - 1
+
+                                    Else
+
+                                        lstBMP.SelectedIndex = value - 1
+
+                                    End If
+
+                                End If
+
+                                m_blnPreview = True
+
+                        End Select
+
+                        'ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã‚’è¡¨ç¤ºã—ãªã„
+                        m_blnIgnoreMenu = True
+
+                    End With
+
+                End If
+
+            End If
+
+        Else 'é¸æŠžç¯„å›²ã‚ã‚Š
+
+            With g_Mouse
+
+                .Button = eventArgs.Button
+                .Shift = Shift
+                .X = eventArgs.X
+                .Y = eventArgs.Y
+
+            End With
+
+            With g_SelectArea
+
+                '.X2 = (X + g_disp.X) / g_disp.Width
+                .X2 = eventArgs.X / g_disp.Width + g_disp.X
+                .Y2 = (picMain.ClientRectangle.Height - eventArgs.Y) / g_disp.Height + g_disp.Y
+
+            End With
+
+            With rectTemp
+
+                If g_SelectArea.X1 > g_SelectArea.X2 Then
+
+                    .left_Renamed = g_SelectArea.X2
+                    .right_Renamed = g_SelectArea.X1
+
+                Else
+
+                    .left_Renamed = g_SelectArea.X1
+                    .right_Renamed = g_SelectArea.X2
+
+                End If
+
+                If g_SelectArea.Y1 > g_SelectArea.Y2 Then
+
+                    .Top = g_SelectArea.Y2
+                    .Bottom = g_SelectArea.Y1
+
+                Else
+
+                    .Top = g_SelectArea.Y1
+                    .Bottom = g_SelectArea.Y2
+
+                End If
+
+            End With
+
+            ReDim blnSelect(UBound(g_VGrid))
+
+            For i = 0 To UBound(g_VGrid)
+
+                With g_VGrid(i)
+
+                    blnSelect(i) = False
+
+                    If .blnVisible Then
+
+                        If .intCh Then
+
+                            'If (.lngLeft + .intWidth >= g_SelectArea.X1 And .lngLeft <= g_SelectArea.X2) Or (.lngLeft <= g_SelectArea.X1 And .lngLeft + .intWidth >= g_SelectArea.X2) Then
+                            If .lngLeft + .intWidth > rectTemp.left_Renamed And .lngLeft < rectTemp.right_Renamed Then
+
+                                blnSelect(i) = True
+
+                            End If
+
+                        End If
+
+                    End If
+
+                End With
+
+            Next i
+
+            For i = 0 To UBound(g_Obj) - 1
+
+                With g_Obj(i)
+
+                    'If g_VGrid(g_intVGridNum(.intCh)).blnSelect Then
+                    If blnSelect(g_intVGridNum(.intCh)) Then
+
+                        lngTemp = g_Measure(.intMeasure).lngY + .lngPosition
+
+                        'If (lngTemp >= g_SelectArea.Y1 And lngTemp <= g_SelectArea.Y2 + OBJ_HEIGHT / g_disp.Height) Or (lngTemp <= g_SelectArea.Y1 And lngTemp >= g_SelectArea.Y2 - OBJ_HEIGHT / g_disp.Height) Then
+                        If lngTemp + OBJ_HEIGHT / g_disp.Height >= rectTemp.Top And lngTemp <= rectTemp.Bottom Then
+
+                            If .intSelect < modMain.OBJ_SELECT.SELECTAREA_OUT Then
+
+                                .intSelect = modMain.OBJ_SELECT.SELECTAREA_IN
+
+                            Else
+
+                                .intSelect = modMain.OBJ_SELECT.SELECTAREA_SELECTED
+
+                            End If
+
+                        Else
+
+                            If .intSelect < modMain.OBJ_SELECT.SELECTAREA_OUT Then
+
+                                .intSelect = modMain.OBJ_SELECT.NON_SELECT
+
+                            Else
+
+                                .intSelect = modMain.OBJ_SELECT.SELECTAREA_OUT
+
+                            End If
+
+                        End If
+
+                    Else
+
+                        If .intSelect < modMain.OBJ_SELECT.SELECTAREA_OUT Then
+
+                            .intSelect = modMain.OBJ_SELECT.NON_SELECT
+
+                        Else
+
+                            .intSelect = modMain.OBJ_SELECT.SELECTAREA_OUT
+
+                        End If
+
+                    End If
+
+                End With
+
+            Next i
+
+            picMain.Refresh()
+
+        End If
+
+        'ãƒ„ãƒ¼ãƒ«ãƒãƒƒãƒ—è¡¨ç¤º
+        If g_Obj(UBound(g_Obj)).lngHeight <> UBound(g_Obj) Then
+
+            With g_Obj(g_Obj(UBound(g_Obj)).lngHeight)
+
+                Select Case .intCh
+
+                    Case Is > 100, 11 To 29 'BGMãƒ»ã‚­ãƒ¼éŸ³
+
+                        strTemp = "#WAV" & strFromNum(.sngValue) & ":"
+
+                        If Len(g_strWAV(.sngValue)) Then
+                            strTemp = strTemp & g_strWAV(.sngValue)
+                        Else
+                            strTemp = strTemp & "<empty>"
+                        End If
+
+                    Case 4, 6, 7 'BGA LAYER POOR
+
+                        If Len(g_strBGA(.sngValue)) Then 'BGA ã‚ã‚‹ã‚ˆ
+
+                            strTemp = g_strBMP(strToNum(VB.Left(g_strBGA(.sngValue), 2)))
+
+                            If Len(strTemp) Then
+                                strTemp = VB.Left(g_strBGA(.sngValue), 2) & "(" & strTemp & ")" & Mid(g_strBGA(.sngValue), 3)
+                            Else
+                                strTemp = g_strBGA(.sngValue)
+                            End If
+
+                            strTemp = "#BGA" & strFromNum(.sngValue) & ":" & strTemp
+
+                        Else
+
+                            strTemp = "#BMP" & strFromNum(.sngValue) & ":"
+
+                            If Len(g_strBMP(.sngValue)) Then
+                                strTemp = strTemp & g_strBMP(.sngValue)
+                            Else
+                                strTemp = strTemp & "<empty>"
+                            End If
+
+                        End If
+
+                    Case 3, 8 'BPM
+
+                        strTemp = "BPM:" & .sngValue
+
+                    Case 9 'STOP
+
+                        strTemp = "STOP:" & .sngValue
+
+                    Case Else
+
+                        strTemp = CStr(.sngValue)
+
+                End Select
+
+            End With
+
+            'ç©ºã‹ã©ã†ã‹
+            ToolTip1.SetToolTip(picMain, strTemp)
+
+        Else
+
+            ToolTip1.SetToolTip(picMain, "")
+
+        End If
+
+        With g_Mouse
+
+            .Button = eventArgs.Button
+            .Shift = Shift
+            .X = eventArgs.X
+            If Not blnYAxisFixed Then .Y = eventArgs.Y
+
+        End With
+
+        m_intScrollDir = 0
+
+        If eventArgs.X < 0 Then
+
+            m_intScrollDir = 20
+
+        ElseIf eventArgs.X > picMain.ClientRectangle.Width Then
+
+            m_intScrollDir = 10
+
+        End If
+
+        If Not blnYAxisFixed Then
+
+            If eventArgs.Y < 0 Then
+
+                m_intScrollDir = m_intScrollDir + 1
+
+            ElseIf eventArgs.Y > picMain.ClientRectangle.Height Then
+
+                m_intScrollDir = m_intScrollDir + 2
+
+            End If
+
+        End If
+
+        If m_intScrollDir Then
+
+            tmrMain.Enabled = True
+
+        Else
+
+            tmrMain.Enabled = False
+
+        End If
+
+        Exit Sub
+
+Err_Renamed:
+        Call modMain.CleanUp(Err.Number, Err.Description, "picMain_MouseMove")
+    End Sub
+
+    Private Sub picMain_DragEnter(sender As Object, e As DragEventArgs) Handles picMain.DragEnter
+        If (e.Data.GetDataPresent(DataFormats.FileDrop)) Then
+            e.Effect = DragDropEffects.Copy
+        Else
+            e.Effect = DragDropEffects.None
+        End If
+    End Sub
+
+    Private Sub picMain_DragDrop(sender As Object, e As DragEventArgs) Handles picMain.DragDrop
+        Call FormDragDrop(CType(e.Data.GetData(DataFormats.FileDrop), String()))
+    End Sub
+
+    Private Sub staMain_PanelDblClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _staMain_Panel6.DoubleClick, Measure.DoubleClick, BMP.DoubleClick, WAV.DoubleClick, Position.DoubleClick, Mode.DoubleClick
+        Dim Panel As System.Windows.Forms.ToolStripStatusLabel = DirectCast(eventSender, System.Windows.Forms.ToolStripStatusLabel)
+
+        If Panel.Name = staMain.Items.Item("Mode").Name Then
+            If DirectCast(tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = True Then
+                Call mnuEditMode_Click(_mnuEditMode_1, New System.EventArgs())
+            ElseIf DirectCast(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = True Then
+                Call mnuEditMode_Click(_mnuEditMode_2, New System.EventArgs())
+            ElseIf DirectCast(tlbMenu.Items.Item("Delete"), ToolStripButton).Checked = True Then
+                Call mnuEditMode_Click(_mnuEditMode_0, New System.EventArgs())
+            End If
+        End If
+
+    End Sub
+
+    Private Sub tlbMenu_ButtonClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Delete.Click, Write.Click, Edit.Click, SepMode.Click, SaveAs.Click, Save.Click, Reload.Click, Resolution.Click, Open.Click, SepResolution.Click, DispSize.Click, SepSize.Click, ChangeGrid.Click, SepGrid.Click, _Stop.Click, Play.Click, PlayAll.Click, Viewer.Click, SepViewer.Click, _New.Click
+        Dim Button As System.Windows.Forms.ToolStripItem = DirectCast(eventSender, System.Windows.Forms.ToolStripItem)
+        On Error GoTo Err_Renamed
+
+        Select Case Button.Name
+
+            Case "_New" 'æ–°è¦ä½œæˆ
+
+                Call mnuFileNew_Click(mnuFileNew, New System.EventArgs())
+
+            Case "Open" 'é–‹ã
+
+                Call mnuFileOpen_Click(mnuFileOpen, New System.EventArgs())
+
+            Case "Reload" 'å†èª­ã¿è¾¼ã¿
+
+                Call mnuRecentFiles_Click(_mnuRecentFiles_0, New System.EventArgs())
+
+            Case "Save" 'ä¸Šæ›¸ãä¿å­˜
+
+                Call mnuFileSave_Click(mnuFileSave, New System.EventArgs())
+
+            Case "SaveAs" 'åå‰ã‚’ä»˜ã‘ã¦ä¿å­˜
+
+                Call mnuFileSaveAs_Click(mnuFileSaveAs, New System.EventArgs())
+
+            Case "Edit"
+
+                Call mnuEditMode_Click(_mnuEditMode_0, New System.EventArgs())
+
+            Case "Write"
+
+                Call mnuEditMode_Click(_mnuEditMode_1, New System.EventArgs())
+
+            Case "Delete"
+
+                Call mnuEditMode_Click(_mnuEditMode_2, New System.EventArgs())
+
+            Case "PlayAll"
+
+                Call mnuToolsPlayAll_Click(mnuToolsPlayAll, New System.EventArgs())
+
+            Case "Play"
+
+                Call mnuToolsPlay_Click(mnuToolsPlay, New System.EventArgs())
+
+            Case "_Stop"
+
+                Call mnuToolsPlayStop_Click(mnuToolsPlayStop, New System.EventArgs())
+
+        End Select
+
+Err_Renamed:
+    End Sub
+
+    Private Sub tlbMenu_ButtonMenuClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles ToolStripMenuItem9.Click, ToolStripMenuItem8.Click, ToolStripMenuItem7.Click, ToolStripMenuItem6.Click, ToolStripMenuItem5.Click, ToolStripMenuItem4.Click, ToolStripMenuItem3.Click, ToolStripMenuItem2.Click, ToolStripMenuItem1.Click, ToolStripMenuItem0.Click
+
+        Select Case DirectCast(eventSender, ToolStripItem).Name
+            Case ToolStripMenuItem0.Name
+                Call mnuRecentFiles_Click(_mnuRecentFiles_0, New System.EventArgs())
+            Case ToolStripMenuItem1.Name
+                Call mnuRecentFiles_Click(_mnuRecentFiles_1, New System.EventArgs())
+            Case ToolStripMenuItem2.Name
+                Call mnuRecentFiles_Click(_mnuRecentFiles_2, New System.EventArgs())
+            Case ToolStripMenuItem3.Name
+                Call mnuRecentFiles_Click(_mnuRecentFiles_3, New System.EventArgs())
+            Case ToolStripMenuItem4.Name
+                Call mnuRecentFiles_Click(_mnuRecentFiles_4, New System.EventArgs())
+            Case ToolStripMenuItem5.Name
+                Call mnuRecentFiles_Click(_mnuRecentFiles_5, New System.EventArgs())
+            Case ToolStripMenuItem6.Name
+                Call mnuRecentFiles_Click(_mnuRecentFiles_6, New System.EventArgs())
+            Case ToolStripMenuItem7.Name
+                Call mnuRecentFiles_Click(_mnuRecentFiles_7, New System.EventArgs())
+            Case ToolStripMenuItem8.Name
+                Call mnuRecentFiles_Click(_mnuRecentFiles_8, New System.EventArgs())
+            Case ToolStripMenuItem9.Name
+                Call mnuRecentFiles_Click(_mnuRecentFiles_9, New System.EventArgs())
+        End Select
+    End Sub
+
+    'UPGRADE_ISSUE: MSComctlLib.Toolbar ã‚¤ãƒ™ãƒ³ãƒˆ tlbMenu.Change ã¯ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    'Private Sub tlbMenu_Change()
+
+    '    Call frmMain_Resize(Me, New System.EventArgs())
+
+    'End Sub
+
+    Private Sub tmrMain_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles tmrMain.Tick
+
+        With hsbMain
+
+            Select Case m_intScrollDir \ 10
+
+                Case 1
+
+                    If .Value + .SmallChange < (.Maximum - .LargeChange + 1) Then
+
+                        .Value = .Value + .SmallChange
+
+                    Else
+
+                        .Value = (.Maximum - .LargeChange + 1)
+
+                        m_intScrollDir = m_intScrollDir - 10
+
+                    End If
+
+                Case 2
+
+                    If .Value - .SmallChange > .Minimum Then
+
+                        .Value = .Value - .SmallChange
+
+                    Else
+
+                        .Value = .Minimum
+
+                        m_intScrollDir = m_intScrollDir - 20
+
+                    End If
+
+            End Select
+
+        End With
+
+        With vsbMain
+
+            Select Case m_intScrollDir Mod 10
+
+                Case 2
+
+                    If .Value + .SmallChange < (.Maximum - .LargeChange + 1) Then
+
+                        .Value = .Value + .SmallChange
+
+                    Else
+
+                        .Value = (.Maximum - .LargeChange + 1)
+
+                        m_intScrollDir = m_intScrollDir - 1
+
+                    End If
+
+                Case 1
+
+                    If .Value - .SmallChange > .Minimum Then
+
+                        .Value = .Value - .SmallChange
+
+                    Else
+
+                        .Value = .Minimum
+
+                        m_intScrollDir = m_intScrollDir - 2
+
+                    End If
+
+            End Select
+
+        End With
+
+        If m_intScrollDir Then
+
+            Call picMain_MouseMove(picMain, New System.Windows.Forms.MouseEventArgs(Windows.Forms.MouseButtons.Left, 0, g_Mouse.X, g_Mouse.Y, 0))
+            'Call MoveObj(g_Mouse.X, g_Mouse.Y, g_Mouse.Shift)
+
+        End If
+
+    End Sub
+
+    Public Sub tmrEffect_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles tmrEffect.Tick
+
+        Select Case g_disp.intEffect
+
+            Case modEasterEgg.EASTEREGG.RASTER, modEasterEgg.EASTEREGG.NOISE, modEasterEgg.EASTEREGG.STORM
+
+                'Call modEasterEgg.RasterScroll
+                'Call modEasterEgg.DrawRaster
+
+            Case modEasterEgg.EASTEREGG.SNOW, modEasterEgg.EASTEREGG.SIROMARU
+
+                Call modEasterEgg.FallingSnow()
+
+            Case modEasterEgg.EASTEREGG.SIROMARU2
+
+                Call modEasterEgg.ZoomSiromaru2()
+
+            Case modEasterEgg.EASTEREGG.STAFFROLL, modEasterEgg.EASTEREGG.STAFFROLL2
+
+                Call modEasterEgg.StaffRollScroll()
+                'Call modEasterEgg.DrawStaffRoll
+
+        End Select
+
+        picMain.Refresh()
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ txtArtist.TextChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub txtArtist_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtArtist.TextChanged
+
+        Call SaveChanges()
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ txtBPM.TextChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub txtBPM_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtBPM.TextChanged
+
+        Call SaveChanges()
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ txtExInfo.TextChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub txtExInfo_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtExInfo.TextChanged
+
+        Call SaveChanges()
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ txtGenre.TextChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub txtGenre_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtGenre.TextChanged
+
+        Call SaveChanges()
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ txtMissBMP.TextChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub txtMissBMP_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtMissBMP.TextChanged
+
+        Call SaveChanges()
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ txtStageFile.TextChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub txtStageFile_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtStageFile.TextChanged
+
+        Call SaveChanges()
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ txtTitle.TextChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub txtTitle_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtTitle.TextChanged
+
+        Call SaveChanges()
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ txtTotal.TextChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub txtTotal_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtTotal.TextChanged
+
+        Call SaveChanges()
+
+    End Sub
+
+    Private Sub txtTotal_KeyDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.KeyEventArgs) Handles txtTotal.KeyDown
+        Dim KeyCode As Short = eventArgs.KeyCode
+        Dim Shift As Short = eventArgs.KeyData \ &H10000
+
+        If KeyCode = System.Windows.Forms.Keys.Return Then
+
+            If txtTotal.Text = "10572" Then Call lngSet_ini("EasterEgg", "Tips", 1)
+
+        End If
+
+    End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ txtVolume.TextChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub txtVolume_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtVolume.TextChanged
+
+        Call SaveChanges()
+
+    End Sub
+
+    'UPGRADE_WARNING: VScrollBar ã‚¤ãƒ™ãƒ³ãƒˆ vsbMain.Change ã«ã¯æ–°ã—ã„å‹•ä½œãŒå«ã¾ã‚Œã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub vsbMain_Change(ByVal newScrollValue As Integer)
+        On Error Resume Next
+
+        With g_disp
+
+            '.Y = CLng(vsbMain.Value) * 96
+            .Y = CInt((vsbMain.Maximum - vsbMain.LargeChange + 1) - newScrollValue) * .intResolution
+
+        End With
+
+        picMain.Refresh()
+
+        'Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, g_Mouse.Shift)
+        'ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ï¼†ã‚ªãƒ–ã‚¸ã‚§ç§»å‹•å®Ÿç¾ã®ãŸã‚
+
+    End Sub
+
+    Private Sub vsbMain_Scroll_Renamed(ByVal newScrollValue As Integer)
+
+        Call vsbMain_Change(newScrollValue)
+
+    End Sub
+    Private Sub hsbMain_Scroll(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.ScrollEventArgs) Handles hsbMain.Scroll
+        Select Case eventArgs.Type
+            Case System.Windows.Forms.ScrollEventType.ThumbTrack
+                hsbMain_Scroll_Renamed(eventArgs.NewValue)
+            Case System.Windows.Forms.ScrollEventType.EndScroll
+                hsbMain_Change(eventArgs.NewValue)
+        End Select
+    End Sub
+    Private Sub vsbMain_Scroll(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.ScrollEventArgs) Handles vsbMain.Scroll
+        Select Case eventArgs.Type
+            Case System.Windows.Forms.ScrollEventType.ThumbTrack
+                vsbMain_Scroll_Renamed(eventArgs.NewValue)
+            Case System.Windows.Forms.ScrollEventType.EndScroll
+                vsbMain_Change(eventArgs.NewValue)
+        End Select
+    End Sub
+
+    Private Sub picMain_Paint(ByVal sender As System.Object, ByVal e As PaintEventArgs)
+
+        e.Graphics.Clear(picMain.BackColor)
+
+        Dim hDC As IntPtr = e.Graphics.GetHdc()
+
+        Redraw(hDC)
+
+        e.Graphics.ReleaseHdc()
+
+    End Sub
+
+    Private Sub vsbMain_ValueChanged(sender As Object, e As EventArgs) Handles vsbMain.ValueChanged
+        vsbMain_Change(vsbMain.Value)
+    End Sub
+
+    Private Sub hsbMain_ValueChanged(sender As Object, e As EventArgs) Handles hsbMain.ValueChanged
+        hsbMain_Change(hsbMain.Value)
+    End Sub
+
+    Private Sub frmMain_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
+        Dim DarkPen As Pen = New Pen(System.Drawing.SystemColors.ControlDark)
+        Dim LightPen As Pen = New Pen(System.Drawing.SystemColors.ControlLight)
+
+        If _linStatusBar_0.Visible Then
+            e.Graphics.DrawLine(DarkPen, _linStatusBar_0.pt1, _linStatusBar_0.pt2)
+        End If
+        If _linStatusBar_1.Visible Then
+            e.Graphics.DrawLine(LightPen, _linStatusBar_1.pt1, _linStatusBar_1.pt2)
+        End If
+        If _linToolbarBottom_0.Visible Then
+            e.Graphics.DrawLine(DarkPen, _linToolbarBottom_0.pt1, _linToolbarBottom_0.pt2)
+        End If
+        If _linToolbarBottom_1.Visible Then
+            e.Graphics.DrawLine(LightPen, _linToolbarBottom_1.pt1, _linToolbarBottom_1.pt2)
+        End If
+        If _linHeader_0.Visible Then
+            e.Graphics.DrawLine(DarkPen, _linHeader_0.pt1, _linHeader_0.pt2)
+        End If
+        If _linHeader_1.Visible Then
+            e.Graphics.DrawLine(LightPen, _linHeader_1.pt1, _linHeader_1.pt2)
+        End If
+        If _linVertical_0.Visible Then
+            e.Graphics.DrawLine(DarkPen, _linVertical_0.pt1, _linVertical_0.pt2)
+        End If
+        If _linVertical_1.Visible Then
+            e.Graphics.DrawLine(LightPen, _linVertical_1.pt1, _linVertical_1.pt2)
+        End If
+        If _linDirectInput_0.Visible Then
+            e.Graphics.DrawLine(DarkPen, _linDirectInput_0.pt1, _linDirectInput_0.pt2)
+        End If
+        If _linDirectInput_1.Visible Then
+            e.Graphics.DrawLine(LightPen, _linDirectInput_1.pt1, _linDirectInput_1.pt2)
+        End If
+
+        DarkPen.Dispose()
+        LightPen.Dispose()
+
+    End Sub
 End Class

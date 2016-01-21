@@ -1,266 +1,267 @@
 Option Strict Off
 Option Explicit On
+
 Module modMessage
-	
-	' ---------- •W€ƒ‚ƒWƒ…[ƒ‹ ----------
-	Private Structure COPYDATASTRUCT
-		Dim dwData As Integer
-		Dim cbData As Integer
-		Dim lpData As Integer
-	End Structure
-	
-	'ƒTƒuƒNƒ‰ƒX‰»ŠÖ”
-	Private Declare Function SetWindowLong Lib "user32"  Alias "SetWindowLongA"(ByVal hwnd As Integer, ByVal nIndex As Integer, ByVal dwNewLong As Integer) As Integer
-	Private Declare Function CallWindowProc Lib "user32"  Alias "CallWindowProcA"(ByVal lpPrevWndFunc As Integer, ByVal hwnd As Integer, ByVal MSG As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
-	Private Declare Function GetActiveWindow Lib "user32" () As Integer
-	
-	'UPGRADE_ISSUE: ƒpƒ‰ƒ[ƒ^ 'As Any' ‚ÌéŒ¾‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Public Declare Function SendMessage Lib "user32"  Alias "SendMessageA"(ByVal hwnd As Integer, ByVal wMsg As Integer, ByVal wParam As Integer, ByRef lParam As Any) As Integer
-	
-	Private Const GWL_WNDPROC As Short = (-4) 'ƒEƒCƒ“ƒhƒEƒvƒƒV[ƒWƒƒ
-	
-	Private Const WM_ACTIVATE As Integer = &H6
-	Private Const WM_ACTIVATEAPP As Integer = &H1C
-	Private Const WM_SETCURSOR As Integer = &H20
-	Private Const WM_KEYDOWN As Integer = &H100
-	Private Const WM_SYSCOMMAND As Integer = &H112
-	Private Const WM_HSCROLL As Integer = &H114
-	Private Const WM_VSCROLL As Integer = &H115
-	Private Const WM_CTLCOLORSCROLLBAR As Integer = &H137
-	Private Const WM_MOUSEWHEEL As Integer = &H20A
-	
-	Public Const WM_CUT As Integer = &H300
-	Public Const WM_COPY As Integer = &H301
-	Public Const WM_PASTE As Integer = &H302
-	Public Const WM_CLEAR As Integer = &H303
-	Public Const WM_UNDO As Integer = &H304
-	
-	Private Const MM_MCINOTIFY As Integer = &H3B9
-	
-	Private Const MCI_NOTIFY_SUCCESSFUL As Short = 1
-	Private Const MCI_NOTIFY_SUPERSEDED As Short = 2
-	Private Const MCI_NOTIFY_ABORTED As Short = 4
-	Private Const MCI_NOTIFY_FAILURE As Short = 8
-	
-	Private Const WA_ACTIVE As Short = 1
-	Private Const WA_CLICKACTIVE As Short = 2
-	Private Const WA_INACTIVE As Short = 0
-	
-	Private Const SB_LINEUP As Short = 0
-	Private Const SB_LINEDOWN As Short = 1
-	Private Const SB_PAGEUP As Short = 2
-	Private Const SB_PAGEDOWN As Short = 3
-	Private Const SB_THUMBPOSITION As Short = 4
-	Private Const SB_THUMBTRACK As Short = 5
-	Private Const SB_TOP As Short = 6
-	Private Const SB_BOTTOM As Short = 7
-	Private Const SB_ENDSCROLL As Short = 8
-	
-	'ƒfƒtƒHƒ‹ƒg‚ÌƒEƒCƒ“ƒhƒEƒvƒƒV[ƒWƒƒ
-	Public OldWindowhWnd As Integer
-	
-	
-	'---------------------------------------------------------------------------
-	' ŠÖ”–¼F SubClass
-	' ‹@”\ F ƒTƒuƒNƒ‰ƒX‰»‚ğŠJn‚·‚é
-	' ˆø” F (in) hWnd c ‘ÎÛƒtƒH[ƒ€‚ÌƒEƒCƒ“ƒhƒEƒnƒ“ƒhƒ‹
-	' •Ô‚è’l F ‚È‚µ
-	'---------------------------------------------------------------------------
-	Public Sub SubClass(ByVal hwnd As Integer)
-		
-		
-		'UPGRADE_WARNING: AddressOf WindowProc ‚Ì delegate ‚ğ’Ç‰Á‚·‚é Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="E9E157F7-EF0C-4016-87B7-7D7FBBC6EE08"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		OldWindowhWnd = SetWindowLong(hwnd, GWL_WNDPROC, AddressOf WindowProc)
-		
-		
-	End Sub
-	
-	
-	'---------------------------------------------------------------------------
-	' ŠÖ”–¼F UnSubClass
-	' ‹@”\ F ƒTƒuƒNƒ‰ƒX‰»‚ğI—¹‚·‚é
-	' ˆø” F (in) hWnd c ‘ÎÛƒtƒH[ƒ€‚ÌƒEƒCƒ“ƒhƒEƒnƒ“ƒhƒ‹
-	' •Ô‚è’l F ‚È‚µ
-	'---------------------------------------------------------------------------
-	Public Sub UnSubClass(ByVal hwnd As Integer)
-		
-		
-		Dim ret As Integer
-		
-		
-		If OldWindowhWnd <> 0 Then
-			
-			'Œ³‚ÌƒvƒƒV[ƒWƒƒƒAƒhƒŒƒX‚Éİ’è‚·‚é
-			ret = SetWindowLong(hwnd, GWL_WNDPROC, OldWindowhWnd)
-			
-			
-			OldWindowhWnd = 0
-			
-		End If
-		
-		
-	End Sub
-	
-	'---------------------------------------------------------------
-	' ŠÖ”–¼F strNullCut
-	' ‹@”\ F •¶š—ñ‚ğ vbNullChar ‚Ü‚Å‚ğæ“¾‚·‚é
-	' ˆø” F (in) srcStr c ‘ÎÛ•¶š—ñ
-	' •Ô‚è’l F•ÒW‚³‚ê‚½•¶š—ñ
-	'---------------------------------------------------------------
-	Public Function strNullCut(ByVal srcStr As String) As String
-		
-		
-		Dim NullCharPos As Short
-		
-		
-		NullCharPos = InStr(srcStr, Chr(0))
-		
-		
-		If NullCharPos = 0 Then
-			
-			strNullCut = srcStr
-			
-			Exit Function
-			
-		End If
-		
-		
-		strNullCut = Left(srcStr, NullCharPos - 1)
-		
-		
-	End Function
-	
-	
-	'Ÿ‚ÍAóM‚·‚é‘¤‚ÌƒR[ƒhB•¶š—ñæ“¾•û–@‚Íæ“¾‚µ‚½•¶š—ñ‚Ö‚Ìƒ|ƒCƒ“ƒ^‚æ‚è NULL ‚Ü‚Å‚Ì’·‚³‚ğæ“¾‚µA‚»‚Ì’·‚³•ªƒoƒCƒg’PˆÊ‚ÅƒRƒs[‚µ‚Ä‚â‚ê‚Î‚æ‚¢B
-	
-	
-	
-	'-------------------------------------------------------------------------
-	' ŠÖ”–¼F WindowProc
-	' ‹@”\ F ƒEƒCƒ“ƒhƒEƒƒbƒZ[ƒW‚ğƒtƒbƒN‚·‚é
-	' ˆø” F (in) hWnd c ‘ÎÛƒtƒH[ƒ€‚ÌƒEƒCƒ“ƒhƒEƒnƒ“ƒhƒ‹
-	'@@@@@(in) uMsg c ƒEƒCƒ“ƒhƒEƒƒbƒZ[ƒW
-	'@@@@@(in) wParam c ’Ç‰Áî•ñ‚P
-	'@@@@@(in) lParam c ’Ç‰Áî•ñ‚Q
-	' •Ô‚è’l F ‚È‚µ
-	' ”õl F “Á‚É‚È‚µ
-	'---------------------------------------------------------------------------
-	Public Function WindowProc(ByVal hwnd As Integer, ByVal uMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
-		
-		
-		'Dim udtCDP As COPYDATASTRUCT
-		'Dim SentText As String '‘—‚ç‚ê‚Ä‚«‚½•¶š—ñ
-		'Dim SentTextLen As Long '‘—‚ç‚ê‚Ä‚«‚½•¶š—ñ‚Ì”
-		
-		Dim lngTemp As Integer
-		
-		
-		If frmMain.Handle.ToInt32 = GetActiveWindow() Then
-			
-			Select Case uMsg
-				
-				Case WM_ACTIVATEAPP
-					
-					If wParam Then
-						
-						If frmMain.mnuOptionsItem(frmMain.MENU_OPTIONS.IGNORE_INPUT).Checked Then g_blnIgnoreInput = True
-						
-					End If
-					
-				Case WM_SETCURSOR
-					
-					If wParam <> frmMain.picMain.Handle.ToInt32 Then
-						
-						g_Obj(UBound(g_Obj)).intCh = 0
-						
-						frmMain.staMain.Items.Item("Position").Text = "Position:"
-						
-						'Call frmMain.picMain.Cls
-						Call modEasterEgg.DrawEffect()
-						
-						Select Case wParam
-							
-							Case frmMain.lstWAV.Handle.ToInt32
-								
-								Call frmMain.lstWAV.Focus()
-								
-							Case frmMain.lstBMP.Handle.ToInt32
-								
-								Call frmMain.lstBMP.Focus()
-								
-							Case frmMain.lstBGA.Handle.ToInt32
-								
-								Call frmMain.lstBGA.Focus()
-								
-							Case frmMain.lstMeasureLen.Handle.ToInt32
-								
-								Call frmMain.lstMeasureLen.Focus()
-								
-						End Select
-						
-					Else
-						
-						'Call frmMain.vsbMain.SetFocus
-						Call frmMain.picMain.Focus()
-						
-					End If
-					
-				Case WM_MOUSEWHEEL
-					
-					If HWORD(wParam) > 0 Then
-						
-						lngTemp = SB_LINEUP
-						
-					Else
-						
-						lngTemp = SB_LINEDOWN
-						
-					End If
-					
-					Call WindowProc(frmMain.Handle.ToInt32, WM_VSCROLL, lngTemp, frmMain.vsbMain.Handle.ToInt32)
-					Call WindowProc(frmMain.Handle.ToInt32, WM_VSCROLL, SB_ENDSCROLL, frmMain.vsbMain.Handle.ToInt32)
-					
-				Case MM_MCINOTIFY
-					
-					If wParam = MCI_NOTIFY_SUCCESSFUL Then
-						
-						Call mciSendString("close PREVIEW", vbNullString, 0, 0)
-						
-					End If
-					
-				Case WM_CTLCOLORSCROLLBAR 'ƒXƒNƒ[ƒ‹ƒo[•Ï‚ÈF‘Îô
-					
-					Exit Function
-					
-			End Select
-			
-			'Debug.Print uMsg, wParam, lParam, frmMain.hsbMain.hwnd
-			
-		End If
-		
-		WindowProc = CallWindowProc(OldWindowhWnd, hwnd, uMsg, wParam, lParam)
-		
-	End Function
-	
-	Public Function HWORD(ByVal LongValue As Integer) As Short
-		
-		'’·®”’l‚©‚çãˆÊƒ[ƒh‚ğæ“¾‚·‚é
-		HWORD = (LongValue And &HFFFF0000) \ &H10000
-		
-	End Function
-	
-	Public Function LWORD(ByVal LongValue As Integer) As Short
-		
-		'’·®”’l‚©‚ç‰ºˆÊƒ[ƒh‚ğæ“¾‚·‚é
-		If (LongValue And &HFFFF) > &H7FFF Then
-			
-			LWORD = CShort(LongValue And &HFFFF) - &H10000
-			
-		Else
-			
-			LWORD = LongValue And &HFFFF
-			
-		End If
-		
-	End Function
+
+    ' ---------- æ¨™æº–ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ« ----------
+    Private Structure COPYDATASTRUCT
+        Dim dwData As Integer
+        Dim cbData As Integer
+        Dim lpData As Integer
+    End Structure
+
+    'ã‚µãƒ–ã‚¯ãƒ©ã‚¹åŒ–é–¢æ•°
+    Public Delegate Function WindowProcDelegate(ByVal hwnd As Integer, ByVal uMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
+    Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongW" (ByVal hwnd As Integer, ByVal nIndex As Integer, ByVal dwNewLong As WindowProcDelegate) As Integer
+    Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongW" (ByVal hwnd As Integer, ByVal nIndex As Integer, ByVal dwNewLong As Integer) As Integer
+    Private Declare Function CallWindowProc Lib "user32" Alias "CallWindowProcW" (ByVal lpPrevWndFunc As Integer, ByVal hwnd As Integer, ByVal MSG As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
+    Private Declare Function GetActiveWindow Lib "user32" () As Integer
+
+    Public Declare Function SendMessage Lib "user32" Alias "SendMessageW" (ByVal hwnd As Integer, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
+
+    Private Const GWL_WNDPROC As Short = (-4) 'ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£
+
+    Private Const WM_ACTIVATE As Integer = &H6
+    Private Const WM_ACTIVATEAPP As Integer = &H1C
+    Private Const WM_SETCURSOR As Integer = &H20
+    Private Const WM_KEYDOWN As Integer = &H100
+    Private Const WM_SYSCOMMAND As Integer = &H112
+    Private Const WM_HSCROLL As Integer = &H114
+    Private Const WM_VSCROLL As Integer = &H115
+    Private Const WM_CTLCOLORSCROLLBAR As Integer = &H137
+    Private Const WM_MOUSEWHEEL As Integer = &H20A
+
+    Public Const WM_CUT As Integer = &H300
+    Public Const WM_COPY As Integer = &H301
+    Public Const WM_PASTE As Integer = &H302
+    Public Const WM_CLEAR As Integer = &H303
+    Public Const WM_UNDO As Integer = &H304
+
+    Private Const MM_MCINOTIFY As Integer = &H3B9
+
+    Private Const MCI_NOTIFY_SUCCESSFUL As Short = 1
+    Private Const MCI_NOTIFY_SUPERSEDED As Short = 2
+    Private Const MCI_NOTIFY_ABORTED As Short = 4
+    Private Const MCI_NOTIFY_FAILURE As Short = 8
+
+    Private Const WA_ACTIVE As Short = 1
+    Private Const WA_CLICKACTIVE As Short = 2
+    Private Const WA_INACTIVE As Short = 0
+
+    Private Const SB_LINEUP As Short = 0
+    Private Const SB_LINEDOWN As Short = 1
+    Private Const SB_PAGEUP As Short = 2
+    Private Const SB_PAGEDOWN As Short = 3
+    Private Const SB_THUMBPOSITION As Short = 4
+    Private Const SB_THUMBTRACK As Short = 5
+    Private Const SB_TOP As Short = 6
+    Private Const SB_BOTTOM As Short = 7
+    Private Const SB_ENDSCROLL As Short = 8
+
+    'ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£
+    Public OldWindowhWnd As Integer
+
+
+    '---------------------------------------------------------------------------
+    ' é–¢æ•°åï¼š SubClass
+    ' æ©Ÿèƒ½ ï¼š ã‚µãƒ–ã‚¯ãƒ©ã‚¹åŒ–ã‚’é–‹å§‹ã™ã‚‹
+    ' å¼•æ•° ï¼š (in) hWnd â€¦ å¯¾è±¡ãƒ•ã‚©ãƒ¼ãƒ ã®ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
+    ' è¿”ã‚Šå€¤ ï¼š ãªã—
+    '---------------------------------------------------------------------------
+    Public Sub SubClass(ByVal hwnd As Integer)
+
+
+        OldWindowhWnd = SetWindowLong(hwnd, GWL_WNDPROC, AddressOf WindowProc)
+
+
+    End Sub
+
+
+    '---------------------------------------------------------------------------
+    ' é–¢æ•°åï¼š UnSubClass
+    ' æ©Ÿèƒ½ ï¼š ã‚µãƒ–ã‚¯ãƒ©ã‚¹åŒ–ã‚’çµ‚äº†ã™ã‚‹
+    ' å¼•æ•° ï¼š (in) hWnd â€¦ å¯¾è±¡ãƒ•ã‚©ãƒ¼ãƒ ã®ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
+    ' è¿”ã‚Šå€¤ ï¼š ãªã—
+    '---------------------------------------------------------------------------
+    Public Sub UnSubClass(ByVal hwnd As Integer)
+
+
+        Dim ret As Integer
+
+
+        If OldWindowhWnd <> 0 Then
+
+            'å…ƒã®ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ã‚¢ãƒ‰ãƒ¬ã‚¹ã«è¨­å®šã™ã‚‹
+            ret = SetWindowLong(hwnd, GWL_WNDPROC, OldWindowhWnd)
+
+
+            OldWindowhWnd = 0
+
+        End If
+
+
+    End Sub
+
+    '---------------------------------------------------------------
+    ' é–¢æ•°åï¼š strNullCut
+    ' æ©Ÿèƒ½ ï¼š æ–‡å­—åˆ—ã‚’ vbNullChar ã¾ã§ã‚’å–å¾—ã™ã‚‹
+    ' å¼•æ•° ï¼š (in) srcStr â€¦ å¯¾è±¡æ–‡å­—åˆ—
+    ' è¿”ã‚Šå€¤ ï¼šç·¨é›†ã•ã‚ŒãŸæ–‡å­—åˆ—
+    '---------------------------------------------------------------
+    Public Function strNullCut(ByVal srcStr As String) As String
+
+
+        Dim NullCharPos As Short
+
+
+        NullCharPos = InStr(srcStr, Chr(0))
+
+
+        If NullCharPos = 0 Then
+
+            strNullCut = srcStr
+
+            Exit Function
+
+        End If
+
+
+        strNullCut = Left(srcStr, NullCharPos - 1)
+
+
+    End Function
+
+
+    'æ¬¡ã¯ã€å—ä¿¡ã™ã‚‹å´ã®ã‚³ãƒ¼ãƒ‰ã€‚æ–‡å­—åˆ—å–å¾—æ–¹æ³•ã¯å–å¾—ã—ãŸæ–‡å­—åˆ—ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã‚ˆã‚Š NULL ã¾ã§ã®é•·ã•ã‚’å–å¾—ã—ã€ãã®é•·ã•åˆ†ãƒã‚¤ãƒˆå˜ä½ã§ã‚³ãƒ”ãƒ¼ã—ã¦ã‚„ã‚Œã°ã‚ˆã„ã€‚
+
+
+
+    '-------------------------------------------------------------------------
+    ' é–¢æ•°åï¼š WindowProc
+    ' æ©Ÿèƒ½ ï¼š ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ãƒ•ãƒƒã‚¯ã™ã‚‹
+    ' å¼•æ•° ï¼š (in) hWnd â€¦ å¯¾è±¡ãƒ•ã‚©ãƒ¼ãƒ ã®ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
+    'ã€€ã€€ã€€ã€€ã€€(in) uMsg â€¦ ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+    'ã€€ã€€ã€€ã€€ã€€(in) wParam â€¦ è¿½åŠ æƒ…å ±ï¼‘
+    'ã€€ã€€ã€€ã€€ã€€(in) lParam â€¦ è¿½åŠ æƒ…å ±ï¼’
+    ' è¿”ã‚Šå€¤ ï¼š ãªã—
+    ' å‚™è€ƒ ï¼š ç‰¹ã«ãªã—
+    '---------------------------------------------------------------------------
+    Public Function WindowProc(ByVal hwnd As Integer, ByVal uMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
+
+
+        'Dim udtCDP As COPYDATASTRUCT
+        'Dim SentText As String 'é€ã‚‰ã‚Œã¦ããŸæ–‡å­—åˆ—
+        'Dim SentTextLen As Long 'é€ã‚‰ã‚Œã¦ããŸæ–‡å­—åˆ—ã®æ•°
+
+        Dim lngTemp As Integer
+
+
+        If frmMain.Handle.ToInt32 = GetActiveWindow() Then
+
+            Select Case uMsg
+
+                Case WM_ACTIVATEAPP
+
+                    If wParam Then
+
+                        If frmMain._mnuOptionsItem_0.Checked Then g_blnIgnoreInput = True
+
+                    End If
+
+                Case WM_SETCURSOR
+
+                    If wParam <> frmMain.picMain.Handle.ToInt32 Then
+
+                        g_Obj(UBound(g_Obj)).intCh = 0
+
+                        frmMain.staMain.Items.Item("Position").Text = "Position:"
+
+                        'Call frmMain.picMain.Cls
+                        'Call modEasterEgg.DrawEffect()
+
+                        Select Case wParam
+
+                            Case frmMain.lstWAV.Handle.ToInt32
+
+                                Call frmMain.lstWAV.Focus()
+
+                            Case frmMain.lstBMP.Handle.ToInt32
+
+                                Call frmMain.lstBMP.Focus()
+
+                            Case frmMain.lstBGA.Handle.ToInt32
+
+                                Call frmMain.lstBGA.Focus()
+
+                            Case frmMain.lstMeasureLen.Handle.ToInt32
+
+                                Call frmMain.lstMeasureLen.Focus()
+
+                        End Select
+
+                    Else
+
+                        'Call frmMain.vsbMain.SetFocus
+                        Call frmMain.picMain.Focus()
+
+                    End If
+
+                Case WM_MOUSEWHEEL
+
+                    If HWORD(wParam) > 0 Then
+
+                        lngTemp = SB_LINEUP
+
+                    Else
+
+                        lngTemp = SB_LINEDOWN
+
+                    End If
+
+                    Call WindowProc(frmMain.Handle.ToInt32, WM_VSCROLL, lngTemp, frmMain.vsbMain.Handle.ToInt32)
+                    Call WindowProc(frmMain.Handle.ToInt32, WM_VSCROLL, SB_ENDSCROLL, frmMain.vsbMain.Handle.ToInt32)
+
+                Case MM_MCINOTIFY
+
+                    If wParam = MCI_NOTIFY_SUCCESSFUL Then
+
+                        Call mciSendString("close PREVIEW", vbNullString, 0, 0)
+
+                    End If
+
+                Case WM_CTLCOLORSCROLLBAR 'ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼å¤‰ãªè‰²å¯¾ç­–
+
+                    Exit Function
+
+            End Select
+
+            'Debug.Print uMsg, wParam, lParam, frmMain.hsbMain.hwnd
+
+        End If
+
+        WindowProc = CallWindowProc(OldWindowhWnd, hwnd, uMsg, wParam, lParam)
+
+    End Function
+
+    Public Function HWORD(ByVal LongValue As Integer) As Short
+
+        'é•·æ•´æ•°å€¤ã‹ã‚‰ä¸Šä½ãƒ¯ãƒ¼ãƒ‰ã‚’å–å¾—ã™ã‚‹
+        HWORD = (LongValue And &HFFFF0000) \ &H10000
+
+    End Function
+
+    Public Function LWORD(ByVal LongValue As Integer) As Short
+
+        'é•·æ•´æ•°å€¤ã‹ã‚‰ä¸‹ä½ãƒ¯ãƒ¼ãƒ‰ã‚’å–å¾—ã™ã‚‹
+        If (LongValue And &HFFFF) > &H7FFF Then
+
+            LWORD = CShort(LongValue And &HFFFF) - &H10000
+
+        Else
+
+            LWORD = LongValue And &HFFFF
+
+        End If
+
+    End Function
 End Module

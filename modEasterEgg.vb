@@ -1,13 +1,14 @@
 Option Strict Off
 Option Explicit On
 Imports VB = Microsoft.VisualBasic
+Imports System.Runtime.InteropServices
+
 Module modEasterEgg
 	
 	Private Declare Function StretchBlt Lib "gdi32" (ByVal hdc As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal nWidth As Integer, ByVal nHeight As Integer, ByVal hSrcDC As Integer, ByVal xSrc As Integer, ByVal ySrc As Integer, ByVal nSrcWidth As Integer, ByVal nSrcHeight As Integer, ByVal dwRop As Integer) As Integer
-	'UPGRADE_WARNING: \‘¢‘Ì RECT ‚ÉA‚±‚Ì Declare ƒXƒe[ƒgƒƒ“ƒg‚Ìˆø”‚Æ‚µ‚Äƒ}[ƒVƒƒƒŠƒ“ƒO‘®«‚ğ“n‚·•K—v‚ª‚ ‚è‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Declare Function DrawText Lib "user32"  Alias "DrawTextA"(ByVal hdc As Integer, ByVal lpStr As String, ByVal nCount As Integer, ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
-	
-	Private Const DT_WORDBREAK As Integer = &H10
+    Private Declare Function DrawText Lib "user32" Alias "DrawTextW" (ByVal hdc As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpStr As String, ByVal nCount As Integer, <[In]()> ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
+
+    Private Const DT_WORDBREAK As Integer = &H10
 	
 	Public Enum EASTEREGG
 		OFF
@@ -43,993 +44,941 @@ Module modEasterEgg
 	Private m_lngCounter As Integer
 	
 	Private m_strStaffRoll() As String
-	
-	Public Sub InitEffect()
-		Dim modMain As Object
-		Dim strGet_ini As Object
-		
-		'modInput.LoadBMSEnd ‚ÉƒGƒCƒvƒŠƒ‹ƒt[ƒ‹—pƒR[ƒh‚ ‚è
-		'If strGet_ini("EasterEgg", "Snow", False, "bmse.ini") = True Or (Month(Now) = 12 And Day(Now) = 25) Then
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(EasterEgg, Snow, False, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If strGet_ini("EasterEgg", "Snow", False, "bmse.ini") Then
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			g_disp.intEffect = EASTEREGG.SNOW
-			
-			Call modEasterEgg.InitSnow()
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(EasterEgg, siromaru, False, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		ElseIf strGet_ini("EasterEgg", "siromaru", False, "bmse.ini") Then 
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			g_disp.intEffect = EASTEREGG.SIROMARU
-			
-			Call modEasterEgg.InitSnow()
-			
-			'ElseIf Month(Now) = 12 And (Day(Now) = 24 Or Day(Now) = 25) And strGet_ini("EasterEgg", "Snow", True, "bmse.ini") = True Then
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg strGet_ini(EasterEgg, Snow, True, bmse.ini) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		ElseIf Month(Now) = 12 And VB.Day(Now) = 25 And strGet_ini("EasterEgg", "Snow", True, "bmse.ini") = True Then 
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			g_disp.intEffect = EASTEREGG.SNOW
-			
-			Call modEasterEgg.InitSnow()
-			
-			g_strAppTitle = g_strAppTitle & " (Xmas mode: Only once!)"
-			frmMain.Text = g_strAppTitle
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.lngSet_ini ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call modMain.lngSet_ini("EasterEgg", "Snow", False)
-			
-		End If
-		
-	End Sub
-	
-	Public Sub LoadEffect()
-		Dim modMain As Object
-		
-		If Month(Now) = 2 And VB.Day(Now) = 15 Then 'ƒVƒƒ}ƒ‹‚Ì’a¶“ú
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strArtist ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If g_BMS.strArtist = "siromaru" Then
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.strGet_ini ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If modMain.strGet_ini("EasterEgg", "siromaru", False, "bmse.ini") = False And modMain.strGet_ini("EasterEgg", "siromaru", True, "bmse.ini") = True Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_disp.intEffect = EASTEREGG.SIROMARU
-					
-					Call modEasterEgg.InitSnow()
-					
-					'Call modMain.lngSet_ini("EasterEgg", "siromaru", False)
-					
-				End If
-				
-			End If
-			
-		End If
-		
-	End Sub
+
+    Public Sub InitEffect()
+        'modInput.LoadBMSEnd ã«ã‚¨ã‚¤ãƒ—ãƒªãƒ«ãƒ•ãƒ¼ãƒ«ç”¨ã‚³ãƒ¼ãƒ‰ã‚ã‚Š
+        'If strGet_ini("EasterEgg", "Snow", False, "bmse.ini") = True Or (Month(Now) = 12 And Day(Now) = 25) Then
+        If strGet_ini("EasterEgg", "Snow", False, "bmse.ini") Then
+
+            g_disp.intEffect = EASTEREGG.SNOW
+
+            Call modEasterEgg.InitSnow()
+
+        ElseIf strGet_ini("EasterEgg", "siromaru", False, "bmse.ini") Then
+
+            g_disp.intEffect = EASTEREGG.SIROMARU
+
+            Call modEasterEgg.InitSnow()
+
+            'ElseIf Month(Now) = 12 And (Day(Now) = 24 Or Day(Now) = 25) And strGet_ini("EasterEgg", "Snow", True, "bmse.ini") = True Then
+        ElseIf Month(Now) = 12 And VB.Day(Now) = 25 And strGet_ini("EasterEgg", "Snow", True, "bmse.ini") = True Then
+
+            g_disp.intEffect = EASTEREGG.SNOW
+
+            Call modEasterEgg.InitSnow()
+
+            g_strAppTitle = g_strAppTitle & " (Xmas mode: Only once!)"
+            frmMain.Text = g_strAppTitle
+
+            Call modMain.lngSet_ini("EasterEgg", "Snow", False)
+
+        End If
+
+    End Sub
+
+    Public Sub LoadEffect()
+        If Month(Now) = 2 And VB.Day(Now) = 15 Then 'ã‚·ãƒ­ãƒãƒ«ã®èª•ç”Ÿæ—¥
+
+            If g_BMS.strArtist = "siromaru" Then
+
+                If modMain.strGet_ini("EasterEgg", "siromaru", False, "bmse.ini") = False And modMain.strGet_ini("EasterEgg", "siromaru", True, "bmse.ini") = True Then
+
+                    g_disp.intEffect = EASTEREGG.SIROMARU
+
+                    Call modEasterEgg.InitSnow()
+
+                    'Call modMain.lngSet_ini("EasterEgg", "siromaru", False)
+
+                End If
+
+            End If
+
+        End If
+
+    End Sub
 	
 	Public Sub EndEffect()
-		Dim modMain As Object
-		
-		Dim strTemp As String
-		
-		If frmMain.tmrEffect.Enabled Then
-			
-			'If Month(Now) = 4 And Day(Now) = 1 And g_disp.intEffect = RASTER Then 'April Fool
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If Month(Now) = 2 And VB.Day(Now) = 15 And g_disp.intEffect = EASTEREGG.SIROMARU Then 'ƒVƒƒ}ƒ‹‚Ì’a¶“ú
-				
-				'If modMain.strGet_ini("EasterEgg", "RasterScroll", False, "bmse.ini") = False And modMain.strGet_ini("EasterEgg", "RasterScroll", True, "bmse.ini") = True Then
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.strGet_ini ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If modMain.strGet_ini("EasterEgg", "siromaru", False, "bmse.ini") = False And modMain.strGet_ini("EasterEgg", "siromaru", True, "bmse.ini") = True Then
-					
-					'strTemp = "ƒGƒCƒvƒŠƒ‹Eƒt[ƒ‹‚¾‚Æ‚¢‚¤‚Ì‚É‚í‚´‚í‚´ BMSE ‚ğg‚Á‚Ä‚­‚ê‚Ä‚ ‚è‚ª‚Æ‚¤!"
-					'strTemp = strTemp & vbCrLf & "Thank you for using BMSE on April Fool's Day!"
-					'strTemp = strTemp & vbCrLf & "‚Ñ‚Á‚­‚è‚µ‚½‚©‚È?"
-					'strTemp = strTemp & vbCrLf & "Were you surprised?"
-					'strTemp = strTemp & vbCrLf
-					'strTemp = strTemp & vbCrLf & "‚³‚ÄA‚±‚Ì‰‰o‚Í¡‰ñŒÀ‚è‚¾‚©‚çˆÀS‚µ‚Ä‚Ù‚µ‚¢B"
-					'strTemp = strTemp & vbCrLf & "So, be relieved that this effect is only once."
-					'strTemp = strTemp & vbCrLf & "‚»‚ê‚¶‚áAAA"
-					'strTemp = strTemp & vbCrLf & "Well..."
-					'strTemp = strTemp & vbCrLf & """‚Ü‚½Œã‚Å‚È (ƒjƒ„ƒŠ)"""
-					'strTemp = strTemp & vbCrLf & """BE SEEING YOU! (GRIN)"""
-					
-					strTemp = "A Happy New Year!"
-					strTemp = strTemp & vbCrLf & "–{”N‚à‚æ‚ë‚µ‚­‚¨Šè‚¢‚µ‚Ü‚·B"
-					strTemp = strTemp & vbCrLf
-					strTemp = strTemp & vbCrLf & "*Please note that this effect will appear only once."
-					strTemp = strTemp & vbCrLf & "*‘å•Ï‹°k‚Å‚·‚ªA‚±‚ÌƒT[ƒrƒX‚Í1‰ñŒÀ‚è‚Æ‚³‚¹‚Ä’¸‚«‚Ü‚·B"
-					
-					Call MsgBox(strTemp, MsgBoxStyle.Information, g_strAppTitle)
-					
-					'Call modMain.lngSet_ini("EasterEgg", "RasterScroll", False)
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.lngSet_ini ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Call modMain.lngSet_ini("EasterEgg", "siromaru", False)
-					
-				End If
-				
-			End If
-			
-		End If
+        Dim strTemp As String
+
+        If frmMain.tmrEffect.Enabled Then
+
+            'If Month(Now) = 4 And Day(Now) = 1 And g_disp.intEffect = RASTER Then 'April Fool
+            If Month(Now) = 2 And VB.Day(Now) = 15 And g_disp.intEffect = EASTEREGG.SIROMARU Then 'ã‚·ãƒ­ãƒãƒ«ã®èª•ç”Ÿæ—¥
+
+                'If modMain.strGet_ini("EasterEgg", "RasterScroll", False, "bmse.ini") = False And modMain.strGet_ini("EasterEgg", "RasterScroll", True, "bmse.ini") = True Then
+                If modMain.strGet_ini("EasterEgg", "siromaru", False, "bmse.ini") = False And modMain.strGet_ini("EasterEgg", "siromaru", True, "bmse.ini") = True Then
+
+                    'strTemp = "ã‚¨ã‚¤ãƒ—ãƒªãƒ«ãƒ»ãƒ•ãƒ¼ãƒ«ã ã¨ã„ã†ã®ã«ã‚ã–ã‚ã– BMSE ã‚’ä½¿ã£ã¦ãã‚Œã¦ã‚ã‚ŠãŒã¨ã†!"
+                    'strTemp = strTemp & vbCrLf & "Thank you for using BMSE on April Fool's Day!"
+                    'strTemp = strTemp & vbCrLf & "ã³ã£ãã‚Šã—ãŸã‹ãª?"
+                    'strTemp = strTemp & vbCrLf & "Were you surprised?"
+                    'strTemp = strTemp & vbCrLf
+                    'strTemp = strTemp & vbCrLf & "ã•ã¦ã€ã“ã®æ¼”å‡ºã¯ä»Šå›é™ã‚Šã ã‹ã‚‰å®‰å¿ƒã—ã¦ã»ã—ã„ã€‚"
+                    'strTemp = strTemp & vbCrLf & "So, be relieved that this effect is only once."
+                    'strTemp = strTemp & vbCrLf & "ãã‚Œã˜ã‚ƒã€ã€ã€"
+                    'strTemp = strTemp & vbCrLf & "Well..."
+                    'strTemp = strTemp & vbCrLf & """ã¾ãŸå¾Œã§ãª (ãƒ‹ãƒ¤ãƒª)"""
+                    'strTemp = strTemp & vbCrLf & """BE SEEING YOU! (GRIN)"""
+
+                    strTemp = "A Happy New Year!"
+                    strTemp = strTemp & vbCrLf & "æœ¬å¹´ã‚‚ã‚ˆã‚ã—ããŠé¡˜ã„ã—ã¾ã™ã€‚"
+                    strTemp = strTemp & vbCrLf
+                    strTemp = strTemp & vbCrLf & "*Please note that this effect will appear only once."
+                    strTemp = strTemp & vbCrLf & "*å¤§å¤‰æç¸®ã§ã™ãŒã€ã“ã®ã‚µãƒ¼ãƒ“ã‚¹ã¯1å›é™ã‚Šã¨ã•ã›ã¦é ‚ãã¾ã™ã€‚"
+
+                    Call MsgBox(strTemp, MsgBoxStyle.Information, g_strAppTitle)
+
+                    'Call modMain.lngSet_ini("EasterEgg", "RasterScroll", False)
+                    Call modMain.lngSet_ini("EasterEgg", "siromaru", False)
+
+                End If
+
+            End If
+
+        End If
 		
 	End Sub
-	
-	Public Sub DrawEffect()
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Select Case g_disp.intEffect
-			
-			Case EASTEREGG.SNOW, EASTEREGG.SIROMARU
-				
-				Call DrawSnow()
-				
-			Case EASTEREGG.SIROMARU2
-				
-				Call DrawSiromaru2()
-				
-			Case EASTEREGG.STAFFROLL, EASTEREGG.STAFFROLL2
-				
-				Call DrawStaffRoll()
-				
-			Case EASTEREGG.DISP_LOG
-				
-				Call DrawLog()
-				
-			Case EASTEREGG.BLUESCREEN
-				
-				Call DrawBlueScreen()
-				
-			Case Else
-				
-				'UPGRADE_ISSUE: PictureBox ƒƒ\ƒbƒh picMain.Cls ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				Call frmMain.picMain.Cls()
-				
-		End Select
-		
-	End Sub
-	
-	Public Sub KeyCheck(ByVal KeyCode As Short, ByVal Shift As Short)
-		
-		Static buf As New VB6.FixedLengthString(16)
-		
-		Select Case KeyCode
-			
-			Case System.Windows.Forms.Keys.F9 '‚Ù‚í‚¢‚é
-				
-				If Len(frmMain.txtGenre.Text) = 0 And Len(frmMain.txtArtist.Text) = 0 Then
-					
-					frmMain.txtGenre.Text = "Unstable Pitch Song"
-					frmMain.txtArtist.Text = "while"
-					
-				End If
-				
-			Case System.Windows.Forms.Keys.F10 'ƒVƒƒfƒBƒEƒX
-				
-				Call ShellExecute(0, vbNullString, "sirodius.exe", vbNullString, vbNullString, SW_SHOWNORMAL)
-				
-			Case System.Windows.Forms.Keys.A To System.Windows.Forms.Keys.Z, System.Windows.Forms.Keys.D0 To System.Windows.Forms.Keys.D9 'ƒoƒbƒtƒ@‚É•Û‘¶
-				
-				buf.Value = Right(buf.Value, 15) & Chr(KeyCode)
-				
-			Case System.Windows.Forms.Keys.NumPad0 To System.Windows.Forms.Keys.NumPad9 'ƒoƒbƒtƒ@‚É•Û‘¶
-				
-				buf.Value = Right(buf.Value, 15) & KeyCode - System.Windows.Forms.Keys.NumPad0
-				
-			Case System.Windows.Forms.Keys.Space 'ƒoƒbƒtƒ@‚É•Û‘¶
-				
-				buf.Value = Right(buf.Value, 15) & " "
-				
-			Case System.Windows.Forms.Keys.Return 'ƒC[ƒXƒ^[ƒGƒbƒO”­“®
-				
-				If Right(buf.Value, 3) = "OFF" Then 'OFF
-					
-					frmMain.tmrEffect.Enabled = False
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_disp.intEffect = EASTEREGG.OFF
-					
-					Call DrawEffect()
-					
-				ElseIf Right(buf.Value, 4) = "TIPS" Then  'TIPS
-					
-					With frmWindowTips
-						
-						.Left = VB6.TwipsToPixelsX(VB6.PixelsToTwipsX(frmMain.Left) + (VB6.PixelsToTwipsX(frmMain.Width) - VB6.PixelsToTwipsX(.Width)) \ 2)
-						.Top = VB6.TwipsToPixelsY(VB6.PixelsToTwipsY(frmMain.Top) + (VB6.PixelsToTwipsY(frmMain.Height) - VB6.PixelsToTwipsY(.Height)) \ 2)
-						
-						Call VB6.ShowForm(frmWindowTips, VB6.FormShowConstants.Modal, frmMain)
-						
-					End With
-					
-				ElseIf Right(buf.Value, 4) = "SNOW" Then  'SNOW
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If g_disp.intEffect = EASTEREGG.SNOW Then
-						
-						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_disp.intEffect = EASTEREGG.OFF
-						
-					Else
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_disp.intEffect = EASTEREGG.SNOW
-						
-						Call InitSnow()
-						
-					End If
-					
-					Call DrawEffect()
-					
-				ElseIf Right(buf.Value, 8) = "SIROMARU" Or Right(buf.Value, 9) = "SIROMARU1" Then  'SIROMARU
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If g_disp.intEffect = EASTEREGG.SIROMARU Then
-						
-						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_disp.intEffect = EASTEREGG.OFF
-						
-					Else
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_disp.intEffect = EASTEREGG.SIROMARU
-						
-						Call InitSnow()
-						
-					End If
-					
-					Call DrawEffect()
-					
-				ElseIf Right(buf.Value, 9) = "SIROMARU2" Then  'SIROMARU2
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If g_disp.intEffect = EASTEREGG.SIROMARU2 Then
-						
-						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_disp.intEffect = EASTEREGG.OFF
-						
-					Else
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_disp.intEffect = EASTEREGG.SIROMARU2
-						
-						Call InitSiromaru2()
-						
-					End If
-					
-					Call DrawEffect()
-					
-				ElseIf Right(buf.Value, 3) = "LOG" Then  'LOG
-					
-					frmMain.tmrEffect.Enabled = False
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If g_disp.intEffect = EASTEREGG.DISP_LOG Then
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_disp.intEffect = EASTEREGG.OFF
-						
-					Else
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_disp.intEffect = EASTEREGG.DISP_LOG
-						
-					End If
-					
-					Call DrawEffect()
-					Call modDraw.Redraw()
-					
-				ElseIf Right(buf.Value, 9) = "STAFFROLL" Then  'STAFFROLL, STAFFROLL2
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If g_disp.intEffect = EASTEREGG.STAFFROLL Or g_disp.intEffect = EASTEREGG.STAFFROLL2 Then
-						
-						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_disp.intEffect = EASTEREGG.OFF
-						
-					Else
-						
-						frmMain.tmrEffect.Interval = 100
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_disp.intEffect = EASTEREGG.STAFFROLL
-						
-						Call InitStaffRoll()
-						
-					End If
-					
-					Call DrawEffect()
-					
-				ElseIf Right(buf.Value, 10) = "STAFFROLL2" Then  'STAFFROLL, STAFFROLL2
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If g_disp.intEffect = EASTEREGG.STAFFROLL Or g_disp.intEffect = EASTEREGG.STAFFROLL2 Then
-						
-						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_disp.intEffect = EASTEREGG.OFF
-						
-					Else
-						
-						frmMain.tmrEffect.Interval = 10
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_disp.intEffect = EASTEREGG.STAFFROLL
-						
-						Call InitStaffRoll()
-						
-					End If
-					
-					Call DrawEffect()
-					
-				ElseIf Right(buf.Value, 10) = "BLUESCREEN" Or Right(buf.Value, 4) = "BSOD" Then  'BLUESCREEN OF DEATH
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If g_disp.intEffect = EASTEREGG.BLUESCREEN Then
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_disp.intEffect = EASTEREGG.OFF
-						
-					Else
-						
-						'frmMain.tmrEffect.Interval = 1
-						'frmMain.tmrEffect.Enabled = True
-						frmMain.tmrEffect.Enabled = False
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						g_disp.intEffect = EASTEREGG.BLUESCREEN
-						
-					End If
-					
-					Call DrawEffect()
-					
-				End If
-				
-				buf.Value = ""
-				
-		End Select
-		
-	End Sub
-	
-	Public Sub InitSnow()
-		
-		Dim i As Integer
-		Dim lngTemp As Integer
-		Dim sngTemp As Single
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If g_disp.intEffect = EASTEREGG.OFF Then Exit Sub
-		
-		ReDim m_objSnow((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX) * 0.5 - 1)
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If g_disp.intEffect <> EASTEREGG.SNOW Then ReDim m_objSnow((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX) \ 8 - 1)
-		
-		lngTemp = VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) \ VB6.TwipsPerPixelY
-		sngTemp = ((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX) / UBound(m_objSnow))
-		
-		Call Randomize()
-		
-		For i = 0 To UBound(m_objSnow)
-			
-			With m_objSnow(i)
-				
-				.counter = (Rnd() * 1024) \ 4
-				
-				.X = sngTemp * i
-				.Y = Rnd() * lngTemp + 1 - lngTemp
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If g_disp.intEffect = EASTEREGG.SNOW Then
-					
-					.dY = Rnd() * 2 + 1
-					
-				Else
-					
-					.dY = Rnd() * 4 + 4
-					
-				End If
-				
-				.dX = .X + g_sngSin(.counter And 255) * 5 * .dY
-				
-			End With
-			
-		Next i
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If g_disp.intEffect = EASTEREGG.SNOW Then Call QuickSortA(0, UBound(m_objSnow))
-		
-		frmMain.tmrEffect.Enabled = True
-		frmMain.tmrEffect.Interval = 100
-		
-	End Sub
-	
-	Public Sub FallingSnow()
-		
-		Dim i As Integer
-		Dim lngTemp As Integer
-		
-		For i = 0 To UBound(m_objSnow)
-			
-			With m_objSnow(i)
-				
-				.counter = .counter + 4
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If g_disp.intEffect = EASTEREGG.SNOW Then
-					
-					.Y = .Y + .dY
-					.X = .X + g_sngSin(.counter * 2 And 255) * .dY / 2
-					
-				Else
-					
-					lngTemp = (.counter \ 4) And 7
-					
-					If lngTemp = 0 Then
-						
-						.Angle = Rnd() * 128
-						
-					ElseIf lngTemp > 1 Then 
-						
-						.X = .X + g_sngSin(.Angle + 64) * .dY
-						.Y = .Y + g_sngSin(.Angle) * .dY
-						
-						'.x = .x + g_sngSin((.Counter \ 32 And 7) * 32 + 16) * .dY
-						'.y = .y + g_sngSin(((.Counter \ 32 And 7) * 32 + 16 + 64) And 127) * .dY
-						'.X = .X + g_sngSin((.Counter) And 255) * .dY
-						'.Y = .Y + g_sngSin((.Counter + 64) And 127) * .dY
-						
-					End If
-					
-				End If
-				
-			End With
-			
-		Next i
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If g_disp.intEffect <> EASTEREGG.SNOW Then Call QuickSortY(0, UBound(m_objSnow))
-		
-	End Sub
-	
-	Public Sub DrawSnow()
-		
-		Dim i As Integer
-		Dim X As Integer
-		Dim Y As Integer
-		Dim Width As Integer
-		Dim Height As Integer
-		'UPGRADE_NOTE: Size ‚Í Size_Renamed ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Dim Size_Renamed As Integer
-		'Dim srcX    As Long
-		Dim srcY As Integer
-		Dim intTemp As Short
-		'Dim lngTemp As Long
-		
-		'lngTemp = timeGetTime()
-		
-		Width = (VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) \ VB6.TwipsPerPixelX)
-		Height = (VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) \ VB6.TwipsPerPixelY)
-		
-		For i = 0 To UBound(m_objSnow)
-			
-			With m_objSnow(i)
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Width ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: Mod ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				X = (.X - frmMain.hsbMain.Value * g_disp.Width) Mod Width
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.Height ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				'UPGRADE_WARNING: Mod ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				Y = (.Y + frmMain.vsbMain.Value * g_disp.Height) Mod Height
-				
-				'If Y < frmMain.picMain.ScaleHeight And X < frmMain.picMain.ScaleWidth Then
-				
-				Select Case .dY
-					
-					Case Is < 3
-						
-						Size_Renamed = Int(3 + (.dY - 1) * 3) '3-8
-						
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						Call Ellipse(frmMain.picMain.hdc, X, Y, X + Size_Renamed, Y + Size_Renamed)
-						
-						If Y + Size_Renamed > Height Then
-							
-							intTemp = Y - Height
-							
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							Call Ellipse(frmMain.picMain.hdc, X, intTemp, X + Size_Renamed, intTemp + Size_Renamed)
-							
-						End If
-						
-						If X + Size_Renamed > Width Then
-							
-							intTemp = X - Width
-							
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							Call Ellipse(frmMain.picMain.hdc, intTemp, Y, intTemp + Size_Renamed, Y + Size_Renamed)
-							
-						End If
-						
-					Case Else
-						
-						srcY = ((.counter \ 4) And 7)
-						
-						If srcY > 1 Then
-							
-							Y = Y - g_sngSin((srcY - 1) * 128 \ 6 And 127) * 4 * .dY
-							
-						End If
-						
-						srcY = srcY * 32
-						
-						'Call Ellipse(frmMain.picmain.hdc, X - 16, .y - 16, X + 16, .y + 16)
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						Call BitBlt(frmMain.picMain.hdc, X, Y, 32, 32, frmMain.picSiromaru.hdc, 32, srcY, SRCAND)
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						Call BitBlt(frmMain.picMain.hdc, X, Y, 32, 32, frmMain.picSiromaru.hdc, 0, srcY, SRCPAINT)
-						
-						If Y + 32 > Height Then
-							
-							intTemp = Y + 32 - Height
-							
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							Call BitBlt(frmMain.picMain.hdc, X, 0, 32, intTemp, frmMain.picSiromaru.hdc, 32, srcY + 32 - intTemp, SRCAND)
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							Call BitBlt(frmMain.picMain.hdc, X, 0, 32, intTemp, frmMain.picSiromaru.hdc, 0, srcY + 32 - intTemp, SRCPAINT)
-							
-						End If
-						
-						If X + 32 > Width Then
-							
-							intTemp = X + 32 - Width
-							
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							Call BitBlt(frmMain.picMain.hdc, 0, Y, intTemp, 32, frmMain.picSiromaru.hdc, 64 - intTemp, srcY, SRCAND)
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							Call BitBlt(frmMain.picMain.hdc, 0, Y, intTemp, 32, frmMain.picSiromaru.hdc, 32 - intTemp, srcY, SRCPAINT)
-							
-						End If
-						
-				End Select
-				
-				'End If
-				
-			End With
-			
-		Next i
-		
-		'frmMain.cboDirectInput.Text = timeGetTime() - lngTemp
-		
-		Exit Sub
-		
-	End Sub
-	
-	Private Sub InitSiromaru2()
-		
-		frmMain.tmrEffect.Enabled = True
-		frmMain.tmrEffect.Interval = 100
-		
-		m_lngCounter = 0
-		
-		ReDim m_objSnow(0)
-		m_objSnow(0).X = 1
-		m_objSnow(0).dX = 0
-		
-	End Sub
-	
-	Public Sub ZoomSiromaru2()
-		
-		m_lngCounter = m_lngCounter + 1
-		
-		If (m_lngCounter And 7) > 1 And (m_lngCounter And 7) < 7 Then
-			
-			If m_objSnow(0).X < frmMain.picMain.ClientRectangle.Width * 2 Then
-				
-				m_objSnow(0).dX = m_objSnow(0).dX + 0.1
-				m_objSnow(0).X = m_objSnow(0).X + m_objSnow(0).dX
-				
-			End If
-			
-		End If
-		
-	End Sub
-	
-	Public Sub DrawSiromaru2()
-		
-		Dim X As Integer
-		Dim Y As Integer
-		Dim srcY As Short
-		
-		srcY = m_lngCounter And 7
-		
-		If srcY > 1 Then
-			
-			Y = Y - g_sngSin((srcY - 1) * 128 \ 6 And 127) * m_objSnow(0).X
-			
-		End If
-		
-		srcY = srcY * 32
-		
-		With frmMain.picMain
-			
-			X = (.ClientRectangle.Width - m_objSnow(0).X) \ 2
-			Y = Y + (.ClientRectangle.Height - m_objSnow(0).X) \ 2
-			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call StretchBlt(.hdc, X, Y, m_objSnow(0).X, m_objSnow(0).X, frmMain.picSiromaru.hdc, 32, srcY, 32, 32, SRCAND)
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call StretchBlt(.hdc, X, Y, m_objSnow(0).X, m_objSnow(0).X, frmMain.picSiromaru.hdc, 0, srcY, 32, 32, SRCPAINT)
-			
-		End With
-		
-	End Sub
-	
-	Public Sub DrawLog()
-		
-		'1.3.6 ‚É‚Äíœ
-		
-	End Sub
-	
-	Private Sub DrawLogText(ByVal X As Integer, ByVal Y As Integer, ByRef Text As String, Optional ByVal Color As Integer = 16777215)
-		
-		Dim intTemp As Short
-		
-		With frmMain.picMain
-			
-			'UPGRADE_ISSUE: ’è” vbFromUnicode ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			'UPGRADE_ISSUE: LenB ŠÖ”‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			intTemp = LenB(StrConv(Text, vbFromUnicode))
-			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call SetTextColor(.hdc, 0) 'RGB(0, 0, 0)
-			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call TextOut(.hdc, X, Y - 1, Text, intTemp)
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call TextOut(.hdc, X + 1, Y, Text, intTemp)
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call TextOut(.hdc, X, Y + 1, Text, intTemp)
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call TextOut(.hdc, X - 1, Y, Text, intTemp)
-			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call SetTextColor(.hdc, Color)
-			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call TextOut(.hdc, X, Y, Text, intTemp)
-			
-		End With
-		
-	End Sub
-	
-	Public Sub InitStaffRoll()
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		If g_disp.intEffect = EASTEREGG.OFF Then Exit Sub
-		
-		frmMain.tmrEffect.Enabled = True
-		
-		m_lngCounter = 0
-		
-		ReDim m_strStaffRoll(0)
-		
-		Call AddStaffRoll("BMx Sequence Editor", 1)
-		Call AddStaffRoll(My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Revision, 1)
-		Call AddStaffRoll("Staff Credit", 5)
-		
-		Call AddStaffRoll("-Program-", 1)
-		'Call AddStaffRoll("tokonats", 3)
-		Call AddStaffRoll("Hayana", 0)
-		Call AddStaffRoll("(aka tokonats)", 3)
-		
-		Call AddStaffRoll("-Program Icon, Toolbar Icon, BMSE Image-", 1)
-		Call AddStaffRoll("AOiRO_Manbow", 3)
-		
-		Call AddStaffRoll("-Technical Adviser-", 1)
-		Call AddStaffRoll("aska sakurano", 3)
-		
-		Call AddStaffRoll("-Language File Support-", 1)
-		Call AddStaffRoll("Aruhito", 0)
-		Call AddStaffRoll("sfmddrex", 0)
-		Call AddStaffRoll("MW", 3)
-		
-		Call AddStaffRoll("-Tips Writing-", 1)
-		Call AddStaffRoll("sfmddrex", 0)
-		Call AddStaffRoll("Aruhito", 3)
-		
-		Call AddStaffRoll("-siromaru Animation-", 1)
-		Call AddStaffRoll("tutidama", 0)
-		Call AddStaffRoll("œ¥œ", 3)
-		
-		Call AddStaffRoll("-Easter Egg Adviser-", 1)
-		Call AddStaffRoll("shammy", 0)
-		'Call AddStaffRoll("Clock", 0)
-		Call AddStaffRoll("sfmddrex", 0)
-		Call AddStaffRoll("Lai", 0)
-		Call AddStaffRoll("Yamajet", 0)
-		Call AddStaffRoll("AOiRO_Manbow", 3)
-		
-		Call AddStaffRoll("-Programming Assistant-", 1)
-		Call AddStaffRoll("Coca-Cola Classic", 3)
-		
-		Call AddStaffRoll("-Special Thanks-", 1)
-		Call AddStaffRoll("tix", 0)
-		Call AddStaffRoll("J.T.", 1)
-		'Call AddStaffRoll("Shunsuke Kudo a.k.a. OBONO", 3)
-		Call AddStaffRoll("Shunsuke Kudo", 0)
-		Call AddStaffRoll("(aka OBONO)", 3)
-		
-		Call AddStaffRoll("-Special ""NO"" Thanks-", 1)
-		Call AddStaffRoll("FontSize Property", 0)
-		Call AddStaffRoll("FontBold Property", 0)
-		Call AddStaffRoll("FontItalic Property", 0)
-		Call AddStaffRoll("FontName Property", 0)
-		Call AddStaffRoll("FontStrikethru Property", 0)
-		Call AddStaffRoll("FontUnderline Property", 1)
-		Call AddStaffRoll("TabStrip Control", 0)
-		Call AddStaffRoll("SSTab Control", 1)
-		Call AddStaffRoll("PitcureBox.MouseDown", 0)
-		Call AddStaffRoll("PitcureBox.MouseMove", 0)
-		Call AddStaffRoll("PictureBox.MouseUp", 1)
-		'Call AddStaffRoll("Microsoft Visual Basic 6.0", 3)
-		Call AddStaffRoll("Microsoft Visual Basic 6.0", 0)
-		Call AddStaffRoll("(Oh No, I Love Her!)", 1)
-		Call AddStaffRoll("tokonats", 3)
-		
-		Call AddStaffRoll("-Debugger-", 1)
-		Call AddStaffRoll("All BMSE Users:)", 5)
-		
-		'Call AddStaffRoll("Copyright(C) tokonats/UCN-Soft 2004.", 0)
-		Call AddStaffRoll("Copyright(C) Hayana/UCN-Soft 2004-2007.", 0)
-		Call AddStaffRoll("http://ucn.tokonats.net/", 0)
-		Call AddStaffRoll("ucn@tokonats.net", 0)
-		
-		'ReDim Preserve m_strStaffRoll(1)
-		
-	End Sub
-	
-	Private Sub AddStaffRoll(ByRef Text As String, Optional ByVal Break As Short = 0)
-		
-		Dim lngTemp As Integer
-		
-		If Break < 0 Then Break = 0
-		
-		lngTemp = UBound(m_strStaffRoll) + 1
-		
-		ReDim Preserve m_strStaffRoll(lngTemp + Break)
-		
-		m_strStaffRoll(lngTemp) = Text
-		
-	End Sub
-	
-	Public Sub StaffRollScroll()
-		
-		m_lngCounter = m_lngCounter + 100 \ frmMain.tmrEffect.Interval
-		
-	End Sub
-	
-	Public Sub DrawStaffRoll()
-		
-		Dim i As Integer
-		Dim X As Integer
-		Dim Y As Integer
-		Dim Color As Integer
-		Dim intTemp As Integer
-		Dim lngTemp As Integer
-		Dim sizeTemp As Size
-		
-		Dim srcY As Short
-		With frmMain.picMain
-			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call SetTextColor(.hdc, RGB(255, 255, 255))
-			.Font = VB6.FontChangeSize(.Font, 12)
-			
-			lngTemp = .ClientRectangle.Height - m_lngCounter
-			
-			For i = 0 To UBound(m_strStaffRoll)
-				
-				If Len(m_strStaffRoll(i)) Then
-					
-					'UPGRADE_ISSUE: ’è” vbFromUnicode ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_ISSUE: LenB ŠÖ”‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					intTemp = LenB(StrConv(m_strStaffRoll(i), vbFromUnicode))
-					
-					'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					Call GetTextExtentPoint32(.hdc, m_strStaffRoll(i), intTemp, sizeTemp)
-					
-					X = (frmMain.picMain.ClientRectangle.Width - sizeTemp.Width) \ 2
-					Y = lngTemp - sizeTemp.Height \ 2
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					If (Y < .ClientRectangle.Height And Y + sizeTemp.Height > 0) Or g_disp.intEffect = EASTEREGG.STAFFROLL2 Then
-						
-						'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						If g_disp.intEffect = EASTEREGG.STAFFROLL Then
-							
-							If .ClientRectangle.Height < 128 Then
-								
-								Color = 255
-								
-							ElseIf lngTemp < 64 Then 
-								
-								Color = lngTemp * 4
-								
-								If Color < 0 Then Color = 0
-								
-							ElseIf lngTemp > .ClientRectangle.Height - 64 Then 
-								
-								Color = 255 - (lngTemp - (.ClientRectangle.Height - 64)) * 4
-								
-								If Color < 0 Then Color = 0
-								
-							Else
-								
-								Color = 255
-								
-							End If
-							
-						Else
-							
-							Select Case m_lngCounter
-								
-								Case Is > 95
-									
-									frmMain.tmrEffect.Enabled = False
-									'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-									g_disp.intEffect = EASTEREGG.OFF
-									
-									Exit Sub
-									
-								Case Is < 32 : Color = m_lngCounter * 8 '0-31
-								Case Is > 63 : Color = (95 - m_lngCounter) * 8 '64-95
-								Case Else : Color = 255 '32-63
-									
-							End Select
-							
-							Y = (.ClientRectangle.Height - sizeTemp.Height * UBound(m_strStaffRoll)) \ 2 + sizeTemp.Height * i
-							
-						End If
-						
-						If m_strStaffRoll(i) <> "œ¥œ" Then
-							
-							Call DrawLogText(X, Y, m_strStaffRoll(i), RGB(Color, Color, Color))
-							
-						End If
-						
-					End If
-					
-					If m_strStaffRoll(i) = "œ¥œ" Then
-						
-						
-						X = (frmMain.picMain.ClientRectangle.Width - 32) \ 2
-						Y = lngTemp '.ScaleHeight - lngTemp
-						
-						srcY = (m_lngCounter And 7)
-						
-						If srcY > 1 Then
-							
-							Y = Y - g_sngSin((srcY - 1) * 128 \ 6 And 127) * 4 * 8
-							
-						End If
-						
-						srcY = srcY * 32
-						
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						Call BitBlt(frmMain.picMain.hdc, X, Y, 32, 32, frmMain.picSiromaru.hdc, 32, srcY, SRCAND)
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picSiromaru.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-						Call BitBlt(frmMain.picMain.hdc, X, Y, 32, 32, frmMain.picSiromaru.hdc, 0, srcY, SRCPAINT)
-						
-					End If
-					
-					lngTemp = lngTemp + sizeTemp.Height + 2
-					
-				Else
-					
-					lngTemp = lngTemp + 12
-					
-				End If
-				
-			Next i
-			
-			If lngTemp < 0 Then
-				
-				'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-				If g_disp.intEffect = EASTEREGG.STAFFROLL Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_disp.intEffect = EASTEREGG.STAFFROLL2
-					
-					ReDim m_strStaffRoll(0)
-					
-					'm_lngCounter = Rnd * 4
-					
-					'Select Case m_lngCounter
-					'Case 0: m_strStaffRoll(0) = """HAVE YOU FORGOTTEN SOMETHING?"""
-					'Case 1: m_strStaffRoll(0) = "I'M PERFECT! ARE YOU?"
-					'Case 2: m_strStaffRoll(0) = "The Matrix has you..."
-					'Case 3
-					'm_strStaffRoll(0) = "WAS ITS PHANTASM"
-					'Call AddStaffRoll("THE LAST ATTACKING")
-					'Call AddStaffRoll("OR ITS LAST MOMENTS", 1)
-					'Call AddStaffRoll("AND WAS THIS FOR REAL")
-					'Call AddStaffRoll("OR WAS I DREAMING", 1)
-					'Call AddStaffRoll("NOBODY KNOWS YET....")
-					'End Select
-					
-					m_lngCounter = 0
-					m_strStaffRoll(0) = """HAVE YOU FORGOTTEN SOMETHING?"""
-					
-				Else
-					
-					frmMain.tmrEffect.Enabled = False
-					
-					Erase m_strStaffRoll
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_disp.intEffect ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					g_disp.intEffect = EASTEREGG.OFF
-					
-				End If
-				
-			End If
-			
-		End With
-		
-	End Sub
-	
-	Public Sub DrawBlueScreen()
-		
-		Dim hBrushNew As Integer
-		Dim hBrushOld As Integer
-		Dim rectTemp As RECT
-		
-		With frmMain.picMain
-			
-			hBrushNew = CreateSolidBrush(System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Blue))
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			hBrushOld = SelectObject(.hdc, hBrushNew)
-			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call Rectangle(.hdc, 0, 0, .ClientRectangle.Width, .ClientRectangle.Height)
-			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			hBrushNew = SelectObject(.hdc, hBrushOld)
-			Call DeleteObject(hBrushNew)
-			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call SetTextColor(.hdc, 16777215)
-			
-			rectTemp.left_Renamed = 8
-			rectTemp.right_Renamed = .ClientRectangle.Width - 8
-			rectTemp.Top = 8
-			rectTemp.Bottom = .ClientRectangle.Height
-			
-			.Font = VB6.FontChangeSize(.Font, 9)
-			
-			'UPGRADE_ISSUE: PictureBox ƒvƒƒpƒeƒB picMain.hdc ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			Call DrawText(.hdc, "A problem has been detected and BMSE has been shut down to prevent damage to your mind." & vbCrLf & vbCrLf & "The problem seems to be caused by the following file: BMSE.EXE" & vbCrLf & vbCrLf & "EASTER_EGG_BLUE_SCREEN_OF_DEATH" & vbCrLf & vbCrLf & "If this is the first time you've seen this stop error screen, restart your BMSE. If this screen appears again, follow these steps:" & vbCrLf & vbCrLf & "1) Bury me from your computer." & vbCrLf & "2) Access UCN-Soft BBS, and write your shout of spirit." & vbCrLf & "       ex) ""BMSE is the worst software in the world!!!!!!!!!!!!!!111111""" & vbCrLf & "3) Sing ""asdf song"":" & vbCrLf & "       This is the sound of the asdf song." & vbCrLf & "       asdf fdsa" & vbCrLf & "       asdffdsa ye-ye" & vbCrLf & "       (clap clap clap)" & vbCrLf & "4) Throw your computer from window." & vbCrLf & vbCrLf & "If you are satiated with joke:" & vbCrLf & vbCrLf & "Launch BMSE and type your key ""OFF"", then press return key." & vbCrLf & vbCrLf & "Meaningless information:" & vbCrLf & vbCrLf & "*** STOP: 0x88710572 (0xASDFFDSA,0x00004126,0xD0SUK01,0x›0¤0›)" & vbCrLf & vbCrLf & vbCrLf & "***  BMSE.EXE - Public Sub DrawBlueScreen() at modEasterEgg.bas, DateStamp 2006-12-26", -1, rectTemp, DT_WORDBREAK)
-			
-		End With
-		
-	End Sub
-	
-	Private Sub QuickSortY(ByVal l As Integer, ByVal r As Integer)
+
+    Public Sub DrawEffect(ByVal hDC As IntPtr)
+
+        Select Case g_disp.intEffect
+
+            Case EASTEREGG.SNOW, EASTEREGG.SIROMARU
+
+                Call DrawSnow(hDC)
+
+            Case EASTEREGG.SIROMARU2
+
+                Call DrawSiromaru2(hDC)
+
+            Case EASTEREGG.STAFFROLL, EASTEREGG.STAFFROLL2
+
+                Call DrawStaffRoll(hDC)
+
+            Case EASTEREGG.DISP_LOG
+
+                Call DrawLog()
+
+            Case EASTEREGG.BLUESCREEN
+
+                Call DrawBlueScreen(hDC)
+
+        End Select
+
+    End Sub
+
+    Public Sub KeyCheck(ByVal KeyCode As Short, ByVal Shift As Short)
+
+        Static buf As String = Space(16)
+
+        Select Case KeyCode
+
+            Case System.Windows.Forms.Keys.F9 'ã»ã‚ã„ã‚‹
+
+                If Len(frmMain.txtGenre.Text) = 0 And Len(frmMain.txtArtist.Text) = 0 Then
+
+                    frmMain.txtGenre.Text = "Unstable Pitch Song"
+                    frmMain.txtArtist.Text = "while"
+
+                End If
+
+            Case System.Windows.Forms.Keys.F10 'ã‚·ãƒ­ãƒ‡ã‚£ã‚¦ã‚¹
+
+                Call ShellExecute(0, vbNullString, "sirodius.exe", vbNullString, vbNullString, SW_SHOWNORMAL)
+
+            Case System.Windows.Forms.Keys.A To System.Windows.Forms.Keys.Z, System.Windows.Forms.Keys.D0 To System.Windows.Forms.Keys.D9 'ãƒãƒƒãƒ•ã‚¡ã«ä¿å­˜
+
+                buf = Right(buf, 15) & Chr(KeyCode)
+
+            Case System.Windows.Forms.Keys.NumPad0 To System.Windows.Forms.Keys.NumPad9 'ãƒãƒƒãƒ•ã‚¡ã«ä¿å­˜
+
+                buf = Right(buf, 15) & KeyCode - System.Windows.Forms.Keys.NumPad0
+
+            Case System.Windows.Forms.Keys.Space 'ãƒãƒƒãƒ•ã‚¡ã«ä¿å­˜
+
+                buf = Right(buf, 15) & " "
+
+            Case System.Windows.Forms.Keys.Return 'ã‚¤ãƒ¼ã‚¹ã‚¿ãƒ¼ã‚¨ãƒƒã‚°ç™ºå‹•
+
+                If Right(buf, 3) = "OFF" Then 'OFF
+
+                    frmMain.tmrEffect.Enabled = False
+                    g_disp.intEffect = EASTEREGG.OFF
+
+                    frmMain.picMain.Refresh()
+
+                ElseIf Right(buf, 4) = "TIPS" Then  'TIPS
+
+                    With frmWindowTips
+
+                        .Left = frmMain.Left + (frmMain.Width - .Width) \ 2
+                        .Top = frmMain.Top + (frmMain.Height - .Height) \ 2
+
+                        Call frmWindowTips.ShowDialog(frmMain)
+
+                    End With
+
+                ElseIf Right(buf, 4) = "SNOW" Then  'SNOW
+
+                    If g_disp.intEffect = EASTEREGG.SNOW Then
+
+                        frmMain.tmrEffect.Enabled = False
+                        g_disp.intEffect = EASTEREGG.OFF
+
+                    Else
+
+                        g_disp.intEffect = EASTEREGG.SNOW
+
+                        Call InitSnow()
+
+                    End If
+
+                    frmMain.picMain.Refresh()
+
+                ElseIf Right(buf, 8) = "SIROMARU" Or Right(buf, 9) = "SIROMARU1" Then  'SIROMARU
+
+                    If g_disp.intEffect = EASTEREGG.SIROMARU Then
+
+                        frmMain.tmrEffect.Enabled = False
+                        g_disp.intEffect = EASTEREGG.OFF
+
+                    Else
+
+                        g_disp.intEffect = EASTEREGG.SIROMARU
+
+                        Call InitSnow()
+
+                    End If
+
+                    frmMain.picMain.Refresh()
+
+                ElseIf Right(buf, 9) = "SIROMARU2" Then  'SIROMARU2
+
+                    If g_disp.intEffect = EASTEREGG.SIROMARU2 Then
+
+                        frmMain.tmrEffect.Enabled = False
+                        g_disp.intEffect = EASTEREGG.OFF
+
+                    Else
+
+                        g_disp.intEffect = EASTEREGG.SIROMARU2
+
+                        Call InitSiromaru2()
+
+                    End If
+
+                    frmMain.picMain.Refresh()
+
+                ElseIf Right(buf, 3) = "LOG" Then  'LOG
+
+                    frmMain.tmrEffect.Enabled = False
+
+                    If g_disp.intEffect = EASTEREGG.DISP_LOG Then
+
+                        g_disp.intEffect = EASTEREGG.OFF
+
+                    Else
+
+                        g_disp.intEffect = EASTEREGG.DISP_LOG
+
+                    End If
+
+                    frmMain.picMain.Refresh()
+
+                ElseIf Right(buf, 9) = "STAFFROLL" Then  'STAFFROLL, STAFFROLL2
+
+                    If g_disp.intEffect = EASTEREGG.STAFFROLL Or g_disp.intEffect = EASTEREGG.STAFFROLL2 Then
+
+                        frmMain.tmrEffect.Enabled = False
+                        g_disp.intEffect = EASTEREGG.OFF
+
+                    Else
+
+                        frmMain.tmrEffect.Interval = 100
+
+                        g_disp.intEffect = EASTEREGG.STAFFROLL
+
+                        Call InitStaffRoll()
+
+                    End If
+
+                    frmMain.picMain.Refresh()
+
+                ElseIf Right(buf, 10) = "STAFFROLL2" Then  'STAFFROLL, STAFFROLL2
+
+                    If g_disp.intEffect = EASTEREGG.STAFFROLL Or g_disp.intEffect = EASTEREGG.STAFFROLL2 Then
+
+                        frmMain.tmrEffect.Enabled = False
+                        g_disp.intEffect = EASTEREGG.OFF
+
+                    Else
+
+                        frmMain.tmrEffect.Interval = 10
+
+                        g_disp.intEffect = EASTEREGG.STAFFROLL
+
+                        Call InitStaffRoll()
+
+                    End If
+
+                    frmMain.picMain.Refresh()
+
+                ElseIf Right(buf, 10) = "BLUESCREEN" Or Right(buf, 4) = "BSOD" Then  'BLUESCREEN OF DEATH
+
+                    If g_disp.intEffect = EASTEREGG.BLUESCREEN Then
+
+                        g_disp.intEffect = EASTEREGG.OFF
+
+                    Else
+
+                        'frmMain.tmrEffect.Interval = 1
+                        'frmMain.tmrEffect.Enabled = True
+                        frmMain.tmrEffect.Enabled = False
+                        g_disp.intEffect = EASTEREGG.BLUESCREEN
+
+                    End If
+
+                    frmMain.picMain.Refresh()
+
+                End If
+
+                buf = Space(16)
+
+        End Select
+
+    End Sub
+
+    Public Sub InitSnow()
+
+        Dim i As Integer
+        Dim lngTemp As Integer
+        Dim sngTemp As Single
+
+        If g_disp.intEffect = EASTEREGG.OFF Then Exit Sub
+
+        ReDim m_objSnow(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width * 0.5 - 1)
+
+        If g_disp.intEffect <> EASTEREGG.SNOW Then ReDim m_objSnow(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width \ 8 - 1)
+
+        lngTemp = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height
+        sngTemp = (System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width / UBound(m_objSnow))
+
+        Call Randomize()
+
+        For i = 0 To UBound(m_objSnow)
+
+            With m_objSnow(i)
+
+                .counter = (Rnd() * 1024) \ 4
+
+                .X = sngTemp * i
+                .Y = Rnd() * lngTemp + 1 - lngTemp
+
+                If g_disp.intEffect = EASTEREGG.SNOW Then
+
+                    .dY = Rnd() * 2 + 1
+
+                Else
+
+                    .dY = Rnd() * 4 + 4
+
+                End If
+
+                .dX = .X + g_sngSin(.counter And 255) * 5 * .dY
+
+            End With
+
+        Next i
+
+        If g_disp.intEffect = EASTEREGG.SNOW Then Call QuickSortA(0, UBound(m_objSnow))
+
+        frmMain.tmrEffect.Enabled = True
+        frmMain.tmrEffect.Interval = 100
+
+    End Sub
+
+    Public Sub FallingSnow()
+
+        Dim i As Integer
+        Dim lngTemp As Integer
+
+        For i = 0 To UBound(m_objSnow)
+
+            With m_objSnow(i)
+
+                .counter = .counter + 4
+
+                If g_disp.intEffect = EASTEREGG.SNOW Then
+
+                    .Y = .Y + .dY
+                    .X = .X + g_sngSin(.counter * 2 And 255) * .dY / 2
+
+                Else
+
+                    lngTemp = (.counter \ 4) And 7
+
+                    If lngTemp = 0 Then
+
+                        .Angle = Rnd() * 128
+
+                    ElseIf lngTemp > 1 Then
+
+                        .X = .X + g_sngSin(.Angle + 64) * .dY
+                        .Y = .Y + g_sngSin(.Angle) * .dY
+
+                        '.x = .x + g_sngSin((.Counter \ 32 And 7) * 32 + 16) * .dY
+                        '.y = .y + g_sngSin(((.Counter \ 32 And 7) * 32 + 16 + 64) And 127) * .dY
+                        '.X = .X + g_sngSin((.Counter) And 255) * .dY
+                        '.Y = .Y + g_sngSin((.Counter + 64) And 127) * .dY
+
+                    End If
+
+                End If
+
+            End With
+
+        Next i
+
+        If g_disp.intEffect <> EASTEREGG.SNOW Then Call QuickSortY(0, UBound(m_objSnow))
+
+    End Sub
+
+    Public Sub DrawSnow(ByVal hDC As IntPtr)
+
+        Dim i As Integer
+        Dim X As Integer
+        Dim Y As Integer
+        Dim Width As Integer
+        Dim Height As Integer
+        Dim Size_Renamed As Integer
+        'Dim srcX    As Long
+        Dim srcY As Integer
+        Dim intTemp As Short
+        'Dim lngTemp As Long
+
+        'lngTemp = timeGetTime()
+
+        Width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width
+        Height = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height
+
+
+        For i = 0 To UBound(m_objSnow)
+
+            With m_objSnow(i)
+
+                'UPGRADE_WARNING: Mod ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                X = (.X - frmMain.hsbMain.Value * g_disp.Width) Mod Width
+                'UPGRADE_WARNING: Mod ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+                Y = (.Y + ((frmMain.vsbMain.Maximum - frmMain.vsbMain.LargeChange + 1) - frmMain.vsbMain.Value) * g_disp.Height) Mod Height
+
+                'If Y < frmMain.picMain.ScaleHeight And X < frmMain.picMain.ScaleWidth Then
+
+                Select Case .dY
+
+                    Case Is < 3
+
+                        Size_Renamed = Int(3 + (.dY - 1) * 3) '3-8
+
+                        Call Ellipse(hDC, X, Y, X + Size_Renamed, Y + Size_Renamed)
+
+                        If Y + Size_Renamed > Height Then
+
+                            intTemp = Y - Height
+
+                            Call Ellipse(hDC, X, intTemp, X + Size_Renamed, intTemp + Size_Renamed)
+
+                        End If
+
+                        If X + Size_Renamed > Width Then
+
+                            intTemp = X - Width
+
+                            Call Ellipse(hDC, intTemp, Y, intTemp + Size_Renamed, Y + Size_Renamed)
+
+                        End If
+
+                    Case Else
+
+                        srcY = ((.counter \ 4) And 7)
+
+                        If srcY > 1 Then
+
+                            Y = Y - g_sngSin((srcY - 1) * 128 \ 6 And 127) * 4 * .dY
+
+                        End If
+
+                        srcY = srcY * 32
+
+                        Dim picSiromaru_BitMap As Bitmap = New Bitmap(frmMain.picSiromaru.Image)
+                        Dim hBitMap As IntPtr = picSiromaru_BitMap.GetHbitmap
+                        Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
+                        SelectObject(hMDC, hBitMap)
+
+                        'Call Ellipse(frmMain.picmain.hdc, X - 16, .y - 16, X + 16, .y + 16)
+                        Call BitBlt(hDC, X, Y, 32, 32, hMDC, 32, srcY, SRCAND)
+                        Call BitBlt(hDC, X, Y, 32, 32, hMDC, 0, srcY, SRCPAINT)
+
+                        If Y + 32 > Height Then
+
+                            intTemp = Y + 32 - Height
+
+                            Call BitBlt(hDC, X, 0, 32, intTemp, hMDC, 32, srcY + 32 - intTemp, SRCAND)
+                            Call BitBlt(hDC, X, 0, 32, intTemp, hMDC, 0, srcY + 32 - intTemp, SRCPAINT)
+
+                        End If
+
+                        If X + 32 > Width Then
+
+                            intTemp = X + 32 - Width
+
+                            Call BitBlt(hDC, 0, Y, intTemp, 32, hMDC, 64 - intTemp, srcY, SRCAND)
+                            Call BitBlt(hDC, 0, Y, intTemp, 32, hMDC, 32 - intTemp, srcY, SRCPAINT)
+
+                        End If
+
+                        DeleteDC(hMDC)
+                        DeleteObject(hBitMap)
+                        picSiromaru_BitMap.Dispose()
+
+                End Select
+
+                'End If
+
+            End With
+
+        Next i
+
+        'frmMain.cboDirectInput.Text = timeGetTime() - lngTemp
+
+        Exit Sub
+
+    End Sub
+
+    Private Sub InitSiromaru2()
+
+        frmMain.tmrEffect.Enabled = True
+        frmMain.tmrEffect.Interval = 100
+
+        m_lngCounter = 0
+
+        ReDim m_objSnow(0)
+        m_objSnow(0).X = 1
+        m_objSnow(0).dX = 0
+
+    End Sub
+
+    Public Sub ZoomSiromaru2()
+
+        m_lngCounter = m_lngCounter + 1
+
+        If (m_lngCounter And 7) > 1 And (m_lngCounter And 7) < 7 Then
+
+            If m_objSnow(0).X < frmMain.picMain.ClientRectangle.Width * 2 Then
+
+                m_objSnow(0).dX = m_objSnow(0).dX + 0.1
+                m_objSnow(0).X = m_objSnow(0).X + m_objSnow(0).dX
+
+            End If
+
+        End If
+
+    End Sub
+
+    Public Sub DrawSiromaru2(ByVal hDC As IntPtr)
+
+        Dim X As Integer
+        Dim Y As Integer
+        Dim srcY As Short
+
+        srcY = m_lngCounter And 7
+
+        If srcY > 1 Then
+
+            Y = Y - g_sngSin((srcY - 1) * 128 \ 6 And 127) * m_objSnow(0).X
+
+        End If
+
+        srcY = srcY * 32
+
+        With frmMain.picMain
+
+            Dim picSiromaru_BitMap As Bitmap = New Bitmap(frmMain.picSiromaru.Image)
+            Dim hBitMap As IntPtr = picSiromaru_BitMap.GetHbitmap
+            Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
+            SelectObject(hMDC, hBitMap)
+
+            X = (.ClientRectangle.Width - m_objSnow(0).X) \ 2
+            Y = Y + (.ClientRectangle.Height - m_objSnow(0).X) \ 2
+
+            Call StretchBlt(hDC, X, Y, m_objSnow(0).X, m_objSnow(0).X, hMDC, 32, srcY, 32, 32, SRCAND)
+            Call StretchBlt(hDC, X, Y, m_objSnow(0).X, m_objSnow(0).X, hMDC, 0, srcY, 32, 32, SRCPAINT)
+
+            DeleteDC(hMDC)
+            DeleteObject(hBitMap)
+            picSiromaru_BitMap.Dispose()
+
+        End With
+
+    End Sub
+
+    Public Sub DrawLog()
+
+        '1.3.6 ã«ã¦å‰Šé™¤
+
+    End Sub
+
+    Private Sub DrawLogText(ByVal hDC As IntPtr, ByVal X As Integer, ByVal Y As Integer, ByRef Text As String, Optional ByVal Color As Integer = 16777215)
+
+        Dim intTemp As Short
+
+        With frmMain.picMain
+
+            intTemp = LenB(Text)
+
+            Call SetTextColor(hDC, 0) 'RGB(0, 0, 0)
+
+            Call TextOut(hDC, X, Y - 1, Text, intTemp)
+            Call TextOut(hDC, X + 1, Y, Text, intTemp)
+            Call TextOut(hDC, X, Y + 1, Text, intTemp)
+            Call TextOut(hDC, X - 1, Y, Text, intTemp)
+
+            Call SetTextColor(hDC, Color)
+
+            Call TextOut(hDC, X, Y, Text, intTemp)
+
+        End With
+
+    End Sub
+
+    Public Sub InitStaffRoll()
+
+        If g_disp.intEffect = EASTEREGG.OFF Then Exit Sub
+
+        frmMain.tmrEffect.Enabled = True
+
+        m_lngCounter = 0
+
+        ReDim m_strStaffRoll(0)
+
+        Call AddStaffRoll("BMx Sequence Editor", 1)
+        Call AddStaffRoll(My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Revision, 1)
+        Call AddStaffRoll("Staff Credit", 5)
+
+        Call AddStaffRoll("-Program-", 1)
+        'Call AddStaffRoll("tokonats", 3)
+        Call AddStaffRoll("Hayana", 0)
+        Call AddStaffRoll("(aka tokonats)", 3)
+
+        Call AddStaffRoll("-Program Icon, Toolbar Icon, BMSE Image-", 1)
+        Call AddStaffRoll("AOiRO_Manbow", 3)
+
+        Call AddStaffRoll("-Technical Adviser-", 1)
+        Call AddStaffRoll("aska sakurano", 3)
+
+        Call AddStaffRoll("-Language File Support-", 1)
+        Call AddStaffRoll("Aruhito", 0)
+        Call AddStaffRoll("sfmddrex", 0)
+        Call AddStaffRoll("MW", 3)
+
+        Call AddStaffRoll("-Tips Writing-", 1)
+        Call AddStaffRoll("sfmddrex", 0)
+        Call AddStaffRoll("Aruhito", 3)
+
+        Call AddStaffRoll("-siromaru Animation-", 1)
+        Call AddStaffRoll("tutidama", 0)
+        Call AddStaffRoll("â—â–¼â—", 3)
+
+        Call AddStaffRoll("-Easter Egg Adviser-", 1)
+        Call AddStaffRoll("shammy", 0)
+        'Call AddStaffRoll("Clock", 0)
+        Call AddStaffRoll("sfmddrex", 0)
+        Call AddStaffRoll("Lai", 0)
+        Call AddStaffRoll("Yamajet", 0)
+        Call AddStaffRoll("AOiRO_Manbow", 3)
+
+        Call AddStaffRoll("-Programming Assistant-", 1)
+        Call AddStaffRoll("Coca-Cola Classic", 3)
+
+        Call AddStaffRoll("-Special Thanks-", 1)
+        Call AddStaffRoll("tix", 0)
+        Call AddStaffRoll("J.T.", 1)
+        'Call AddStaffRoll("Shunsuke Kudo a.k.a. OBONO", 3)
+        Call AddStaffRoll("Shunsuke Kudo", 0)
+        Call AddStaffRoll("(aka OBONO)", 3)
+
+        Call AddStaffRoll("-Special ""NO"" Thanks-", 1)
+        Call AddStaffRoll("FontSize Property", 0)
+        Call AddStaffRoll("FontBold Property", 0)
+        Call AddStaffRoll("FontItalic Property", 0)
+        Call AddStaffRoll("FontName Property", 0)
+        Call AddStaffRoll("FontStrikethru Property", 0)
+        Call AddStaffRoll("FontUnderline Property", 1)
+        Call AddStaffRoll("TabStrip Control", 0)
+        Call AddStaffRoll("SSTab Control", 1)
+        Call AddStaffRoll("PitcureBox.MouseDown", 0)
+        Call AddStaffRoll("PitcureBox.MouseMove", 0)
+        Call AddStaffRoll("PictureBox.MouseUp", 1)
+        'Call AddStaffRoll("Microsoft Visual Basic 6.0", 3)
+        Call AddStaffRoll("Microsoft Visual Basic 6.0", 0)
+        Call AddStaffRoll("(Oh No, I Love Her!)", 1)
+        Call AddStaffRoll("tokonats", 3)
+
+        Call AddStaffRoll("-Debugger-", 1)
+        Call AddStaffRoll("All BMSE Users:)", 5)
+
+        'Call AddStaffRoll("Copyright(C) tokonats/UCN-Soft 2004.", 0)
+        Call AddStaffRoll("Copyright(C) Hayana/UCN-Soft 2004-2007.", 0)
+        Call AddStaffRoll("http://ucn.tokonats.net/", 0)
+        Call AddStaffRoll("ucn@tokonats.net", 0)
+
+        'ReDim Preserve m_strStaffRoll(1)
+
+    End Sub
+
+    Private Sub AddStaffRoll(ByRef Text As String, Optional ByVal Break As Short = 0)
+
+        Dim lngTemp As Integer
+
+        If Break < 0 Then Break = 0
+
+        lngTemp = UBound(m_strStaffRoll) + 1
+
+        ReDim Preserve m_strStaffRoll(lngTemp + Break)
+
+        m_strStaffRoll(lngTemp) = Text
+
+    End Sub
+
+    Public Sub StaffRollScroll()
+
+        m_lngCounter = m_lngCounter + 100 \ frmMain.tmrEffect.Interval
+
+    End Sub
+
+    Public Sub DrawStaffRoll(ByVal hDC As IntPtr)
+
+        Dim i As Integer
+        Dim X As Integer
+        Dim Y As Integer
+        Dim Color As Integer
+        Dim intTemp As Integer
+        Dim lngTemp As Integer
+        Dim sizeTemp As Size
+
+        Dim srcY As Short
+
+        With frmMain.picMain
+            Call SetTextColor(hDC, RGB(255, 255, 255))
+
+            Dim oldFont As Font = frmMain.stringFont
+
+            frmMain.stringFont = New Font(frmMain.stringFont.FontFamily, 12, frmMain.stringFont.Style, frmMain.stringFont.Unit, frmMain.stringFont.GdiCharSet, frmMain.stringFont.GdiVerticalFont)
+
+            oldFont.Dispose()
+
+            Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
+            Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
+
+            SetBkMode(hDC, TRANSPARENT)
+
+            lngTemp = .ClientRectangle.Height - m_lngCounter
+
+            For i = 0 To UBound(m_strStaffRoll)
+
+                If Len(m_strStaffRoll(i)) Then
+
+                    intTemp = LenB(m_strStaffRoll(i))
+
+                    Call GetTextExtentPoint32(hDC, m_strStaffRoll(i), intTemp, sizeTemp)
+
+                    X = (frmMain.picMain.ClientRectangle.Width - sizeTemp.Width) \ 2
+                    Y = lngTemp - sizeTemp.Height \ 2
+
+                    If (Y < .ClientRectangle.Height And Y + sizeTemp.Height > 0) Or g_disp.intEffect = EASTEREGG.STAFFROLL2 Then
+
+                        If g_disp.intEffect = EASTEREGG.STAFFROLL Then
+
+                            If .ClientRectangle.Height < 128 Then
+
+                                Color = 255
+
+                            ElseIf lngTemp < 64 Then
+
+                                Color = lngTemp * 4
+
+                                If Color < 0 Then Color = 0
+
+                            ElseIf lngTemp > .ClientRectangle.Height - 64 Then
+
+                                Color = 255 - (lngTemp - (.ClientRectangle.Height - 64)) * 4
+
+                                If Color < 0 Then Color = 0
+
+                            Else
+
+                                Color = 255
+
+                            End If
+
+                        Else
+
+                            Select Case m_lngCounter
+
+                                Case Is > 95
+
+                                    frmMain.tmrEffect.Enabled = False
+                                    g_disp.intEffect = EASTEREGG.OFF
+
+                                    SelectObject(hDC, hOldFont)
+                                    DeleteObject(hFont)
+                                    Exit Sub
+
+                                Case Is < 32 : Color = m_lngCounter * 8 '0-31
+                                Case Is > 63 : Color = (95 - m_lngCounter) * 8 '64-95
+                                Case Else : Color = 255 '32-63
+
+                            End Select
+
+                            Y = (.ClientRectangle.Height - sizeTemp.Height * UBound(m_strStaffRoll)) \ 2 + sizeTemp.Height * i
+
+                        End If
+
+                        If m_strStaffRoll(i) <> "â—â–¼â—" Then
+
+                            Call DrawLogText(X, Y, m_strStaffRoll(i), RGB(Color, Color, Color))
+
+                        End If
+
+                    End If
+
+                    If m_strStaffRoll(i) = "â—â–¼â—" Then
+
+
+                        X = (frmMain.picMain.ClientRectangle.Width - 32) \ 2
+                        Y = lngTemp '.ScaleHeight - lngTemp
+
+                        srcY = (m_lngCounter And 7)
+
+                        If srcY > 1 Then
+
+                            Y = Y - g_sngSin((srcY - 1) * 128 \ 6 And 127) * 4 * 8
+
+                        End If
+
+                        srcY = srcY * 32
+
+                        Dim picSiromaru_BitMap As Bitmap = New Bitmap(frmMain.picSiromaru.Image)
+                        Dim hBitMap As IntPtr = picSiromaru_BitMap.GetHbitmap
+                        Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
+                        SelectObject(hMDC, hBitMap)
+
+                        Call BitBlt(hDC, X, Y, 32, 32, hMDC, 32, srcY, SRCAND)
+                        Call BitBlt(hDC, X, Y, 32, 32, hMDC, 0, srcY, SRCPAINT)
+
+                        DeleteDC(hMDC)
+                        DeleteObject(hBitMap)
+                        picSiromaru_BitMap.Dispose()
+                    End If
+
+                    lngTemp = lngTemp + sizeTemp.Height + 2
+
+                Else
+
+                    lngTemp = lngTemp + 12
+
+                End If
+
+            Next i
+
+            SelectObject(hDC, hOldFont)
+            DeleteObject(hFont)
+
+            If lngTemp < 0 Then
+
+                If g_disp.intEffect = EASTEREGG.STAFFROLL Then
+
+                    g_disp.intEffect = EASTEREGG.STAFFROLL2
+
+                    ReDim m_strStaffRoll(0)
+
+                    'm_lngCounter = Rnd * 4
+
+                    'Select Case m_lngCounter
+                    'Case 0: m_strStaffRoll(0) = """HAVE YOU FORGOTTEN SOMETHING?"""
+                    'Case 1: m_strStaffRoll(0) = "I'M PERFECT! ARE YOU?"
+                    'Case 2: m_strStaffRoll(0) = "The Matrix has you..."
+                    'Case 3
+                    'm_strStaffRoll(0) = "WAS ITS PHANTASM"
+                    'Call AddStaffRoll("THE LAST ATTACKING")
+                    'Call AddStaffRoll("OR ITS LAST MOMENTS", 1)
+                    'Call AddStaffRoll("AND WAS THIS FOR REAL")
+                    'Call AddStaffRoll("OR WAS I DREAMING", 1)
+                    'Call AddStaffRoll("NOBODY KNOWS YET....")
+                    'End Select
+
+                    m_lngCounter = 0
+                    m_strStaffRoll(0) = """HAVE YOU FORGOTTEN SOMETHING?"""
+
+                Else
+
+                    frmMain.tmrEffect.Enabled = False
+
+                    Erase m_strStaffRoll
+
+                    g_disp.intEffect = EASTEREGG.OFF
+
+                End If
+
+            End If
+
+        End With
+
+    End Sub
+
+    Public Sub DrawBlueScreen(ByVal hDC As IntPtr)
+
+        Dim hBrushNew As Integer
+        Dim hBrushOld As Integer
+        Dim rectTemp As RECT
+
+        With frmMain.picMain
+
+            hBrushNew = CreateSolidBrush(System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Blue))
+            hBrushOld = SelectObject(hDC, hBrushNew)
+
+            Call Rectangle(hDC, 0, 0, .ClientRectangle.Width, .ClientRectangle.Height)
+
+            hBrushNew = SelectObject(hDC, hBrushOld)
+            Call DeleteObject(hBrushNew)
+
+            Call SetTextColor(hDC, 16777215)
+
+            rectTemp.left_Renamed = 8
+            rectTemp.right_Renamed = .ClientRectangle.Width - 8
+            rectTemp.Top = 8
+            rectTemp.Bottom = .ClientRectangle.Height
+
+            Dim oldFont As Font = frmMain.stringFont
+
+            frmMain.stringFont = New Font(frmMain.stringFont.FontFamily, 9, frmMain.stringFont.Style, frmMain.stringFont.Unit, frmMain.stringFont.GdiCharSet, frmMain.stringFont.GdiVerticalFont)
+
+            oldFont.Dispose()
+
+            Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
+            Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
+
+            SetBkMode(hDC, TRANSPARENT)
+
+            Call DrawText(hDC, "A problem has been detected and BMSE has been shut down to prevent damage to your mind." & vbCrLf & vbCrLf & "The problem seems to be caused by the following file: BMSE.EXE" & vbCrLf & vbCrLf & "EASTER_EGG_BLUE_SCREEN_OF_DEATH" & vbCrLf & vbCrLf & "If this is the first time you've seen this stop error screen, restart your BMSE. If this screen appears again, follow these steps:" & vbCrLf & vbCrLf & "1) Bury me from your computer." & vbCrLf & "2) Access UCN-Soft BBS, and write your shout of spirit." & vbCrLf & "       ex) ""BMSE is the worst software in the world!!!!!!!!!!!!!!111111""" & vbCrLf & "3) Sing ""asdf song"":" & vbCrLf & "       This is the sound of the asdf song." & vbCrLf & "       asdf fdsa" & vbCrLf & "       asdffdsa ye-ye" & vbCrLf & "       (clap clap clap)" & vbCrLf & "4) Throw your computer from window." & vbCrLf & vbCrLf & "If you are satiated with joke:" & vbCrLf & vbCrLf & "Launch BMSE and type your key ""OFF"", then press return key." & vbCrLf & vbCrLf & "Meaningless information:" & vbCrLf & vbCrLf & "*** STOP: 0x88710572 (0xASDFFDSA,0x00004126,0xD0SUK01,0xâ—‹0â–½0â—‹)" & vbCrLf & vbCrLf & vbCrLf & "***  BMSE.EXE - Public Sub DrawBlueScreen() at modEasterEgg.bas, DateStamp 2006-12-26", -1, rectTemp, DT_WORDBREAK)
+
+            SelectObject(hDC, hOldFont)
+            DeleteObject(hFont)
+
+        End With
+
+    End Sub
+
+    Private Sub QuickSortY(ByVal l As Integer, ByVal r As Integer)
 		
 		Dim i As Integer
 		Dim j As Integer
@@ -1100,13 +1049,10 @@ Module modEasterEgg
 	Private Sub SwapObj(ByRef Obj1 As m_udtSnow, ByRef Obj2 As m_udtSnow)
 		
 		Dim dummy As m_udtSnow
-		
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg dummy ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		dummy = Obj1
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg Obj1 ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Obj1 = Obj2
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg Obj2 ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Obj2 = dummy
-		
-	End Sub
+
+        dummy = Obj1
+        Obj1 = Obj2
+        Obj2 = dummy
+
+    End Sub
 End Module

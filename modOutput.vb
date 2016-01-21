@@ -3,13 +3,11 @@ Option Explicit On
 Module modOutput
 	
 	Public Sub CreateBMS(ByRef strOutputPath As String, Optional ByVal Flag As Short = 0)
-		Dim modMain As Object
-		Dim g_Message As Object
-		On Error GoTo Err_Renamed
-		
-		Dim strObjData() As String
-		Dim blnObjData() As Boolean
-		Dim i As Integer
+        On Error GoTo Err_Renamed
+
+        Dim strObjData(,) As String
+        Dim blnObjData(,) As Boolean
+        Dim i As Integer
 		Dim j As Integer
 		Dim k As Integer
 		Dim lngFFile As Integer
@@ -33,7 +31,7 @@ Module modOutput
 			
 		Next i
 		
-		'ƒIƒuƒWƒF®—
+		'ã‚ªãƒ–ã‚¸ã‚§æ•´ç†
 		For i = 0 To UBound(g_Obj) - 1
 			
 			With g_Obj(i)
@@ -57,12 +55,10 @@ Module modOutput
 							Else
 								
 								If intBPMNum > MATERIAL_MAX Then
-									
-									'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message(ERR_SAVE_CANCEL) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-									'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-									Call MsgBox(g_Message(modMain.Message.ERR_OVERFLOW_BPM) & vbCrLf & g_Message(modMain.Message.ERR_SAVE_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
-									
-									lngTemp = i - 1
+
+                                    Call MsgBox(g_Message(modMain.Message.ERR_OVERFLOW_BPM) & vbCrLf & g_Message(modMain.Message.ERR_SAVE_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+
+                                    lngTemp = i - 1
 									
 									GoTo Init
 									
@@ -77,12 +73,10 @@ Module modOutput
 						Case modInput.OBJ_CH.CH_STOP
 							
 							If intSTOPNum > MATERIAL_MAX Then
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message(ERR_SAVE_CANCEL) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-								Call MsgBox(g_Message(modMain.Message.ERR_OVERFLOW_STOP) & vbCrLf & g_Message(modMain.Message.ERR_SAVE_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
-								
-								lngTemp = i - 1
+
+                                Call MsgBox(g_Message(modMain.Message.ERR_OVERFLOW_STOP) & vbCrLf & g_Message(modMain.Message.ERR_SAVE_CANCEL), MsgBoxStyle.Critical, g_strAppTitle)
+
+                                lngTemp = i - 1
 								
 								GoTo Init
 								
@@ -93,16 +87,14 @@ Module modOutput
 							.sngValue = intSTOPNum
 							
 						Case 11 To 29
-							
-							'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_ATT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							If .intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE Then
-								
-								.intCh = .intCh + 20
-								
-								'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg modMain.OBJ_ATT ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-							ElseIf .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE Then 
-								
-								.intCh = .intCh + 40
+
+                            If .intAtt = modMain.OBJ_ATT.OBJ_INVISIBLE Then
+
+                                .intCh = .intCh + 20
+
+                            ElseIf .intAtt = modMain.OBJ_ATT.OBJ_LONGNOTE Then
+
+                                .intCh = .intCh + 40
 								
 							End If
 							
@@ -113,13 +105,11 @@ Module modOutput
 			End With
 			
 		Next i
-		
-		'UPGRADE_WARNING: ”z—ñ strObjData ‚Ì‰ºŒÀ‚ª 3,0 ‚©‚ç 0,0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="0F1C9BE1-AF9D-476E-83B1-17D43BECFF20"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		ReDim strObjData(132, lngMaxMeasure)
-		'UPGRADE_WARNING: ”z—ñ blnObjData ‚Ì‰ºŒÀ‚ª 3,0 ‚©‚ç 0,0 ‚É•ÏX‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="0F1C9BE1-AF9D-476E-83B1-17D43BECFF20"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		ReDim blnObjData(132, lngMaxMeasure)
-		
-		For i = 0 To lngMaxMeasure
+
+        ReDim strObjData(132, lngMaxMeasure)
+        ReDim blnObjData(132, lngMaxMeasure)
+
+        For i = 0 To lngMaxMeasure
 			
 			For j = LBound(strObjData, 1) To UBound(strObjData, 1)
 				
@@ -129,7 +119,7 @@ Module modOutput
 			
 		Next i
 		
-		'ƒIƒuƒWƒF‚©‚çƒ‰ƒCƒ“ƒf[ƒ^‚É•ÏŠ·
+		'ã‚ªãƒ–ã‚¸ã‚§ã‹ã‚‰ãƒ©ã‚¤ãƒ³ãƒ‡ãƒ¼ã‚¿ã«å¤‰æ›
 		For i = 0 To UBound(g_Obj) - 1
 			
 			With g_Obj(i)
@@ -234,7 +224,7 @@ Module modOutput
 		
 		lngFFile = FreeFile
 		
-		'o—ÍŠJn
+		'å‡ºåŠ›é–‹å§‹
 		FileOpen(lngFFile, strOutputPath, OpenMode.Output)
 		
 		With frmMain
@@ -381,30 +371,30 @@ Module modOutput
 			For j = 101 To 132
 				
 				If blnObjData(j, i) Then
-					
-					PrintLine(lngFFile, "#" & VB6.Format(i, "000") & "01" & ":" & strObjData(j, i))
-					
-				End If
+
+                    PrintLine(lngFFile, "#" & Format(i, "000") & "01" & ":" & strObjData(j, i))
+
+                End If
 				
 			Next j
 			
 			With g_Measure(i)
 				
 				If .intLen <> MEASURE_LENGTH Then
-					
-					PrintLine(lngFFile, "#" & VB6.Format(i, "000") & "02:" & .intLen / MEASURE_LENGTH)
-					
-				End If
+
+                    PrintLine(lngFFile, "#" & Format(i, "000") & "02:" & .intLen / MEASURE_LENGTH)
+
+                End If
 				
 			End With
 			
 			For j = 3 To 99
 				
 				If blnObjData(j, i) Then
-					
-					PrintLine(lngFFile, "#" & VB6.Format(i, "000") & VB6.Format(j, "00") & ":" & strObjData(j, i))
-					
-				End If
+
+                    PrintLine(lngFFile, "#" & Format(i, "000") & Format(j, "00") & ":" & strObjData(j, i))
+
+                End If
 				
 			Next j
 			
@@ -419,10 +409,10 @@ Module modOutput
 			With g_Measure(i)
 				
 				If .intLen <> MEASURE_LENGTH Then
-					
-					PrintLine(lngFFile, "#" & VB6.Format(i, "000") & "02:" & .intLen / MEASURE_LENGTH)
-					
-				End If
+
+                    PrintLine(lngFFile, "#" & Format(i, "000") & "02:" & .intLen / MEASURE_LENGTH)
+
+                End If
 				
 			End With
 			
@@ -431,30 +421,20 @@ Module modOutput
 		lngTemp = UBound(g_Obj) - 1
 		
 		With g_BMS
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.intPlayerType ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.intPlayerType = frmMain.cboPlayer.SelectedIndex + 1
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strGenre ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.strGenre = frmMain.txtGenre.Text
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strTitle ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.strTitle = frmMain.txtTitle.Text
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strArtist ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.strArtist = frmMain.txtArtist.Text
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.lngPlayLevel ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.lngPlayLevel = Val(frmMain.cboPlayLevel.Text)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.sngBPM ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.sngBPM = Val(frmMain.txtBPM.Text)
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.intPlayRank ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.intPlayRank = frmMain.cboPlayRank.SelectedIndex
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.sngTotal ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.sngTotal = Val(frmMain.txtTotal.Text)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.intVolume ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.intVolume = Val(frmMain.txtVolume.Text)
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strStageFile ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.strStageFile = frmMain.txtStageFile.Text
-			
-		End With
+
+            .intPlayerType = frmMain.cboPlayer.SelectedIndex + 1
+            .strGenre = frmMain.txtGenre.Text
+            .strTitle = frmMain.txtTitle.Text
+            .strArtist = frmMain.txtArtist.Text
+            .lngPlayLevel = Val(frmMain.cboPlayLevel.Text)
+            .sngBPM = Val(frmMain.txtBPM.Text)
+
+            .intPlayRank = frmMain.cboPlayRank.SelectedIndex
+            .sngTotal = Val(frmMain.txtTotal.Text)
+            .intVolume = Val(frmMain.txtVolume.Text)
+            .strStageFile = frmMain.txtStageFile.Text
+
+        End With
 		
 Init: 
 		
@@ -495,52 +475,43 @@ Init:
 		frmMain.Enabled = True
 		
 		If Flag = 0 Then
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.blnSaveFlag ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			g_BMS.blnSaveFlag = True
-			
-			'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			If Len(g_BMS.strDir) Then
-				
-				If frmMain.mnuOptionsItem(frmMain.MENU_OPTIONS.TITLE_FILENAME).Checked Then
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					frmMain.Text = g_strAppTitle & " - " & g_BMS.strFileName
-					
-				Else
-					
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-					frmMain.Text = g_strAppTitle & " - " & g_BMS.strDir & g_BMS.strFileName
-					
-				End If
-				
-			End If
-			
-		End If
+
+            g_BMS.blnSaveFlag = True
+
+            If Len(g_BMS.strDir) Then
+
+                If frmMain._mnuOptionsItem_1.Checked Then
+
+                    frmMain.Text = g_strAppTitle & " - " & g_BMS.strFileName
+
+                Else
+
+                    frmMain.Text = g_strAppTitle & " - " & g_BMS.strDir & g_BMS.strFileName
+
+                End If
+
+            End If
+
+        End If
 		
 		Exit Sub
 		
-Err_Renamed: 
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message(ERR_SAVE_CANCEL) ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_Message() ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Call MsgBox(g_Message(modMain.Message.ERR_SAVE_ERROR) & vbCrLf & g_Message(modMain.Message.ERR_SAVE_CANCEL) & vbCrLf & "Error No." & Err.Number & " " & Err.Description, MsgBoxStyle.Critical, g_strAppTitle)
-		frmMain.Enabled = True
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strFileName ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		'UPGRADE_WARNING: ƒIƒuƒWƒFƒNƒg g_BMS.strDir ‚ÌŠù’èƒvƒƒpƒeƒB‚ğ‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		frmMain.Text = g_strAppTitle & " - " & g_BMS.strDir & g_BMS.strFileName
-	End Sub
+Err_Renamed:
+        Call MsgBox(g_Message(modMain.Message.ERR_SAVE_ERROR) & vbCrLf & g_Message(modMain.Message.ERR_SAVE_CANCEL) & vbCrLf & "Error No." & Err.Number & " " & Err.Description, MsgBoxStyle.Critical, g_strAppTitle)
+        frmMain.Enabled = True
+        frmMain.Text = g_strAppTitle & " - " & g_BMS.strDir & g_BMS.strFileName
+    End Sub
 	
 	Private Function intGetMaxDev(ByRef BaseValue() As Short) As Short
 		
-		Dim Count As Integer '”z—ñ‚ÌÅ‘åƒCƒ“ƒfƒbƒNƒX
-		Dim i As Integer 'ƒJƒEƒ“ƒ^
-		Dim a, b As Integer 'Å‘åŒö–ñ”‚ğ‹‚ß‚é2‚Â‚Ì—v‘f
+		Dim Count As Integer 'é…åˆ—ã®æœ€å¤§ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
+		Dim i As Integer 'ã‚«ã‚¦ãƒ³ã‚¿
+		Dim a, b As Integer 'æœ€å¤§å…¬ç´„æ•°ã‚’æ±‚ã‚ã‚‹2ã¤ã®è¦ç´ 
 		
 		Count = UBound(BaseValue)
 		a = BaseValue(0)
 		
-		'ŒJ‚è•Ô‚·‰ñ”‚ÍA(”z—ñ‚Ì”|1)‰ñ
+		'ç¹°ã‚Šè¿”ã™å›æ•°ã¯ã€(é…åˆ—ã®æ•°ï¼1)å›
 		For i = 1 To Count
 			
 			b = BaseValue(i)
@@ -561,14 +532,14 @@ Err_Renamed:
 					
 				Loop 
 				
-				'1‚Å“™‚µ‚¢ê‡AÅ‘åŒö–ñ”‚Í‚È‚¢
+				'1ã§ç­‰ã—ã„å ´åˆã€æœ€å¤§å…¬ç´„æ•°ã¯ãªã„
 				If a = 1 Then intGetMaxDev = 0 : Exit Function
 				
 			End If
 			
 		Next i
 		
-		'Å‘åŒö–ñ”‚ğ•Ô‚·
+		'æœ€å¤§å…¬ç´„æ•°ã‚’è¿”ã™
 		intGetMaxDev = a
 		
 	End Function

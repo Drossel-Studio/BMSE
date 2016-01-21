@@ -1,0 +1,9 @@
+コンパイルにはVisual Basic PowerPacksが必要
+http://go.microsoft.com/fwlink/?LinkId=321343
+からダウンロードしてインストールすること
+
+言語とテーマの設定ファイルが必要
+EXEファイルのあるフォルダに「lang」、「theme」フォルダをコピー
+
+現状の制約
+言語、テーマの設定ファイル読み込み最大数はそれぞれ3つまで

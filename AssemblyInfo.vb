@@ -2,12 +2,12 @@ Imports System.Reflection
 Imports System.Runtime.CompilerServices
 Imports System.Runtime.InteropServices
 
-' �A�Z���u���̈�ʏ��́A�ȉ��̑����Z�b�g��
-' �Ƃ����ĊǗ�����܂��B�A�Z���u���Ɋ֘A�t����ꂽ����ύX����ɂ́A
-' �����̑����l��ύX���Ă��������B
+' アセンブリの一般情報は、以下の属性セットを
+' とおして管理されます。アセンブリに関連付けられた情報を変更するには、
+' これらの属性値を変更してください。
 
 
-' TODO: �A�Z���u�������̒l���m�F���܂��B
+' TODO: アセンブリ属性の値を確認します。
 
 
 <Assembly: AssemblyTitle("BMx Sequence Editor")>
@@ -18,15 +18,15 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 
-' �A�Z���u���̃o�[�W�������́A�ȉ��� 4 �̒l�ō\������Ă��܂�:
+' アセンブリのバージョン情報は、以下の 4 つの値で構成されています:
 
-'	���W���[ �o�[�W����
-'	�}�C�i �o�[�W����
-'	�r���h�ԍ�
-'	���r�W����
+'	メジャー バージョン
+'	マイナ バージョン
+'	ビルド番号
+'	リビジョン
 
-' ���ׂĂ̒l���w�肷�邩�A���̂悤�� '*' ���g���ă��r�W��������уr���h�ԍ���
-' ����l�ɂ��邱�Ƃ��ł��܂�:
+' すべての値を指定するか、下のように '*' を使ってリビジョンおよびビルド番号を
+' 既定値にすることができます:
 
 <Assembly:  AssemblyVersion("1.3.*")>
 

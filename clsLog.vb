@@ -2,65 +2,64 @@ Option Strict Off
 Option Explicit On
 Friend Class clsLog
 	
-	Dim m_strArray() As String 'ƒƒO
-	Dim m_lngPos As Integer 'Œ»İˆÊ’u
-	Dim m_lngMax As Integer 'Å‘å’l
-	
-	'ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	'UPGRADE_NOTE: Class_Initialize ‚Í Class_Initialize_Renamed ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub Class_Initialize_Renamed()
-		
-		Call Me.Clear()
-		
-	End Sub
-	Public Sub New()
+	Dim m_strArray() As String 'ãƒ­ã‚°
+	Dim m_lngPos As Integer 'ç¾åœ¨ä½ç½®
+	Dim m_lngMax As Integer 'æœ€å¤§å€¤
+
+    'ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    Private Sub Class_Initialize_Renamed()
+
+        Call Me.Clear()
+
+    End Sub
+    Public Sub New()
 		MyBase.New()
 		Class_Initialize_Renamed()
 	End Sub
 	
-	'‰Šú‰»
+	'åˆæœŸåŒ–
 	Public Sub Clear()
-		
-		ReDim m_strArray(0)
-		m_lngPos = 0
+
+        ReDim m_strArray(0)
+        m_strArray(0) = ""
+        m_lngPos = 0
 		m_lngMax = 0
 		
 	End Sub
-	
-	'ƒf[ƒ^‚Ì’Ç‰Á
-	'UPGRADE_NOTE: str ‚Í str_Renamed ‚ÉƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Public Sub AddData(ByRef str_Renamed As String)
-		
-		m_strArray(GetPos) = str_Renamed
-		
-		m_lngPos = m_lngPos + 1
-		m_lngMax = m_lngPos
-		
-		If UBound(m_strArray) < Max Then
-			
-			ReDim Preserve m_strArray((UBound(m_strArray) + 1) * 2 - 1)
-			
-		End If
-		
-		Call frmMain.SaveChanges()
-		
-	End Sub
-	
-	'ƒf[ƒ^‚Ìæ“¾
-	Public Function GetData() As String
+
+    'ãƒ‡ãƒ¼ã‚¿ã®è¿½åŠ 
+    Public Sub AddData(ByRef str_Renamed As String)
+
+        m_strArray(GetPos) = str_Renamed
+
+        m_lngPos = m_lngPos + 1
+        m_lngMax = m_lngPos
+
+        If UBound(m_strArray) < Max() Then
+
+            ReDim Preserve m_strArray((UBound(m_strArray) + 1) * 2 - 1)
+
+        End If
+
+        Call frmMain.SaveChanges()
+
+    End Sub
+
+    'ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
+    Public Function GetData() As String
 		
 		GetData = m_strArray(m_lngPos - 1)
 		
 	End Function
 	
-	'Œ»İˆÊ’u‚Ìæ“¾
+	'ç¾åœ¨ä½ç½®ã®å–å¾—
 	Public Function GetPos() As Integer
 		
 		GetPos = m_lngPos
 		
 	End Function
 	
-	'i‚Ş
+	'é€²ã‚€
 	Public Sub Forward()
 		
 		m_lngPos = m_lngPos + 1
@@ -69,7 +68,7 @@ Friend Class clsLog
 		
 	End Sub
 	
-	'–ß‚é
+	'æˆ»ã‚‹
 	Public Sub Back()
 		
 		m_lngPos = m_lngPos - 1
@@ -78,25 +77,24 @@ Friend Class clsLog
 		
 	End Sub
 	
-	'Å‘åƒTƒCƒY‚Ìæ“¾
+	'æœ€å¤§ã‚µã‚¤ã‚ºã®å–å¾—
 	Public Function Max() As Integer
 		
 		Max = m_lngMax
 		
 	End Function
 	
-	'g—p‚µ‚Ä‚¢‚éƒƒ‚ƒŠ—Ê‚Ìæ“¾
+	'ä½¿ç”¨ã—ã¦ã„ã‚‹ãƒ¡ãƒ¢ãƒªé‡ã®å–å¾—
 	Public Function GetBufferSize() As Integer
 		
 		Dim i As Integer
-		Dim ret As Integer
-		
-		For i = 0 To UBound(m_strArray)
-			
-			'UPGRADE_ISSUE: LenB ŠÖ”‚ÍƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñB Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			ret = ret + LenB(m_strArray(i))
-			
-		Next i
+        Dim ret As Integer = 0
+
+        For i = 0 To UBound(m_strArray)
+
+            ret = ret + LenB(m_strArray(i))
+
+        Next i
 		
 		GetBufferSize = ret
 		

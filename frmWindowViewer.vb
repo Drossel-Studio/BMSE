@@ -99,8 +99,8 @@ Friend Class frmWindowViewer
 				
 				.tlbMenu.Items.Item("PlayAll").Enabled = False
 				.tlbMenu.Items.Item("Play").Enabled = False
-				.tlbMenu.Items.Item("Stop").Enabled = False
-				.mnuToolsPlayAll.Enabled = False
+                .tlbMenu.Items.Item("_Stop").Enabled = False
+                .mnuToolsPlayAll.Enabled = False
 				.mnuToolsPlay.Enabled = False
 				.mnuToolsPlayStop.Enabled = False
 				.cboViewer.Enabled = False
@@ -109,8 +109,8 @@ Friend Class frmWindowViewer
 				
 				.tlbMenu.Items.Item("PlayAll").Enabled = True
 				.tlbMenu.Items.Item("Play").Enabled = True
-				.tlbMenu.Items.Item("Stop").Enabled = True
-				.mnuToolsPlayAll.Enabled = True
+                .tlbMenu.Items.Item("_Stop").Enabled = True
+                .mnuToolsPlayAll.Enabled = True
 				.mnuToolsPlay.Enabled = True
 				.mnuToolsPlayStop.Enabled = True
 				.cboViewer.Enabled = True
@@ -160,10 +160,10 @@ Friend Class frmWindowViewer
 				m_LocalViewer(Num).strArgAll = .strArgAll
 				m_LocalViewer(Num).strArgPlay = .strArgPlay
 				m_LocalViewer(Num).strArgStop = .strArgStop
-				
-				VB6.SetItemString(lstViewer, Num - 1, VB6.GetItemString(lstViewer, Num))
-				
-			End With
+
+                modMain.SetItemString(lstViewer, Num - 1, modMain.GetItemString(lstViewer, Num))
+
+            End With
 			
 			Call ViewerDelete(Num + 1)
 			
@@ -175,37 +175,39 @@ Friend Class frmWindowViewer
 		On Error GoTo Err_Renamed
 		
 		Dim strArray() As String
-		
-		'UPGRADE_WARNING: CommonDialog •Ï”‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½ Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="671167DC-EA81-475D-B690-7A40C7BF4A23"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		With frmMain.dlgMain
-			
-			'UPGRADE_WARNING: Filter ‚ÉV‚µ‚¢“®ì‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-			.Filter = "EXE files (*.exe)|*.exe|All files (*.*)|*.*"
-			.FileName = txtViewerPath.Text
-			
-			Call .ShowDialog()
-			
-			txtViewerPath.Text = .FileName
-			strArray = Split(.FileName, "\")
-			.InitialDirectory = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
-			
-		End With
-		
-		Exit Sub
+
+        With frmMain.dlgMainOpen
+
+            'UPGRADE_WARNING: Filter ã«æ–°ã—ã„å‹•ä½œãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+            .Filter = "EXE files (*.exe)|*.exe|All files (*.*)|*.*"
+            .FileName = txtViewerPath.Text
+
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+
+            txtViewerPath.Text = .FileName
+            strArray = Split(.FileName, "\")
+            frmMain.dlgMainOpen.InitialDirectory = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
+            frmMain.dlgMainSave.InitialDirectory = VB.Left(.FileName, Len(.FileName) - Len(strArray(UBound(strArray))))
+
+        End With
+
+        Exit Sub
 		
 Err_Renamed: 
 		
 	End Sub
 	
-	'UPGRADE_WARNING: Form ƒCƒxƒ“ƒg frmWindowViewer.Activate ‚É‚ÍV‚µ‚¢“®ì‚ªŠÜ‚Ü‚ê‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+	'UPGRADE_WARNING: Form ã‚¤ãƒ™ãƒ³ãƒˆ frmWindowViewer.Activate ã«ã¯æ–°ã—ã„å‹•ä½œãŒå«ã¾ã‚Œã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
 	Private Sub frmWindowViewer_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
 		
 		Dim i As Integer
-		
-		Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(frmMain.Left) + VB6.PixelsToTwipsX(frmMain.Width) \ 2) - VB6.PixelsToTwipsX(Me.Width) \ 2)
-		Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(frmMain.Top) + VB6.PixelsToTwipsY(frmMain.Height) \ 2) - VB6.PixelsToTwipsY(Me.Height) \ 2)
-		
-		m_lngViewerNum = 0
+
+        Me.Left = frmMain.Left + frmMain.Width \ 2 - Me.Width \ 2
+        Me.Top = frmMain.Top + frmMain.Height \ 2 - Me.Height \ 2
+
+        m_lngViewerNum = 0
 		
 		ReDim m_LocalViewer(UBound(g_Viewer))
 		
@@ -245,89 +247,83 @@ Err_Renamed:
 		Call cmdOK.Focus()
 		
 	End Sub
-	
-	Private Sub frmWindowViewer_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-		
-		'UPGRADE_ISSUE: Event ƒpƒ‰ƒ[ƒ^ Cancel ‚ÍƒAƒbƒvƒOƒŒ[ƒh‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FB723E3C-1C06-4D2B-B083-E6CD0D334DA8"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-		Cancel = True
-		
-		Erase m_LocalViewer
-		
-		Call Me.Hide()
-		
-		Call frmMain.picMain.Focus()
-		
-	End Sub
-	
-	'UPGRADE_WARNING: ƒCƒxƒ“ƒg lstViewer.SelectedIndexChanged ‚ÍAƒtƒH[ƒ€‚ª‰Šú‰»‚³‚ê‚½‚Æ‚«‚É”­¶‚µ‚Ü‚·B Ú×‚É‚Â‚¢‚Ä‚ÍA'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-	Private Sub lstViewer_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstViewer.SelectedIndexChanged
-		
-		With m_LocalViewer(m_lngViewerNum + 1)
-			
-			.strAppName = txtViewerName.Text
-			.strAppPath = txtViewerPath.Text
-			.strArgAll = txtPlayAll.Text
-			.strArgPlay = txtPlay.Text
-			.strArgStop = txtStop.Text
-			
-		End With
-		
-		With m_LocalViewer(lstViewer.SelectedIndex + 1)
-			
-			txtViewerName.Text = .strAppName
-			txtViewerPath.Text = .strAppPath
-			txtPlayAll.Text = .strArgAll
-			txtPlay.Text = .strArgPlay
-			txtStop.Text = .strArgStop
-			
-		End With
-		
-		m_lngViewerNum = lstViewer.SelectedIndex
-		
-	End Sub
-	
-	Private Sub lstViewer_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles lstViewer.MouseDown
-		Dim Button As Short = eventArgs.Button \ &H100000
-		Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys \ &H10000
-		Dim X As Single = VB6.PixelsToTwipsX(eventArgs.X)
-		Dim Y As Single = VB6.PixelsToTwipsY(eventArgs.Y)
-		
-		Call lstViewer_SelectedIndexChanged(lstViewer, New System.EventArgs())
-		
-	End Sub
-	
-	Private Sub txtPlay_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtPlay.Enter
-		
-		txtPlay.SelectionStart = 0
-		txtPlay.SelectionLength = Len(txtPlay.Text)
-		
-	End Sub
-	
-	Private Sub txtPlayAll_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtPlayAll.Enter
-		
-		txtPlayAll.SelectionStart = 0
-		txtPlayAll.SelectionLength = Len(txtPlayAll.Text)
-		
-	End Sub
-	
-	Private Sub txtStop_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtStop.Enter
-		
-		txtStop.SelectionStart = 0
-		txtStop.SelectionLength = Len(txtStop.Text)
-		
-	End Sub
-	
-	Private Sub txtViewerName_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtViewerName.Enter
-		
-		txtViewerName.SelectionStart = 0
-		txtViewerName.SelectionLength = Len(txtViewerName.Text)
-		
-	End Sub
-	
-	Private Sub txtViewerPath_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtViewerPath.Enter
-		
-		txtViewerPath.SelectionStart = 0
-		txtViewerPath.SelectionLength = Len(txtViewerPath.Text)
-		
-	End Sub
+
+    'UPGRADE_WARNING: ã‚¤ãƒ™ãƒ³ãƒˆ lstViewer.SelectedIndexChanged ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒåˆæœŸåŒ–ã•ã‚ŒãŸã¨ãã«ç™ºç”Ÿã—ã¾ã™ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+    Private Sub lstViewer_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstViewer.SelectedIndexChanged
+
+        With m_LocalViewer(m_lngViewerNum + 1)
+
+            .strAppName = txtViewerName.Text
+            .strAppPath = txtViewerPath.Text
+            .strArgAll = txtPlayAll.Text
+            .strArgPlay = txtPlay.Text
+            .strArgStop = txtStop.Text
+
+        End With
+
+        With m_LocalViewer(lstViewer.SelectedIndex + 1)
+
+            txtViewerName.Text = .strAppName
+            txtViewerPath.Text = .strAppPath
+            txtPlayAll.Text = .strArgAll
+            txtPlay.Text = .strArgPlay
+            txtStop.Text = .strArgStop
+
+        End With
+
+        m_lngViewerNum = lstViewer.SelectedIndex
+
+    End Sub
+
+    Private Sub lstViewer_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles lstViewer.MouseDown
+
+        Call lstViewer_SelectedIndexChanged(lstViewer, New System.EventArgs())
+
+    End Sub
+
+    Private Sub txtPlay_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtPlay.Enter
+
+        txtPlay.SelectionStart = 0
+        txtPlay.SelectionLength = Len(txtPlay.Text)
+
+    End Sub
+
+    Private Sub txtPlayAll_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtPlayAll.Enter
+
+        txtPlayAll.SelectionStart = 0
+        txtPlayAll.SelectionLength = Len(txtPlayAll.Text)
+
+    End Sub
+
+    Private Sub txtStop_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtStop.Enter
+
+        txtStop.SelectionStart = 0
+        txtStop.SelectionLength = Len(txtStop.Text)
+
+    End Sub
+
+    Private Sub txtViewerName_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtViewerName.Enter
+
+        txtViewerName.SelectionStart = 0
+        txtViewerName.SelectionLength = Len(txtViewerName.Text)
+
+    End Sub
+
+    Private Sub txtViewerPath_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtViewerPath.Enter
+
+        txtViewerPath.SelectionStart = 0
+        txtViewerPath.SelectionLength = Len(txtViewerPath.Text)
+
+    End Sub
+
+    Private Sub frmWindowViewer_FormClosed(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        e.Cancel = True
+
+        Erase m_LocalViewer
+
+        Call Me.Hide()
+
+        Call frmMain.picMain.Focus()
+
+    End Sub
 End Class
