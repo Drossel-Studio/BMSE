@@ -30,11 +30,8 @@ Module modMain
 
     Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteW" (ByVal hwnd As IntPtr, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpOperation As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpFile As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpParameters As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpDirectory As String, ByVal nShowCmd As Integer) As IntPtr
 
-#If x64 Then
+    Public Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongW" (ByVal hwnd As IntPtr, ByVal nIndex As Integer) As Integer
     Public Declare Function GetWindowLongPtr Lib "user32" Alias "GetWindowLongPtrW" (ByVal hwnd As IntPtr, ByVal nIndex As Integer) As IntPtr
-#Else
-    Public Declare Function GetWindowLongPtr Lib "user32" Alias "GetWindowLongW" (ByVal hwnd As IntPtr, ByVal nIndex As Integer) As Integer
-#End If
 
     Public Declare Function AdjustWindowRectEx Lib "user32" (<[In]()> ByRef lpRect As RECT, ByVal dsStyle As Integer, ByVal bMenu As Integer, ByVal dwEsStyle As Integer) As Integer
 

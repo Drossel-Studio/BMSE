@@ -96,7 +96,11 @@ Friend Class frmWindowAbout
 
         With Me
 
-            Call AdjustWindowRectEx(rectTemp, GetWindowLongPtr(.Handle, GWL_STYLE), False, GetWindowLongPtr(.Handle, GWL_EXSTYLE))
+            If IntPtr.Size = 4 Then
+                Call AdjustWindowRectEx(rectTemp, GetWindowLong(.Handle, GWL_STYLE), False, GetWindowLong(.Handle, GWL_EXSTYLE))
+            Else
+                Call AdjustWindowRectEx(rectTemp, GetWindowLongPtr(.Handle, GWL_STYLE), False, GetWindowLongPtr(.Handle, GWL_EXSTYLE))
+            End If
 
             Call .SetBounds(.Left, .Top, rectTemp.right_Renamed - rectTemp.left_Renamed, rectTemp.Bottom - rectTemp.Top)
 
