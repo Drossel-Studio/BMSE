@@ -14,8 +14,8 @@ Module modDraw
     Public Declare Function CreateBrushIndirect Lib "gdi32" (<[In]()> ByRef lpLogBrush As LOGBRUSH) As IntPtr
     Public Declare Function CreateSolidBrush Lib "gdi32" (ByVal crColor As Integer) As IntPtr
 
-    Public Declare Function SelectObject Lib "gdi32" (ByVal hdc As Integer, ByVal hObject As IntPtr) As IntPtr
-    Public Declare Function DeleteObject Lib "gdi32" (ByVal hObject As Integer) As Integer
+    Public Declare Function SelectObject Lib "gdi32" (ByVal hdc As IntPtr, ByVal hObject As IntPtr) As IntPtr
+    Public Declare Function DeleteObject Lib "gdi32" (ByVal hObject As IntPtr) As Integer
 
     Public Declare Function CreateCompatibleDC Lib "gdi32" (ByVal hDC As IntPtr) As IntPtr
     Public Declare Function DeleteDC Lib "gdi32" (ByVal hDC As IntPtr) As Integer
