@@ -81,7 +81,7 @@ Module modDraw
         Dim Height As Integer
     End Structure
 
-    Public Const OBJ_DIFF As Short = -1 'オブジェのずれ
+    Public Const OBJ_DIFF As Integer = -1 'オブジェのずれ
 
     '# Ch早見表 #
     ' 1 BGM
@@ -287,14 +287,14 @@ Module modDraw
         NUM_BGM
     End Enum
 
-    Public Const OBJ_WIDTH As Short = 28
-    Public Const OBJ_HEIGHT As Short = 9
+    Public Const OBJ_WIDTH As Integer = 28
+    Public Const OBJ_HEIGHT As Integer = 9
 
-    Public Const GRID_WIDTH As Short = OBJ_WIDTH
-    Public Const GRID_HALF_WIDTH As Short = GRID_WIDTH \ 2
-    Public Const GRID_HALF_EDGE_WIDTH As Short = (GRID_WIDTH * 3) \ 4
-    Public Const SPACE_WIDTH As Short = 4
-    Public Const FRAME_WIDTH As Short = GRID_WIDTH \ 2
+    Public Const GRID_WIDTH As Integer = OBJ_WIDTH
+    Public Const GRID_HALF_WIDTH As Integer = GRID_WIDTH \ 2
+    Public Const GRID_HALF_EDGE_WIDTH As Integer = (GRID_WIDTH * 3) \ 4
+    Public Const SPACE_WIDTH As Integer = 4
+    Public Const FRAME_WIDTH As Integer = GRID_WIDTH \ 2
     Public Const LEFT_SPACE As Integer = FRAME_WIDTH + SPACE_WIDTH
     Public Const RIGHT_SPACE As Integer = FRAME_WIDTH + SPACE_WIDTH * 2
 
@@ -932,7 +932,7 @@ Err_Renamed:
         Dim i As Integer
         Dim j As Integer
         Dim W As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim hNew As Integer
         Dim hOld As Integer
 
@@ -1201,16 +1201,16 @@ Err_Renamed:
     Public Sub DrawObj(ByVal hDC As IntPtr, ByRef tempObj As g_udtObj)
         On Error GoTo Err_Renamed
 
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim Text As String
         Dim strArray() As String
         Dim X As Integer
         Dim Y As Integer
-        Dim Width As Short
+        Dim Width As Integer
         Dim sizeTemp As Size
-        Dim intLightNum As Short
-        Dim intShadowNum As Short
-        Dim intBrushNum As Short
+        Dim intLightNum As Integer
+        Dim intShadowNum As Integer
+        Dim intBrushNum As Integer
         Dim hOldBrush As Integer
         Dim hOldPen As Integer
 
@@ -1463,7 +1463,7 @@ Err_Renamed:
 
         Dim X As Integer
         Dim Y As Integer
-        Dim Width As Short
+        Dim Width As Integer
 
         With g_Obj(Num)
 
@@ -1495,7 +1495,7 @@ Err_Renamed:
         Call modMain.CleanUp(Err.Number, Err.Description, "DrawObjRect")
     End Sub
 
-    Public Sub DrawObjMax(ByVal X As Single, ByVal Y As Single, ByVal Shift As Short)
+    Public Sub DrawObjMax(ByVal X As Single, ByVal Y As Single, ByVal Shift As Keys)
         On Error GoTo Err_Renamed
 
         Dim i As Integer
@@ -1782,7 +1782,7 @@ Err_Renamed:
     End Sub
 
     'Public Sub DrawStatusBar(ByVal ObjNum As Long, ByVal Shift As Integer)
-    Public Sub DrawStatusBar(ByRef tempObj As g_udtObj, ByVal Shift As Short)
+    Public Sub DrawStatusBar(ByRef tempObj As g_udtObj, ByVal Shift As Keys)
         Dim strTemp As String
         Dim lngTemp As Integer
         Dim strArray() As String
@@ -1985,7 +1985,7 @@ Err_Renamed:
 
     End Sub
 
-    Public Function lngChangeMaxMeasure(ByVal intMeasure As Short) As Integer
+    Public Function lngChangeMaxMeasure(ByVal intMeasure As Integer) As Integer
 
         With g_disp
 
@@ -2006,7 +2006,7 @@ Err_Renamed:
     Public Sub ChangeResolution()
 
         Dim i As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim lngTemp As Integer
         Dim sngTemp As Single
 

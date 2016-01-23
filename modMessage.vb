@@ -111,7 +111,7 @@ Module modMessage
     Public Function strNullCut(ByVal srcStr As String) As String
 
 
-        Dim NullCharPos As Short
+        Dim NullCharPos As Integer
 
 
         NullCharPos = InStr(srcStr, Chr(0))

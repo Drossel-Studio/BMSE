@@ -11,8 +11,8 @@ Friend Class frmWindowTips
 
     Public stringFont As Font
     Dim m_strTips() As String
-    Dim m_intTipsPos As Short
-	Dim m_lngTipsNum As Integer
+    Dim m_intTipsPos As Integer
+    Dim m_lngTipsNum As Integer
 
     'UPGRADE_WARNING: イベント chkNextDisp.CheckStateChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
     Private Sub chkNextDisp_CheckStateChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles chkNextDisp.CheckStateChanged

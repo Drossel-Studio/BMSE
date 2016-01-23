@@ -276,7 +276,7 @@ Friend Class frmWindowConvert
     Public Sub ListAlign()
         Dim i As Integer
         'Dim blnUseOldFormat     As Boolean
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim lngTemp As Integer
         Dim lngWAV As Integer
         Dim lngBMP As Integer
@@ -727,7 +727,7 @@ Friend Class frmWindowConvert
         Dim j As Integer
         Dim strArray() As String
         Dim strTemp As String
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim blnTemp As Boolean
         Dim blnWAV(1295) As Boolean
         Dim blnBMP(1295) As Boolean

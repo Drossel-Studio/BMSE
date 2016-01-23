@@ -34,8 +34,8 @@ Module modEasterEgg
 		Dim dX As Single
 		Dim dY As Single
 		Dim counter As Integer
-		Dim Angle As Short
-	End Structure
+        Dim Angle As Integer
+    End Structure
 	
 	Private m_objSnow() As m_udtSnow
 	
@@ -167,7 +167,7 @@ Module modEasterEgg
 
     End Sub
 
-    Public Sub KeyCheck(ByVal KeyCode As Short, ByVal Shift As Short)
+    Public Sub KeyCheck(ByVal KeyCode As Keys, ByVal Shift As Keys)
 
         Static buf As String = Space(16)
 
@@ -453,7 +453,7 @@ Module modEasterEgg
         Dim Size_Renamed As Integer
         'Dim srcX    As Long
         Dim srcY As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
         'Dim lngTemp As Long
 
         'lngTemp = timeGetTime()
@@ -588,7 +588,7 @@ Module modEasterEgg
 
         Dim X As Integer
         Dim Y As Integer
-        Dim srcY As Short
+        Dim srcY As Integer
 
         srcY = m_lngCounter And 7
 
@@ -629,7 +629,7 @@ Module modEasterEgg
 
     Private Sub DrawLogText(ByVal hDC As IntPtr, ByVal X As Integer, ByVal Y As Integer, ByRef Text As String, Optional ByVal Color As Integer = 16777215)
 
-        Dim intTemp As Short
+        Dim intTemp As Integer
 
         With frmMain.picMain
 
@@ -735,7 +735,7 @@ Module modEasterEgg
 
     End Sub
 
-    Private Sub AddStaffRoll(ByRef Text As String, Optional ByVal Break As Short = 0)
+    Private Sub AddStaffRoll(ByRef Text As String, Optional ByVal Break As Integer = 0)
 
         Dim lngTemp As Integer
 
@@ -765,7 +765,7 @@ Module modEasterEgg
         Dim lngTemp As Integer
         Dim sizeTemp As Size
 
-        Dim srcY As Short
+        Dim srcY As Integer
 
         With frmMain.picMain
             Call SetTextColor(hDC, RGB(255, 255, 255))

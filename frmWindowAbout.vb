@@ -9,7 +9,7 @@ Friend Class frmWindowAbout
 
     Private Sub PrintText(ByVal hDC As IntPtr, ByRef Text_Renamed As String, ByVal X As Integer, ByVal Y As Integer)
 
-        Dim intTemp As Short
+        Dim intTemp As Integer
 
         intTemp = LenB(Text_Renamed)
 
@@ -61,10 +61,8 @@ Friend Class frmWindowAbout
 	End Sub
 
     Private Sub frmWindowAbout_KeyDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
-        Dim KeyCode As Short = eventArgs.KeyCode
-        Dim Shift As Short = eventArgs.KeyData \ &H10000
 
-        Select Case KeyCode
+        Select Case eventArgs.KeyCode
 
             Case System.Windows.Forms.Keys.M
 

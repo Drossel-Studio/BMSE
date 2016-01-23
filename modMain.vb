@@ -8,7 +8,7 @@ Module modMain
 
 #Const MODE_DEBUG = True
 
-    Private Const INI_VERSION As Short = 3
+    Private Const INI_VERSION As Integer = 3
 
     Public Const RELEASEDATE As String = "2007-08-08T09:51"
 
@@ -64,7 +64,7 @@ Module modMain
 
     'LOGFONT 関連の定数
     Private Const DEFAULT_CHARSET As Short = 1
-    Private Const LF_FACESIZE As Short = 32
+    Private Const LF_FACESIZE As Integer = 32
 
     'SystemParametersInfo 関連の定数
     Private Const SPI_GETICONTITLELOGFONT As Short = 31
@@ -223,7 +223,7 @@ Module modMain
         Dim Y As Integer
         Dim Shift As Keys
         Dim Button As MouseButtons
-        Dim measure As Short
+        Dim measure As Integer
     End Structure
 
     Public g_Mouse As m_udtMouse
@@ -235,13 +235,13 @@ Module modMain
         Dim Height As Single
         Dim lngMaxX As Integer
         Dim lngMaxY As Integer
-        Dim intStartMeasure As Short
-        Dim intEndMeasure As Short
+        Dim intStartMeasure As Integer
+        Dim intEndMeasure As Integer
         Dim lngStartPos As Integer
         Dim lngEndPos As Integer
-        Dim intMaxMeasure As Short '最大表示小節
-        Dim intResolution As Short '分解能
-        Dim intEffect As Short '画面効果
+        Dim intMaxMeasure As Integer '最大表示小節
+        Dim intResolution As Integer '分解能
+        Dim intEffect As Integer '画面効果
     End Structure
 
     Public g_disp As m_udtDisplay
@@ -249,15 +249,15 @@ Module modMain
     Public Structure m_udtBMS
         Dim strDir As String 'ディレクトリ
         Dim strFileName As String 'BMSファイル名
-        Dim intPlayerType As Short '#PLAYER
+        Dim intPlayerType As Integer '#PLAYER
         Dim strGenre As String '#GENRE
         Dim strTitle As String '#TITLE
         Dim strArtist As String '#ARTIST
         Dim sngBPM As Single '#BPM
         Dim lngPlayLevel As Integer '#PLAYLEVEL
-        Dim intPlayRank As Short '#RANK
+        Dim intPlayRank As Integer '#RANK
         Dim sngTotal As Single '#TOTAL
-        Dim intVolume As Short '#VOLWAV
+        Dim intVolume As Integer '#VOLWAV
         Dim strStageFile As String '#STAGEFILE
         Dim blnSaveFlag As Boolean
     End Structure
@@ -266,27 +266,27 @@ Module modMain
 
     Public Structure m_udtVerticalLine
         Dim blnVisible As Boolean
-        Dim intCh As Short
+        Dim intCh As Integer
         Dim strText As String
-        Dim intWidth As Short
+        Dim intWidth As Integer
         Dim lngLeft As Integer
         Dim lngObjLeft As Integer
         Dim lngBackColor As Integer
-        Dim intLightNum As Short
-        Dim intShadowNum As Short
-        Dim intBrushNum As Short
+        Dim intLightNum As Integer
+        Dim intShadowNum As Integer
+        Dim intBrushNum As Integer
         Dim blnDraw As Boolean
     End Structure
 
     Public g_VGrid(61) As m_udtVerticalLine
 
-    Public g_intVGridNum(132 + 40) As Short
+    Public g_intVGridNum(132 + 40) As Integer
 
     Public Structure g_udtObj
         Dim lngID As Integer
-        Dim intCh As Short
+        Dim intCh As Integer
         Dim intAtt As OBJ_ATT
-        Dim intMeasure As Short
+        Dim intMeasure As Integer
         Dim lngHeight As Integer
         Dim lngPosition As Integer
         Dim sngValue As Single
@@ -375,7 +375,7 @@ Module modMain
     Public Sub StartUp()
         Dim i As Integer
         Dim strTemp As String
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim lngFFile As Integer
 
         If Right(My.Application.Info.DirectoryPath, 1) = "\" Then
@@ -859,7 +859,7 @@ Err_Renamed:
         lngDeleteFile = 1
     End Function
 
-    Public Function intSaveCheck() As Short
+    Public Function intSaveCheck() As Integer
         On Error GoTo Err_Renamed
 
         Dim lngTemp As Integer
@@ -951,7 +951,7 @@ Err_Renamed:
 
     Public Sub RecentFilesRotation(ByRef strFilePath As String)
         Dim i As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
 
         For i = 0 To UBound(g_strRecentFiles)
 
@@ -973,7 +973,7 @@ Err_Renamed:
 
     End Sub
 
-    Private Sub SubRotate(ByVal intIndex As Short, ByVal intEnd As Short, ByRef strFilePath As String)
+    Private Sub SubRotate(ByVal intIndex As Integer, ByVal intEnd As Integer, ByRef strFilePath As String)
         If intIndex <> intEnd And g_strRecentFiles(intIndex) <> "" And intIndex <= UBound(g_strRecentFiles) Then
 
             Call SubRotate(intIndex + 1, intEnd, g_strRecentFiles(intIndex))
@@ -2370,7 +2370,7 @@ InitConfig:
     Public Function strGet_ini(ByRef strSection As String, ByVal strKey As String, ByVal strDefault As String, ByRef strFileName As String) As String
         'バッファの初期化（256もあれば良いよね。）
         Dim strGetBuf As StringBuilder = New StringBuilder(256) '収容するstringのバッファ
-        Dim intGetLen As Short '収容するstringの文字数のバッファ
+        Dim intGetLen As Integer '収容するstringの文字数のバッファ
         Dim LeftLength As Integer
 
         'API呼び出し
