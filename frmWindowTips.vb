@@ -351,7 +351,4 @@ Friend Class frmWindowTips
         e.Graphics.ReleaseHdc()
     End Sub
 
-    Private Sub frmWindowTips_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        stringFont = New Font(Font.FontFamily, Font.Size, Font.Style, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
-    End Sub
 End Class

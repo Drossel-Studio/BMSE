@@ -4,18 +4,20 @@
 		MyBase.New()
 		'この呼び出しは、Windows フォーム デザイナで必要です。
 		InitializeComponent()
-	End Sub
-	'Form は、コンポーネント一覧に後処理を実行するために dispose をオーバーライドします。
-	<System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
-		If Disposing Then
-			If Not components Is Nothing Then
-				components.Dispose()
-			End If
-		End If
-		MyBase.Dispose(Disposing)
-	End Sub
-	'Windows フォーム デザイナで必要です。
-	Private components As System.ComponentModel.IContainer
+        stringFont = New Font(Font.FontFamily, Font.Size, Font.Style, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
+    End Sub
+    'Form は、コンポーネント一覧に後処理を実行するために dispose をオーバーライドします。
+    <System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+        stringFont.Dispose()
+        If Disposing Then
+            If Not components Is Nothing Then
+                components.Dispose()
+            End If
+        End If
+        MyBase.Dispose(Disposing)
+    End Sub
+    'Windows フォーム デザイナで必要です。
+    Private components As System.ComponentModel.IContainer
     Public WithEvents tmrMain As System.Windows.Forms.Timer
     Public WithEvents picMain As System.Windows.Forms.Panel
 	'メモ: 以下のプロシージャは Windows フォーム デザイナで必要です。

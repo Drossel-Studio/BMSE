@@ -74,8 +74,6 @@ Friend Class frmWindowAbout
 
     Private Sub frmWindowAbout_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
 
-        stringFont = New Font(Font.FontFamily, Font.Size, Font.Style, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
-
         With Me
 
             '2016/01/11 所: .width = .widthになる、結局何をやっているかわからない
