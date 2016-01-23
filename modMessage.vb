@@ -12,8 +12,15 @@ Module modMessage
 
     'サブクラス化関数
     Public Delegate Function WindowProcDelegate(ByVal hwnd As IntPtr, ByVal uMsg As Integer, ByVal wParam As IntPtr, ByVal lParam As IntPtr) As IntPtr
-    Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongW" (ByVal hwnd As IntPtr, ByVal nIndex As Integer, ByVal dwNewLong As WindowProcDelegate) As Integer
-    Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongW" (ByVal hwnd As IntPtr, ByVal nIndex As Integer, ByVal dwNewLong As Integer) As Integer
+
+#If x64 Then
+    Private Declare Function SetWindowLongPtr Lib "user32" Alias "SetWindowLongPtrW" (ByVal hwnd As IntPtr, ByVal nIndex As Integer, ByVal dwNewLong As WindowProcDelegate) As IntPtr
+    Private Declare Function SetWindowLongPtr Lib "user32" Alias "SetWindowLongPtrW" (ByVal hwnd As IntPtr, ByVal nIndex As Integer, ByVal dwNewLong As IntPtr) As IntPtr
+#Else
+    Private Declare Function SetWindowLongPtr Lib "user32" Alias "SetWindowLongW" (ByVal hwnd As IntPtr, ByVal nIndex As Integer, ByVal dwNewLong As WindowProcDelegate) As Integer
+    Private Declare Function SetWindowLongPtr Lib "user32" Alias "SetWindowLongW" (ByVal hwnd As IntPtr, ByVal nIndex As Integer, ByVal dwNewLong As Integer) As Integer
+#End If
+
     Private Declare Function CallWindowProc Lib "user32" Alias "CallWindowProcW" (ByVal lpPrevWndFunc As IntPtr, ByVal hwnd As IntPtr, ByVal MSG As Integer, ByVal wParam As IntPtr, ByVal lParam As IntPtr) As IntPtr
     Private Declare Function GetActiveWindow Lib "user32" () As IntPtr
 
@@ -71,7 +78,7 @@ Module modMessage
     Public Sub SubClass(ByVal hwnd As Integer)
 
 
-        OldWindowhWnd = SetWindowLong(hwnd, GWL_WNDPROC, AddressOf WindowProc)
+        OldWindowhWnd = SetWindowLongPtr(hwnd, GWL_WNDPROC, AddressOf WindowProc)
 
 
     End Sub
@@ -88,7 +95,7 @@ Module modMessage
         If OldWindowhWnd <> 0 Then
 
             '元のプロシージャアドレスに設定する
-            SetWindowLong(hwnd, GWL_WNDPROC, OldWindowhWnd)
+            SetWindowLongPtr(hwnd, GWL_WNDPROC, OldWindowhWnd)
 
             OldWindowhWnd = 0
 

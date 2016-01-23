@@ -24,7 +24,7 @@ Friend Class frmWindowPreview
 		
 		With Me
 
-            Call AdjustWindowRectEx(rectTemp, GetWindowLong(.Handle.ToInt32, GWL_STYLE), False, GetWindowLong(.Handle.ToInt32, GWL_EXSTYLE))
+            Call AdjustWindowRectEx(rectTemp, GetWindowLongPtr(.Handle.ToInt32, GWL_STYLE), False, GetWindowLongPtr(.Handle.ToInt32, GWL_EXSTYLE))
 
             Call .SetBounds(.Left, .Top, rectTemp.right_Renamed - rectTemp.left_Renamed, rectTemp.Bottom - rectTemp.Top)
 
