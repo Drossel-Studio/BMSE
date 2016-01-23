@@ -541,7 +541,7 @@ Err_Renamed:
 
         End If
 
-        Call mciSendString("play PREVIEW notify", vbNullString, 0, Me.Handle.ToInt32)
+        Call mciSendString("play PREVIEW notify", vbNullString, 0, Me.Handle)
 
 Err_Renamed:
     End Sub
@@ -2208,9 +2208,9 @@ Err_Renamed:
         End If
 
         wp.Length = 44
-        Call GetWindowPlacement(Me.Handle.ToInt32, wp)
+        Call GetWindowPlacement(Me.Handle, wp)
         wp.showCmd = strGet_ini("Main", "State", SW_SHOW, "bmse.ini")
-        Call SetWindowPlacement(Me.Handle.ToInt32, wp)
+        Call SetWindowPlacement(Me.Handle, wp)
 
         Call GetCmdLine()
 
@@ -3107,7 +3107,7 @@ Err_Renamed:
         'そっちに Redo のメッセージを送信して脱出する
         If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
 
-            Call SendMessage(ActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
+            Call SendMessage(ActiveControl().Handle, WM_UNDO, 0, 0)
 
             Exit Sub
 
@@ -3115,7 +3115,7 @@ Err_Renamed:
 
             If DirectCast(ActiveControl(), System.Windows.Forms.ComboBox).DropDownStyle = 0 Then
 
-                Call SendMessage(ActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
+                Call SendMessage(ActiveControl().Handle, WM_UNDO, 0, 0)
 
                 Exit Sub
 
@@ -3480,7 +3480,7 @@ Err_Renamed:
         'そっちに Undo のメッセージを送信して脱出する
         If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
 
-            Call SendMessage(ActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
+            Call SendMessage(ActiveControl().Handle, WM_UNDO, 0, 0)
 
             Exit Sub
 
@@ -3488,7 +3488,7 @@ Err_Renamed:
 
             If DirectCast(ActiveControl(), ComboBox).DropDownStyle = 0 Then
 
-                Call SendMessage(ActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
+                Call SendMessage(ActiveControl().Handle, WM_UNDO, 0, 0)
 
                 Exit Sub
 
@@ -3859,11 +3859,11 @@ Err_Renamed:
             'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
             If Len(g_strFiler) <> 0 And Dir(g_strFiler) <> vbNullString Then '指定したファイラを使用
 
-                Call ShellExecute(Me.Handle.ToInt32, "open", Chr(34) & g_strFiler & Chr(34), Chr(34) & g_BMS.strDir & Chr(34), "", SW_SHOWNORMAL)
+                Call ShellExecute(Me.Handle, "open", Chr(34) & g_strFiler & Chr(34), Chr(34) & g_BMS.strDir & Chr(34), "", SW_SHOWNORMAL)
 
             Else 'Explorer で開く
 
-                Call ShellExecute(Me.Handle.ToInt32, "Explore", Chr(34) & g_BMS.strDir & Chr(34), "", "", SW_SHOWNORMAL)
+                Call ShellExecute(Me.Handle, "Explore", Chr(34) & g_BMS.strDir & Chr(34), "", "", SW_SHOWNORMAL)
 
             End If
 

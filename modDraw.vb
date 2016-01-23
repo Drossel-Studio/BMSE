@@ -115,8 +115,8 @@ Module modDraw
     Public g_lngBrushColor(36) As Integer
     Public g_lngSystemColor(6) As Integer
 
-    Private m_hPen(75) As Integer
-    Private m_hBrush(37) As Integer
+    Private m_hPen(75) As IntPtr
+    Private m_hBrush(37) As IntPtr
 
     Private m_tempObj() As g_udtObj
 
@@ -806,10 +806,10 @@ Err_Renamed:
     Private Sub DrawGridBG(ByVal hDC As IntPtr)
 
         Dim i As Integer
-        Dim hPenNew As Integer
-        Dim hPenOld As Integer
-        Dim hBrushNew As Integer
-        Dim hBrushOld As Integer
+        Dim hPenNew As IntPtr
+        Dim hPenOld As IntPtr
+        Dim hBrushNew As IntPtr
+        Dim hBrushOld As IntPtr
 
         If frmMain._mnuOptionsItem_3.Checked Then
 
@@ -889,8 +889,8 @@ Err_Renamed:
         Dim i As Integer
         Dim Y As Integer
         Dim H As Integer
-        Dim hNew As Integer
-        Dim hOld As Integer
+        Dim hNew As IntPtr
+        Dim hOld As IntPtr
 
         hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.VERTICAL_SUB)) 'RGB(128, 128, 128)
         hOld = SelectObject(hDC, hNew)
@@ -929,8 +929,8 @@ Err_Renamed:
         Dim j As Integer
         Dim W As Integer
         Dim intTemp As Integer
-        Dim hNew As Integer
-        Dim hOld As Integer
+        Dim hNew As IntPtr
+        Dim hOld As IntPtr
 
         hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.GRID_MAIN)) 'RGB(96, 96, 96)
         hOld = SelectObject(hDC, hNew)
@@ -992,8 +992,8 @@ Err_Renamed:
         Dim i As Integer
         Dim Y As Integer
         Dim H As Integer
-        Dim hNew As Integer
-        Dim hOld As Integer
+        Dim hNew As IntPtr
+        Dim hOld As IntPtr
 
         hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.VERTICAL_MAIN))
         hOld = SelectObject(hDC, hNew)
@@ -1030,8 +1030,8 @@ Err_Renamed:
 
         Dim i As Integer
         Dim W As Integer
-        Dim hNew As Integer
-        Dim hOld As Integer
+        Dim hNew As IntPtr
+        Dim hOld As IntPtr
 
         hNew = CreatePen(hNew, 1, g_lngSystemColor(COLOR_NUM.MEASURE_LINE))
         hOld = SelectObject(hDC, hNew)
@@ -1200,8 +1200,8 @@ Err_Renamed:
         Dim intLightNum As Integer
         Dim intShadowNum As Integer
         Dim intBrushNum As Integer
-        Dim hOldBrush As Integer
-        Dim hOldPen As Integer
+        Dim hOldBrush As IntPtr
+        Dim hOldPen As IntPtr
 
         With tempObj
 
@@ -1906,11 +1906,11 @@ Err_Renamed:
     Public Sub DrawSelectArea(ByVal hDC As IntPtr)
         Dim i As Integer
         Dim lngTemp As Integer
-        Dim hOldPen As Integer
-        Dim hNewPen As Integer
+        Dim hOldPen As IntPtr
+        Dim hNewPen As IntPtr
         Dim objBrush As LOGBRUSH
-        Dim hOldBrush As Integer
-        Dim hNewBrush As Integer
+        Dim hOldBrush As IntPtr
+        Dim hNewBrush As IntPtr
         Dim rectTemp As RECT
 
         hNewPen = CreatePen(PS_SOLID, 1, g_lngPenColor(PEN_NUM.EDIT_FRAME))

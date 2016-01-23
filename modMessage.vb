@@ -66,7 +66,7 @@ Module modMessage
     Private Const SB_ENDSCROLL As Integer = 8
 
     'デフォルトのウインドウプロシージャ
-    Public OldWindowhWnd As Integer
+    Public OldWindowhWnd As IntPtr
 
 
     '---------------------------------------------------------------------------
@@ -75,7 +75,7 @@ Module modMessage
     ' 引数 ： (in) hWnd … 対象フォームのウインドウハンドル
     ' 返り値 ： なし
     '---------------------------------------------------------------------------
-    Public Sub SubClass(ByVal hwnd As Integer)
+    Public Sub SubClass(ByVal hwnd As IntPtr)
 
 
         OldWindowhWnd = SetWindowLongPtr(hwnd, GWL_WNDPROC, AddressOf WindowProc)
@@ -90,7 +90,7 @@ Module modMessage
     ' 引数 ： (in) hWnd … 対象フォームのウインドウハンドル
     ' 返り値 ： なし
     '---------------------------------------------------------------------------
-    Public Sub UnSubClass(ByVal hwnd As Integer)
+    Public Sub UnSubClass(ByVal hwnd As IntPtr)
 
         If OldWindowhWnd <> 0 Then
 
@@ -147,7 +147,7 @@ Module modMessage
     ' 返り値 ： なし
     ' 備考 ： 特になし
     '---------------------------------------------------------------------------
-    Public Function WindowProc(ByVal hwnd As Integer, ByVal uMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
+    Public Function WindowProc(ByVal hwnd As IntPtr, ByVal uMsg As Integer, ByVal wParam As IntPtr, ByVal lParam As IntPtr) As IntPtr
 
 
         'Dim udtCDP As COPYDATASTRUCT
@@ -157,7 +157,7 @@ Module modMessage
         Dim lngTemp As Integer
 
 
-        If frmMain.Handle.ToInt32 = GetActiveWindow() Then
+        If frmMain.Handle = GetActiveWindow() Then
 
             Select Case uMsg
 
@@ -171,7 +171,7 @@ Module modMessage
 
                 Case WM_SETCURSOR
 
-                    If wParam <> frmMain.picMain.Handle.ToInt32 Then
+                    If wParam <> frmMain.picMain.Handle Then
 
                         g_Obj(UBound(g_Obj)).intCh = 0
 
@@ -182,19 +182,19 @@ Module modMessage
 
                         Select Case wParam
 
-                            Case frmMain.lstWAV.Handle.ToInt32
+                            Case frmMain.lstWAV.Handle
 
                                 Call frmMain.lstWAV.Focus()
 
-                            Case frmMain.lstBMP.Handle.ToInt32
+                            Case frmMain.lstBMP.Handle
 
                                 Call frmMain.lstBMP.Focus()
 
-                            Case frmMain.lstBGA.Handle.ToInt32
+                            Case frmMain.lstBGA.Handle
 
                                 Call frmMain.lstBGA.Focus()
 
-                            Case frmMain.lstMeasureLen.Handle.ToInt32
+                            Case frmMain.lstMeasureLen.Handle
 
                                 Call frmMain.lstMeasureLen.Focus()
 
@@ -219,8 +219,8 @@ Module modMessage
 
                     End If
 
-                    Call WindowProc(frmMain.Handle.ToInt32, WM_VSCROLL, lngTemp, frmMain.vsbMain.Handle.ToInt32)
-                    Call WindowProc(frmMain.Handle.ToInt32, WM_VSCROLL, SB_ENDSCROLL, frmMain.vsbMain.Handle.ToInt32)
+                    Call WindowProc(frmMain.Handle, WM_VSCROLL, lngTemp, frmMain.vsbMain.Handle)
+                    Call WindowProc(frmMain.Handle, WM_VSCROLL, SB_ENDSCROLL, frmMain.vsbMain.Handle)
 
                 Case MM_MCINOTIFY
 

@@ -933,8 +933,8 @@ Module modEasterEgg
 
     Public Sub DrawBlueScreen(ByVal hDC As IntPtr)
 
-        Dim hBrushNew As Integer
-        Dim hBrushOld As Integer
+        Dim hBrushNew As IntPtr
+        Dim hBrushOld As IntPtr
         Dim rectTemp As RECT
 
         With frmMain.picMain

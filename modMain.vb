@@ -25,8 +25,8 @@ Module modMain
     Public Declare Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringW" (<MarshalAs(UnmanagedType.LPWStr)> ByVal lpApplicationName As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpKeyName As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpDefault As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpReturnedString As StringBuilder, ByVal nSize As UInt32, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpFileName As String) As UInt32
     Private Declare Function WritePrivateProfileString Lib "kernel32" Alias "WritePrivateProfileStringW" (<MarshalAs(UnmanagedType.LPWStr)> ByVal lpApplicationName As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpKeyName As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpString As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpFileName As String) As Integer
 
-    Public Declare Function GetWindowPlacement Lib "user32" (ByVal hwnd As Integer, <Out()> ByRef lpwndpl As WINDOWPLACEMENT) As Integer
-    Public Declare Function SetWindowPlacement Lib "user32" (ByVal hwnd As Integer, <[In]()> ByRef lpwndpl As WINDOWPLACEMENT) As Integer
+    Public Declare Function GetWindowPlacement Lib "user32" (ByVal hwnd As IntPtr, <Out()> ByRef lpwndpl As WINDOWPLACEMENT) As Integer
+    Public Declare Function SetWindowPlacement Lib "user32" (ByVal hwnd As IntPtr, <[In]()> ByRef lpwndpl As WINDOWPLACEMENT) As Integer
 
     Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteW" (ByVal hwnd As IntPtr, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpOperation As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpFile As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpParameters As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpDirectory As String, ByVal nShowCmd As Integer) As IntPtr
 
@@ -1821,7 +1821,7 @@ Err_Renamed:
             End If
 
             wp.Length = 44
-            Call GetWindowPlacement(.Handle.ToInt32, wp)
+            Call GetWindowPlacement(.Handle, wp)
 
             With wp
 
@@ -2159,7 +2159,7 @@ Err_Renamed:
 
             Next i
 
-            Call SetWindowPlacement(.Handle.ToInt32, wp)
+            Call SetWindowPlacement(.Handle, wp)
 
         End With
 
@@ -2259,7 +2259,7 @@ InitConfig:
         Call lngSet_ini("Main", "Key", Chr(34) & "BMSE" & Chr(34))
 
         wp.Length = 44
-        Call GetWindowPlacement(frmMain.Handle.ToInt32, wp)
+        Call GetWindowPlacement(frmMain.Handle, wp)
 
         With wp
 

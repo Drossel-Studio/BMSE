@@ -9,7 +9,7 @@ Friend Class frmWindowConvert
     Private Declare Function SHFileOperation Lib "shell32.dll" Alias "SHFileOperationW" (<[In](), Out()> ByRef lpFileOp As SHFILEOPSTRUCT) As Integer
 
     <StructLayout(LayoutKind.Sequential, CharSet:=CharSet.Auto)> Private Structure SHFILEOPSTRUCT
-        Dim hwnd As Integer
+        Dim hwnd As IntPtr
         Dim wFunc As Integer
         <MarshalAs(UnmanagedType.LPTStr)> Dim pFrom As String
         <MarshalAs(UnmanagedType.LPTStr)> Dim pTo As String
@@ -255,7 +255,7 @@ Friend Class frmWindowConvert
 
                 With sh
 
-                    .hwnd = Me.Handle.ToInt32
+                    .hwnd = Me.Handle
                     .wFunc = FO_DELETE
                     .pFrom = Join(strDeleteList, Chr(0))
                     .pTo = vbNullString
@@ -899,7 +899,7 @@ Friend Class frmWindowConvert
 
             With sh
 
-                .hwnd = Me.Handle.ToInt32
+                .hwnd = Me.Handle
                 .wFunc = FO_MOVE
                 .pFrom = Join(strNameFrom, Chr(0))
                 .pTo = Join(strNameTo, Chr(0))
