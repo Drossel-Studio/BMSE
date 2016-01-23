@@ -367,7 +367,7 @@ Friend Class frmMain
             Next i
 
             'Call modDraw.DrawStatusBar(g_Obj(UBound(g_Obj)).lngHeight, Shift)
-            Call modDraw.DrawStatusBar(g_Obj(g_Obj(UBound(g_Obj)).lngHeight), Shift)
+            Call modDraw.DrawStatusBar(g_Obj(g_Obj(UBound(g_Obj)).lngHeight))
 
             'Call SaveChanges
 
@@ -1948,7 +1948,7 @@ Err_Renamed:
 
         End Select
 
-        Call modEasterEgg.KeyCheck(eventArgs.KeyCode, eventArgs.Modifiers)
+        Call modEasterEgg.KeyCheck(eventArgs.KeyCode)
 
     End Sub
 

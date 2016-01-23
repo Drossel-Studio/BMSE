@@ -167,7 +167,7 @@ Module modEasterEgg
 
     End Sub
 
-    Public Sub KeyCheck(ByVal KeyCode As Keys, ByVal Shift As Keys)
+    Public Sub KeyCheck(ByVal KeyCode As Keys)
 
         Static buf As String = Space(16)
 

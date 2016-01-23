@@ -1613,7 +1613,7 @@ Err_Renamed:
         'End If
 
         'ステータスバー更新
-        Call DrawStatusBar(tempObj, Shift)
+        Call DrawStatusBar(tempObj)
 
         If DirectCast(frmMain.tlbMenu.Items.Item("Write"), ToolStripButton).Checked = True Then '書き込みモード
 
@@ -1782,7 +1782,7 @@ Err_Renamed:
     End Sub
 
     'Public Sub DrawStatusBar(ByVal ObjNum As Long, ByVal Shift As Integer)
-    Public Sub DrawStatusBar(ByRef tempObj As g_udtObj, ByVal Shift As Keys)
+    Public Sub DrawStatusBar(ByRef tempObj As g_udtObj)
         Dim strTemp As String
         Dim lngTemp As Integer
         Dim strArray() As String
