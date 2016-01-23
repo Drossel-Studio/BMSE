@@ -2370,11 +2370,10 @@ InitConfig:
     Public Function strGet_ini(ByRef strSection As String, ByVal strKey As String, ByVal strDefault As String, ByRef strFileName As String) As String
         'バッファの初期化（256もあれば良いよね。）
         Dim strGetBuf As StringBuilder = New StringBuilder(256) '収容するstringのバッファ
-        Dim intGetLen As Integer '収容するstringの文字数のバッファ
         Dim LeftLength As Integer
 
         'API呼び出し
-        intGetLen = GetPrivateProfileString(strSection & Chr(0), strKey, strDefault & Chr(0), strGetBuf, 128, g_strAppDir & strFileName & Chr(0))
+        GetPrivateProfileString(strSection & Chr(0), strKey, strDefault & Chr(0), strGetBuf, 128, g_strAppDir & strFileName & Chr(0))
 
         '文字列を返す
         LeftLength = InStr(strGetBuf.ToString(), Chr(0)) - 1

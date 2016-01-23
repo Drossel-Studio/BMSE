@@ -681,7 +681,6 @@ Err_Renamed:
 
         Dim i As Integer
         Dim strTemp As String = Space(2)
-        Dim lngTemp As Integer
         Dim lngIndex(2) As Integer
 
         lngIndex(0) = lstWAV.SelectedIndex
@@ -702,7 +701,7 @@ Err_Renamed:
             'lngTemp = modInput.strToNum(strTemp)
 
             strTemp = modInput.strFromNum(i)
-            lngTemp = modInput.strToNum(modInput.strFromNumZZ(i))
+            modInput.strToNum(modInput.strFromNumZZ(i))
 
             modMain.SetItemString(lstWAV, i - 1, "#WAV" & strTemp & ":" & g_strWAV(i))
             modMain.SetItemString(lstBMP, i - 1, "#BMP" & strTemp & ":" & g_strBMP(i))
@@ -1008,13 +1007,9 @@ Err_Renamed:
 
         End With
 
-        With lstBGA
-
-            strTemp = g_strBGA(lngChangeB)
-            g_strBGA(lngChangeB) = g_strBGA(lngChangeA)
-            g_strBGA(lngChangeA) = strTemp
-
-        End With
+        strTemp = g_strBGA(lngChangeB)
+        g_strBGA(lngChangeB) = g_strBGA(lngChangeA)
+        g_strBGA(lngChangeA) = strTemp
 
         For i = 0 To UBound(g_strBGA)
 
@@ -1110,13 +1105,9 @@ Err_Renamed:
 
         End With
 
-        With lstBGA
-
-            strTemp = g_strBGA(lngChangeB)
-            g_strBGA(lngChangeB) = g_strBGA(lngChangeA)
-            g_strBGA(lngChangeA) = strTemp
-
-        End With
+        strTemp = g_strBGA(lngChangeB)
+        g_strBGA(lngChangeB) = g_strBGA(lngChangeA)
+        g_strBGA(lngChangeA) = strTemp
 
         For i = 0 To UBound(g_Obj) - 1
 
@@ -2243,7 +2234,6 @@ Err_Renamed:
 
     Private Sub frmMain_FormClosing(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
         Dim Cancel As Boolean = eventArgs.Cancel
-        Dim UnloadMode As System.Windows.Forms.CloseReason = eventArgs.CloseReason
 
         If modMain.intSaveCheck() Then
 
@@ -2262,7 +2252,6 @@ Err_Renamed:
     Public Sub frmMain_Resize(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
         On Error Resume Next
 
-        Dim i As Integer
         Dim lngTemp As Integer
 
         Dim lngLineWidth As Integer
@@ -2405,15 +2394,11 @@ Err_Renamed:
 
         End With
 
-        With fraHeader
+        Call fraHeader.SetBounds(Me.ClientRectangle.Width - FRAME_WIDTH, lngToolBarHeight + PADDING_Renamed, FRAME_WIDTH, FRAME_TOP_HEIGHT)
 
-            Call fraHeader.SetBounds(Me.ClientRectangle.Width - FRAME_WIDTH, lngToolBarHeight + PADDING_Renamed, FRAME_WIDTH, FRAME_TOP_HEIGHT)
-
-            _fraTop_0.Top = COLUMN_HEIGHT
-            _fraTop_1.Top = COLUMN_HEIGHT
-            _fraTop_2.Top = COLUMN_HEIGHT
-
-        End With
+        _fraTop_0.Top = COLUMN_HEIGHT
+        _fraTop_1.Top = COLUMN_HEIGHT
+        _fraTop_2.Top = COLUMN_HEIGHT
 
         With fraMaterial
 

@@ -92,8 +92,7 @@ Module modMessage
         If OldWindowhWnd <> 0 Then
 
             '元のプロシージャアドレスに設定する
-            ret = SetWindowLong(hwnd, GWL_WNDPROC, OldWindowhWnd)
-
+            SetWindowLong(hwnd, GWL_WNDPROC, OldWindowhWnd)
 
             OldWindowhWnd = 0
 

@@ -520,9 +520,6 @@ Err_Renamed:
 
         Dim i As Integer
         Dim lngTemp As Integer
-        Dim lngTimer As Integer
-
-        lngTimer = timeGetTime()
 
         'If frmMain.Visible = False Or frmMain.Enabled = False Then Exit Sub
         If frmMain.Visible = False Then Exit Sub
@@ -548,7 +545,6 @@ Err_Renamed:
             '.Width = frmMain.hsbDispWidth.Value / 100
             '.Height = frmMain.hsbDispHeight.Value / 100
             .Width = DirectCast(frmMain.cboDispWidth.SelectedItem, modMain.ItemWithData).ItemData / 100
-            Dim inasdka As Integer = frmMain.cboDispHeight.SelectedIndex
             .Height = DirectCast(frmMain.cboDispHeight.SelectedItem, modMain.ItemWithData).ItemData / 100
             .intStartMeasure = 999
             .intEndMeasure = 999
@@ -942,26 +938,22 @@ Err_Renamed:
         W = g_disp.lngMaxX - RIGHT_SPACE
 
         '横線(灰色)
-        With frmMain.cboDispGridSub
 
-            If DirectCast(frmMain.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
+        If DirectCast(frmMain.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
 
-                For i = g_disp.intStartMeasure To g_disp.intEndMeasure
+            For i = g_disp.intStartMeasure To g_disp.intEndMeasure
 
-                    intTemp = 192 \ DirectCast(frmMain.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData
+                intTemp = 192 \ DirectCast(frmMain.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData
 
-                    For j = 0 To g_Measure(i).intLen Step intTemp
+                For j = 0 To g_Measure(i).intLen Step intTemp
 
-                        Call PrintLine_Renamed(hDC, LEFT_SPACE, g_Measure(i).lngY + j, W, 0)
+                    Call PrintLine_Renamed(hDC, LEFT_SPACE, g_Measure(i).lngY + j, W, 0)
 
-                    Next j
+                Next j
 
-                Next i
+            Next i
 
-            End If
-
-        End With
-
+        End If
 
         hNew = SelectObject(hDC, hOld)
         Call DeleteObject(hNew)
@@ -972,26 +964,23 @@ Err_Renamed:
         W = g_disp.lngMaxX - FRAME_WIDTH
 
         '横線(灰色・補助)
-        With frmMain.cboDispGridMain
 
-            If DirectCast(frmMain.cboDispGridMain.SelectedItem, modMain.ItemWithData).ItemData Then
+        If DirectCast(frmMain.cboDispGridMain.SelectedItem, modMain.ItemWithData).ItemData Then
 
-                For i = g_disp.intStartMeasure To g_disp.intEndMeasure
+            For i = g_disp.intStartMeasure To g_disp.intEndMeasure
 
-                    intTemp = 192 \ DirectCast(frmMain.cboDispGridMain.SelectedItem, modMain.ItemWithData).ItemData
+                intTemp = 192 \ DirectCast(frmMain.cboDispGridMain.SelectedItem, modMain.ItemWithData).ItemData
 
-                    For j = intTemp To g_Measure(i).intLen Step intTemp
+                For j = intTemp To g_Measure(i).intLen Step intTemp
 
-                        'Call PrintLine(16, g_Measure(i).lngY + j, g_disp.lngMaxX - 16, 0)
-                        Call PrintLine_Renamed(hDC, FRAME_WIDTH, g_Measure(i).lngY + j, W, 0)
+                    'Call PrintLine(16, g_Measure(i).lngY + j, g_disp.lngMaxX - 16, 0)
+                    Call PrintLine_Renamed(hDC, FRAME_WIDTH, g_Measure(i).lngY + j, W, 0)
 
-                    Next j
+                Next j
 
-                Next i
+            Next i
 
-            End If
-
-        End With
+        End If
 
         hNew = SelectObject(hDC, hOld)
         Call DeleteObject(hNew)
@@ -1402,55 +1391,51 @@ Err_Renamed:
 
         End With
 
-        With frmMain.picMain
+        hOldBrush = SelectObject(hDC, m_hBrush(intBrushNum))
+        hOldPen = SelectObject(hDC, m_hPen(intLightNum))
 
-            hOldBrush = SelectObject(hDC, m_hBrush(intBrushNum))
-            hOldPen = SelectObject(hDC, m_hPen(intLightNum))
+        Call Rectangle(hDC, X, Y - OBJ_HEIGHT, X + Width, Y + 1)
 
-            Call Rectangle(hDC, X, Y - OBJ_HEIGHT, X + Width, Y + 1)
+        m_hPen(intLightNum) = SelectObject(hDC, m_hPen(intShadowNum))
 
-            m_hPen(intLightNum) = SelectObject(hDC, m_hPen(intShadowNum))
+        Call MoveToEx(hDC, X, Y, 0)
+        Call LineTo(hDC, X + Width - 1, Y)
+        Call LineTo(hDC, X + Width - 1, Y - OBJ_HEIGHT)
 
-            Call MoveToEx(hDC, X, Y, 0)
-            Call LineTo(hDC, X + Width - 1, Y)
-            Call LineTo(hDC, X + Width - 1, Y - OBJ_HEIGHT)
+        m_hPen(intShadowNum) = SelectObject(hDC, hOldPen)
+        m_hBrush(intBrushNum) = SelectObject(hDC, hOldBrush)
 
-            m_hPen(intShadowNum) = SelectObject(hDC, hOldPen)
-            m_hBrush(intBrushNum) = SelectObject(hDC, hOldBrush)
+        'Text = g_Obj(lngNum).lngID
+        intTemp = LenB(Text)
 
-            'Text = g_Obj(lngNum).lngID
-            intTemp = LenB(Text)
+        Call GetTextExtentPoint32(hDC, Text, intTemp, sizeTemp)
 
-            Call GetTextExtentPoint32(hDC, Text, intTemp, sizeTemp)
+        Y = Y - (OBJ_HEIGHT + sizeTemp.Height) \ 2 + 1
 
-            Y = Y - (OBJ_HEIGHT + sizeTemp.Height) \ 2 + 1
+        Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
+        Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
 
-            Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
-            Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
+        SetBkMode(hDC, TRANSPARENT)
 
-            SetBkMode(hDC, TRANSPARENT)
+        'If g_Obj(lngNum).intSelect = Selected Then
+        If tempObj.intSelect = modMain.OBJ_SELECT.Selected Then
 
-            'If g_Obj(lngNum).intSelect = Selected Then
-            If tempObj.intSelect = modMain.OBJ_SELECT.Selected Then
+            Call SetTextColor(hDC, &HFFFFFF)
+            Call TextOut(hDC, X + 3, Y, Text, intTemp)
+            Call SetTextColor(hDC, &H0)
+            Call TextOut(hDC, X + 2, Y, Text, intTemp)
 
-                Call SetTextColor(hDC, &HFFFFFF)
-                Call TextOut(hDC, X + 3, Y, Text, intTemp)
-                Call SetTextColor(hDC, &H0)
-                Call TextOut(hDC, X + 2, Y, Text, intTemp)
+        Else
 
-            Else
+            Call SetTextColor(hDC, &H0)
+            Call TextOut(hDC, X + 3, Y, Text, intTemp)
+            Call SetTextColor(hDC, &HFFFFFF)
+            Call TextOut(hDC, X + 2, Y, Text, intTemp)
 
-                Call SetTextColor(hDC, &H0)
-                Call TextOut(hDC, X + 3, Y, Text, intTemp)
-                Call SetTextColor(hDC, &HFFFFFF)
-                Call TextOut(hDC, X + 2, Y, Text, intTemp)
+        End If
 
-            End If
-
-            SelectObject(hDC, hOldFont)
-            DeleteObject(hFont)
-
-        End With
+        SelectObject(hDC, hOldFont)
+        DeleteObject(hFont)
 
         Exit Sub
 
@@ -1483,11 +1468,7 @@ Err_Renamed:
 
         End With
 
-        With frmMain.picMain
-
-            Call Rectangle(hDC, X - 1, Y - OBJ_HEIGHT - 1, X + Width + 1, Y + 2)
-
-        End With
+        Call Rectangle(hDC, X - 1, Y - OBJ_HEIGHT - 1, X + Width + 1, Y + 2)
 
         Exit Sub
 

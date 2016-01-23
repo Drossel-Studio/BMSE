@@ -631,22 +631,18 @@ Module modEasterEgg
 
         Dim intTemp As Integer
 
-        With frmMain.picMain
+        intTemp = LenB(Text)
 
-            intTemp = LenB(Text)
+        Call SetTextColor(hDC, 0) 'RGB(0, 0, 0)
 
-            Call SetTextColor(hDC, 0) 'RGB(0, 0, 0)
+        Call TextOut(hDC, X, Y - 1, Text, intTemp)
+        Call TextOut(hDC, X + 1, Y, Text, intTemp)
+        Call TextOut(hDC, X, Y + 1, Text, intTemp)
+        Call TextOut(hDC, X - 1, Y, Text, intTemp)
 
-            Call TextOut(hDC, X, Y - 1, Text, intTemp)
-            Call TextOut(hDC, X + 1, Y, Text, intTemp)
-            Call TextOut(hDC, X, Y + 1, Text, intTemp)
-            Call TextOut(hDC, X - 1, Y, Text, intTemp)
+        Call SetTextColor(hDC, Color)
 
-            Call SetTextColor(hDC, Color)
-
-            Call TextOut(hDC, X, Y, Text, intTemp)
-
-        End With
+        Call TextOut(hDC, X, Y, Text, intTemp)
 
     End Sub
 

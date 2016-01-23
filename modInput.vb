@@ -343,63 +343,59 @@ Err_Renamed:
 		Dim strParam As String
 		
 		strArray = Split(Replace(strLineData, " ", ":", 1, 1), ":")
-		
-		With frmMain
-			
-			If UBound(strArray) > 0 Then
-				
-				strFunc = UCase(strArray(0))
-				strParam = Mid(strLineData, Len(strFunc) + 2)
-				
-				Select Case strFunc
-					
-					Case "#IF", "#RANDOM", "#RONDAM", "#ENDIF"
-						
-						If blnDirectInput = False Then
-							
-							m_blnUnreadFlag = True
-							
-							m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
-							
-						End If
-						
-					Case "#ENDIF"
-						
-						m_blnUnreadFlag = False
-						
-						m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
-						
-					Case Else
-						
-						If m_blnUnreadFlag = False Then
-							
-							If LoadBMSHeader(strFunc, strParam, blnDirectInput) = False Then
-								
-								If LoadBMSObject(strFunc, strParam) = False Then
-									
-									m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
-									
-								End If
-								
-							End If
-							
-						Else
-							
-							m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
-							
-						End If
-						
-				End Select
-				
-			Else
-				
-				m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
-				
-			End If
-			
-		End With
-		
-		Exit Sub
+
+        If UBound(strArray) > 0 Then
+
+            strFunc = UCase(strArray(0))
+            strParam = Mid(strLineData, Len(strFunc) + 2)
+
+            Select Case strFunc
+
+                Case "#IF", "#RANDOM", "#RONDAM", "#ENDIF"
+
+                    If blnDirectInput = False Then
+
+                        m_blnUnreadFlag = True
+
+                        m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
+
+                    End If
+
+                Case "#ENDIF"
+
+                    m_blnUnreadFlag = False
+
+                    m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
+
+                Case Else
+
+                    If m_blnUnreadFlag = False Then
+
+                        If LoadBMSHeader(strFunc, strParam, blnDirectInput) = False Then
+
+                            If LoadBMSObject(strFunc, strParam) = False Then
+
+                                m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
+
+                            End If
+
+                        End If
+
+                    Else
+
+                        m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
+
+                    End If
+
+            End Select
+
+        Else
+
+            m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
+
+        End If
+
+        Exit Sub
 		
 Err_Renamed:
         Call modMain.CleanUp(Err.Number, Err.Description, "LoadBMSLine")
