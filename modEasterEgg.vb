@@ -631,7 +631,7 @@ Module modEasterEgg
 
         Dim intTemp As Integer
 
-        intTemp = LenB(Text)
+        intTemp = Text.Length
 
         Call SetTextColor(hDC, 0) 'RGB(0, 0, 0)
 
@@ -783,7 +783,7 @@ Module modEasterEgg
 
                 If Len(m_strStaffRoll(i)) Then
 
-                    intTemp = LenB(m_strStaffRoll(i))
+                    intTemp = m_strStaffRoll(i).Length
 
                     Call GetTextExtentPoint32(hDC, m_strStaffRoll(i), intTemp, sizeTemp)
 

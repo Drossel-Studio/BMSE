@@ -1095,7 +1095,7 @@ Err_Renamed:
                             For j = 0 To Len(.strText) - 1
 
                                 strTemp = Mid(.strText, j + 1, 1)
-                                lngLength = LenB(strTemp)
+                                lngLength = strTemp.Length
                                 Call GetTextExtentPoint32(hDC, strTemp, lngLength, sizeTemp)
 
                                 X = lngTemp - sizeTemp.Width \ 2
@@ -1117,7 +1117,7 @@ Err_Renamed:
 
                         Else
 
-                            lngLength = LenB(.strText)
+                            lngLength = .strText.Length
                             Call GetTextExtentPoint32(hDC, .strText, lngLength, sizeTemp)
 
                             'X = (.lngLeft + .intWidth \ 2) * g_disp.Width - (sizeTemp.Width) \ 2 - g_disp.X + 1
@@ -1406,7 +1406,7 @@ Err_Renamed:
         m_hBrush(intBrushNum) = SelectObject(hDC, hOldBrush)
 
         'Text = g_Obj(lngNum).lngID
-        intTemp = LenB(Text)
+        intTemp = Text.Length
 
         Call GetTextExtentPoint32(hDC, Text, intTemp, sizeTemp)
 

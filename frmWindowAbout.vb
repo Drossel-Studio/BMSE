@@ -11,7 +11,7 @@ Friend Class frmWindowAbout
 
         Dim intTemp As Integer
 
-        intTemp = LenB(Text_Renamed)
+        intTemp = Text_Renamed.Length
 
         With Me
             Call SetTextColor(hDC, 0)
