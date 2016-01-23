@@ -94,30 +94,26 @@ Module modMain
         End Sub
     End Structure
 
-    Public Sub SetItemString(obj As Control, index As Integer, itemstring As String)
-        If TypeOf obj Is System.Windows.Forms.ComboBox Then
-            DirectCast(obj, System.Windows.Forms.ComboBox).Items.Insert(index, itemstring)
-            If DirectCast(obj, System.Windows.Forms.ComboBox).Items.Count > index + 1 Then
-                DirectCast(obj, System.Windows.Forms.ComboBox).Items.RemoveAt(index + 1)
-            End If
-        ElseIf TypeOf obj Is System.Windows.Forms.ListBox
-            DirectCast(obj, System.Windows.Forms.ListBox).Items.Insert(index, itemstring)
-            If DirectCast(obj, System.Windows.Forms.ListBox).Items.Count > index + 1 Then
-                DirectCast(obj, System.Windows.Forms.ListBox).Items.RemoveAt(index + 1)
-            End If
-        Else
-            Throw New Exception("Invalid Argument Type")
+    Public Sub SetItemString(obj As ComboBox, index As Integer, itemstring As String)
+        obj.Items.Insert(index, itemstring)
+        If obj.Items.Count > index + 1 Then
+            obj.Items.RemoveAt(index + 1)
         End If
     End Sub
 
-    Public Function GetItemString(obj As Control, index As Integer) As String
-        If TypeOf obj Is System.Windows.Forms.ComboBox Then
-            GetItemString = DirectCast(obj, System.Windows.Forms.ComboBox).Items.Item(index).ToString()
-        ElseIf TypeOf obj Is System.Windows.Forms.ListBox
-            GetItemString = DirectCast(obj, System.Windows.Forms.ListBox).Items.Item(index).ToString()
-        Else
-            Throw New Exception("Invalid Argument Type")
+    Public Sub SetItemString(obj As ListBox, index As Integer, itemstring As String)
+        obj.Items.Insert(index, itemstring)
+        If obj.Items.Count > index + 1 Then
+            obj.Items.RemoveAt(index + 1)
         End If
+    End Sub
+
+    Public Function GetItemString(obj As ComboBox, index As Integer) As String
+        GetItemString = obj.Items.Item(index).ToString()
+    End Function
+
+    Public Function GetItemString(obj As ListBox, index As Integer) As String
+        GetItemString = obj.Items.Item(index).ToString()
     End Function
 
     <StructLayout(LayoutKind.Sequential, CharSet:=CharSet.Auto, Pack:=1)> Public Structure LOGFONT
