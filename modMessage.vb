@@ -85,10 +85,6 @@ Module modMessage
     '---------------------------------------------------------------------------
     Public Sub UnSubClass(ByVal hwnd As Integer)
 
-
-        Dim ret As Integer
-
-
         If OldWindowhWnd <> 0 Then
 
             '元のプロシージャアドレスに設定する
@@ -97,7 +93,6 @@ Module modMessage
             OldWindowhWnd = 0
 
         End If
-
 
     End Sub
 
