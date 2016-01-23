@@ -11,13 +11,13 @@ Module modMessage
     End Structure
 
     'サブクラス化関数
-    Public Delegate Function WindowProcDelegate(ByVal hwnd As Integer, ByVal uMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
-    Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongW" (ByVal hwnd As Integer, ByVal nIndex As Integer, ByVal dwNewLong As WindowProcDelegate) As Integer
-    Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongW" (ByVal hwnd As Integer, ByVal nIndex As Integer, ByVal dwNewLong As Integer) As Integer
-    Private Declare Function CallWindowProc Lib "user32" Alias "CallWindowProcW" (ByVal lpPrevWndFunc As Integer, ByVal hwnd As Integer, ByVal MSG As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
-    Private Declare Function GetActiveWindow Lib "user32" () As Integer
+    Public Delegate Function WindowProcDelegate(ByVal hwnd As IntPtr, ByVal uMsg As Integer, ByVal wParam As IntPtr, ByVal lParam As IntPtr) As IntPtr
+    Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongW" (ByVal hwnd As IntPtr, ByVal nIndex As Integer, ByVal dwNewLong As WindowProcDelegate) As Integer
+    Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongW" (ByVal hwnd As IntPtr, ByVal nIndex As Integer, ByVal dwNewLong As Integer) As Integer
+    Private Declare Function CallWindowProc Lib "user32" Alias "CallWindowProcW" (ByVal lpPrevWndFunc As IntPtr, ByVal hwnd As IntPtr, ByVal MSG As Integer, ByVal wParam As IntPtr, ByVal lParam As IntPtr) As IntPtr
+    Private Declare Function GetActiveWindow Lib "user32" () As IntPtr
 
-    Public Declare Function SendMessage Lib "user32" Alias "SendMessageW" (ByVal hwnd As Integer, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
+    Public Declare Function SendMessage Lib "user32" Alias "SendMessageW" (ByVal hwnd As IntPtr, ByVal wMsg As Integer, ByVal wParam As IntPtr, ByVal lParam As IntPtr) As IntPtr
 
     Private Const GWL_WNDPROC As Short = (-4) 'ウインドウプロシージャ
 

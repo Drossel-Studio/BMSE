@@ -6,29 +6,29 @@ Module modDraw
 
     Private Declare Function timeGetTime Lib "winmm.dll" () As Integer
 
-    Public Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal nWidth As Integer, ByVal nHeight As Integer, ByVal hSrcDC As Integer, ByVal xSrc As Integer, ByVal ySrc As Integer, ByVal dwRop As Integer) As Integer
+    Public Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As IntPtr, ByVal X As Integer, ByVal Y As Integer, ByVal nWidth As Integer, ByVal nHeight As Integer, ByVal hSrcDC As IntPtr, ByVal xSrc As Integer, ByVal ySrc As Integer, ByVal dwRop As Integer) As Integer
 
-    Public Declare Function GetTextExtentPoint32 Lib "gdi32" Alias "GetTextExtentPoint32W" (ByVal hdc As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpsz As String, ByVal cbString As Integer, <[In]()> ByRef lpSize As Size) As Integer
+    Public Declare Function GetTextExtentPoint32 Lib "gdi32" Alias "GetTextExtentPoint32W" (ByVal hdc As IntPtr, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpsz As String, ByVal cbString As Integer, <[In]()> ByRef lpSize As Size) As Integer
 
-    Public Declare Function CreatePen Lib "gdi32" (ByVal nPenStyle As Integer, ByVal nWidth As Integer, ByVal crColor As Integer) As Integer
-    Public Declare Function CreateBrushIndirect Lib "gdi32" (<[In]()> ByRef lpLogBrush As LOGBRUSH) As Integer
-    Public Declare Function CreateSolidBrush Lib "gdi32" (ByVal crColor As Integer) As Integer
+    Public Declare Function CreatePen Lib "gdi32" (ByVal nPenStyle As Integer, ByVal nWidth As Integer, ByVal crColor As Integer) As IntPtr
+    Public Declare Function CreateBrushIndirect Lib "gdi32" (<[In]()> ByRef lpLogBrush As LOGBRUSH) As IntPtr
+    Public Declare Function CreateSolidBrush Lib "gdi32" (ByVal crColor As Integer) As IntPtr
 
-    Public Declare Function SelectObject Lib "gdi32" (ByVal hdc As Integer, ByVal hObject As Integer) As Integer
+    Public Declare Function SelectObject Lib "gdi32" (ByVal hdc As Integer, ByVal hObject As IntPtr) As IntPtr
     Public Declare Function DeleteObject Lib "gdi32" (ByVal hObject As Integer) As Integer
 
     Public Declare Function CreateCompatibleDC Lib "gdi32" (ByVal hDC As IntPtr) As IntPtr
     Public Declare Function DeleteDC Lib "gdi32" (ByVal hDC As IntPtr) As Integer
 
-    Public Declare Function TextOut Lib "gdi32" Alias "TextOutW" (ByVal hdc As Integer, ByVal X As Integer, ByVal Y As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpString As String, ByVal nCount As Integer) As Integer
-    Public Declare Function SetTextColor Lib "gdi32" (ByVal hdc As Integer, ByVal crColor As Integer) As Integer
-    Public Declare Function SetBkMode Lib "gdi32" (ByVal hdc As Integer, ByVal iBkMode As Integer) As Integer
+    Public Declare Function TextOut Lib "gdi32" Alias "TextOutW" (ByVal hdc As IntPtr, ByVal X As Integer, ByVal Y As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpString As String, ByVal nCount As Integer) As Integer
+    Public Declare Function SetTextColor Lib "gdi32" (ByVal hdc As IntPtr, ByVal crColor As Integer) As Integer
+    Public Declare Function SetBkMode Lib "gdi32" (ByVal hdc As IntPtr, ByVal iBkMode As Integer) As Integer
 
-    Public Declare Function Rectangle Lib "gdi32" (ByVal hdc As Integer, ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As Integer
-    Public Declare Function LineTo Lib "gdi32" (ByVal hdc As Integer, ByVal X As Integer, ByVal Y As Integer) As Integer
-    Public Declare Function MoveToEx Lib "gdi32" (ByVal hdc As Integer, ByVal X As Integer, ByVal Y As Integer, ByRef lpPoint As Integer) As Integer
+    Public Declare Function Rectangle Lib "gdi32" (ByVal hdc As IntPtr, ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As Integer
+    Public Declare Function LineTo Lib "gdi32" (ByVal hdc As IntPtr, ByVal X As Integer, ByVal Y As Integer) As Integer
+    Public Declare Function MoveToEx Lib "gdi32" (ByVal hdc As IntPtr, ByVal X As Integer, ByVal Y As Integer, ByRef lpPoint As Integer) As Integer
 
-    Public Declare Function Ellipse Lib "gdi32" (ByVal hdc As Integer, ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As Integer
+    Public Declare Function Ellipse Lib "gdi32" (ByVal hdc As IntPtr, ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As Integer
 
     'CreatePen 関連
     Public Const PS_SOLID As Short = 0

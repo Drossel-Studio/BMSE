@@ -5,7 +5,7 @@ Imports System.Runtime.InteropServices
 
 Friend Class frmWindowTips
 	Inherits System.Windows.Forms.Form
-    Private Declare Function DrawText Lib "user32" Alias "DrawTextW" (ByVal hdc As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpStr As String, ByVal nCount As Integer, <[In]()> ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
+    Private Declare Function DrawText Lib "user32" Alias "DrawTextW" (ByVal hdc As IntPtr, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpStr As String, ByVal nCount As Integer, <[In]()> ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
 
     Private Const DT_WORDBREAK As Integer = &H10
 
