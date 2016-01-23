@@ -16,16 +16,14 @@
 	End Sub
 	'Windows フォーム デザイナで必要です。
 	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents tmrMain As System.Windows.Forms.Timer
-	Public WithEvents picMain As System.Windows.Forms.Panel
+    Public WithEvents tmrMain As System.Windows.Forms.Timer
+    Public WithEvents picMain As System.Windows.Forms.Panel
 	'メモ: 以下のプロシージャは Windows フォーム デザイナで必要です。
 	'Windows フォーム デザイナを使って変更できます。
 	'コード エディタを使用して、変更しないでください。
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmWindowAbout))
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.picMain = New System.Windows.Forms.Panel()
         Me.tmrMain = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()

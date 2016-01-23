@@ -16,17 +16,14 @@
 	End Sub
 	'Windows フォーム デザイナで必要です。
 	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents cmdCancel As System.Windows.Forms.Button
-	Public WithEvents cmdDecide As System.Windows.Forms.Button
+    Public WithEvents cmdCancel As System.Windows.Forms.Button
+    Public WithEvents cmdDecide As System.Windows.Forms.Button
 	Public WithEvents txtMain As System.Windows.Forms.TextBox
 	Public WithEvents lblMainDisp As System.Windows.Forms.Label
 	'メモ: 以下のプロシージャは Windows フォーム デザイナで必要です。
 	'Windows フォーム デザイナを使って変更できます。
 	'コード エディタを使用して、変更しないでください。
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.cmdCancel = New System.Windows.Forms.Button()
         Me.cmdDecide = New System.Windows.Forms.Button()
         Me.txtMain = New System.Windows.Forms.TextBox()

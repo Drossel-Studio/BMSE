@@ -16,9 +16,8 @@
 	End Sub
 	'Windows フォーム デザイナで必要です。
 	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents picIcon As System.Windows.Forms.PictureBox
-	Public WithEvents tmrMain As System.Windows.Forms.Timer
+    Public WithEvents picIcon As System.Windows.Forms.PictureBox
+    Public WithEvents tmrMain As System.Windows.Forms.Timer
 	Public WithEvents chkNextDisp As System.Windows.Forms.CheckBox
 	Public WithEvents cmdNext As System.Windows.Forms.Button
 	Public WithEvents cmdClose As System.Windows.Forms.Button
@@ -28,7 +27,6 @@
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmWindowTips))
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.picIcon = New System.Windows.Forms.PictureBox()
         Me.tmrMain = New System.Windows.Forms.Timer(Me.components)
         Me.chkNextDisp = New System.Windows.Forms.CheckBox()

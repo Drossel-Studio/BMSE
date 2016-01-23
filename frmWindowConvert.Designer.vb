@@ -16,9 +16,8 @@
 	End Sub
 	'Windows フォーム デザイナで必要です。
 	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents chkSortByName As System.Windows.Forms.CheckBox
-	Public WithEvents chkFileRecycle As System.Windows.Forms.CheckBox
+    Public WithEvents chkSortByName As System.Windows.Forms.CheckBox
+    Public WithEvents chkFileRecycle As System.Windows.Forms.CheckBox
 	Public WithEvents chkDeleteFile As System.Windows.Forms.CheckBox
 	Public WithEvents txtExtension As System.Windows.Forms.TextBox
 	Public WithEvents chkFileNameConvert As System.Windows.Forms.CheckBox
@@ -33,8 +32,6 @@
 	'Windows フォーム デザイナを使って変更できます。
 	'コード エディタを使用して、変更しないでください。
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.chkSortByName = New System.Windows.Forms.CheckBox()
         Me.chkFileRecycle = New System.Windows.Forms.CheckBox()
         Me.chkDeleteFile = New System.Windows.Forms.CheckBox()

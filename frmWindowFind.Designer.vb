@@ -16,9 +16,8 @@
 	End Sub
 	'Windows フォーム デザイナで必要です。
 	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents cmdClose As System.Windows.Forms.Button
-	Public WithEvents cmdDecide As System.Windows.Forms.Button
+    Public WithEvents cmdClose As System.Windows.Forms.Button
+    Public WithEvents cmdDecide As System.Windows.Forms.Button
 	Public WithEvents txtReplace As System.Windows.Forms.TextBox
 	Public WithEvents optProcessReplace As System.Windows.Forms.RadioButton
 	Public WithEvents optProcessDelete As System.Windows.Forms.RadioButton
@@ -52,8 +51,6 @@
     'Windows フォーム デザイナを使って変更できます。
     'コード エディタを使用して、変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.cmdClose = New System.Windows.Forms.Button()
         Me.cmdDecide = New System.Windows.Forms.Button()
         Me.fraProcess = New System.Windows.Forms.GroupBox()

@@ -16,9 +16,8 @@
 	End Sub
 	'Windows フォーム デザイナで必要です。
 	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents cmdDelete As System.Windows.Forms.Button
-	Public WithEvents cmdAdd As System.Windows.Forms.Button
+    Public WithEvents cmdDelete As System.Windows.Forms.Button
+    Public WithEvents cmdAdd As System.Windows.Forms.Button
 	Public WithEvents txtStop As System.Windows.Forms.TextBox
 	Public WithEvents txtPlay As System.Windows.Forms.TextBox
 	Public WithEvents txtPlayAll As System.Windows.Forms.TextBox
@@ -39,8 +38,6 @@
 	'Windows フォーム デザイナを使って変更できます。
 	'コード エディタを使用して、変更しないでください。
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.cmdDelete = New System.Windows.Forms.Button()
         Me.cmdAdd = New System.Windows.Forms.Button()
         Me.fraViewer = New System.Windows.Forms.GroupBox()

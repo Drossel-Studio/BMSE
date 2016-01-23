@@ -16,9 +16,8 @@
 	End Sub
 	'Windows フォーム デザイナで必要です。
 	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents cmdPreviewBack As System.Windows.Forms.Button
-	Public WithEvents cmdPreviewNext As System.Windows.Forms.Button
+    Public WithEvents cmdPreviewBack As System.Windows.Forms.Button
+    Public WithEvents cmdPreviewNext As System.Windows.Forms.Button
 	Public WithEvents cmdPreviewEnd As System.Windows.Forms.Button
 	Public WithEvents cmdPreviewHome As System.Windows.Forms.Button
     Public WithEvents fraBGACmd As System.Windows.Forms.Panel
@@ -46,8 +45,6 @@
     'Windows フォーム デザイナを使って変更できます。
     'コード エディタを使用して、変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.fraBGACmd = New System.Windows.Forms.Panel()
         Me.cmdPreviewBack = New System.Windows.Forms.Button()
         Me.cmdPreviewNext = New System.Windows.Forms.Button()
