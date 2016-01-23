@@ -1,3 +1,4 @@
+Imports System.Resources
 Imports System.Reflection
 Imports System.Runtime.CompilerServices
 Imports System.Runtime.InteropServices
@@ -28,6 +29,5 @@ Imports System.Runtime.InteropServices
 ' すべての値を指定するか、下のように '*' を使ってリビジョンおよびビルド番号を
 ' 既定値にすることができます:
 
-<Assembly:  AssemblyVersion("1.3.*")>
-
-
+<Assembly: AssemblyVersion("1.3.*")>
+<Assembly: NeutralResourcesLanguage("ja-JP")>
