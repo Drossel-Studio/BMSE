@@ -3,11 +3,11 @@ Option Explicit On
 Imports VB = Microsoft.VisualBasic
 Friend Class frmWindowPreview
 	Inherits System.Windows.Forms.Form
-	
-	Private Const GWL_STYLE As Short = (-16)
-	Private Const GWL_EXSTYLE As Short = -20
-	
-	Public Sub SetWindowSize()
+
+    Private Const GWL_STYLE As Integer = (-16)
+    Private Const GWL_EXSTYLE As Integer = -20
+
+    Public Sub SetWindowSize()
 		
 		Dim rectTemp As RECT
 		

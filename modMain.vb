@@ -37,38 +37,38 @@ Module modMain
     Private Declare Function GetObject_Renamed Lib "gdi32" Alias "GetObjectW" (ByVal hObject As IntPtr, ByVal nCount As Integer, <Out()> ByRef lpObject As LOGFONT) As Integer
 
     'Get/SetWindowPlacement・ShellExecute 関連の定数
-    Public Const SW_HIDE As Short = 0
-    Public Const SW_MAXIMIZE As Short = 3
-    Public Const SW_MINIMIZE As Short = 6
-    Public Const SW_RESTORE As Short = 9
-    Public Const SW_SHOW As Short = 5
-    Public Const SW_SHOWDEFAULT As Short = 10
-    Public Const SW_SHOWMAXIMIZED As Short = 3
-    Public Const SW_SHOWMINIMIZED As Short = 2
-    Public Const SW_SHOWMINNOACTIVE As Short = 7
-    Public Const SW_SHOWNA As Short = 8
-    Public Const SW_SHOWNOACTIVATE As Short = 4
-    Public Const SW_SHOWNORMAL As Short = 1
+    Public Const SW_HIDE As Integer = 0
+    Public Const SW_MAXIMIZE As Integer = 3
+    Public Const SW_MINIMIZE As Integer = 6
+    Public Const SW_RESTORE As Integer = 9
+    Public Const SW_SHOW As Integer = 5
+    Public Const SW_SHOWDEFAULT As Integer = 10
+    Public Const SW_SHOWMAXIMIZED As Integer = 3
+    Public Const SW_SHOWMINIMIZED As Integer = 2
+    Public Const SW_SHOWMINNOACTIVE As Integer = 7
+    Public Const SW_SHOWNA As Integer = 8
+    Public Const SW_SHOWNOACTIVATE As Integer = 4
+    Public Const SW_SHOWNORMAL As Integer = 1
 
     'GetWindowLong 関連の定数
-    Public Const GWL_STYLE As Short = -16
-    Public Const GWL_EXSTYLE As Short = -20
+    Public Const GWL_STYLE As Integer = -16
+    Public Const GWL_EXSTYLE As Integer = -20
 
     'GetStockObject 関連の定数
-    Private Const OEM_FIXED_FONT As Short = 10
-    Private Const ANSI_FIXED_FONT As Short = 11
-    Private Const ANSI_VAR_FONT As Short = 12
-    Private Const SYSTEM_FONT As Short = 13
-    Private Const SYSTEM_FIXED_FONT As Short = 16
-    Private Const DEFAULT_GUI_FONT As Short = 17
+    Private Const OEM_FIXED_FONT As Integer = 10
+    Private Const ANSI_FIXED_FONT As Integer = 11
+    Private Const ANSI_VAR_FONT As Integer = 12
+    Private Const SYSTEM_FONT As Integer = 13
+    Private Const SYSTEM_FIXED_FONT As Integer = 16
+    Private Const DEFAULT_GUI_FONT As Integer = 17
 
     'LOGFONT 関連の定数
-    Private Const DEFAULT_CHARSET As Short = 1
+    Private Const DEFAULT_CHARSET As Byte = 1
     Private Const LF_FACESIZE As Integer = 32
 
     'SystemParametersInfo 関連の定数
-    Private Const SPI_GETICONTITLELOGFONT As Short = 31
-    Private Const SPI_GETNONCLIENTMETRICS As Short = 41
+    Private Const SPI_GETICONTITLELOGFONT As Integer = 31
+    Private Const SPI_GETNONCLIENTMETRICS As Integer = 41
 
     Public Structure ItemWithData
         Public ItemString As String

@@ -19,7 +19,7 @@ Module modMessage
 
     Public Declare Function SendMessage Lib "user32" Alias "SendMessageW" (ByVal hwnd As IntPtr, ByVal wMsg As Integer, ByVal wParam As IntPtr, ByVal lParam As IntPtr) As IntPtr
 
-    Private Const GWL_WNDPROC As Short = (-4) 'ウインドウプロシージャ
+    Private Const GWL_WNDPROC As Integer = (-4) 'ウインドウプロシージャ
 
     Private Const WM_ACTIVATE As Integer = &H6
     Private Const WM_ACTIVATEAPP As Integer = &H1C
@@ -39,24 +39,24 @@ Module modMessage
 
     Private Const MM_MCINOTIFY As Integer = &H3B9
 
-    Private Const MCI_NOTIFY_SUCCESSFUL As Short = 1
-    Private Const MCI_NOTIFY_SUPERSEDED As Short = 2
-    Private Const MCI_NOTIFY_ABORTED As Short = 4
-    Private Const MCI_NOTIFY_FAILURE As Short = 8
+    Private Const MCI_NOTIFY_SUCCESSFUL As Integer = 1
+    Private Const MCI_NOTIFY_SUPERSEDED As Integer = 2
+    Private Const MCI_NOTIFY_ABORTED As Integer = 4
+    Private Const MCI_NOTIFY_FAILURE As Integer = 8
 
-    Private Const WA_ACTIVE As Short = 1
-    Private Const WA_CLICKACTIVE As Short = 2
-    Private Const WA_INACTIVE As Short = 0
+    Private Const WA_ACTIVE As Integer = 1
+    Private Const WA_CLICKACTIVE As Integer = 2
+    Private Const WA_INACTIVE As Integer = 0
 
-    Private Const SB_LINEUP As Short = 0
-    Private Const SB_LINEDOWN As Short = 1
-    Private Const SB_PAGEUP As Short = 2
-    Private Const SB_PAGEDOWN As Short = 3
-    Private Const SB_THUMBPOSITION As Short = 4
-    Private Const SB_THUMBTRACK As Short = 5
-    Private Const SB_TOP As Short = 6
-    Private Const SB_BOTTOM As Short = 7
-    Private Const SB_ENDSCROLL As Short = 8
+    Private Const SB_LINEUP As Integer = 0
+    Private Const SB_LINEDOWN As Integer = 1
+    Private Const SB_PAGEUP As Integer = 2
+    Private Const SB_PAGEDOWN As Integer = 3
+    Private Const SB_THUMBPOSITION As Integer = 4
+    Private Const SB_THUMBTRACK As Integer = 5
+    Private Const SB_TOP As Integer = 6
+    Private Const SB_BOTTOM As Integer = 7
+    Private Const SB_ENDSCROLL As Integer = 8
 
     'デフォルトのウインドウプロシージャ
     Public OldWindowhWnd As Integer

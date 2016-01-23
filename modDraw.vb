@@ -31,32 +31,32 @@ Module modDraw
     Public Declare Function Ellipse Lib "gdi32" (ByVal hdc As IntPtr, ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As Integer
 
     'CreatePen 関連
-    Public Const PS_SOLID As Short = 0
-    Public Const PS_DASH As Short = 1 '  -------
-    Public Const PS_DOT As Short = 2 '  .......
-    Public Const PS_DASHDOT As Short = 3 '  _._._._
-    Public Const PS_DASHDOTDOT As Short = 4 '  _.._.._
-    Public Const PS_NULL As Short = 5
-    Public Const PS_INSIDEFRAME As Short = 6
+    Public Const PS_SOLID As Integer = 0
+    Public Const PS_DASH As Integer = 1 '  -------
+    Public Const PS_DOT As Integer = 2 '  .......
+    Public Const PS_DASHDOT As Integer = 3 '  _._._._
+    Public Const PS_DASHDOTDOT As Integer = 4 '  _.._.._
+    Public Const PS_NULL As Integer = 5
+    Public Const PS_INSIDEFRAME As Integer = 6
 
     'CreateHatchBrush 関連
-    Public Const HS_BDIAGONAL As Short = 3 '  /////
-    Public Const HS_CROSS As Short = 4 '  +++++
-    Public Const HS_DIAGCROSS As Short = 5 '  xxxxx
-    Public Const HS_FDIAGONAL As Short = 2 '  \\\\\
-    Public Const HS_HORIZONTAL As Short = 0 '  -----
-    Public Const HS_VERTICAL As Short = 1 '  |||||
+    Public Const HS_BDIAGONAL As Integer = 3 '  /////
+    Public Const HS_CROSS As Integer = 4 '  +++++
+    Public Const HS_DIAGCROSS As Integer = 5 '  xxxxx
+    Public Const HS_FDIAGONAL As Integer = 2 '  \\\\\
+    Public Const HS_HORIZONTAL As Integer = 0 '  -----
+    Public Const HS_VERTICAL As Integer = 1 '  |||||
 
     'CreateBrushIndirect 関連
-    Public Const BS_SOLID As Short = 0
-    Public Const BS_NULL As Short = 1
-    Public Const BS_HOLLOW As Short = BS_NULL
-    Public Const BS_HATCHED As Short = 2
-    Public Const BS_PATTERN As Short = 3
-    Public Const BS_DIBPATTERN As Short = 5
-    Public Const BS_DIBPATTERNPT As Short = 6
-    Public Const BS_PATTERN8X8 As Short = 7
-    Public Const BS_DIBPATTERN8X8 As Short = 8
+    Public Const BS_SOLID As Integer = 0
+    Public Const BS_NULL As Integer = 1
+    Public Const BS_HOLLOW As Integer = BS_NULL
+    Public Const BS_HATCHED As Integer = 2
+    Public Const BS_PATTERN As Integer = 3
+    Public Const BS_DIBPATTERN As Integer = 5
+    Public Const BS_DIBPATTERNPT As Integer = 6
+    Public Const BS_PATTERN8X8 As Integer = 7
+    Public Const BS_DIBPATTERN8X8 As Integer = 8
 
     'SetBkMode 関連
     Public Const TRANSPARENT As Integer = 1

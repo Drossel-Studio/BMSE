@@ -24,16 +24,16 @@ Friend Class frmWindowConvert
     Private Const FO_DELETE As Integer = &H3
     Private Const FO_RENAME As Integer = &H4
 
-    Private Const FOF_MULTIDESTFILES As Integer = &H1
-    Private Const FOF_CONFIRMMOUSE As Integer = &H2
-    Private Const FOF_SILENT As Integer = &H4 '  don't create progress/report
-    Private Const FOF_RENAMEONCOLLISION As Integer = &H8
-    Private Const FOF_NOCONFIRMATION As Integer = &H10 '  Don't prompt the user.
-    Private Const FOF_WANTMAPPINGHANDLE As Integer = &H20 '  Fill in SHFILEOPSTRUCT.hNameMappings
-    Private Const FOF_ALLOWUNDO As Integer = &H40
-    Private Const FOF_FILESONLY As Integer = &H80 '  on *.*, do only files
-    Private Const FOF_SIMPLEPROGRESS As Integer = &H100 '  means don't show names of files
-    Private Const FOF_NOCONFIRMMKDIR As Integer = &H200 '  don't confirm making any needed dirs
+    Private Const FOF_MULTIDESTFILES As Short = &H1
+    Private Const FOF_CONFIRMMOUSE As Short = &H2
+    Private Const FOF_SILENT As Short = &H4 '  don't create progress/report
+    Private Const FOF_RENAMEONCOLLISION As Short = &H8
+    Private Const FOF_NOCONFIRMATION As Short = &H10 '  Don't prompt the user.
+    Private Const FOF_WANTMAPPINGHANDLE As Short = &H20 '  Fill in SHFILEOPSTRUCT.hNameMappings
+    Private Const FOF_ALLOWUNDO As Short = &H40
+    Private Const FOF_FILESONLY As Short = &H80 '  on *.*, do only files
+    Private Const FOF_SIMPLEPROGRESS As Short = &H100 '  means don't show names of files
+    Private Const FOF_NOCONFIRMMKDIR As Short = &H200 '  don't confirm making any needed dirs
 
     Public Sub DeleteUnusedFile()
         Dim i As Integer
