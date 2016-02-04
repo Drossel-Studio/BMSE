@@ -44,7 +44,7 @@ Friend Class frmMain
 
     Public stringFont As Font
 
-    Private m_intScrollDir As Short
+    Private m_intScrollDir As Integer
 
     Private m_tempObj() As g_udtObj
 
@@ -96,7 +96,7 @@ Friend Class frmMain
 
     End Function
 
-    Private Sub MoveObj(ByVal X As Single, ByVal Y As Single, ByVal Shift As Short)
+    Private Sub MoveObj(ByVal X As Single, ByVal Y As Single, ByVal Shift As Keys)
         On Error GoTo Err_Renamed
 
         Dim i As Integer
@@ -367,7 +367,7 @@ Friend Class frmMain
             Next i
 
             'Call modDraw.DrawStatusBar(g_Obj(UBound(g_Obj)).lngHeight, Shift)
-            Call modDraw.DrawStatusBar(g_Obj(g_Obj(UBound(g_Obj)).lngHeight), Shift)
+            Call modDraw.DrawStatusBar(g_Obj(g_Obj(UBound(g_Obj)).lngHeight))
 
             'Call SaveChanges
 
@@ -541,7 +541,7 @@ Err_Renamed:
 
         End If
 
-        Call mciSendString("play PREVIEW notify", vbNullString, 0, Me.Handle.ToInt32)
+        Call mciSendString("play PREVIEW notify", vbNullString, 0, Me.Handle)
 
 Err_Renamed:
     End Sub
@@ -593,7 +593,7 @@ Err_Renamed:
     Private Sub CopyToClipboard()
 
         Dim i As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim lngTemp As Integer
         Dim strArray() As String
 
@@ -681,7 +681,6 @@ Err_Renamed:
 
         Dim i As Integer
         Dim strTemp As String = Space(2)
-        Dim lngTemp As Integer
         Dim lngIndex(2) As Integer
 
         lngIndex(0) = lstWAV.SelectedIndex
@@ -702,7 +701,7 @@ Err_Renamed:
             'lngTemp = modInput.strToNum(strTemp)
 
             strTemp = modInput.strFromNum(i)
-            lngTemp = modInput.strToNum(modInput.strFromNumZZ(i))
+            modInput.strToNum(modInput.strFromNumZZ(i))
 
             modMain.SetItemString(lstWAV, i - 1, "#WAV" & strTemp & ":" & g_strWAV(i))
             modMain.SetItemString(lstBMP, i - 1, "#BMP" & strTemp & ":" & g_strBMP(i))
@@ -926,7 +925,7 @@ Err_Renamed:
     End Sub
 
     Private Sub cboVScroll_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboVScroll.SelectedIndexChanged
-        Dim NewLargeChange As Short
+        Dim NewLargeChange As Integer
 
         vsbMain.SmallChange = DirectCast(Me.cboVScroll.SelectedItem, modMain.ItemWithData).ItemData
         NewLargeChange = Me.vsbMain.SmallChange * 8
@@ -1008,13 +1007,9 @@ Err_Renamed:
 
         End With
 
-        With lstBGA
-
-            strTemp = g_strBGA(lngChangeB)
-            g_strBGA(lngChangeB) = g_strBGA(lngChangeA)
-            g_strBGA(lngChangeA) = strTemp
-
-        End With
+        strTemp = g_strBGA(lngChangeB)
+        g_strBGA(lngChangeB) = g_strBGA(lngChangeA)
+        g_strBGA(lngChangeA) = strTemp
 
         For i = 0 To UBound(g_strBGA)
 
@@ -1110,13 +1105,9 @@ Err_Renamed:
 
         End With
 
-        With lstBGA
-
-            strTemp = g_strBGA(lngChangeB)
-            g_strBGA(lngChangeB) = g_strBGA(lngChangeA)
-            g_strBGA(lngChangeA) = strTemp
-
-        End With
+        strTemp = g_strBGA(lngChangeB)
+        g_strBGA(lngChangeB) = g_strBGA(lngChangeA)
+        g_strBGA(lngChangeA) = strTemp
 
         For i = 0 To UBound(g_Obj) - 1
 
@@ -1180,7 +1171,7 @@ Err_Renamed:
     Private Sub cmdDirectInput_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdDirectInput.Click
         On Error GoTo Err_Renamed
 
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim i As Integer
 
         With cboDirectInput
@@ -1256,7 +1247,7 @@ Err_Renamed:
     Private Sub cmdMeasureSelectAll_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdMeasureSelectAll.Click
 
         Dim i As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
 
         With lstMeasureLen
 
@@ -1634,7 +1625,7 @@ Err_Renamed:
     Private Sub cmdSoundExcDown_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSoundExcDown.Click
         Dim i As Integer
         Dim lngTemp As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim strTemp As String
 
         With lstWAV
@@ -1699,7 +1690,7 @@ Err_Renamed:
     Private Sub cmdSoundExcUp_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSoundExcUp.Click
         Dim i As Integer
         Dim lngTemp As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim strTemp As String
 
         With lstWAV
@@ -1790,9 +1781,6 @@ Err_Renamed:
     End Sub
 
     Private Sub frmMain_KeyDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
-        Dim KeyCode As Short = eventArgs.KeyCode
-        Dim Shift As Short = eventArgs.KeyData \ &H10000
-
         Dim i As Integer
         Dim j As Integer
 
@@ -1809,11 +1797,11 @@ Err_Renamed:
         End If
 
         'Shift が押されていたら3回繰り返すよ
-        If Shift And Keys.Shift Then j = 2
+        If eventArgs.Modifiers And Keys.Shift Then j = 2
 
         For i = 0 To j
 
-            Select Case KeyCode
+            Select Case eventArgs.KeyCode
 
                 Case System.Windows.Forms.Keys.Add '+
 
@@ -1821,7 +1809,7 @@ Err_Renamed:
 
                         If lstWAV.SelectedIndex <> lstWAV.Items.Count - 1 Then
 
-                            If Shift And Keys.Control Then
+                            If eventArgs.Modifiers And Keys.Control Then
 
                                 Call cmdSoundExcDown_Click(cmdSoundExcDown, New System.EventArgs())
 
@@ -1837,7 +1825,7 @@ Err_Renamed:
 
                         If lstBMP.SelectedIndex <> lstBMP.Items.Count - 1 Then
 
-                            If Shift And Keys.Control Then
+                            If eventArgs.Modifiers And Keys.Control Then
 
                                 Call cmdBMPExcDown_Click(cmdBMPExcDown, New System.EventArgs())
 
@@ -1852,7 +1840,7 @@ Err_Renamed:
 
                     End If
 
-                    Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, Shift)
+                    Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, eventArgs.Modifiers)
                     picMain.Refresh()
 
                 Case System.Windows.Forms.Keys.Subtract '-
@@ -1861,7 +1849,7 @@ Err_Renamed:
 
                         If lstWAV.SelectedIndex <> 0 Then
 
-                            If Shift And Keys.Control Then
+                            If eventArgs.Modifiers And Keys.Control Then
 
                                 Call cmdSoundExcUp_Click(cmdSoundExcUp, New System.EventArgs())
 
@@ -1877,7 +1865,7 @@ Err_Renamed:
 
                         If lstBMP.SelectedIndex <> 0 Then
 
-                            If Shift And Keys.Control Then
+                            If eventArgs.Modifiers And Keys.Control Then
 
                                 Call cmdBMPExcUp_Click(cmdBMPExcUp, New System.EventArgs())
 
@@ -1892,14 +1880,14 @@ Err_Renamed:
 
                     End If
 
-                    Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, Shift)
+                    Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, eventArgs.Modifiers)
                     picMain.Refresh()
 
             End Select
 
         Next i
 
-        Select Case KeyCode
+        Select Case eventArgs.KeyCode
 
             Case System.Windows.Forms.Keys.F5 'F5 リスト変更
 
@@ -1951,7 +1939,7 @@ Err_Renamed:
 
         End Select
 
-        Call modEasterEgg.KeyCheck(KeyCode, Shift)
+        Call modEasterEgg.KeyCheck(eventArgs.KeyCode)
 
     End Sub
 
@@ -2067,9 +2055,7 @@ Err_Renamed:
         _linDirectInput_1.pt2.Y = 457 + MainMenu1.Height
         _linDirectInput_1.Visible = True
 
-        stringFont = New Font(Font.FontFamily, Font.Size, Font.Style, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
-
-        Dim NewLargeChange As Short
+        Dim NewLargeChange As Integer
 
         Dim i As Integer
         Dim wp As WINDOWPLACEMENT
@@ -2222,9 +2208,9 @@ Err_Renamed:
         End If
 
         wp.Length = 44
-        Call GetWindowPlacement(Me.Handle.ToInt32, wp)
+        Call GetWindowPlacement(Me.Handle, wp)
         wp.showCmd = strGet_ini("Main", "State", SW_SHOW, "bmse.ini")
-        Call SetWindowPlacement(Me.Handle.ToInt32, wp)
+        Call SetWindowPlacement(Me.Handle, wp)
 
         Call GetCmdLine()
 
@@ -2246,7 +2232,6 @@ Err_Renamed:
 
     Private Sub frmMain_FormClosing(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
         Dim Cancel As Boolean = eventArgs.Cancel
-        Dim UnloadMode As System.Windows.Forms.CloseReason = eventArgs.CloseReason
 
         If modMain.intSaveCheck() Then
 
@@ -2265,7 +2250,6 @@ Err_Renamed:
     Public Sub frmMain_Resize(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
         On Error Resume Next
 
-        Dim i As Integer
         Dim lngTemp As Integer
 
         Dim lngLineWidth As Integer
@@ -2274,13 +2258,13 @@ Err_Renamed:
         Dim lngDirectInputHeight As Integer
         Dim lngStatusBarHeight As Integer
 
-        Const PADDING_Renamed As Short = 4 '各パディングの大きさ
-        Const SCROLLBAR_SIZE As Short = 17 'スクロールバーの大きさ
-        Const COLUMN_HEIGHT As Short = 21 '各カラムの高さ
-        Const FRAME_WIDTH As Short = 217 'フレームの幅
-        Const FRAME_TOP_HEIGHT As Short = 146 'ヘッダフレームの高さ
-        Const FRAME_BOTTOM_TOP As Short = 42 'ボトムフレームのY位置。タブボタンの大きさ
-        Const FRAME_BOTTOM_BUTTONS_HEIGHT As Short = COLUMN_HEIGHT '消去とか入力とかのボタン
+        Const PADDING_Renamed As Integer = 4 '各パディングの大きさ
+        Const SCROLLBAR_SIZE As Integer = 17 'スクロールバーの大きさ
+        Const COLUMN_HEIGHT As Integer = 21 '各カラムの高さ
+        Const FRAME_WIDTH As Integer = 217 'フレームの幅
+        Const FRAME_TOP_HEIGHT As Integer = 146 'ヘッダフレームの高さ
+        Const FRAME_BOTTOM_TOP As Integer = 42 'ボトムフレームのY位置。タブボタンの大きさ
+        Const FRAME_BOTTOM_BUTTONS_HEIGHT As Integer = COLUMN_HEIGHT '消去とか入力とかのボタン
 
         With Me
 
@@ -2408,15 +2392,11 @@ Err_Renamed:
 
         End With
 
-        With fraHeader
+        Call fraHeader.SetBounds(Me.ClientRectangle.Width - FRAME_WIDTH, lngToolBarHeight + PADDING_Renamed, FRAME_WIDTH, FRAME_TOP_HEIGHT)
 
-            Call fraHeader.SetBounds(Me.ClientRectangle.Width - FRAME_WIDTH, lngToolBarHeight + PADDING_Renamed, FRAME_WIDTH, FRAME_TOP_HEIGHT)
-
-            _fraTop_0.Top = COLUMN_HEIGHT
-            _fraTop_1.Top = COLUMN_HEIGHT
-            _fraTop_2.Top = COLUMN_HEIGHT
-
-        End With
+        _fraTop_0.Top = COLUMN_HEIGHT
+        _fraTop_1.Top = COLUMN_HEIGHT
+        _fraTop_2.Top = COLUMN_HEIGHT
 
         With fraMaterial
 
@@ -2785,7 +2765,7 @@ Err_Renamed:
 
     Public Sub mnuContextDeleteMeasure_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextDeleteMeasure.Click
         Dim i As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim strArray() As String
 
         For i = 0 To 999
@@ -2878,7 +2858,7 @@ Err_Renamed:
 
     Public Sub mnuContextInsertMeasure_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextInsertMeasure.Click
         Dim i As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim strArray() As String
 
         lstMeasureLen.Visible = False
@@ -3074,7 +3054,7 @@ Err_Renamed:
 
     Public Sub mnuContextPlay_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuContextPlay.Click
 
-        Dim lngTemp As Short
+        Dim lngTemp As Integer
 
         lngTemp = g_disp.intStartMeasure
         g_disp.intStartMeasure = g_Mouse.measure
@@ -3111,7 +3091,7 @@ Err_Renamed:
     Public Sub mnuEditRedo_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditRedo.Click
         Dim i As Integer
         Dim j As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim lngTemp As Integer
         Dim strTemp As String
         Dim strArray() As String
@@ -3127,7 +3107,7 @@ Err_Renamed:
         'そっちに Redo のメッセージを送信して脱出する
         If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
 
-            Call SendMessage(ActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
+            Call SendMessage(ActiveControl().Handle, WM_UNDO, 0, 0)
 
             Exit Sub
 
@@ -3135,7 +3115,7 @@ Err_Renamed:
 
             If DirectCast(ActiveControl(), System.Windows.Forms.ComboBox).DropDownStyle = 0 Then
 
-                Call SendMessage(ActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
+                Call SendMessage(ActiveControl().Handle, WM_UNDO, 0, 0)
 
                 Exit Sub
 
@@ -3484,7 +3464,7 @@ Err_Renamed:
     Public Sub mnuEditUndo_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditUndo.Click
         Dim i As Integer
         Dim j As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim lngTemp As Integer
         Dim strTemp As String
         Dim strArray() As String
@@ -3500,7 +3480,7 @@ Err_Renamed:
         'そっちに Undo のメッセージを送信して脱出する
         If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
 
-            Call SendMessage(ActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
+            Call SendMessage(ActiveControl().Handle, WM_UNDO, 0, 0)
 
             Exit Sub
 
@@ -3508,7 +3488,7 @@ Err_Renamed:
 
             If DirectCast(ActiveControl(), ComboBox).DropDownStyle = 0 Then
 
-                Call SendMessage(ActiveControl().Handle.ToInt32, WM_UNDO, 0, 0)
+                Call SendMessage(ActiveControl().Handle, WM_UNDO, 0, 0)
 
                 Exit Sub
 
@@ -3879,11 +3859,11 @@ Err_Renamed:
             'UPGRADE_WARNING: Dir に新しい動作が指定されています。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"' をクリックしてください。
             If Len(g_strFiler) <> 0 And Dir(g_strFiler) <> vbNullString Then '指定したファイラを使用
 
-                Call ShellExecute(Me.Handle.ToInt32, "open", Chr(34) & g_strFiler & Chr(34), Chr(34) & g_BMS.strDir & Chr(34), "", SW_SHOWNORMAL)
+                Call ShellExecute(Me.Handle, "open", Chr(34) & g_strFiler & Chr(34), Chr(34) & g_BMS.strDir & Chr(34), "", SW_SHOWNORMAL)
 
             Else 'Explorer で開く
 
-                Call ShellExecute(Me.Handle.ToInt32, "Explore", Chr(34) & g_BMS.strDir & Chr(34), "", "", SW_SHOWNORMAL)
+                Call ShellExecute(Me.Handle, "Explore", Chr(34) & g_BMS.strDir & Chr(34), "", "", SW_SHOWNORMAL)
 
             End If
 
@@ -4026,7 +4006,7 @@ Err_Renamed:
         On Error GoTo Err_Renamed
 
         Dim i As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
 
         If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
 
@@ -4082,7 +4062,7 @@ Err_Renamed:
         On Error GoTo Err_Renamed
 
         Dim i As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
 
         If TypeOf ActiveControl() Is System.Windows.Forms.TextBox Then
 
@@ -4838,7 +4818,7 @@ Err_Renamed:
     Private Sub picMain_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles picMain.KeyDown
 
         Dim lngTemp As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim blnTemp As Boolean
 
         blnTemp = True
@@ -6268,10 +6248,8 @@ Err_Renamed:
     End Sub
 
     Private Sub txtTotal_KeyDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.KeyEventArgs) Handles txtTotal.KeyDown
-        Dim KeyCode As Short = eventArgs.KeyCode
-        Dim Shift As Short = eventArgs.KeyData \ &H10000
 
-        If KeyCode = System.Windows.Forms.Keys.Return Then
+        If eventArgs.KeyCode = System.Windows.Forms.Keys.Return Then
 
             If txtTotal.Text = "10572" Then Call lngSet_ini("EasterEgg", "Tips", 1)
 

@@ -5,14 +5,14 @@ Imports System.Runtime.InteropServices
 
 Friend Class frmWindowTips
 	Inherits System.Windows.Forms.Form
-    Private Declare Function DrawText Lib "user32" Alias "DrawTextW" (ByVal hdc As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpStr As String, ByVal nCount As Integer, <[In]()> ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
+    Private Declare Function DrawText Lib "user32" Alias "DrawTextW" (ByVal hdc As IntPtr, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpStr As String, ByVal nCount As Integer, <[In]()> ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
 
     Private Const DT_WORDBREAK As Integer = &H10
 
     Public stringFont As Font
     Dim m_strTips() As String
-    Dim m_intTipsPos As Short
-	Dim m_lngTipsNum As Integer
+    Dim m_intTipsPos As Integer
+    Dim m_lngTipsNum As Integer
 
     'UPGRADE_WARNING: イベント chkNextDisp.CheckStateChanged は、フォームが初期化されたときに発生します。 詳細については、'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"' をクリックしてください。
     Private Sub chkNextDisp_CheckStateChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles chkNextDisp.CheckStateChanged
@@ -351,7 +351,4 @@ Friend Class frmWindowTips
         e.Graphics.ReleaseHdc()
     End Sub
 
-    Private Sub frmWindowTips_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        stringFont = New Font(Font.FontFamily, Font.Size, Font.Style, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
-    End Sub
 End Class

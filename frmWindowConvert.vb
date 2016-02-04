@@ -9,7 +9,7 @@ Friend Class frmWindowConvert
     Private Declare Function SHFileOperation Lib "shell32.dll" Alias "SHFileOperationW" (<[In](), Out()> ByRef lpFileOp As SHFILEOPSTRUCT) As Integer
 
     <StructLayout(LayoutKind.Sequential, CharSet:=CharSet.Auto)> Private Structure SHFILEOPSTRUCT
-        Dim hwnd As Integer
+        Dim hwnd As IntPtr
         Dim wFunc As Integer
         <MarshalAs(UnmanagedType.LPTStr)> Dim pFrom As String
         <MarshalAs(UnmanagedType.LPTStr)> Dim pTo As String
@@ -24,16 +24,16 @@ Friend Class frmWindowConvert
     Private Const FO_DELETE As Integer = &H3
     Private Const FO_RENAME As Integer = &H4
 
-    Private Const FOF_MULTIDESTFILES As Integer = &H1
-    Private Const FOF_CONFIRMMOUSE As Integer = &H2
-    Private Const FOF_SILENT As Integer = &H4 '  don't create progress/report
-    Private Const FOF_RENAMEONCOLLISION As Integer = &H8
-    Private Const FOF_NOCONFIRMATION As Integer = &H10 '  Don't prompt the user.
-    Private Const FOF_WANTMAPPINGHANDLE As Integer = &H20 '  Fill in SHFILEOPSTRUCT.hNameMappings
-    Private Const FOF_ALLOWUNDO As Integer = &H40
-    Private Const FOF_FILESONLY As Integer = &H80 '  on *.*, do only files
-    Private Const FOF_SIMPLEPROGRESS As Integer = &H100 '  means don't show names of files
-    Private Const FOF_NOCONFIRMMKDIR As Integer = &H200 '  don't confirm making any needed dirs
+    Private Const FOF_MULTIDESTFILES As Short = &H1
+    Private Const FOF_CONFIRMMOUSE As Short = &H2
+    Private Const FOF_SILENT As Short = &H4 '  don't create progress/report
+    Private Const FOF_RENAMEONCOLLISION As Short = &H8
+    Private Const FOF_NOCONFIRMATION As Short = &H10 '  Don't prompt the user.
+    Private Const FOF_WANTMAPPINGHANDLE As Short = &H20 '  Fill in SHFILEOPSTRUCT.hNameMappings
+    Private Const FOF_ALLOWUNDO As Short = &H40
+    Private Const FOF_FILESONLY As Short = &H80 '  on *.*, do only files
+    Private Const FOF_SIMPLEPROGRESS As Short = &H100 '  means don't show names of files
+    Private Const FOF_NOCONFIRMMKDIR As Short = &H200 '  don't confirm making any needed dirs
 
     Public Sub DeleteUnusedFile()
         Dim i As Integer
@@ -255,7 +255,7 @@ Friend Class frmWindowConvert
 
                 With sh
 
-                    .hwnd = Me.Handle.ToInt32
+                    .hwnd = Me.Handle
                     .wFunc = FO_DELETE
                     .pFrom = Join(strDeleteList, Chr(0))
                     .pTo = vbNullString
@@ -276,7 +276,7 @@ Friend Class frmWindowConvert
     Public Sub ListAlign()
         Dim i As Integer
         'Dim blnUseOldFormat     As Boolean
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim lngTemp As Integer
         Dim lngWAV As Integer
         Dim lngBMP As Integer
@@ -727,7 +727,7 @@ Friend Class frmWindowConvert
         Dim j As Integer
         Dim strArray() As String
         Dim strTemp As String
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim blnTemp As Boolean
         Dim blnWAV(1295) As Boolean
         Dim blnBMP(1295) As Boolean
@@ -899,7 +899,7 @@ Friend Class frmWindowConvert
 
             With sh
 
-                .hwnd = Me.Handle.ToInt32
+                .hwnd = Me.Handle
                 .wFunc = FO_MOVE
                 .pFrom = Join(strNameFrom, Chr(0))
                 .pTo = Join(strNameTo, Chr(0))

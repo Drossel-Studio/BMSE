@@ -56,23 +56,23 @@ Module modInput
 		RANK_MIN = PLAY_RANK.RANK_VERYHARD
 		RANK_MAX = PLAY_RANK.RANK_EASY
 	End Enum
-	
-	Public Const MATERIAL_MAX As Short = 1295
-	Public Const MEASURE_MAX As Short = 999
-	Public Const MEASURE_LENGTH As Short = 192
-	
-	Public Const BPM_LANE As Short = 32
-	
-	Private Const DEFAULT_BPM As Short = 130
-	Private Const DEFAULT_VOLUME As Short = 1
-	
-	Private m_blnUnreadFlag As Boolean
+
+    Public Const MATERIAL_MAX As Integer = 1295
+    Public Const MEASURE_MAX As Integer = 999
+    Public Const MEASURE_LENGTH As Integer = 192
+
+    Public Const BPM_LANE As Integer = 32
+
+    Private Const DEFAULT_BPM As Integer = 130
+    Private Const DEFAULT_VOLUME As Integer = 1
+
+    Private m_blnUnreadFlag As Boolean
 	Private m_strEXInfo As String
 	
 	Private m_blnBGM() As Boolean
 
     Public Structure m_udtMeasure
-        Dim intLen As Short
+        Dim intLen As Integer
         Dim lngY As Integer
     End Structure
 
@@ -343,63 +343,59 @@ Err_Renamed:
 		Dim strParam As String
 		
 		strArray = Split(Replace(strLineData, " ", ":", 1, 1), ":")
-		
-		With frmMain
-			
-			If UBound(strArray) > 0 Then
-				
-				strFunc = UCase(strArray(0))
-				strParam = Mid(strLineData, Len(strFunc) + 2)
-				
-				Select Case strFunc
-					
-					Case "#IF", "#RANDOM", "#RONDAM", "#ENDIF"
-						
-						If blnDirectInput = False Then
-							
-							m_blnUnreadFlag = True
-							
-							m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
-							
-						End If
-						
-					Case "#ENDIF"
-						
-						m_blnUnreadFlag = False
-						
-						m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
-						
-					Case Else
-						
-						If m_blnUnreadFlag = False Then
-							
-							If LoadBMSHeader(strFunc, strParam, blnDirectInput) = False Then
-								
-								If LoadBMSObject(strFunc, strParam) = False Then
-									
-									m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
-									
-								End If
-								
-							End If
-							
-						Else
-							
-							m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
-							
-						End If
-						
-				End Select
-				
-			Else
-				
-				m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
-				
-			End If
-			
-		End With
-		
-		Exit Sub
+
+        If UBound(strArray) > 0 Then
+
+            strFunc = UCase(strArray(0))
+            strParam = Mid(strLineData, Len(strFunc) + 2)
+
+            Select Case strFunc
+
+                Case "#IF", "#RANDOM", "#RONDAM", "#ENDIF"
+
+                    If blnDirectInput = False Then
+
+                        m_blnUnreadFlag = True
+
+                        m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
+
+                    End If
+
+                Case "#ENDIF"
+
+                    m_blnUnreadFlag = False
+
+                    m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
+
+                Case Else
+
+                    If m_blnUnreadFlag = False Then
+
+                        If LoadBMSHeader(strFunc, strParam, blnDirectInput) = False Then
+
+                            If LoadBMSObject(strFunc, strParam) = False Then
+
+                                m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
+
+                            End If
+
+                        End If
+
+                    Else
+
+                        m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
+
+                    End If
+
+            End Select
+
+        Else
+
+            m_strEXInfo = m_strEXInfo & strLineData & vbCrLf
+
+        End If
+
+        Exit Sub
 		
 Err_Renamed:
         Call modMain.CleanUp(Err.Number, Err.Description, "LoadBMSLine")
@@ -567,10 +563,10 @@ Err_Renamed:
 
         Dim i As Integer
 		Dim j As Integer
-		Dim intTemp As Short
-		Dim intMeasure As Short
-		Dim intCh As Short
-		Dim lngSepaNum As Integer
+        Dim intTemp As Integer
+        Dim intMeasure As Integer
+        Dim intCh As Integer
+        Dim lngSepaNum As Integer
         Dim Value As String = Space(2)
 
         intMeasure = Val(Mid(strFunc, 2, 3))
@@ -937,20 +933,20 @@ Err_Renamed:
 		End Select
 		
 	End Function
-	
-	Public Function intGCD(ByVal m As Short, ByVal n As Short) As Short
-		
-		If m <= 0 Or n <= 0 Then Exit Function
-		
-		If m Mod n = 0 Then
-			
-			intGCD = n
-			
-		Else
-			
-			intGCD = intGCD(n, m Mod n)
-			
-		End If
-		
-	End Function
+
+    Public Function intGCD(ByVal m As Integer, ByVal n As Integer) As Integer
+
+        If m <= 0 Or n <= 0 Then Exit Function
+
+        If m Mod n = 0 Then
+
+            intGCD = n
+
+        Else
+
+            intGCD = intGCD(n, m Mod n)
+
+        End If
+
+    End Function
 End Module

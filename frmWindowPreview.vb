@@ -3,11 +3,11 @@ Option Explicit On
 Imports VB = Microsoft.VisualBasic
 Friend Class frmWindowPreview
 	Inherits System.Windows.Forms.Form
-	
-	Private Const GWL_STYLE As Short = (-16)
-	Private Const GWL_EXSTYLE As Short = -20
-	
-	Public Sub SetWindowSize()
+
+    Private Const GWL_STYLE As Integer = (-16)
+    Private Const GWL_EXSTYLE As Integer = -20
+
+    Public Sub SetWindowSize()
 		
 		Dim rectTemp As RECT
 		
@@ -24,7 +24,11 @@ Friend Class frmWindowPreview
 		
 		With Me
 
-            Call AdjustWindowRectEx(rectTemp, GetWindowLong(.Handle.ToInt32, GWL_STYLE), False, GetWindowLong(.Handle.ToInt32, GWL_EXSTYLE))
+            If IntPtr.Size = 4 Then
+                Call AdjustWindowRectEx(rectTemp, GetWindowLong(.Handle, GWL_STYLE), False, GetWindowLong(.Handle, GWL_EXSTYLE))
+            Else
+                Call AdjustWindowRectEx(rectTemp, GetWindowLongPtr(.Handle, GWL_STYLE), False, GetWindowLongPtr(.Handle, GWL_EXSTYLE))
+            End If
 
             Call .SetBounds(.Left, .Top, rectTemp.right_Renamed - rectTemp.left_Renamed, rectTemp.Bottom - rectTemp.Top)
 

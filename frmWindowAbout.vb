@@ -9,9 +9,9 @@ Friend Class frmWindowAbout
 
     Private Sub PrintText(ByVal hDC As IntPtr, ByRef Text_Renamed As String, ByVal X As Integer, ByVal Y As Integer)
 
-        Dim intTemp As Short
+        Dim intTemp As Integer
 
-        intTemp = LenB(Text_Renamed)
+        intTemp = Text_Renamed.Length
 
         With Me
             Call SetTextColor(hDC, 0)
@@ -61,10 +61,8 @@ Friend Class frmWindowAbout
 	End Sub
 
     Private Sub frmWindowAbout_KeyDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
-        Dim KeyCode As Short = eventArgs.KeyCode
-        Dim Shift As Short = eventArgs.KeyData \ &H10000
 
-        Select Case KeyCode
+        Select Case eventArgs.KeyCode
 
             Case System.Windows.Forms.Keys.M
 
@@ -75,8 +73,6 @@ Friend Class frmWindowAbout
     End Sub
 
     Private Sub frmWindowAbout_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-
-        stringFont = New Font(Font.FontFamily, Font.Size, Font.Style, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
 
         With Me
 
@@ -100,7 +96,11 @@ Friend Class frmWindowAbout
 
         With Me
 
-            Call AdjustWindowRectEx(rectTemp, GetWindowLong(.Handle.ToInt32, GWL_STYLE), False, GetWindowLong(.Handle.ToInt32, GWL_EXSTYLE))
+            If IntPtr.Size = 4 Then
+                Call AdjustWindowRectEx(rectTemp, GetWindowLong(.Handle, GWL_STYLE), False, GetWindowLong(.Handle, GWL_EXSTYLE))
+            Else
+                Call AdjustWindowRectEx(rectTemp, GetWindowLongPtr(.Handle, GWL_STYLE), False, GetWindowLongPtr(.Handle, GWL_EXSTYLE))
+            End If
 
             Call .SetBounds(.Left, .Top, rectTemp.right_Renamed - rectTemp.left_Renamed, rectTemp.Bottom - rectTemp.Top)
 

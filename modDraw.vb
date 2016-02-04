@@ -6,57 +6,57 @@ Module modDraw
 
     Private Declare Function timeGetTime Lib "winmm.dll" () As Integer
 
-    Public Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal nWidth As Integer, ByVal nHeight As Integer, ByVal hSrcDC As Integer, ByVal xSrc As Integer, ByVal ySrc As Integer, ByVal dwRop As Integer) As Integer
+    Public Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As IntPtr, ByVal X As Integer, ByVal Y As Integer, ByVal nWidth As Integer, ByVal nHeight As Integer, ByVal hSrcDC As IntPtr, ByVal xSrc As Integer, ByVal ySrc As Integer, ByVal dwRop As Integer) As Integer
 
-    Public Declare Function GetTextExtentPoint32 Lib "gdi32" Alias "GetTextExtentPoint32W" (ByVal hdc As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpsz As String, ByVal cbString As Integer, <[In]()> ByRef lpSize As Size) As Integer
+    Public Declare Function GetTextExtentPoint32 Lib "gdi32" Alias "GetTextExtentPoint32W" (ByVal hdc As IntPtr, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpsz As String, ByVal cbString As Integer, <[In]()> ByRef lpSize As Size) As Integer
 
-    Public Declare Function CreatePen Lib "gdi32" (ByVal nPenStyle As Integer, ByVal nWidth As Integer, ByVal crColor As Integer) As Integer
-    Public Declare Function CreateBrushIndirect Lib "gdi32" (<[In]()> ByRef lpLogBrush As LOGBRUSH) As Integer
-    Public Declare Function CreateSolidBrush Lib "gdi32" (ByVal crColor As Integer) As Integer
+    Public Declare Function CreatePen Lib "gdi32" (ByVal nPenStyle As Integer, ByVal nWidth As Integer, ByVal crColor As Integer) As IntPtr
+    Public Declare Function CreateBrushIndirect Lib "gdi32" (<[In]()> ByRef lpLogBrush As LOGBRUSH) As IntPtr
+    Public Declare Function CreateSolidBrush Lib "gdi32" (ByVal crColor As Integer) As IntPtr
 
-    Public Declare Function SelectObject Lib "gdi32" (ByVal hdc As Integer, ByVal hObject As Integer) As Integer
-    Public Declare Function DeleteObject Lib "gdi32" (ByVal hObject As Integer) As Integer
+    Public Declare Function SelectObject Lib "gdi32" (ByVal hdc As IntPtr, ByVal hObject As IntPtr) As IntPtr
+    Public Declare Function DeleteObject Lib "gdi32" (ByVal hObject As IntPtr) As Integer
 
     Public Declare Function CreateCompatibleDC Lib "gdi32" (ByVal hDC As IntPtr) As IntPtr
     Public Declare Function DeleteDC Lib "gdi32" (ByVal hDC As IntPtr) As Integer
 
-    Public Declare Function TextOut Lib "gdi32" Alias "TextOutW" (ByVal hdc As Integer, ByVal X As Integer, ByVal Y As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpString As String, ByVal nCount As Integer) As Integer
-    Public Declare Function SetTextColor Lib "gdi32" (ByVal hdc As Integer, ByVal crColor As Integer) As Integer
-    Public Declare Function SetBkMode Lib "gdi32" (ByVal hdc As Integer, ByVal iBkMode As Integer) As Integer
+    Public Declare Function TextOut Lib "gdi32" Alias "TextOutW" (ByVal hdc As IntPtr, ByVal X As Integer, ByVal Y As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpString As String, ByVal nCount As Integer) As Integer
+    Public Declare Function SetTextColor Lib "gdi32" (ByVal hdc As IntPtr, ByVal crColor As Integer) As Integer
+    Public Declare Function SetBkMode Lib "gdi32" (ByVal hdc As IntPtr, ByVal iBkMode As Integer) As Integer
 
-    Public Declare Function Rectangle Lib "gdi32" (ByVal hdc As Integer, ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As Integer
-    Public Declare Function LineTo Lib "gdi32" (ByVal hdc As Integer, ByVal X As Integer, ByVal Y As Integer) As Integer
-    Public Declare Function MoveToEx Lib "gdi32" (ByVal hdc As Integer, ByVal X As Integer, ByVal Y As Integer, ByRef lpPoint As Integer) As Integer
+    Public Declare Function Rectangle Lib "gdi32" (ByVal hdc As IntPtr, ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As Integer
+    Public Declare Function LineTo Lib "gdi32" (ByVal hdc As IntPtr, ByVal X As Integer, ByVal Y As Integer) As Integer
+    Public Declare Function MoveToEx Lib "gdi32" (ByVal hdc As IntPtr, ByVal X As Integer, ByVal Y As Integer, ByRef lpPoint As Integer) As Integer
 
-    Public Declare Function Ellipse Lib "gdi32" (ByVal hdc As Integer, ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As Integer
+    Public Declare Function Ellipse Lib "gdi32" (ByVal hdc As IntPtr, ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer) As Integer
 
     'CreatePen 関連
-    Public Const PS_SOLID As Short = 0
-    Public Const PS_DASH As Short = 1 '  -------
-    Public Const PS_DOT As Short = 2 '  .......
-    Public Const PS_DASHDOT As Short = 3 '  _._._._
-    Public Const PS_DASHDOTDOT As Short = 4 '  _.._.._
-    Public Const PS_NULL As Short = 5
-    Public Const PS_INSIDEFRAME As Short = 6
+    Public Const PS_SOLID As Integer = 0
+    Public Const PS_DASH As Integer = 1 '  -------
+    Public Const PS_DOT As Integer = 2 '  .......
+    Public Const PS_DASHDOT As Integer = 3 '  _._._._
+    Public Const PS_DASHDOTDOT As Integer = 4 '  _.._.._
+    Public Const PS_NULL As Integer = 5
+    Public Const PS_INSIDEFRAME As Integer = 6
 
     'CreateHatchBrush 関連
-    Public Const HS_BDIAGONAL As Short = 3 '  /////
-    Public Const HS_CROSS As Short = 4 '  +++++
-    Public Const HS_DIAGCROSS As Short = 5 '  xxxxx
-    Public Const HS_FDIAGONAL As Short = 2 '  \\\\\
-    Public Const HS_HORIZONTAL As Short = 0 '  -----
-    Public Const HS_VERTICAL As Short = 1 '  |||||
+    Public Const HS_BDIAGONAL As Integer = 3 '  /////
+    Public Const HS_CROSS As Integer = 4 '  +++++
+    Public Const HS_DIAGCROSS As Integer = 5 '  xxxxx
+    Public Const HS_FDIAGONAL As Integer = 2 '  \\\\\
+    Public Const HS_HORIZONTAL As Integer = 0 '  -----
+    Public Const HS_VERTICAL As Integer = 1 '  |||||
 
     'CreateBrushIndirect 関連
-    Public Const BS_SOLID As Short = 0
-    Public Const BS_NULL As Short = 1
-    Public Const BS_HOLLOW As Short = BS_NULL
-    Public Const BS_HATCHED As Short = 2
-    Public Const BS_PATTERN As Short = 3
-    Public Const BS_DIBPATTERN As Short = 5
-    Public Const BS_DIBPATTERNPT As Short = 6
-    Public Const BS_PATTERN8X8 As Short = 7
-    Public Const BS_DIBPATTERN8X8 As Short = 8
+    Public Const BS_SOLID As Integer = 0
+    Public Const BS_NULL As Integer = 1
+    Public Const BS_HOLLOW As Integer = BS_NULL
+    Public Const BS_HATCHED As Integer = 2
+    Public Const BS_PATTERN As Integer = 3
+    Public Const BS_DIBPATTERN As Integer = 5
+    Public Const BS_DIBPATTERNPT As Integer = 6
+    Public Const BS_PATTERN8X8 As Integer = 7
+    Public Const BS_DIBPATTERN8X8 As Integer = 8
 
     'SetBkMode 関連
     Public Const TRANSPARENT As Integer = 1
@@ -81,7 +81,7 @@ Module modDraw
         Dim Height As Integer
     End Structure
 
-    Public Const OBJ_DIFF As Short = -1 'オブジェのずれ
+    Public Const OBJ_DIFF As Integer = -1 'オブジェのずれ
 
     '# Ch早見表 #
     ' 1 BGM
@@ -115,8 +115,8 @@ Module modDraw
     Public g_lngBrushColor(36) As Integer
     Public g_lngSystemColor(6) As Integer
 
-    Private m_hPen(75) As Integer
-    Private m_hBrush(37) As Integer
+    Private m_hPen(75) As IntPtr
+    Private m_hBrush(37) As IntPtr
 
     Private m_tempObj() As g_udtObj
 
@@ -287,14 +287,14 @@ Module modDraw
         NUM_BGM
     End Enum
 
-    Public Const OBJ_WIDTH As Short = 28
-    Public Const OBJ_HEIGHT As Short = 9
+    Public Const OBJ_WIDTH As Integer = 28
+    Public Const OBJ_HEIGHT As Integer = 9
 
-    Public Const GRID_WIDTH As Short = OBJ_WIDTH
-    Public Const GRID_HALF_WIDTH As Short = GRID_WIDTH \ 2
-    Public Const GRID_HALF_EDGE_WIDTH As Short = (GRID_WIDTH * 3) \ 4
-    Public Const SPACE_WIDTH As Short = 4
-    Public Const FRAME_WIDTH As Short = GRID_WIDTH \ 2
+    Public Const GRID_WIDTH As Integer = OBJ_WIDTH
+    Public Const GRID_HALF_WIDTH As Integer = GRID_WIDTH \ 2
+    Public Const GRID_HALF_EDGE_WIDTH As Integer = (GRID_WIDTH * 3) \ 4
+    Public Const SPACE_WIDTH As Integer = 4
+    Public Const FRAME_WIDTH As Integer = GRID_WIDTH \ 2
     Public Const LEFT_SPACE As Integer = FRAME_WIDTH + SPACE_WIDTH
     Public Const RIGHT_SPACE As Integer = FRAME_WIDTH + SPACE_WIDTH * 2
 
@@ -520,9 +520,6 @@ Err_Renamed:
 
         Dim i As Integer
         Dim lngTemp As Integer
-        Dim lngTimer As Integer
-
-        lngTimer = timeGetTime()
 
         'If frmMain.Visible = False Or frmMain.Enabled = False Then Exit Sub
         If frmMain.Visible = False Then Exit Sub
@@ -548,7 +545,6 @@ Err_Renamed:
             '.Width = frmMain.hsbDispWidth.Value / 100
             '.Height = frmMain.hsbDispHeight.Value / 100
             .Width = DirectCast(frmMain.cboDispWidth.SelectedItem, modMain.ItemWithData).ItemData / 100
-            Dim inasdka As Integer = frmMain.cboDispHeight.SelectedIndex
             .Height = DirectCast(frmMain.cboDispHeight.SelectedItem, modMain.ItemWithData).ItemData / 100
             .intStartMeasure = 999
             .intEndMeasure = 999
@@ -810,10 +806,10 @@ Err_Renamed:
     Private Sub DrawGridBG(ByVal hDC As IntPtr)
 
         Dim i As Integer
-        Dim hPenNew As Integer
-        Dim hPenOld As Integer
-        Dim hBrushNew As Integer
-        Dim hBrushOld As Integer
+        Dim hPenNew As IntPtr
+        Dim hPenOld As IntPtr
+        Dim hBrushNew As IntPtr
+        Dim hBrushOld As IntPtr
 
         If frmMain._mnuOptionsItem_3.Checked Then
 
@@ -893,8 +889,8 @@ Err_Renamed:
         Dim i As Integer
         Dim Y As Integer
         Dim H As Integer
-        Dim hNew As Integer
-        Dim hOld As Integer
+        Dim hNew As IntPtr
+        Dim hOld As IntPtr
 
         hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.VERTICAL_SUB)) 'RGB(128, 128, 128)
         hOld = SelectObject(hDC, hNew)
@@ -932,9 +928,9 @@ Err_Renamed:
         Dim i As Integer
         Dim j As Integer
         Dim W As Integer
-        Dim intTemp As Short
-        Dim hNew As Integer
-        Dim hOld As Integer
+        Dim intTemp As Integer
+        Dim hNew As IntPtr
+        Dim hOld As IntPtr
 
         hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.GRID_MAIN)) 'RGB(96, 96, 96)
         hOld = SelectObject(hDC, hNew)
@@ -942,26 +938,22 @@ Err_Renamed:
         W = g_disp.lngMaxX - RIGHT_SPACE
 
         '横線(灰色)
-        With frmMain.cboDispGridSub
 
-            If DirectCast(frmMain.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
+        If DirectCast(frmMain.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData Then
 
-                For i = g_disp.intStartMeasure To g_disp.intEndMeasure
+            For i = g_disp.intStartMeasure To g_disp.intEndMeasure
 
-                    intTemp = 192 \ DirectCast(frmMain.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData
+                intTemp = 192 \ DirectCast(frmMain.cboDispGridSub.SelectedItem, modMain.ItemWithData).ItemData
 
-                    For j = 0 To g_Measure(i).intLen Step intTemp
+                For j = 0 To g_Measure(i).intLen Step intTemp
 
-                        Call PrintLine_Renamed(hDC, LEFT_SPACE, g_Measure(i).lngY + j, W, 0)
+                    Call PrintLine_Renamed(hDC, LEFT_SPACE, g_Measure(i).lngY + j, W, 0)
 
-                    Next j
+                Next j
 
-                Next i
+            Next i
 
-            End If
-
-        End With
-
+        End If
 
         hNew = SelectObject(hDC, hOld)
         Call DeleteObject(hNew)
@@ -972,26 +964,23 @@ Err_Renamed:
         W = g_disp.lngMaxX - FRAME_WIDTH
 
         '横線(灰色・補助)
-        With frmMain.cboDispGridMain
 
-            If DirectCast(frmMain.cboDispGridMain.SelectedItem, modMain.ItemWithData).ItemData Then
+        If DirectCast(frmMain.cboDispGridMain.SelectedItem, modMain.ItemWithData).ItemData Then
 
-                For i = g_disp.intStartMeasure To g_disp.intEndMeasure
+            For i = g_disp.intStartMeasure To g_disp.intEndMeasure
 
-                    intTemp = 192 \ DirectCast(frmMain.cboDispGridMain.SelectedItem, modMain.ItemWithData).ItemData
+                intTemp = 192 \ DirectCast(frmMain.cboDispGridMain.SelectedItem, modMain.ItemWithData).ItemData
 
-                    For j = intTemp To g_Measure(i).intLen Step intTemp
+                For j = intTemp To g_Measure(i).intLen Step intTemp
 
-                        'Call PrintLine(16, g_Measure(i).lngY + j, g_disp.lngMaxX - 16, 0)
-                        Call PrintLine_Renamed(hDC, FRAME_WIDTH, g_Measure(i).lngY + j, W, 0)
+                    'Call PrintLine(16, g_Measure(i).lngY + j, g_disp.lngMaxX - 16, 0)
+                    Call PrintLine_Renamed(hDC, FRAME_WIDTH, g_Measure(i).lngY + j, W, 0)
 
-                    Next j
+                Next j
 
-                Next i
+            Next i
 
-            End If
-
-        End With
+        End If
 
         hNew = SelectObject(hDC, hOld)
         Call DeleteObject(hNew)
@@ -1003,8 +992,8 @@ Err_Renamed:
         Dim i As Integer
         Dim Y As Integer
         Dim H As Integer
-        Dim hNew As Integer
-        Dim hOld As Integer
+        Dim hNew As IntPtr
+        Dim hOld As IntPtr
 
         hNew = CreatePen(PS_SOLID, 1, g_lngSystemColor(COLOR_NUM.VERTICAL_MAIN))
         hOld = SelectObject(hDC, hNew)
@@ -1041,8 +1030,8 @@ Err_Renamed:
 
         Dim i As Integer
         Dim W As Integer
-        Dim hNew As Integer
-        Dim hOld As Integer
+        Dim hNew As IntPtr
+        Dim hOld As IntPtr
 
         hNew = CreatePen(hNew, 1, g_lngSystemColor(COLOR_NUM.MEASURE_LINE))
         hOld = SelectObject(hDC, hNew)
@@ -1106,7 +1095,7 @@ Err_Renamed:
                             For j = 0 To Len(.strText) - 1
 
                                 strTemp = Mid(.strText, j + 1, 1)
-                                lngLength = LenB(strTemp)
+                                lngLength = strTemp.Length
                                 Call GetTextExtentPoint32(hDC, strTemp, lngLength, sizeTemp)
 
                                 X = lngTemp - sizeTemp.Width \ 2
@@ -1128,7 +1117,7 @@ Err_Renamed:
 
                         Else
 
-                            lngLength = LenB(.strText)
+                            lngLength = .strText.Length
                             Call GetTextExtentPoint32(hDC, .strText, lngLength, sizeTemp)
 
                             'X = (.lngLeft + .intWidth \ 2) * g_disp.Width - (sizeTemp.Width) \ 2 - g_disp.X + 1
@@ -1201,18 +1190,18 @@ Err_Renamed:
     Public Sub DrawObj(ByVal hDC As IntPtr, ByRef tempObj As g_udtObj)
         On Error GoTo Err_Renamed
 
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim Text As String
         Dim strArray() As String
         Dim X As Integer
         Dim Y As Integer
-        Dim Width As Short
+        Dim Width As Integer
         Dim sizeTemp As Size
-        Dim intLightNum As Short
-        Dim intShadowNum As Short
-        Dim intBrushNum As Short
-        Dim hOldBrush As Integer
-        Dim hOldPen As Integer
+        Dim intLightNum As Integer
+        Dim intShadowNum As Integer
+        Dim intBrushNum As Integer
+        Dim hOldBrush As IntPtr
+        Dim hOldPen As IntPtr
 
         With tempObj
 
@@ -1402,55 +1391,51 @@ Err_Renamed:
 
         End With
 
-        With frmMain.picMain
+        hOldBrush = SelectObject(hDC, m_hBrush(intBrushNum))
+        hOldPen = SelectObject(hDC, m_hPen(intLightNum))
 
-            hOldBrush = SelectObject(hDC, m_hBrush(intBrushNum))
-            hOldPen = SelectObject(hDC, m_hPen(intLightNum))
+        Call Rectangle(hDC, X, Y - OBJ_HEIGHT, X + Width, Y + 1)
 
-            Call Rectangle(hDC, X, Y - OBJ_HEIGHT, X + Width, Y + 1)
+        m_hPen(intLightNum) = SelectObject(hDC, m_hPen(intShadowNum))
 
-            m_hPen(intLightNum) = SelectObject(hDC, m_hPen(intShadowNum))
+        Call MoveToEx(hDC, X, Y, 0)
+        Call LineTo(hDC, X + Width - 1, Y)
+        Call LineTo(hDC, X + Width - 1, Y - OBJ_HEIGHT)
 
-            Call MoveToEx(hDC, X, Y, 0)
-            Call LineTo(hDC, X + Width - 1, Y)
-            Call LineTo(hDC, X + Width - 1, Y - OBJ_HEIGHT)
+        m_hPen(intShadowNum) = SelectObject(hDC, hOldPen)
+        m_hBrush(intBrushNum) = SelectObject(hDC, hOldBrush)
 
-            m_hPen(intShadowNum) = SelectObject(hDC, hOldPen)
-            m_hBrush(intBrushNum) = SelectObject(hDC, hOldBrush)
+        'Text = g_Obj(lngNum).lngID
+        intTemp = Text.Length
 
-            'Text = g_Obj(lngNum).lngID
-            intTemp = LenB(Text)
+        Call GetTextExtentPoint32(hDC, Text, intTemp, sizeTemp)
 
-            Call GetTextExtentPoint32(hDC, Text, intTemp, sizeTemp)
+        Y = Y - (OBJ_HEIGHT + sizeTemp.Height) \ 2 + 1
 
-            Y = Y - (OBJ_HEIGHT + sizeTemp.Height) \ 2 + 1
+        Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
+        Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
 
-            Dim hFont As IntPtr = frmMain.stringFont.ToHfont()
-            Dim hOldFont As IntPtr = SelectObject(hDC, hFont)
+        SetBkMode(hDC, TRANSPARENT)
 
-            SetBkMode(hDC, TRANSPARENT)
+        'If g_Obj(lngNum).intSelect = Selected Then
+        If tempObj.intSelect = modMain.OBJ_SELECT.Selected Then
 
-            'If g_Obj(lngNum).intSelect = Selected Then
-            If tempObj.intSelect = modMain.OBJ_SELECT.Selected Then
+            Call SetTextColor(hDC, &HFFFFFF)
+            Call TextOut(hDC, X + 3, Y, Text, intTemp)
+            Call SetTextColor(hDC, &H0)
+            Call TextOut(hDC, X + 2, Y, Text, intTemp)
 
-                Call SetTextColor(hDC, &HFFFFFF)
-                Call TextOut(hDC, X + 3, Y, Text, intTemp)
-                Call SetTextColor(hDC, &H0)
-                Call TextOut(hDC, X + 2, Y, Text, intTemp)
+        Else
 
-            Else
+            Call SetTextColor(hDC, &H0)
+            Call TextOut(hDC, X + 3, Y, Text, intTemp)
+            Call SetTextColor(hDC, &HFFFFFF)
+            Call TextOut(hDC, X + 2, Y, Text, intTemp)
 
-                Call SetTextColor(hDC, &H0)
-                Call TextOut(hDC, X + 3, Y, Text, intTemp)
-                Call SetTextColor(hDC, &HFFFFFF)
-                Call TextOut(hDC, X + 2, Y, Text, intTemp)
+        End If
 
-            End If
-
-            SelectObject(hDC, hOldFont)
-            DeleteObject(hFont)
-
-        End With
+        SelectObject(hDC, hOldFont)
+        DeleteObject(hFont)
 
         Exit Sub
 
@@ -1463,7 +1448,7 @@ Err_Renamed:
 
         Dim X As Integer
         Dim Y As Integer
-        Dim Width As Short
+        Dim Width As Integer
 
         With g_Obj(Num)
 
@@ -1483,11 +1468,7 @@ Err_Renamed:
 
         End With
 
-        With frmMain.picMain
-
-            Call Rectangle(hDC, X - 1, Y - OBJ_HEIGHT - 1, X + Width + 1, Y + 2)
-
-        End With
+        Call Rectangle(hDC, X - 1, Y - OBJ_HEIGHT - 1, X + Width + 1, Y + 2)
 
         Exit Sub
 
@@ -1495,7 +1476,7 @@ Err_Renamed:
         Call modMain.CleanUp(Err.Number, Err.Description, "DrawObjRect")
     End Sub
 
-    Public Sub DrawObjMax(ByVal X As Single, ByVal Y As Single, ByVal Shift As Short)
+    Public Sub DrawObjMax(ByVal X As Single, ByVal Y As Single, ByVal Shift As Keys)
         On Error GoTo Err_Renamed
 
         Dim i As Integer
@@ -1613,7 +1594,7 @@ Err_Renamed:
         'End If
 
         'ステータスバー更新
-        Call DrawStatusBar(tempObj, Shift)
+        Call DrawStatusBar(tempObj)
 
         If DirectCast(frmMain.tlbMenu.Items.Item("Write"), ToolStripButton).Checked = True Then '書き込みモード
 
@@ -1782,7 +1763,7 @@ Err_Renamed:
     End Sub
 
     'Public Sub DrawStatusBar(ByVal ObjNum As Long, ByVal Shift As Integer)
-    Public Sub DrawStatusBar(ByRef tempObj As g_udtObj, ByVal Shift As Short)
+    Public Sub DrawStatusBar(ByRef tempObj As g_udtObj)
         Dim strTemp As String
         Dim lngTemp As Integer
         Dim strArray() As String
@@ -1925,11 +1906,11 @@ Err_Renamed:
     Public Sub DrawSelectArea(ByVal hDC As IntPtr)
         Dim i As Integer
         Dim lngTemp As Integer
-        Dim hOldPen As Integer
-        Dim hNewPen As Integer
+        Dim hOldPen As IntPtr
+        Dim hNewPen As IntPtr
         Dim objBrush As LOGBRUSH
-        Dim hOldBrush As Integer
-        Dim hNewBrush As Integer
+        Dim hOldBrush As IntPtr
+        Dim hNewBrush As IntPtr
         Dim rectTemp As RECT
 
         hNewPen = CreatePen(PS_SOLID, 1, g_lngPenColor(PEN_NUM.EDIT_FRAME))
@@ -1985,7 +1966,7 @@ Err_Renamed:
 
     End Sub
 
-    Public Function lngChangeMaxMeasure(ByVal intMeasure As Short) As Integer
+    Public Function lngChangeMaxMeasure(ByVal intMeasure As Integer) As Integer
 
         With g_disp
 
@@ -2006,7 +1987,7 @@ Err_Renamed:
     Public Sub ChangeResolution()
 
         Dim i As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim lngTemp As Integer
         Dim sngTemp As Single
 

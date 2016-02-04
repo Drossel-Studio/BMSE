@@ -4,9 +4,11 @@
         MyBase.New()
         'この呼び出しは、Windows フォーム デザイナで必要です。
         InitializeComponent()
+        stringFont = New Font(Font.FontFamily, Font.Size, Font.Style, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
     End Sub
     'Form は、コンポーネント一覧に後処理を実行するために dispose をオーバーライドします。
     <System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+        stringFont.Dispose()
         If Disposing Then
             If Not components Is Nothing Then
                 components.Dispose()

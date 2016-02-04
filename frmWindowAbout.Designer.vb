@@ -4,28 +4,28 @@
 		MyBase.New()
 		'この呼び出しは、Windows フォーム デザイナで必要です。
 		InitializeComponent()
-	End Sub
-	'Form は、コンポーネント一覧に後処理を実行するために dispose をオーバーライドします。
-	<System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
-		If Disposing Then
-			If Not components Is Nothing Then
-				components.Dispose()
-			End If
-		End If
-		MyBase.Dispose(Disposing)
-	End Sub
-	'Windows フォーム デザイナで必要です。
-	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents tmrMain As System.Windows.Forms.Timer
-	Public WithEvents picMain As System.Windows.Forms.Panel
+        stringFont = New Font(Font.FontFamily, Font.Size, Font.Style, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont)
+    End Sub
+    'Form は、コンポーネント一覧に後処理を実行するために dispose をオーバーライドします。
+    <System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+        stringFont.Dispose()
+        If Disposing Then
+            If Not components Is Nothing Then
+                components.Dispose()
+            End If
+        End If
+        MyBase.Dispose(Disposing)
+    End Sub
+    'Windows フォーム デザイナで必要です。
+    Private components As System.ComponentModel.IContainer
+    Public WithEvents tmrMain As System.Windows.Forms.Timer
+    Public WithEvents picMain As System.Windows.Forms.Panel
 	'メモ: 以下のプロシージャは Windows フォーム デザイナで必要です。
 	'Windows フォーム デザイナを使って変更できます。
 	'コード エディタを使用して、変更しないでください。
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmWindowAbout))
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.picMain = New System.Windows.Forms.Panel()
         Me.tmrMain = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()

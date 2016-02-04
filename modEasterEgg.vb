@@ -4,9 +4,9 @@ Imports VB = Microsoft.VisualBasic
 Imports System.Runtime.InteropServices
 
 Module modEasterEgg
-	
-	Private Declare Function StretchBlt Lib "gdi32" (ByVal hdc As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal nWidth As Integer, ByVal nHeight As Integer, ByVal hSrcDC As Integer, ByVal xSrc As Integer, ByVal ySrc As Integer, ByVal nSrcWidth As Integer, ByVal nSrcHeight As Integer, ByVal dwRop As Integer) As Integer
-    Private Declare Function DrawText Lib "user32" Alias "DrawTextW" (ByVal hdc As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpStr As String, ByVal nCount As Integer, <[In]()> ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
+
+    Private Declare Function StretchBlt Lib "gdi32" (ByVal hdc As IntPtr, ByVal X As Integer, ByVal Y As Integer, ByVal nWidth As Integer, ByVal nHeight As Integer, ByVal hSrcDC As IntPtr, ByVal xSrc As Integer, ByVal ySrc As Integer, ByVal nSrcWidth As Integer, ByVal nSrcHeight As Integer, ByVal dwRop As Integer) As Integer
+    Private Declare Function DrawText Lib "user32" Alias "DrawTextW" (ByVal hdc As IntPtr, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpStr As String, ByVal nCount As Integer, <[In]()> ByRef lpRect As RECT, ByVal wFormat As Integer) As Integer
 
     Private Const DT_WORDBREAK As Integer = &H10
 	
@@ -34,8 +34,8 @@ Module modEasterEgg
 		Dim dX As Single
 		Dim dY As Single
 		Dim counter As Integer
-		Dim Angle As Short
-	End Structure
+        Dim Angle As Integer
+    End Structure
 	
 	Private m_objSnow() As m_udtSnow
 	
@@ -167,7 +167,7 @@ Module modEasterEgg
 
     End Sub
 
-    Public Sub KeyCheck(ByVal KeyCode As Short, ByVal Shift As Short)
+    Public Sub KeyCheck(ByVal KeyCode As Keys)
 
         Static buf As String = Space(16)
 
@@ -453,7 +453,7 @@ Module modEasterEgg
         Dim Size_Renamed As Integer
         'Dim srcX    As Long
         Dim srcY As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
         'Dim lngTemp As Long
 
         'lngTemp = timeGetTime()
@@ -588,7 +588,7 @@ Module modEasterEgg
 
         Dim X As Integer
         Dim Y As Integer
-        Dim srcY As Short
+        Dim srcY As Integer
 
         srcY = m_lngCounter And 7
 
@@ -629,24 +629,20 @@ Module modEasterEgg
 
     Private Sub DrawLogText(ByVal hDC As IntPtr, ByVal X As Integer, ByVal Y As Integer, ByRef Text As String, Optional ByVal Color As Integer = 16777215)
 
-        Dim intTemp As Short
+        Dim intTemp As Integer
 
-        With frmMain.picMain
+        intTemp = Text.Length
 
-            intTemp = LenB(Text)
+        Call SetTextColor(hDC, 0) 'RGB(0, 0, 0)
 
-            Call SetTextColor(hDC, 0) 'RGB(0, 0, 0)
+        Call TextOut(hDC, X, Y - 1, Text, intTemp)
+        Call TextOut(hDC, X + 1, Y, Text, intTemp)
+        Call TextOut(hDC, X, Y + 1, Text, intTemp)
+        Call TextOut(hDC, X - 1, Y, Text, intTemp)
 
-            Call TextOut(hDC, X, Y - 1, Text, intTemp)
-            Call TextOut(hDC, X + 1, Y, Text, intTemp)
-            Call TextOut(hDC, X, Y + 1, Text, intTemp)
-            Call TextOut(hDC, X - 1, Y, Text, intTemp)
+        Call SetTextColor(hDC, Color)
 
-            Call SetTextColor(hDC, Color)
-
-            Call TextOut(hDC, X, Y, Text, intTemp)
-
-        End With
+        Call TextOut(hDC, X, Y, Text, intTemp)
 
     End Sub
 
@@ -735,7 +731,7 @@ Module modEasterEgg
 
     End Sub
 
-    Private Sub AddStaffRoll(ByRef Text As String, Optional ByVal Break As Short = 0)
+    Private Sub AddStaffRoll(ByRef Text As String, Optional ByVal Break As Integer = 0)
 
         Dim lngTemp As Integer
 
@@ -765,7 +761,7 @@ Module modEasterEgg
         Dim lngTemp As Integer
         Dim sizeTemp As Size
 
-        Dim srcY As Short
+        Dim srcY As Integer
 
         With frmMain.picMain
             Call SetTextColor(hDC, RGB(255, 255, 255))
@@ -787,7 +783,7 @@ Module modEasterEgg
 
                 If Len(m_strStaffRoll(i)) Then
 
-                    intTemp = LenB(m_strStaffRoll(i))
+                    intTemp = m_strStaffRoll(i).Length
 
                     Call GetTextExtentPoint32(hDC, m_strStaffRoll(i), intTemp, sizeTemp)
 
@@ -937,8 +933,8 @@ Module modEasterEgg
 
     Public Sub DrawBlueScreen(ByVal hDC As IntPtr)
 
-        Dim hBrushNew As Integer
-        Dim hBrushOld As Integer
+        Dim hBrushNew As IntPtr
+        Dim hBrushOld As IntPtr
         Dim rectTemp As RECT
 
         With frmMain.picMain

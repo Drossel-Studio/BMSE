@@ -8,7 +8,7 @@ Module modMain
 
 #Const MODE_DEBUG = True
 
-    Private Const INI_VERSION As Short = 3
+    Private Const INI_VERSION As Integer = 3
 
     Public Const RELEASEDATE As String = "2007-08-08T09:51"
 
@@ -19,56 +19,58 @@ Module modMain
 
 #End If
 
-    Public Declare Function mciSendString Lib "winmm.dll" Alias "mciSendStringW" (<MarshalAs(UnmanagedType.LPWStr)> ByVal lpstrCommand As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpstrTempurnString As String, ByVal uReturnLength As Integer, ByVal hwndCallback As Integer) As Integer
+    Public Declare Function mciSendString Lib "winmm.dll" Alias "mciSendStringW" (<MarshalAs(UnmanagedType.LPWStr)> ByVal lpstrCommand As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpstrTempurnString As String, ByVal uReturnLength As Integer, ByVal hwndCallback As IntPtr) As Integer
     Public Declare Function mciGetErrorString Lib "winmm.dll" Alias "mciGetErrorStringW" (ByVal dwError As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpstrBuffer As String, ByVal uLength As Integer) As Integer
 
     Public Declare Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringW" (<MarshalAs(UnmanagedType.LPWStr)> ByVal lpApplicationName As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpKeyName As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpDefault As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpReturnedString As StringBuilder, ByVal nSize As UInt32, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpFileName As String) As UInt32
     Private Declare Function WritePrivateProfileString Lib "kernel32" Alias "WritePrivateProfileStringW" (<MarshalAs(UnmanagedType.LPWStr)> ByVal lpApplicationName As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpKeyName As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpString As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpFileName As String) As Integer
 
-    Public Declare Function GetWindowPlacement Lib "user32" (ByVal hwnd As Integer, <Out()> ByRef lpwndpl As WINDOWPLACEMENT) As Integer
-    Public Declare Function SetWindowPlacement Lib "user32" (ByVal hwnd As Integer, <[In]()> ByRef lpwndpl As WINDOWPLACEMENT) As Integer
+    Public Declare Function GetWindowPlacement Lib "user32" (ByVal hwnd As IntPtr, <Out()> ByRef lpwndpl As WINDOWPLACEMENT) As Integer
+    Public Declare Function SetWindowPlacement Lib "user32" (ByVal hwnd As IntPtr, <[In]()> ByRef lpwndpl As WINDOWPLACEMENT) As Integer
 
-    Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteW" (ByVal hwnd As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpOperation As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpFile As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpParameters As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpDirectory As String, ByVal nShowCmd As Integer) As Integer
+    Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteW" (ByVal hwnd As IntPtr, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpOperation As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpFile As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpParameters As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpDirectory As String, ByVal nShowCmd As Integer) As IntPtr
 
-    Public Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongW" (ByVal hwnd As Integer, ByVal nIndex As Integer) As Integer
+    Public Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongW" (ByVal hwnd As IntPtr, ByVal nIndex As Integer) As Integer
+    Public Declare Function GetWindowLongPtr Lib "user32" Alias "GetWindowLongPtrW" (ByVal hwnd As IntPtr, ByVal nIndex As Integer) As IntPtr
+
     Public Declare Function AdjustWindowRectEx Lib "user32" (<[In]()> ByRef lpRect As RECT, ByVal dsStyle As Integer, ByVal bMenu As Integer, ByVal dwEsStyle As Integer) As Integer
 
-    Private Declare Function GetStockObject Lib "gdi32" (ByVal nIndex As Integer) As Integer
-    Private Declare Function GetObject_Renamed Lib "gdi32" Alias "GetObjectW" (ByVal hObject As Integer, ByVal nCount As Integer, <Out()> ByRef lpObject As LOGFONT) As Integer
+    Private Declare Function GetStockObject Lib "gdi32" (ByVal nIndex As Integer) As IntPtr
+    Private Declare Function GetObject_Renamed Lib "gdi32" Alias "GetObjectW" (ByVal hObject As IntPtr, ByVal nCount As Integer, <Out()> ByRef lpObject As LOGFONT) As Integer
 
     'Get/SetWindowPlacement・ShellExecute 関連の定数
-    Public Const SW_HIDE As Short = 0
-    Public Const SW_MAXIMIZE As Short = 3
-    Public Const SW_MINIMIZE As Short = 6
-    Public Const SW_RESTORE As Short = 9
-    Public Const SW_SHOW As Short = 5
-    Public Const SW_SHOWDEFAULT As Short = 10
-    Public Const SW_SHOWMAXIMIZED As Short = 3
-    Public Const SW_SHOWMINIMIZED As Short = 2
-    Public Const SW_SHOWMINNOACTIVE As Short = 7
-    Public Const SW_SHOWNA As Short = 8
-    Public Const SW_SHOWNOACTIVATE As Short = 4
-    Public Const SW_SHOWNORMAL As Short = 1
+    Public Const SW_HIDE As Integer = 0
+    Public Const SW_MAXIMIZE As Integer = 3
+    Public Const SW_MINIMIZE As Integer = 6
+    Public Const SW_RESTORE As Integer = 9
+    Public Const SW_SHOW As Integer = 5
+    Public Const SW_SHOWDEFAULT As Integer = 10
+    Public Const SW_SHOWMAXIMIZED As Integer = 3
+    Public Const SW_SHOWMINIMIZED As Integer = 2
+    Public Const SW_SHOWMINNOACTIVE As Integer = 7
+    Public Const SW_SHOWNA As Integer = 8
+    Public Const SW_SHOWNOACTIVATE As Integer = 4
+    Public Const SW_SHOWNORMAL As Integer = 1
 
     'GetWindowLong 関連の定数
-    Public Const GWL_STYLE As Short = -16
-    Public Const GWL_EXSTYLE As Short = -20
+    Public Const GWL_STYLE As Integer = -16
+    Public Const GWL_EXSTYLE As Integer = -20
 
     'GetStockObject 関連の定数
-    Private Const OEM_FIXED_FONT As Short = 10
-    Private Const ANSI_FIXED_FONT As Short = 11
-    Private Const ANSI_VAR_FONT As Short = 12
-    Private Const SYSTEM_FONT As Short = 13
-    Private Const SYSTEM_FIXED_FONT As Short = 16
-    Private Const DEFAULT_GUI_FONT As Short = 17
+    Private Const OEM_FIXED_FONT As Integer = 10
+    Private Const ANSI_FIXED_FONT As Integer = 11
+    Private Const ANSI_VAR_FONT As Integer = 12
+    Private Const SYSTEM_FONT As Integer = 13
+    Private Const SYSTEM_FIXED_FONT As Integer = 16
+    Private Const DEFAULT_GUI_FONT As Integer = 17
 
     'LOGFONT 関連の定数
-    Private Const DEFAULT_CHARSET As Short = 1
-    Private Const LF_FACESIZE As Short = 32
+    Private Const DEFAULT_CHARSET As Byte = 1
+    Private Const LF_FACESIZE As Integer = 32
 
     'SystemParametersInfo 関連の定数
-    Private Const SPI_GETICONTITLELOGFONT As Short = 31
-    Private Const SPI_GETNONCLIENTMETRICS As Short = 41
+    Private Const SPI_GETICONTITLELOGFONT As Integer = 31
+    Private Const SPI_GETNONCLIENTMETRICS As Integer = 41
 
     Public Structure ItemWithData
         Public ItemString As String
@@ -94,30 +96,26 @@ Module modMain
         End Sub
     End Structure
 
-    Public Sub SetItemString(obj As Control, index As Integer, itemstring As String)
-        If TypeOf obj Is System.Windows.Forms.ComboBox Then
-            DirectCast(obj, System.Windows.Forms.ComboBox).Items.Insert(index, itemstring)
-            If DirectCast(obj, System.Windows.Forms.ComboBox).Items.Count > index + 1 Then
-                DirectCast(obj, System.Windows.Forms.ComboBox).Items.RemoveAt(index + 1)
-            End If
-        ElseIf TypeOf obj Is System.Windows.Forms.ListBox
-            DirectCast(obj, System.Windows.Forms.ListBox).Items.Insert(index, itemstring)
-            If DirectCast(obj, System.Windows.Forms.ListBox).Items.Count > index + 1 Then
-                DirectCast(obj, System.Windows.Forms.ListBox).Items.RemoveAt(index + 1)
-            End If
-        Else
-            Throw New Exception("Invalid Argument Type")
+    Public Sub SetItemString(obj As ComboBox, index As Integer, itemstring As String)
+        obj.Items.Insert(index, itemstring)
+        If obj.Items.Count > index + 1 Then
+            obj.Items.RemoveAt(index + 1)
         End If
     End Sub
 
-    Public Function GetItemString(obj As Control, index As Integer) As String
-        If TypeOf obj Is System.Windows.Forms.ComboBox Then
-            GetItemString = DirectCast(obj, System.Windows.Forms.ComboBox).Items.Item(index).ToString()
-        ElseIf TypeOf obj Is System.Windows.Forms.ListBox
-            GetItemString = DirectCast(obj, System.Windows.Forms.ListBox).Items.Item(index).ToString()
-        Else
-            Throw New Exception("Invalid Argument Type")
+    Public Sub SetItemString(obj As ListBox, index As Integer, itemstring As String)
+        obj.Items.Insert(index, itemstring)
+        If obj.Items.Count > index + 1 Then
+            obj.Items.RemoveAt(index + 1)
         End If
+    End Sub
+
+    Public Function GetItemString(obj As ComboBox, index As Integer) As String
+        GetItemString = obj.Items.Item(index).ToString()
+    End Function
+
+    Public Function GetItemString(obj As ListBox, index As Integer) As String
+        GetItemString = obj.Items.Item(index).ToString()
     End Function
 
     <StructLayout(LayoutKind.Sequential, CharSet:=CharSet.Auto, Pack:=1)> Public Structure LOGFONT
@@ -227,7 +225,7 @@ Module modMain
         Dim Y As Integer
         Dim Shift As Keys
         Dim Button As MouseButtons
-        Dim measure As Short
+        Dim measure As Integer
     End Structure
 
     Public g_Mouse As m_udtMouse
@@ -239,13 +237,13 @@ Module modMain
         Dim Height As Single
         Dim lngMaxX As Integer
         Dim lngMaxY As Integer
-        Dim intStartMeasure As Short
-        Dim intEndMeasure As Short
+        Dim intStartMeasure As Integer
+        Dim intEndMeasure As Integer
         Dim lngStartPos As Integer
         Dim lngEndPos As Integer
-        Dim intMaxMeasure As Short '最大表示小節
-        Dim intResolution As Short '分解能
-        Dim intEffect As Short '画面効果
+        Dim intMaxMeasure As Integer '最大表示小節
+        Dim intResolution As Integer '分解能
+        Dim intEffect As Integer '画面効果
     End Structure
 
     Public g_disp As m_udtDisplay
@@ -253,15 +251,15 @@ Module modMain
     Public Structure m_udtBMS
         Dim strDir As String 'ディレクトリ
         Dim strFileName As String 'BMSファイル名
-        Dim intPlayerType As Short '#PLAYER
+        Dim intPlayerType As Integer '#PLAYER
         Dim strGenre As String '#GENRE
         Dim strTitle As String '#TITLE
         Dim strArtist As String '#ARTIST
         Dim sngBPM As Single '#BPM
         Dim lngPlayLevel As Integer '#PLAYLEVEL
-        Dim intPlayRank As Short '#RANK
+        Dim intPlayRank As Integer '#RANK
         Dim sngTotal As Single '#TOTAL
-        Dim intVolume As Short '#VOLWAV
+        Dim intVolume As Integer '#VOLWAV
         Dim strStageFile As String '#STAGEFILE
         Dim blnSaveFlag As Boolean
     End Structure
@@ -270,27 +268,27 @@ Module modMain
 
     Public Structure m_udtVerticalLine
         Dim blnVisible As Boolean
-        Dim intCh As Short
+        Dim intCh As Integer
         Dim strText As String
-        Dim intWidth As Short
+        Dim intWidth As Integer
         Dim lngLeft As Integer
         Dim lngObjLeft As Integer
         Dim lngBackColor As Integer
-        Dim intLightNum As Short
-        Dim intShadowNum As Short
-        Dim intBrushNum As Short
+        Dim intLightNum As Integer
+        Dim intShadowNum As Integer
+        Dim intBrushNum As Integer
         Dim blnDraw As Boolean
     End Structure
 
     Public g_VGrid(61) As m_udtVerticalLine
 
-    Public g_intVGridNum(132 + 40) As Short
+    Public g_intVGridNum(132 + 40) As Integer
 
     Public Structure g_udtObj
         Dim lngID As Integer
-        Dim intCh As Short
+        Dim intCh As Integer
         Dim intAtt As OBJ_ATT
-        Dim intMeasure As Short
+        Dim intMeasure As Integer
         Dim lngHeight As Integer
         Dim lngPosition As Integer
         Dim sngValue As Single
@@ -379,7 +377,7 @@ Module modMain
     Public Sub StartUp()
         Dim i As Integer
         Dim strTemp As String
-        Dim intTemp As Short
+        Dim intTemp As Integer
         Dim lngFFile As Integer
 
         If Right(My.Application.Info.DirectoryPath, 1) = "\" Then
@@ -863,7 +861,7 @@ Err_Renamed:
         lngDeleteFile = 1
     End Function
 
-    Public Function intSaveCheck() As Short
+    Public Function intSaveCheck() As Integer
         On Error GoTo Err_Renamed
 
         Dim lngTemp As Integer
@@ -955,7 +953,7 @@ Err_Renamed:
 
     Public Sub RecentFilesRotation(ByRef strFilePath As String)
         Dim i As Integer
-        Dim intTemp As Short
+        Dim intTemp As Integer
 
         For i = 0 To UBound(g_strRecentFiles)
 
@@ -977,7 +975,7 @@ Err_Renamed:
 
     End Sub
 
-    Private Sub SubRotate(ByVal intIndex As Short, ByVal intEnd As Short, ByRef strFilePath As String)
+    Private Sub SubRotate(ByVal intIndex As Integer, ByVal intEnd As Integer, ByRef strFilePath As String)
         If intIndex <> intEnd And g_strRecentFiles(intIndex) <> "" And intIndex <= UBound(g_strRecentFiles) Then
 
             Call SubRotate(intIndex + 1, intEnd, g_strRecentFiles(intIndex))
@@ -1820,7 +1818,7 @@ Err_Renamed:
             End If
 
             wp.Length = 44
-            Call GetWindowPlacement(.Handle.ToInt32, wp)
+            Call GetWindowPlacement(.Handle, wp)
 
             With wp
 
@@ -2158,7 +2156,7 @@ Err_Renamed:
 
             Next i
 
-            Call SetWindowPlacement(.Handle.ToInt32, wp)
+            Call SetWindowPlacement(.Handle, wp)
 
         End With
 
@@ -2258,7 +2256,7 @@ InitConfig:
         Call lngSet_ini("Main", "Key", Chr(34) & "BMSE" & Chr(34))
 
         wp.Length = 44
-        Call GetWindowPlacement(frmMain.Handle.ToInt32, wp)
+        Call GetWindowPlacement(frmMain.Handle, wp)
 
         With wp
 
@@ -2374,11 +2372,10 @@ InitConfig:
     Public Function strGet_ini(ByRef strSection As String, ByVal strKey As String, ByVal strDefault As String, ByRef strFileName As String) As String
         'バッファの初期化（256もあれば良いよね。）
         Dim strGetBuf As StringBuilder = New StringBuilder(256) '収容するstringのバッファ
-        Dim intGetLen As Short '収容するstringの文字数のバッファ
         Dim LeftLength As Integer
 
         'API呼び出し
-        intGetLen = GetPrivateProfileString(strSection & Chr(0), strKey, strDefault & Chr(0), strGetBuf, 128, g_strAppDir & strFileName & Chr(0))
+        GetPrivateProfileString(strSection & Chr(0), strKey, strDefault & Chr(0), strGetBuf, 128, g_strAppDir & strFileName & Chr(0))
 
         '文字列を返す
         LeftLength = InStr(strGetBuf.ToString(), Chr(0)) - 1

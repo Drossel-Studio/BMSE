@@ -11,15 +11,19 @@ Module modMessage
     End Structure
 
     'サブクラス化関数
-    Public Delegate Function WindowProcDelegate(ByVal hwnd As Integer, ByVal uMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
-    Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongW" (ByVal hwnd As Integer, ByVal nIndex As Integer, ByVal dwNewLong As WindowProcDelegate) As Integer
-    Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongW" (ByVal hwnd As Integer, ByVal nIndex As Integer, ByVal dwNewLong As Integer) As Integer
-    Private Declare Function CallWindowProc Lib "user32" Alias "CallWindowProcW" (ByVal lpPrevWndFunc As Integer, ByVal hwnd As Integer, ByVal MSG As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
-    Private Declare Function GetActiveWindow Lib "user32" () As Integer
+    Public Delegate Function WindowProcDelegate(ByVal hwnd As IntPtr, ByVal uMsg As Integer, ByVal wParam As IntPtr, ByVal lParam As IntPtr) As IntPtr
 
-    Public Declare Function SendMessage Lib "user32" Alias "SendMessageW" (ByVal hwnd As Integer, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
+    Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongW" (ByVal hwnd As IntPtr, ByVal nIndex As Integer, ByVal dwNewLong As WindowProcDelegate) As Integer
+    Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongW" (ByVal hwnd As IntPtr, ByVal nIndex As Integer, ByVal dwNewLong As Integer) As Integer
+    Private Declare Function SetWindowLongPtr Lib "user32" Alias "SetWindowLongPtrW" (ByVal hwnd As IntPtr, ByVal nIndex As Integer, ByVal dwNewLong As WindowProcDelegate) As IntPtr
+    Private Declare Function SetWindowLongPtr Lib "user32" Alias "SetWindowLongPtrW" (ByVal hwnd As IntPtr, ByVal nIndex As Integer, ByVal dwNewLong As IntPtr) As IntPtr
 
-    Private Const GWL_WNDPROC As Short = (-4) 'ウインドウプロシージャ
+    Private Declare Function CallWindowProc Lib "user32" Alias "CallWindowProcW" (ByVal lpPrevWndFunc As IntPtr, ByVal hwnd As IntPtr, ByVal MSG As Integer, ByVal wParam As IntPtr, ByVal lParam As IntPtr) As IntPtr
+    Private Declare Function GetActiveWindow Lib "user32" () As IntPtr
+
+    Public Declare Function SendMessage Lib "user32" Alias "SendMessageW" (ByVal hwnd As IntPtr, ByVal wMsg As Integer, ByVal wParam As IntPtr, ByVal lParam As IntPtr) As IntPtr
+
+    Private Const GWL_WNDPROC As Integer = (-4) 'ウインドウプロシージャ
 
     Private Const WM_ACTIVATE As Integer = &H6
     Private Const WM_ACTIVATEAPP As Integer = &H1C
@@ -39,27 +43,27 @@ Module modMessage
 
     Private Const MM_MCINOTIFY As Integer = &H3B9
 
-    Private Const MCI_NOTIFY_SUCCESSFUL As Short = 1
-    Private Const MCI_NOTIFY_SUPERSEDED As Short = 2
-    Private Const MCI_NOTIFY_ABORTED As Short = 4
-    Private Const MCI_NOTIFY_FAILURE As Short = 8
+    Private Const MCI_NOTIFY_SUCCESSFUL As Integer = 1
+    Private Const MCI_NOTIFY_SUPERSEDED As Integer = 2
+    Private Const MCI_NOTIFY_ABORTED As Integer = 4
+    Private Const MCI_NOTIFY_FAILURE As Integer = 8
 
-    Private Const WA_ACTIVE As Short = 1
-    Private Const WA_CLICKACTIVE As Short = 2
-    Private Const WA_INACTIVE As Short = 0
+    Private Const WA_ACTIVE As Integer = 1
+    Private Const WA_CLICKACTIVE As Integer = 2
+    Private Const WA_INACTIVE As Integer = 0
 
-    Private Const SB_LINEUP As Short = 0
-    Private Const SB_LINEDOWN As Short = 1
-    Private Const SB_PAGEUP As Short = 2
-    Private Const SB_PAGEDOWN As Short = 3
-    Private Const SB_THUMBPOSITION As Short = 4
-    Private Const SB_THUMBTRACK As Short = 5
-    Private Const SB_TOP As Short = 6
-    Private Const SB_BOTTOM As Short = 7
-    Private Const SB_ENDSCROLL As Short = 8
+    Private Const SB_LINEUP As Integer = 0
+    Private Const SB_LINEDOWN As Integer = 1
+    Private Const SB_PAGEUP As Integer = 2
+    Private Const SB_PAGEDOWN As Integer = 3
+    Private Const SB_THUMBPOSITION As Integer = 4
+    Private Const SB_THUMBTRACK As Integer = 5
+    Private Const SB_TOP As Integer = 6
+    Private Const SB_BOTTOM As Integer = 7
+    Private Const SB_ENDSCROLL As Integer = 8
 
     'デフォルトのウインドウプロシージャ
-    Public OldWindowhWnd As Integer
+    Public OldWindowhWnd As IntPtr
 
 
     '---------------------------------------------------------------------------
@@ -68,11 +72,13 @@ Module modMessage
     ' 引数 ： (in) hWnd … 対象フォームのウインドウハンドル
     ' 返り値 ： なし
     '---------------------------------------------------------------------------
-    Public Sub SubClass(ByVal hwnd As Integer)
+    Public Sub SubClass(ByVal hwnd As IntPtr)
 
-
-        OldWindowhWnd = SetWindowLong(hwnd, GWL_WNDPROC, AddressOf WindowProc)
-
+        If IntPtr.Size = 4 Then
+            OldWindowhWnd = SetWindowLong(hwnd, GWL_WNDPROC, AddressOf WindowProc)
+        Else
+            OldWindowhWnd = SetWindowLongPtr(hwnd, GWL_WNDPROC, AddressOf WindowProc)
+        End If
 
     End Sub
 
@@ -83,22 +89,20 @@ Module modMessage
     ' 引数 ： (in) hWnd … 対象フォームのウインドウハンドル
     ' 返り値 ： なし
     '---------------------------------------------------------------------------
-    Public Sub UnSubClass(ByVal hwnd As Integer)
-
-
-        Dim ret As Integer
-
+    Public Sub UnSubClass(ByVal hwnd As IntPtr)
 
         If OldWindowhWnd <> 0 Then
 
             '元のプロシージャアドレスに設定する
-            ret = SetWindowLong(hwnd, GWL_WNDPROC, OldWindowhWnd)
-
+            If IntPtr.Size = 4 Then
+                SetWindowLong(hwnd, GWL_WNDPROC, OldWindowhWnd)
+            Else
+                SetWindowLongPtr(hwnd, GWL_WNDPROC, OldWindowhWnd)
+            End If
 
             OldWindowhWnd = 0
 
         End If
-
 
     End Sub
 
@@ -111,7 +115,7 @@ Module modMessage
     Public Function strNullCut(ByVal srcStr As String) As String
 
 
-        Dim NullCharPos As Short
+        Dim NullCharPos As Integer
 
 
         NullCharPos = InStr(srcStr, Chr(0))
@@ -146,7 +150,7 @@ Module modMessage
     ' 返り値 ： なし
     ' 備考 ： 特になし
     '---------------------------------------------------------------------------
-    Public Function WindowProc(ByVal hwnd As Integer, ByVal uMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
+    Public Function WindowProc(ByVal hwnd As IntPtr, ByVal uMsg As Integer, ByVal wParam As IntPtr, ByVal lParam As IntPtr) As IntPtr
 
 
         'Dim udtCDP As COPYDATASTRUCT
@@ -156,7 +160,7 @@ Module modMessage
         Dim lngTemp As Integer
 
 
-        If frmMain.Handle.ToInt32 = GetActiveWindow() Then
+        If frmMain.Handle = GetActiveWindow() Then
 
             Select Case uMsg
 
@@ -170,7 +174,7 @@ Module modMessage
 
                 Case WM_SETCURSOR
 
-                    If wParam <> frmMain.picMain.Handle.ToInt32 Then
+                    If wParam <> frmMain.picMain.Handle Then
 
                         g_Obj(UBound(g_Obj)).intCh = 0
 
@@ -181,19 +185,19 @@ Module modMessage
 
                         Select Case wParam
 
-                            Case frmMain.lstWAV.Handle.ToInt32
+                            Case frmMain.lstWAV.Handle
 
                                 Call frmMain.lstWAV.Focus()
 
-                            Case frmMain.lstBMP.Handle.ToInt32
+                            Case frmMain.lstBMP.Handle
 
                                 Call frmMain.lstBMP.Focus()
 
-                            Case frmMain.lstBGA.Handle.ToInt32
+                            Case frmMain.lstBGA.Handle
 
                                 Call frmMain.lstBGA.Focus()
 
-                            Case frmMain.lstMeasureLen.Handle.ToInt32
+                            Case frmMain.lstMeasureLen.Handle
 
                                 Call frmMain.lstMeasureLen.Focus()
 
@@ -218,8 +222,8 @@ Module modMessage
 
                     End If
 
-                    Call WindowProc(frmMain.Handle.ToInt32, WM_VSCROLL, lngTemp, frmMain.vsbMain.Handle.ToInt32)
-                    Call WindowProc(frmMain.Handle.ToInt32, WM_VSCROLL, SB_ENDSCROLL, frmMain.vsbMain.Handle.ToInt32)
+                    Call WindowProc(frmMain.Handle, WM_VSCROLL, lngTemp, frmMain.vsbMain.Handle)
+                    Call WindowProc(frmMain.Handle, WM_VSCROLL, SB_ENDSCROLL, frmMain.vsbMain.Handle)
 
                 Case MM_MCINOTIFY
 
