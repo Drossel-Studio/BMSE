@@ -371,6 +371,8 @@ Friend Class frmMain
 
             'Call SaveChanges
 
+            Call modInput.CreatePairList()
+
             picMain.Refresh()
 
         End If
@@ -1841,6 +1843,9 @@ Err_Renamed:
                     End If
 
                     Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, eventArgs.Modifiers)
+
+                    Call modInput.CreatePairList()
+
                     picMain.Refresh()
 
                 Case System.Windows.Forms.Keys.Subtract '-
@@ -1881,6 +1886,9 @@ Err_Renamed:
                     End If
 
                     Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, eventArgs.Modifiers)
+
+                    Call modInput.CreatePairList()
+
                     picMain.Refresh()
 
             End Select
@@ -4184,6 +4192,8 @@ Err_Renamed:
 
         Call modDraw.ArrangeObj()
 
+        Call modInput.CreatePairList()
+
         picMain.Refresh()
 
         Exit Sub
@@ -4302,6 +4312,8 @@ Err_Renamed:
         If lngArg Then Call modDraw.ChangeResolution()
 
         Call g_InputLog.AddData(Join(strArray, modLog.getSeparator))
+
+        Call modInput.CreatePairList()
 
         picMain.Refresh()
 
@@ -4949,6 +4961,9 @@ Err_Renamed:
             Else
 
                 Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, e.Modifiers)
+
+                Call modInput.CreatePairList()
+
                 picMain.Refresh()
 
             End If
@@ -4967,6 +4982,9 @@ Err_Renamed:
                 If DirectCast(tlbMenu.Items.Item("Write"), ToolStripButton).Checked = True Then
 
                     Call modDraw.DrawObjMax(g_Mouse.X, g_Mouse.Y, e.Modifiers)
+
+                    Call modInput.CreatePairList()
+
                     picMain.Refresh()
 
                 End If
@@ -5013,6 +5031,9 @@ Err_Renamed:
                 End If
 
                 Call modDraw.ObjSelectCancel()
+
+                Call modInput.CreatePairList()
+
                 picMain.Refresh()
 
             ElseIf DirectCast(tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = True Then
@@ -5246,6 +5267,8 @@ Err_Renamed:
 
                     End If
 
+                    Call modInput.CreatePairList()
+
                     picMain.Refresh()
 
                 Else 'オブジェのないところで押したっぽいよ
@@ -5311,6 +5334,9 @@ Err_Renamed:
             End With
 
             Call DrawObjMax(eventArgs.X, eventArgs.Y, Shift)
+
+            Call modInput.CreatePairList()
+
             picMain.Refresh()
 
         ElseIf eventArgs.Button = Windows.Forms.MouseButtons.Middle Then  '中クリック
@@ -5333,6 +5359,8 @@ Err_Renamed:
 
                 '整列
                 Call modDraw.ArrangeObj()
+
+                Call modInput.CreatePairList()
 
                 '再描画
                 picMain.Refresh()
@@ -5504,6 +5532,8 @@ Err_Renamed:
 
                 Call modDraw.ArrangeObj()
 
+                Call modInput.CreatePairList()
+
                 picMain.Refresh()
 
             ElseIf DirectCast(tlbMenu.Items.Item("Edit"), ToolStripButton).Checked = True Then
@@ -5592,6 +5622,8 @@ Err_Renamed:
 
                 End If
 
+                Call modInput.CreatePairList()
+
                 picMain.Refresh()
 
             End If
@@ -5647,6 +5679,9 @@ Err_Renamed:
             Else 'それ以外
 
                 Call modDraw.DrawObjMax(eventArgs.X, eventArgs.Y, Shift)
+
+                Call modInput.CreatePairList()
+
                 picMain.Refresh()
 
                 'スポイト機能

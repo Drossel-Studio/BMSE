@@ -11,11 +11,11 @@ Imports System.Runtime.InteropServices
 ' TODO: アセンブリ属性の値を確認します。
 
 
-<Assembly: AssemblyTitle("BMx Sequence Editor")>
+<Assembly: AssemblyTitle("BMx Sequence Editor For Drossel Studio")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("BMx Sequence Editor")>
-<Assembly: AssemblyCopyright("Hayana/UCN-Soft 2004-2007.")>
+<Assembly: AssemblyProduct("BMx Sequence Editor For Drossel Studio")>
+<Assembly: AssemblyCopyright("Hayana/UCN-Soft 2004-2007. Drossel Studio 2015-2019.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 
@@ -29,5 +29,5 @@ Imports System.Runtime.InteropServices
 ' すべての値を指定するか、下のように '*' を使ってリビジョンおよびビルド番号を
 ' 既定値にすることができます:
 
-<Assembly: AssemblyVersion("1.3.*")>
+<Assembly: AssemblyVersion("1.4.*")>
 <Assembly: NeutralResourcesLanguage("ja-JP")>

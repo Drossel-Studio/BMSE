@@ -111,12 +111,12 @@ Module modDraw
     '31-49 不可視オブジェ
     '51-69 ロングノート
 
-    Public g_lngPenColor(75) As Integer
-    Public g_lngBrushColor(36) As Integer
+    Public g_lngPenColor(77) As Integer
+    Public g_lngBrushColor(37) As Integer
     Public g_lngSystemColor(6) As Integer
 
-    Private m_hPen(75) As IntPtr
-    Private m_hBrush(37) As IntPtr
+    Private m_hPen(77) As IntPtr
+    Private m_hBrush(38) As IntPtr
 
     Private m_tempObj() As g_udtObj
 
@@ -208,6 +208,8 @@ Module modDraw
         SELECT_OBJ_SHADOW
         EDIT_FRAME
         DELETE_FRAME
+        CONNECTION_LONGNOTE
+        CONNECTION_SLIDENOTE
         Max
     End Enum
 
@@ -248,7 +250,9 @@ Module modDraw
         INV_KEY17
         INV_KEY18
         LONGNOTE
+        ERRORNOTE
         SELECT_OBJ
+        CONNECTION
         DELETE_FRAME
         EDIT_FRAME
         Max
@@ -726,6 +730,8 @@ Err_Renamed:
 
         ReDim m_tempObj(0)
 
+        Call DrawConnectionLine(hDC)
+
         For i = 0 To UBound(g_Obj) - 1 'オブジェ
 
             With g_Obj(i)
@@ -736,7 +742,7 @@ Err_Renamed:
 
                         If g_disp.lngStartPos <= g_Measure(.intMeasure).lngY + .lngPosition And g_disp.lngEndPos >= g_Measure(.intMeasure).lngY + .lngPosition Then
 
-                            Call DrawObj(hDC, g_Obj(i))
+                            Call DrawObj(hDC, g_Obj(i), g_ObjPairErrorFlag(i))
 
                         End If
 
@@ -754,7 +760,7 @@ Err_Renamed:
 
                 If g_disp.lngStartPos <= g_Measure(.intMeasure).lngY + .lngPosition And g_disp.lngEndPos >= g_Measure(.intMeasure).lngY + .lngPosition And g_VGrid(g_intVGridNum(.intCh)).blnDraw = True And .intCh <> 0 Then
 
-                    Call DrawObj(hDC, m_tempObj(i))
+                    Call DrawObj(hDC, m_tempObj(i), g_ObjPairErrorFlag(UBound(g_Obj)))
 
                 End If
 
@@ -785,7 +791,7 @@ Err_Renamed:
         If g_Obj(UBound(g_Obj)).intCh Then
 
             Call modDraw.InitPen()
-            Call modDraw.DrawObj(hDC, g_Obj(UBound(g_Obj)))
+            Call modDraw.DrawObj(hDC, g_Obj(UBound(g_Obj)), g_ObjPairErrorFlag(UBound(g_Obj)))
             Call modDraw.DeletePen()
 
         End If
@@ -1187,7 +1193,57 @@ Err_Renamed:
 
     End Sub
 
-    Public Sub DrawObj(ByVal hDC As IntPtr, ByRef tempObj As g_udtObj)
+    'ペアの線を描画する
+    Public Sub DrawConnectionLine(ByVal hDC As IntPtr)
+        Dim hOldPen As IntPtr                           '過去ペン記憶用
+        Dim X1, X2, Y1, Y2, Width, Height As Integer    '線の情報
+        Dim i As Integer                                'ループカウンタ
+
+        '過去のペンを記憶
+        hOldPen = SelectObject(hDC, m_hPen(PEN_NUM.CONNECTION_LONGNOTE))
+
+        For i = 0 To UBound(g_PairList) - 1
+            '番兵検出
+            If g_PairList(i).ID = -1 Then
+                Exit For
+            End If
+
+            'ペアがあるもののみ処理
+            If g_PairList(i).nextID = -1 Then
+                Continue For
+            End If
+
+            '線位置計算
+            Width = GRID_WIDTH * g_disp.Width - 1
+            Height = OBJ_HEIGHT
+            X1 = (g_VGrid(g_intVGridNum(g_Obj(g_PairList(i).ID).intCh)).lngObjLeft - g_disp.X) * g_disp.Width + 1 + (Width / 2)
+            Y1 = frmMain.picMain.ClientRectangle.Height + OBJ_DIFF - (g_Measure(g_Obj(g_PairList(i).ID).intMeasure).lngY + g_Obj(g_PairList(i).ID).lngPosition - g_disp.Y) * g_disp.Height - (Height / 2)
+            X2 = (g_VGrid(g_intVGridNum(g_Obj(g_PairList(i).nextID).intCh)).lngObjLeft - g_disp.X) * g_disp.Width + 1 + (Width / 2)
+            Y2 = frmMain.picMain.ClientRectangle.Height + OBJ_DIFF - (g_Measure(g_Obj(g_PairList(i).nextID).intMeasure).lngY + g_Obj(g_PairList(i).nextID).lngPosition - g_disp.Y) * g_disp.Height - (Height / 2)
+
+            '線描画
+            Select Case (g_PairList(i).Type)
+                Case NOTE_TYPE.LONG_NOTE
+                    Call SelectObject(hDC, m_hPen(PEN_NUM.CONNECTION_LONGNOTE))
+
+                Case NOTE_TYPE.SLIDE_PARENT_NOTE
+                    Call SelectObject(hDC, m_hPen(PEN_NUM.CONNECTION_SLIDENOTE))
+
+                Case NOTE_TYPE.SLIDE_CHILD_NOTE
+                    Call SelectObject(hDC, m_hPen(PEN_NUM.CONNECTION_SLIDENOTE))
+
+                Case Else
+                    Call SelectObject(hDC, m_hPen(PEN_NUM.CONNECTION_LONGNOTE))
+            End Select
+            Call MoveToEx(hDC, X1, Y1, 0)
+            Call LineTo(hDC, X2, Y2)
+        Next
+
+        'ペンを戻す
+        Call SelectObject(hDC, hOldPen)
+    End Sub
+
+    Public Sub DrawObj(ByVal hDC As IntPtr, ByRef tempObj As g_udtObj, ByVal pairError As Integer)
         On Error GoTo Err_Renamed
 
         Dim intTemp As Integer
@@ -1388,6 +1444,11 @@ Err_Renamed:
                     Exit Sub
 
             End Select
+
+            'ペアがエラーのノーツは色を変える
+            If pairError = 1 Then
+                intBrushNum = BRUSH_NUM.ERRORNOTE
+            End If
 
         End With
 

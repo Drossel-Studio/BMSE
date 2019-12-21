@@ -303,6 +303,44 @@ Module modMain
     End Structure
 
     Public g_Obj() As g_udtObj
+    Public g_ObjPairErrorFlag() As Integer
+
+    Public Structure ObjForSort
+        Dim index As Integer
+        Dim intCh As Integer
+        Dim intMeasure As Integer
+        Dim lngPosition As Integer
+        Dim sngValue As Single
+        Dim intSelect As OBJ_SELECT
+    End Structure
+
+    Public Class CompareByTime : Implements System.Collections.IComparer
+        Public Function Compare(x As Object, y As Object) As Integer Implements System.Collections.IComparer.Compare
+            ' right > left	:	正の値を返す。
+            ' right == left	:	0を返す。
+            ' right < left	:	負の値を返す
+            Return ((g_Measure(CType(x, ObjForSort).intMeasure).lngY + CType(x, ObjForSort).lngPosition) - (g_Measure(CType(y, ObjForSort).intMeasure).lngY + CType(y, ObjForSort).lngPosition))
+        End Function
+    End Class
+
+    Public Enum NOTE_TYPE As Integer
+        NORMAL_NOTE = 2
+        STRONG_NOTE = 3
+        LONG_NOTE = 4
+        SLIDE_PARENT_NOTE = 5
+        SLIDE_CHILD_NOTE = 6
+        SPECIAL_NOTE = 7
+    End Enum
+
+    Public Structure pairObj
+        Dim Type As Integer
+        Dim ID As Integer
+        Dim startID As Integer
+        Dim endID As Integer
+        Dim nextID As Integer
+    End Structure
+
+    Public g_PairList() As pairObj
 
     Public g_lngObjID() As Integer
     Public g_lngIDNum As Integer
@@ -390,8 +428,7 @@ Module modMain
 
         End If
 
-        g_strAppTitle = "BMx Sequence Editor " & My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Revision
-        g_strAppTitle = g_strAppTitle & " beta 14"
+        g_strAppTitle = "BMx Sequence Editor For Drossel Studio " & My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Revision
 
 #If MODE_DEBUG = False Then
 		
@@ -609,6 +646,8 @@ Module modMain
         End With
 
         ReDim g_Obj(0)
+        ReDim g_PairList(0)
+        ReDim g_ObjPairErrorFlag(0)
         ReDim g_lngObjID(0)
         g_lngIDNum = 0
 
@@ -1388,11 +1427,20 @@ Err_Renamed:
                     g_lngPenColor(modDraw.PEN_NUM.LONGNOTE_SHADOW) = GetColor("KEY_LONGNOTE", "ObjectShadow", "0,32,0", strFileName)
                     g_lngBrushColor(modDraw.BRUSH_NUM.LONGNOTE) = GetColor("KEY_LONGNOTE", "ObjectColor", "0,64,0", strFileName)
 
+                Case modDraw.BRUSH_NUM.ERRORNOTE
+
+                    g_lngBrushColor(modDraw.BRUSH_NUM.ERRORNOTE) = GetColor("KEY_ERRORNOTE", "ObjectColor", "255,0,0", strFileName)
+
                 Case modDraw.BRUSH_NUM.SELECT_OBJ
 
                     g_lngPenColor(modDraw.PEN_NUM.SELECT_OBJ_LIGHT) = GetColor("SELECT", "ObjectLight", "255,255,255", strFileName)
                     g_lngPenColor(modDraw.PEN_NUM.SELECT_OBJ_SHADOW) = GetColor("SELECT", "ObjectShadow", "128,128,128", strFileName)
                     g_lngBrushColor(modDraw.BRUSH_NUM.SELECT_OBJ) = GetColor("SELECT", "ObjectColor", "0,255,255", strFileName)
+
+                Case modDraw.BRUSH_NUM.CONNECTION
+
+                    g_lngPenColor(modDraw.PEN_NUM.CONNECTION_LONGNOTE) = GetColor("LINE_CONNECTION", "LongNote", "255,0,0", strFileName)
+                    g_lngPenColor(modDraw.PEN_NUM.CONNECTION_SLIDENOTE) = GetColor("LINE_CONNECTION", "SlideNote", "0,255,255", strFileName)
 
                 Case modDraw.BRUSH_NUM.EDIT_FRAME
 

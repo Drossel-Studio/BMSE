@@ -104,6 +104,8 @@ Module modInput
 		
 		Call LoadBMSData()
 		
+		Call CreatePairList()
+
 		Call LoadBMSEnd()
 		
 		Exit Sub
@@ -753,6 +755,222 @@ Err_Renamed:
 
     End Sub
 	
+    'ペアノーツリストの作成
+    Public Sub CreatePairList()
+        Dim SortedObj(UBound(g_Obj)) As ObjForSort      '時間で並べ替えられたノーツリスト
+        Dim pairNum As Integer                          '登録したペアリストの数
+        Dim firstPair As Integer                        'スライド親ノーツのペアリストインデックス（スライドノーツ登録中に使用）
+        Dim reg As Boolean                              'すでにペアリストに登録したか否か
+        Dim delFlag As Boolean                          '削除対象のノーツがあるか否か
+        Dim delMeasure As Integer                       '削除対象の小節番号
+        Dim delPosition As Integer                      '削除対象の位置番号
+        Dim i As Integer                                'ループカウンタ
+        Dim j As Integer                                'ループカウンタ
+        Dim k As Integer                                'ループカウンタ
+
+        'ペアなしフラグの初期化
+        ReDim g_ObjPairErrorFlag(UBound(g_Obj))
+        For i = 0 To UBound(g_Obj)
+            g_ObjPairErrorFlag(i) = 0
+        Next
+
+        '内部では入力された順番でノーツデータが並んでいるので時間で並び替える
+        For i = 0 To UBound(g_Obj)
+            SortedObj(i).index = i
+            SortedObj(i).intCh = g_Obj(i).intCh
+            SortedObj(i).intMeasure = g_Obj(i).intMeasure
+            SortedObj(i).lngPosition = g_Obj(i).lngPosition
+            SortedObj(i).sngValue = g_Obj(i).sngValue
+            SortedObj(i).intSelect = g_Obj(i).intSelect
+        Next
+        Array.Sort(SortedObj, New CompareByTime)
+
+        '削除フラグの処理（削除後のペアを表示するために削除対象を検索から除外する）
+        '削除の枠線を検索
+        delFlag = False
+        For i = 0 To UBound(g_Obj)
+            If SortedObj(i).intSelect = OBJ_SELECT.DELETE_RECT Then
+                delFlag = True
+                delMeasure = SortedObj(i).intMeasure
+                delPosition = SortedObj(i).lngPosition
+            End If
+        Next
+        '削除対象を検索
+        If delFlag Then
+            For i = 0 To UBound(g_Obj)
+                If (SortedObj(i).intSelect <> OBJ_SELECT.DELETE_RECT) And (SortedObj(i).intMeasure = delMeasure) And (SortedObj(i).lngPosition = delPosition) Then
+                    '削除対象の属性を枠線にし、検索から除外する
+                    SortedObj(i).intSelect = OBJ_SELECT.DELETE_RECT
+                End If
+            Next
+        End If
+
+        'ペアリストの初期化
+        ReDim g_PairList(UBound(g_Obj) + 1)
+        pairNum = 0
+
+        'ペアリストの作成
+        For i = 0 To UBound(SortedObj)
+            'ノーツでなければ除外
+            'レーンが異なる
+            If (SortedObj(i).intCh < OBJ_CH.CH_KEY_MIN) Or (SortedObj(i).intCh > OBJ_CH.CH_KEY_MAX) Then
+                Continue For
+            End If
+            '枠線
+            If (SortedObj(i).intSelect = OBJ_SELECT.EDIT_RECT) Or (SortedObj(i).intSelect = OBJ_SELECT.DELETE_RECT) Then
+                Continue For
+            End If
+
+            Select Case (SortedObj(i).sngValue)
+                'ロングノーツ
+                Case NOTE_TYPE.LONG_NOTE
+                    '登録済みかを検索
+                    reg = False
+                    For j = 0 To pairNum - 1
+                        If (g_PairList(j).endID = SortedObj(i).index) Then
+                            reg = True
+                            Exit For
+                        End If
+                    Next j
+                    If reg Then
+                        Continue For
+                    End If
+
+                    'ペアリストを作成
+                    g_PairList(pairNum).Type = SortedObj(i).sngValue
+                    g_PairList(pairNum).ID = SortedObj(i).index
+                    g_PairList(pairNum).startID = SortedObj(i).index
+                    g_PairList(pairNum).endID = -1
+                    g_PairList(pairNum).nextID = -1
+
+                    For j = i + 1 To UBound(SortedObj)
+                        'ペアとなるロングノーツを検索
+
+                        '対象でなければ除外
+                        'レーンが異なる
+                        If (SortedObj(i).intCh <> SortedObj(j).intCh) Then
+                            Continue For
+                        End If
+                        '枠線
+                        If (SortedObj(j).intSelect = OBJ_SELECT.EDIT_RECT) Or (SortedObj(j).intSelect = OBJ_SELECT.DELETE_RECT) Then
+                            Continue For
+                        End If
+                        '種類が異なる
+                        If (SortedObj(j).sngValue <> NOTE_TYPE.LONG_NOTE) Then
+                            Continue For
+                        End If
+
+                        'ペアとして登録
+                        g_PairList(pairNum).endID = SortedObj(j).index
+                        g_PairList(pairNum).nextID = SortedObj(j).index
+                        Exit For
+                    Next j
+
+                    'ペアなしフラグを立てる
+                    If (g_PairList(pairNum).endID = -1) Then
+                        g_ObjPairErrorFlag(g_PairList(pairNum).ID) = 1
+                    End If
+
+                    '登録完了
+                    pairNum += 1
+
+                'スライドノーツ
+                Case NOTE_TYPE.SLIDE_PARENT_NOTE
+                    '登録済みかを検索
+                    reg = False
+                    For j = 0 To pairNum - 1
+                        If (g_PairList(j).endID = SortedObj(i).index) Then
+                            reg = True
+                            Exit For
+                        End If
+                    Next j
+                    If reg Then
+                        Continue For
+                    End If
+
+                    'ペアリストを作成
+                    firstPair = pairNum
+                    g_PairList(pairNum).Type = SortedObj(i).sngValue
+                    g_PairList(firstPair).ID = SortedObj(i).index
+                    g_PairList(firstPair).startID = SortedObj(i).index
+                    g_PairList(firstPair).endID = -1
+                    g_PairList(firstPair).nextID = -1
+
+                    For j = i + 1 To UBound(SortedObj)
+                        'ペアとなるノーツを検索
+
+                        '対象でなければ除外
+                        'レーンが異なる
+                        If (SortedObj(j).intCh < OBJ_CH.CH_KEY_MIN) Or (SortedObj(j).intCh > OBJ_CH.CH_KEY_MAX) Then
+                            Continue For
+                        End If
+                        '枠線
+                        If (SortedObj(j).intSelect = OBJ_SELECT.EDIT_RECT) Or (SortedObj(j).intSelect = OBJ_SELECT.DELETE_RECT) Then
+                            Continue For
+                        End If
+                        '種類が異なる
+                        If ((SortedObj(j).sngValue <> NOTE_TYPE.SLIDE_PARENT_NOTE) And (SortedObj(j).sngValue <> NOTE_TYPE.SLIDE_CHILD_NOTE)) Then
+                            Continue For
+                        End If
+
+                        'スライド子ノーツの場合
+                        If (SortedObj(j).sngValue = NOTE_TYPE.SLIDE_CHILD_NOTE) Then
+                            'ペアとして登録
+                            g_PairList(pairNum).nextID = SortedObj(j).index
+                            pairNum += 1
+
+                            '子ノーツ用のペアリストを作成
+                            g_PairList(pairNum).Type = SortedObj(j).sngValue
+                            g_PairList(pairNum).ID = SortedObj(j).index
+                            g_PairList(pairNum).startID = g_PairList(firstPair).startID
+                            g_PairList(pairNum).endID = -1
+                            g_PairList(pairNum).nextID = -1
+                        End If
+
+                        'スライド親ノーツの場合
+                        If (SortedObj(j).sngValue = NOTE_TYPE.SLIDE_PARENT_NOTE) Then
+                            'ペアとして登録
+                            g_PairList(pairNum).nextID = SortedObj(j).index
+                            For k = firstPair To pairNum
+                                g_PairList(k).endID = SortedObj(j).index
+                            Next k
+                            Exit For
+                        End If
+                    Next j
+
+                    'ペアなしフラグを立てる
+                    For k = firstPair To pairNum
+                        If (g_PairList(k).endID = -1) Then
+                            g_ObjPairErrorFlag(g_PairList(k).ID) = 1
+                        End If
+                    Next k
+
+                    '登録完了
+                    pairNum += 1
+
+                'スライド子ノーツ（スライド親ノーツに挟まれていないノーツを検出する）
+                Case NOTE_TYPE.SLIDE_CHILD_NOTE
+                    '登録済みかを検索
+                    reg = False
+                    For j = 0 To pairNum - 1
+                        If (g_PairList(j).nextID = SortedObj(i).index) Then
+                            reg = True
+                            Exit For
+                        End If
+                    Next j
+                    If reg Then
+                        Continue For
+                    End If
+
+                    'ペアなしフラグを立てる
+                    g_ObjPairErrorFlag(SortedObj(i).index) = 1
+            End Select
+        Next i
+
+        '番兵の設置
+        g_PairList(pairNum).ID = -1
+    End Sub
+
 	Public Function strToNum(ByRef strNum As String) As Integer
 
         If frmMain._mnuOptionsItem_7.Checked Then
