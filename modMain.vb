@@ -319,7 +319,7 @@ Module modMain
             ' right > left	:	正の値を返す。
             ' right == left	:	0を返す。
             ' right < left	:	負の値を返す
-            Return ((g_Measure(CType(x, ObjForSort).intMeasure).lngY + CType(x, ObjForSort).lngPosition) - (g_Measure(CType(y, ObjForSort).intMeasure).lngY + CType(y, ObjForSort).lngPosition))
+            Return ((g_Measure(DirectCast(x, ObjForSort).intMeasure).lngY + DirectCast(x, ObjForSort).lngPosition) - (g_Measure(DirectCast(y, ObjForSort).intMeasure).lngY + DirectCast(y, ObjForSort).lngPosition))
         End Function
     End Class
 
