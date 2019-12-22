@@ -509,36 +509,36 @@ Module modEasterEgg
 
                         srcY = srcY * 32
 
-                        Dim picSiromaru_BitMap As Bitmap = New Bitmap(frmMain.picSiromaru.Image)
-                        Dim hBitMap As IntPtr = picSiromaru_BitMap.GetHbitmap
-                        Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
-                        SelectObject(hMDC, hBitMap)
+                        Using picSiromaru_BitMap As New Bitmap(frmMain.picSiromaru.Image)
+                            Dim hBitMap As IntPtr = picSiromaru_BitMap.GetHbitmap
+                            Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
+                            SelectObject(hMDC, hBitMap)
 
-                        'Call Ellipse(frmMain.picmain.hdc, X - 16, .y - 16, X + 16, .y + 16)
-                        Call BitBlt(hDC, X, Y, 32, 32, hMDC, 32, srcY, SRCAND)
-                        Call BitBlt(hDC, X, Y, 32, 32, hMDC, 0, srcY, SRCPAINT)
+                            'Call Ellipse(frmMain.picmain.hdc, X - 16, .y - 16, X + 16, .y + 16)
+                            Call BitBlt(hDC, X, Y, 32, 32, hMDC, 32, srcY, SRCAND)
+                            Call BitBlt(hDC, X, Y, 32, 32, hMDC, 0, srcY, SRCPAINT)
 
-                        If Y + 32 > Height Then
+                            If Y + 32 > Height Then
 
-                            intTemp = Y + 32 - Height
+                                intTemp = Y + 32 - Height
 
-                            Call BitBlt(hDC, X, 0, 32, intTemp, hMDC, 32, srcY + 32 - intTemp, SRCAND)
-                            Call BitBlt(hDC, X, 0, 32, intTemp, hMDC, 0, srcY + 32 - intTemp, SRCPAINT)
+                                Call BitBlt(hDC, X, 0, 32, intTemp, hMDC, 32, srcY + 32 - intTemp, SRCAND)
+                                Call BitBlt(hDC, X, 0, 32, intTemp, hMDC, 0, srcY + 32 - intTemp, SRCPAINT)
 
-                        End If
+                            End If
 
-                        If X + 32 > Width Then
+                            If X + 32 > Width Then
 
-                            intTemp = X + 32 - Width
+                                intTemp = X + 32 - Width
 
-                            Call BitBlt(hDC, 0, Y, intTemp, 32, hMDC, 64 - intTemp, srcY, SRCAND)
-                            Call BitBlt(hDC, 0, Y, intTemp, 32, hMDC, 32 - intTemp, srcY, SRCPAINT)
+                                Call BitBlt(hDC, 0, Y, intTemp, 32, hMDC, 64 - intTemp, srcY, SRCAND)
+                                Call BitBlt(hDC, 0, Y, intTemp, 32, hMDC, 32 - intTemp, srcY, SRCPAINT)
 
-                        End If
+                            End If
 
-                        DeleteDC(hMDC)
-                        DeleteObject(hBitMap)
-                        picSiromaru_BitMap.Dispose()
+                            DeleteDC(hMDC)
+                            DeleteObject(hBitMap)
+                        End Using
 
                 End Select
 
@@ -602,20 +602,20 @@ Module modEasterEgg
 
         With frmMain.picMain
 
-            Dim picSiromaru_BitMap As Bitmap = New Bitmap(frmMain.picSiromaru.Image)
-            Dim hBitMap As IntPtr = picSiromaru_BitMap.GetHbitmap
-            Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
-            SelectObject(hMDC, hBitMap)
+            Using picSiromaru_BitMap As New Bitmap(frmMain.picSiromaru.Image)
+                Dim hBitMap As IntPtr = picSiromaru_BitMap.GetHbitmap
+                Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
+                SelectObject(hMDC, hBitMap)
 
-            X = (.ClientRectangle.Width - m_objSnow(0).X) \ 2
-            Y = Y + (.ClientRectangle.Height - m_objSnow(0).X) \ 2
+                X = (.ClientRectangle.Width - m_objSnow(0).X) \ 2
+                Y = Y + (.ClientRectangle.Height - m_objSnow(0).X) \ 2
 
-            Call StretchBlt(hDC, X, Y, m_objSnow(0).X, m_objSnow(0).X, hMDC, 32, srcY, 32, 32, SRCAND)
-            Call StretchBlt(hDC, X, Y, m_objSnow(0).X, m_objSnow(0).X, hMDC, 0, srcY, 32, 32, SRCPAINT)
+                Call StretchBlt(hDC, X, Y, m_objSnow(0).X, m_objSnow(0).X, hMDC, 32, srcY, 32, 32, SRCAND)
+                Call StretchBlt(hDC, X, Y, m_objSnow(0).X, m_objSnow(0).X, hMDC, 0, srcY, 32, 32, SRCPAINT)
 
-            DeleteDC(hMDC)
-            DeleteObject(hBitMap)
-            picSiromaru_BitMap.Dispose()
+                DeleteDC(hMDC)
+                DeleteObject(hBitMap)
+            End Using
 
         End With
 
@@ -863,17 +863,17 @@ Module modEasterEgg
 
                         srcY = srcY * 32
 
-                        Dim picSiromaru_BitMap As Bitmap = New Bitmap(frmMain.picSiromaru.Image)
-                        Dim hBitMap As IntPtr = picSiromaru_BitMap.GetHbitmap
-                        Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
-                        SelectObject(hMDC, hBitMap)
+                        Using picSiromaru_BitMap As New Bitmap(frmMain.picSiromaru.Image)
+                            Dim hBitMap As IntPtr = picSiromaru_BitMap.GetHbitmap
+                            Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
+                            SelectObject(hMDC, hBitMap)
 
-                        Call BitBlt(hDC, X, Y, 32, 32, hMDC, 32, srcY, SRCAND)
-                        Call BitBlt(hDC, X, Y, 32, 32, hMDC, 0, srcY, SRCPAINT)
+                            Call BitBlt(hDC, X, Y, 32, 32, hMDC, 32, srcY, SRCAND)
+                            Call BitBlt(hDC, X, Y, 32, 32, hMDC, 0, srcY, SRCPAINT)
 
-                        DeleteDC(hMDC)
-                        DeleteObject(hBitMap)
-                        picSiromaru_BitMap.Dispose()
+                            DeleteDC(hMDC)
+                            DeleteObject(hBitMap)
+                        End Using
                     End If
 
                     lngTemp = lngTemp + sizeTemp.Height + 2
