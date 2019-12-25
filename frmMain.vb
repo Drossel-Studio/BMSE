@@ -1212,7 +1212,7 @@ Err_Renamed:
 
                 Call .Items.Insert(0, .Text)
 
-                For i = 1 To .Items.Count
+                For i = 0 To (.Items.Count - 1)
 
                     If .Text = modMain.GetItemString(cboDirectInput, i) Then
 
