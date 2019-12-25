@@ -256,8 +256,6 @@ Friend Class frmWindowTips
     Private Sub frmWindowTips_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
         Dim hDC As IntPtr
 
-        Dim stringBrush As SolidBrush
-
         Dim oldFont As Font
 
         Dim strTemp As String
@@ -274,21 +272,22 @@ Friend Class frmWindowTips
 
         oldFont.Dispose()
 
-        stringBrush = New SolidBrush(ForeColor)
-        e.Graphics.DrawString("ご存知ですか...", stringFont, stringBrush, New PointF(64, 14))
+        Using stringBrush As New SolidBrush(ForeColor)
+            e.Graphics.DrawString("ご存知ですか...", stringFont, stringBrush, New PointF(64, 14))
 
-        oldFont = stringFont
+            oldFont = stringFont
 
-        Dim newstyle As FontStyle = stringFont.Style
-        If newstyle And FontStyle.Bold Then
-            newstyle = newstyle Xor FontStyle.Bold
-        End If
-        stringFont = New Font(stringFont.FontFamily, 9, newstyle, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
+            Dim newstyle As FontStyle = stringFont.Style
+            If newstyle And FontStyle.Bold Then
+                newstyle = newstyle Xor FontStyle.Bold
+            End If
+            stringFont = New Font(stringFont.FontFamily, 9, newstyle, stringFont.Unit, stringFont.GdiCharSet, stringFont.GdiVerticalFont)
 
-        oldFont.Dispose()
+            oldFont.Dispose()
 
-        e.Graphics.DrawString(VB.Right(" " & m_intTipsPos, 2), stringFont, stringBrush, New PointF(360, 23))
-        e.Graphics.DrawString("   / " & UBound(m_strTips), stringFont, stringBrush, New PointF(360, 23))
+            e.Graphics.DrawString(VB.Right(" " & m_intTipsPos, 2), stringFont, stringBrush, New PointF(360, 23))
+            e.Graphics.DrawString("   / " & UBound(m_strTips), stringFont, stringBrush, New PointF(360, 23))
+        End Using
 
         oldFont = stringFont
 
@@ -315,25 +314,25 @@ Friend Class frmWindowTips
 
             End If
 
-            Dim picIcon_BitMap As Bitmap = New Bitmap(picIcon.Image)
-            Dim hBitMap As IntPtr = picIcon_BitMap.GetHbitmap
-            Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
+            Using picIcon_BitMap As New Bitmap(picIcon.Image)
+                Dim hBitMap As IntPtr = picIcon_BitMap.GetHbitmap
+                Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
 
-            If m_lngTipsNum And 1 Then
+                If m_lngTipsNum And 1 Then
 
-                SelectObject(hMDC, hBitMap)
-                Call BitBlt(hDC, 16, 16, 32, 32, hMDC, 0, 32, SRCCOPY)
+                    SelectObject(hMDC, hBitMap)
+                    Call BitBlt(hDC, 16, 16, 32, 32, hMDC, 0, 32, SRCCOPY)
 
-            Else
+                Else
 
-                SelectObject(hMDC, hBitMap)
-                Call BitBlt(hDC, 16, 16, 32, 32, hMDC, 0, 0, SRCCOPY)
+                    SelectObject(hMDC, hBitMap)
+                    Call BitBlt(hDC, 16, 16, 32, 32, hMDC, 0, 0, SRCCOPY)
 
-            End If
+                End If
 
-            DeleteDC(hMDC)
-            DeleteObject(hBitMap)
-            picIcon_BitMap.Dispose()
+                DeleteDC(hMDC)
+                DeleteObject(hBitMap)
+            End Using
 
             Call DrawText(hDC, strTemp, Len(strTemp), ddRect(63, 48, 402, 216), DT_WORDBREAK)
 

@@ -1212,7 +1212,7 @@ Err_Renamed:
 
                 Call .Items.Insert(0, .Text)
 
-                For i = 1 To .Items.Count
+                For i = 0 To (.Items.Count - 1)
 
                     If .Text = modMain.GetItemString(cboDirectInput, i) Then
 
@@ -6325,42 +6325,42 @@ Err_Renamed:
     End Sub
 
     Private Sub frmMain_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
-        Dim DarkPen As Pen = New Pen(System.Drawing.SystemColors.ControlDark)
-        Dim LightPen As Pen = New Pen(System.Drawing.SystemColors.ControlLight)
+        Using DarkPen As New Pen(System.Drawing.SystemColors.ControlDark)
+            Using LightPen As New Pen(System.Drawing.SystemColors.ControlLight)
 
-        If _linStatusBar_0.Visible Then
-            e.Graphics.DrawLine(DarkPen, _linStatusBar_0.pt1, _linStatusBar_0.pt2)
-        End If
-        If _linStatusBar_1.Visible Then
-            e.Graphics.DrawLine(LightPen, _linStatusBar_1.pt1, _linStatusBar_1.pt2)
-        End If
-        If _linToolbarBottom_0.Visible Then
-            e.Graphics.DrawLine(DarkPen, _linToolbarBottom_0.pt1, _linToolbarBottom_0.pt2)
-        End If
-        If _linToolbarBottom_1.Visible Then
-            e.Graphics.DrawLine(LightPen, _linToolbarBottom_1.pt1, _linToolbarBottom_1.pt2)
-        End If
-        If _linHeader_0.Visible Then
-            e.Graphics.DrawLine(DarkPen, _linHeader_0.pt1, _linHeader_0.pt2)
-        End If
-        If _linHeader_1.Visible Then
-            e.Graphics.DrawLine(LightPen, _linHeader_1.pt1, _linHeader_1.pt2)
-        End If
-        If _linVertical_0.Visible Then
-            e.Graphics.DrawLine(DarkPen, _linVertical_0.pt1, _linVertical_0.pt2)
-        End If
-        If _linVertical_1.Visible Then
-            e.Graphics.DrawLine(LightPen, _linVertical_1.pt1, _linVertical_1.pt2)
-        End If
-        If _linDirectInput_0.Visible Then
-            e.Graphics.DrawLine(DarkPen, _linDirectInput_0.pt1, _linDirectInput_0.pt2)
-        End If
-        If _linDirectInput_1.Visible Then
-            e.Graphics.DrawLine(LightPen, _linDirectInput_1.pt1, _linDirectInput_1.pt2)
-        End If
+                If _linStatusBar_0.Visible Then
+                    e.Graphics.DrawLine(DarkPen, _linStatusBar_0.pt1, _linStatusBar_0.pt2)
+                End If
+                If _linStatusBar_1.Visible Then
+                    e.Graphics.DrawLine(LightPen, _linStatusBar_1.pt1, _linStatusBar_1.pt2)
+                End If
+                If _linToolbarBottom_0.Visible Then
+                    e.Graphics.DrawLine(DarkPen, _linToolbarBottom_0.pt1, _linToolbarBottom_0.pt2)
+                End If
+                If _linToolbarBottom_1.Visible Then
+                    e.Graphics.DrawLine(LightPen, _linToolbarBottom_1.pt1, _linToolbarBottom_1.pt2)
+                End If
+                If _linHeader_0.Visible Then
+                    e.Graphics.DrawLine(DarkPen, _linHeader_0.pt1, _linHeader_0.pt2)
+                End If
+                If _linHeader_1.Visible Then
+                    e.Graphics.DrawLine(LightPen, _linHeader_1.pt1, _linHeader_1.pt2)
+                End If
+                If _linVertical_0.Visible Then
+                    e.Graphics.DrawLine(DarkPen, _linVertical_0.pt1, _linVertical_0.pt2)
+                End If
+                If _linVertical_1.Visible Then
+                    e.Graphics.DrawLine(LightPen, _linVertical_1.pt1, _linVertical_1.pt2)
+                End If
+                If _linDirectInput_0.Visible Then
+                    e.Graphics.DrawLine(DarkPen, _linDirectInput_0.pt1, _linDirectInput_0.pt2)
+                End If
+                If _linDirectInput_1.Visible Then
+                    e.Graphics.DrawLine(LightPen, _linDirectInput_1.pt1, _linDirectInput_1.pt2)
+                End If
 
-        DarkPen.Dispose()
-        LightPen.Dispose()
+            End Using
+        End Using
 
     End Sub
 End Class
