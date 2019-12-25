@@ -136,30 +136,30 @@ Friend Class frmWindowAbout
             sngTemp = m_lngCounter / 10
             If sngTemp > 8 Then sngTemp = 8
 
-            Using picMain_BitMap As New Bitmap(picMain.BackgroundImage)
-                Dim hBitMap As IntPtr = picMain_BitMap.GetHbitmap
-                Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
-                SelectObject(hMDC, hBitMap)
+            Dim picMain_BitMap As Bitmap = New Bitmap(picMain.BackgroundImage)
+            Dim hBitMap As IntPtr = picMain_BitMap.GetHbitmap
+            Dim hMDC As IntPtr = CreateCompatibleDC(hDC)
+            SelectObject(hMDC, hBitMap)
 
-                For i = 0 To .ClientRectangle.Height - 1
+            For i = 0 To .ClientRectangle.Height - 1
 
-                    'm_sngRaster(i) = m_sngRaster(i) + Sin((i + m_lngCounter) * RAD * 8)
-                    'm_sngRaster(i) = m_sngRaster(i) + g_sngSin(((i + m_lngCounter) * 8) And 255)
-                    m_sngRaster(i) = g_sngSin(((i + m_lngCounter) * 8) And 255) * sngTemp
-                    'm_sngRaster(i) = (m_sngRaster(i) + i) And .ScaleWidth
+                'm_sngRaster(i) = m_sngRaster(i) + Sin((i + m_lngCounter) * RAD * 8)
+                'm_sngRaster(i) = m_sngRaster(i) + g_sngSin(((i + m_lngCounter) * 8) And 255)
+                m_sngRaster(i) = g_sngSin(((i + m_lngCounter) * 8) And 255) * sngTemp
+                'm_sngRaster(i) = (m_sngRaster(i) + i) And .ScaleWidth
 
-                    If tmrMain.Enabled Then lngTemp = m_sngRaster(i)
+                If tmrMain.Enabled Then lngTemp = m_sngRaster(i)
 
-                    'Call StretchBlt(.hdc, lngTemp - .ScaleWidth, i, .ScaleWidth, 1, picMain.hdc, 0, i, .ScaleWidth, 1, SRCCOPY)
-                    'Call StretchBlt(.hdc, lngTemp, i, .ScaleWidth, 1, picMain.hdc, 0, i, .ScaleWidth, 1, SRCCOPY)
+                'Call StretchBlt(.hdc, lngTemp - .ScaleWidth, i, .ScaleWidth, 1, picMain.hdc, 0, i, .ScaleWidth, 1, SRCCOPY)
+                'Call StretchBlt(.hdc, lngTemp, i, .ScaleWidth, 1, picMain.hdc, 0, i, .ScaleWidth, 1, SRCCOPY)
 
-                    Call BitBlt(hDC, lngTemp, i, .ClientRectangle.Width, 1, hMDC, 0, i, SRCCOPY)
+                Call BitBlt(hDC, lngTemp, i, .ClientRectangle.Width, 1, hMDC, 0, i, SRCCOPY)
 
-                Next i
+            Next i
 
-                DeleteDC(hMDC)
-                DeleteObject(hBitMap)
-            End Using
+            DeleteDC(hMDC)
+            DeleteObject(hBitMap)
+            picMain_BitMap.Dispose()
 
             'Call BitBlt(.hWnd, 0, 0, .ScaleWidth, .ScaleHeight, picMain.hWnd, 0, 0, SRCCOPY)
 
