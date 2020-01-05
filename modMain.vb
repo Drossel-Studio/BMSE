@@ -99,6 +99,9 @@ Module modMain
     Public Sub SetItemString(obj As ComboBox, index As Integer, itemstring As String)
         obj.Items.Insert(index, itemstring)
         If obj.Items.Count > index + 1 Then
+            If obj.SelectedIndex = index + 1 Then
+                obj.SelectedIndex = index
+            End If
             obj.Items.RemoveAt(index + 1)
         End If
     End Sub
@@ -106,6 +109,9 @@ Module modMain
     Public Sub SetItemString(obj As ListBox, index As Integer, itemstring As String)
         obj.Items.Insert(index, itemstring)
         If obj.Items.Count > index + 1 Then
+            If obj.SelectedIndex = index + 1 Then
+                obj.SelectedIndex = index
+            End If
             obj.Items.RemoveAt(index + 1)
         End If
     End Sub
