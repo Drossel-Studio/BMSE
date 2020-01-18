@@ -1,0 +1,24 @@
+name: MSBuild
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Setup MSBuild
+      uses: warrenbuckley/Setup-MSBuild@v1
+
+    - name: Build with MSBuild
+      run: msbuild BMSE.sln /p:Configuration=Release;Platform="Any CPU"
+      shell: cmd
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: build-result
+        path: ./bin/
