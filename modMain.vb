@@ -1756,11 +1756,11 @@ Err_Renamed:
         Dim i As Integer
         Dim objCtl As Object
 
-        For i = 0 To My.Application.OpenForms.Count - 1
+        For i = 0 To Application.OpenForms.Count - 1
 
-            My.Application.OpenForms.Item(i).Font = New Font(MainFont, My.Application.OpenForms.Item(i).Font.Size, My.Application.OpenForms.Item(i).Font.Style, My.Application.OpenForms.Item(i).Font.Unit, Charset, My.Application.OpenForms.Item(i).Font.GdiVerticalFont)
+            Application.OpenForms.Item(i).Font = New Font(MainFont, Application.OpenForms.Item(i).Font.Size, Application.OpenForms.Item(i).Font.Style, Application.OpenForms.Item(i).Font.Unit, Charset, Application.OpenForms.Item(i).Font.GdiVerticalFont)
 
-            For Each objCtl In My.Application.OpenForms.Item(i).Controls
+            For Each objCtl In Application.OpenForms.Item(i).Controls
 
                 If TypeOf objCtl Is System.Windows.Forms.Label Or TypeOf objCtl Is System.Windows.Forms.TextBox Or TypeOf objCtl Is System.Windows.Forms.ComboBox Or TypeOf objCtl Is System.Windows.Forms.Button Or TypeOf objCtl Is System.Windows.Forms.RadioButton Or TypeOf objCtl Is System.Windows.Forms.CheckBox Or TypeOf objCtl Is System.Windows.Forms.GroupBox Or TypeOf objCtl Is System.Windows.Forms.Panel Then
                     objCtl.Font = New Font(MainFont, objCtl.Font.Size, objCtl.Font.Style, objCtl.Font.Unit, Charset)
@@ -2400,7 +2400,10 @@ InitConfig:
 
         strArray = Split(strGet_ini(strSection, strKey, strDefault, strFileName), ",")
 
-        If UBound(strArray) < 2 Then Exit Function
+        If UBound(strArray) < 2 Then
+            GetColor = RGB(0, 0, 0)
+            Exit Function
+        End If
 
         GetColor = RGB(CInt(strArray(0)), CInt(strArray(1)), CInt(strArray(2)))
 

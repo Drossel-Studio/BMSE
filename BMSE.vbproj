@@ -1,244 +1,63 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <ProjectType>Local</ProjectType>
-    <MyType>WindowsForms</MyType>
-    <ProductVersion>8.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{43D99359-EF0F-404B-B8C6-968D0C4743A3}</ProjectGuid>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <AssemblyName>BMSE</AssemblyName>
     <OutputType>WinExe</OutputType>
-    <StartupObject>BMSE.frmMain</StartupObject>
-    <AssemblyMajorVersion>1</AssemblyMajorVersion>
-    <AssemblyMinorVersion>3</AssemblyMinorVersion>
-    <AssemblyRevisionNumber>9</AssemblyRevisionNumber>
-    <GenerateRevisionNumber>False</GenerateRevisionNumber>
-    <StartWithIE>False</StartWithIE>
-    <ApplicationIcon>BMSE.ico</ApplicationIcon>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <RootNamespace>BMSE</RootNamespace>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkProfile />
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>.\bin\</OutputPath>
-    <DocumentationFile>BMSE.xml</DocumentationFile>
-    <DebugSymbols>True</DebugSymbols>
-    <DefineDebug>True</DefineDebug>
-    <DefineTrace>True</DefineTrace>
-    <DefineConstants>Win32=True</DefineConstants>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <NoWarn>42353,42354,42355</NoWarn>
-    <DebugType>full</DebugType>
-    <Prefer32Bit>false</Prefer32Bit>
-    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>.\bin\</OutputPath>
-    <DocumentationFile>BMSE.xml</DocumentationFile>
-    <DebugSymbols>False</DebugSymbols>
-    <DefineDebug>False</DefineDebug>
-    <DefineTrace>True</DefineTrace>
-    <DefineConstants>Win32=True</DefineConstants>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <NoWarn>42353,42354,42355</NoWarn>
-    <DebugType>none</DebugType>
-    <Prefer32Bit>false</Prefer32Bit>
-    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup>
+    <StartupObject>BMSE.frmMain</StartupObject>
+    <UseWindowsForms>true</UseWindowsForms>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
+    <ApplicationIcon>BMSE.ico</ApplicationIcon>
     <OptionStrict>On</OptionStrict>
+    <OptionInfer>Off</OptionInfer>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <Company />
+    <Copyright>Hayana/UCN-Soft 2004-2007. Drossel Studio 2015-2021.</Copyright>
+    <Version>1.5.0</Version>
+    <NeutralLanguage>ja-JP</NeutralLanguage>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <NoWarn></NoWarn>
+    <DocumentationFile>BMSE.xml</DocumentationFile>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <DefineConstants></DefineConstants>
     <DebugSymbols>true</DebugSymbols>
-    <DefineDebug>true</DefineDebug>
-    <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>Win32=True</DefineConstants>
-    <DocumentationFile>BMSE.xml</DocumentationFile>
-    <NoWarn>42353,42354,42355</NoWarn>
     <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>Win32=True</DefineConstants>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <NoWarn></NoWarn>
     <DocumentationFile>BMSE.xml</DocumentationFile>
-    <NoWarn>42353,42354,42355</NoWarn>
-    <PlatformTarget>x64</PlatformTarget>
-    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RemoveIntegerChecks>true</RemoveIntegerChecks>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
   </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms">
-      <Name>System.Windows.Forms</Name>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Import Include="Microsoft.VisualBasic" />
-    <Import Include="System" />
     <Import Include="System.Drawing" />
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="AssemblyInfo.vb" />
-    <Compile Include="clsLog.vb">
-      <SubType>Code</SubType>
+    <Compile Update="My Project\Application.Designer.vb">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
-    <Compile Include="frmMain.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmMain.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmMain.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmWindowAbout.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmWindowAbout.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmWindowAbout.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmWindowConvert.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmWindowConvert.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmWindowConvert.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmWindowFind.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmWindowFind.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmWindowFind.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmWindowInput.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmWindowInput.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmWindowInput.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmWindowPreview.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmWindowPreview.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmWindowPreview.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmWindowTips.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmWindowTips.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmWindowTips.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmWindowViewer.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmWindowViewer.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmWindowViewer.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="modDraw.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="modEasterEgg.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="modInput.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="modLog.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="modMain.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="modMessage.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="modOutput.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="frmMain.resX">
-      <DependentUpon>frmMain.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmWindowAbout.resX">
-      <DependentUpon>frmWindowAbout.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmWindowConvert.resX">
-      <DependentUpon>frmWindowConvert.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmWindowFind.resX">
-      <DependentUpon>frmWindowFind.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmWindowInput.resX">
-      <DependentUpon>frmWindowInput.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmWindowPreview.resX">
-      <DependentUpon>frmWindowPreview.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmWindowTips.resX">
-      <DependentUpon>frmWindowTips.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmWindowViewer.resX">
-      <DependentUpon>frmWindowViewer.vb</DependentUpon>
-    </EmbeddedResource>
-    <Content Include="BMSE.ico" />
-    <None Include="app.config" />
-    <None Include="_UpgradeReport.htm">
-      <SubType>Preview</SubType>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="My Project\" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
+
 </Project>

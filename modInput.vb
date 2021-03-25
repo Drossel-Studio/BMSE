@@ -936,7 +936,10 @@ Err_Renamed:
 
     Public Function intGCD(ByVal m As Integer, ByVal n As Integer) As Integer
 
-        If m <= 0 Or n <= 0 Then Exit Function
+        If m <= 0 Or n <= 0 Then
+            intGCD = 1
+            Exit Function
+        End If
 
         If m Mod n = 0 Then
 

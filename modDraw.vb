@@ -1968,6 +1968,8 @@ Err_Renamed:
 
     Public Function lngChangeMaxMeasure(ByVal intMeasure As Integer) As Integer
 
+        lngChangeMaxMeasure = 0
+
         With g_disp
 
             If .intMaxMeasure < intMeasure + 16 Then
