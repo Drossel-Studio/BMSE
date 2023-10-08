@@ -530,14 +530,23 @@ Err_Renamed:
 
         Next i
 
-        Dim MaximumChange As Integer = (lngTemp \ g_disp.intResolution + frmMain.vsbMain.LargeChange - 1) - frmMain.vsbMain.Maximum
+        Dim Maximum As Integer = lngTemp \ g_disp.intResolution + frmMain.vsbMain.LargeChange - 1
+        Dim MaximumChange As Integer = Maximum - frmMain.vsbMain.Maximum
         'frmMain.vsbMain.Min = lngTemp \ 96
         If MaximumChange >= 0 Then
-            frmMain.vsbMain.Maximum += MaximumChange
-            frmMain.vsbMain.Value += MaximumChange
+            frmMain.vsbMain.Maximum = Maximum
+            If (frmMain.vsbMain.Value + MaximumChange) < frmMain.vsbMain.Maximum Then
+                frmMain.vsbMain.Value += MaximumChange
+            Else
+                frmMain.vsbMain.Value = frmMain.vsbMain.Maximum
+            End If
         Else
-            frmMain.vsbMain.Value += MaximumChange
-            frmMain.vsbMain.Maximum += MaximumChange
+            If (frmMain.vsbMain.Value + MaximumChange) > frmMain.vsbMain.Minimum Then
+                frmMain.vsbMain.Value += MaximumChange
+            Else
+                frmMain.vsbMain.Value = frmMain.vsbMain.Minimum
+            End If
+            frmMain.vsbMain.Maximum = Maximum
         End If
 
         With g_disp
