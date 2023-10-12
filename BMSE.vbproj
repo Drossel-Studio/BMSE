@@ -20,7 +20,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Drossel-Studio/SumireEditor</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyName>SumireEditor</AssemblyName>
+    <AssemblyName>BMSE</AssemblyName>
     <OptionInfer>Off</OptionInfer>
     <OptionStrict>On</OptionStrict>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
